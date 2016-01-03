@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block about %}
+	<div id="content_about" class="content_wrapper">
+    <div class="text-center">
+      <h2 class="feature_title">About Us</h2>
+    </div>
+    <div class="row content_title_padding">
+      <div class="col-md-4 col-md-offset-1 col-xs-10 col-xs-offset-1">
+        <div class="row">
+          <div class="text-center">
+            <img src="{% static 'img/michael.png' %}" width="40%">
+            <br><br>
+            <h4>Michael Snower</h4>
+          </div>
+        </div>
+        <p>Wrote a business plan and raised a $50k seed fund offer; Studies “Business, Entrepreneurship, and Organizations” at Brown; Leadership experience as a Yoga Instructor and EMT; Coached to a top-20 US finish in junior squash and started on the Brown Varsity Squash Team for 2 years; Avid reader; Guitar player</p>
+      </div>
+      <div class="col-md-4 col-md-offset-2 col-xs-10 col-xs-offset-1">
+        <div class="row">
+          <div class="text-center">
+            <img src="{% static 'img/ben.png' %} " width="40%">
+            <br>
+            <br>
+            <h4>Benjamin Bao</h4>
+          </div>
+        </div>
+        <p>Created a website mockup and raised a $50k seed fund offer; previous coding experience at Startups, strong coding experience, graphic designing experience at RISD, and leadership in student organizations, and a hungry learner</p>
+      </div>
+      <!-- <div class="clearfix"></div>  -->
+    </div>
+  </div>  
+{% endblock %}

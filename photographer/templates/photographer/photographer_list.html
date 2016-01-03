@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block photographer_list %}
+  <div id="photographer_list" class="content_wrapper">
+    <div class="row">
+      <h2 class="text-center feature_title">Photographers</h2>
+    </div>
+
+    <br><br><br>
+    <ul class="list-unstyled">
+    	{% for photographer in object_list %}
+      <li>
+      <div class="row photographer_list_item">
+        <div class="col-sm-3 col-xs-12">
+          <img src="{{ photographer.profile.url }}" width="60%">
+        </div>
+        <div class="col-sm-7 col-xs-12">
+          <ul class="list-unstyled">
+            <strong><li>{{ photographer.first_name }} {{ photographer.last_name }}</li></strong>
+            <br>
+            <li>{{ photographer.email }}</li>
+            <li>{{ photographer.phone }}</li>
+            <li>{{ photographer.short_description }}</li>
+            <li>{{ photographer.description }}</li>
+          </ul>
+        </div>
+        <div class="col-sm-2 col-xs-12">
+          <a href="{{ photographer.get_absolute_url }}"><button class="btn btn-default">View More</button></a>
+        </div>
+      </div>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+
+{% endblock %}

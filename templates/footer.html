@@ -1,0 +1,31 @@
+{% load staticfiles %}
+
+<footer id="footer" class="content_wrapper">
+  <div class="row">
+    <div class="col-md-3 col-xs-12" id="footer_menu">
+      <ul>
+        <li><a href="{% url 'about' %}">About</a></li>
+        <li><a href="{% url 'photographers' %}">Photographer</a></li>
+        <li><a href="{% url 'reserve' %}">Reserve</a></li>
+      </ul>
+    </div>
+    <div id="footer_about" class="col-md-5 col-xs-12">
+      <p>Created a website mockup and raised a $50k seed fund offer; previous coding experience at Startups, strong coding experience, graphic designing experience at RISD, and leadership in student organizations, and a hungry learner</p>
+    </div>
+    <div id="footer_social" class="col-md-3 pull-right col-xs-12">
+      <ul class="list-inline">
+        <li><a href=""><span class="fa fa-facebook"></span></a></li>
+        <li><a href=""><span class="fa fa-instagram"></span></a></li>
+        <li><a href=""><span class="fa fa-twitter"></span></a></li>
+        <li><a href=""><span class="fa fa-yelp"></span></a></li>
+      </ul>
+    </div>
+  </div>
+  <!-- <hr> -->
+  <div class="row" id="footer_copyright">
+    <div class="col-xs-12 text-center">
+      <h4><a href="{% url 'home' %}">Smartprofile</a></h4>
+      <p>Copyright 2015</p>
+    </div>
+  </div>
+</footer>

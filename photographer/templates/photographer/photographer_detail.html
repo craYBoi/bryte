@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block photographer_detail %}
+  <div class="content_wrapper" id="photographer_intro">
+    <div class="row">
+      <h4 class="feature_title text-center">{{object.first_name}} {{object.last_name}}</h4>
+    </div>
+    <div class="row content_title_padding">
+    	<div class="col-md-3 col-md-offset-2 col-xs-12">
+    		<img src="{{ object.profile.url }}" class='img-responsive'>
+    	</div>
+    	<div class="col-md-5 col-md-offset-1 col-xs-12">
+    		<ul class="list-unstyled">
+          <strong><li>Basic Info:</li></strong>
+          <li>{{ object.email }}</li>
+          <li>{{ object.phone }}</li>
+          <li>{{ object.short_description }}</li>
+          <li>{{ object.description }}</li>
+    		</ul>
+    	</div>
+    </div>
+  </div>
+
+  <!-- gallery -->
+  <div class="row content_wrapper" id="photographer_gallery">
+		<div class="grid">
+		  <div class="grid-sizer"></div>
+		 	 	{% for img in object.photographerimage_set.all %}
+				  <div class="grid-item">
+				    <img src= {{ img.image.url }} />
+				  </div>
+		  	{% endfor %}
+		</div>
+</div>
+{% endblock %}

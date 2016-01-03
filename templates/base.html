@@ -1,0 +1,89 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>{{ title_text }}</title>
+
+    <!-- Bootstrap -->
+		<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+  </head>
+  <body>
+    <div class="container">
+
+    	{# navbar #}
+	    {% include "navbar.html" %}
+
+
+{# index #}
+	    <!-- carousel -->
+	    {% block carousel %}
+	    {% endblock %}
+
+	    {# jumbotron #}
+	    {% block jumbotron %}
+	    {% endblock %}
+
+	    {# features #}
+	    {% block features %}	
+	    {% endblock %}
+
+
+	    {# photographers #}
+	    {% block photographers %}
+	    {% endblock %}
+
+
+	    <!-- where are we -->
+	    {% block where %}
+	    {% endblock %}
+{# end index #}
+
+
+{# photographer #}
+	    {# photographer list #}
+	    {% block photographer_list %}
+			{% endblock %}
+
+			{% block photographer_detail %}
+			{% endblock %}
+{# end photographer #}
+
+
+{# reserve #}
+			{% block reserve %}
+			{% endblock %}
+
+
+{# reserve success #}
+			{% block reserve_success %}	
+			{% endblock %}
+
+
+{# about #}
+			{% block about %}
+			{% endblock %}
+
+
+	    <hr>
+	    {# footer #}
+	    {% include "footer.html" %}
+
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="{% static 'js/jquery-2.1.4.min.js' %} "></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{% static 'js/bootstrap.js' %} "></script>
+    <script src="{% static 'js/masonry.js' %}"></script>
+  	<script src="{% static 'js/imagesloaded.js' %}"></script>
+  	<script src="{% static 'js/main.js' %} "></script>
+  </body>
+</html>

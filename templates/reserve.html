@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+
+{% block reserve %}
+  <div id="content_reserve" class="content_wrapper">
+    <div class="text-center">
+      <h2 class="feature_title">Reserve</h2>
+    </div>
+    <div class="content_title_padding row">
+      <div class="col-md-6 col-md-offset-3 col-xs-10 col-xs-offset-1">
+      <form role = "form" method="POST" action=".">
+      	{% csrf_token %}
+<!--         <div class = "form-group">
+          <label for = "name">Name</label>
+          <input type = "text" class = "form-control" id = "name" placeholder = "Enter Name">
+        </div>
+
+        <div class = "form-group">
+          <label for = "email">Email</label>
+          <input type = "text" class = "form-control" id = "name" placeholder = "Enter Name">
+        </div>
+
+        <div class = "form-group">
+          <label for = "phone">Phone Number (Optional)</label>
+          <input type = "text" class = "form-control" id = "name" placeholder = "Enter Name">
+        </div>
+
+        <div class="input-group date" data-provide="datepicker">
+          <label for = "date">Pick a date</label>
+          <input type = "text" class="form-control" class='datepicker'>
+        </div>
+        <br>
+        <br>
+        <div class="text-center">
+          <button type = "submit" class = "btn btn-primary form_button">Submit</button>
+        </div> -->
+    		{{ reserve_form | crispy }}
+    		<br>
+    		<div class="text-center">
+          <button type = "submit" class = "btn btn-primary form_button">Submit</button>
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}
