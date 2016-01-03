@@ -1,0 +1,238 @@
+body {
+	/*font-family: "Georgia";*/
+	font-family: "Avenir Next";
+	font-size: 1.7em;
+}
+
+ul {
+	list-style: none;
+	padding-left: 0;
+}
+
+a {
+	color: #000;
+}
+
+h4 {
+	font-weight: bold;
+	font-size: 1.5em;
+}
+
+p {
+	font-size: 0.9em;
+}
+
+/* spacing for */
+#main_logo {
+	margin-top: 15px;
+	margin-bottom: 20px;
+}
+
+#main_menu {
+	font-size: 2em;
+	padding-top: 1em;
+}
+
+/* jumbotron */
+.jumbotron {
+}
+
+/* make it up a little bit */
+.carousel_button {
+	margin-bottom: 4%;
+}
+
+/* btn-primary for carousel button */
+.btn-primary {
+	border-radius: 0;
+	background-color: rgba(0,0,0,0);
+	border: 0.2em solid #000;
+	font-size: 2em;
+	padding-left: 15px;
+	padding-right: 15px;
+	color: #000;
+	font-weight: Bold;
+}
+
+.btn-primary:hover {
+	background-color: rgba(0,0,0,1);
+	border: 0.2em solid #000;
+}
+
+
+/* content */
+#content_tagline h2 {
+	font-size: 2.5em;
+}
+
+.strong_text {
+	font-size: 2em;
+	margin-left: 0.5em;
+	margin-right: 0.5em;
+}
+
+
+/* content advantages */
+
+.centent_advantages_item_glyph {
+	font-size: 6em;
+	padding-bottom: 5%;
+}
+
+/* the padding of the items */
+.content_advantages_item {
+	padding: 0 5% 6% 5%;
+}
+@media (min-width: 768px) {
+  .content_advantages_item {
+    padding: 0 5% 5% 5%;
+  }
+}
+@media (min-width: 992px) {
+  .content_advantages_item {
+    padding: 0 5% 2% 5%;
+  }
+  .content_advantages_item h4 {
+  	margin-bottom: 10px;
+  }
+}
+
+
+
+/* content photographer */
+
+#content_photographer h3 {
+	font-weight: bold;
+}
+
+.content_photographer_content_item {
+	margin-bottom: 3em;
+}
+@media (min-width: 768px) {
+  .content_photographer_content_item {
+    margin-bottom: 0.5em;
+  }
+}
+@media (min-width: 992px) {
+  .content_photographer_content_item {
+    margin-bottom: 0.5em;
+  }
+}
+
+
+/* footer */
+
+#footer_menu ul {
+	font-weight: bold;
+	line-height: 23px;
+}
+
+#footer_social ul {
+	padding-top: 0.5em;
+	font-size: 2em;
+}
+
+#footer_about p {
+	font-size: 0.8em;
+}
+
+#footer_copyright {
+	padding-top: 2em;
+}
+
+
+/* helper */
+.feature_title {
+	font-size: 2.7em;
+	font-weight: bold;
+}
+
+.content_wrapper {
+	margin-top: 3.5em;
+	margin-bottom: 3.5em;
+}
+
+.content_title_padding {
+	padding-top: 3em;
+}
+
+.googlemap {
+	border: 8px solid #000;
+	padding: 0;
+}
+
+.form_button {
+	font-size: 1.2em;
+}
+
+
+
+/* photographer list */
+.photographer_list_item {
+	height: 200px;
+}
+
+#photographer_list {
+	font-size: 0.8em;
+}
+
+
+
+/* collage */
+
+* {
+  box-sizing: border-box;
+}
+
+/* force scrollbar */
+html { overflow-y: scroll; }
+
+/*body {
+  font-family: sans-serif;
+}*/
+
+/* ---- isotope ---- */
+
+/* clear fix */
+.grid:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+/* ---- .grid-item ---- */
+
+.grid-sizer,
+.grid-item {
+	padding: 0.8%;
+  width: 33%;
+}
+
+.grid-item {
+  float: left;
+}
+
+.grid-item img {
+  display: block;
+  max-width: 100%;
+}
+
+/* customizeing bootstrap */
+.navbar-nav li a {
+    line-height: 100px;
+    height: 100px;
+    padding-top: 0;
+}
+
+.navbar {
+	margin-bottom: 0;
+}
+
+.btn-default : hover {
+	color: #fff;
+}
+
+/* adjust navbar collapse line height */
+.navbar-toggle {
+	margin-top: 1.8em;
+}
