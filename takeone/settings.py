@@ -169,16 +169,16 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 
 
 # Amazon S3
-if not DEBUG:
-   AWS_STORAGE_BUCKET_NAME = "take-one"
-   AWS_ACCESS_KEY_ID = "AKIAI5IZ4TEQRKUGV24A"
-   AWS_SECRET_ACCESS_KEY = "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"
-   AWS_PRELOAD_METADATA = True
-   STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+# if not DEBUG:
+#    AWS_STORAGE_BUCKET_NAME = "take-one"
+#    AWS_ACCESS_KEY_ID = "AKIAI5IZ4TEQRKUGV24A"
+#    AWS_SECRET_ACCESS_KEY = "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"
+#    AWS_PRELOAD_METADATA = True
+#    STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
-   S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
-   STATIC_URL = S3_URL + 'static/'
-   STATIC_ROOT = STATIC_URL
+#    S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
+#    STATIC_URL = S3_URL + 'static/'
+#    STATIC_ROOT = STATIC_URL
 
-   MEDIA_URL = S3_URL + 'media/'
-   MEDIA_ROOT = MEDIA_URL
+#    MEDIA_URL = S3_URL + 'media/'
+#    MEDIA_ROOT = MEDIA_URL
