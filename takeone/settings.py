@@ -26,8 +26,6 @@ SECRET_KEY = 'u!0q&30u)d8@s83_6s%pjpivb6^axuelgld08-csxj%$#nsx_y'
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    'takeone.com',
-    'www.takeone.com',
 ]
 
 
@@ -92,10 +90,10 @@ WSGI_APPLICATION = 'takeone.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'takeonedata',
-        'USER': 'byy',
+        'NAME': '',
+        'USER': '',
         'PASSWORD': '',
-        'HOST': 'localhost',
+        'HOST': '',
         'PORT': '',
     }
 }
@@ -139,7 +137,7 @@ USE_TZ = True
 
 # Parse database configuration from $DATABASE_URL
 import dj_database_url
-DATABASES['default'] =  dj_database_url.config()
+DATABASES['default'] = dj_database_url.config()
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
