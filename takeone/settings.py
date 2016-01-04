@@ -26,9 +26,6 @@ SECRET_KEY = 'u!0q&30u)d8@s83_6s%pjpivb6^axuelgld08-csxj%$#nsx_y'
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
-ALLOWED_HOSTS = [
-]
-
 
 # Application definition
 
@@ -156,7 +153,7 @@ STATICFILES_DIRS = [
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 
-try:
-    from .local_settings import *
-except ImportError:
-    pass
+# try:
+#     from .local_settings import *
+# except ImportError:
+#     pass
