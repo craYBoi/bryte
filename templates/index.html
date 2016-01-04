@@ -36,11 +36,14 @@
 {% endblock %}
 
 {% block jumbotron %}
-  <div class="jumbotron">
-    <h3 class="feature_title">Professional headshot for only $20</h3>
-    <p>Choose our photographers for your professional headshots<br>Get connected with our student photographers</p>
-    <br>
-    <a href="{% url 'reserve' %}"><button class="btn btn-primary">Reserve</button></a>
+  <div class="jumbotron" style="background: url({% static 'img/Studio-3.jpg' %}) no-repeat center; background-size: cover;">
+    <h3 class="feature_title" style='color: #fff'>Professional headshot for only $20</h3><br><br>
+    <p style='color: #fff'>Choose our photographers for your professional headshots<br>Get connected with our student photographers</p>
+    <br><br><br><br><br><br><br>
+    <div style="text-align: center;">
+    <a href="{% url 'reserve' %}"><button class="btn btn-primary" style='color: #fff; border-color: #fff' >Reserve</button></a>
+    </div>
+    <br><br>
   </div>
 {% endblock %}
 
