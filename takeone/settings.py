@@ -25,7 +25,10 @@ SECRET_KEY = 'u!0q&30u)d8@s83_6s%pjpivb6^axuelgld08-csxj%$#nsx_y'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'takeone.com',
+    'www.takeone.com',
+]
 
 
 # Application definition
@@ -159,7 +162,7 @@ STATICFILES_DIRS = [
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 
-try:
-    from .local_settings import *
-except ImportError:
-    pass
+# try:
+#     from .local_settings import *
+# except ImportError:
+#     pass
