@@ -156,3 +156,11 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 #     from .local_settings import *
 # except ImportError:
 #     pass
+
+
+# security
+SESSION_COOKIE_SECURE = True
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_HTTPONLY = True
