@@ -35,6 +35,8 @@ p {
 
 /* jumbotron */
 .jumbotron {
+	border-radius: 0;
+	text-align: center;
 }
 
 /* make it up a little bit */
@@ -77,6 +79,14 @@ p {
 .centent_advantages_item_glyph {
 	font-size: 6em;
 	padding-bottom: 5%;
+}
+
+.process_title {
+	color: #bf682d;
+}
+
+.process_text {
+	color: #888;
 }
 
 /* the padding of the items */
@@ -144,6 +154,11 @@ p {
 /* helper */
 .feature_title {
 	font-size: 2.7em;
+	font-weight: bold;
+}
+
+.main_title {
+	font-size: 3.5em;
 	font-weight: bold;
 }
 
