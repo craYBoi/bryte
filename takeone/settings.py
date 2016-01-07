@@ -185,16 +185,26 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 
 # Amazon S3
-if not DEBUG:
-   AWS_STORAGE_BUCKET_NAME = "take-one"
-   AWS_ACCESS_KEY_ID = "AKIAI5IZ4TEQRKUGV24A"
-   AWS_SECRET_ACCESS_KEY = "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"
-   AWS_PRELOAD_METADATA = True
-   STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+# if not DEBUG:
+AWS_STORAGE_BUCKET_NAME = "take-one"
+AWS_ACCESS_KEY_ID = "AKIAI5IZ4TEQRKUGV24A"
+AWS_SECRET_ACCESS_KEY = "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"
+AWS_PRELOAD_METADATA = True
+S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
 
-   S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
-   STATIC_URL = S3_URL + 'static/'
-   STATIC_ROOT = STATIC_URL
+# STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
-   MEDIA_URL = S3_URL + 'media/'
-   MEDIA_ROOT = MEDIA_URL
+STATICFILES_LOCATION = 'static'
+STATICFILES_STORAGE = 'custom_storages.StaticStorage'
+
+STATIC_URL = S3_URL + 'static/'
+STATIC_ROOT = STATIC_URL
+
+# MEDIA_URL = S3_URL + 'media/'
+
+
+MEDIAFILES_LOCATION = 'media'
+MEDIA_URL = S3_URL + 'media/'
+MEDIA_ROOT = MEDIA_URL
+
+DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
