@@ -198,6 +198,7 @@ S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
 
 # STATICFILES_LOCATION = 'static'
 STATICFILES_STORAGE = 'custom_storages.StaticStorage'
+DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
 
 STATIC_URL = S3_URL + 'static/'
 STATIC_ROOT = STATIC_URL
@@ -207,6 +208,6 @@ STATIC_ROOT = STATIC_URL
 
 # MEDIAFILES_LOCATION = 'media'
 MEDIA_URL = S3_URL + 'media/'
-MEDIA_ROOT = MEDIA_URL
+# MEDIA_ROOT = MEDIA_URL
 
-DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
+
