@@ -186,7 +186,7 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 # Amazon S3
 # if not DEBUG:
-import custom_storages
+from custom_storages import StaticStorage, MediaStorage
 
 AWS_STORAGE_BUCKET_NAME = "take-one"
 AWS_ACCESS_KEY_ID = "AKIAI5IZ4TEQRKUGV24A"
