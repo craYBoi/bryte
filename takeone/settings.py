@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'storages',
     'boto',
-    'registration',
+    # 'registration',
 
     'newsletter',
     'photographer',

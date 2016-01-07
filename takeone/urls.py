@@ -25,7 +25,7 @@ urlpatterns = [
     url(r'^photographer/', include('photographer.urls')),
     url(r'^reserve/', include('reserve.urls')),
 
-    url(r'^accounts/', include('registration.backends.default.urls')),
+    # url(r'^accounts/', include('registration.backends.default.urls')),
 ]
 
 
