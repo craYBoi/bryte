@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'storages',
     'boto',
+    'registration',
 
     'newsletter',
     'photographer',
@@ -127,6 +128,21 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
+
+
+# registration redux
+ACCOUNT_ACTIVATION_DAYS = 7
+REGISTRATION_AUTO_LOGIN = True
+SITE_ID = 1
+
+
+# email 
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'bestprofpics'
+EMAIL_HOST_PASSWORD = 'Ycombinator'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
 
 
 # Parse database configuration from $DATABASE_URL
