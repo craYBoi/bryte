@@ -186,7 +186,13 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 # Amazon S3
 # if not DEBUG:
-from custom_storages import StaticStorage, MediaStorage
+# from custom_storages import StaticStorage, MediaStorage
+from storages.backends.s3boto import S3BotoStorage
+class StaticStorage(S3BotoStorage):
+    location = 'static'
+
+class MediaStorage(S3BotoStorage):
+  location = 'media'
 
 AWS_STORAGE_BUCKET_NAME = "take-one"
 AWS_ACCESS_KEY_ID = "AKIAI5IZ4TEQRKUGV24A"
@@ -197,7 +203,7 @@ S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
 # STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 # STATICFILES_LOCATION = 'static'
-STATICFILES_STORAGE = 'custom_storages.StaticStorage'
+STATICFILES_STORAGE = 'StaticStorage'
 
 STATIC_URL = S3_URL + 'static/'
 STATIC_ROOT = STATIC_URL
@@ -209,4 +215,4 @@ STATIC_ROOT = STATIC_URL
 MEDIA_URL = S3_URL + 'media/'
 MEDIA_ROOT = MEDIA_URL
 
-DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
+DEFAULT_FILE_STORAGE = 'MediaStorage'
