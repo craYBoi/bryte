@@ -35,8 +35,11 @@ p {
 
 /* jumbotron */
 .jumbotron {
-	border-radius: 0;
 	text-align: center;
+}
+
+#jumbotron {
+	border-radius: 0;
 }
 
 /* make it up a little bit */
@@ -83,6 +86,7 @@ p {
 
 .process_title {
 	color: #bf682d;
+	font-size: 1.8em;
 }
 
 .process_text {
@@ -159,6 +163,10 @@ p {
 
 .main_title {
 	font-size: 3.5em;
+	font-weight: bold;
+}
+
+.bold {
 	font-weight: bold;
 }
 

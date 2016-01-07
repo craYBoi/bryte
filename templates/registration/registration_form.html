@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+<div class='row'>
+<div class='col-sm-6 col-sm-offset-3'>
+<h1 class="feature_title text-center">Register</h1>
+<form method="post" action=".">
+  {% csrf_token %}
+  {{ form|crispy }}
+  <br>
+  <div class="text-center">
+  	<input class='btn btn-primary' type="submit" value="{% trans 'Join' %}" />
+  </div>
+</form>
+</div>
+</div>
+<br>
+<div class='row'>
+<div class='col-sm-6 col-sm-offset-3 text-center'>
+<p>Need to <a href="{% url 'auth_login' %}">Login</a>?</p>
+</div>
+</div>
+
+
+{% endblock %}

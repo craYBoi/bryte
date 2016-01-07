@@ -24,6 +24,8 @@ urlpatterns = [
     url(r'^about$', 'newsletter.views.about', name='about'),
     url(r'^photographer/', include('photographer.urls')),
     url(r'^reserve/', include('reserve.urls')),
+
+    url(r'^accounts/', include('registration.backends.default.urls')),
 ]
 
 

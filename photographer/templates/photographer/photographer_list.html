@@ -11,18 +11,18 @@
     	{% for photographer in object_list %}
       <li>
       <div class="row photographer_list_item">
-        <div class="col-sm-3 col-xs-12">
-          <img src="{{ photographer.profile.url }}" width="60%">
+        <div class="col-sm-2 col-xs-12">
+          <img src="{{ photographer.profile.url }}" width="80%">
         </div>
-        <div class="col-sm-7 col-xs-12">
+        <div class="col-sm-4 col-xs-12">
           <ul class="list-unstyled">
             <strong><li>{{ photographer.first_name }} {{ photographer.last_name }}</li></strong>
-            <br>
-            <li>{{ photographer.email }}</li>
-            <li>{{ photographer.phone }}</li>
             <li>{{ photographer.short_description }}</li>
             <li>{{ photographer.description }}</li>
           </ul>
+        </div>
+        <div class="col-sm-4 col-xs-12">
+          <!-- put images here -->
         </div>
         <div class="col-sm-2 col-xs-12">
           <a href="{{ photographer.get_absolute_url }}"><button class="btn btn-default">View More</button></a>

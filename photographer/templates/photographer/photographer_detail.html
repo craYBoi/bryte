@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+{% load crispy_forms_tags %}
 
 {% block photographer_detail %}
   <div class="content_wrapper" id="photographer_intro">
@@ -13,8 +14,7 @@
     	<div class="col-md-5 col-md-offset-1 col-xs-12">
     		<ul class="list-unstyled">
           <strong><li>Basic Info:</li></strong>
-          <li>{{ object.email }}</li>
-          <li>{{ object.phone }}</li>
+          <br>
           <li>{{ object.short_description }}</li>
           <li>{{ object.description }}</li>
     		</ul>
@@ -32,5 +32,31 @@
 				  </div>
 		  	{% endfor %}
 		</div>
-</div>
+  </div>
+
+
+  <!-- rating & comment -->
+  <hr>
+  <h3>Total Rating: {{ object.total_rating }}</h3>
+  <h3>Reviews</h3>
+  <div class="content_wrapper">
+    <ul class="comment_style">
+    {% for rating in object.rating_set.all %}
+      <li>Rating: {{ rating.rating }}</li>
+      <li>{{ rating.comment }}</li>
+      <li>{{ rating.datetime | date:'Y-m-d H:i' }}</li>
+    {% endfor %}
+    </ul>
+  </div>
+
+  <!-- commit form -->
+  <form method="POST" action="." enctype="multipart/form-data"> {% csrf_token %}
+    {{ rating_form | crispy }}
+    <br>
+    <div class="text-center">
+      <button type = "submit" class = "btn btn-primary form_button">Submit</button>
+    </div>
+  </form>
+  <br>
+
 {% endblock %}

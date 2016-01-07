@@ -36,7 +36,7 @@
 {% endblock %}
 
 {% block jumbotron %}
-  <div class="jumbotron" style="background: url({% static 'img/Studio-3.jpg' %}) no-repeat center; background-size: cover; text-align: center;">
+  <div class="jumbotron" id="jumbotron" style="background: url({% static 'img/Studio-3.jpg' %}) no-repeat center; background-size: cover; text-align: center;">
     <br><br><br><h2 class="main_title" style='color: #fff'>Get your headshot</h2><br>
     <p style='color: #fff'>Best Prices<br>Most Convenient Booking Process<br>Highest Quality</p>
     <br><br><br>
@@ -51,8 +51,10 @@
 {% block features %}
 <div id="content_advantages" class="content_wrapper">
   <div class="text-center">
-    <h2 class="feature_title">The Process</h2>
+    <h1 class="bold">Simple Steps to get the best headshot for you</h1>
+    <h3>Best Price, Most Convenient Process, Highest Quality</h3>
   </div>
+  <br><br>
   <div class="content_title_padding">
 <!--     <div class="col-lg-3 col-sm-6 col-xs-12 content_advantages_item">
       <div class="row">
@@ -91,45 +93,61 @@
       </div>
     </div> -->
     <div class="row">
-      <div class="col-sm-4 col-sm-offset-1 col-xs-12">
-        <h4 class='process_title'>Compare photographers</h4>
-        <p class="process_text">Users can browse and compare our wide selection of photographers</p>
+      <div class="col-sm-5 col-sm-offset-1 col-xs-12">
+        <br>
+        <h4 class='process_title'>1. Compare photographers</h4>
+        <br>
+        <div class="row">
+          <p class="process_text col-xs-10">Users can browse and compare our wide selection of photographers</p>
+        </div>
       </div>
-      <div class="col-sm-6 col-xs-12" style='text-align:center;'>
-        <span class="glyphicon glyphicon-flash centent_advantages_item_glyph"></span>
-      </div>
-    </div>
-    <div class="clearfix"></div>
-    <br>
-    <div class="row">
-      <div class="col-sm-6 col-xs-12" style='text-align:center;'>
-        <span class="glyphicon glyphicon-flash centent_advantages_item_glyph"></span>
-      </div>
-      <div class="col-sm-4 col-sm-offset-1 col-xs-12">
-        <h4 class='process_title'>Pick the one you like</h4>
-        <p class="process_text">Users can browse and compare our wide selection of photographers</p>
+      <div class="col-sm-5 col-sm-offset-1 col-xs-12" style='text-align:center;'>
+        <img src="{% static 'img/process1.png' %}" width="400px">
       </div>
     </div>
     <div class="clearfix"></div>
-    <br>
+    <br><br><br>
     <div class="row">
-      <div class="col-sm-4 col-sm-offset-1 col-xs-12">
-        <h4 class='process_title'>Work out about the details</h4>
-        <p class="process_text">Users Only need to show up at the date and the time of the photoshoot and everything will be handled smoothly</p>
-      </div>
       <div class="col-sm-6 col-xs-12" style='text-align:center;'>
-        <span class="glyphicon glyphicon-flash centent_advantages_item_glyph"></span>
+        <img src="{% static 'img/process2.png' %}" width="350px">
+      </div>
+      <div class="col-sm-5 col-sm-offset-1 col-xs-12">
+       <br>
+        <h4 class='process_title'>2. Pick the one you like</h4>
+        <br>
+        <div class="row">
+          <p class="process_text col-xs-10">Users can browse and compare our wide selection of photographers</p>
+        </div>
       </div>
     </div>
     <div class="clearfix"></div>
-    <br>
+    <br><br><br>
+    <div class="row">
+      <div class="col-sm-5 col-sm-offset-1 col-xs-12">
+       <br>
+        <h4 class='process_title'>3. Work out the details</h4>
+        <br>
+        <div class="row">
+          <p class="process_text col-xs-9">Users Only need to show up at the date and the time of the photoshoot and everything will be handled smoothly</p>
+        </div>
+      </div>
+      <div class="col-sm-5 col-sm-offset-1 col-xs-12" style='text-align:center;'>
+        <img src="{% static 'img/process3.png' %}" width="300px">
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <br><br><br>
     <div class="row">
       <div class="col-sm-6 col-xs-12" style='text-align:center;'>
-        <span class="glyphicon glyphicon-flash centent_advantages_item_glyph"></span>
+        <img src="{% static 'img/process4.png' %}" width="300px">
       </div>
-      <div class="col-sm-4 col-sm-offset-1 col-xs-12">
-        <h4 class='process_title'>Show up at the date of the shoot</h4>
-        <p class="process_text">Users Only need to show up at the date and the time of the photoshoot and everything will be handled smoothly</p>
+      <div class="col-sm-5 col-sm-offset-1 col-xs-12">
+       <br>
+        <h4 class='process_title'>4. Show up on time</h4>
+        <br>
+        <div class="row">
+          <p class="process_text col-xs-10">Users Only need to show up at the date and the time of the photoshoot and everything will be handled smoothly</p>
+        </div>
       </div>
     </div>
     <div class="clearfix"></div>
