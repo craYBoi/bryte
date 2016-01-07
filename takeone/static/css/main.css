@@ -188,6 +188,21 @@ p {
 	font-size: 1.2em;
 }
 
+.comment_style li {
+	padding: 10px 0 20px 0;
+}
+
+.comment_text {
+	font-size: 0.8em;
+	padding-top: 15px;
+	border-top: 1px solid #ddd;
+}
+
+
+.button_list li {
+	padding: 5px 0;
+}
+
 
 
 /* photographer list */

@@ -17,15 +17,19 @@
         <div class="col-sm-4 col-xs-12">
           <ul class="list-unstyled">
             <strong><li>{{ photographer.first_name }} {{ photographer.last_name }}</li></strong>
+            <li>Rating: {{ photographer.total_rating }}</li>
             <li>{{ photographer.short_description }}</li>
-            <li>{{ photographer.description }}</li>
           </ul>
         </div>
         <div class="col-sm-4 col-xs-12">
           <!-- put images here -->
         </div>
         <div class="col-sm-2 col-xs-12">
-          <a href="{{ photographer.get_absolute_url }}"><button class="btn btn-default">View More</button></a>
+          <ul class="button_list">
+            <li><a href="{{ photographer.get_absolute_url }}"><button class="btn btn-default">View More</button></a></li>
+            <li><a href="#"><button class="btn btn-default">Contact Me</button></a></li>
+            <li><a href="#"><button class="btn btn-default">Reserve Me</button></a></li>
+          </ul>
         </div>
       </div>
       </li>

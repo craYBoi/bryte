@@ -37,26 +37,37 @@
 
   <!-- rating & comment -->
   <hr>
-  <h3>Total Rating: {{ object.total_rating }}</h3>
-  <h3>Reviews</h3>
-  <div class="content_wrapper">
-    <ul class="comment_style">
-    {% for rating in object.rating_set.all %}
-      <li>Rating: {{ rating.rating }}</li>
-      <li>{{ rating.comment }}</li>
-      <li>{{ rating.datetime | date:'Y-m-d H:i' }}</li>
-    {% endfor %}
-    </ul>
-  </div>
 
-  <!-- commit form -->
-  <form method="POST" action="." enctype="multipart/form-data"> {% csrf_token %}
-    {{ rating_form | crispy }}
-    <br>
-    <div class="text-center">
-      <button type = "submit" class = "btn btn-primary form_button">Submit</button>
+  <div class="row">
+    <div class="col-sm-8">
+    <h3>{{ object.rating_set.count }} Reviews</h3>
+    <div class="content_wrapper">
+      <ul class="comment_style">
+      {% for rating in object.rating_set.all %}
+        <li>
+          <div class="row">
+          <div class="col-sm-3 comment_rating">Rating: {{ rating.rating }}</div>
+          <div class="col-sm-8 comment_text">{{ rating.comment }}<br>
+          <div class="pull-right comment_date">{{ rating.datetime | date:'M - Y' }}</div></div>
+          </div>
+        </li>
+      {% endfor %}
+      </ul>
     </div>
-  </form>
+    </div>
+
+    <!-- commit form -->
+    <div class="col-sm-4">
+    <br>
+    <form method="POST" action="." enctype="multipart/form-data"> {% csrf_token %}
+      {{ rating_form | crispy }}
+      <br>
+      <div class="text-center">
+        <button type = "submit" class = "btn btn-primary form_button">Submit</button>
+      </div>
+    </form>
+    </div>
+  </div>
   <br>
 
 {% endblock %}

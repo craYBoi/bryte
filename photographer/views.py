@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, render_to_response
 from django.db.models import Q
 from django.http import Http404
 from django.views.generic.detail import DetailView
@@ -45,4 +45,6 @@ class PhotographerDetailView(DetailView):
 			instance.photographer = photographer
 			instance.save()
 			return redirect(photographer.get_absolute_url())
-		print 'Error dealing post data'
+		# context = self.get_context_data
+		context = {}
+		return render_to_response('photographer/photographer_detail.html', context)
