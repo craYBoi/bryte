@@ -3,6 +3,8 @@ from django.utils.text import slugify
 from django.db import models
 from django.core.urlresolvers import reverse
 
+from uuid import uuid4
+
 
 class Photographer(models.Model):
 	last_name = models.CharField(max_length=120)
@@ -16,6 +18,9 @@ class Photographer(models.Model):
 	total_rating = models.PositiveSmallIntegerField(null=True, blank=True)
 
 	def __unicode__(self):
+		return self.first_name + ' ' + self.last_name
+
+	def get_full_name(self):
 		return self.first_name + ' ' + self.last_name
 
 	def save(self, *args, **kwargs):
@@ -40,8 +45,9 @@ class Photographer(models.Model):
 def image_upload_to(instance, filename):
 	title = instance.author.last_name + '_' + instance.author.first_name
 	slug = slugify(title)
-	extension = filename.split('.')[-1]
-	return "photographer/%s/img.%s" %(slug, extension)
+	extension = lower(filename.split('.')[-1])
+	unique_name = filename.split('.')[0] + uuid4()
+	return "photographer/%s/%s.%s" %(slug, unique_name, extension)
 
 
 class PhotographerImage(models.Model):
