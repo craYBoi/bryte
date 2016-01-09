@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load staticfiles %}
 
 {% block photographer_list %}
   <div id="photographer_list" class="content_wrapper">
@@ -16,8 +17,24 @@
         </div>
         <div class="col-sm-4 col-xs-12">
           <ul class="list-unstyled">
+            <li>
+              {% if photographer.total_rating == 5 %}
+                <img src="{% static 'img/5star.png' %}" width='110px'>
+              {% elif photographer.total_rating == 4 %}
+                <img src="{% static 'img/4star.png' %}" width='110px'>
+              {% elif photographer.total_rating == 3 %}
+                <img src="{% static 'img/3star.png' %}" width='110px'>
+              {% elif photographer.total_rating == 2 %}
+                <img src="{% static 'img/2star.png' %}" width='110px'>
+              {% elif photographer.total_rating == 1 %}
+                <img src="{% static 'img/1star.png' %}" width='110px'>
+              {% elif photographer.total_rating == 0 %}
+                <img src="{% static 'img/0star.png' %}" width='110px'>
+              {% endif %}
+            </li>
+            <br>
             <strong><li>{{ photographer.first_name }} {{ photographer.last_name }}</li></strong>
-            <li>Rating: {{ photographer.total_rating }}</li>
+
             <li>{{ photographer.short_description }}</li>
           </ul>
         </div>

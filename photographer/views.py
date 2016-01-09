@@ -33,6 +33,15 @@ class PhotographerDetailView(DetailView):
 		context = super(PhotographerDetailView, self).get_context_data(*args, **kwargs)
 		photographer = self.get_object()
 		rating_form = RatingForm()
+
+		# static url for 5 star ratings
+		total_rating = photographer.total_rating
+		rating_static_url = 'img/' + str(total_rating) + 'star.png'
+		ratings = photographer.rating_set.all()
+		comment_ratings = ['img/'+str(ra.rating)+'star.png' for ra in ratings]
+
+		context['rating_static_url'] = rating_static_url
+		context['ratings'] = zip(comment_ratings, ratings)
 		context['rating_form'] = rating_form
 		context['title_text'] = photographer.first_name + ' ' + photographer.last_name
 		return context
@@ -43,6 +52,9 @@ class PhotographerDetailView(DetailView):
 			instance = form.save(commit=False)
 			photographer = self.get_object()
 			instance.photographer = photographer
+
+			# add validation of email if email in reservation.emails() then proceed, otherwise don't
+
 			instance.save()
 			return redirect(photographer.get_absolute_url())
 		# context = self.get_context_data

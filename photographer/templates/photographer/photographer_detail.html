@@ -13,17 +13,29 @@
     	</div>
     	<div class="col-md-5 col-md-offset-1 col-xs-12">
     		<ul class="list-unstyled">
-          <strong><li>Basic Info:</li></strong>
+          <strong><li>
+            <img src="{% static rating_static_url %}" width='150px'>
+          </li></strong>
           <br>
-          <strong><li>Rating: {{ object.total_rating }}</li></strong>
+          <strong><li>Basic Info:</li></strong>
           <li>{{ object.description }}</li>
+          <br>
+          <a href="#"><button class="btn btn-medium">Contact</button></a>
     		</ul>
     	</div>
     </div>
   </div>
 
+  <!-- menu -->
+  <div class="row">
+    <ul class="list-inline text-center center_menu">
+      <li><a href="#photographer_gallery">Works</a></li>
+      <li><a href="#photographer_reviews">Reviews</a></li>
+    </ul>
+  </div>
+
   <!-- gallery -->
-  <div class="row content_wrapper" id="photographer_gallery">
+  <div class="row" id="photographer_gallery">
 		<div class="grid">
 		  <div class="grid-sizer"></div>
 		 	 	{% for img in object.photographerimage_set.all %}
@@ -38,15 +50,15 @@
   <!-- rating & comment -->
   <hr>
 
-  <div class="row">
+  <div class="row" id='photographer_reviews'>
     <div class="col-sm-8">
     <h3>{{ object.rating_set.count }} Reviews</h3>
     <div class="content_wrapper">
       <ul class="comment_style">
-      {% for rating in object.rating_set.all %}
+      {% for rating_url, rating in ratings %}
         <li>
           <div class="row">
-          <div class="col-sm-3 comment_rating">Rating: {{ rating.rating }}</div>
+          <div class="col-sm-3"><img class="comment_rating" src="{% static rating_url %}" width='100px'></div>
           <div class="col-sm-8 comment_text">{{ rating.comment }}<br>
           <div class="pull-right comment_date">{{ rating.datetime | date:'M - Y' }}</div></div>
           </div>
