@@ -45,9 +45,9 @@ class Photographer(models.Model):
 def image_upload_to(instance, filename):
 	title = instance.author.last_name + '_' + instance.author.first_name
 	slug = slugify(title)
-	extension = lower(filename.split('.')[-1])
-	unique_name = filename.split('.')[0] + uuid4()
-	return "photographer/%s/%s.%s" %(slug, unique_name, extension)
+	extension = filename.split('.')[-1]
+	unique_name = filename.split('.')[0] + str(uuid4())
+	return "photographer/%s/%s.%s" %(slug, unique_name, extension.lower())
 
 
 class PhotographerImage(models.Model):
