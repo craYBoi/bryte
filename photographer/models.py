@@ -60,7 +60,15 @@ class PhotographerImage(models.Model):
 
 class Rating(models.Model):
 	photographer = models.ForeignKey(Photographer)
-	rating = models.PositiveSmallIntegerField()
+
+	RATING_CHOICES = (
+		(1, 'one'),
+		(2, 'two'),
+		(3, 'three'),
+		(4, 'four'),
+		(5, 'five'),
+	)
+	rating = models.PositiveSmallIntegerField(choices=RATING_CHOICES, null=True, blank=True)
 	comment = models.TextField()
 	datetime = models.DateTimeField(auto_now_add=True)
 
