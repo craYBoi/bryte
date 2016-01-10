@@ -4,6 +4,7 @@ from django.db import models
 from django.core.urlresolvers import reverse
 
 from uuid import uuid4
+# -*- coding: utf-8 -*- 
 
 
 class Photographer(models.Model):
@@ -62,11 +63,11 @@ class Rating(models.Model):
 	photographer = models.ForeignKey(Photographer)
 
 	RATING_CHOICES = (
-		(1, 'one'),
-		(2, 'two'),
-		(3, 'three'),
-		(4, 'four'),
-		(5, 'five'),
+		(1, '1 Star'),
+		(2, '2 Stars'),
+		(3, '3 Stars'),
+		(4, '4 Stars'),
+		(5, '5 Stars'),
 	)
 	rating = models.PositiveSmallIntegerField(choices=RATING_CHOICES, null=True, blank=True)
 	comment = models.TextField()

@@ -8,10 +8,10 @@
       <h4 class="feature_title text-center">{{object.first_name}} {{object.last_name}}</h4>
     </div>
     <div class="row content_title_padding">
-    	<div class="col-md-3 col-md-offset-2 col-xs-12">
+    	<div class="col-sm-3 col-sm-offset-2 col-xs-12">
     		<img src="{{ object.profile.url }}" class='img-responsive'>
     	</div>
-    	<div class="col-md-5 col-md-offset-1 col-xs-12">
+    	<div class="col-sm-5 col-sm-offset-1 col-xs-12">
     		<ul class="list-unstyled">
           <strong><li>
             <img src="{% static rating_static_url %}" width='150px'>
@@ -20,7 +20,7 @@
           <strong><li>Basic Info:</li></strong>
           <li>{{ object.description }}</li>
           <br>
-          <a href="#"><button class="btn btn-medium">Contact</button></a>
+          <a href="#"><button class="btn btn-small">Contact</button></a>
     		</ul>
     	</div>
     </div>
@@ -59,7 +59,7 @@
         <li>
           <div class="row">
           <div class="col-sm-3"><img class="comment_rating" src="{% static rating_url %}" width='100px'></div>
-          <div class="col-sm-8 comment_text">{{ rating.comment }}<br>
+          <div class="col-sm-8 comment_text">{{ rating.comment }}<br><br>
           <div class="pull-right comment_date">{{ rating.datetime | date:'M - Y' }}</div></div>
           </div>
         </li>
