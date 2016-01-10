@@ -75,6 +75,17 @@ p {
 	font-weight: Bold;
 }
 
+.btn-small {
+	border-radius: 0;
+	background-color: rgba(0,0,0,0);
+	border: 0.15em solid #000;
+	font-size: 1em;
+	padding-left: 8px;
+	padding-right: 8px;
+	color: #000;
+	font-weight: Bold;
+}
+
 .btn-primary:hover {
 	background-color: rgba(0,0,0,1);
 }
@@ -84,6 +95,10 @@ p {
 	color: #ffe83e;
 }
 
+.btn-small:hover {
+	background-color: rgba(0,0,0,1);
+	color: #ffe83e;
+}
 
 
 /* content */
@@ -186,6 +201,7 @@ p {
 	right:20px;
 	bottom:20px;
 }
+
 .scrollToTop:hover{
 	text-decoration:none;
 }
@@ -224,7 +240,7 @@ p {
 }
 
 .comment_style li {
-	padding: 10px 0 20px 0;
+	padding: 10px 0 10px 0;
 }
 
 .comment_text {
