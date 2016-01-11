@@ -84,6 +84,22 @@ class Rating(models.Model):
 		photographer.save()
 
 
+class Package(models.Model):
+	photographer = models.ForeignKey(Photographer)
+	price = models.PositiveSmallIntegerField()
+	title = models.CharField(max_length=50)
+
+	def __unicode__(self):
+		return self.photographer.get_full_name() + ': ' + str(self.price)
+
+class PackageFeature(models.Model):
+	package = models.ForeignKey(Package)
+	feature_text = models.CharField(max_length=120)
+
+	def __unicode__(self):
+		return self.package.__unicode__()
+
+
 from math import modf
 
 def floor_to_int(input_floor):

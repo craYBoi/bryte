@@ -11,6 +11,8 @@ from .models import Photographer
 from .forms import RatingForm
 from reserve.models import Reservation
 
+from math import ceil
+
 class PhotographerListView(ListView):
 	model = Photographer
 	template_name = 'photographer_list.html'
@@ -40,10 +42,22 @@ class PhotographerDetailView(DetailView):
 		ratings = photographer.rating_set.all()
 		comment_ratings = ['img/'+str(ra.rating)+'star.png' for ra in ratings]
 
+		# bootstrap col width
+		num_of_feature = len(photographer.package_set.all())
+		col_num = ceil(num_of_feature/float(3))
+		last_col_width = num_of_feature%3
+		if last_col_width == 0:
+			last_col_width = 3
+
+		col_url = 'col-sm-' + str(12/last_col_width)
+
+
+
 		context['rating_static_url'] = rating_static_url
 		context['ratings'] = zip(comment_ratings, ratings)
 		context['rating_form'] = rating_form
 		context['title_text'] = photographer.first_name + ' ' + photographer.last_name
+		context['col_url'] = col_url
 		return context
 
 	def post(self, request, *args, **kwargs):
