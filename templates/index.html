@@ -36,62 +36,26 @@
 {% endblock %}
 
 {% block jumbotron %}
-  <div class="jumbotron" id="jumbotron" style="background: url({% static 'img/Studio-3.jpg' %}) no-repeat center; background-size: cover; text-align: center;">
-    <br><br><br><h2 class="main_title" style='color: #fff'>Get your headshot</h2><br>
-    <p style='color: #fff; font-weight: bold;'>Best Prices<br>Most Convenient Booking Process<br>Highest Quality</p>
+  <div class="jumbotron" id="jumbotron" style="background: url({% static 'img/bg.jpeg' %}) no-repeat center; background-size: cover; text-align: center;">
+    <br><br><br><h2 class="main_title" style='color: #000'>Find the Best Photographer With a Text</h2><br><br><br>
+    <p style='color: #000;'>Best Prices<br>Most Convenient Booking Process<br>Highest Quality</p>
     <br><br><br>
     <div style="text-align: center;">
-    <a href="{% url 'reserve' %}"><button class="btn btn-primary" style='color: #fff; border-color: #fff' >Reserve Now</button></a>
+    <a href="#features"><button class="btn btn-large" >Learn More</button></a>
     </div>
-    <br><br>
+    <br><br><br>
   </div>
 {% endblock %}
 
 
 {% block features %}
 <div id="content_advantages" class="content_wrapper">
-  <div class="text-center">
+<!--  <div class="text-center">
     <h1 class="bold">Simple Steps to get the best headshot for you</h1>
     <h3>Best Price, Most Convenient Process, Highest Quality</h3>
-  </div>
-  <br><br>
+  </div> -->
+<!--   <br><br>
   <div class="content_title_padding">
-<!--     <div class="col-lg-3 col-sm-6 col-xs-12 content_advantages_item">
-      <div class="row">
-        <div class="text-center">
-          <span class="glyphicon glyphicon-flash centent_advantages_item_glyph"></span>
-          <h4>Compare photographers</h4>
-          <p>In and out in 20 mins</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-3 col-sm-6 col-xs-12 content_advantages_item">
-      <div class="row">
-        <div class="text-center">
-          <span class="glyphicon glyphicon-camera centent_advantages_item_glyph"></span>
-          <h4>Pick the one you like</h4>
-          <p>We take your pictures with our $3000+ worth of camera equipment, lighting and background canvas</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-3 col-sm-6 col-xs-12 content_advantages_item">
-      <div class="row">
-        <div class="text-center">
-          <span class="glyphicon glyphicon-duplicate centent_advantages_item_glyph"></span>
-          <h4>Work out about the detail</h4>
-          <p>We will send all digital copies of your favorite pictures to you</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-3 col-sm-6 col-xs-12 content_advantages_item">
-      <div class="row">
-        <div class="text-center">
-          <span class="glyphicon glyphicon-wrench centent_advantages_item_glyph"></span>
-          <h4>Show up at the date of the shoot</h4>
-          <p>Pick one for professional touchup within 24 hours</p>
-        </div>
-      </div>
-    </div> -->
     <div class="row">
       <div class="col-sm-5 col-sm-offset-1 col-xs-12">
         <br>
@@ -152,8 +116,57 @@
     </div>
     <div class="clearfix"></div>
   </div>
-</div>
-<hr>
+</div> -->
+  <div id="features" class="content_wrapper">
+    <ul class="list-unstyled alternate_list">
+      <li>
+        <div class="container">
+          <div class="row">
+            <div class="col-xs-10 col-xs-offset-1" style="text-align:center;">
+              <h2 class="light_title">Choose the photographer you want</h2>
+              <p>Users can browse and compare our wide selection of <a href="{% url 'photographers' %}" class="yellow_link">photographers</a> ></p>
+              <img src="{% static 'img/processOne.png' %}" class="img-responsive">
+            </div>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="container">
+          <div class="row">
+            <div class="col-xs-10 col-xs-offset-1 large_padding" style="text-align:center;">
+              <h2 class="light_title">Choose the flat rate packages you want</h2>
+              <p>Choose the price package that suits you the most</p>
+              <img src="{% static 'img/processTwo.png' %}" class="img-responsive">
+            </div>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="container">
+          <div class="row">
+            <div class="col-xs-10 col-xs-offset-1 large_padding" style="text-align:center;">
+              <h2 class="light_title">Simply Text Us to Reserve</h2>
+              <p>Text Us to reserve, or anything.. Or <br>you can reserve online <a href="{% url 'reserve' %}" class="yellow_link">here</a> ></p>
+              <img src="{% static 'img/processThree.png' %}" class="img-responsive">
+            </div>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="container">
+          <div class="row">
+            <div class="col-xs-10 col-xs-offset-1 large_padding" style="text-align:center;">
+              <h2 class="light_title">Pay with Venmo or Facebook Payment</h2>
+              <p>We accept <a href="https://venmo.com/" class="yellow_link">Venmo</a> and <a href="https://www.facebook.com/help/863171203733904/" class="yellow_link">Facebook payment</a></p>
+              <img src="{% static 'img/processFour.png' %}" class="img-responsive">
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+
 {% endblock %}
 
 {% block about %}
@@ -190,23 +203,25 @@
 
 
 {% block photographers %}
-<div id="content_photographer" class="content_wrapper">
-  <div class="text-center">
+<div id="content_photographer">
+  <div style="text-align:center;">
     <h2 class="feature_title">Our Photographer</h2>
   </div>
-  <div class="row content_title_padding">
-  {% for pg in featured_pg.all %}
-    
-    <div class="col-sm-4 col-xs-12 content_photographer_content_item">
-      <div class="row">
-        <div class="text-center">
-          <a href="{{ pg.get_absolute_url }}"><img src="{{ pg.profile.url }}" width="40%"></a>
-          <a href="{{ pg.get_absolute_url }}"><h3>{{ pg.first_name }} {{ pg.last_name }}</h3></a>
+  <div class="container">
+    <div class="row content_title_padding">
+    {% for pg in featured_pg.all %}
+      
+      <div class="col-sm-4 col-xs-12 content_photographer_content_item">
+        <div class="row">
+          <div class="text-center">
+            <a href="{{ pg.get_absolute_url }}"><img src="{{ pg.profile.url }}" width="40%"></a>
+            <a href="{{ pg.get_absolute_url }}"><h3>{{ pg.first_name }} {{ pg.last_name }}</h3></a>
+          </div>
         </div>
+        <p>{{ pg.description }}</p>
       </div>
-      <p>{{ pg.description }}</p>
+    {% endfor %}
     </div>
-  {% endfor %}
   </div>
 </div>
 <hr>

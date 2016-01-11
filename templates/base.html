@@ -20,23 +20,18 @@
   <!-- scroll to top -->
   <div ><a href="" class="scrollToTop" style="padding: 30px; background: url({% static 'img/up_arrow.png' %}); background-size: cover;"></a></div>
 
-    <div class="container">
 
     	{# navbar #}
 	    {% include "navbar.html" %}
 
 {# registration #}
-		{% load i18n %}
+			{% load i18n %}
 
-		{% block content %}
-		{% endblock %}
+			{% block content %}
+			{% endblock %}
 
 
 {# index #}
-	    <!-- carousel -->
-	    {% block carousel %}
-	    {% endblock %}
-
 	    {# jumbotron #}
 	    {% block jumbotron %}
 	    {% endblock %}
@@ -46,47 +41,52 @@
 	    {% endblock %}
 
 
-	    {# photographers #}
+	    {# photographers #} 
 	    {% block photographers %}
 	    {% endblock %}
-
-
-	    <!-- where are we -->
-	    {% block where %}
-	    {% endblock %}
+	    
 {# end index #}
 
 
 {# photographer #}
 	    {# photographer list #}
+	    <div class="container">
 	    {% block photographer_list %}
 			{% endblock %}
+			</div>
 
+			<div class="container">
 			{% block photographer_detail %}
 			{% endblock %}
+			</div>
 {# end photographer #}
 
 
 {# reserve #}
+			<div class="container">
 			{% block reserve %}
 			{% endblock %}
+			<div>
 
 
 {# reserve success #}
+			<div class="container">
 			{% block reserve_success %}	
 			{% endblock %}
+			</div>
 
 
 {# about #}
+			<div class="container">
 			{% block about %}
 			{% endblock %}
-
+			</div>
 
 	    <hr>
 	    {# footer #}
+	    <div class="container">
 	    {% include "footer.html" %}
-
-    </div>
+	    </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="{% static 'js/jquery-2.1.4.min.js' %} "></script>

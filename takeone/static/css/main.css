@@ -27,6 +27,10 @@ p {
 	font-size: 0.9em;
 }
 
+ul {
+	margin: 0;
+}
+
 /* spacing for */
 #main_logo {
 	margin-top: 15px;
@@ -37,6 +41,15 @@ p {
 	font-size: 2em;
 	padding-top: 1em;
 }
+
+/* navbar */
+
+.navbar-brand
+{
+	padding-left: 30px;
+}
+
+
 
 /* jumbotron */
 .jumbotron {
@@ -53,7 +66,7 @@ p {
 }
 
 /* btn-primary for carousel button */
-.btn-primary {
+.btn-large {
 	border-radius: 0;
 	background-color: rgba(0,0,0,0);
 	border: 0.2em solid #000;
@@ -86,8 +99,9 @@ p {
 	font-weight: Bold;
 }
 
-.btn-primary:hover {
+.btn-large:hover {
 	background-color: rgba(0,0,0,1);
+	color: #fff;
 }
 
 .btn-medium:hover {
@@ -169,7 +183,6 @@ p {
   }
 }
 
-
 /* footer */
 
 #footer_menu ul {
@@ -209,7 +222,7 @@ p {
 /* helper */
 .feature_title {
 	font-size: 2.7em;
-	font-weight: bold;
+	font-weight: 400;
 }
 
 .main_title {
@@ -264,7 +277,23 @@ p {
 	font-weight: bold;
 }
 
+.alternate_list li:nth-child(odd) {
+    background: #fff; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#fff, #f6f6f6); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#fff, #f6f6f6); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#fff, #f6f6f6); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#fff, #f6f6f6); /* Standard syntax */
+}
 
+.light_title {
+	font-family: 'Avenir';
+	font-weight: 200;
+	font-size: 2.5em;
+}
+
+.yellow_link {
+	color: #ffe83e;
+}
 
 /* photographer list */
 .photographer_list_item {
@@ -273,6 +302,10 @@ p {
 
 #photographer_list {
 	font-size: 0.8em;
+}
+
+.large_padding {
+	padding-top: 80px;
 }
 
 

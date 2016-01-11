@@ -11,16 +11,17 @@
     	<div class="col-sm-3 col-sm-offset-2 col-xs-12">
     		<img src="{{ object.profile.url }}" class='img-responsive'>
     	</div>
-    	<div class="col-sm-5 col-sm-offset-1 col-xs-12">
+    	<div class="col-sm-5 col-sm-offset-1 col-xs-12" style="font-size: 0.9em;">
     		<ul class="list-unstyled">
           <strong><li>
             <img src="{% static rating_static_url %}" width='150px'>
           </li></strong>
           <br>
           <strong><li>Basic Info:</li></strong>
+          <li>Email: {{ object.email }}</li>
           <li>{{ object.description }}</li>
           <br>
-          <a href="#"><button class="btn btn-small">Contact</button></a>
+          <a href="{% url 'reserve' %}"><button class="btn btn-small">Reserve</button></a> &nbsp Or text TakeOne
     		</ul>
     	</div>
     </div>
@@ -29,6 +30,7 @@
   <!-- menu -->
   <div class="row">
     <ul class="list-inline text-center center_menu">
+      <li><a href="#photographer_gallery">Packages</a></li>
       <li><a href="#photographer_gallery">Works</a></li>
       <li><a href="#photographer_reviews">Reviews</a></li>
     </ul>
@@ -75,7 +77,7 @@
       {{ rating_form | crispy }}
       <br>
       <div class="text-center">
-        <button type = "submit" class = "btn btn-primary form_button">Submit</button>
+        <button type = "submit" class = "btn btn-medium form_button">Submit</button>
       </div>
     </form>
     </div>
