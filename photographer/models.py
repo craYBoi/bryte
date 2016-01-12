@@ -17,6 +17,8 @@ class Photographer(models.Model):
 	phone = models.CharField(max_length=15)
 	profile = models.ImageField(upload_to='profile/', null=True)
 	total_rating = models.PositiveSmallIntegerField(null=True, blank=True)
+	lowest_price = models.PositiveSmallIntegerField(null=True, blank=True)
+	highest_price = models.PositiveSmallIntegerField(null=True, blank=True)
 
 	def __unicode__(self):
 		return self.first_name + ' ' + self.last_name
@@ -39,6 +41,19 @@ class Photographer(models.Model):
 		rating_vals = [ra.rating for ra in ratings]
 		average = sum(rating_vals)/float(len(rating_vals))
 		self.total_rating = floor_to_int(average)
+
+	# constant time algorithm updating lowest, highest
+	def calculate_price_range(self, input_price):
+		# don't need to test whether there are packages
+		if not self.lowest_price:
+			self.lowest_price = input_price
+			self.highest_price = input_price
+		else:
+			if input_price < self.lowest_price:
+				self.lowest_price = input_price
+			if input_price > self.highest_price:
+				self.highest_price = input_price
+
 
 
 	# some validation (email + phone) here
@@ -79,6 +94,8 @@ class Rating(models.Model):
 	# override save to update total rating
 	def save(self, *args, **kwargs):
 		super(Rating, self).save(*args, **kwargs)
+
+		# update the total rating of the photographer
 		photographer = self.photographer
 		photographer.calculate_total_rating()
 		photographer.save()
@@ -91,6 +108,14 @@ class Package(models.Model):
 
 	def __unicode__(self):
 		return self.photographer.get_full_name() + ': ' + str(self.price)
+
+	def save(self, *args, **kwargs):
+		super(Package, self).save(*args, **kwargs)
+
+		# update the price range of the photographer
+		photographer = self.photographer
+		photographer.calculate_price_range(self.price)
+		photographer.save()
 
 class PackageFeature(models.Model):
 	package = models.ForeignKey(Package)
@@ -108,6 +133,22 @@ def floor_to_int(input_floor):
 		return whole
 	else:
 		return whole + 1
+
+
+class Specialty(models.Model):
+	photographer = models.ForeignKey(Photographer)
+
+	SPECIALTY_CHOICES = (
+		('hs', 'Headshot'),
+		('od', 'Outdoor'),
+		('vt', 'Vintage'),
+		('id', 'Indoor'),
+		('pt', 'Portrait'),
+	)
+	specialty_text = models.CharField(max_length=120, choices=SPECIALTY_CHOICES)
+
+	def __unicode__(self):
+		return self.photographer.get_full_name()
 
 
 

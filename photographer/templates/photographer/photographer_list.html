@@ -7,16 +7,16 @@
       <h2 class="text-center feature_title">Photographers</h2>
     </div>
 
-    <br><br><br>
-    <ul class="list-unstyled">
+    
+    <ul class="list-unstyled large_padding">
     	{% for photographer in object_list %}
-      <li>
+      <li class="animated fadeInUp">
       <div class="row photographer_list_item">
         <div class="col-sm-2 col-xs-12">
           <img src="{{ photographer.profile.url }}" width="80%">
         </div>
-        <div class="col-sm-4 col-xs-12">
-          <ul class="list-unstyled">
+        <div class="col-sm-2 col-xs-12">
+          <ul class="list-unstyled list_space_small">
             <li>
               {% if photographer.total_rating == 5 %}
                 <img src="{% static 'img/5star.png' %}" width='110px'>
@@ -32,13 +32,27 @@
                 <img src="{% static 'img/0star.png' %}" width='110px'>
               {% endif %}
             </li>
-            <br>
-            <strong><li>{{ photographer.first_name }} {{ photographer.last_name }}</li></strong>
-
-            <li>{{ photographer.short_description }}</li>
+            <li><strong>{{ photographer.first_name }} {{ photographer.last_name }}</strong></li>            
           </ul>
         </div>
-        <div class="col-sm-4 col-xs-12">
+        <div class="col-sm-3 col-xs-12">
+          <!-- put images here -->
+          <ul class="list-unstyled">
+            {% if photographer.lowest_price %}
+                <li><h4>${{ photographer.lowest_price }} - {{ photographer.highest_price }}</h4></li>
+            {% else %}
+              <li><h4>$ not avaliable :(</h4></li>
+            {% endif %}
+              <li><p>{{ photographer.package_set.count }} packages</p><li>
+              <li><ul class="list-inline">
+
+              {% for specialty in photographer.specialty_set.all %}
+                <li>{{ specialty.get_specialty_text_display }}</li>
+              {% endfor %}
+            </ul></li>
+          </ul>
+        </div>
+        <div class="col-sm-3 col-xs-12">
           <!-- put images here -->
         </div>
         <div class="col-sm-2 col-xs-12">

@@ -318,8 +318,16 @@ ul {
 	padding-top: 80px;
 }
 
+.medium_padding {
+	padding-top: 40px;
+}
+
+.small_padding {
+	padding-top: 20px;
+}
+
 .list_space_small li {
-	padding: 5px 0;
+	padding: 4px 0;
 }
 
 
