@@ -10,6 +10,7 @@ $(document).ready( function() {
     $grid.masonry();
   });  
 
+  // photographer detail page switch tab
 });
 
 // $('.datepicker').datepicker({});
@@ -54,3 +55,17 @@ $(document).ready(function(){
   });
   
 });
+
+
+// lazy load
+// $(function() {
+//     $(".loading").lazyload({
+//       effect : "fadeIn";
+//       event: 'click';
+//     });
+// });
+
+
+
+
+
