@@ -99,10 +99,11 @@ ul {
 	font-weight: Bold;
 }
 
-.btn-large:hover {
-	background-color: rgba(0,0,0,1);
+.btn-reverse {
 	color: #fff;
+	border-color: #fff;
 }
+
 
 .btn-medium:hover {
 	background-color: rgba(0,0,0,1);
@@ -112,6 +113,17 @@ ul {
 .btn-small:hover {
 	background-color: rgba(0,0,0,1);
 	color: #ffe83e;
+}
+
+.btn-large:hover {
+	background-color: #fff;
+	color: #000;
+}
+
+.btn-reverse:hover {
+	color: #000;
+	background-color: #fff;
+	border-color: #fff;
 }
 
 
@@ -192,6 +204,14 @@ ul {
 	font-size: 0.8em;
 }
 
+.photographer_detail_text {
+	font-size: 0.8em;
+}
+
+#photographer_intro {
+	color: #fff;
+}
+
 /* footer */
 
 #footer_menu ul {
@@ -231,7 +251,7 @@ ul {
 
 /* helper */
 .feature_title {
-	font-size: 2.7em;
+	font-size: 3em;
 	font-weight: 400;
 }
 
@@ -324,6 +344,18 @@ ul {
 
 .small_padding {
 	padding-top: 20px;
+}
+
+.large_margin {
+	margin-top: 80px;
+}
+
+.medium_margin {
+	margin-top: 40px;
+}
+
+.small_margin {
+	margin-top: 20px;
 }
 
 .list_space_small li {

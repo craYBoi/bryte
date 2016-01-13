@@ -3,7 +3,8 @@
 {% load crispy_forms_tags %}
 
 {% block photographer_detail %}
-  <div class="content_wrapper" id="photographer_intro">
+  <!--<div class="content_wrapper" id="photographer_intro">
+    <div class="container">
     <div class="row">
       <h4 class="feature_title text-center">{{object.first_name}} {{object.last_name}}</h4>
     </div>
@@ -25,9 +26,34 @@
     		</ul>
     	</div>
     </div>
+    </div>
+  </div>-->
+
+  <div class="jumbotron" style="text-align:center; background: url({% static 'img/dbg.jpeg' %}) no-repeat center; background-size: cover; text-align: center;" id="photographer_intro">
+    <div class="small_padding row">
+      <img src="{{ object.profile.url }}" width="100px">
+    </div>
+    <div class="row small_padding">
+      <h4 class="feature_title text-center bold">{{object.first_name}} {{object.last_name}}</h4>
+    </div>
+
+    <div class="small_padding row photographer_detail_text">
+        <ul class="list-unstyled">
+          <strong><li>
+            <img src="{% static rating_static_url %}" width='150px'>
+          </li></strong>
+          <br>
+          <li>{{ object.email }}</li>
+          <li>{{ object.short_description }}</li>
+          <br>
+          <a href="{% url 'reserve' %}"><button class="btn btn-medium btn-reverse">Reserve</button></a>
+        </ul>
+    </div>
+
   </div>
 
   <!-- menu -->
+<div class="container">
   <div class="row">
     <ul class="list-inline text-center center_menu">
       <li><a href="#photographer_packages" id="photographer_packages_button">Packages</a></li>
@@ -39,13 +65,13 @@
 
 
   <!-- packages -->
-  <div class="row large_padding" id="photographer_packages">
+  <div class="row small_padding" id="photographer_packages">
     {% for package in object.package_set.all %}
       <div class="{{ col_url }}" style="text-align: center">
         <div class="thumbnail">
+        <div class="thumbnail">
             <div class="caption">
-              <h4>{{ package.title }}</h4>
-              <h2>${{ package.price }}</h2>
+              <h2 class="feature_title bold">${{ package.price }}</h2>
                 <ul style="list-style-image: url({% static 'img/star_bullet.png' %});" class="photographer_packages_list">
                   {% for feature in package.packagefeature_set.all %}
                   <li>{{ feature.feature_text }}</li>
@@ -53,14 +79,15 @@
                 </ul>  
             </div>
         </div>
+        <h3>{{ package.title }}</h3>
+        </div>
       </div>
     {% endfor %}
   </div>
 
-  <hr>
 
   <!-- gallery -->
-  <div class="row" id="photographer_gallery">
+  <div class="row medium_padding" id="photographer_gallery">
 		<div class="grid">
 		  <div class="grid-sizer"></div>
 		 	 	{% for img in object.photographerimage_set.all %}
@@ -106,5 +133,6 @@
     </div>
   </div>
   <br>
+</div>
 
 {% endblock %}
