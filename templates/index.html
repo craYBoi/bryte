@@ -208,7 +208,7 @@
     <h2 class="feature_title">Our Photographer</h2>
   </div>
   <div class="container">
-    <div class="row content_title_padding">
+<!--     <div class="row content_title_padding">
     {% for pg in featured_pg.all %}
       
       <div class="col-sm-4 col-xs-12 content_photographer_content_item">
@@ -221,7 +221,42 @@
         <p>{{ pg.description }}</p>
       </div>
     {% endfor %}
-    </div>
+    </div> -->
+    <div class="medium_padding row">
+    {% for photographer in featured_pg %}
+    
+      <div class="col-sm-4 text-center">
+        <div class="thumbnail photographer_list_card" id="index_list_card">
+          <a href="{{ photographer.get_absolute_url }}"><img src="{{ photographer.profile.url }}" width="90px" class="small_padding"></a>
+          <a href="{{ photographer.get_absolute_url }}"><h4 class="small_padding">{{ photographer.get_full_name }}</h4></a>
+
+          {% if photographer.total_rating == 5 %}
+            <img src="{% static 'img/5star.png' %}" width='110px'>
+          {% elif photographer.total_rating == 4 %}
+            <img src="{% static 'img/4star.png' %}" width='110px'>
+          {% elif photographer.total_rating == 3 %}
+            <img src="{% static 'img/3star.png' %}" width='110px'>
+          {% elif photographer.total_rating == 2 %}
+            <img src="{% static 'img/2star.png' %}" width='110px'>
+          {% elif photographer.total_rating == 1 %}
+            <img src="{% static 'img/1star.png' %}" width='110px'>
+          {% elif photographer.total_rating == 0 %}
+            <img src="{% static 'img/0star.png' %}" width='110px'>
+          {% endif %}
+
+          <ul class="list-unstyled small_padding">
+            {% if photographer.lowest_price %}
+                <li>${{ photographer.lowest_price }} - {{ photographer.highest_price }}</li>
+            {% else %}
+              <li>$ not avaliable :(</li>
+            {% endif %}
+            <li><p>{{ photographer.package_set.count }} packages</p><li>
+          </ul>
+        </div>
+      </div> 
+
+    {% endfor %}
+    </div>  
   </div>
 
   <!--<ul>

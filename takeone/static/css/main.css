@@ -18,11 +18,6 @@ a:hover {
 	text-decoration: none;
 }
 
-h4 {
-	font-weight: bold;
-	font-size: 1.5em;
-}
-
 p {
 	font-size: 0.9em;
 }
@@ -212,6 +207,20 @@ ul {
 	color: #fff;
 }
 
+.photographer_list_card {
+	margin: 0 6% 50px 6%;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15), 0 6px 20px 0 rgba(0, 0, 0, 0.15);
+}
+
+.photographer_list_card:hover {
+	box-shadow: none;
+}
+
+#index_list_card {
+	box-shadow: none;
+}
+
+
 /* footer */
 
 #footer_menu ul {
@@ -251,7 +260,7 @@ ul {
 
 /* helper */
 .feature_title {
-	font-size: 3em;
+	font-size: 2.7em;
 	font-weight: 400;
 }
 
@@ -334,6 +343,10 @@ ul {
 	font-size: 0.8em;
 }
 
+#photographer_list h4 {
+	font-size: 1.3em;
+}
+
 .large_padding {
 	padding-top: 80px;
 }
@@ -362,6 +375,27 @@ ul {
 	padding: 4px 0;
 }
 
+.small_padding_bot {
+	padding-bottom: 20px;
+}
+
+.medium_padding_bot {
+	padding-bottom: 40px;
+}
+
+.small_font {
+	font-size: 0.8em;
+}
+
+.white {
+	color: #fff;
+}
+
+.tag_list {
+	background-color: #efd939;
+	padding: 2px;
+	border-radius: 5px;
+}
 
 /* collage */
 

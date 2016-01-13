@@ -4,11 +4,11 @@
 {% block photographer_list %}
   <div id="photographer_list" class="content_wrapper">
     <div class="row">
-      <h2 class="text-center feature_title">Photographers</h2>
+      <h2 class="text-center feature_title bold">Photographers</h2>
     </div>
 
     
-    <ul class="list-unstyled large_padding">
+    <!--<ul class="list-unstyled large_padding">
     	{% for photographer in object_list %}
       <li class="animated fadeInUp">
       <div class="row photographer_list_item">
@@ -36,7 +36,6 @@
           </ul>
         </div>
         <div class="col-sm-3 col-xs-12">
-          <!-- put images here -->
           <ul class="list-unstyled">
             {% if photographer.lowest_price %}
                 <li><h4>${{ photographer.lowest_price }} - {{ photographer.highest_price }}</h4></li>
@@ -53,7 +52,6 @@
           </ul>
         </div>
         <div class="col-sm-3 col-xs-12">
-          <!-- put images here -->
         </div>
         <div class="col-sm-2 col-xs-12">
           <ul class="button_list">
@@ -64,7 +62,49 @@
       </div>
       </li>
       {% endfor %}
-    </ul>
+    </ul> -->
+    <div class="medium_padding row">
+    {% for photographer in object_list %}
+    
+      <div class="col-sm-4 text-center">
+        <div class="thumbnail photographer_list_card">
+          <a href="{{ photographer.get_absolute_url }}"><img src="{{ photographer.profile.url }}" width="90px" class="medium_padding"></a>
+          <a href="{{ photographer.get_absolute_url }}"><h4 class="small_padding">{{ photographer.get_full_name }}</h4></a>
+
+          {% if photographer.total_rating == 5 %}
+            <img src="{% static 'img/5star.png' %}" width='110px'>
+          {% elif photographer.total_rating == 4 %}
+            <img src="{% static 'img/4star.png' %}" width='110px'>
+          {% elif photographer.total_rating == 3 %}
+            <img src="{% static 'img/3star.png' %}" width='110px'>
+          {% elif photographer.total_rating == 2 %}
+            <img src="{% static 'img/2star.png' %}" width='110px'>
+          {% elif photographer.total_rating == 1 %}
+            <img src="{% static 'img/1star.png' %}" width='110px'>
+          {% elif photographer.total_rating == 0 %}
+            <img src="{% static 'img/0star.png' %}" width='110px'>
+          {% endif %}
+
+          <ul class="list-unstyled small_padding medium_padding_bot">
+            {% if photographer.lowest_price %}
+                <li class="bold">${{ photographer.lowest_price }} - {{ photographer.highest_price }}</li>
+            {% else %}
+              <li class="bold">$ not avaliable :(</li>
+            {% endif %}
+            <li><p>{{ photographer.package_set.count }} packages</p><li>
+            <ul class="list-inline small_padding">
+            {% for specialty in photographer.specialty_set.all %}
+              <li class="tag_list small_font white">{{ specialty.get_specialty_text_display }}</li>
+            {% endfor %}
+            </ul>
+          </ul>
+        </div>
+      </div> 
+
+    {% endfor %}
+    </div>    
+
+
   </div>
 
 
