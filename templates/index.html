@@ -227,7 +227,7 @@
     
       <div class="col-sm-4 text-center">
         <div class="thumbnail photographer_list_card" id="index_list_card">
-          <a href="{{ photographer.get_absolute_url }}"><img src="{{ photographer.profile.url }}" width="90px" class="small_padding"></a>
+          <a href="{{ photographer.get_absolute_url }}"><img src="{{ photographer.profile.url }}" width="90px" class="medium_padding"></a>
           <a href="{{ photographer.get_absolute_url }}"><h4 class="small_padding">{{ photographer.get_full_name }}</h4></a>
 
           {% if photographer.total_rating == 5 %}
@@ -244,19 +244,24 @@
             <img src="{% static 'img/0star.png' %}" width='110px'>
           {% endif %}
 
-          <ul class="list-unstyled small_padding">
+          <ul class="list-unstyled small_padding medium_padding_bot">
             {% if photographer.lowest_price %}
-                <li>${{ photographer.lowest_price }} - {{ photographer.highest_price }}</li>
+                <li class="bold">${{ photographer.lowest_price }} - {{ photographer.highest_price }}</li>
             {% else %}
-              <li>$ not avaliable :(</li>
+              <li class="bold">$ not avaliable :(</li>
             {% endif %}
             <li><p>{{ photographer.package_set.count }} packages</p><li>
+            <ul class="list-inline small_padding">
+            {% for specialty in photographer.specialty_set.all %}
+              <li class="tag_list small_font white">{{ specialty.get_specialty_text_display }}</li>
+            {% endfor %}
+            </ul>
           </ul>
         </div>
       </div> 
 
     {% endfor %}
-    </div>  
+    </div>   
   </div>
 
   <!--<ul>
