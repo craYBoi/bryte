@@ -13,11 +13,6 @@ a {
 	color: #000;
 }
 
-a:hover {
-	color: #ffe83e;
-	text-decoration: none;
-}
-
 p {
 	font-size: 0.9em;
 }
@@ -335,9 +330,7 @@ ul {
 	font-size: 2.5em;
 }
 
-.yellow_link {
-	color: #ffe83e;
-}
+
 
 /* photographer list */
 .photographer_list_item {
@@ -398,6 +391,28 @@ ul {
 
 .white {
 	color: #fff;
+}
+
+.yellow {
+	color: #ffe83e;
+}
+
+.blue {
+	color: #0098ff;
+}
+
+.pink {
+	color: #ff78a4;
+}
+
+.pink_hover:hover {
+	color: #ff78a4;
+	text-decoration: none;
+}
+
+.yellow_hover:hover {
+	color: #ffe83e;
+	text-decoration: none;
 }
 
 .tag_list {

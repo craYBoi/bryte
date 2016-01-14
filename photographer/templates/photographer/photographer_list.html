@@ -69,7 +69,7 @@
       <div class="col-sm-4 text-center">
         <div class="thumbnail photographer_list_card">
           <a href="{{ photographer.get_absolute_url }}"><img src="{{ photographer.profile.url }}" width="90px" class="medium_padding"></a>
-          <a href="{{ photographer.get_absolute_url }}"><h4 class="small_padding">{{ photographer.get_full_name }}</h4></a>
+          <a href="{{ photographer.get_absolute_url }}" class="yellow_hover"><h4 class="small_padding">{{ photographer.get_full_name }}</h4></a>
 
           {% if photographer.total_rating == 5 %}
             <img src="{% static 'img/5star.png' %}" width='110px'>
