@@ -40,7 +40,13 @@
     <div class="small_padding row photographer_detail_text">
         <ul class="list-unstyled">
           <strong><li>
-            <img src="{% static rating_static_url %}" width='150px'>
+            {% if has_rating %}
+              <img src="{% static rating_static_url %}" width='150px' alt="Rating Not Available"> &nbsp({{ object.rating_set.count }})
+            {% else %}
+              Be the first to Rate me!
+            {% endif %}
+
+            
           </li></strong>
           <br>
           <li>{{ object.email }}</li>

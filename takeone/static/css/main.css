@@ -44,6 +44,10 @@ ul {
 	padding-left: 30px;
 }
 
+.custom_border {
+	width: 100%;
+	height: 3px;
+}
 
 
 /* jumbotron */
@@ -356,6 +360,10 @@ ul {
 	padding-top: 40px;
 }
 
+.xsmall_padding {
+	padding-top: 5px;
+}
+
 .small_padding {
 	padding-top: 20px;
 }
@@ -454,7 +462,6 @@ html { overflow-y: scroll; }
 
 .navbar-default {
 	background-color: #fff;
-	border-bottom: 1px solid #999;
 }
 
 .navbar {

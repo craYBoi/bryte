@@ -83,7 +83,7 @@
             <img src="{% static 'img/1star.png' %}" width='110px'>
           {% elif photographer.total_rating == 0 %}
             <img src="{% static 'img/0star.png' %}" width='110px'>
-          {% endif %}
+          {% endif %} <p class="xsmall_padding">{{ photographer.rating_set.count }} reviews</p>
 
           <ul class="list-unstyled small_padding medium_padding_bot">
             {% if photographer.lowest_price %}

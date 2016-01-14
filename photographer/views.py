@@ -40,6 +40,10 @@ class PhotographerDetailView(DetailView):
 		total_rating = photographer.total_rating
 		rating_static_url = 'img/' + str(total_rating) + 'star.png'
 		ratings = photographer.rating_set.all()
+		has_rating = True
+		if not ratings:
+			has_rating = False
+
 		comment_ratings = ['img/'+str(ra.rating)+'star.png' for ra in ratings]
 
 		# bootstrap col width
@@ -58,6 +62,7 @@ class PhotographerDetailView(DetailView):
 		context['rating_form'] = rating_form
 		context['title_text'] = photographer.first_name + ' ' + photographer.last_name
 		context['col_url'] = col_url
+		context['has_rating'] = has_rating
 		return context
 
 	def post(self, request, *args, **kwargs):

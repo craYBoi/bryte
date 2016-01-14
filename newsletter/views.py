@@ -26,7 +26,7 @@ def home(request):
 		'signUp': form,
 		'title': title,
 		'featured_pg': featured_pg,
-		'title_text': 'TakeOne',
+		'title_text': 'Bryte',
 	}
 	return render(request, "index.html", context)
 
