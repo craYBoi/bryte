@@ -377,6 +377,10 @@ ul {
 	padding: 4px 0;
 }
 
+.list_space_xsmall li {
+	padding: 2px 0;
+}
+
 .small_padding_bot {
 	padding-bottom: 20px;
 }
