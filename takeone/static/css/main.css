@@ -452,6 +452,15 @@ html { overflow-y: scroll; }
 	color: #fff;
 }
 
+.navbar-default {
+	background-color: #fff;
+	border-bottom: 1px solid #999;
+}
+
+.navbar {
+	min-height: 100px;
+}
+
 /* adjust navbar collapse line height */
 .navbar-toggle {
 	margin-top: 1.8em;
