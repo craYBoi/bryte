@@ -4,6 +4,10 @@ body {
 	font-size: 1.7em;
 }
 
+button {
+	outline: none;
+}
+
 ul {
 	list-style: none;
 	padding-left: 0;
@@ -69,6 +73,33 @@ ul {
 	border: 0;
 }
 
+.btn-none {
+	border: none;
+	background: none;
+}
+
+.btn-text {
+	border-bottom: 1px dashed #ccc;
+	color: #999;
+	font-size: 0.9em;
+}
+
+.search-text {
+	height: 24px;
+	font-size: 0.9em;
+	border:none;
+	border-bottom: 1px dashed #ccc;
+	border-radius: 0;
+	box-shadow: none;
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.search-text:focus {
+	border: none;
+	border-bottom: 1px dashed #ccc;
+	box-shadow: none;
+}
 
 .btn-large {
 	border-radius: 0;
@@ -235,6 +266,15 @@ ul {
 	top: -2.5%;
 	left: 7%;
 	width: 60px;
+}
+
+.photographer_list_filter button {
+	padding: 3px 0;
+	margin: 0 8px;
+}
+
+.photographer_list_filter {
+	display: flex;
 }
 
 /* pricing */
@@ -430,6 +470,18 @@ ul {
 
 .small_padding {
 	padding-top: 20px;
+}
+
+.small_padding_right {
+	padding-right: 20px;
+}
+
+.medium_padding_right {
+	padding-right: 40px;
+}
+
+.small_padding_left {
+	padding-left: 20px;
 }
 
 .large_margin {

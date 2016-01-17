@@ -2,12 +2,39 @@
 {% load staticfiles %}
 
 {% block photographer_list %}
-  <div id="photographer_list" class="content_wrapper container">
+  <div id="photographer_list" class="container content_wrapper">
     <div class="row">
       <h2 class="text-center feature_title bold">Photographers</h2>
     </div>
 
-    
+    <div style="width:400px; margin: 0 auto">
+      <div class="photographer_list_filter medium_padding">
+        <form method="GET" action=".">
+          <div class="form-group">
+            <input type="hidden" value="student" name="k">
+            <button class="btn-none btn-text" type="submit">Student</button>
+          </div>
+        </form>
+        <form method="GET" action=".">
+          <div class="form-group">
+            <input type="hidden" value="pro" name="k">
+            <button class="btn-none btn-text" type="submit">Professional</button>
+          </div>
+        </form>
+        <form method="GET" action=".">
+          <div class="form-group">
+            <input type="hidden" value="all" name="k">
+            <button class="btn-none btn-text" type="submit">Show all</button>
+          </div>
+        </form>
+        <form method="GET" action="." class="form-inline small_padding_left">
+          <div class="form-group">
+            <input type="text" class="form-control search-text" name="q" placeholder="search">
+          </div>
+        </form>
+      </div>
+    </div>
+
     <!--<ul class="list-unstyled large_padding">
     	{% for photographer in object_list %}
       <li class="animated fadeInUp">
@@ -63,15 +90,16 @@
       </li>
       {% endfor %}
     </ul> -->
-    <div class="medium_padding row">
+    <div class="medium_padding">
+    <div class="row">
     {% for photographer in object_list %}
     
       <div class="col-sm-4 text-center">
         <div class="thumbnail photographer_list_card">
           {% if photographer.is_student %}
-            <img src="{% static 'img/banner_student.png' %}" width="60px;" class="photographer_list_banner">
+            <img src="{% static 'img/banner_student.png' %}" class="photographer_list_banner">
           {% else %}
-            <img src="{% static 'img/banner_pro.png' %}" width="60px;" class="photographer_list_banner">
+            <img src="{% static 'img/banner_pro.png' %}" class="photographer_list_banner">
           {% endif %}
           <a href="{{ photographer.get_absolute_url }}"><img src="{{ photographer.profile.url }}" width="90px" class="medium_padding"></a>
           <a href="{{ photographer.get_absolute_url }}" class="yellow_hover"><h4 class="small_padding">{{ photographer.get_full_name }}</h4></a>
@@ -103,13 +131,12 @@
               <li class="tag_list small_font white">{{ specialty.get_specialty_text_display }}</li>
             {% endfor %}
             </ul>
-          </ul>
-        </div>
-      </div> 
+          </div>
+        </div> 
 
     {% endfor %}
     </div>    
-
+    </div>
 
   </div>
 
