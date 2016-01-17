@@ -60,6 +60,16 @@ ul {
 }
 
 /* btn-primary for carousel button */
+
+.btn-solid {
+	border-radius: 0;
+	background-color: #0098ff;
+	padding: 10px 25px;
+	font-size: 1.1em;
+	border: 0;
+}
+
+
 .btn-large {
 	border-radius: 0;
 	background-color: rgba(0,0,0,0);
@@ -104,14 +114,14 @@ ul {
 	color: #ffe83e;
 }
 
-.btn-small:hover {
+.btn-large:hover {
 	background-color: rgba(0,0,0,1);
 	color: #ffe83e;
 }
 
-.btn-large:hover {
-	background-color: #fff;
-	color: #000;
+.btn-small:hover {
+	background-color: rgba(0,0,0,1);
+	color: #ffe83e;
 }
 
 .btn-reverse:hover {
@@ -216,10 +226,63 @@ ul {
 }
 
 #index_list_card {
-	box-shadow: none;
+	/*box-shadow: none;*/
 	font-size: 0.8em;
 }
 
+.photographer_list_banner {
+	position: absolute;
+	top: -2.5%;
+	left: 7%;
+	width: 60px;
+}
+
+/* pricing */
+.price_list_card {
+	border-radius: 30px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15), 0 6px 20px 0 rgba(0, 0, 0, 0.15);
+	font-size: 1.1em;
+}
+
+.price_list_card_student {
+	margin: 0 10%;
+	border: 3px dashed #ffe83e;
+}
+
+.price_list_card_pro {
+	margin: 0 4%;
+	border: 3px dashed #0098ff;
+}
+
+.price_list_card:hover {
+	box-shadow: none;
+}
+
+.price_jumbo {
+	border-radius: 30px;
+}
+
+.pricing_list li {
+	padding: 5px 0;
+	padding-left: 2.3em;
+	border-bottom: 1px dashed #eee;
+}
+
+.pricing_list li:last-child {
+	border: 0;
+}
+
+.pricing_list li:before {
+	content: "\f005"; /* FontAwesome Unicode */
+  font-family: FontAwesome;
+  display: inline-block;
+  margin-left: -2.3em; /* same as padding-left set on li */
+  width: 1.3em; /* same as padding-left set on li */
+  margin-right: 1em;
+}
+
+.pricing_feature_text {
+}
 
 /* footer */
 
@@ -271,6 +334,10 @@ ul {
 
 .bold {
 	font-weight: bold;
+}
+
+.light {
+	font-weight: 400;
 }
 
 .content_wrapper {
@@ -349,6 +416,10 @@ ul {
 	padding-top: 80px;
 }
 
+.xlarge_padding {
+	padding-top: 120px;
+}
+
 .medium_padding {
 	padding-top: 40px;
 }
@@ -389,8 +460,20 @@ ul {
 	padding-bottom: 40px;
 }
 
+.large_padding_bot {
+	padding-bottom: 80px;
+}
+
 .small_font {
 	font-size: 0.8em;
+}
+
+.big_font {
+	font-size: 1.7em;
+}
+
+.twice_big_font {
+	font-size: 2.5em;
 }
 
 .white {
@@ -399,6 +482,10 @@ ul {
 
 .yellow {
 	color: #ffe83e;
+}
+
+.dark_yellow {
+	color: #ebb027;
 }
 
 .blue {
@@ -466,9 +553,10 @@ html { overflow-y: scroll; }
 
 /* customizeing bootstrap */
 .navbar-nav li a {
-    line-height: 100px;
-    height: 100px;
+    line-height: 65px;
+    height: 65px;
     padding-top: 0;
+    font-size: 0.85em;
 }
 
 .navbar {
@@ -484,11 +572,11 @@ html { overflow-y: scroll; }
 }
 
 .navbar {
-	min-height: 100px;
+	min-height: 65px;
 }
 
 /* adjust navbar collapse line height */
 .navbar-toggle {
-	margin-top: 1.8em;
+	margin-top: 1em;
 }
 

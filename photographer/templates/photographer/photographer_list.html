@@ -2,7 +2,7 @@
 {% load staticfiles %}
 
 {% block photographer_list %}
-  <div id="photographer_list" class="content_wrapper">
+  <div id="photographer_list" class="content_wrapper container">
     <div class="row">
       <h2 class="text-center feature_title bold">Photographers</h2>
     </div>
@@ -68,6 +68,11 @@
     
       <div class="col-sm-4 text-center">
         <div class="thumbnail photographer_list_card">
+          {% if photographer.is_student %}
+            <img src="{% static 'img/banner_student.png' %}" width="60px;" class="photographer_list_banner">
+          {% else %}
+            <img src="{% static 'img/banner_pro.png' %}" width="60px;" class="photographer_list_banner">
+          {% endif %}
           <a href="{{ photographer.get_absolute_url }}"><img src="{{ photographer.profile.url }}" width="90px" class="medium_padding"></a>
           <a href="{{ photographer.get_absolute_url }}" class="yellow_hover"><h4 class="small_padding">{{ photographer.get_full_name }}</h4></a>
 
@@ -85,15 +90,16 @@
             <img src="{% static 'img/0star.png' %}" width='110px'>
           {% endif %} <p class="xsmall_padding">{{ photographer.rating_set.count }} reviews</p>
 
-          <ul class="list-unstyled small_padding medium_padding_bot">
+          <!-- individual price package -->
+          <!--<ul class="list-unstyled small_padding medium_padding_bot">
             {% if photographer.lowest_price %}
                 <li class="bold">${{ photographer.lowest_price }} - {{ photographer.highest_price }}</li>
             {% else %}
               <li class="bold">$ not avaliable :(</li>
             {% endif %}
-            <li><p>{{ photographer.package_set.count }} packages</p><li>
-            <ul class="list-inline small_padding">
-            {% for specialty in photographer.specialty_set.all %}
+            <li><p>{{ photographer.package_set.count }} packages</p><li>-->
+            <ul class="list-inline small_padding medium_padding_bot">
+            {% for specialty in photographer.specialty_set.all reversed %}
               <li class="tag_list small_font white">{{ specialty.get_specialty_text_display }}</li>
             {% endfor %}
             </ul>

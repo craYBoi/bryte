@@ -2,6 +2,8 @@ from django.shortcuts import render
 
 from .forms import SignUpForm
 from photographer.models import Photographer
+from .models import Price, PriceFeature
+
 # Create your views here.
 def home(request):
 	# print request.POST
@@ -37,3 +39,22 @@ def about(request):
 	}
 
 	return render(request, "about.html", context)
+
+
+def safety(request):
+	context = {
+		'title_text': 'safety',
+	}
+
+	return render(request, "safety.html", context)
+
+def pricing(request):
+	pro_prices = Price.objects.filter(is_student=False)
+	student_prices = Price.objects.filter(is_student=True)
+	context = {
+		'title_text': 'pricing',
+		'pro_prices': pro_prices,
+		'student_prices': student_prices,
+	}
+
+	return render(request, "pricing.html", context)

@@ -11,3 +11,19 @@ class SignUp(models.Model):
 
 	def __unicode__(self):
 		return self.email
+
+
+class Price(models.Model):
+	title = models.CharField(max_length=120)
+	price = models.PositiveSmallIntegerField()
+	is_student = models.BooleanField()
+
+	def __unicode__(self):
+		return self.title + ' ' + str(self.price)
+
+class PriceFeature(models.Model):
+	price = models.ForeignKey(Price)
+	feature_text = models.CharField(max_length=200)
+
+	def __unicode__(self):
+		return self.price.title + ' ' + str(self.price.price)

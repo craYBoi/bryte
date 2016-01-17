@@ -17,13 +17,16 @@ from django.conf.urls import url, include
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.conf import settings
+from newsletter import views as newsletter_views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', 'newsletter.views.home', name='home'),
-    url(r'^about$', 'newsletter.views.about', name='about'),
+    url(r'^$', newsletter_views.home, name='home'),
+    url(r'^about$', newsletter_views.about, name='about'),
     url(r'^photographer/', include('photographer.urls')),
     url(r'^reserve/', include('reserve.urls')),
+    url(r'^safety$', newsletter_views.safety, name='safety'),
+    url(r'^pricing$', newsletter_views.pricing, name='pricing'),
 
     # url(r'^accounts/', include('registration.backends.default.urls')),
 ]

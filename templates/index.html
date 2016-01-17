@@ -37,9 +37,9 @@
 
 {% block jumbotron %}
   <div class="jumbotron" id="jumbotron" style="background: url({% static 'img/bg.jpeg' %}) no-repeat center; background-size: cover; text-align: center;">
-    <br><br><br><h2 class="main_title" style='color: #000'>Find the Best Photographer With a Text</h2><br><br><br>
+    <br><br><br><h2 class="main_title" style='color: #000'>Find the Best Photographer With a Text</h2><br><br>
     <p style='color: #000;'>Best Prices<br>Most Convenient Booking Process<br>Highest Quality</p>
-    <br><br><br>
+    <br><br>
     <div style="text-align: center;">
     <a href="#features"><button class="btn btn-large" >Learn More</button></a>
     </div>
@@ -124,7 +124,7 @@
           <div class="row">
             <div class="col-xs-10 col-xs-offset-1" style="text-align:center;">
               <h2 class="light_title">Choose the photographer you want</h2>
-              <p>Users can browse and compare our wide selection of <a href="{% url 'photographers' %}" class="pink pink_hover">photographers</a> ></p>
+              <p>Users can browse and compare our wide selection of <a href="{% url 'photographers' %}" class="dark_yellow">photographers ></a> <br>Or just text us a <a href="#process_three" class="dark_yellow">special request ></a></p>
               <img src="{% static 'img/ProcessOne.png' %}" class="img-responsive loading">
             </div>
           </div>
@@ -135,18 +135,18 @@
           <div class="row">
             <div class="col-xs-10 col-xs-offset-1 large_padding" style="text-align:center;">
               <h2 class="light_title">Choose the flat rate packages you want</h2>
-              <p>Choose the price package that suits you the most</p>
+              <p>Choose the <a href="{% url 'pricing' %}" class="dark_yellow">price package</a> that suits you the most</p>
               <img src="{% static 'img/ProcessTwo.png' %}" class="img-responsive">
             </div>
           </div>
         </div>
       </li>
       <li>
-        <div class="container">
+        <div class="container" id="process_three">
           <div class="row">
             <div class="col-xs-10 col-xs-offset-1 large_padding" style="text-align:center;">
-              <h2 class="light_title">Simply Text Us to Reserve</h2>
-              <p>Text Us to reserve, or anything.. Or <br>you can reserve online <a href="{% url 'reserve' %}" class="pink pink_hover">here</a> ></p>
+              <h2 class="light_title">Simply Text Us to Get Started</h2>
+              <p class="col-xs-6 col-xs-offset-3">text us the package you want to get started, Or text us a special request: “I want the highest rated photographer in downtown Providence” <br>Or you can reserve online <a href="{% url 'reserve' %}" class="dark_yellow">here</a> ></p>
               <img src="{% static 'img/ProcessThree.png' %}" class="img-responsive">
             </div>
           </div>
@@ -157,7 +157,7 @@
           <div class="row">
             <div class="col-xs-10 col-xs-offset-1 large_padding" style="text-align:center;">
               <h2 class="light_title">Pay with Venmo or Facebook Payment</h2>
-              <p>We only accept <a href="https://venmo.com/" class="yellow_link">Venmo</a> and <a href="https://www.facebook.com/help/863171203733904/" class="yellow_link">Facebook payment</a></p>
+              <p>We only accept <a href="https://venmo.com/" class="dark_yellow">Venmo</a> and <a href="https://www.facebook.com/help/863171203733904/" class="dark_yellow">Facebook payment</a></p>
               <img src="{% static 'img/ProcessFour.png' %}" class="img-responsive">
             </div>
           </div>
@@ -170,7 +170,7 @@
 {% endblock %}
 
 {% block about %}
-    <div id="content_about" class="content_wrapper">
+    <div id="content_about" class="content_wrapper container">
     <div class="text-center">
       <h2 class="feature_title bold">About Us</h2>
     </div>
@@ -227,6 +227,11 @@
     
       <div class="col-sm-4 text-center">
         <div class="thumbnail photographer_list_card" id="index_list_card">
+          {% if photographer.is_student %}
+            <img src="{% static 'img/banner_student.png' %}" class="photographer_list_banner">
+          {% else %}
+            <img src="{% static 'img/banner_pro.png' %}" class="photographer_list_banner">
+          {% endif %}
           <a href="{{ photographer.get_absolute_url }}"><img src="{{ photographer.profile.url }}" width="90px" class="medium_padding"></a>
           <a href="{{ photographer.get_absolute_url }}"><h4 class="small_padding">{{ photographer.get_full_name }}</h4></a>
 
@@ -243,20 +248,11 @@
           {% elif photographer.total_rating == 0 %}
             <img src="{% static 'img/0star.png' %}" width='110px'>
           {% endif %}
-
-          <ul class="list-unstyled small_padding medium_padding_bot">
-            {% if photographer.lowest_price %}
-                <li class="bold">${{ photographer.lowest_price }} - {{ photographer.highest_price }}</li>
-            {% else %}
-              <li class="bold">$ not avaliable :(</li>
-            {% endif %}
-            <li><p>{{ photographer.package_set.count }} packages</p><li>
-            <ul class="list-inline small_padding">
-            {% for specialty in photographer.specialty_set.all %}
+            <ul class="list-inline small_padding medium_padding_bot">
+            {% for specialty in photographer.specialty_set.all reversed %}
               <li class="tag_list small_font white">{{ specialty.get_specialty_text_display }}</li>
             {% endfor %}
             </ul>
-          </ul>
         </div>
       </div> 
 

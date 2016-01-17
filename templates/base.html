@@ -6,11 +6,13 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Headshots, Composite Photo,Fraternity Composite, Corporate Headshots, LinkedIn Profile Picture, Senior Pictures, Senior Portrait, Best Headshots">
     <title>{{ title_text }}</title>
     <link rel="shortcut icon" type="image/png" href="{% static 'logo/favicon.png' %}"/>
 
 		<!-- <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"> -->
 		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
     <!-- <link rel="stylesheet" href="{% static 'css/normalize.css' %}"> -->
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
@@ -53,10 +55,8 @@
 
 {# photographer #}
 	    {# photographer list #}
-	    <div class="container">
 	    {% block photographer_list %}
 			{% endblock %}
-			</div>
 
 			
 			{% block photographer_detail %}
@@ -65,28 +65,31 @@
 
 
 {# reserve #}
-			<div class="container">
 			{% block reserve %}
 			{% endblock %}
-			<div>
 
 
 {# reserve success #}
-			<div class="container">
 			{% block reserve_success %}	
 			{% endblock %}
-			</div>
 
 
 {# about #}
-			<div class="container">
 			{% block about %}
 			{% endblock %}
-			</div>
 
-	    <hr>
+{# safety #}
+			{% block safety %}
+			{% endblock %}
+
+{# pricing #}
+			{% block pricing %}
+			{% endblock %}
+
+
 	    {# footer #}
 	    <div class="container">
+	    <hr>
 	    {% include "footer.html" %}
 	    </div>
 

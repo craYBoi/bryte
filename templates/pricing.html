@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block pricing %}
+	<div class="content_wrapper">
+		<!--
+		<h2 class="text-center bold feature_title medium_padding_bot">Price Packages</h2> 
+		-->
+
+		<!-- student price -->
+		<h3 class="bold text-center twice_big_font">Student Photographer Packages</h3>
+		<p class="text-center xsmall_padding">Check out <a href="{% url 'photographers' %}" class="dark_yellow">photographer page</a> for additional perks they offer</p>
+		<div class="container medium_padding_bot medium_padding">
+			<div class="row">
+				{% for price in student_prices %}
+	    
+	      <div class="col-sm-6">
+	        <div class="thumbnail price_list_card price_list_card_student">
+	        	<h3 class="text-center bold">{{ price.title }}</h3>
+	          <h4 class="main_title bold yellow text-center xsmall_padding">${{ price.price }}</h4>
+	          <div class="row">
+	          <ul class="list-unstyled xsmall_padding small_padding_bot pricing_list col-xs-8 col-xs-offset-2">
+	            {% for feature in price.pricefeature_set.all reversed %}
+	              <li class="small_font"><span class="pricing_feature_text">{{ feature.feature_text }}</span></li>
+	            {% endfor %}
+	          </ul>
+	        </div>
+	        </div>
+	      </div> 
+	      {% endfor %}
+	    </div>
+    </div>
+		
+
+		<!-- pro price -->
+		<h3 class="bold text-center twice_big_font large_margin">Professional Photographer Packages</h3>
+		<p class="text-center xsmall_padding">Check out <a href="{% url 'photographers' %}" class="blue">photographer page</a> for additional perks they offer</p>
+		<div class="container medium_padding_bot medium_padding">
+			<div class="row">
+				{% for price in pro_prices %}
+	    
+	      <div class="col-sm-4">
+	        <div class="thumbnail price_list_card price_list_card_pro">
+	        	<h3 class="text-center bold">{{ price.title }}</h3>
+	          <h4 class="main_title bold blue text-center xsmall_padding">${{ price.price }}</h4>
+	          <div class="row">
+	          <ul class="list-unstyled xsmall_padding small_padding_bot pricing_list col-xs-8 col-xs-offset-2">
+	            {% for feature in price.pricefeature_set.all %}
+	              <li class="small_font"><span class="pricing_feature_text">{{ feature.feature_text }}</span></li>
+	            {% endfor %}
+	          </ul>
+	        </div>
+	        </div>
+	      </div> 
+	      {% endfor %}
+	    </div>
+    </div>
+
+	</div>
+{% endblock %}
