@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'boto',
     # 'registration',
 
+    'django_twilio',
+
     'newsletter',
     'photographer',
     'reserve',
