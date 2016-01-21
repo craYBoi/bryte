@@ -1,10 +1,14 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-from django.views.decorators.csrf import csrf_exempt
+# from django.http import HttpResponse
+# from django.views.decorators.csrf import csrf_exempt
+from django_twilio.decorators import twilio_view
+from twilio.twiml import Response
 
 # Create your views here.
+# -*- coding: utf-8 -*-
 
-@csrf_exempt
+@twilio_view
 def sms(request):
-	twiml = '<Response><Sms>Hello from your Django app!</Sms></Response>'
-	return HttpResponse(twiml, content_type='text/xml')
+  r = Response()
+  r.message('Hello from your Django app!')
+  return r
