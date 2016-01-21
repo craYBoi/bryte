@@ -18,6 +18,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.conf import settings
 from newsletter import views as newsletter_views
+from sms import views as sms_views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -29,6 +30,7 @@ urlpatterns = [
     url(r'^pricing$', newsletter_views.pricing, name='pricing'),
 
     # url(r'^accounts/', include('registration.backends.default.urls')),
+    url(r'^sms/$', sms_views.sms, name='sms'),
 ]
 
 
