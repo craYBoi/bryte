@@ -13,10 +13,6 @@ $(document).ready( function() {
   // photographer detail page switch tab
 });
 
-// $('.datepicker').datepicker({});
-
-$('.emailinput, .textinput, .datetimeinput, .select, .textarea').addClass('form-control');
-$('.control-group').addClass('form-group');
 
 // enable smooth scroll
 $(function() {
@@ -64,8 +60,6 @@ $(document).ready(function(){
 //       event: 'click';
 //     });
 // });
-
-
 
 
 

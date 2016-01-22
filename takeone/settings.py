@@ -166,12 +166,15 @@ SITE_ID = 1
 
 
 # email 
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'bestprofpics'
-EMAIL_HOST_PASSWORD = 'Ycombinator'
+EMAIL_HOST = os.environ.get('EMAIL_HOST')
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
+
+# crispy form
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 
 # Parse database configuration from $DATABASE_URL
@@ -247,7 +250,7 @@ MEDIA_URL = S3_URL + MEDIA_ROOT
 
 
 # twilio
-TWILIO_ACCOUNT_SID = 'ACa508a195425ca7341d5469a54a91cb36'
-TWILIO_AUTH_TOKEN = '4005b7c244086f9986d6375b2b7530e3'
+TWILIO_ACCOUNT_SID = os.environ.get('TWILIO_ACCOUNT_SID')
+TWILIO_AUTH_TOKEN = os.environ.get('TWILIO_AUTH_TOKEN')
 # temp setting for testing
 DJANGO_TWILIO_FORGERY_PROTECTION = False

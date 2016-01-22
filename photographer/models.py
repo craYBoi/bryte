@@ -87,6 +87,7 @@ class Rating(models.Model):
 	)
 	rating = models.PositiveSmallIntegerField(choices=RATING_CHOICES, null=True, blank=True)
 	comment = models.TextField()
+	email = models.EmailField()
 	datetime = models.DateTimeField(auto_now_add=True)
 
 	def __unicode__(self):

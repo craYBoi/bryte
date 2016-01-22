@@ -244,7 +244,8 @@ ul {
 }
 
 #photographer_intro {
-	color: #fff;
+	background-color: #fff;
+	text-align: center;
 }
 
 .photographer_list_card {
@@ -568,6 +569,7 @@ ul {
 
 * {
   box-sizing: border-box;
+  outline: none;
 }
 
 /* force scrollbar */

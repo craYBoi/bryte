@@ -29,7 +29,7 @@
     </div>
   </div>-->
 
-  <div class="jumbotron" style="text-align:center; background: url({% static 'img/dbg.jpeg' %}) no-repeat center; background-size: cover; text-align: center;" id="photographer_intro">
+  <div id="photographer_intro" class="medium_padding medium_padding_bot">
     <div class="small_padding row">
       <img src="{{ object.profile.url }}" width="100px">
     </div>
@@ -45,31 +45,25 @@
             {% else %}
               Be the first to Rate me!
             {% endif %}
-
-            
           </li></strong>
-          <br>
-          <li>{{ object.email }}</li>
-          <li>{{ object.short_description }}</li>
-          <br>
-          <a href="{% url 'reserve' %}"><button class="btn btn-medium btn-reverse">Reserve</button></a>
+          <li class="medium_padding"><a href="{% url 'reserve' %}"><button class="btn btn-medium">Reserve</button></a></li>
+          <li><div class="fb-like small_padding" data-href="{{ page_url }}" data-layout="button" data-action="like" data-show-faces="true" data-share="true"></div></li>
         </ul>
     </div>
-
   </div>
-
+  <hr>
   <!-- menu -->
 <div class="container">
   <div class="row">
     <ul class="list-inline text-center center_menu">
-      <li><a href="#photographer_packages" id="photographer_packages_button" class="yellow_hover">Packages</a></li>
+      {# <li><a href="#photographer_packages" id="photographer_packages_button" class="yellow_hover">Packages</a></li> #}
       <li><a href="#photographer_gallery" id="photographer_gallery_button" class="yellow_hover">Works</a></li>
       <li><a href="#photographer_reviews" id="photographer_reviews_button" class="yellow_hover">Reviews</a></li>
     </ul>
   </div>
 
 
-  <!-- packages -->
+  <!-- packages
   <div class="row small_padding" id="photographer_packages">
     {% for package in object.package_set.all %}
       <div class="{{ col_url }}" style="text-align: center">
@@ -88,7 +82,7 @@
         </div>
       </div>
     {% endfor %}
-  </div>
+  </div> -->
 
 
   <!-- gallery -->
@@ -108,7 +102,7 @@
   <hr>
 
   <div class="row" id='photographer_reviews'>
-    <div class="col-sm-8">
+    <div class="col-sm-8 col-xs-10 col-sm-offset-0 col-xs-offset-1">
     <h3>{{ object.rating_set.count }} Reviews</h3>
     <div class="content_wrapper">
       <ul class="comment_style">
@@ -126,9 +120,12 @@
     </div>
 
     <!-- commit form -->
-    <div class="col-sm-4">
+    <div class="col-sm-4 col-xs-10 col-sm-offset-0 col-xs-offset-1">
     <br>
-    <form method="POST" action="." enctype="multipart/form-data"> {% csrf_token %}
+    <!--{% if rating_form.errors %}
+    <div class="text-danger">Please correct the error{{ rating_form.errors|pluralize }} below.</div>
+    {% endif %}-->
+    <form method="POST" action="." role='form' enctype="multipart/form-data"> {% csrf_token %}
       {{ rating_form | crispy }}
       <br>
       <div class="text-center">
@@ -139,5 +136,4 @@
   </div>
   <br>
 </div>
-
 {% endblock %}
