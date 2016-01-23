@@ -11,29 +11,43 @@ from django.conf import settings
 
 @twilio_view
 def sms(request):
-  content = request.POST.get('Body', '')
-  from_city = request.POST.get('FromCity', '')
-  from_state = request.POST.get('FromState', '')
-  msg = 'from: ' + from_city + ', ' + from_state + '\n' + content
+	
+	from_number = request.POST.get('From', '')
+	content = request.POST.get('Body', '')
 
-  client = TwilioRestClient(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
-  
-  client.messages.create(
-  	from_="+13137698688",
-  	to="+13109139124",
-  	body=msg,
-  	)
+	if from_number == settings.BEN_CELL:
+		if content:
+			dest_num = content.split()[0]
+			body = content[len(dest_num)+1:]
+			if len(dest_num) == 10:
+				dest_num = '+1' + dest_num
 
-  twiml = '<Response></Response>'
-	 
-	# client.messages.create( 
-	# 	from="+13137698688",  
-	# 	to="+13109139124",
-	# 	body=msg, 
-	# )
+			# send the sms
+			send_msg(settings.TWILIO_CELL, dest_num, body)
+		else:
+			body = 'invalid format, please send again'
+			r = Response()
+			r.message(body)
+			return r
+			
+	else:
+		from_city = request.POST.get('FromCity', '')
+		from_state = request.POST.get('FromState', '')
+		msg = 'from: ' + from_number + ', ' + from_city + ', ' + from_state + '\n' + content
+		send_msg(settings.TWILIO_CELL, settings.BEN_CELL, msg)
 
+	twiml = '<Response></Response>'
+	return HttpResponse(twiml, content_type='text/xml')
 
-  # r = Response()
-  # r.message(msg)
-	# twiml = '<Response></Response>'
-  return HttpResponse(twiml, content_type='text/xml')
+	# r = Response()
+	# r.message(msg)
+
+# helper function to send text msg
+def send_msg(input_from, input_to, input_body):
+	client = TwilioRestClient(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
+
+	client.messages.create(
+		from_= input_from,
+		to= input_to,
+		body=input_body,
+		)
