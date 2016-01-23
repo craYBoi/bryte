@@ -20,7 +20,7 @@ def sms(request):
   client = TwilioRestClient(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
 
   client.messages.create(
-    to="+16518675309", 
+    to="+13109139124", 
     body=msg, 
 	) 
 
