@@ -14,22 +14,24 @@ def sms(request):
   content = request.POST.get('Body', '')
   from_city = request.POST.get('FromCity', '')
   from_state = request.POST.get('FromState', '')
-  msg = 'from: ' + from_city + ', ' + from_state + '\n' + 'content:\n' + content
+  msg = 'from: ' + from_city + ', ' + from_state + '\n' + content
 
-  # send the msg to me and Michael
-	ACCOUNT_SID = "ACa508a195425ca7341d5469a54a91cb36" 
-	AUTH_TOKEN = "4005b7c244086f9986d6375b2b7530e3" 
+  client.messages.create(
+  	from_="+13137698688",
+  	to="+13109139124",
+  	body=msg,
+  	)
+
+  twiml = '<Response></Response>'
 	 
-	client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN) 
-	 
-	client.messages.create( 
-		from="+13137698688",  
-		to="+13109139124",
-		body=msg, 
-	)
+	# client.messages.create( 
+	# 	from="+13137698688",  
+	# 	to="+13109139124",
+	# 	body=msg, 
+	# )
 
 
   # r = Response()
   # r.message(msg)
-	twiml = '<Response></Response>'
-  return return HttpResponse(twiml, content_type='text/xml')
+	# twiml = '<Response></Response>'
+  return HttpResponse(twiml, content_type='text/xml')
