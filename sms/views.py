@@ -9,6 +9,8 @@ from twilio.twiml import Response
 
 @twilio_view
 def sms(request):
+  name = request.POST.get('Body', '')
+  msg = 'Hey %s, how are you today?' % (name)
   r = Response()
-  r.message('Hello from your Django app!')
+  r.message(msg)
   return r
