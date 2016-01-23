@@ -16,7 +16,7 @@ def sms(request):
 	content = request.POST.get('Body', '')
 
 	# if from_number == settings.BEN_CELL:
-	if from_number == '+13109139124'
+	if str(from_number) == '+13109139124'
 		if content:
 			dest_num = content.split()[0]
 			body = content[len(dest_num)+1:]
@@ -31,7 +31,6 @@ def sms(request):
 			r = Response()
 			r.message(body)
 			return r
-			
 	else:
 		from_city = request.POST.get('FromCity', '')
 		from_state = request.POST.get('FromState', '')
