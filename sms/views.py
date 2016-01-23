@@ -16,6 +16,8 @@ def sms(request):
   from_state = request.POST.get('FromState', '')
   msg = 'from: ' + from_city + ', ' + from_state + '\n' + content
 
+  client = TwilioRestClient(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
+  
   client.messages.create(
   	from_="+13137698688",
   	to="+13109139124",
