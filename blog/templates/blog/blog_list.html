@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block blog_list %}
+	<div class="row">
+		<div class="col-sm-3 col-xs-10 col-sm-offset-0 col-xs-offset-1">
+			
+		</div>
+		<div class="col-sm-8 medium_padding">
+			<div class="blog_list_card">
+				<ul>
+					{% for blog in object_list %}
+						<li>{{ blog.title }}</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+	</div>
+{% endblock %}
