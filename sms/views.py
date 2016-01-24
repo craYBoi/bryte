@@ -6,6 +6,8 @@ from django_twilio.decorators import twilio_view
 from twilio.twiml import Response
 from django.conf import settings
 
+from .models import Smser
+
 # Create your views here.
 # -*- coding: utf-8 -*-
 
@@ -19,7 +21,7 @@ def sms(request):
 		if content:
 			dest_num = content.split()[0]
 			# add phone number validation here
-			
+
 			body = content[len(dest_num)+1:]
 			if body:
 				if len(dest_num) == 10:
@@ -43,6 +45,10 @@ def sms(request):
 		from_state = request.POST.get('FromState', '')
 		msg = 'from: ' + from_number + ', ' + from_city + ', ' + from_state + '\n' + content
 		send_msg(settings.TWILIO_CELL, settings.BEN_CELL, msg)
+
+		# save the contact into database
+		smser, created = Smser.objects.update_or_create(
+    number=from_number, from_city=from_city, from_state=from_state)
 
 	twiml = '<Response></Response>'
 	return HttpResponse(twiml, content_type='text/xml')

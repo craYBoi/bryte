@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'newsletter',
     'photographer',
     'reserve',
+    'sms',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -226,27 +227,15 @@ STATICFILES_STORAGE = 'custom_storages.StaticStorage'
 DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
 
 AWS_STORAGE_BUCKET_NAME = "take-one"
-# AWS_S3_SECURE_URLS = False
-# AWS_QUERYSTRING_AUTH = False
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_PRELOAD_METADATA = True
 S3_URL = 'http://%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 
-# STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-
-# STATICFILES_LOCATION = 'static'
 
 STATIC_URL = S3_URL + STATIC_ROOT
 MEDIA_URL = S3_URL + MEDIA_ROOT
-# STATIC_ROOT = STATIC_URL
 
-# MEDIA_URL = S3_URL + 'media/'
-
-
-# MEDIAFILES_LOCATION = 'media'
-
-# MEDIA_ROOT = MEDIA_URL
 
 
 # twilio
