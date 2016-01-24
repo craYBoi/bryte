@@ -254,3 +254,7 @@ TWILIO_ACCOUNT_SID = os.environ.get('TWILIO_ACCOUNT_SID')
 TWILIO_AUTH_TOKEN = os.environ.get('TWILIO_AUTH_TOKEN')
 # temp setting for testing
 DJANGO_TWILIO_FORGERY_PROTECTION = False
+
+BEN_CELL = os.environ.get('BEN_CELL')
+TWILIO_CELL = os.environ.get('TWILIO_CELL')
+
