@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'storages',
     'boto',
-    # 'registration',
+    'registration',
     'django_twilio',
 
     'newsletter',
