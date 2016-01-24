@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'photographer',
     'reserve',
     'sms',
+    'blog',
 ]
 
 MIDDLEWARE_CLASSES = [
