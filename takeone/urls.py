@@ -30,7 +30,7 @@ urlpatterns = [
     url(r'^pricing$', newsletter_views.pricing, name='pricing'),
     url(r'^blog/', include('blog.urls')),
 
-    url(r'^accounts/', include('registration.backends.simple.urls')),
+    # url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'^sms/$', sms_views.sms, name='sms'),
 ]
 
