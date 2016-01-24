@@ -16,27 +16,33 @@ def sms(request):
 	content = request.POST.get('Body', '')
 
 	if from_number == settings.BEN_CELL:
-	# if str(from_number) == '+13109139124':
 		if content:
 			dest_num = content.split()[0]
+			# add phone number validation here
+			
 			body = content[len(dest_num)+1:]
-			if len(dest_num) == 10:
-				dest_num = '+1' + dest_num
+			if body:
+				if len(dest_num) == 10:
+					dest_num = '+1' + dest_num
 
-			# send the sms
-			send_msg(settings.TWILIO_CELL, dest_num, body)
-			# send_msg('+13137698688', dest_num, body)
+				# send the sms
+				send_msg(settings.TWILIO_CELL, dest_num, body)
+
+				# send the confirmation back
+				body = 'message sent to ' + from_number
+			else:
+				body = 'There\'s no message body! Please try again'
 		else:
-			body = 'invalid format, please send again'
-			r = Response()
-			r.message(body)
-			return r
+			body = 'It\'s blank! please try again'
+
+		r = Response()
+		r.message(body)
+		return r
 	else:
 		from_city = request.POST.get('FromCity', '')
 		from_state = request.POST.get('FromState', '')
 		msg = 'from: ' + from_number + ', ' + from_city + ', ' + from_state + '\n' + content
 		send_msg(settings.TWILIO_CELL, settings.BEN_CELL, msg)
-		# send_msg('+13137698688', '+13109139124', msg)
 
 	twiml = '<Response></Response>'
 	return HttpResponse(twiml, content_type='text/xml')
@@ -47,7 +53,6 @@ def sms(request):
 # helper function to send text msg
 def send_msg(input_from, input_to, input_body):
 	client = TwilioRestClient(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
-	# client = TwilioRestClient("ACa508a195425ca7341d5469a54a91cb36", "4005b7c244086f9986d6375b2b7530e3")
 
 	client.messages.create(
 		from_= input_from,
