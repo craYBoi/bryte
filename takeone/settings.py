@@ -35,12 +35,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 
     'crispy_forms',
     'storages',
     'boto',
     'registration',
-
     'django_twilio',
 
     'newsletter',
