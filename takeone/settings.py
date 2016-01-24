@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'storages',
     'boto',
-    # 'registration',
+    'registration',
 
     'django_twilio',
 
@@ -163,6 +163,7 @@ USE_TZ = True
 # registration redux
 ACCOUNT_ACTIVATION_DAYS = 7
 REGISTRATION_AUTO_LOGIN = True
+LOGIN_REDIRECT_URL = '/'
 SITE_ID = 1
 
 

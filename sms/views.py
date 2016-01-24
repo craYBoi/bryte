@@ -31,7 +31,7 @@ def sms(request):
 				send_msg(settings.TWILIO_CELL, dest_num, body)
 
 				# send the confirmation back
-				body = 'message sent to ' + from_number
+				body = 'message sent to ' + dest_num
 			else:
 				body = 'There\'s no message body! Please try again'
 		else:

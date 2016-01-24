@@ -127,7 +127,11 @@
             <li><p>{{ photographer.package_set.count }} packages</p><li>-->
             <ul class="list-inline small_padding medium_padding_bot">
             {% for specialty in photographer.specialty_set.all reversed %}
-              <li class="tag_list small_font white">{{ specialty.get_specialty_text_display }}</li>
+              {% if photographer.is_student %}
+                <li class="tag_list small_font white darker_yellow_bg">{{ specialty.get_specialty_text_display }}</li>
+              {% else %}
+                <li class="tag_list small_font white dark_blue_bg">{{ specialty.get_specialty_text_display }}</li>
+              {% endif %}
             {% endfor %}
             </ul>
           </div>

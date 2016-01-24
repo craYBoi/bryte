@@ -28,8 +28,9 @@ urlpatterns = [
     url(r'^reserve/', include('reserve.urls')),
     url(r'^safety$', newsletter_views.safety, name='safety'),
     url(r'^pricing$', newsletter_views.pricing, name='pricing'),
+    url(r'^blog/', include('blog.urls')),
 
-    # url(r'^accounts/', include('registration.backends.default.urls')),
+    url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'^sms/$', sms_views.sms, name='sms'),
 ]
 

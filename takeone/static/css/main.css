@@ -134,6 +134,19 @@ ul {
 	font-weight: Bold;
 }
 
+.btn-blue {
+	border-radius: 4px;
+	background-color: #0098ff;
+	border: none;
+	font-size: 1em;
+	color: #fff;
+	padding: 6px 15px;
+}
+
+.btn-blue:hover {
+	color: #fff;
+}
+
 .btn-reverse {
 	color: #fff;
 	border-color: #fff;
@@ -173,6 +186,10 @@ ul {
 	margin-right: 0.5em;
 }
 
+
+/* main navbar */
+#main_nav {
+}
 
 /* content advantages */
 
@@ -277,6 +294,19 @@ ul {
 .photographer_list_filter {
 	display: flex;
 }
+
+/* blog */
+.blog_list_card {
+	border-radius: none;
+	border: 1px solid #eee;
+	height: 250px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.1);
+}
+
+.blog_list_card:hover {
+	box-shadow: none;
+}
+
 
 /* pricing */
 .price_list_card {
@@ -541,8 +571,16 @@ ul {
 	color: #ebb027;
 }
 
+.darker_yellow_bg {
+	background-color: #efd939;
+}
+
 .blue {
 	color: #0098ff;
+}
+
+.dark_blue_bg {
+	background-color: #1283ce;
 }
 
 .pink {
@@ -560,7 +598,6 @@ ul {
 }
 
 .tag_list {
-	background-color: #efd939;
 	padding: 2px;
 	border-radius: 5px;
 }

@@ -1,6 +1,7 @@
 {% load staticfiles %}
 
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default" id="main_nav">
+<!--style="background: url({% static 'img/nav.jpg' %}) no-repeat center; background-size: cover;"-->
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -18,6 +19,41 @@
       <ul class="nav navbar-nav navbar-right">
         <li><a href="{% url 'pricing' %}">Pricing</a></li>
         <li><a href="{% url 'photographers' %}">Our Photographers</a></li>
+        {% if not request.user.is_authenticated %}
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Login <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">           
+              <li><form class='navbar-form' method='POST' action='{% url "auth_login" %}'>{% csrf_token %}
+                <div class='form-group xsmall_padding'>
+                  <input type='text' class='form-control' name='username' placeholder='Username' /> 
+                </div>
+                <div class='form-group xsmall_padding'>
+                  <input type='password' class='form-control' name='password' placeholder='Password' />
+                </div>
+                <div class="xsmall_padding">
+                <button type='submit' class='btn btn-default btn-block'>Login</button></div>
+              </form></li>
+              <li><div class='text-center'><a href="{% url 'registration_register' %}">Register<br><a href='{% url "auth_password_reset" %}'>Forgot password</a>?</a></div></li>
+
+
+                <!-- <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li> -->
+            </ul>
+          </li>
+        {% else %}
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ request.user.username }} <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="">Account</a></li>
+              <li><a href="{% url 'auth_logout' %}">Log Out</a></li>
+            </ul>
+          </li>
+        {% endif %}
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
