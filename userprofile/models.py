@@ -15,6 +15,11 @@ class Profile(models.Model):
 	def __unicode__(self):
 		return self.user.username
 
+	def create_stripe_id(self):
+		if not self.stripe_id:
+			stripe_dict = stripe.Customer.create(email=self.user.email)
+			self.stripe_id = stripe_dict.get('id')
+
 
 def profileCallback(sender, request, user, **kwargs):
 	userProfile, is_created = Profile.objects.get_or_create(user=user)
