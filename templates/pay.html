@@ -26,11 +26,7 @@
 				    data-key="{{ publishKey }}"
 				    data-amount="{{ price.stripe_price }}"
 				    data-name="Bryte Photo"
-				    {% if price.is_student %}
-				    	data-description="Student {{ price.title }}"
-				    {% else %}
-				    	data-description="Professional {{ price.title }}"
-				    {% endif %}
+				    data-description="{{ price.get_title }}"
 				    data-image="{% static 'logo/logo-square.png' %}"
 				    data-locale="auto">
 				  </script>

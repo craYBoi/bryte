@@ -117,14 +117,6 @@
             <img src="{% static 'img/0star.png' %}" width='110px'>
           {% endif %} <p class="xsmall_padding">{{ photographer.rating_set.count }} reviews</p>
 
-          <!-- individual price package -->
-          <!--<ul class="list-unstyled small_padding medium_padding_bot">
-            {% if photographer.lowest_price %}
-                <li class="bold">${{ photographer.lowest_price }} - {{ photographer.highest_price }}</li>
-            {% else %}
-              <li class="bold">$ not avaliable :(</li>
-            {% endif %}
-            <li><p>{{ photographer.package_set.count }} packages</p><li>-->
             <ul class="list-inline small_padding medium_padding_bot">
             {% for specialty in photographer.specialty_set.all reversed %}
               {% if photographer.is_student %}

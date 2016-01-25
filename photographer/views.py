@@ -11,6 +11,7 @@ from django.core.urlresolvers import reverse
 from .models import Photographer
 from .forms import RatingForm
 from reserve.models import Reservation
+from checkout.models import Purchase
 
 from math import ceil
 
@@ -69,12 +70,24 @@ def PhotographerDetailViewF(request, slug):
 
 	col_url = 'col-sm-' + str(12/last_col_width)
 
+
+	# check if the user is our user for now
+	# will use @login_required later, and create seperate comment app
+	permission = False
+	purchases = Purchase.objects.all()
+	print [pur.user for pur in purchases]
+	if request.user.profile in [pur.user for pur in purchases]:
+		permission = True
+
+
+	# process the rating form
 	rating_form = RatingForm(request.POST or None)
 	if rating_form.is_valid():
 		instance = rating_form.save(commit=False)
 		instance.photographer = photographer
 		instance.save()
 		return redirect(photographer.get_absolute_url())
+
 
 	context = {}
 	context['rating_static_url'] = rating_static_url
@@ -85,6 +98,7 @@ def PhotographerDetailViewF(request, slug):
 	context['has_rating'] = has_rating	
 	context['object'] = photographer
 	context['page_url'] = 'http://www.brytephoto.com' + str(photographer.get_absolute_url())
+	context['permission'] = permission
 
 	return render(request, 'photographer/photographer_detail.html', context)
 
