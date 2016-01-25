@@ -74,10 +74,10 @@ def PhotographerDetailViewF(request, slug):
 	# check if the user is our user for now
 	# will use @login_required later, and create seperate comment app
 	permission = False
-	purchases = Purchase.objects.all()
-	print [pur.user for pur in purchases]
-	if request.user.profile in [pur.user for pur in purchases]:
-		permission = True
+	if request.user.is_authenticated():
+		purchases = Purchase.objects.all()
+		if request.user.profile in [pur.user for pur in purchases]:
+			permission = True
 
 
 	# process the rating form
