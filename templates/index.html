@@ -248,9 +248,10 @@
             <img src="{% static 'img/1star.png' %}" width='110px'>
           {% elif photographer.total_rating == 0 %}
             <img src="{% static 'img/0star.png' %}" width='110px'>
-          {% endif %} <p class="xsmall_padding">{{ photographer.rating_set.count }} reviews</p>
+          {% endif %} 
+          <p class="xsmall_padding small_font">{{ photographer.rating_set.count }} reviews</p>
 
-            <ul class="list-inline small_padding medium_padding_bot">
+            <ul class="list-inline small_padding medium_padding_bot small_font">
             {% for specialty in photographer.specialty_set.all reversed %}
               {% if photographer.is_student %}
                 <li class="tag_list small_font white darker_yellow_bg">{{ specialty.get_specialty_text_display }}</li>

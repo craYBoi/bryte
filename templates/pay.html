@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+
+{% block checkout %}
+<div class="medium_padding medium_padding_bot">
+	<h2 class="text-center feature_title bold">Checkout</h2>
+
+	<div class="container">
+	<form>
+	{% for price in prices %}
+		<div class="col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1 xsmall_padding small_padding_bot medium_margin border">
+			<ul class="list-inline">
+				{% if price.is_student %}
+					<li><h3 class="bold dark_yellow">${{ price.price }}</h3></li>
+				{% else %}
+					<li><h3 class="bold blue">${{ price.price }}</h3></li>
+				{% endif %}
+				<li class="small_font">{{ price.get_title }}</li>
+				<li class="pull-right small_padding">	
+					<form action="" method="POST">{% csrf_token %}
+					<input type="hidden" value="{{ price.pk }}" name='hidden'/>
+				  <script
+				  	id='checkout_script'
+				    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+				    data-key="{{ publishKey }}"
+				    data-amount="{{ price.stripe_price }}"
+				    data-name="Bryte Photo"
+				    {% if price.is_student %}
+				    	data-description="Student {{ price.title }}"
+				    {% else %}
+				    	data-description="Professional {{ price.title }}"
+				    {% endif %}
+				    data-image="{% static 'logo/logo-square.png' %}"
+				    data-locale="auto">
+				  </script>
+					</form>
+				</li>
+			</ul>
+		</div>
+	{% endfor %}
+	</form>
+	</div>
+
+
+
+</div>
+
+{% endblock %}
+
+
+
+
+
+<!--
+<form action="" method="POST">{% csrf_token %}
+  <script
+    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+    data-key="pk_test_mpoNaxCzG3mO8CqAYE9OWzng"
+    data-amount="2000"
+    data-name="Demo Site"
+    data-description="2 widgets ($20.00)"
+    data-image="/128x128.png"
+    data-locale="auto">
+  </script>
+</form>
+-->

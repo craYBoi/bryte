@@ -19,6 +19,8 @@ from django.contrib import admin
 from django.conf import settings
 from newsletter import views as newsletter_views
 from sms import views as sms_views
+from userprofile import views as profile_views
+from checkout import views as checkout_views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -29,6 +31,10 @@ urlpatterns = [
     url(r'^safety$', newsletter_views.safety, name='safety'),
     url(r'^pricing$', newsletter_views.pricing, name='pricing'),
     url(r'^blog/', include('blog.urls')),
+
+    url(r'^profile$', profile_views.profile, name='profile'),
+    url(r'^checkout$', checkout_views.checkout, name='checkout'),
+    url(r'^success$', checkout_views.checkout_finish, name='checkout_finish'),
 
     url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'^sms/$', sms_views.sms, name='sms'),

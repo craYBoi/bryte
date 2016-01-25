@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+
+{% block profile %}
+	<div class="container">
+		<div class="content_wrapper">
+			<h2 class="feature_title bold text-center small_padding_bot">Profile</h2>
+
+			<div class="row small_font">
+				<div class="col-sm-3 col-sm-offset-1">
+					<h3 class="text-center bold">Information</h3>
+					<!--<ul class="info_list">
+						<li>username: {{ profile.user.username }}</li>
+						<li>email: {{ profile.user.email }}</li>
+					</ul>-->
+					<div class="list-group small_padding">
+					  <p class="list-group-item" href="#"><i class="fa fa-user fa-fw"></i>&nbsp; {{ profile.user.username }}</p>
+					  <p class="list-group-item" href="#"><i class="fa fa-envelope fa-fw"></i>&nbsp; {{ profile.user.email }}</p>
+					  <p class="list-group-item" href="#"><i class="fa fa-shopping-bag fa-fw"></i>&nbsp; {{ profile.purchase_set.count }} transactions</p>
+					</div>
+				</div>
+
+				<div class="col-sm-7">
+				<h3 class="text-center bold">Transaction</h3>
+					<div class="row small_padding_bot">
+						<div class="col-xs-10 col-xs-offset-1">
+
+						{% if not purchases %}
+							<p class="text-center small_padding">There's no purchases yet!</p>
+						{% else %}
+							<div class="list-group small_padding">
+							
+							{% for purchase in purchases %}
+
+								<p class="list-group-item"><i class="fa fa-cog fa-fw"></i>&nbsp;&nbsp;&nbsp; <span class="small_padding_right">${{ purchase.package.price }}</span> <span class="small_padding_right">{{ purchase.package.get_title }}</span> <span class="small_padding_right">{{ purchase.timestamp | date:"Y-m-d" }}</span></p>			
+
+							{% endfor %}
+							</div>
+						{% endif %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
