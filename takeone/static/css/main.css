@@ -25,6 +25,11 @@ ul {
 	margin: 0;
 }
 
+
+.offset {
+	height: 65px;
+}
+
 /* spacing for */
 #main_logo {
 	margin-top: 15px;
@@ -48,10 +53,19 @@ ul {
 	height: 3px;
 }
 
+.nav_trans {
+
+}
+
+.nav_trans .post_main {
+
+}
 
 /* jumbotron */
 .jumbotron {
 	text-align: center;
+	padding-top: 25px;
+	padding-bottom: 25px;
 }
 
 #jumbotron {
@@ -299,14 +313,27 @@ ul {
 .blog_list_card {
 	border-radius: none;
 	border: 1px solid #eee;
-	height: 250px;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.1);
+	margin: 0 5% 50px 5%;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15), 0 6px 20px 0 rgba(0, 0, 0, 0.15);
+	padding: 0 1%;
 }
 
 .blog_list_card:hover {
 	box-shadow: none;
 }
 
+.blog_comment li {
+	border-bottom: 1px dashed #eee;
+	padding: 10px 0 25px 0;
+}
+
+.blog_comment li:last-child {
+	border: 0;
+}
+
+.thumbnail {
+	padding: 0;
+}
 
 /* pricing */
 .price_list_card {
@@ -460,7 +487,7 @@ ul {
 }
 
 .comment_style li {
-	padding: 10px 0 10px 0;
+	padding: 10px 0
 }
 
 .comment_text {
@@ -655,6 +682,12 @@ ul {
 .border {
 	border: 1px solid #eee;
 }
+
+
+.big_line_height {
+	line-height: 200%;
+}
+
 /* collage */
 
 * {
@@ -729,4 +762,6 @@ html { overflow-y: scroll; }
 	background-image: none;
 	background-color: #ebb027;
 }
+
+
 

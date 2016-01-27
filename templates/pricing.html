@@ -1,13 +1,22 @@
 {% extends "base.html" %}
+{% load staticfiles %}
 
 {% block pricing %}
-	<div class="content_wrapper">
+	<div class="medium_padding_bot">
 		<!--
 		<h2 class="text-center bold feature_title medium_padding_bot">Price Packages</h2> 
 		-->
 
 		<!-- student price -->
-		<h3 class="bold text-center twice_big_font">Student Photographer Packages</h3>
+
+
+		<div class="jumbotron medium_padding medium_padding_bot" style="background: url({% static 'img/jumbo3_dark.png' %}); background-size: cover; text-align: center;">
+				<h3 class="bold text-center twice_big_font white">Student Photographer Packages</h3>			
+				<p class="text-center white">
+					Our student photographers are professional and affordable.
+			</p>
+		</div>
+
 		<p class="text-center xsmall_padding">Check out <a href="{% url 'photographers' %}" class="dark_yellow">photographer page</a> for additional perks they offer</p>
 		<div class="container medium_padding_bot medium_padding">
 			<div class="row">
@@ -31,10 +40,14 @@
     </div>
     <p class="text-center small_padding small_padding_bot">Have a package in mind? Just text us to get started!</p>
 		
-		<hr>
 
 		<!-- pro price -->
-		<h3 class="bold text-center twice_big_font large_margin">Professional Photographer Packages</h3>
+		<div class="jumbotron medium_padding medium_padding_bot" style="background: url({% static 'img/jumbo3_dark.png' %}); background-size: cover; text-align: center;">
+				<h3 class="bold text-center twice_big_font white">Professional Photographer Packages</h3>			
+				<p class="text-center white">
+					Our professional photographers are the best you can find.
+			</p>
+		</div>
 		<p class="text-center xsmall_padding">Check out <a href="{% url 'photographers' %}" class="blue">photographer page</a> for additional perks they offer</p>
 		<div class="container medium_padding_bot medium_padding">
 			<div class="row">

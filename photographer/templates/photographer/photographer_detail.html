@@ -125,13 +125,15 @@
     <!--{% if rating_form.errors %}
     <div class="text-danger">Please correct the error{{ rating_form.errors|pluralize }} below.</div>
     {% endif %}-->
+    {% if permission %}
     <form method="POST" action="." role='form' enctype="multipart/form-data"> {% csrf_token %}
       {{ rating_form | crispy }}
       <br>
       <div class="text-center">
-      {% if permission %}
+      
         <button type = "submit" class = "btn btn-medium form_button">Submit</button>   
       {% else %} 
+        <h3 class="bold">Comment Section</h3>
         <p class="small_font">You need to use the service in order to comment. Thanks!</p>
       {% endif %}
 

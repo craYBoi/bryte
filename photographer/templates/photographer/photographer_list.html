@@ -2,11 +2,15 @@
 {% load staticfiles %}
 
 {% block photographer_list %}
-  <div id="photographer_list" class="container content_wrapper">
-    <div class="row">
-      <h2 class="text-center feature_title bold">Photographers</h2>
+  <div id="photographer_list" class="medium_padding_bot">
+    <div class="jumbotron medium_padding medium_padding_bot" style="background: url({% static 'img/jumbo3_dark.png' %}); background-size: cover; text-align: center;">
+      <h2 class="text-center main_title bold white">Photographers</h2>
+      <p class="text-center white">
+        Bryte handpicks every single photographer
+      </p>
     </div>
 
+    <div class="container">
     <div style="width:380px; margin: 0 auto">
       <div class="photographer_list_filter medium_padding">
         <form method="GET" action=".">

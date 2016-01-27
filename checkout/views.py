@@ -49,6 +49,7 @@ def checkout(request):
 	context = {
 		'prices': prices,
 		'publishKey': publishKey,
+		'title_text': 'Checkout',
 	}
 	template='pay.html'
 	if is_success:
@@ -62,5 +63,7 @@ def checkout_finish(request):
 		token = request.POST.get('stripeToken')
 		print token
 
-	context = {}
+	context = {
+		'title_text': 'Successful!',
+	}
 	return render(request, 'checkout_finish.html', context)

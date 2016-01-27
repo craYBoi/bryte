@@ -1,6 +1,6 @@
 {% load staticfiles %}
 
-<nav class="navbar navbar-default" id="main_nav">
+<nav class="navbar navbar-default navbar-fixed-top" id="main_nav">
 <!--style="background: url({% static 'img/nav.jpg' %}) no-repeat center; background-size: cover;"-->
   <div class="container-fluid">
     <div class="navbar-header">
@@ -17,6 +17,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li><a href="{% url 'pricing' %}">Pricing</a></li>
         <li><a href="{% url 'photographers' %}">Our Photographers</a></li>
+        <li><a href="{% url 'blogs' %}">Blog</a></li>
         {% if not request.user.is_authenticated %}
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Login <span class="caret"></span></a>
@@ -47,5 +48,8 @@
       </ul>
     </div>
   </div>
+        <!-- border 
+      <div class="custom_border" style="background: url({% static 'img/border.png' %}) no-repeat center; background-size: cover; text-align: center;">
+      </div> -->
 </nav>
 

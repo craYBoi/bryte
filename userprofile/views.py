@@ -13,6 +13,7 @@ def profile(request):
 		'name': user.username,
 		'profile': profile,
 		'purchases': purchases,
+		'title_text': profile.user.username,
 	}
 
 	return render(request, 'profile.html', context)
