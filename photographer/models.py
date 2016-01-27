@@ -15,7 +15,7 @@ class Photographer(models.Model):
 	short_description = models.CharField(max_length=150)
 	description = models.TextField()
 	phone = models.CharField(max_length=15)
-	profile = models.ImageField(upload_to='profile/', null=True)
+	profile = models.ImageField(upload_to='profile_img/', null=True)
 	total_rating = models.PositiveSmallIntegerField(null=True, blank=True)
 	lowest_price = models.PositiveSmallIntegerField(null=True, blank=True)
 	highest_price = models.PositiveSmallIntegerField(null=True, blank=True)
@@ -54,6 +54,12 @@ class Photographer(models.Model):
 				self.lowest_price = input_price
 			if input_price > self.highest_price:
 				self.highest_price = input_price
+
+	def get_link_color_class(self):
+		if self.is_student:
+			return 'dark_yellow'
+		else:
+			return 'blue'
 
 
 
