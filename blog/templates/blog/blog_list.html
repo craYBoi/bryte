@@ -2,18 +2,26 @@
 {% load staticfiles %}
 
 {% block blog_list %}
-	<div class="row">
-		<div class="col-sm-3 col-xs-10 col-sm-offset-0 col-xs-offset-1">
-			
-		</div>
-		<div class="col-sm-8 medium_padding">
-			<div class="blog_list_card">
-				<ul>
-					{% for blog in object_list %}
-						<li>{{ blog.title }}</li>
-					{% endfor %}
-				</ul>
-			</div>
+	<div class="jumbotron" style="background: url({% static 'img/jumbo3_dark.png' %}); background-size: cover; text-align: center;">
+		<h2 class="text-center bold main_title white">Blog</h2>
+		<p class="text-center white">
+			Bryte shares your knowledge
+		</p>
+	</div>
+	<div class="container medium_padding_bot">
+
+		<div class="row medium_padding">
+			{% for blog in object_list %}
+    
+      <div class="col-sm-4 text-center">
+        <div class="thumbnail blog_list_card">
+        	<a href="{{ blog.get_absolute_url }}"><img src="{{ blog.thumbnail.url }}"></a>
+        	<a href="{{ blog.get_absolute_url }}"><h4 class="text-center bold small_padding">{{ blog.title }}</h4></a>
+        	<p class="small_font xsmall_padding_bot">by <a href="{{ blog.photographer.get_absolute_url }}" class='{{ blog.photographer.get_link_color_class }}'>{{ blog.photographer.get_full_name }}</a><br>{{ blog.timestamp | date:'Y-M' }}</p>
+        </div>
+      </div> 
+
+    {% endfor %}
 		</div>
 	</div>
 {% endblock %}

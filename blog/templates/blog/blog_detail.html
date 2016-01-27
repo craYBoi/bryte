@@ -1,6 +1,52 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+{% load crispy_forms_tags %}
+
 
 {% block blog_detail %}
-	Hey blog detail
+	<div class="content_wrapper container">
+		<h2 class="text-center bold">{{ blog.title }}</h2>
+		<p class="text-center small_padding small_font">by {{ blog.photographer.get_full_name }}<br>
+		{{ blog.timestamp | date:'Y-M' }}</p>
+		<div class="row">
+			<div class="col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1 small_padding_bot">
+			<img src="{{ blog.thumbnail.url }}" class="medium_padding img-responsive">
+				<p class="small_padding big_line_height">{{ blog.content }}</p>
+
+				<hr>
+
+				<!-- comment section -->
+				{% if request.user.is_authenticated %}
+					<form method="POST" action="." role='form'> {% csrf_token %}
+		      {{ comment_form | crispy }}
+		      <br>
+		      
+		      <div class="text-center">
+		      	<button type = "submit" class = "btn btn-medium form_button">Submit</button>   
+		      </div>
+		    {% else %} 
+	        <h3 class="bold">Comment Section</h3>
+	        <p class="small_font">You need to register in order to comment. Thanks!</p>
+				{% endif %}
+
+				{% if comments %}
+					<h4 class="medium_padding">{{ comments.count }} Comments</h4>
+					<ul class="blog_comment">
+						{% for comment in comments %}
+							<li class="small_font">
+								<p>{{ comment.content }}</p>
+								<p class="pull-right">-- {{ comment.profile.user.username }}, {{ comment.datetime|date:'M - Y' }}</p>
+							</li>
+						{% endfor %}
+					</ul>
+
+				{% else %}
+					<hr>
+					<p class="small_font">This Blog has no comments yet. Be the first to comment!</p>
+				{% endif %}
+
+
+			
+		</div>
+	</div>
 {% endblock %}
