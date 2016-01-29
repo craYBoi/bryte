@@ -1,11 +1,16 @@
 from django import forms
 from django.core.mail import send_mail
+
 from .models import Reservation
+from photographer.models import Photographer
+from newsletter.models import Price
+
+
 
 class ReserveForm(forms.ModelForm):
 	class Meta:
 		model = Reservation
-		fields = ['first_name', 'last_name', 'photographer', 'email', 'phone', 'note']
+		fields = ['phone', 'note']
  	# def clean_email(self):
 	# def send_txt(self):
 
@@ -17,3 +22,31 @@ class ReserveForm(forms.ModelForm):
 			'hello@brytephoto.com',
 			['byyagp@gmail.com'],
 			fail_silently=False)
+
+
+class ReserveDetailProForm(forms.Form):
+	ACCEPTABLE_FORMATS = [
+		"%Y/%m/%d %H:%M"
+	]
+	package = forms.ModelChoiceField(queryset=Price.objects.filter(is_student=False))
+	datetime = forms.DateTimeField(input_formats=ACCEPTABLE_FORMATS)
+	phone = forms.RegexField(regex=r'^\+?1?\d{9,15}$')
+	phone.error_messages['invalid'] = ("Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
+	note = forms.CharField(widget = forms.Textarea, required=False)
+	photographer = forms.ModelChoiceField(queryset=Photographer.objects.all(), widget = forms.HiddenInput())
+
+
+class ReserveDetailStudentForm(forms.Form):
+	ACCEPTABLE_FORMATS = [
+		"%Y/%m/%d %H:%M"
+	]
+	package = forms.ModelChoiceField(queryset=Price.objects.filter(is_student=True))
+	datetime = forms.DateTimeField(input_formats=ACCEPTABLE_FORMATS)
+	phone = forms.RegexField(regex=r'^\+?1?\d{9,15}$')
+	phone.error_messages['invalid'] = ("Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
+	note = forms.CharField(widget = forms.Textarea, required=False)
+	photographer = forms.ModelChoiceField(queryset=Photographer.objects.all(), widget = forms.HiddenInput())
+
+
+
+

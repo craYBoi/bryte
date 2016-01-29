@@ -11,7 +11,6 @@ from django.core.urlresolvers import reverse
 from .models import Photographer
 from .forms import RatingForm
 from reserve.models import Reservation
-from checkout.models import Purchase
 
 from math import ceil
 
@@ -75,8 +74,8 @@ def PhotographerDetailViewF(request, slug):
 	# will use @login_required later, and create seperate comment app
 	permission = False
 	if request.user.is_authenticated():
-		purchases = Purchase.objects.all()
-		if request.user.profile in [pur.user for pur in purchases]:
+		reservations = Reservation.objects.filter(complete=True)
+		if request.user.profile in [pur.profile for pur in reservations]:
 			permission = True
 
 
@@ -101,56 +100,3 @@ def PhotographerDetailViewF(request, slug):
 	context['permission'] = permission
 
 	return render(request, 'photographer/photographer_detail.html', context)
-
-
-# class PhotographerDetailView(DetailView):
-# 	model = Photographer
-# 	form_class = RatingForm
-	
-# 	def get_context_data(self, **kwargs):
-# 		# reset title
-# 		context = super(PhotographerDetailView, self).get_context_data(**kwargs)
-# 		photographer = self.get_object()
-# 		rating_form = RatingForm()
-
-# 		# static url for 5 star ratings
-# 		total_rating = photographer.total_rating
-# 		rating_static_url = 'img/' + str(total_rating) + 'star.png'
-# 		ratings = photographer.rating_set.all()
-# 		has_rating = True
-# 		if not ratings:
-# 			has_rating = False
-
-# 		comment_ratings = ['img/'+str(ra.rating)+'star.png' for ra in ratings]
-
-# 		# bootstrap col width
-# 		num_of_feature = len(photographer.package_set.all())
-# 		col_num = ceil(num_of_feature/float(3))
-# 		last_col_width = num_of_feature%3
-# 		if last_col_width == 0:
-# 			last_col_width = 3
-
-# 		col_url = 'col-sm-' + str(12/last_col_width)
-
-# 		context['rating_static_url'] = rating_static_url
-# 		context['ratings'] = zip(comment_ratings, ratings)
-# 		context['rating_form'] = rating_form
-# 		context['title_text'] = photographer.first_name + ' ' + photographer.last_name
-# 		context['col_url'] = col_url
-# 		context['has_rating'] = has_rating
-# 		return context
-
-# 	def post(self, request, *args, **kwargs):
-# 		form = RatingForm(request.POST or None)
-# 		self.object = self.get_object()
-# 		context = self.get_context_data(object=self.object)
-# 		photographer = self.get_object()
-# 		if form.is_valid():
-# 			instance = form.save(commit=False)
-# 			instance.photographer = photographer
-# 			# add validation of email if email in reservation.emails() then proceed, otherwise don't
-# 			instance.save()
-# 			return redirect(photographer.get_absolute_url())
-
-# 		print self.get_template_names()
-# 		return render_to_response(self.get_template_names(), context)

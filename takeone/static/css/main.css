@@ -379,6 +379,28 @@ ul {
   margin-right: 1em;
 }
 
+
+.checkout_list li {
+	padding: 13px 0;
+	padding-left: 2.3em;
+	border-bottom: 1px dashed #eee;
+}
+
+.checkout_list li:last-child {
+	border: 0;
+}
+
+.checkout_list li:before {
+	content: "\f005"; /* FontAwesome Unicode */
+  font-family: FontAwesome;
+  display: inline-block;
+  margin-left: -2.3em; /* same as padding-left set on li */
+  width: 1.3em; /* same as padding-left set on li */
+  margin-right: 1em;
+}
+
+
+
 .transaction_list li {
 	padding: 5px 0;
 	padding-left: 5em;
@@ -525,6 +547,11 @@ ul {
 	font-size: 2.5em;
 }
 
+.error_box {
+	padding: 20px;
+	border: 3px dashed #ff0000;
+}
+
 
 
 /* photographer list */
@@ -620,6 +647,10 @@ ul {
 	font-size: 1.7em;
 }
 
+.large_font {
+	font-size: 1.2em;
+}
+
 .twice_big_font {
 	font-size: 2.5em;
 }
@@ -650,6 +681,10 @@ ul {
 
 .pink {
 	color: #ff78a4;
+}
+
+.red {
+	color: #ff0000;
 }
 
 .pink_hover:hover {
@@ -733,7 +768,7 @@ html { overflow-y: scroll; }
     line-height: 65px;
     height: 65px;
     padding-top: 0;
-    font-size: 0.85em;
+  font-size: 0.85em;
 }
 
 .navbar {
@@ -762,6 +797,5 @@ html { overflow-y: scroll; }
 	background-image: none;
 	background-color: #ebb027;
 }
-
 
 

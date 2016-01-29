@@ -52,14 +52,24 @@ $(document).ready(function(){
   
 });
 
+// navbar color transition
+// var mainbottom = $('#main').offset().top + $('#main').height();
 
-// lazy load
-// $(function() {
-//     $(".loading").lazyload({
-//       effect : "fadeIn";
-//       event: 'click';
-//     });
+// // on scroll, 
+// $(window).on('scroll',function(){
+
+//     // we round here to reduce a little workload
+//     stop = Math.round($(window).scrollTop());
+//     if (stop > mainbottom) {
+//         $('.nav').addClass('past-main');
+//     } else {
+//         $('.nav').removeClass('past-main');
+//    }
+
 // });
 
-
+// add datetimepicker to id=id_datetime
+$(document).ready(function(){
+  $('#id_datetime').attr('id', 'datetimepicker');
+});
 

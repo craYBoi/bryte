@@ -15,6 +15,7 @@ def checkout(request):
 	publishKey = settings.STRIPE_PUBLISHABLE_KEY
 	customer_id = request.user.profile.stripe_id
 	is_success = False
+	is_decline = False
 
 	if request.method == 'POST':
 		price_id = request.POST.get('hidden')
@@ -23,20 +24,21 @@ def checkout(request):
 		
 		# Create the charge on Stripe's servers - this will charge the user's card
 		try:
-			customer = stripe.Customer.retrieve(customer_id)
-			customer.sources.create(card=token)
-  			charge = stripe.Charge.create(
-      			amount=price.stripe_price, # amount in cents, again
-      			currency="usd",
-      			customer=customer,
-      			description=price.title
-  				)
-  			is_success = True
-		except stripe.CardError, e:
-  			# The card has been declined
-  			is_success = False
-  			pass
-  	
+			customer = stripe.Customer.create(
+				source=token,
+			)
+			charge = stripe.Charge.create(
+				amount=price.stripe_price, # amount in cents, again
+				currency="usd",
+				customer=customer.id,
+				description=price.title
+			)
+			is_success = True
+		except Exception as e:
+				# The card has been declined
+			is_decline = True
+			pass
+		
 
 # store the purchase into the database
 	if request.method == 'POST':
@@ -54,6 +56,8 @@ def checkout(request):
 	template='pay.html'
 	if is_success:
 		return redirect('/success')
+	if is_decline:
+		return redirect('/')
 	return render(request, template, context)
 
 

@@ -27,16 +27,32 @@ urlpatterns = [
     url(r'^$', newsletter_views.home, name='home'),
     url(r'^about$', newsletter_views.about, name='about'),
     url(r'^photographer/', include('photographer.urls')),
+
+    # reserve
     url(r'^reserve/', include('reserve.urls')),
+
+    # safety
     url(r'^safety$', newsletter_views.safety, name='safety'),
-    url(r'^pricing$', newsletter_views.pricing, name='pricing'),
+
+    # pricing
+    url(r'^pricing$', newsletter_views.pricing, name='pricing'), 
+
+    # blogs 
     url(r'^blog/', include('blog.urls')),
 
-    url(r'^profile$', profile_views.profile, name='profile'),
-    url(r'^checkout$', checkout_views.checkout, name='checkout'),
-    url(r'^success$', checkout_views.checkout_finish, name='checkout_finish'),
+    # headshot
+    url(r'^headshot/', include('headshot.urls')),
 
+
+    # user profile
+    url(r'^profile$', profile_views.profile, name='profile'),
+
+
+    # registration 
     url(r'^accounts/', include('registration.backends.simple.urls')),
+
+
+    # twilio
     url(r'^sms/$', sms_views.sms, name='sms'),
 ]
 

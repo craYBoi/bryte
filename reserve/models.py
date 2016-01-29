@@ -1,19 +1,22 @@
 from __future__ import unicode_literals
 
 from django.db import models
+
 from photographer.models import Photographer
+from userprofile.models import Profile
+from newsletter.models import Price
+
 
 # Create your models here.
 class Reservation(models.Model):
 	photographer = models.ForeignKey(Photographer)
-	first_name = models.CharField(max_length=120)
-	last_name = models.CharField(max_length=120)
-	email = models.EmailField()
-	phone = models.CharField(max_length=120, blank=True, null=True)
+	profile = models.ForeignKey(Profile, blank=True, null=True)
+	price = models.ForeignKey(Price)
+	phone = models.CharField(max_length=15, blank=True)
 	note = models.TextField(blank=True, null=True)
-
-	def get_full_name(self):
-		return self.first_name + ' ' + self.last_name
+	datetime = models.DateTimeField()
+	complete = models.BooleanField(default=False)
+	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
 
 	def __unicode__(self):
-		return self.get_full_name()
+		return self.profile.user.username

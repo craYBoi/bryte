@@ -18,6 +18,8 @@ class Price(models.Model):
 	price = models.PositiveSmallIntegerField()
 	stripe_price = models.IntegerField()
 	is_student = models.BooleanField()
+	# create a choice for the type of photography
+	# also create a choice for student, pro, or group (replacing is_student)
 
 	def __unicode__(self):
 		return self.title + ' ' + str(self.price)
