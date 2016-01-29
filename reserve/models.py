@@ -20,3 +20,4 @@ class Reservation(models.Model):
 
 	def __unicode__(self):
 		return self.profile.user.username
+

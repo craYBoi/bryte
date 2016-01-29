@@ -20,7 +20,6 @@ from django.conf import settings
 from newsletter import views as newsletter_views
 from sms import views as sms_views
 from userprofile import views as profile_views
-from checkout import views as checkout_views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),

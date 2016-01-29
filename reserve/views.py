@@ -159,6 +159,14 @@ def success(request):
 			reservation.complete = True
 			reservation.save()
 
+			# send the email
+			send_mail('Successfully Reserved!',
+				'Thank you for the reservation! You have reserved ' + reservation.photographer.get_full_name() + '! -- Team Bryte',
+				settings.EMAIL_HOST_USER,
+				[reservation.profile.user.email],
+				fail_silently=False
+				)
+
 			# add to context to display
 			context['photographer'] = reservation.photographer
 			context['phone'] = reservation.phone

@@ -36,6 +36,7 @@ class ReserveDetailProForm(forms.Form):
 	photographer = forms.ModelChoiceField(queryset=Photographer.objects.all(), widget = forms.HiddenInput())
 
 
+
 class ReserveDetailStudentForm(forms.Form):
 	ACCEPTABLE_FORMATS = [
 		"%Y/%m/%d %H:%M"

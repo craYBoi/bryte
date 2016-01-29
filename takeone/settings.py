@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     'sms',
     'blog',
     'userprofile',
-    'checkout',
 ]
 
 MIDDLEWARE_CLASSES = [
