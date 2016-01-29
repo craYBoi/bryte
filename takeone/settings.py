@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'boto',
     'registration',
     'django_twilio',
+    'stripe',
 
     'newsletter',
     'photographer',
@@ -190,7 +191,7 @@ DATABASES['default'] = dj_database_url.config()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Allow all host headers
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['www.brytephoto.com', 'brytephoto.com']
 
 # Static asset configuration
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
