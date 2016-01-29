@@ -11,7 +11,6 @@ from newsletter.models import Price
 class Reservation(models.Model):
 	photographer = models.ForeignKey(Photographer)
 	profile = models.ForeignKey(Profile, blank=True, null=True)
-	price = models.ForeignKey(Price, blank=True, null=True)
 	phone = models.CharField(max_length=15, blank=True)
 	note = models.TextField(blank=True, null=True)
 	datetime = models.DateTimeField()
