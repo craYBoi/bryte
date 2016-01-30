@@ -53,24 +53,29 @@ ul {
 	height: 3px;
 }
 
-.nav_trans {
-
-}
-
-.nav_trans .post_main {
-
-}
 
 /* jumbotron */
 .jumbotron {
-	text-align: center;
 	padding-top: 25px;
 	padding-bottom: 25px;
 }
 
+#tagline {
+	line-height: 70px;
+}
+
 #jumbotron {
+	margin-bottom: 0;
 	border-radius: 0;
 }
+
+
+/* press */
+.press {
+	height: 130px;
+	background-color: #eee;
+}
+
 
 /* make it up a little bit */
 .carousel_button {
@@ -90,6 +95,18 @@ ul {
 .btn-none {
 	border: none;
 	background: none;
+}
+
+.btn-white {
+	border-radius: 25px;
+	padding: 10px 20px;
+	color: #888;
+	background-color: rgba(255,255,255,0.95);
+}
+
+.btn-white:hover {
+	color: #000;
+	background-color: #fff;
 }
 
 .btn-text {
@@ -487,7 +504,7 @@ ul {
 }
 
 .light {
-	font-weight: 400;
+	font-weight: 300;
 }
 
 .content_wrapper {
@@ -571,6 +588,10 @@ ul {
 	padding-top: 80px;
 }
 
+.llarge_padding {
+	padding-top: 90px;
+}
+
 .xlarge_padding {
 	padding-top: 120px;
 }
@@ -639,6 +660,10 @@ ul {
 	padding-bottom: 80px;
 }
 
+.xlarge_padding_bot {
+	padding-bottom: 120px;
+}
+
 .small_font {
 	font-size: 0.8em;
 }
@@ -651,8 +676,12 @@ ul {
 	font-size: 1.2em;
 }
 
-.twice_big_font {
+.xbig_font {
 	font-size: 2.5em;
+}
+
+.xxbig_font {
+	font-size: 3.5em;
 }
 
 .white {
@@ -765,9 +794,9 @@ html { overflow-y: scroll; }
 
 /* customizeing bootstrap */
 .navbar-nav li a {
-    line-height: 65px;
-    height: 65px;
-    padding-top: 0;
+  line-height: 65px;
+  height: 65px;
+  padding-top: 0;
   font-size: 0.85em;
 }
 

@@ -37,16 +37,29 @@
 {% endblock %}
 
 {% block jumbotron %}
-  <div class="jumbotron" id="jumbotron" style="background: url({% static 'img/bg.jpeg' %}) no-repeat center; background-size: cover; text-align: center;">
-    <br><br><br><h2 class="main_title" style='color: #000'>Find the Best Photographer With a Text</h2><br><br>
-    <p style='color: #000;'>Best Prices<br>Most Convenient Booking Process<br>Highest Quality</p>
-    <br><br>
-    <div style="text-align: center;">
-    <a href="#features"><button class="btn btn-large" >Learn More</button></a>
+  <div class="jumbotron xlarge_padding_bot" id="jumbotron" style="background: url({% static 'img/bg3.jpg' %}) no-repeat center; background-size: cover;">
+    <div class="row llarge_padding small_padding_bot">
+      <div class="col-sm-8 col-sm-offset-2">
+      <h2 class="xxbig_font bold text-center" style='color: #fff' id='tagline'>Find your local student<br>and professional photographers</h2>
+      </div>
     </div>
-    <br><br><br>
+
+    <div class="row medium_padding">
+      <div class="col-sm-8 col-sm-offset-2">
+      <ul class="list-inline white text-center light">
+        <li>Transparent Pricing</li> |
+        <li>Many Options for Photographers</li> |
+        <li>Easy Booking and Payment</li>
+      </ul>
+      </div>
+    </div>
+
+    <div class="large_padding text-center">
+    <a href="#features"><button class="btn btn-white large_font" >Learn More</button></a> &nbsp&nbsp&nbsp<a href="{% url 'photographers' %}"><button class="btn btn-white large_font" >Our Photographers</button></a>
+    </div>
   </div>
 {% endblock %}
+
 
 
 {% block features %}
@@ -203,85 +216,3 @@
 {% endblock %}
 
 
-{% block photographers %}
-<div id="content_photographer" class="content_wrapper">
-  <div style="text-align:center;">
-    <h2 class="feature_title bold">Our Photographers</h2>
-  </div>
-  <div class="container">
-<!--     <div class="row content_title_padding">
-    {% for pg in featured_pg.all %}
-      
-      <div class="col-sm-4 col-xs-12 content_photographer_content_item">
-        <div class="row">
-          <div class="text-center">
-            <a href="{{ pg.get_absolute_url }}"><img src="{{ pg.profile.url }}" width="40%"></a>
-            <a href="{{ pg.get_absolute_url }}"><h3>{{ pg.first_name }} {{ pg.last_name }}</h3></a>
-          </div>
-        </div>
-        <p>{{ pg.description }}</p>
-      </div>
-    {% endfor %}
-    </div> -->
-    <div class="row medium_padding">
-    {% for photographer in featured_pg %}
-    
-      <div class="col-sm-4 text-center">
-        <div class="thumbnail photographer_list_card">
-          {% if photographer.is_student %}
-            <img src="{% static 'img/banner_student.png' %}" class="photographer_list_banner">
-          {% else %}
-            <img src="{% static 'img/banner_pro.png' %}" class="photographer_list_banner">
-          {% endif %}
-          <a href="{{ photographer.get_absolute_url }}"><img src="{{ photographer.profile.url }}" width="90px" class="medium_padding"></a>
-          <a href="{{ photographer.get_absolute_url }}" class="yellow_hover"><h4 class="small_padding">{{ photographer.get_full_name }}</h4></a>
-
-          {% if photographer.total_rating == 5 %}
-            <img src="{% static 'img/5star.png' %}" width='110px'>
-          {% elif photographer.total_rating == 4 %}
-            <img src="{% static 'img/4star.png' %}" width='110px'>
-          {% elif photographer.total_rating == 3 %}
-            <img src="{% static 'img/3star.png' %}" width='110px'>
-          {% elif photographer.total_rating == 2 %}
-            <img src="{% static 'img/2star.png' %}" width='110px'>
-          {% elif photographer.total_rating == 1 %}
-            <img src="{% static 'img/1star.png' %}" width='110px'>
-          {% elif photographer.total_rating == 0 %}
-            <img src="{% static 'img/0star.png' %}" width='110px'>
-          {% endif %} 
-          <p class="xsmall_padding small_font">{{ photographer.rating_set.count }} reviews</p>
-
-            <ul class="list-inline small_padding medium_padding_bot small_font">
-            {% for specialty in photographer.specialty_set.all reversed %}
-              {% if photographer.is_student %}
-                <li class="tag_list small_font white darker_yellow_bg">{{ specialty.get_specialty_text_display }}</li>
-              {% else %}
-                <li class="tag_list small_font white dark_blue_bg">{{ specialty.get_specialty_text_display }}</li>
-              {% endif %}
-            {% endfor %}
-            </ul>
-          </div>
-        </div> 
-
-    {% endfor %}
-    </div>      
-  </div>
-
-  <!--<ul>
-    {% for pg in featured_pg.all %}
-      <li style="background: url({% static 'img/Studio-3.jpg' %}) no-repeat center; background-size: cover; text-align: center;">
-          <div class="row large_padding">
-            <div class="col-xs-4" style="text-align:center;">
-              <img src="{% static 'img/michael.png' %}" width='200px'>
-              <h2>{{ pg.get_full_name }}</h2>
-            </div>
-            <div class="col-xs-8">
-              
-            </div>
-          </div>
-      </li>
-    {% endfor %}
-  </ul>-->
-</div>
-<hr>
-{% endblock %}
