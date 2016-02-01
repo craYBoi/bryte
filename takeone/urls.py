@@ -33,15 +33,14 @@ urlpatterns = [
     # safety
     url(r'^safety$', newsletter_views.safety, name='safety'),
 
+    # become a photographer
+    url(r'^join$', newsletter_views.become_photographer, name='become_photographer'),
+
     # pricing
     url(r'^pricing$', newsletter_views.pricing, name='pricing'), 
 
     # blogs 
     url(r'^blog/', include('blog.urls')),
-
-    # headshot
-    url(r'^headshot/', include('headshot.urls')),
-
 
     # user profile
     url(r'^profile$', profile_views.profile, name='profile'),

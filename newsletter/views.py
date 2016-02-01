@@ -50,44 +50,21 @@ def safety(request):
 
 
 def pricing(request):
-	pro_prices = Price.objects.filter(is_student=False)
-	student_prices = Price.objects.filter(is_student=True)
+	student_prices = Price.objects.all()
 	context = {
 		'title_text': 'pricing',
-		'pro_prices': pro_prices,
 		'student_prices': student_prices,
 	}
 
 	return render(request, "pricing.html", context)
 
 
-def student_hs(request):
-	student_prices = Price.objects.filter(is_student=True)
+def become_photographer(request):
 	context = {
-		'title_text': 'student headshot',
-		'student_prices': student_prices,
+		'title_text': 'Become a Student Photographer'
 	}
 
-	return render(request, 'student_hs.html', context)
-
-
-def pro_hs(request):
-	pro_prices = Price.objects.filter(is_student=False)
-	context = {
-		'title_text': 'professional headshot',
-		'pro_prices': pro_prices,
-	}
-
-	return render(request, 'pro_hs.html', context)
-
-
-def group_hs(request):
-	context = {
-		'title_text': 'group headshot',
-	}
-
-	return render(request, 'group_hs.html', context)
-
+	return render(request, 'become_photographer.html', context)
 
 
 

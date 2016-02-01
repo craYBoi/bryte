@@ -13,24 +13,6 @@
     <div class="container">
     <div style="width:380px; margin: 0 auto">
       <div class="photographer_list_filter medium_padding">
-        <form method="GET" action=".">
-          <div class="form-group">
-            <input type="hidden" value="student" name="k">
-            <button class="btn-none btn-text" type="submit">Student</button>
-          </div>
-        </form>
-        <form method="GET" action=".">
-          <div class="form-group">
-            <input type="hidden" value="pro" name="k">
-            <button class="btn-none btn-text" type="submit">Professional</button>
-          </div>
-        </form>
-        <form method="GET" action=".">
-          <div class="form-group">
-            <input type="hidden" value="all" name="k">
-            <button class="btn-none btn-text" type="submit">Show all</button>
-          </div>
-        </form>
         <form method="GET" action="." class="form-inline small_padding_left">
           <div class="form-group">
             <input type="text" class="form-control search-text" name="q" placeholder="search">
@@ -39,71 +21,11 @@
       </div>
     </div>
 
-    <!--<ul class="list-unstyled large_padding">
-    	{% for photographer in object_list %}
-      <li class="animated fadeInUp">
-      <div class="row photographer_list_item">
-        <div class="col-sm-2 col-xs-12">
-          <img src="{{ photographer.profile.url }}" width="80%">
-        </div>
-        <div class="col-sm-2 col-xs-12">
-          <ul class="list-unstyled list_space_small">
-            <li>
-              {% if photographer.total_rating == 5 %}
-                <img src="{% static 'img/5star.png' %}" width='110px'>
-              {% elif photographer.total_rating == 4 %}
-                <img src="{% static 'img/4star.png' %}" width='110px'>
-              {% elif photographer.total_rating == 3 %}
-                <img src="{% static 'img/3star.png' %}" width='110px'>
-              {% elif photographer.total_rating == 2 %}
-                <img src="{% static 'img/2star.png' %}" width='110px'>
-              {% elif photographer.total_rating == 1 %}
-                <img src="{% static 'img/1star.png' %}" width='110px'>
-              {% elif photographer.total_rating == 0 %}
-                <img src="{% static 'img/0star.png' %}" width='110px'>
-              {% endif %}
-            </li>
-            <li><strong>{{ photographer.first_name }} {{ photographer.last_name }}</strong></li>            
-          </ul>
-        </div>
-        <div class="col-sm-3 col-xs-12">
-          <ul class="list-unstyled">
-            {% if photographer.lowest_price %}
-                <li><h4>${{ photographer.lowest_price }} - {{ photographer.highest_price }}</h4></li>
-            {% else %}
-              <li><h4>$ not avaliable :(</h4></li>
-            {% endif %}
-              <li><p>{{ photographer.package_set.count }} packages</p><li>
-              <li><ul class="list-inline">
-
-              {% for specialty in photographer.specialty_set.all %}
-                <li>{{ specialty.get_specialty_text_display }}</li>
-              {% endfor %}
-            </ul></li>
-          </ul>
-        </div>
-        <div class="col-sm-3 col-xs-12">
-        </div>
-        <div class="col-sm-2 col-xs-12">
-          <ul class="button_list">
-            <li><a href="{{ photographer.get_absolute_url }}"><button class="btn btn-small">View More</button></a></li>
-            <li><a href="#"><button class="btn btn-small">Reserve Me</button></a></li>
-          </ul>
-        </div>
-      </div>
-      </li>
-      {% endfor %}
-    </ul> -->
     <div class="row small_padding">
     {% for photographer in object_list %}
     
       <div class="col-sm-4 text-center">
         <div class="thumbnail photographer_list_card">
-          {% if photographer.is_student %}
-            <img src="{% static 'img/banner_student.png' %}" class="photographer_list_banner">
-          {% else %}
-            <img src="{% static 'img/banner_pro.png' %}" class="photographer_list_banner">
-          {% endif %}
           <a href="{{ photographer.get_absolute_url }}"><img src="{{ photographer.profile.url }}" width="90px" class="medium_padding"></a>
           <a href="{{ photographer.get_absolute_url }}" class="yellow_hover"><h4 class="small_padding">{{ photographer.get_full_name }}</h4></a>
 
@@ -123,11 +45,7 @@
 
             <ul class="list-inline small_padding medium_padding_bot">
             {% for specialty in photographer.specialty_set.all reversed %}
-              {% if photographer.is_student %}
-                <li class="tag_list small_font white darker_yellow_bg">{{ specialty.get_specialty_text_display }}</li>
-              {% else %}
-                <li class="tag_list small_font white dark_blue_bg">{{ specialty.get_specialty_text_display }}</li>
-              {% endif %}
+              <li class="tag_list small_font white darker_yellow_bg">{{ specialty.get_specialty_text_display }}</li>
             {% endfor %}
             </ul>
           </div>

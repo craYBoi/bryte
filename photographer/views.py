@@ -30,19 +30,11 @@ class PhotographerListView(ListView):
 	def get_queryset(self, *args, **kwargs):
 		qs = super(PhotographerListView, self).get_queryset(*args, **kwargs)
 		query = self.request.GET.get('q')
-		keyword = self.request.GET.get('k')
 		if query:
 			qs = self.model.objects.filter(
 					Q(last_name__icontains = query) |
 					Q(first_name__icontains = query)
 				)
-		if keyword:
-			if keyword == 'student':
-				qs = self.model.objects.filter(Q(is_student=True))
-			elif keyword == 'pro':
-				qs = self.model.objects.filter(~Q(is_student=True))
-			else:
-				qs = self.model.objects.all()
 		return qs
 
 

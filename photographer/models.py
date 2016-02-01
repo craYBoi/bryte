@@ -19,7 +19,7 @@ class Photographer(models.Model):
 	total_rating = models.PositiveSmallIntegerField(null=True, blank=True)
 	lowest_price = models.PositiveSmallIntegerField(null=True, blank=True)
 	highest_price = models.PositiveSmallIntegerField(null=True, blank=True)
-	is_student = models.BooleanField()
+	# is_student = models.BooleanField()
 
 	def __unicode__(self):
 		return self.first_name + ' ' + self.last_name
@@ -56,10 +56,8 @@ class Photographer(models.Model):
 				self.highest_price = input_price
 
 	def get_link_color_class(self):
-		if self.is_student:
 			return 'dark_yellow'
-		else:
-			return 'blue'
+
 
 
 

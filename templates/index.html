@@ -40,16 +40,16 @@
   <div class="jumbotron xlarge_padding_bot" id="jumbotron" style="background: url({% static 'img/bg3.jpg' %}) no-repeat center; background-size: cover;">
     <div class="row llarge_padding small_padding_bot">
       <div class="col-sm-8 col-sm-offset-2">
-      <h2 class="xxbig_font bold text-center" style='color: #fff' id='tagline'>Find your local student<br>and professional photographers</h2>
+      <h2 class="xxbig_font bold text-center" style='color: #fff' id='tagline'>Find your local <br>student photographers</h2>
       </div>
     </div>
 
     <div class="row medium_padding">
       <div class="col-sm-8 col-sm-offset-2">
       <ul class="list-inline white text-center light">
-        <li>Transparent Pricing</li> |
-        <li>Many Options for Photographers</li> |
-        <li>Easy Booking and Payment</li>
+        <li>Lowest Prices</li> |
+        <li>Trusted Photographers</li> |
+        <li>Book without the Hassle</li>
       </ul>
       </div>
     </div>
@@ -64,93 +64,15 @@
 
 {% block features %}
 <div id="content_advantages" class="content_wrapper">
-<!--  <div class="text-center">
-    <h1 class="bold">Simple Steps to get the best headshot for you</h1>
-    <h3>Best Price, Most Convenient Process, Highest Quality</h3>
-  </div> -->
-<!--   <br><br>
-  <div class="content_title_padding">
-    <div class="row">
-      <div class="col-sm-5 col-sm-offset-1 col-xs-12">
-        <br>
-        <h4 class='process_title'>1. Compare photographers</h4>
-        <br>
-        <div class="row">
-          <p class="process_text col-xs-10">Users can browse and compare our wide selection of photographers</p>
-        </div>
-      </div>
-      <div class="col-sm-5 col-sm-offset-1 col-xs-12" style='text-align:center;'>
-        <img src="{% static 'img/process1.png' %}" width="400px">
-      </div>
-    </div>
-    <div class="clearfix"></div>
-    <br><br><br>
-    <div class="row">
-      <div class="col-sm-6 col-xs-12" style='text-align:center;'>
-        <img src="{% static 'img/process2.png' %}" width="350px">
-      </div>
-      <div class="col-sm-5 col-sm-offset-1 col-xs-12">
-       <br>
-        <h4 class='process_title'>2. Pick the one you like</h4>
-        <br>
-        <div class="row">
-          <p class="process_text col-xs-10">Users can browse and compare our wide selection of photographers</p>
-        </div>
-      </div>
-    </div>
-    <div class="clearfix"></div>
-    <br><br><br>
-    <div class="row">
-      <div class="col-sm-5 col-sm-offset-1 col-xs-12">
-       <br>
-        <h4 class='process_title'>3. Work out the details</h4>
-        <br>
-        <div class="row">
-          <p class="process_text col-xs-9">Users Only need to show up at the date and the time of the photoshoot and everything will be handled smoothly</p>
-        </div>
-      </div>
-      <div class="col-sm-5 col-sm-offset-1 col-xs-12" style='text-align:center;'>
-        <img src="{% static 'img/process3.png' %}" width="300px">
-      </div>
-    </div>
-    <div class="clearfix"></div>
-    <br><br><br>
-    <div class="row">
-      <div class="col-sm-6 col-xs-12" style='text-align:center;'>
-        <img src="{% static 'img/process4.png' %}" width="300px">
-      </div>
-      <div class="col-sm-5 col-sm-offset-1 col-xs-12">
-       <br>
-        <h4 class='process_title'>4. Show up on time</h4>
-        <br>
-        <div class="row">
-          <p class="process_text col-xs-10">Users Only need to show up at the date and the time of the photoshoot and everything will be handled smoothly</p>
-        </div>
-      </div>
-    </div>
-    <div class="clearfix"></div>
-  </div>
-</div> -->
   <div id="features" class="content_wrapper">
     <ul class="list-unstyled alternate_list">
       <li>
         <div class="container">
           <div class="row">
             <div class="col-xs-10 col-xs-offset-1" style="text-align:center;">
-              <h2 class="light_title">Choose the photographer you want</h2>
-              <p>Users can browse and compare our wide selection of <a href="{% url 'photographers' %}" class="dark_yellow">photographers ></a> <br>Or just text us a <a href="#process_three" class="dark_yellow">special request ></a></p>
+              <h2 class="light_title">Compare our photographers</h2>
+              <p>Our college <a href="{% url 'photographers' %}" class="blue">photographers</a> study photography and have experience with <br>headshot and commercial photography</p>
               <img src="{% static 'img/ProcessOne.png' %}" class="img-responsive loading">
-            </div>
-          </div>
-        </div>
-      </li>
-      <li>
-        <div class="container">
-          <div class="row">
-            <div class="col-xs-10 col-xs-offset-1 large_padding" style="text-align:center;">
-              <h2 class="light_title">Choose the flat rate packages you want</h2>
-              <p>Choose the <a href="{% url 'pricing' %}" class="dark_yellow">price package</a> that suits you the most</p>
-              <img src="{% static 'img/ProcessTwo.png' %}" class="img-responsive">
             </div>
           </div>
         </div>
@@ -159,7 +81,7 @@
         <div class="container" id="process_three">
           <div class="row">
             <div class="col-xs-10 col-xs-offset-1 large_padding" style="text-align:center;">
-              <h2 class="light_title">Simply Text Us to Get Started</h2>
+              <h2 class="light_title">Book without the Hassle</h2>
               <p class="col-xs-6 col-xs-offset-3">text us the package you want to get started, Or text us a special request: “I want the highest rated photographer in downtown Providence” <br>Or you can reserve online <a href="{% url 'reserve' %}" class="dark_yellow">here</a> ></p>
               <img src="{% static 'img/ProcessThree.png' %}" class="img-responsive">
             </div>
@@ -170,9 +92,9 @@
         <div class="container">
           <div class="row">
             <div class="col-xs-10 col-xs-offset-1 large_padding" style="text-align:center;">
-              <h2 class="light_title">Pay with Venmo or Facebook Payment</h2>
-              <p>We only accept <a href="https://venmo.com/" class="dark_yellow">Venmo</a> and <a href="https://www.facebook.com/help/863171203733904/" class="dark_yellow">Facebook payment</a></p>
-              <img src="{% static 'img/ProcessFour.png' %}" class="img-responsive">
+              <h2 class="light_title">Secure Payment Platform</h2>
+              <p>We use <a href="https://stripe.com/" class="blue">© Stripe</a>, the same platform used by Lyft,<br>Kickstarter and many other companies.</p>
+              <img src="{% static 'img/stripe1.png' %}" class="img-responsive">
             </div>
           </div>
         </div>
@@ -197,7 +119,7 @@
             <h4 class="bold">Michael Snower</h4>
           </div>
         </div>
-        <p class="small_font small_padding">I'm Michael! I'm currently studying business at Brown University. I had trouble find a heatshot a few months ago and decided to start a service that make it easier for people to get them. I play guitar and teach yoga at my spare time.</p>
+        <p class="small_font small_padding">Michael studies business at Brown University. He and Ben came up with the idea for Bryte when Michael had a hard time finding affordable and high quality headshot photographers. In his spare time, he plays the guitar and teaches yoga.</p>
       </div>
       <div class="col-md-4 col-md-offset-2 col-xs-10 col-xs-offset-1">
         <div class="row">
@@ -208,7 +130,7 @@
             <h4 class="bold">Benjamin Bao</h4>
           </div>
         </div>
-        <p class="small_font small_padding">I'm Benjamin, and I'm right now pursueing Computer Science at Brown University. I love designing and actually building things. I do a little bit photography at my spare time, also a little skateboarding and music mixing</p>
+        <p class="small_font small_padding">Ben is pursuing a Computer Science Master's degree at Brown University. Ben is passionate about designing and building products that will make people's life better. In his spare time, Ben skateboards and makes music.</p>
       </div>
       <!-- <div class="clearfix"></div>  -->
     </div>

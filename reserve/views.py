@@ -5,7 +5,7 @@ from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
-from .forms import ReserveForm, ReserveDetailStudentForm, ReserveDetailProForm
+from .forms import ReserveForm, ReserveDetailStudentForm
 
 # Create your views here.
 from photographer.models import Photographer
@@ -34,13 +34,7 @@ def reserve(request):
 def reserve_detail(request, slug):
 
 	photographer = Photographer.objects.get(slug=slug)
-	is_student = photographer.is_student
-
-	if is_student:
-		reserve_form = ReserveDetailStudentForm(initial={'photographer': photographer})
-	else:
-		reserve_form = ReserveDetailProForm(initial={'photographer': photographer})
-
+	reserve_form = ReserveDetailStudentForm(initial={'photographer': photographer})
 
 	context = {
 		'title_text': 'Reserve ' + photographer.get_full_name(),
@@ -72,10 +66,7 @@ def checkout(request):
 		# create a form to process the data
 		pid = request.POST.get('photographer')
 		photographer = Photographer.objects.get(pk=pid)
-		if photographer.is_student:
-			reserve_form = ReserveDetailStudentForm(request.POST)
-		else:
-			reserve_form = ReserveDetailProForm(request.POST)
+		reserve_form = ReserveDetailStudentForm(request.POST)
 
 		if reserve_form.is_valid():
 			# store the reservation to database, with purchased being false

@@ -24,24 +24,11 @@ class ReserveForm(forms.ModelForm):
 			fail_silently=False)
 
 
-class ReserveDetailProForm(forms.Form):
-	ACCEPTABLE_FORMATS = [
-		"%Y/%m/%d %H:%M"
-	]
-	package = forms.ModelChoiceField(queryset=Price.objects.filter(is_student=False))
-	datetime = forms.DateTimeField(input_formats=ACCEPTABLE_FORMATS)
-	phone = forms.RegexField(regex=r'^\+?1?\d{9,15}$')
-	phone.error_messages['invalid'] = ("Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
-	note = forms.CharField(widget = forms.Textarea, required=False)
-	photographer = forms.ModelChoiceField(queryset=Photographer.objects.all(), widget = forms.HiddenInput())
-
-
-
 class ReserveDetailStudentForm(forms.Form):
 	ACCEPTABLE_FORMATS = [
 		"%Y/%m/%d %H:%M"
 	]
-	package = forms.ModelChoiceField(queryset=Price.objects.filter(is_student=True))
+	package = forms.ModelChoiceField(queryset=Price.objects.all())
 	datetime = forms.DateTimeField(input_formats=ACCEPTABLE_FORMATS)
 	phone = forms.RegexField(regex=r'^\+?1?\d{9,15}$')
 	phone.error_messages['invalid'] = ("Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
