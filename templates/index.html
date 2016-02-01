@@ -3,37 +3,7 @@
 {% load crispy_forms_tags %}
 
 {% block carousel %}
-<!--
-<div class="row">
-  <div id="carousel-example-generic" class="carousel slide col-md-12" data-ride="carousel">
-    <ol class="carousel-indicators">
-      <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-      <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-    </ol>
-   
-    <div class="carousel-inner">
-      <div class="item active">
-        <img src="{% static 'img/Studio-1.jpg' %}" class="img-responsive" alt="...">
-        <div class="carousel-caption">
-            <button class="btn btn-primary carousel_button"><a href="http://www.thesmartprofile.com.s3-website-us-east-1.amazonaws.com/reserve.html">Reserve</a></button>
-        </div>
-      </div>
-      <div class="item">
-        <img src="{% static 'img/Studio-1.jpg' %}" alt="...">
-        <div class="carousel-caption">
-            <button class="btn btn-primary carousel_button"><a href="http://www.thesmartprofile.com.s3-website-us-east-1.amazonaws.com/reserve.html">Reserve</a></button>
-        </div>
-      </div>
-    </div>
-   
-    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-      <span class="glyphicon glyphicon-chevron-left"></span>
-    </a>
-    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-      <span class="glyphicon glyphicon-chevron-right"></span>
-    </a>
-  </div>
-</div> -->
+
 {% endblock %}
 
 {% block jumbotron %}
@@ -71,7 +41,7 @@
           <div class="row">
             <div class="col-xs-10 col-xs-offset-1" style="text-align:center;">
               <h2 class="light_title">Compare our photographers</h2>
-              <p>Our college <a href="{% url 'photographers' %}" class="blue">photographers</a> study photography and have experience with <br>headshot and commercial photography</p>
+              <p class="xsmall_padding">Our college <a href="{% url 'photographers' %}" class="blue">photographers</a> study photography and have experience with <br>headshot and commercial photography</p>
               <img src="{% static 'img/ProcessOne.png' %}" class="img-responsive loading">
             </div>
           </div>
@@ -82,8 +52,8 @@
           <div class="row">
             <div class="col-xs-10 col-xs-offset-1 large_padding" style="text-align:center;">
               <h2 class="light_title">Book without the Hassle</h2>
-              <p class="col-xs-6 col-xs-offset-3">text us the package you want to get started, Or text us a special request: “I want the highest rated photographer in downtown Providence” <br>Or you can reserve online <a href="{% url 'reserve' %}" class="dark_yellow">here</a> ></p>
-              <img src="{% static 'img/ProcessThree.png' %}" class="img-responsive">
+              <p class="col-xs-6 col-xs-offset-3">Choose the package and simply click reserve button, fill out the basic info and pay with card and we deal with the rest!</p>
+              <img src="{% static 'img/ProcessTwo.png' %}" class="img-responsive">
             </div>
           </div>
         </div>
@@ -94,7 +64,7 @@
             <div class="col-xs-10 col-xs-offset-1 large_padding" style="text-align:center;">
               <h2 class="light_title">Secure Payment Platform</h2>
               <p>We use <a href="https://stripe.com/" class="blue">© Stripe</a>, the same platform used by Lyft,<br>Kickstarter and many other companies.</p>
-              <img src="{% static 'img/stripe1.png' %}" class="img-responsive">
+              <img src="{% static 'img/stripe.png' %}" class="img-responsive">
             </div>
           </div>
         </div>

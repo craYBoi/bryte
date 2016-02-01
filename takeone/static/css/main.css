@@ -30,6 +30,10 @@ ul {
 	height: 65px;
 }
 
+.small_offset {
+	height: 18px;
+}
+
 /* spacing for */
 #main_logo {
 	margin-top: 15px;
@@ -416,6 +420,30 @@ ul {
   margin-right: 1em;
 }
 
+.package_list li {
+	padding: 2px 0;
+	padding-left: 1.5em;
+	border-bottom: 1px dashed #eee;
+}
+
+.package_list li:last-child {
+	border: 0;
+}
+
+.package_list {
+	padding-left: 3em;
+}
+
+.package_list li:before {
+	content: "\f005"; /* FontAwesome Unicode */
+  font-family: FontAwesome;
+  color: #ffe83e;
+  display: inline-block;
+  margin-left: -1.5em; /* same as padding-left set on li */
+  width: 1.3em; /* same as padding-left set on li */
+  margin-right: 1em;
+}
+
 
 
 .transaction_list li {
@@ -584,8 +612,16 @@ ul {
 	font-size: 1.3em;
 }
 
+.small_margin_all {
+	margin: 10px;
+}
+
 .large_padding {
 	padding-top: 80px;
+}
+
+.special_padding {
+	padding: 15px;
 }
 
 .llarge_padding {

@@ -35,6 +35,8 @@ class PhotographerListView(ListView):
 					Q(last_name__icontains = query) |
 					Q(first_name__icontains = query)
 				)
+		else:
+			qs = Photographer.objects.order_by('?')
 		return qs
 
 

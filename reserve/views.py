@@ -13,6 +13,7 @@ from newsletter.models import Price
 from .models import Reservation
 
 import stripe
+import datetime
 
 
 def reserve(request):
@@ -75,6 +76,10 @@ def checkout(request):
 			price = reserve_form.cleaned_data.get('package')
 			note = reserve_form.cleaned_data.get('note')
 			phone = reserve_form.cleaned_data.get('phone')
+
+			# validate the time
+
+			# other intelligent validations
 
 			context['photographer'] = photographer
 			context['datetime'] = datetime

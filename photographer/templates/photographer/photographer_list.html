@@ -11,37 +11,43 @@
     </div>
 
     <div class="container">
-    <div style="width:380px; margin: 0 auto">
-      <div class="photographer_list_filter medium_padding">
+      <div class="photographer_list_filter small_padding">
         <form method="GET" action="." class="form-inline small_padding_left">
           <div class="form-group">
-            <input type="text" class="form-control search-text" name="q" placeholder="search">
+            <i class="fa fa-search small_padding_right"></i> <input type="text" class="form-control search-text" name="q" placeholder="search">
           </div>
         </form>
       </div>
-    </div>
+
 
     <div class="row small_padding">
     {% for photographer in object_list %}
     
-      <div class="col-sm-4 text-center">
+      <div class="col-sm-4 text-center small_padding">
         <div class="thumbnail photographer_list_card">
           <a href="{{ photographer.get_absolute_url }}"><img src="{{ photographer.profile.url }}" width="90px" class="medium_padding"></a>
           <a href="{{ photographer.get_absolute_url }}" class="yellow_hover"><h4 class="small_padding">{{ photographer.get_full_name }}</h4></a>
 
-          {% if photographer.total_rating == 5 %}
-            <img src="{% static 'img/5star.png' %}" width='110px'>
-          {% elif photographer.total_rating == 4 %}
-            <img src="{% static 'img/4star.png' %}" width='110px'>
-          {% elif photographer.total_rating == 3 %}
-            <img src="{% static 'img/3star.png' %}" width='110px'>
-          {% elif photographer.total_rating == 2 %}
-            <img src="{% static 'img/2star.png' %}" width='110px'>
-          {% elif photographer.total_rating == 1 %}
-            <img src="{% static 'img/1star.png' %}" width='110px'>
-          {% elif photographer.total_rating == 0 %}
-            <img src="{% static 'img/0star.png' %}" width='110px'>
-          {% endif %} <p class="xsmall_padding">{{ photographer.rating_set.count }} reviews</p>
+          {% if photographer.total_rating %}
+            {% if photographer.total_rating == 5 %}
+              <img src="{% static 'img/5star.png' %}" width='110px'>
+            {% elif photographer.total_rating == 4 %}
+              <img src="{% static 'img/4star.png' %}" width='110px'>
+            {% elif photographer.total_rating == 3 %}
+              <img src="{% static 'img/3star.png' %}" width='110px'>
+            {% elif photographer.total_rating == 2 %}
+              <img src="{% static 'img/2star.png' %}" width='110px'>
+            {% elif photographer.total_rating == 1 %}
+              <img src="{% static 'img/1star.png' %}" width='110px'>
+            {% elif photographer.total_rating == 0 %}
+              <img src="{% static 'img/0star.png' %}" width='110px'>
+            {% endif %} <p class="xsmall_padding">{{ photographer.rating_set.count }} reviews</p>
+          {% else %}
+            <div class="small_offset">
+            </div>
+            <p class="xsmall_padding">Be the first to review!</p>
+          {% endif %}
+          
 
             <ul class="list-inline small_padding medium_padding_bot">
             {% for specialty in photographer.specialty_set.all reversed %}
@@ -50,7 +56,6 @@
             </ul>
           </div>
         </div> 
-
     {% endfor %}
     </div>    
  

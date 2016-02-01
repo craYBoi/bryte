@@ -22,7 +22,7 @@ class Price(models.Model):
 	# also create a choice for student, pro, or group (replacing is_student)
 
 	def __unicode__(self):
-		return self.title + ' ' + str(self.price)
+		return self.title + ' ------ ' + str(self.price)
 
 	def save(self, *args, **kwargs):
 		self.stripe_price = 100 * self.price

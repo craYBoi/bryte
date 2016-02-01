@@ -3,32 +3,6 @@
 {% load crispy_forms_tags %}
 
 {% block photographer_detail %}
-  <!--<div class="content_wrapper" id="photographer_intro">
-    <div class="container">
-    <div class="row">
-      <h4 class="feature_title text-center">{{object.first_name}} {{object.last_name}}</h4>
-    </div>
-    <div class="row content_title_padding">
-    	<div class="col-sm-3 col-sm-offset-2 col-xs-12">
-    		<img src="{{ object.profile.url }}" class='img-responsive'>
-    	</div>
-    	<div class="col-sm-5 col-sm-offset-1 col-xs-12" style="font-size: 0.9em;">
-    		<ul class="list-unstyled list_space_small">
-          <strong><li>
-            <img src="{% static rating_static_url %}" width='150px'>
-          </li></strong>
-          <br>
-          <strong><li>Basic Info:</li></strong>
-          <li>Email: {{ object.email }}</li>
-          <li>{{ object.short_description }}</li>
-          <br>
-          <a href="{% url 'reserve' %}"><button class="btn btn-small">Reserve</button></a> &nbsp Or text TakeOne
-    		</ul>
-    	</div>
-    </div>
-    </div>
-  </div>-->
-
   <div id="photographer_intro" class="medium_padding medium_padding_bot">
     <div class="small_padding row">
       <img src="{{ object.profile.url }}" width="100px">
@@ -52,14 +26,67 @@
     </div>
   </div>
   <hr>
-  <!-- menu -->
+
 <div class="container">
+  <!-- menu -->
   <div class="row">
     <ul class="list-inline text-center center_menu">
       {# <li><a href="#photographer_packages" id="photographer_packages_button" class="yellow_hover">Packages</a></li> #}
+      <li><a href="#photographer_packages" id="photographer_packages_button" class="yellow_hover">Packages</a></li>
       <li><a href="#photographer_gallery" id="photographer_gallery_button" class="yellow_hover">Works</a></li>
       <li><a href="#photographer_reviews" id="photographer_reviews_button" class="yellow_hover">Reviews</a></li>
     </ul>
+  </div>
+
+  <!-- package -->
+  <div class="row medium_padding" id='photographer_packages'>
+    <div class="col-sm-4">
+      <div class="thumbnail xsmall_padding_bot">
+        <div class="thumbnail small_margin_all">
+            <div class="caption">
+              <h2 class="feature_title bold text-center yellow">$20</h2>
+                <ul class="package_list small_font">
+                  <li>Shot in a studio setting</li>
+                  <li>One edited digital copy</li>
+                  <li>up to 20 minutes</li>
+                </ul>  
+            </div>
+        </div>
+      <h3 class="text-center">Headshot</h3>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="thumbnail xsmall_padding_bot">
+        <div class="thumbnail small_margin_all">
+            <div class="caption">
+              <h2 class="feature_title bold text-center yellow">$50</h2>
+                <ul class="package_list small_font">
+                  <li>Shot in studio setting</li>
+                  <li>Two edited digital copy</li>
+                  <li>Professional Touchup</li>
+                  <li>up to 30 minutes</li>
+                </ul>  
+            </div>
+        </div>
+      <h3 class="text-center">Portrait</h3>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="thumbnail xsmall_padding_bot">
+        <div class="thumbnail small_margin_all">
+            <div class="caption">
+              <h2 class="feature_title bold text-center yellow">$150</h2>
+                <ul class="package_list small_font">
+                  <li>Shot in a studio setting</li>
+                  <li>Two edited digital copy</li>
+                  <li>Professional touchup</li>
+                  <li>up to 1 hour</li>
+                </ul>  
+            </div>
+        </div>
+      <h3 class="text-center">Business</h3>
+      </div>
+    </div>
   </div>
 
 
