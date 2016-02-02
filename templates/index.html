@@ -34,14 +34,26 @@
 
 {% block features %}
 <div id="content_advantages" class="content_wrapper">
-  <div id="features" class="content_wrapper">
+  <div id="features">
     <ul class="list-unstyled alternate_list">
       <li>
         <div class="container">
           <div class="row">
             <div class="col-xs-10 col-xs-offset-1" style="text-align:center;">
+              <h2 class="light_title">Find your photography need</h2>
+              <p class="xsmall_padding col-xs-8 col-xs-offset-2">We detail what exactly what your <a href="{% url 'packages' %}" class="blue">package</a> offers</p>
+              <img src="{% static 'img/ProcessFour.png' %}" class="img-responsive loading">
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li>
+        <div class="container">
+          <div class="row">
+            <div class="col-xs-10 col-xs-offset-1 large_padding" style="text-align:center;">
               <h2 class="light_title">Compare our photographers</h2>
-              <p class="xsmall_padding">Our college <a href="{% url 'photographers' %}" class="blue">photographers</a> study photography and have experience with <br>headshot and commercial photography</p>
+              <p class="xsmall_padding col-xs-8 col-xs-offset-2">Find the college <a href="{% url 'photographers' %}" class="blue">photographer</a> with the best price and experience for you</p>
               <img src="{% static 'img/ProcessOne.png' %}" class="img-responsive loading">
             </div>
           </div>
@@ -52,7 +64,7 @@
           <div class="row">
             <div class="col-xs-10 col-xs-offset-1 large_padding" style="text-align:center;">
               <h2 class="light_title">Book without the Hassle</h2>
-              <p class="col-xs-6 col-xs-offset-3">Choose the package and simply click reserve button, fill out the basic info and pay with card and we deal with the rest!</p>
+              <p class="col-xs-6 col-xs-offset-3 xsmall_padding">Reserve your photographer and hear from them within a few hours. <span class='blue'>All of our photographers are in Rhode Island</span></p>
               <img src="{% static 'img/ProcessTwo.png' %}" class="img-responsive">
             </div>
           </div>
@@ -63,7 +75,7 @@
           <div class="row">
             <div class="col-xs-10 col-xs-offset-1 large_padding" style="text-align:center;">
               <h2 class="light_title">Secure Payment Platform</h2>
-              <p>We use <a href="https://stripe.com/" class="blue">© Stripe</a>, the same platform used by Lyft,<br>Kickstarter and many other companies.</p>
+              <p class="xsmall_padding col-xs-6 col-xs-offset-3">We use <a href="https://stripe.com/" class="blue">© Stripe</a>, the same platform used by Lyft,<br>Kickstarter and many other companies</p>
               <img src="{% static 'img/stripe.png' %}" class="img-responsive">
             </div>
           </div>
@@ -76,10 +88,11 @@
 {% endblock %}
 
 {% block about %}
-    <div id="content_about" class="content_wrapper container">
-    <div class="text-center">
-      <h2 class="feature_title bold">About Us</h2>
+    <div class="jumbotron large_padding large_padding_bot background_dark_blue">
+      <h2 class="text-center bold main_title white">About Us</h2>
     </div>
+    <div id="content_about" class="content_wrapper container">
+
     <div class="row content_title_padding">
       <div class="col-md-4 col-md-offset-1 col-xs-10 col-xs-offset-1">
         <div class="row">

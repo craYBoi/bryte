@@ -3,6 +3,74 @@
 
 {% block content %}
 	<div class="jumbotron" style="background: url({% static 'img/jumbo3_dark.png' %}); background-size: cover; text-align: center;">
-		<h2 class="text-center bold feature_title	 white">Make Money <br><span class=''>as a College Photographer!</span></h2>
+		<div class="row">
+		<div class="col-xs-6 col-xs-offset-3">
+		<h2 class="text-center bold feature_title	 white">Join As a Photographer!</h2>
+		</div>
+		</div>
 	</div>
+
+	<div class="background_grey">
+	<div class="container medium_padding">
+		<div class="row">
+			<div class="col-xs-10 col-xs-offset-1">
+
+
+
+				<div class="row medium_padding">
+					<div class="col-sm-6 round_border special_padding">
+							<h2 class="text-center">Get Experience</h2>
+							<div class="col-xs-10 col-xs-offset-1 small_padding">
+							<p class="light l_font">Build your portfolio with real-life work experience. You will have the opportunity to work with real estate agents, commercial ventures and brides. This is an invaluable opportunity that will help launch your career as a professional photographer.</p>
+							</div>
+					</div>
+					<div class="col-sm-6">
+						<img src="{% static 'img/becomeOne.png' %}" class="img-responsive">
+					</div>
+				</div>	
+
+
+				<div class="row medium_padding">
+					<div class="col-sm-6">
+						<img src="{% static 'img/becomeTwo.png' %}" class="img-responsive">
+					</div>
+					<div class="col-sm-6 round_border special_padding">
+						<h2 class="text-center">Make Money</h2>
+						<div class="col-xs-10 col-xs-offset-1 small_padding">
+						<p class="light l_font">At Bryte, you will be exposed to a wide range of job opportunities that you will not have in the past. Our website provides you with free advertising, and a reliable review system that will help customers understand you are trustworthy.<br>You can also set your own prices and choose which packages you want to offer. This gives you the freedom to work what kinds of jobs you want and decide how much money you want to charge for them.</p>
+						</div>
+					</div>
+				</div>	
+
+
+				<div class="row large_padding">
+					<div class="col-sm-6 round_border special_padding">
+							<h2 class="text-center">It’s free!</h2>
+							<div class="col-xs-10 col-xs-offset-1 small_padding">
+							<p class="light l_font">You can be a member of Bryte at no cost to you. We charge only for completed transactions and take a 10% service fee.</p>
+							</div>
+					</div>
+					<div class="col-sm-6">
+						<img src="{% static 'img/becomeThree.png' %}" class="img-responsive">
+					</div>
+				</div>	
+
+
+
+			</div>	
+		</div>
+	</div>
+
+
+
+		<div class="row small_padding large_padding_bot">
+		<div class="col-xs-8 col-xs-offset-2">
+		<div class="background_light_blue" id='become_not'>
+		<p class="text-center all_padding_medium border_blue_dashed big_font">Email us at <a href="mailto:hello@brytephoto.com" class="blue">hello@brytephoto.com</a> with your name, and school and we will contact you within a few hours :D<br>Have questions? see <a href="{% url 'faqs' %}" class="blue">FAQ</a></p>
+		</div>
+		</div>
+	</div>
+
+</div>
+
 {% endblock %}

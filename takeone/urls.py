@@ -30,11 +30,17 @@ urlpatterns = [
     # reserve
     url(r'^reserve/', include('reserve.urls')),
 
-    # safety
-    url(r'^safety$', newsletter_views.safety, name='safety'),
+    # packages
+    url(r'^packages$', newsletter_views.package, name='packages'),
+
+    # faqs
+    url(r'^faq$', newsletter_views.faq, name='faqs'),
 
     # become a photographer
     url(r'^join$', newsletter_views.become_photographer, name='become_photographer'),
+
+    # select photographer
+    url(r'^select$', newsletter_views.select_photographer, name='select_photographer'),
 
     # pricing
     url(r'^pricing$', newsletter_views.pricing, name='pricing'), 

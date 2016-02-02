@@ -1,17 +1,18 @@
 {% load staticfiles %}
-<footer id="footer" class="content_wrapper">
-  <div class="row">
+<footer id="footer" class="container top_border">
+  <div class="row medium_padding">
     <div class="col-md-3 col-xs-12" id="footer_menu">
-      <ul class="list_space_xsmall">
+      <ul class="">
         <li><a href="{% url 'about' %}"><span class="blue">A</span>bout</a></li>
         <li><a href="{% url 'photographers' %}"><span class="yellow">P</span>hotographer</a></li>
-        <li><a href="{% url 'blogs' %}"><span class="pink">B</span>log</a></li>
-        <li><a href="{% url 'reserve' %}"><span class="dark_yellow">R</span>eserve</a></li>
+        <li><a href="{% url 'blogs' %}"><span class="blue">B</span>log</a></li>
+        <li><a href="{% url 'packages' %}"><span class="yellow">P</span>ackages</a></li>
+        <li><a href="{% url 'become_photographer' %}"><span class="blue">J</span>oin as a photographer</a></li>
       </ul>
     </div>
     <div id="footer_about" class="col-md-5 col-xs-12">
-      <p>Bryte is a professional platform that gathers various photographers and users who are seeking photoshoot. With just a simple text on the phone, one can actually ask anything or reserve for photographers. Cheers!</p>
-      <p>Have any questions? text or email <a href="mailto:hello@brytephoto.com" target="_top" class="dark_yellow">hello@brytephoto.com</a></p>
+      <p>Bryte is a website where you can find your local student photographers. Get photos you will be proud today!</p>
+      <p>Have any questions? Email <a href="mailto:hello@brytephoto.com" target="_top" class="dark_yellow">hello@brytephoto.com</a></p>
     </div>
 <!--     <div id="footer_social" class="col-md-3 pull-right col-xs-12">
       <ul class="list-inline">

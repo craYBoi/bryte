@@ -1,0 +1,221 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block content %}
+	<div class="jumbotron" style="background: url({% static 'img/jumbo3_dark.png' %}); background-size: cover; text-align: center;">
+		<h2 class="text-center bold main_title white">Packages</h2>
+	</div>
+
+	<div class="background_grey">
+
+	<div class="container">
+
+		<div class="large_padding text-center">
+			<ul class="list-inline small_padding">
+				<li><a href="#prod_pg" class="blue">Product Photography</a></li>
+				<li><a href="#rest_pg_basic" class="light_blue">Real Estate Photography - Basic</a></li>
+				<li><a href="#rest_pg_standard" class="blue">Real Estate Photography - Standard</a></li>
+				<li><a href="#rest_pg_premium" class="dark_blue">Real Estate Photography - Premium</a></li>
+				<li><a href="#wedding_pg" class="blue">Wedding Photography</a></li>
+				<li><a href="#fam_pg_basic" class="light_blue">Family photography – Basic</a></li>
+				<li><a href="#fam_pg_premium" class="dark_blue">Family photography – Premium</a></li>
+				<li><a href="#exfam_pg_basic" class="light_blue">Extended Family photography – Basic</a></li>
+				<li><a href="#exfam_pg_premium" class="dark_blue">Extended Family photography – Premium</a></li>
+			</ul>
+		</div>
+
+		<div class="large_padding medium_padding_bot" id='prod_pg'>
+			<h3 class="background_blue package_title bold package_title_smallw">Product Photography</h3>
+
+			<div class="package_content package_border_blue">
+				<h4 class="text-center bold large_font">Charges</h4>
+				<ul class="pricing_list">
+					<li>Travel Time/Location Scouting per hour</li>
+					<li>On Location Creative Fee per hour</li>
+					<li>Licensing and Production Charges vary by shoot.  Contact your photographer for details</li>
+				</ul>
+			</div>
+		</div>
+
+
+		<div class="medium_padding medium_padding_bot" id='rest_pg_basic'>
+			<h3 class="background_light_blue package_title bold package_title_mediumw ">Real Estate Photography - Basic</h3>
+
+			<div class="package_content package_border_light_blue">
+				<h4 class="text-center bold large_font">Features</h4>
+				<ul class="pricing_list">
+					<li>60 minutes</li>
+					<li>20-25 images</li>
+					<li>24 hour turnaround time</li>
+					<li>Both Interior and Exterior</li>
+					<li>Touchup</li>
+				</ul>
+
+				<h4 class="text-center bold large_font">Charges</h4>
+				<ul class="pricing_list">
+					<li>Hourly travel rate</li>
+					<li>Fee per additional image</li>
+					<li>Creative Fee</li>
+					<li>Prints offered at additional cost. Cost will vary. Contact your photographer for details</li>
+					<li>Shoot at the photographer’s home location to avoid the travel fee</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="medium_padding medium_padding_bot" id='rest_pg_standard'>
+			<h3 class="background_blue package_title bold package_title_largew">Real Estate Photography - Standard</h3>
+
+			<div class="package_content package_border_blue">
+				<h4 class="text-center bold large_font">Features</h4>
+				<ul class="pricing_list">
+					<li>90 minutes</li>
+					<li>25-30 images</li>
+					<li>24 hour turnaround time</li>
+					<li>Both Interior and Exterior</li>
+					<li>Touchup</li>
+				</ul>
+
+				<h4 class="text-center bold large_font">Charges</h4>
+				<ul class="pricing_list">
+					<li>Hourly travel rate</li>
+					<li>Fee per additional image</li>
+					<li>Creative Fee</li>
+					<li>Prints offered at additional cost. Cost will vary. Contact your photographer for details</li>
+					<li>Shoot at the photographer’s home location to avoid the travel fee</li>
+				</ul>
+			</div>
+		</div>
+
+
+		<div class="medium_padding medium_padding_bot" id='rest_pg_premium'>
+			<h3 class="background_dark_blue package_title bold package_title_largew">Real Estate Photography - Premium</h3>
+
+			<div class="package_content package_border_dark_blue">
+				<h4 class="text-center bold large_font">Features</h4>
+				<ul class="pricing_list">
+					<li>120 minutes</li>
+					<li>30-40 images</li>
+					<li>24 hour turnaround time</li>
+					<li>Both Interior and Exterior</li>
+					<li>Touchup</li>
+				</ul>
+
+				<h4 class="text-center bold large_font">Charges</h4>
+				<ul class="pricing_list">
+					<li>Hourly travel rate</li>
+					<li>Fee per additional image</li>
+					<li>Creative Fee</li>
+					<li>Prints offered at additional cost. Cost will vary. Contact your photographer for details</li>
+					<li>Shoot at the photographer’s home location to avoid the travel fee</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="medium_padding medium_padding_bot" id='wedding_pg'>
+			<h3 class="background_blue package_title bold package_title_smallw">Wedding Photography</h3>
+
+			<div class="package_content package_border_blue">
+				<h4 class="text-center bold large_font">Charges</h4>
+				<ul class="pricing_list">
+					<li>Pricing and packages vary</li>
+					<li>Our photographers give starting price ranges on their profiles</li>
+				</ul>
+			</div>
+		</div>
+
+
+		<div class="medium_padding medium_padding_bot" id='fam_pg_basic'>
+			<h3 class="background_light_blue package_title bold package_title_mediumw">Family photography – Basic</h3>
+
+			<div class="package_content package_border_light_blue">
+				<h4 class="text-center bold large_font">Features</h4>
+				<ul class="pricing_list">
+					<li>Family of up to 8</li>
+					<li>30 minutes</li>
+					<li>5 digital images</li>
+					<li>Touchup</li>
+				</ul>
+
+				<h4 class="text-center bold large_font">Charges</h4>
+				<ul class="pricing_list">
+					<li>Hourly travel rate</li>
+					<li>Fee per additional image</li>
+					<li>Creative Fee</li>
+					<li>Prints offered at additional cost. Cost will vary. Contact your photographer for details</li>
+					<li>Shoot at the photographer’s home location to avoid the travel fee</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="medium_padding medium_padding_bot" id='fam_pg_premium'>
+			<h3 class="background_dark_blue package_title bold package_title_mediumw">Family photography – Premium</h3>
+
+			<div class="package_content package_border_dark_blue">
+				<h4 class="text-center bold large_font">Features</h4>
+				<ul class="pricing_list">
+					<li>Family of up to 8</li>
+					<li>60 minutes</li>
+					<li>10 digital images</li>
+					<li>Touchup</li>
+				</ul>
+
+				<h4 class="text-center bold large_font">Charges</h4>
+				<ul class="pricing_list">
+					<li>Hourly travel rate</li>
+					<li>Fee per additional image</li>
+					<li>Creative Fee</li>
+					<li>Prints offered at additional cost. Cost will vary. Contact your photographer for details</li>
+					<li>Shoot at the photographer’s home location to avoid the travel fee</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="medium_padding medium_padding_bot" id='exfam_pg_basic'>
+			<h3 class="background_light_blue package_title bold package_title_largew">Extended Family photography - Basic</h3>
+
+			<div class="package_content package_border_light_blue">
+				<h4 class="text-center bold large_font">Features</h4>
+				<ul class="pricing_list">
+					<li>Family of up to 20</li>
+					<li>30 minutes</li>
+					<li>10 digital images</li>
+					<li>Touchup</li>
+				</ul>
+
+				<h4 class="text-center bold large_font">Charges</h4>
+				<ul class="pricing_list">
+					<li>Hourly travel rate</li>
+					<li>Fee per additional image</li>
+					<li>Creative Fee</li>
+					<li>Prints offered at additional cost. Cost will vary. Contact your photographer for details</li>
+					<li>Shoot at the photographer’s home location to avoid the travel fee</li>
+				</ul>
+			</div>
+		</div>
+
+
+		<div class="medium_padding medium_padding_bot" id='exfam_pg_premium'>
+			<h3 class="background_dark_blue package_title bold package_title_xlargew">Extended Family photography - Premium</h3>
+
+			<div class="package_content package_border_dark_blue">
+				<h4 class="text-center bold large_font">Features</h4>
+				<ul class="pricing_list">
+					<li>Family of up to 20</li>
+					<li>60 minutes</li>
+					<li>10 digital images</li>
+					<li>Touchup</li>
+				</ul>
+
+				<h4 class="text-center bold large_font">Charges</h4>
+				<ul class="pricing_list">
+					<li>Hourly travel rate</li>
+					<li>Fee per additional image</li>
+					<li>Creative Fee</li>
+					<li>Prints offered at additional cost. Cost will vary. Contact your photographer for details</li>
+					<li>Shoot at the photographer’s home location to avoid the travel fee</li>
+				</ul>
+			</div>
+		</div>
+
+		</div>
+	</div>
+{% endblock %}

@@ -2,6 +2,7 @@
 {% load staticfiles %}
 
 {% block photographer_list %}
+<div class="background_grey">
   <div id="photographer_list" class="medium_padding_bot">
     <div class="jumbotron medium_padding medium_padding_bot" style="background: url({% static 'img/jumbo3_dark.png' %}); background-size: cover; text-align: center;">
       <h2 class="text-center main_title bold white">Photographers</h2>
@@ -11,16 +12,21 @@
     </div>
 
     <div class="container">
+
+    <div class="medium_padding">
+      <p class="text-center large_font"><i class='fa fa-star yellow'></i> &nbsp<a href="{% url 'select_photographer' %}" class="">How do we select our photographer ></a></p>
+    </div>
       <div class="photographer_list_filter small_padding">
         <form method="GET" action="." class="form-inline small_padding_left">
           <div class="form-group">
-            <i class="fa fa-search small_padding_right"></i> <input type="text" class="form-control search-text" name="q" placeholder="search">
+            <i class="fa fa-search small_padding_right"></i> <input type="text" class="form-control search-text background_grey" name="q" placeholder="search">
           </div>
         </form>
       </div>
 
 
-    <div class="row small_padding">
+
+    <div class="row">
     {% for photographer in object_list %}
     
       <div class="col-sm-4 text-center small_padding">
@@ -28,7 +34,14 @@
           <a href="{{ photographer.get_absolute_url }}"><img src="{{ photographer.profile.url }}" width="90px" class="medium_padding"></a>
           <a href="{{ photographer.get_absolute_url }}" class="yellow_hover"><h4 class="small_padding">{{ photographer.get_full_name }}</h4></a>
 
+          <ul class="xsmall_padding">
+            <li>{{ photographer.school }}</li>
+            <li class="small_font">{{ photographer.location }}</li>
+          </ul>
+
           {% if photographer.total_rating %}
+            <div class="small_padding">
+
             {% if photographer.total_rating == 5 %}
               <img src="{% static 'img/5star.png' %}" width='110px'>
             {% elif photographer.total_rating == 4 %}
@@ -42,10 +55,12 @@
             {% elif photographer.total_rating == 0 %}
               <img src="{% static 'img/0star.png' %}" width='110px'>
             {% endif %} <p class="xsmall_padding">{{ photographer.rating_set.count }} reviews</p>
+
+            </div>
           {% else %}
             <div class="small_offset">
             </div>
-            <p class="xsmall_padding">Be the first to review!</p>
+            <p class="xsmall_padding xsmall_padding_bot">Be the first to review!</p>
           {% endif %}
           
 
@@ -59,7 +74,8 @@
     {% endfor %}
     </div>    
  
-  </div>
+    </div>
 
-
+</div>
+</div>
 {% endblock %}

@@ -19,7 +19,6 @@
 
     <!-- <link rel="stylesheet" href="{% static 'css/normalize.css' %}"> -->
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
-    <link rel="stylesheet" href="{% static 'css/datetimepicker.css' %}">
   </head>
   <body>
 
@@ -107,10 +106,6 @@
 			{% block about %}
 			{% endblock %}
 
-{# safety #}
-			{% block safety %}
-			{% endblock %}
-
 {# pricing #}
 			{% block pricing %}
 			{% endblock %}
@@ -124,10 +119,9 @@
 			{% endblock %}
 
 	    {# footer #}
-	    <div class="container">
-	    <hr>
+	    
 	    {% include "footer.html" %}
-	    </div>
+
 
 
 
@@ -141,7 +135,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.0.0/imagesloaded.min.js"></script>
   	<!--<script src="{% static 'js/imagesloaded.js' %}"></script>-->
   	<script src="{% static 'js/main.js' %} "></script>
-  	<script src="{% static 'js/datetimepicker.js' %} "></script>
   	{% block script %}
     {% endblock %}
   	<script type="text/javascript">

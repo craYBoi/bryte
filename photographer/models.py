@@ -19,7 +19,8 @@ class Photographer(models.Model):
 	total_rating = models.PositiveSmallIntegerField(null=True, blank=True)
 	lowest_price = models.PositiveSmallIntegerField(null=True, blank=True)
 	highest_price = models.PositiveSmallIntegerField(null=True, blank=True)
-	# is_student = models.BooleanField()
+	school = models.CharField(max_length=50)
+	location = models.CharField(max_length=50)
 
 	def __unicode__(self):
 		return self.first_name + ' ' + self.last_name

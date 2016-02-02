@@ -41,12 +41,12 @@ def about(request):
 	return render(request, "about.html", context)
 
 
-def safety(request):
+def package(request):
 	context = {
-		'title_text': 'safety',
+		'title_text': 'Packages',
 	}
 
-	return render(request, "safety.html", context)
+	return render(request, "package.html", context)
 
 
 def pricing(request):
@@ -66,6 +66,20 @@ def become_photographer(request):
 
 	return render(request, 'become_photographer.html', context)
 
+
+def select_photographer(request):
+	context = {
+		'title_text': 'How do we select our photographers'
+	}
+
+	return render(request, 'select_photographer.html', context)
+
+def faq(request):
+	context = {
+		'title_text': 'FAQs'
+	}
+
+	return render(request, 'faq.html', context)
 
 
 
