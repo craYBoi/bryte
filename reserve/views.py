@@ -15,6 +15,7 @@ from .models import Reservation
 import stripe
 import datetime
 
+stripe.api_key = settings.STRIPE_SECRET_KEY
 
 def reserve(request):
 
@@ -122,9 +123,6 @@ def success(request):
 		price_id = request.POST.get('hidden')
 		price = Price.objects.get(pk=price_id)
 		token = request.POST.get('stripeToken')
-
-		if token:
-			stripe.api_key = settings.STRIPE_SECRET_KEY
 		
 		# Create the charge on Stripe's servers - this will charge the user's card
 		try:

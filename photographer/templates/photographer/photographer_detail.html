@@ -9,9 +9,13 @@
     </div>
     <div class="row small_padding">
       <h4 class="feature_title text-center bold">{{object.first_name}} {{object.last_name}}</h4>
+      <ul class="small_padding">
+        <li>{{ object.school }}</li>
+        <li class="small_font">{{ object.location }}</li>
+      </ul>
     </div>
 
-    <div class="small_padding row photographer_detail_text">
+    <div class="medium_padding row photographer_detail_text">
         <ul class="list-unstyled">
           <strong><li>
             {% if has_rating %}

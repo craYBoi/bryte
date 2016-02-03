@@ -28,7 +28,11 @@
 			</ul>
 			</div>
 		</div>
-
+		<div class="row small_padding small_padding_bot">
+		<div class="col-sm-4 col-sm-offset-4 notification_box">
+		<p class="text-center small_font">You will be charged a non-refundable 25% of the current package fee right now (You will receive a refund if your photographer cancels the appointment). You will be charged the remainder once the job is completed.</p>
+		</div>
+		</div>
 		<div class="text-center small_padding">
 				<form action="{% url 'reserve_success' %}" method="POST">{% csrf_token %}
 					<input type="hidden" value="{{ price.pk }}" name='hidden'/>
@@ -45,8 +49,9 @@
 				  </script>
 				</form>
 			</div>
-
 		</div>
+
+
 	</div>
 
 {% endblock %}

@@ -469,6 +469,14 @@ h1,h2,h3,h4 {
   color: #0098ee;
 }
 
+.faq_answer:before {
+	color: #ffe83e !important;
+}
+
+.faq_answer {
+	padding-left: 6em !important;
+}
+
 
 .checkout_list li {
 	padding: 13px 0;
@@ -672,6 +680,11 @@ h1,h2,h3,h4 {
 .error_box {
 	padding: 20px;
 	border: 3px dashed #ff0000;
+}
+
+.notification_box {
+	padding: 20px;
+	border: 3px dashed #0098ee;
 }
 
 
