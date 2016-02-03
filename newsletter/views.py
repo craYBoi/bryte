@@ -31,7 +31,6 @@ def home(request):
 		'title': title,
 		'featured_pg': featured_pg,
 		'title_text': 'Bryte',
-		'mix_token': settings.MIXPANEL_TOKEN,
 	}
 	return render(request, "index.html", context)
 
