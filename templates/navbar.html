@@ -15,10 +15,10 @@
 
     <div class="collapse navbar-collapse" id='bs-example-navbar-collapse-1'>
       <ul class="nav navbar-nav navbar-right" >
-        <li><a href="{% url 'become_photographer' %}">Join as a Photographer</a></li>
-        <li><a href="{% url 'faqs' %}">Help</a></li>
-        <li><a href="{% url 'packages' %}">Packages</a></li>
-        <li><a href="{% url 'photographers' %}">Our Photographers</a></li>
+        <li><a href="{% url 'become_photographer' %}" id="nav_join">Join as a Photographer</a></li>
+        <li><a href="{% url 'faqs' %}" id="nav_faq">Help</a></li>
+        <li><a href="{% url 'packages' %}" id="nav_package">Packages</a></li>
+        <li><a href="{% url 'photographers' %}" id='nav_photographer'>Our Photographers</a></li>
         {% if not request.user.is_authenticated %}
           <li class="dropdown small_padding_right">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Login <span class="caret"></span></a>
@@ -52,4 +52,5 @@
       <div class="custom_border" style="background: url({% static 'img/border.png' %}) no-repeat center; background-size: cover; text-align: center;">
       </div> -->
 </nav>
+
 

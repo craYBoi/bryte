@@ -253,3 +253,7 @@ TWILIO_CELL = os.environ.get('TWILIO_CELL')
 
 STRIPE_SECRET_KEY = 'sk_test_WOCKGbny1dkmA6NsOQARm0a0'
 STRIPE_PUBLISHABLE_KEY = 'pk_test_mpoNaxCzG3mO8CqAYE9OWzng'
+
+
+# mixpanel
+MIXPANEL_TOKEN = 'b27c2c4d1dddc024a8c4b60b153f2968'

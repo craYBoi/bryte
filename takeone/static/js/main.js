@@ -30,6 +30,9 @@ $(function() {
   });
 });
 
+
+// scroll to top
+
 $(document).ready(function(){
   
   //Check to see if the window is top if not then display button
@@ -52,24 +55,31 @@ $(document).ready(function(){
   
 });
 
-// navbar color transition
-// var mainbottom = $('#main').offset().top + $('#main').height();
-
-// // on scroll, 
-// $(window).on('scroll',function(){
-
-//     // we round here to reduce a little workload
-//     stop = Math.round($(window).scrollTop());
-//     if (stop > mainbottom) {
-//         $('.nav').addClass('past-main');
-//     } else {
-//         $('.nav').removeClass('past-main');
-//    }
-
-// });
 
 // add datetimepicker to id=id_datetime
 $(document).ready(function(){
   $('#id_datetime').attr('id', 'datetimepicker');
 });
+
+
+
+// mixpanel
+mixpanel.track_links('#nav_join', "Join", {
+    "referrer": document.referrer
+});
+mixpanel.track_links("#nav_faq", "FAQ", {
+    "referrer": document.referrer
+});
+mixpanel.track_links("#nav_package", "Package", {
+    "referrer": document.referrer
+});
+mixpanel.track_links("#nav_photographer", "Photographers", {
+    "referrer": document.referrer
+});
+
+
+// mixpanel.track_links("#photographer_reserve", "Reserve photographer", {
+//     "referrer": document.referrer
+// }); 
+
 

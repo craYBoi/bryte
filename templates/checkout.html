@@ -29,7 +29,7 @@
 			</div>
 		</div>
 		<div class="row small_padding small_padding_bot">
-		<div class="col-sm-4 col-sm-offset-4 notification_box">
+		<div class="col-sm-4 col-sm-offset-4 notification_box col-xs-6 col-xs-offset-3">
 		<p class="text-center small_font">You will be charged a non-refundable 25% of the current package fee right now (You will receive a refund if your photographer cancels the appointment). You will be charged the remainder once the job is completed.</p>
 		</div>
 		</div>
@@ -53,5 +53,13 @@
 
 
 	</div>
+
+	<script type="text/javascript">
+		mixpanel.track("Submit Reservation", {
+    	"referrer": document.referrer,
+    	"photographer": '{{ photographer.get_full_name }}',
+    	"username": '{{ request.user.username }}',
+		});
+	</script>
 
 {% endblock %}

@@ -3,6 +3,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.contrib import messages
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 
 from .forms import ReserveForm, ReserveDetailStudentForm
@@ -14,8 +15,10 @@ from .models import Reservation
 
 import stripe
 import datetime
+from mixpanel import Mixpanel
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
+# mp = Mixpanel(settings.MIXPANEL_TOKEN)
 
 def reserve(request):
 
@@ -37,6 +40,8 @@ def reserve_detail(request, slug):
 
 	photographer = Photographer.objects.get(slug=slug)
 	reserve_form = ReserveDetailStudentForm(initial={'photographer': photographer})
+
+	# track user click reserve
 
 	context = {
 		'title_text': 'Reserve ' + photographer.get_full_name(),
@@ -123,6 +128,16 @@ def success(request):
 		price_id = request.POST.get('hidden')
 		price = Price.objects.get(pk=price_id)
 		token = request.POST.get('stripeToken')
+
+		# track somebody paid
+		# res_id = request.POST.get('reservation')
+		# reservation = Reservation.objects.get(pk=res_id)
+		# photographer = reservation.photographer
+		# mp.track(request.user.id, 'Process Payment', {
+		# 		'customer': str(request.user.username),
+		# 		'photographer': photographer.get_full_name(),
+		# 		'reservation': 'Reservation ID: ' + str(res_id),
+		# 	})
 		
 		# Create the charge on Stripe's servers - this will charge the user's card
 		try:

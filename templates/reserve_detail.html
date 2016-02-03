@@ -25,14 +25,24 @@
     		{{ reserve_form | crispy }}
     		<br>
     		<div class="text-center">
-          <button type = "submit" class = "btn btn-medium form_button">Submit</button>
+          <button type = "submit" class = "btn btn-medium form_button" id='reservation_submit'>Submit</button>
         </div>
         <p class="text-center small_padding small_font">You have a chance to review your reservation.</p>
       </form>
       </div>
     </div>
   </div>
+
+  <script type="text/javascript">
+	  mixpanel.track("Reserve photographer", {
+	    "referrer": document.referrer,
+	    'photographer': '{{ photographer.get_full_name }}',
+	    'username': '{{ request.user.username }}',
+		});
+  </script>
 {% endblock %}
+
+
 
 {% block jquery %}
 	
