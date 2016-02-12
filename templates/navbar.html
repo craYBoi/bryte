@@ -16,8 +16,6 @@
     <div class="collapse navbar-collapse" id='bs-example-navbar-collapse-1'>
       <ul class="nav navbar-nav navbar-right" >
         <li><a href="{% url 'become_photographer' %}" id="nav_join">Join as a Photographer</a></li>
-        <li><a href="{% url 'faqs' %}" id="nav_faq">Help</a></li>
-        <li><a href="{% url 'packages' %}" id="nav_package">Packages</a></li>
         <li><a href="{% url 'photographers' %}" id='nav_photographer'>Our Photographers</a></li>
         {% if not request.user.is_authenticated %}
           <li class="dropdown small_padding_right">
