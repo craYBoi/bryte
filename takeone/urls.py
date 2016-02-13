@@ -50,6 +50,8 @@ urlpatterns = [
 
     # user profile
     url(r'^profile$', profile_views.profile, name='profile'),
+    # edit profile
+    url(r'^profile/edit', profile_views.edit, name='profile_edit'),
 
 
     # registration 

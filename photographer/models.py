@@ -9,21 +9,22 @@ from uuid import uuid4
 
 class Photographer(models.Model):
 	last_name = models.CharField(max_length=120)
-	first_name = models.CharField(max_length=120)
-	email = models.EmailField()
+	first_name = models.CharField(max_length=120, null=True, blank=True)
+	email = models.EmailField(null=True, blank=True)
 	slug = models.SlugField(unique=True, null=True, blank=True)
-	short_description = models.CharField(max_length=150)
-	description = models.TextField()
-	phone = models.CharField(max_length=15)
-	profile = models.ImageField(upload_to='profile_img/', null=True)
+	short_description = models.CharField(max_length=150, null=True, blank=True)
+	description = models.TextField(null=True, blank=True)
+	phone = models.CharField(max_length=15, null=True, blank=True)
+	profile = models.ImageField(upload_to='profile_img/', null=True, blank=True)
 	total_rating = models.PositiveSmallIntegerField(null=True, blank=True)
-	lowest_price = models.PositiveSmallIntegerField(null=True, blank=True)
-	highest_price = models.PositiveSmallIntegerField(null=True, blank=True)
-	school = models.CharField(max_length=50)
-	location = models.CharField(max_length=50)
+	school = models.CharField(max_length=50, null=True, blank=True)
+	location = models.CharField(max_length=50, null=True, blank=True)
+	photography = models.BooleanField(blank=True, default=False)
+	videography = models.BooleanField(blank=True, default=False)
 
 	def __unicode__(self):
 		return self.first_name + ' ' + self.last_name
+
 
 	def get_full_name(self):
 		return self.first_name + ' ' + self.last_name
@@ -44,17 +45,6 @@ class Photographer(models.Model):
 		average = sum(rating_vals)/float(len(rating_vals))
 		self.total_rating = floor_to_int(average)
 
-	# constant time algorithm updating lowest, highest
-	def calculate_price_range(self, input_price):
-		# don't need to test whether there are packages
-		if not self.lowest_price:
-			self.lowest_price = input_price
-			self.highest_price = input_price
-		else:
-			if input_price < self.lowest_price:
-				self.lowest_price = input_price
-			if input_price > self.highest_price:
-				self.highest_price = input_price
 
 	def get_link_color_class(self):
 			return 'dark_yellow'

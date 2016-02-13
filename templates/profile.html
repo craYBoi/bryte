@@ -6,9 +6,24 @@
 	<div class="container">
 		<div class="content_wrapper">
 			<h2 class="feature_title bold text-center small_padding_bot">Profile</h2>
-
+				{% if message %}
+		    	<div class="row small_padding">
+						<div class="col-sm-4 col-sm-offset-4 notification_box col-xs-6 col-xs-offset-3">
+						<p class="text-center small_font">{{ message }}</p>
+						</div>
+		    	</div>
+		    {% endif %}
 			<div class="row small_font">
-				<div class="col-sm-3 col-sm-offset-1">
+				<div class="col-sm-3">
+					<div class="medium_padding"></div>
+					<a href="{{ profile.get_photographer_url }}"><button class="btn-blue">My Profile</button></a><br>
+					<div class="xsmall_padding"></div>
+					<a href="{% url 'profile_edit' %}"><button class="btn-blue">Edit Profile</button></a><br>
+					<div class="xsmall_padding"></div>
+					<a href=""><button class="btn-blue">Connect to Stripe</button></a>
+				</div>
+
+				<div class="col-sm-3">
 					<h3 class="text-center bold">Information</h3>
 					<!--<ul class="info_list">
 						<li>username: {{ profile.user.username }}</li>
@@ -21,7 +36,7 @@
 					</div>
 				</div>
 
-				<div class="col-sm-7 col-sm-offset-1">
+				<div class="col-sm-6">
 				<h3 class="text-center bold">Reservations</h3>
 					<div class="row small_padding_bot">
 						<div class="col-xs-10 col-xs-offset-1">

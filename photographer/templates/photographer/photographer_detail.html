@@ -5,7 +5,9 @@
 {% block photographer_detail %}
   <div id="photographer_intro" class="medium_padding medium_padding_bot">
     <div class="small_padding row">
-      <img src="{{ object.profile.url }}" width="100px">
+      {% if object.profile %}
+        <img src="{{ object.profile.url }}" width="100px">
+      {% endif %}
     </div>
     <div class="row small_padding">
       <h4 class="feature_title text-center bold">{{object.first_name}} {{object.last_name}}</h4>
