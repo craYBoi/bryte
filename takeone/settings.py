@@ -23,7 +23,7 @@ FILE_DIR = os.path.dirname(os.path.abspath(__file__))
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 
 # Application definition
@@ -251,8 +251,8 @@ DJANGO_TWILIO_FORGERY_PROTECTION = False
 BEN_CELL = os.environ.get('BEN_CELL')
 TWILIO_CELL = os.environ.get('TWILIO_CELL')
 
-STRIPE_SECRET_KEY = 'sk_live_wLQZlthgyDpiZ2ZXyTypuEjt'
-STRIPE_PUBLISHABLE_KEY = 'pk_live_Ddv7uIMRCSNcRa74nhdoKTVI'
+STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
+STRIPE_PUBLISHABLE_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY')
 CLIENT_ID = 'ca_7ogFyyC52p69QQf6ysSG5jpAcXmEFovq'
 COMMISSION = os.environ.get('COMMISSION')
 
