@@ -154,12 +154,17 @@ def success(request):
 		except stripe.error.CardError, e:
 			body = e.json_body
 			err = body['error']
-			error_status = 'Status: ' + str(e.http_status)
-			error_type = 'Type: ' + err.get('type')
+			error_status = 'Status: ' + str(e.http_status) + '\n'
+			error_type = 'Type: ' + err.get('type') + '\n'
 			error_msg = 'Message: ' + err.get('message')
 			# The card has been declined
-
-			error_str = error_status + '\n' + error_type + '\n' + error_msg
+			error_str = ''
+			if error_status:
+				error_str += error_status
+			if error_type:
+				error_str += error_type
+			if error_msg:
+				error_str += error_msg
 			messages.add_message(request, messages.ERROR, error_str)
 			return redirect(reverse('reserve_detail', kwargs={'slug': photographer.slug}))
 
