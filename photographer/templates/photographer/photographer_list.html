@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% load staticfiles %}
-
+{% block stylesheet %}
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css">
+{% endblock %}
 {% block photographer_list %}
 <div class="background_grey">
   <div id="photographer_list" class="medium_padding_bot">
@@ -31,7 +33,10 @@
     
       <div class="col-sm-4 text-center small_padding">
         <div class="thumbnail photographer_list_card">
-          <a href="{{ photographer.get_absolute_url }}"><img src="{{ photographer.profile.url }}" width="90px" class="medium_padding"></a>
+          <a href="{{ photographer.get_absolute_url }}">
+          {% if photographer.profile %}
+            <img src="{{ photographer.profile.url }}" width="90px" class="medium_padding">
+          {% endif %}</a>
           <a href="{{ photographer.get_absolute_url }}" class="yellow_hover"><h4 class="small_padding">{{ photographer.get_full_name }}</h4></a>
 
           <ul class="xsmall_padding">
@@ -71,11 +76,40 @@
             </ul>
           </div>
         </div> 
+        <!--<div class="col-sm-4 small_padding">
+        <div class="ui card small_font">
+          <div class="ui image">
+            <div class="ui left corner label">
+              <img src="{% static 'logo/brown2.png' %}"></img>
+            </div>
+            <img src="{% static 'img/4.jpg' %}" class="visible content">
+            <img src="{% static 'img/4.jpg' %}" class="hidden content">
+          </div>
+          <div class="content">
+            <a class="header">{{ photographer.get_full_name }}</a>
+            <div class="meta">
+              <span class="date">Create in Sep 2014</span>
+            </div>
+          </div>
+          <div class="extra content">
+            <a>
+              <i class="users icon"></i>
+              2 Members
+            </a>
+          </div>
+        </div>
+        </div>-->
     {% endfor %}
-    </div>    
+    </div>
  
     </div>
 
 </div>
+
 </div>
+{% endblock %}
+
+
+{% block script %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.js"></script>
 {% endblock %}
