@@ -143,12 +143,15 @@ def success(request):
 		
 		# Create the charge on Stripe's servers - this will charge the user's card
 		try:
+			commission = float(settings.COMMISSION)
+			fee = int(commission * price.stripe_price)
+
 			charge = stripe.Charge.create(
 				amount=price.stripe_price, # amount in cents, again
 				currency="usd",
 				source=token,
 				destination= photographer.stripe_user_id,
-				application_fee=int(settings.COMMISSION * price.stripe_price),
+				application_fee=fee,
 			)
 			is_success = True
 		except stripe.error.CardError, e:
