@@ -254,7 +254,7 @@ TWILIO_CELL = os.environ.get('TWILIO_CELL')
 STRIPE_SECRET_KEY = 'sk_live_wLQZlthgyDpiZ2ZXyTypuEjt'
 STRIPE_PUBLISHABLE_KEY = 'pk_live_Ddv7uIMRCSNcRa74nhdoKTVI'
 CLIENT_ID = 'ca_7ogFyyC52p69QQf6ysSG5jpAcXmEFovq'
-COMMISSION = int(os.environ.get('COMMISSION'))
+COMMISSION = os.environ.get('COMMISSION')
 
 # mixpanel
 MIXPANEL_TOKEN = 'b27c2c4d1dddc024a8c4b60b153f2968'
