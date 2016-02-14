@@ -42,15 +42,23 @@ def profile(request):
 			scope = content.get('scope')
 			refresh_token = content.get('refresh_token')
 			stripe_user_id = content.get('stripe_user_id')
-			photographer = profile.photographer
-			photographer.scope = scope
-			photographer.refresh_token = refresh_token
-			photographer.stripe_user_id = stripe_user_id
-			photographer.stripe_publishable_key = stripe_publishable_key
-			photographer.access_token = access_token
-			photographer.save()
 
-			context['auth_message'] = 'You have been authenticated! Enjoy Bryte!'
+			error = content.get('error')
+			error_description = content.get('error_description')
+
+			if stripe_user_id:
+				photographer = profile.photographer
+				photographer.scope = scope
+				photographer.refresh_token = refresh_token
+				photographer.stripe_user_id = stripe_user_id
+				photographer.stripe_publishable_key = stripe_publishable_key
+				photographer.access_token = access_token
+				photographer.save()
+
+				context['auth_message'] = 'You have been authenticated! Enjoy Bryte!'
+
+			if error:
+				context['auth_message'] = 'Authentication unsuccessful! error: ' + error + '. Description: ' + error_description + '.'
 
 	if request.method == 'POST':
 		edit_form = ProfileEditForm(request.POST)
