@@ -4,6 +4,7 @@ from django.http import Http404
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.core.urlresolvers import reverse
+from django.conf import settings
 
 
 # Create your views here.
@@ -28,7 +29,7 @@ class PhotographerListView(ListView):
 
 	# for filter
 	def get_queryset(self, *args, **kwargs):
-		qs = super(PhotographerListView, self).get_queryset(*args, **kwargs)
+		qs = Photographer.objects.exclude(stripe_user_id__isnull=True).order_by('?')
 		query = self.request.GET.get('q')
 		if query:
 			qs = self.model.objects.filter(
@@ -36,7 +37,7 @@ class PhotographerListView(ListView):
 					Q(first_name__icontains = query)
 				)
 		else:
-			qs = Photographer.objects.order_by('?')
+			qs = Photographer.objects.exclude(stripe_user_id__isnull=True).order_by('?')
 		return qs
 
 
@@ -92,5 +93,7 @@ def PhotographerDetailViewF(request, slug):
 	context['object'] = photographer
 	context['page_url'] = 'http://www.brytephoto.com' + str(photographer.get_absolute_url())
 	context['permission'] = permission
+	context['client_id'] = settings.CLIENT_ID
+	context['user'] = request.user
 
 	return render(request, 'photographer/photographer_detail.html', context)

@@ -12,21 +12,11 @@ import stripe
 class Profile(models.Model):
 	user = models.OneToOneField(User)
 	name = models.CharField(max_length=120)
-	stripe_id = models.CharField(max_length=200, null=True, blank=True)
-	photographer = models.OneToOneField(Photographer, related_name='userprofile', blank=True, null=True)
-	scope = models.CharField(max_length=20, null=True, blank=True)
-	refresh_token = models.CharField(max_length=50, null=True, blank=True)
-	stripe_user_id = models.CharField(max_length=50, null=True, blank=True)
-	stripe_publishable_key = models.CharField(max_length=50, null=True, blank=True)
+	photographer = models.OneToOneField(Photographer, related_name='userprofile', blank=True, null=True, on_delete=models.CASCADE)
 
 
 	def __unicode__(self):
 		return self.user.username
-
-	def create_stripe_id(self):
-		if not self.stripe_id:
-			stripe_dict = stripe.Customer.create(email=self.user.email)
-			self.stripe_id = stripe_dict.get('id')
 
 	def get_photographer_url(self):
 		if self.photographer:

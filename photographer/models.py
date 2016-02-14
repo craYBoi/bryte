@@ -21,6 +21,11 @@ class Photographer(models.Model):
 	location = models.CharField(max_length=50, null=True, blank=True)
 	photography = models.BooleanField(blank=True, default=False)
 	videography = models.BooleanField(blank=True, default=False)
+	scope = models.CharField(max_length=20, null=True, blank=True)
+	refresh_token = models.CharField(max_length=100, null=True, blank=True)
+	access_token = models.CharField(max_length=100, null=True, blank=True)
+	stripe_user_id = models.CharField(max_length=100, null=True, blank=True)
+	stripe_publishable_key = models.CharField(max_length=100, null=True, blank=True)
 
 	def __unicode__(self):
 		return self.first_name + ' ' + self.last_name
@@ -48,8 +53,6 @@ class Photographer(models.Model):
 
 	def get_link_color_class(self):
 			return 'dark_yellow'
-
-
 
 
 	# some validation (email + phone) here
@@ -102,6 +105,7 @@ class Package(models.Model):
 	photographer = models.ForeignKey(Photographer)
 	price = models.PositiveSmallIntegerField()
 	title = models.CharField(max_length=50)
+	level = models.CharField(max_length=50, blank=True, null=True)
 
 	def __unicode__(self):
 		return self.photographer.get_full_name() + ': ' + str(self.price)

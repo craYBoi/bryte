@@ -35,7 +35,6 @@ def reserve(request):
 	return render(request, 'reserve.html', context)
 
 
-@login_required
 def reserve_detail(request, slug):
 
 	photographer = Photographer.objects.get(slug=slug)
@@ -59,7 +58,6 @@ def reserve_detail(request, slug):
 	return render(request, 'reserve_detail.html', context)
 
 
-@login_required
 def checkout(request):
 
 	context = {
@@ -94,7 +92,7 @@ def checkout(request):
 			context['phone'] = phone
 
 			# store the reservation
-			res = Reservation.objects.create(photographer=photographer, profile=request.user.profile,
+			res = Reservation.objects.create(photographer=photographer,
 			datetime=datetime, note=note, phone=phone, price=price, complete=False)
 
 			# pass the reservation too as hidden field for successpage to catch it
@@ -114,9 +112,8 @@ def checkout(request):
 	return render(request, 'checkout.html', context)
 
 
-@login_required
-def success(request):
 
+def success(request):
 	is_success = False
 
 	context = {
@@ -129,6 +126,11 @@ def success(request):
 		price = Price.objects.get(pk=price_id)
 		token = request.POST.get('stripeToken')
 
+		# get the photographer stripe id
+		res_id = request.POST.get('reservation')
+		reservation = Reservation.objects.get(pk=res_id)
+		photographer = reservation.photographer
+
 		# track somebody paid
 		# res_id = request.POST.get('reservation')
 		# reservation = Reservation.objects.get(pk=res_id)
@@ -140,25 +142,19 @@ def success(request):
 		# 	})
 		
 		# Create the charge on Stripe's servers - this will charge the user's card
-		try:
-			# customer = stripe.Customer.create(
-			# 	source=token,
-			# )
-			customer_id = request.user.profile.stripe_id
-			charge = stripe.Charge.create(
-				amount=price.stripe_price, # amount in cents, again
-				currency="usd",
-				customer=customer_id,
-				description=price.title
-			)
-			is_success = True
-		except Exception as e:
-			# The card has been declined
-			messages.add_message(request, messages.ERROR, 'The payment is unsuccessful')
-			res_id = request.POST.get('reservation')
-			reservation = Reservation.objects.get(pk=res_id)
-			photographer = reservation.photographer
-			return redirect(reverse('reserve_detail', kwargs={'slug': photographer.slug}))
+		# try:
+		charge = stripe.Charge.create(
+			amount=price.stripe_price, # amount in cents, again
+			currency="usd",
+			source=token,
+			destination= photographer.stripe_user_id,
+			application_fee=int(settings.COMMISSION * price.stripe_price),
+		)
+		is_success = True
+		# except Exception as e:
+		# 	# The card has been declined
+		# 	messages.add_message(request, messages.ERROR, 'The payment is unsuccessful')
+		# 	return redirect(reverse('reserve_detail', kwargs={'slug': photographer.slug}))
 
 
 		if is_success:
@@ -172,7 +168,7 @@ def success(request):
 			send_mail('Successfully Reserved!',
 				'Thank you for the reservation! You have reserved ' + reservation.photographer.get_full_name() + '! -- Team Bryte',
 				settings.EMAIL_HOST_USER,
-				[reservation.profile.user.email],
+				['chailatte.byy@gmail.com'],
 				fail_silently=False
 				)
 

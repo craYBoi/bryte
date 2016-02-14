@@ -13,6 +13,13 @@
 						</div>
 		    	</div>
 		    {% endif %}
+				{% if auth_message %}
+		    	<div class="row small_padding">
+						<div class="col-sm-4 col-sm-offset-4 notification_box col-xs-6 col-xs-offset-3">
+						<p class="text-center small_font">{{ auth_message }}</p>
+						</div>
+		    	</div>
+		    {% endif %}
 			<div class="row small_font">
 				<div class="col-sm-3">
 					<div class="medium_padding"></div>
@@ -20,7 +27,10 @@
 					<div class="xsmall_padding"></div>
 					<a href="{% url 'profile_edit' %}"><button class="btn-blue">Edit Profile</button></a><br>
 					<div class="xsmall_padding"></div>
-					<a href=""><button class="btn-blue">Connect to Stripe</button></a>
+					{% if not profile.photographer.stripe_user_id %}
+						<a href="https://connect.stripe.com/oauth/authorize?response_type=code&client_id={{ client_id }}&scope=read_write&stripe_user[email]={{ profile.user.email }}"><button class="btn-blue">Connect to Stripe</button></a>
+					{% endif %}
+
 				</div>
 
 				<div class="col-sm-3">

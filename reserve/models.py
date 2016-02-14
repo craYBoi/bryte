@@ -19,5 +19,5 @@ class Reservation(models.Model):
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
 
 	def __unicode__(self):
-		return self.profile.user.username
+		return self.photographer.get_full_name()
 
