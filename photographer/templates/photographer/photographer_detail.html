@@ -10,8 +10,8 @@
       </div>
     {% else %}
       <div class="medium_padding medium_padding_bot text-center">
-       <h4 class="text-center feature_title bold">One Last Step</h4>
-       <p class="textc-center">You need to connect to stripe to go active.</p>
+       <h4 class="text-center feature_title bold">Setup Payment</h4>
+       <p class="textc-center">Click here to set up your way to receive payment!</p>
        <div class="medium_padding"></div>
        <a href="https://connect.stripe.com/oauth/authorize?response_type=code&client_id={{ client_id }}&scope=read_write&stripe_user[email]={{ user.email }}"><button class="btn-blue">Connect to Stripe</button></a>
       </div>
@@ -53,7 +53,12 @@
     <ul class="list-inline text-center center_menu">
       {# <li><a href="#photographer_packages" id="photographer_packages_button" class="yellow_hover">Packages</a></li> #}
       <li><a href="#photographer_packages" id="photographer_packages_button" class="yellow_hover">Packages</a></li>
-      <li><a href="#photographer_gallery" id="photographer_gallery_button" class="yellow_hover">Works</a></li>
+      {% if object.photography %}
+        <li><a href="#photographer_gallery" id="photographer_gallery_button" class="yellow_hover">Photos</a></li>
+      {% endif %}
+      {% if object.videography %}
+        <li><a href="#photographer_video" id="photographer_video_button">Videos</a></li>
+      {% endif %}
       <li><a href="#photographer_reviews" id="photographer_reviews_button" class="yellow_hover">Reviews</a></li>
     </ul>
   </div>
@@ -89,29 +94,10 @@
   </div>
 
 
-  <!-- packages
-  <div class="row small_padding" id="photographer_packages">
-    {% for package in object.package_set.all %}
-      <div class="{{ col_url }}" style="text-align: center">
-        <div class="thumbnail">
-        <div class="thumbnail">
-            <div class="caption">
-              <h2 class="feature_title bold">${{ package.price }}</h2>
-                <ul style="list-style-image: url({% static 'img/star_bullet.png' %});" class="photographer_packages_list">
-                  {% for feature in package.packagefeature_set.all %}
-                  <li>{{ feature.feature_text }}</li>
-                  {% endfor %}
-                </ul>  
-            </div>
-        </div>
-        <h3>{{ package.title }}</h3>
-        </div>
-      </div>
-    {% endfor %}
-  </div> -->
 
 
-  <!-- gallery -->
+  <!-- photo -->
+  {% if object.photography %}
   <div class="row medium_padding" id="photographer_gallery">
 		<div class="grid">
 		  <div class="grid-sizer"></div>
@@ -122,6 +108,28 @@
 		  	{% endfor %}
 		</div>
   </div>
+  {% endif %}
+
+  {% if object.photographer and object.videography %}
+    <hr>
+  {% endif %}
+  <!-- videography -->
+  {% if object.videography %}
+    <div id="photographer_video" class="small_padding small_padding_bot">
+
+    {% for vid in object.photographervideo_set.all %}
+      <div class="row medium_padding">
+        <h2 class="text-center bold big_font">{{ vid.title }}</h2>
+        <div class="small_padding"></div>
+        <div class="embed-container" style="margin: 0 auto;text-align:center;">
+          <iframe src="{{ vid.video }}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+        </div> 
+      </div>     
+    {% endfor %}
+
+
+    </div>
+  {% endif %}
 
 
   <!-- rating & comment -->

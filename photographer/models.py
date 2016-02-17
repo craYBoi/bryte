@@ -73,6 +73,15 @@ class PhotographerImage(models.Model):
 		return self.author.first_name
 
 
+class PhotographerVideo(models.Model):
+	author = models.ForeignKey(Photographer)
+	video = models.CharField(max_length=120)
+	title = models.CharField(max_length=50, blank=True, null=True)
+
+	def __unicode__(self):
+		return self.author.first_name
+
+
 class Rating(models.Model):
 	photographer = models.ForeignKey(Photographer)
 

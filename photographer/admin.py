@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Photographer, PhotographerImage, Rating, Package, PackageFeature, Specialty
+from .models import Photographer, PhotographerImage, PhotographerVideo, Rating, Package, PackageFeature, Specialty
 
 class PhotographerAdmin(admin.ModelAdmin):
 	list_display = ['first_name', 'last_name', 'short_description']
@@ -20,6 +20,7 @@ class SpecialtyAdmin(admin.ModelAdmin):
 
 admin.site.register(Photographer, PhotographerAdmin)
 admin.site.register(PhotographerImage)
+admin.site.register(PhotographerVideo)
 admin.site.register(Package, PackageAdmin)
 admin.site.register(PackageFeature, PackageFeatureAdmin)
 admin.site.register(Rating, RatingAdmin)
