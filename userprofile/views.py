@@ -55,7 +55,7 @@ def profile(request):
 				photographer.access_token = access_token
 				photographer.save()
 
-				context['auth_message'] = 'You have been authenticated! Enjoy Bryte!'
+				context['auth_message'] = 'Your payment information has been successfully updated.'
 
 			if error:
 				context['auth_message'] = 'Authentication unsuccessful! error: ' + error + '. Description: ' + error_description + '.'

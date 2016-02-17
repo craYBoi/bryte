@@ -3,9 +3,22 @@
 
 
 {% block profile %}
+	<div class="jumbotron" style="background: url({% static 'img/jumbo3_dark.png' %}); background-size: cover; text-align: center;">
+		<h2 class="text-center bold main_title white">Dashboard</h2>
+	</div>
 	<div class="container">
+		{% if not profile.photographer.stripe_user_id %}
+			<div class="row medium_padding">
+				<div class="col-sm-8 col-sm-offset-2 text-center background_light_blue border_blue_dashed">
+					<div class="small_padding"></div>
+					<h3 class="bold white large_font">You have not set up ways to receive your payment yet!</h3>
+					<div class="small_padding"></div>
+					<a href="https://connect.stripe.com/oauth/authorize?response_type=code&client_id={{ client_id }}&scope=read_write&stripe_user[email]={{ profile.user.email }}"><button class="btn-blue">Setup Payment</button></a>
+					<div class="medium_padding"></div>
+				</div>
+			</div>
+		{% endif %}
 		<div class="content_wrapper">
-			<h2 class="feature_title bold text-center small_padding_bot">Profile</h2>
 				{% if message %}
 		    	<div class="row small_padding">
 						<div class="col-sm-4 col-sm-offset-4 notification_box col-xs-6 col-xs-offset-3">
@@ -27,10 +40,6 @@
 					<div class="xsmall_padding"></div>
 					<a href="{% url 'profile_edit' %}"><button class="btn-blue">Edit Profile</button></a><br>
 					<div class="xsmall_padding"></div>
-					{% if not profile.photographer.stripe_user_id %}
-						<a href="https://connect.stripe.com/oauth/authorize?response_type=code&client_id={{ client_id }}&scope=read_write&stripe_user[email]={{ profile.user.email }}"><button class="btn-blue">Connect to Stripe</button></a>
-					{% endif %}
-
 				</div>
 
 				<div class="col-sm-3">

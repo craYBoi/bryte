@@ -38,7 +38,8 @@
           <li class="dropdown small_padding_right">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ request.user.username }} <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
-              <li><a href="{% url 'profile' %}">Profile</a></li>
+              <li><a href="{% url 'profile' %}">My Dashboard</a></li>
+              <li><a href="{{ request.user.profile.photographer.get_absolute_url }}">My Profile</a></li>
               <li><a href="{% url 'auth_logout' %}">Log Out</a></li>
             </ul>
           </li>

@@ -11,9 +11,9 @@
     {% else %}
       <div class="medium_padding medium_padding_bot text-center">
        <h4 class="text-center feature_title bold">Setup Payment</h4>
-       <p class="textc-center">Click here to set up your way to receive payment!</p>
-       <div class="medium_padding"></div>
-       <a href="https://connect.stripe.com/oauth/authorize?response_type=code&client_id={{ client_id }}&scope=read_write&stripe_user[email]={{ user.email }}"><button class="btn-blue">Connect to Stripe</button></a>
+       <p class="textc-center">Click here to set up your way to receive payment in order to make your profile public!</p>
+       <div class="small_padding"></div>
+       <a href="https://connect.stripe.com/oauth/authorize?response_type=code&client_id={{ client_id }}&scope=read_write&stripe_user[email]={{ user.email }}"><button class="btn-blue">Setup Payment</button></a>
       </div>
     {% endif %}
   {% else %}
