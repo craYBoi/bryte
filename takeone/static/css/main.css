@@ -31,7 +31,7 @@ ul {
 }
 
 .small_offset {
-	height: 35px;
+	height: 30px;
 }
 
 h1,h2,h3,h4 {
@@ -752,7 +752,6 @@ h1,h2,h3,h4 {
 .medium_padding_left {
 	padding-left: 40px;
 }
-
 
 
 .large_padding {

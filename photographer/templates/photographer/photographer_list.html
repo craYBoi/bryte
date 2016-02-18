@@ -45,7 +45,10 @@
             <li class="small_font">{{ photographer.location }}</li>
           </ul>
 
+
+
           {% if photographer.total_rating %}
+            <!-- Solve the same height -->
             <div class="small_padding">
 
             {% if photographer.total_rating == 5 %}
@@ -66,7 +69,7 @@
           {% else %}
             <div class="small_offset">
             </div>
-            <p class="xsmall_padding xsmall_padding_bot">Be the first to review!</p>
+            <p class="xsmall_padding_bot">Be the first to review!</p>
           {% endif %}
           
           <!--
