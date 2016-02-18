@@ -12,7 +12,6 @@ class Photographer(models.Model):
 	first_name = models.CharField(max_length=120, null=True, blank=True)
 	email = models.EmailField(null=True, blank=True)
 	slug = models.SlugField(unique=True, null=True, blank=True)
-	short_description = models.CharField(max_length=150, null=True, blank=True)
 	description = models.TextField(null=True, blank=True)
 	phone = models.CharField(max_length=15, null=True, blank=True)
 	profile = models.ImageField(upload_to='profile_img/', null=True, blank=True)

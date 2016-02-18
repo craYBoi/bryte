@@ -144,7 +144,7 @@
       <ul class="comment_style">
       {% for rating_url, rating in ratings %}
         <li>
-          <div class="row">
+          <div class="row light">
           <div class="col-sm-3"><img class="comment_rating" src="{% static rating_url %}" width='100px'></div>
           <div class="col-sm-8 comment_text">{{ rating.comment }}<br><br>
           <div class="pull-right comment_date">{{ rating.datetime | date:'M - Y' }}</div></div>

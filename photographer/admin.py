@@ -4,7 +4,7 @@ from django.contrib import admin
 from .models import Photographer, PhotographerImage, PhotographerVideo, Rating, Package, PackageFeature, Specialty
 
 class PhotographerAdmin(admin.ModelAdmin):
-	list_display = ['first_name', 'last_name', 'short_description']
+	list_display = ['first_name', 'last_name']
 
 class RatingAdmin(admin.ModelAdmin):
 	list_display = ['rating', 'comment']
