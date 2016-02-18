@@ -35,7 +35,8 @@
         <div class="thumbnail photographer_list_card">
           <a href="{{ photographer.get_absolute_url }}">
           {% if photographer.profile %}
-            <img src="{{ photographer.profile.url }}" width="90px" class="medium_padding">
+            <div class="medium_padding"></div>
+            <img src="{{ photographer.profile.url }}" width="90px" class="img-circle">
           {% endif %}</a>
           <a href="{{ photographer.get_absolute_url }}" class="yellow_hover"><h4 class="small_padding">{{ photographer.get_full_name }}</h4></a>
 
