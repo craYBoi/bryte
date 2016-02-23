@@ -15,16 +15,17 @@
     </div>
 
     <div class="row small_padding">
-      <div class="col-sm-8 col-sm-offset-2">
+      <div class="col-sm-6 col-sm-offset-3">
       <ul class="list-inline white text-center light">
-        <li class="light">Half the price of industry standard without compromising on quality</li>
+        <li class="light">We strive to promote local businesses, create jobs for students<br>and foster a sense of community with our service</li>
       </ul>
       </div>
     </div>
 
-    <div class="large_padding text-center">
+    <div class="small_padding"></div>
+    <div class="medium_padding text-center">
     <a href="#learn_more"><button class="btn btn-white large_font light">Learn More</button></a>
-    <a href="{% url 'get_started' %}"><button class="btn btn-white large_font light small_padding_right">Get Started</button></a>
+    <a href="{% url 'get_started' %}"><button class="btn btn-white large_font light">Get Started</button></a>
     </div>
 
   </div>
@@ -37,8 +38,47 @@
 <div id="content_advantages" class="content_wrapper">
   <div id="features">
     <ul class="list-unstyled alternate_list">
+      
+
+
       <li>
         <div class="container large_padding_bot">
+          <h2 class="light_title text-center bold">How Bryte Works</h2>
+          <div class="row medium_padding">
+            <div class="col-xs-10 col-xs-offset-1">
+              <div class="row">
+
+                <div class="col-md-4 text-center">
+                  <img src="{% static 'img/workThree.png' %}" class="img-responsive"> 
+                  <div class="medium_padding"></div>
+                  <h3>Choose Packages</h3>
+                  <p class="light">We detail what exactly what your <a href="{% url 'get_started' %}" class="blue">package</a> offers</p>
+                </div>   
+
+                <div class="col-md-4 text-center">
+                  <img src="{% static 'img/workOne.png' %}" class="img-responsive"> 
+                  <div class="medium_padding"></div>
+                  <h3>Compare Creatives</h3>
+                  <p class="light">Compare creatives say choose the creative that fits your brand and vision, and all of our creative are in rhode island</p>
+                </div>  
+
+                <div class="col-md-4 text-center">
+                  <img src="{% static 'img/workTwo.png' %}" class="img-responsive"> 
+                  <div class="medium_padding"></div>
+                  <h3>Book without the hassle</h3>
+                  <p class="light">Pick a day that works for you and we’ll send over a creative. Then pay with our secure online payment platform(<a href="https://stripe.com/" class="blue">© Stripe</a>) after your work is completed</p>
+                </div>  
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="medium_padding"></div>
+      </li>
+
+
+<!--
+      <li>
+        <div class="container large_padding_bot large_padding">
           <h2 class="light_title text-center bold">How Can We Help?</h2>
           <div class="row">
             <div class="col-xs-10 col-xs-offset-1">
@@ -73,43 +113,7 @@
           </div>
         </div>
       </li>
-
-
-      <li>
-        <div class="container large_padding_bot large_padding">
-          <h2 class="light_title text-center bold">How Bryte Works</h2>
-          <div class="row medium_padding">
-            <div class="col-xs-10 col-xs-offset-1">
-              <div class="row">
-
-                <div class="col-md-4 text-center">
-                  <img src="{% static 'img/workThree.png' %}" class="img-responsive"> 
-                  <div class="medium_padding"></div>
-                  <h3>Choose Packages</h3>
-                  <p class="light">We detail what exactly what your <a href="{% url 'get_started' %}" class="blue">package</a> offers</p>
-                </div>   
-
-                <div class="col-md-4 text-center">
-                  <img src="{% static 'img/workOne.png' %}" class="img-responsive"> 
-                  <div class="medium_padding"></div>
-                  <h3>Compare Creatives</h3>
-                  <p class="light">Compare creatives say choose the creative that fits your brand and vision, and all of our creative are in rhode island</p>
-                </div>  
-
-                <div class="col-md-4 text-center">
-                  <img src="{% static 'img/workTwo.png' %}" class="img-responsive"> 
-                  <div class="medium_padding"></div>
-                  <h3>Book without the hassle</h3>
-                  <p class="light">Pick a day that works for you and we’ll send over a creative. Then pay with our secure online payment platform(<a href="https://stripe.com/" class="blue">© Stripe</a>) after your work is completed</p>
-                </div>  
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="medium_padding"></div>
-      </li>
-
-
+-->
 <!--
       <li>
         <div class="large_padding"></div>
@@ -166,12 +170,12 @@
 {% endblock %}
 
 {% block about %}
-    <div class="jumbotron large_padding large_padding_bot background_dark_blue">
+    <div class="jumbotron medium_padding medium_padding_bot background_dark_blue">
       <h2 class="text-center bold main_title white">About Us</h2>
     </div>
     <div id="content_about" class="content_wrapper container">
 
-    <div class="row content_title_padding">
+    <div class="row small_padding">
       <div class="col-md-4 col-md-offset-1 col-xs-10 col-xs-offset-1">
         <div class="row">
           <div class="text-center">
