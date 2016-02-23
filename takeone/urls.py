@@ -28,7 +28,7 @@ urlpatterns = [
     url(r'^photographer/', include('photographer.urls')),
 
     # get started page
-    # url(r'^start$', newsletter_views.get_started, name='get_started'),
+    url(r'^start$', newsletter_views.get_started, name='get_started'),
 
     # reserve
     url(r'^reserve/', include('reserve.urls')),

@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 
+from photographer.models import Photographer
 from django.db import models
 
 # Create your models here.
@@ -15,24 +16,26 @@ class SignUp(models.Model):
 
 class Price(models.Model):
 	title = models.CharField(max_length=120)
-	price = models.PositiveSmallIntegerField()
-	stripe_price = models.IntegerField()
-	is_student = models.BooleanField()
-	# create a choice for the type of photography
-	# also create a choice for student, pro, or group (replacing is_student)
+	price = models.PositiveSmallIntegerField(blank=True, null=True)
+	stripe_price = models.IntegerField(blank=True, null=True)
+	is_photography = models.BooleanField(default=False)
+	is_videography = models.BooleanField(default=False)
+	photographer = models.ManyToManyField(Photographer, blank=True)
+
+	PACKAGE_CATEGORIES = (
+		('re', 'Real Estate'),
+		('sb', 'Small Business'),
+	)
+	category = models.CharField(max_length=20, choices=PACKAGE_CATEGORIES, default='re')
+
 
 	def __unicode__(self):
-		return self.title + ' ------ ' + str(self.price)
+		return self.title
 
 	def save(self, *args, **kwargs):
 		self.stripe_price = 100 * self.price
 		super(Price, self).save(*args, **kwargs)
 
-	def get_title(self):
-		if self.is_student:
-			return 'Student ' + self.title
-		else:
-			return 'Professional ' + self.title 
 
 
 class PriceFeature(models.Model):

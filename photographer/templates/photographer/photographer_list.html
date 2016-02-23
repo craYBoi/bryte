@@ -1,23 +1,44 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 {% block stylesheet %}
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css">
+  <link rel="stylesheet" href="http://davidstutz.github.io/bootstrap-multiselect/dist/css/bootstrap-multiselect.css" type="text/css"/>
 {% endblock %}
 {% block photographer_list %}
 <div class="background_grey">
-  <div id="photographer_list" class="medium_padding_bot">
-    <div class="jumbotron medium_padding medium_padding_bot" style="background: url({% static 'img/jumbo3_dark.png' %}); background-size: cover; text-align: center;">
-      <h2 class="text-center main_title bold white">Photographers</h2>
-      <p class="text-center white">
-        Bryte handpicks every single photographer
-      </p>
-    </div>
+  <div id="photographer_list">
+
 
     <div class="container">
+      <div class="medium_padding"></div>
+      <div class="text-center background_light_blue border_blue_dashed">
+        <div class="small_padding"></div>
+          <h1 class="white bold">Step Three</h1>
+          <div class="row">
+          <h3 class="light white large_font col-xs-10 col-xs-offset-1">Compare and Choose your top three photographers, we will contact them for you</h3>
+          </div>
+          <div class="small_padding">
 
-    <div class="medium_padding">
+          <div class="flex_box_center">
+            <select name="fav_photographer" class="fav_photographer" multiple="multiple" form="fav_photographer_form">
+                {% for photographer in object_list %}
+                  <option value="{{ photographer.pk }}">{{ photographer.get_full_name }}</option>
+                {% endfor %}
+            </select>
+            <div class="small_padding_right"></div>
+            <form id="fav_photographer_form" action="{% url 'reserve' %}" method="POST">{% csrf_token %}
+              <input type="hidden" name="fav_package" value='{{ price_package }}'>
+              <button type='submit' class="btn-blue">Next</button>
+            </form>
+          </div>
+
+          </div>
+        <div class="medium_padding"></div>
+      </div>
+
+    <!--<div class="medium_padding">
       <p class="text-center large_font"><i class='fa fa-star yellow'></i> &nbsp<a href="{% url 'select_photographer' %}" class="">How do we select our photographer ></a></p>
     </div>
+
       <div class="photographer_list_filter small_padding">
         <form method="GET" action="." class="form-inline small_padding_left">
           <div class="form-group">
@@ -25,8 +46,9 @@
           </div>
         </form>
       </div>
+    -->
 
-
+    <div class="medium_padding"></div>
 
     <div class="row">
     {% for photographer in object_list %}
@@ -38,7 +60,7 @@
             <div class="medium_padding"></div>
             <img src="{{ photographer.profile.url }}" width="90px" class="img-circle">
           {% endif %}</a>
-          <a href="{{ photographer.get_absolute_url }}" class="yellow_hover"><h4 class="small_padding">{{ photographer.get_full_name }}</h4></a>
+          <a href="{{ photographer.get_absolute_url }}" class="yellow_hover"><h4 class="small_padding bold">{{ photographer.get_full_name }}</h4></a>
 
           <ul class="xsmall_padding">
             <li>{{ photographer.school }}</li>
@@ -103,7 +125,32 @@
     {% endfor %}
     </div>
  
-    </div>
+
+    <!-- another step three -->
+      <div class="medium_padding"></div>
+      <div class="text-center background_light_blue border_blue_dashed">
+        <div class="small_padding"></div>
+          <h1 class="white bold">Step Three</h1>
+          <div class="row">
+          <h3 class="light white large_font col-xs-10 col-xs-offset-1">Compare and Choose your top three photographers, we will contact them for you</h3>
+          </div>
+          <div class="small_padding">
+
+          <div class="flex_box_center">
+            <select name="fav_photographer" class="fav_photographer" multiple="multiple" form="fav_photographer_form">
+                {% for photographer in object_list %}
+                  <option value="{{ photographer.pk }}">{{ photographer.get_full_name }}</option>
+                {% endfor %}
+            </select>
+            <div class="small_padding_right"></div>
+            <form id="fav_photographer_form" action="{% url 'reserve' %}">
+              <button type='submit' class="btn-blue">Next</button>
+            </form>
+          </div>
+
+          </div>
+        <div class="medium_padding"></div>
+      </div>
 
 </div>
 
@@ -112,5 +159,38 @@
 
 
 {% block script %}
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.js"></script>
+  <script type="text/javascript" src="http://davidstutz.github.io/bootstrap-multiselect/dist/js/bootstrap-multiselect.js"></script>
+{% endblock %}
+
+{% block jquery %}
+  $('.fav_photographer').multiselect({
+    enableClickableOptGroups: true,
+    onChange: function(option, checked) {
+      // Get selected options.
+      var selectedOptions = $('.fav_photographer option:selected');
+
+      if (selectedOptions.length >= 3) {
+          // Disable all other checkboxes.
+          var nonSelectedOptions = $('.fav_photographer option').filter(function() {
+              return !$(this).is(':selected');
+          });
+
+          var dropdown = $('.fav_photographer').siblings('.multiselect-container');
+          nonSelectedOptions.each(function() {
+              var input = $('input[value="' + $(this).val() + '"]');
+              input.prop('disabled', true);
+              input.parent('li').addClass('disabled');
+          });
+      }
+      else {
+          // Enable all checkboxes.
+          var dropdown = $('.fav_photographer').siblings('.multiselect-container');
+          $('.fav_photographer option').each(function() {
+              var input = $('input[value="' + $(this).val() + '"]');
+              input.prop('disabled', false);
+              input.parent('li').addClass('disabled');
+          });
+      }
+  }
+});
 {% endblock %}

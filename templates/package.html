@@ -8,222 +8,43 @@
 	<div class="background_grey">
 
 	<div class="container">
-
 		<div class="large_padding text-center">
 			<ul class="list-inline small_padding">
-				<li><a href="#head_pg_basic" class="light_blue">Headshot Photography - Basic</a></li>
-				<li><a href="#head_pg_premium" class="dark_blue">Headshot Photography - Premium</a></li> <br>
-				<li><a href="#rest_pg_basic" class="light_blue">Real Estate Photography - Basic</a></li>
-				<li><a href="#rest_pg_standard" class="blue">Real Estate Photography - Standard</a></li>
-				<li><a href="#rest_pg_premium" class="dark_blue">Real Estate Photography - Premium</a></li> <br>
-				<li><a href="#corp_pg_basic" class="light_blue">Corporate Photography - The Startup</a></li>
-				<li><a href="#corp_pg_standard" class="blue">Corporate Photography - Small Businesses</a></li>
-				<li><a href="#corp_pg_premium" class="dark_blue">Corporate Photography - Growing Companies</a></li> <br>
-				<li><a href="#wedding_pg" class="blue">Wedding Photography</a></li>
-				<li><a href="#prod_pg" class="blue">Product Photography</a></li>
+				{% for package in packages %}
+					<li><a href="#{{ package.pk }}" class="blue">{{ package.title }}</a></li>
+				{% endfor %}
 			</ul>
 		</div>
 
-
-		<div class="medium_padding medium_padding_bot" id='head_pg_basic'>
-			<h3 class="background_light_blue package_title bold package_title_mediumw ">Headshot Photography - Basic</h3>
-
-			<div class="package_content package_border_light_blue">
-				<h4 class="text-center bold large_font">Features</h4>
-				<ul class="pricing_list">
-					<li>Up to 20 minutes</li>
-					<li>Top quality lighting and camera equipment</li>
-					<li>Up to 10 digital images</li>
-					<li>One edited digital image</li>
-					<li>Check your photographer's profile to see how far they are willing to travel</li>
-				</ul>
-
-				<h4 class="text-center bold large_font small_padding">Charges</h4>
-				<ul class="pricing_list">
-					<li>Creative Fee</li>
-				</ul>
-			</div>
-		</div>
-
-		<div class="medium_padding medium_padding_bot" id='head_pg_premium'>
-			<h3 class="background_dark_blue package_title bold package_title_largew ">Headshot Photography - premium</h3>
-
-			<div class="package_content package_border_dark_blue">
-				<h4 class="text-center bold large_font">Features</h4>
-				<ul class="pricing_list">
-					<li>60 minutes</li>
-					<li>Top quality lighting and camera equipment</li>
-					<li>20-25 images</li>
-					<li>One edited digital image</li>
-					<li>Check your photographer's profile to see how far they are willing to travel</li>
-				</ul>
-
-				<h4 class="text-center bold large_font small_padding">Charges</h4>
-				<ul class="pricing_list">
-					<li>Creative Fee</li>
-				</ul>
-			</div>
-		</div>
-
-
-
-		<div class="medium_padding medium_padding_bot" id='rest_pg_basic'>
-			<h3 class="background_light_blue package_title bold package_title_mediumw ">Real Estate Photography - Basic</h3>
+		{% for package in packages %}
+		<div class="row">
+		<div class="col-sm-8 col-sm-offset-2">
+		<div class="medium_padding medium_padding_bot">
+			<h3 class="background_light_blue package_title bold package_title_mediumw text-center" id='{{ package.pk }}'>{{ package.title }}</h3>
 
 			<div class="package_content package_border_light_blue">
-				<h4 class="text-center bold large_font">Features</h4>
+				<h2 class="text-center bold big_font">{% if package.price %}
+					${{ package.price }}{% else %}Contact Us to get quote
+				{% endif %}</h2>
+				<h4 class="text-center bold large_font small_padding">Features</h4>
 				<ul class="pricing_list">
-					<li>60 minutes</li>
-					<li>20-25 images</li>
-					<li>24 hour turnaround time</li>
-					<li>Both Interior and Exterior</li>
-					<li>Touchup</li>
-					<li>Check your photographer's profile to see how far they are willing to travel</li>
+					{% for feature in package.pricefeature_set.all %}
+						<li>{{ feature.feature_text }}</li>
+					{% endfor %}
 				</ul>
-
-				<h4 class="text-center bold large_font small_padding">Charges</h4>
-				<ul class="pricing_list">
-					<li>Creative Fee</li>
-				</ul>
+				<form class="text-center medium_padding large_font" method="GET" action="{% url 'photographers' %}">
+					<input type="hidden" value="{{ package.pk }}" name="package_select">
+					<button type="submit" class="btn-blue">Select</button>
+				</form>
 			</div>
 		</div>
-
-		<div class="medium_padding medium_padding_bot" id='rest_pg_standard'>
-			<h3 class="background_blue package_title bold package_title_largew">Real Estate Photography - Standard</h3>
-
-			<div class="package_content package_border_blue">
-				<h4 class="text-center bold large_font">Features</h4>
-				<ul class="pricing_list">
-					<li>90 minutes</li>
-					<li>25-30 images</li>
-					<li>24 hour turnaround time</li>
-					<li>Both Interior and Exterior</li>
-					<li>Touchup</li>
-					<li>Check your photographer's profile to see how far they are willing to travel</li>
-				</ul>
-
-				<h4 class="text-center bold large_font small_padding">Charges</h4>
-				<ul class="pricing_list">
-					<li>Creative Fee</li>
-				</ul>
-			</div>
 		</div>
-
-
-		<div class="medium_padding medium_padding_bot" id='rest_pg_premium'>
-			<h3 class="background_dark_blue package_title bold package_title_largew">Real Estate Photography - Premium</h3>
-
-			<div class="package_content package_border_dark_blue">
-				<h4 class="text-center bold large_font">Features</h4>
-				<ul class="pricing_list">
-					<li>120 minutes</li>
-					<li>30-40 images</li>
-					<li>24 hour turnaround time</li>
-					<li>Both Interior and Exterior</li>
-					<li>Touchup</li>
-					<li>Check your photographer's profile to see how far they are willing to travel</li>
-				</ul>
-
-				<h4 class="text-center bold large_font small_padding">Charges</h4>
-				<ul class="pricing_list">
-					<li>Creative Fee</li>
-				</ul>
-			</div>
 		</div>
+		{% endfor %}
 
 
-
-		<div class="medium_padding medium_padding_bot" id='corp_pg_basic'>
-			<h3 class="background_light_blue package_title bold package_title_largew">Corporate Photography - the Startup</h3>
-
-			<div class="package_content package_border_light_blue">
-				<h4 class="text-center bold large_font">Features</h4>
-				<ul class="pricing_list">
-					<li>2-4 employees</li>
-					<li>5 digital images for each person</li>
-					<li>1 edited headshot with touchup on eyes, hair and teeth</li>
-					<li>15 minutes per person</li>
-					<li>Check your photographer's profile to see how far they are willing to travel</li>
-				</ul>
-
-				<h4 class="text-center bold large_font small_padding">Charges</h4>
-				<ul class="pricing_list">
-					<li>Creative Fee per person</li>
-				</ul>
-			</div>
-		</div>
-
-		<div class="medium_padding medium_padding_bot" id='corp_pg_standard'>
-			<h3 class="background_blue package_title bold package_title_largew">Corporate Photography - Small Businesses</h3>
-
-			<div class="package_content package_border_blue">
-				<h4 class="text-center bold large_font">Features</h4>
-				<ul class="pricing_list">
-					<li>5-10 employees</li>
-					<li>5 digital images for each person</li>
-					<li>1 edited headshot with touchup on eyes, hair and teeth</li>
-					<li>15 minutes per person</li>
-					<li>Check your photographer's profile to see how far they are willing to travel</li>
-				</ul>
-
-				<h4 class="text-center bold large_font small_padding">Charges</h4>
-				<ul class="pricing_list">
-					<li>Creative Fee per person</li>
-				</ul>
-			</div>
-		</div>
-
-		<div class="medium_padding medium_padding_bot" id='corp_pg_premium'>
-			<h3 class="background_dark_blue package_title bold package_title_largew">Corporate Photography - Growing Companies</h3>
-
-			<div class="package_content package_border_dark_blue">
-				<h4 class="text-center bold large_font">Features</h4>
-				<ul class="pricing_list">
-					<li>10-20 employees</li>
-					<li>5 digital images for each employee</li>
-					<li>1 edited headshot with touchup on eyes, hair and teeth for each employee</li>
-					<li>15 minutes per employee</li>
-					<li>10 digital images for each executive</li>
-					<li>1 edited portrait for each executive</li>
-					<li>30 minutes for each executive</li>
-					<li>Check your photographer's profile to see how far they are willing to travel</li>
-				</ul>
-
-				<h4 class="text-center bold large_font small_padding">Charges</h4>
-				<ul class="pricing_list">
-					<li>Creative Fee per person</li>
-					<li>Creative Fee per executive</li>
-				</ul>
-			</div>
-		</div>
-
-		<div class="medium_padding medium_padding_bot" id='wedding_pg'>
-			<h3 class="background_blue package_title bold package_title_smallw">Wedding Photography</h3>
-
-			<div class="package_content package_border_blue">
-				<h4 class="text-center bold large_font">Charges</h4>
-				<ul class="pricing_list">
-					<li>Pricing and packages vary</li>
-					<li>Our photographers give starting price ranges on their profiles</li>
-					<li>Check your photographer's profile to see how far they are willing to travel</li>
-				</ul>
-			</div>
-		</div>
-
-
-		<div class="large_padding medium_padding_bot" id='prod_pg'>
-			<h3 class="background_blue package_title bold package_title_smallw">Product Photography</h3>
-
-			<div class="package_content package_border_blue">
-				<h4 class="text-center bold large_font small_padding">Charges</h4>
-				<ul class="pricing_list">
-					<li>Travel Time/Location Scouting per hour</li>
-					<li>On Location Creative Fee per hour</li>
-					<li>Licensing and Production Charges vary by shoot. Contact your photographer for details</li>
-					<li>Check your photographer's profile to see how far they are willing to travel</li>
-				</ul>
-			</div>
-		</div>
+		<!-- light_blue, dark_blue, blue -->
+		<!-- package_border_light_blue, package_border_dark_blue, package_border_blue -->
 		</div>
 	</div>
 {% endblock %}

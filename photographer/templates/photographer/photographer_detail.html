@@ -3,7 +3,7 @@
 {% load crispy_forms_tags %}
 
 {% block photographer_detail %}
-  {% if not object.stripe_user_id %}
+  {% if not object.stripe_user_id or not object.is_active %}
     {% if not user.profile.photographer == object %}
       <div class="medium_padding medium_padding_bot text-center">
        <h4 class="text-center feature_title bold">This account is inactive</h4>
@@ -24,7 +24,7 @@
       {% endif %}
     </div>
     <div class="row small_padding">
-      <h4 class="feature_title text-center bold">{{ object.first_name }} {{object.last_name}}</h4>
+      <h4 class="feature_title text-center bold">{{ object.get_full_name }}</h4>
       <ul class="small_padding">
         <li>{{ object.school }}</li>
         <li class="small_font">{{ object.location }}</li>
@@ -32,7 +32,7 @@
     </div>
 
     <div class="medium_padding row photographer_detail_text">
-        <ul class="list-unstyled">
+        <ul class="list-unstyled col-sm-4 col-sm-offset-4 col-xs-10 col-xs-offset-1">
           <strong><li>
             {% if has_rating %}
               <img src="{% static rating_static_url %}" width='150px' alt="Rating Not Available"> &nbsp({{ object.rating_set.count }})
@@ -40,8 +40,10 @@
               Be the first to Rate me!
             {% endif %}
           </li></strong>
-          <li class="medium_padding"><a href="{% url 'reserve_detail' object.slug %}" id="photographer_reserve"><button class="btn btn-medium">Contact</button></a></li>
-          <li><div class="fb-like small_padding" data-href="{{ page_url }}" data-layout="button" data-action="like" data-show-faces="true" data-share="true"></div></li>
+          <!--<li class="medium_padding"><a href="{% url 'reserve_detail' object.slug %}" id="photographer_reserve"><button class="btn btn-medium">Contact</button></a></li>-->
+          <li class="medium_padding">{{ object.description }}</li>
+
+          <!--<li><div class="fb-like small_padding" data-href="{{ page_url }}" data-layout="button" data-action="like" data-show-faces="true" data-share="true"></div></li>-->
         </ul>
     </div>
   </div>

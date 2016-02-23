@@ -7,15 +7,41 @@
   <div id="content_reserve" class="content_wrapper container">
     <div class="text-center">
       <h2 class="feature_title bold">Reserve</h2>
+      <div class="medium_padding"></div>
+      <p class="bold">{% for photographer in fav_photographers %}
+        {{ photographer.get_full_name }}&nbsp
+      {% endfor %}</p>
+      {% if fav_package %}
+        <p>{{ fav_package }}</p>
+      {% else %}
+      <div class="row">
+        <div class="col-xs-4 col-xs-offset-4">
+        <p class="error_box red">You haven't select a package yet. Click <a href="{% url 'packages' %}">here</a> to choose your packages</p>
+        </div>
+      </div>
+      {% endif %}
     </div>
+
+    {% if message %}
+      <div class="row small_padding">
+        <div class="col-sm-4 col-sm-offset-4 col-xs-10 col-xs-offset-1">
+        <h6 class="text-center error_box red">{{ message }}</h6>
+        </div>
+      </div>
+    {% endif %}
+
     <div class="content_title_padding row">
-      <div class="col-md-6 col-md-offset-3 col-xs-10 col-xs-offset-1">
-      <form role = "form" method="POST" action=".">
+      <div class="col-sm-4 col-sm-offset-4 col-xs-10 col-xs-offset-1">
+      <form role = "form" method="POST" action="{% url 'reserve_success_new' %}">
       	{% csrf_token %}
     		{{ reserve_form | crispy }}
+        {% for photographer in fav_photographers %}
+          <input type='hidden' name='fav_photographers' value='{{ photographer.pk }}'>
+        {% endfor %}
+        <input type='hidden' name='fav_package' value='{{ fav_package.pk }}'>
     		<br>
     		<div class="text-center">
-          <button type = "submit" class = "btn btn-medium form_button">Submit</button>
+          <button type = "submit" class = "btn-blue">Book!</button>
         </div>
       </form>
       </div>

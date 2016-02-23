@@ -64,9 +64,6 @@ $(document).ready(function(){
 
 
 // mixpanel
-mixpanel.track_links('#nav_join', "Join", {
-    "referrer": document.referrer
-});
 mixpanel.track_links("#nav_faq", "FAQ", {
     "referrer": document.referrer
 });

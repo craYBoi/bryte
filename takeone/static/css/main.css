@@ -31,7 +31,7 @@ ul {
 }
 
 .small_offset {
-	height: 30px;
+	height: 40px;
 }
 
 h1,h2,h3,h4 {
@@ -970,12 +970,22 @@ h1,h2,h3,h4 {
 }
 
 .box_shadow {
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08), 0 3px 10px 0 rgba(0, 0, 0, 0.08);
+	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.08), 3px 3px 10px 0 rgba(0, 0, 0, 0.08);
 }
 
 .box_shadow:hover {
 	box-shadow: none;
 }
+
+
+.box_shadow_lg {
+	box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.08), 4px 4px 10px 0 rgba(0, 0, 0, 0.08);
+}
+
+.box_shadow_lg:hover {
+	box-shadow: none;
+}
+
 
 .border {
 	border: 1px solid #eee;
@@ -1083,6 +1093,12 @@ body
 	left: 0; 
 	width: 100%; 
 	height: 100%; 
+}
+
+/* flex box to make form inline */
+.flex_box_center {
+	display: flex;
+	justify-content: center;
 }
 
 /* change css form-inline for mobile */

@@ -8,8 +8,6 @@ from .models import Price, PriceFeature
 
 # Create your views here.
 def home(request):
-	# print request.POST
-
 	form = SignUpForm(request.POST or None)
 	if form.is_valid():
 		instance = form.save(commit=False)
@@ -44,8 +42,28 @@ def about(request):
 
 
 def package(request):
+	# filter get request to get price packages
+	packages = Price.objects.all()
+	if request.method == "GET":
+		photo_video = request.GET.get('photo_video')
+		re_sb = request.GET.get('re_sb')
+		house_agent = request.GET.get('house_agent')
+
+		is_photo = False
+		print photo_video
+		if photo_video and re_sb:
+			if photo_video=='photography':
+				is_photo = True
+			
+			print is_photo
+			print re_sb
+			packages = Price.objects.filter(is_photography=is_photo)
+			packages = packages.filter(category=re_sb)
+
+
 	context = {
 		'title_text': 'Packages',
+		'packages': packages,
 	}
 
 	return render(request, "package.html", context)
@@ -84,9 +102,11 @@ def faq(request):
 	return render(request, 'faq.html', context)
 
 
+def get_started(request):
+	context = {
 
-
-
+	}
+	return render(request, 'get_started.html', context)
 
 
 

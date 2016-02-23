@@ -3,6 +3,7 @@ from django.utils.text import slugify
 from django.db import models
 from django.core.urlresolvers import reverse
 
+
 from uuid import uuid4
 # -*- coding: utf-8 -*- 
 
@@ -25,13 +26,13 @@ class Photographer(models.Model):
 	access_token = models.CharField(max_length=100, null=True, blank=True)
 	stripe_user_id = models.CharField(max_length=100, null=True, blank=True)
 	stripe_publishable_key = models.CharField(max_length=100, null=True, blank=True)
+	is_active = models.BooleanField(blank=True, default=False)
 
 	def __unicode__(self):
 		return self.first_name + ' ' + self.last_name
 
-
 	def get_full_name(self):
-		return self.first_name + ' ' + self.last_name
+		return self.first_name + ' ' + self.last_name[0]
 
 	def save(self, *args, **kwargs):
 		self.slug = slugify(self.first_name + ' ' + self.last_name)

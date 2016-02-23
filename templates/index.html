@@ -7,26 +7,26 @@
 {% endblock %}
 
 {% block jumbotron %}
-  <div class="jumbotron xlarge_padding_bot" id="jumbotron" style="background: url({% static 'img/bg3.jpg' %}) no-repeat center; background-size: cover;">
-    <div class="row llarge_padding small_padding_bot">
+  <div class="jumbotron large_padding_bot" id="jumbotron" style="background: url({% static 'img/bg3.jpg' %}) no-repeat center; background-size: cover;">
+    <div class="row medium_padding small_padding_bot">
       <div class="col-sm-8 col-sm-offset-2">
-      <h2 class="xxbig_font bold text-center" style='color: #fff' id='tagline'>Instantly hire your local college photographers and videographers</h2>
+      <h2 class="xxbig_font bold text-center" style='color: #fff' id='tagline'>Making it easy to book local student photographers and videographers</h2>
       </div>
     </div>
 
     <div class="row medium_padding">
       <div class="col-sm-8 col-sm-offset-2">
       <ul class="list-inline white text-center light">
-        <li>Lowest Prices</li> |
-        <li>Trusted Photographers</li> |
-        <li>Book without the Hassle</li>
+        <li class="large_font light">Half the price of industry standard without compromising on quality</li>
       </ul>
       </div>
     </div>
 
     <div class="large_padding text-center">
-    <a href="#features"><button class="btn btn-white large_font" >Learn More</button></a> &nbsp&nbsp&nbsp<a href="{% url 'photographers' %}"><button class="btn btn-white large_font" >Our Photographers</button></a>
+    <a href="{% url 'get_started' %}"><button class="btn btn-white big_font light">Get Started</button></a>
     </div>
+
+    <div class="small_padding"></div>
   </div>
 {% endblock %}
 
@@ -37,11 +37,86 @@
   <div id="features">
     <ul class="list-unstyled alternate_list">
       <li>
+        <div class="container large_padding_bot">
+          <h2 class="light_title text-center bold">Why Photos & Videos?</h2>
+          <div class="row">
+            <div class="col-xs-10 col-xs-offset-1">
+              <div class="row">
+
+                <div class="col-sm-4 text-center">
+                  <div class="medium_padding"></div>
+                  <img src="{% static 'img/zappo.png' %}" class="img-responsive box_shadow_lg" style="border:5px solid #0098ee; border-radius: 20em;"> 
+                  <div class="medium_padding"></div>
+                  <h3>Zappo® Case</h3>
+                  <p class="light">Zappos increased sales by 6-30% after using videos on item product pages</p>
+                </div>   
+
+                
+                <div class="col-sm-4 text-center">
+                  <div class="medium_padding"></div>
+                  <img src="{% static 'img/airbnbstat.png' %}" class="img-responsive box_shadow_lg" style="border:5px solid #0098ee; border-radius: 20em;"> 
+                  <div class="medium_padding"></div>
+                  <h3>Airbnb Case</h3>
+                  <p class="light">This is the graph of revenue of Airbnb. The arrow is where they started using photographers to shoot for their houses</p>
+                </div>  
+
+                <div class="col-sm-4 text-center">
+                  <div class="medium_padding"></div>
+                  <img src="{% static 'img/fbstat.png' %}" class="img-responsive box_shadow_lg" style="border:5px solid #0098ee; border-radius: 20em;"> 
+                  <div class="medium_padding"></div>
+                  <h3>The Power of Facebook</h3>
+                  <p class="light">In November, 2015, Facebook hit 8 billion videos views every day.</p>
+                </div>  
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+
+
+      <li>
+        <div class="container large_padding_bot large_padding">
+          <h2 class="light_title text-center bold">How Bryte Works?</h2>
+          <div class="row medium_padding">
+            <div class="col-xs-10 col-xs-offset-1">
+              <div class="row">
+
+                <div class="col-md-4 text-center">
+                  <img src="{% static 'img/workThree.png' %}" class="img-responsive"> 
+                  <div class="medium_padding"></div>
+                  <h3>Choose Packages</h3>
+                  <p class="light">We detail what exactly what your <a href="{% url 'packages' %}" class="blue">package</a> offers</p>
+                </div>   
+
+                <div class="col-md-4 text-center">
+                  <img src="{% static 'img/workOne.png' %}" class="img-responsive"> 
+                  <div class="medium_padding"></div>
+                  <h3>Compare our Creatives</h3>
+                  <p class="light">Reserve a time that works for you and your photographer instantly. <span class='blue'>We are currently in Rhode Island</span></p>
+                </div>  
+
+                <div class="col-md-4 text-center">
+                  <img src="{% static 'img/workTwo.png' %}" class="img-responsive"> 
+                  <div class="medium_padding"></div>
+                  <h3>Book without the hassle</h3>
+                  <p class="light">Reserve a time that works for you and your photographer instantly.</p>
+                </div>  
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="medium_padding"></div>
+      </li>
+
+
+<!--
+      <li>
+        <div class="large_padding"></div>
         <div class="container">
           <div class="row">
             <div class="col-xs-10 col-xs-offset-1" style="text-align:center;">
               <h2 class="light_title">Find your photography need</h2>
-              <p class="xsmall_padding col-xs-8 col-xs-offset-2">We detail what exactly what your <a href="{% url 'packages' %}" class="blue">package</a> offers</p>
+              <p class="xsmall_padding col-xs-8 col-xs-offset-2 light">We detail what exactly what your <a href="{% url 'packages' %}" class="blue">package</a> offers</p>
               <img src="{% static 'img/ProcessFour.png' %}" class="img-responsive loading">
             </div>
           </div>
@@ -53,7 +128,7 @@
           <div class="row">
             <div class="col-xs-10 col-xs-offset-1 large_padding" style="text-align:center;">
               <h2 class="light_title">Compare our photographers</h2>
-              <p class="xsmall_padding col-xs-8 col-xs-offset-2">Find the college <a href="{% url 'photographers' %}" class="blue">photographer</a> with the right package, price and experience for you</p>
+              <p class="xsmall_padding col-xs-8 col-xs-offset-2 light">Find the college <a href="{% url 'photographers' %}" class="blue">photographer</a> with the right package, price and experience for you</p>
               <img src="{% static 'img/ProcessOne.png' %}" class="img-responsive loading">
             </div>
           </div>
@@ -64,7 +139,7 @@
           <div class="row">
             <div class="col-xs-10 col-xs-offset-1 large_padding" style="text-align:center;">
               <h2 class="light_title">Book without the hassle</h2>
-              <p class="col-xs-6 col-xs-offset-3 xsmall_padding">Reserve a time that works for you and your photographer instantly. <span class='blue'>We are currently in Rhode Island</span></p>
+              <p class="col-xs-6 col-xs-offset-3 xsmall_padding light">Reserve a time that works for you and your photographer instantly. <span class='blue'>We are currently in Rhode Island</span></p>
               <img src="{% static 'img/ProcessTwo.png' %}" class="img-responsive">
             </div>
           </div>
@@ -75,7 +150,7 @@
           <div class="row">
             <div class="col-xs-10 col-xs-offset-1 large_padding" style="text-align:center;">
               <h2 class="light_title">Secure Payment Platform</h2>
-              <p class="xsmall_padding col-xs-6 col-xs-offset-3">We use <a href="https://stripe.com/" class="blue">© Stripe</a>, the same platform used by Lyft,<br>Kickstarter and many other companies</p>
+              <p class="xsmall_padding col-xs-6 col-xs-offset-3 light">We use <a href="https://stripe.com/" class="blue">© Stripe</a>, the same platform used by Lyft,<br>Kickstarter and many other companies</p>
               <img src="{% static 'img/stripe.png' %}" class="img-responsive">
             </div>
           </div>
@@ -83,7 +158,8 @@
       </li>
     </ul>
   </div>
-
+-->
+</ul>
 
 {% endblock %}
 
@@ -102,7 +178,7 @@
             <h4 class="bold">Michael Snower</h4>
           </div>
         </div>
-        <p class="small_font small_padding">Michael studies business at Brown University. He and Ben came up with the idea for Bryte when Michael had a hard time finding affordable and high quality headshot photographers. In his spare time, he plays the guitar and teaches yoga.</p>
+        <p class="small_font small_padding light">Michael studies business at Brown University. He and Ben came up with the idea for Bryte when Michael had a hard time finding affordable and high quality headshot photographers. In his spare time, he plays the guitar and teaches yoga.</p>
       </div>
       <div class="col-md-4 col-md-offset-2 col-xs-10 col-xs-offset-1">
         <div class="row">
@@ -113,7 +189,7 @@
             <h4 class="bold">Benjamin Bao</h4>
           </div>
         </div>
-        <p class="small_font small_padding">Ben is pursuing a Computer Science Master's degree at Brown University. Ben is passionate about designing and building products that will make people's life better. In his spare time, Ben skateboards and makes music.</p>
+        <p class="small_font small_padding light">Ben is pursuing a Computer Science Master's degree at Brown University. Ben is passionate about designing and building products that will make people's life better. In his spare time, Ben skateboards and makes music.</p>
       </div>
       <!-- <div class="clearfix"></div>  -->
     </div>

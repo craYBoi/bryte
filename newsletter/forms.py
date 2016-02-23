@@ -8,3 +8,4 @@ class SignUpForm(forms.ModelForm):
 		fields = ['email', 'full_name']
 
  	# def clean_email(self):
+

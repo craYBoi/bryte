@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% block stylesheet %}
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css">
+{% endblock %}
+{% block content %}
+	<div class="jumbotron" style="background: url({% static 'img/jumbo3_dark.png' %}); background-size: cover; text-align: center;">
+		<h2 class="text-center bold main_title white small_padding small_padding_bot">Get Started</h2>
+	</div>
+	<div class="container content_wrapper text-center">
+
+	  {% if message %}
+      <div class="row small_padding">
+        <div class="col-sm-4 col-sm-offset-4 col-xs-10 col-xs-offset-1">
+        <h6 class="text-center error_box red">{{ message }}</h6>
+        </div>
+      </div>
+    {% endif %}
+    
+		<form action="{% url 'packages' %}" method="GET" class="form-inline" id='start_first'>
+			<h3 class="background_blue package_title bold package_title_smallw text-center">Step One</h3>
+			<div class="row">
+			<div class="col-sm-8 col-sm-offset-2 get_start_border large_padding large_padding_bot">
+			<div class="radio right_border special_padding_right">
+				<i class="icon photo huge"></i><br>
+				<div class="xsmall_padding"></div>
+				<label>Photography</label><br>
+	      <input type="radio" name="photo_video" id="start_photo" value="photography"> 
+		  </div>
+		  <div class="radio special_padding_left">
+		  	<i class="icon record huge"></i><br>
+		  	<div class="xsmall_padding"></div>
+		  	<label>Videography</label><br>
+	      <input type="radio" name="photo_video" id="start_video" value="videography">
+		  </div>
+		  </div>
+		  </div>
+
+		  <div class="row large_padding" id="start_second">
+		  <h3 class="yellow_bg package_title bold package_title_smallw text-center black">Step Two</h3>
+		  <div class="col-sm-8 col-sm-offset-2 get_start_border_2 large_padding large_padding_bot" >
+				<div class="radio right_border large_padding_right">
+					<i class="icon building huge"></i><br>
+					<div class="xsmall_padding"></div>
+					<label>Small Business</label><br>
+		      <input type="radio" name="re_sb" id="start_sb" value="sb">
+			  </div>
+			  <div class="radio large_padding_left">
+			  	<i class="icon shop huge"></i><br>
+			  	<div class="xsmall_padding"></div>
+			  	<label>Real Estate</label><br>
+		      <input type="radio" name="re_sb" id="start_re" value="re">
+			  </div>
+			</div>
+			</div>
+
+			<div class="medium_padding small_padding_bot" id="start_submit">
+				<button type="submit" class="btn-blue">See Packages</button>
+			</div>
+		</form>
+	</div>
+{% endblock %}
+
+{% block script %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.js"></script>
+{% endblock %}
+
+{% block jquery %}
+	$('#start_second, #start_third, #start_submit').hide();
+
+	$('#start_photo, #start_video').click(function(){
+		$('#start_second').fadeIn(300);
+	});
+
+	$('#start_sb, #start_re').click(function(){
+		$('#start_submit').fadeIn(300);
+	});
+{% endblock %}

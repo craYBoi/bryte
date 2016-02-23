@@ -14,7 +14,9 @@ class Reservation(models.Model):
 	price = models.ForeignKey(Price, blank=True, null=True)
 	phone = models.CharField(max_length=15, blank=True)
 	note = models.TextField(blank=True, null=True)
-	datetime = models.DateTimeField()
+	date_range = models.CharField(max_length=150, blank=True, null=True)
+	business_name = models.CharField(max_length=100, blank=True, null=True)
+	datetime = models.DateTimeField(blank=True, null=True)
 	complete = models.BooleanField(default=False)
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
 

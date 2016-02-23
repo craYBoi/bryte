@@ -12,6 +12,7 @@ from django.conf import settings
 from .models import Photographer
 from .forms import RatingForm
 from reserve.models import Reservation
+from newsletter.models import Price
 
 from math import ceil
 
@@ -22,6 +23,9 @@ class PhotographerListView(ListView):
 	def get_context_data(self, *args, **kwargs):
 		# reset title
 		context = super(PhotographerListView, self).get_context_data(*args, **kwargs)
+		query = self.request.GET.get('package_select')
+		if query:
+			context['price_package'] = query
 		context['title_text'] = 'Photographers'
 		return context
 	# queryset = Photographer.objects.all()
@@ -29,15 +33,12 @@ class PhotographerListView(ListView):
 
 	# for filter
 	def get_queryset(self, *args, **kwargs):
-		qs = Photographer.objects.exclude(stripe_user_id__isnull=True).order_by('?')
-		query = self.request.GET.get('q')
+		qs = Photographer.objects.filter(is_active=True).order_by('?')
+		query = self.request.GET.get('package_select')
 		if query:
-			qs = self.model.objects.filter(
-					Q(last_name__icontains = query) |
-					Q(first_name__icontains = query)
-				)
-		else:
-			qs = Photographer.objects.exclude(stripe_user_id__isnull=True).order_by('?')
+			price = get_object_or_404(Price, pk=query)
+			qs = price.photographer.filter(is_active=True).order_by('?')
+			print qs
 		return qs
 
 

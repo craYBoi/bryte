@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.core.mail import send_mail
 from django.conf import settings
 from django.core.urlresolvers import reverse
@@ -22,17 +22,57 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 
 def reserve(request):
 
-	reserve_form = ReserveForm(request.POST or None)
-	if reserve_form.is_valid():
-		reserve_form.save()
-		reserve_form.send_email()
-		return redirect('reserve_success')
+	fav_package=''
+	if request.method == "POST":
+		photographer_list = request.POST.getlist('fav_photographer')
+		fav_photographers = [get_object_or_404(Photographer, pk=id) for id in photographer_list]
+		package_id = request.POST.get('fav_package')
+		if package_id:
+			fav_package = get_object_or_404(Price, pk=package_id)
+
+	reserve_form = ReserveForm()
 
 	context = {
 		'reserve_form': reserve_form,
 		'title_text': 'Reserve',
+		'fav_photographers': fav_photographers,
+		'fav_package': fav_package,
 	}
 	return render(request, 'reserve.html', context)
+
+
+def reserve_success(request):
+	context = {
+		'title_text': 'Successfully Reserved!',
+	}
+	if request.method == "POST":
+		date_range = request.POST.get('date_range')
+		business_name = request.POST.get('business_name')
+		special_request = request.POST.get('special_request')
+		phone = request.POST.get('phone')
+		photographer_list = request.POST.getlist('fav_photographers')
+		fav_photographers = [get_object_or_404(Photographer, pk=id) for id in photographer_list]
+		package_id = request.POST.get('fav_package')
+		if not package_id:
+			messages.add_message(request, messages.ERROR, 'You haven\'t select packages yet. Please try again')
+			return redirect(reverse('get_started'))
+		fav_package = get_object_or_404(Price, pk=package_id)
+
+		# store reservations and send email
+		for fav_photographer in fav_photographers:
+			res = Reservation.objects.create(
+				photographer=fav_photographer,
+				business_name=business_name,
+				note=special_request,
+				phone=phone,
+				price=fav_package,
+				date_range=date_range,
+				)
+
+		return render(request, 'reserve_success.html', context)
+
+	messages.add_message(request, messages.ERROR, 'There\'s something wrong. Please try again')
+	return redirect(reverse('get_started'))
 
 
 def reserve_detail(request, slug):
