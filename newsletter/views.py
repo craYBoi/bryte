@@ -71,7 +71,7 @@ def package(request):
 			list_of_packages[package.shared_title].append(package)
 		else:
 			list_of_packages[package.shared_title] = [package]
-			
+
 
 	context = {
 		'title_text': 'Packages',
@@ -117,9 +117,14 @@ def faq(request):
 
 def get_started(request):
 	context = {
-
+		'title_text': 'Get Started'
 	}
 	return render(request, 'get_started.html', context)
 
 
+def legal(request):
+	context = {
+		'title_text': 'Legal Documentations'
+	}
 
+	return render(request, 'legal_stuff.html', context)

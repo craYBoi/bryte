@@ -60,6 +60,9 @@ urlpatterns = [
     # registration 
     url(r'^accounts/', include('registration.backends.simple.urls')),
 
+    # legal stuff
+    url(r'^legal$', newsletter_views.legal, name='legal'),
+
 
     # twilio
     url(r'^sms/$', sms_views.sms, name='sms'),
