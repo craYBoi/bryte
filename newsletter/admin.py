@@ -11,6 +11,10 @@ class SignUpAdmin(admin.ModelAdmin):
 class PriceAdmin(admin.ModelAdmin):
 	list_display = ['pk', 'price', 'title']
 
+class PriceFeatureAdmin(admin.ModelAdmin):
+	list_display = ['pk', 'price', 'feature_text']
+
+
 admin.site.register(SignUp, SignUpAdmin)
 admin.site.register(Price, PriceAdmin)
-admin.site.register(PriceFeature)
+admin.site.register(PriceFeature, PriceFeatureAdmin)
