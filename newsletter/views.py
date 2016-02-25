@@ -51,7 +51,6 @@ def package(request):
 	if request.method == "GET":
 		photo_video = request.GET.get('photo_video')
 		re_sb = request.GET.get('re_sb')
-		house_agent = request.GET.get('house_agent')
 
 		is_photo = False
 		print photo_video
@@ -62,9 +61,25 @@ def package(request):
 			packages = Price.objects.filter(is_photography=is_photo).order_by('price')
 			packages = packages.filter(category=re_sb).order_by('price')
 
+
+	# create a list of a list of packages
+	# 0 - House Tour, 1 - Advertising Video, 2 - Promotional Video
+	# 3 - House Photo, 4 - Small Business Marketing Photo, 5 - Product Photo
+	list_of_packages = {}
+	for package in packages:
+		if package.shared_title in list_of_packages:
+			list_of_packages[package.shared_title].append(package)
+		else:
+			list_of_packages[package.shared_title] = [package]
+
+
+	for k,v in list_of_packages.iteritems():
+		print str(k) + ' -> ' + str(v)
+
 	context = {
 		'title_text': 'Packages',
 		'packages': packages,
+		'packages_list': list_of_packages,
 	}
 
 	return render(request, "package.html", context)

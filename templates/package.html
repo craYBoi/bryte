@@ -1,13 +1,61 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 {% block content %}
-	<div class="jumbotron" style="background: url({% static 'img/jumbo3_dark.png' %}); background-size: cover; text-align: center;">
-		<h2 class="text-center bold main_title white">Choose Your Package</h2>
-	</div>
-
 	<div class="background_grey">
 
 	<div class="container">
+		<div class="text-center background_light_blue border_blue_dashed">
+			<h2 class="text-center bold main_title white small_padding small_padding_bot">Choose Your Package</h2>
+		</div>
+		<div class="small_padding"></div>
+			{% for shared_title, packages in packages_list.items %}
+				<div class="small_padding"></div>
+					<h2 class="text-center small_padding medium_padding_bot bold">{{ shared_title }}</h2>
+
+				<div class="row">
+				{% for package in packages %}
+				
+					{% if packages|length == 1 %}
+						<div class="col-md-6 col-md-offset-3 col-xs-10 col-xs-offset-1">
+					{% elif packages|length == 2 %}
+						<div class="col-md-6 col-md-offset-0 col-xs-10 col-xs-offset-1">
+					{% elif packages|length == 3%}
+						<div class="col-md-4 col-md-offset-0 col-xs-10 col-xs-offset-1">
+					{% endif %}
+					<!--<div class="col-md-4 col-md-offset-0 col-xs-10 col-xs-offset-1">-->
+						<div class="small_padding medium_padding_bot">
+
+						<div class="background_light_blue package_title package_title_mediumw text-center">
+							<h3 class="bold" id='{{ package.pk }}'>{{ package.title }}</h3>
+							<p>{{ package.subtitle }}</p>
+						</div>
+
+							<div class="package_content package_border_light_blue">
+								<h2 class="text-center bold big_font">{% if package.price %}
+									${{ package.price }}{% else %}Contact Us to get quote
+								{% endif %}</h2>
+								<h4 class="text-center light small_font small_padding">Included in this packages:</h4>
+								<ul class="pricing_list light small_font">
+									{% for feature in package.pricefeature_set.all %}
+										<li>{{ feature.feature_text }}</li>
+									{% endfor %}
+								</ul>
+								<form class="text-center medium_padding large_font" method="GET" action="{% url 'photographers' %}">
+									<input type="hidden" value="{{ package.pk }}" name="package_select">
+									<button type="submit" class="btn-blue">Choose</button>
+								</form>
+							</div>
+						</div>
+					</div>
+					
+				{% endfor %}
+				</div>	
+				<hr>
+			{% endfor %}
+
+
+
+	<!--
 		<div class="large_padding text-center">
 			<ul class="list-inline small_padding">
 				{% for package in packages %}
@@ -46,7 +94,7 @@
 		</div>
 		{% endfor %}
 
-
+-->
 		<!-- light_blue, dark_blue, blue -->
 		<!-- package_border_light_blue, package_border_dark_blue, package_border_blue -->
 		</div>

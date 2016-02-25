@@ -46,6 +46,8 @@ def reserve_success(request):
 		'title_text': 'Successfully Reserved!',
 	}
 	if request.method == "POST":
+		first_name = request.POST.get('first_name')
+		last_name = request.POST.get('last_name')
 		date_range = request.POST.get('date_range')
 		business_name = request.POST.get('business_name')
 		special_request = request.POST.get('special_request')
@@ -69,13 +71,19 @@ def reserve_success(request):
 				phone=phone,
 				price=fav_package,
 				date_range=date_range,
+				first_name=first_name,
+				last_name=last_name,
 				)
 			photographer_names += fav_photographer.get_full_name() + ' '
 
 		# send email
-		msg_body = 'You got a new reservation!!\n\nBusiness: ' + str(business_name) + '\nPackage: ' + fav_package.title + '\nPhotographers: ' + photographer_names + '\nDate: ' + str(date_range) + '\nPhone: ' + str(phone) + '\nEmail: ' + str(email) + '\nSpecial Request: ' + str(special_request)
-		send_mail('New Reservation!!', msg_body, 'hello@brytephoto.com',
-    ['hello@brytephoto.com', 'yb@brown.edu'], fail_silently=False)
+		msg_body = 'Business: ' + str(business_name) + '\nFull name: ' + first_name + ' ' + last_name + '\nPackage: ' + fav_package.title + '\Creative: ' + photographer_names + '\nDate: ' + str(date_range) + '\nPhone: ' + str(phone) + '\nEmail: ' + str(email) + '\nSpecial Requests: ' + str(special_request)
+		send_mail('New Reservation: ' + business_name, 'You got a new reservation\n\n' + msg_body, 'hello@brytephoto.com',
+		['yb@brown.edu'], fail_silently=False)
+
+		client_msg_body = 'Dear ' + last_name + ':\n\n' + 'We are processing your booking. We will match you with a creative and let you know as soon as we have!\n\nHere\'s the detail of your booking:\n'
+		send_mail('Your Booking with Bryte', client_msg_body + msg_body + '\n\nThanks,\nBryte Photo Inc\nhello@brytephoto.com', 'hello@brytephoto.com',
+		[email], fail_silently=False)
 
 		return render(request, 'reserve_success.html', context)
 

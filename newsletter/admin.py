@@ -9,7 +9,7 @@ class SignUpAdmin(admin.ModelAdmin):
 	form = SignUpForm
 
 class PriceAdmin(admin.ModelAdmin):
-	list_display = ['pk', 'price', 'title']
+	list_display = ['pk', 'price', 'title', 'shared_title', 'is_photography']
 
 class PriceFeatureAdmin(admin.ModelAdmin):
 	list_display = ['pk', 'price', 'feature_text']

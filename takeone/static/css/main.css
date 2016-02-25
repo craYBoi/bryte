@@ -94,7 +94,7 @@ h1,h2,h3,h4 {
 }
 
 #tagline {
-	line-height: 70px;
+	line-height: 1.3em;
 	font-size: 3.2em;
 }
 
@@ -304,7 +304,7 @@ h1,h2,h3,h4 {
 
 /* packages */
 .package_title {
-	padding: 0.8em;
+	padding: 0.4em;
 	border-top-left-radius: 1.5em;
 	border-top-right-radius: 1.5em;
 	color: #fff;
@@ -318,7 +318,7 @@ h1,h2,h3,h4 {
 }
 
 .package_title_mediumw {
-	width: 15em;
+	width: 18em;
 }
 
 .package_title_largew {

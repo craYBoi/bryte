@@ -8,12 +8,14 @@ from newsletter.models import Price
 
 
 class ReserveForm(forms.Form):
+	first_name = forms.CharField()
+	last_name = forms.CharField()
 	business_name = forms.CharField()
 	email = forms.EmailField()
 	phone = forms.RegexField(regex=r'^\+?1?\d{9,15}$')
 	phone.error_messages['invalid'] = ("Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
-	date_range = forms.CharField(label='Date Range (please give us a range of approximate dates)')
-	special_request = forms.CharField(widget = forms.Textarea, required=False)
+	date_range = forms.CharField(label='Please give us at least three days that work for you')
+	special_request = forms.CharField(widget = forms.Textarea, required=False, label='Special Requests')
 
  	# def clean_email(self):
 	# def send_txt(self):

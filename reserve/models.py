@@ -11,6 +11,8 @@ from newsletter.models import Price
 class Reservation(models.Model):
 	photographer = models.ForeignKey(Photographer)
 	profile = models.ForeignKey(Profile, blank=True, null=True)
+	first_name = models.CharField(max_length=100, blank=True, null=True)
+	last_name = models.CharField(max_length=100, blank=True, null=True)
 	price = models.ForeignKey(Price)
 	phone = models.CharField(max_length=15)
 	email = models.EmailField(blank=True, null=True)

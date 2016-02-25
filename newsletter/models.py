@@ -16,6 +16,8 @@ class SignUp(models.Model):
 
 class Price(models.Model):
 	title = models.CharField(max_length=120)
+	shared_title = models.CharField(max_length=120, blank=True, null=True)
+	subtitle = models.CharField(max_length=150, blank=True, null=True)
 	price = models.PositiveSmallIntegerField(blank=True, null=True)
 	stripe_price = models.IntegerField(blank=True, null=True)
 	is_photography = models.BooleanField(default=False)
