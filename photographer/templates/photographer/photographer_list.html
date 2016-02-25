@@ -6,14 +6,21 @@
 <div class="background_grey">
   <div id="photographer_list">
 
+  {% if not show_form %}
+    
+  
+    <div class="jumbotron" style="background: url({% static 'img/jumbo3_dark.png' %}); background-size: cover; text-align: center;">
+      <h2 class="text-center bold main_title white">Our Creatives</h2>
+    </div>
+  {% endif %}
 
     <div class="container">
-      <div class="medium_padding"></div>
+      {% if show_form %}
       <div class="text-center background_light_blue border_blue_dashed">
         <div class="small_padding"></div>
-          <h1 class="white bold">Our Creatives</h1>
+          <h1 class="white bold">Pick Your Creative</h1>
           <div class="row">
-          <h3 class="light white large_font col-xs-10 col-xs-offset-1">Compare and Choose your top three creatives, we will contact them for you</h3>
+          <h3 class="light white large_font col-xs-10 col-xs-offset-1">If your top choice is not available, we will contact you to determine your next preference</h3>
           </div>
           <div class="small_padding">
 
@@ -33,6 +40,7 @@
           </div>
         <div class="medium_padding"></div>
       </div>
+      {% endif %}
 
     <!--<div class="medium_padding">
       <p class="text-center large_font"><i class='fa fa-star yellow'></i> &nbsp<a href="{% url 'select_photographer' %}" class="">How do we select our photographer ></a></p>
@@ -90,7 +98,7 @@
           {% else %}
             <div class="small_offset">
             </div>
-            <p class="xsmall_padding_bot">Be the first to review!</p>
+            <p class="xsmall_padding_bot">No Reviews</p>
           {% endif %}
           
           <!--
@@ -123,34 +131,6 @@
         -->
     {% endfor %}
     </div>
- 
-
-    <!-- another step three -->
-      <div class="medium_padding"></div>
-      <div class="text-center background_light_blue border_blue_dashed">
-        <div class="small_padding"></div>
-          <h1 class="white bold">Step Three</h1>
-          <div class="row">
-          <h3 class="light white large_font col-xs-10 col-xs-offset-1">Compare and Choose your top three photographers, we will contact them for you</h3>
-          </div>
-          <div class="small_padding">
-
-          <div class="flex_box_center">
-            <select name="fav_photographer" class="fav_photographer" multiple="multiple" form="fav_photographer_form">
-                {% for photographer in object_list %}
-                  <option value="{{ photographer.pk }}">{{ photographer.get_full_name }}</option>
-                {% endfor %}
-            </select>
-            <div class="small_padding_right"></div>
-            <form id="fav_photographer_form" action="{% url 'reserve' %}">
-              <button type='submit' class="btn-blue">Next</button>
-            </form>
-          </div>
-
-          </div>
-        <div class="medium_padding"></div>
-      </div>
-
 </div>
 
 </div>
@@ -168,7 +148,7 @@
       // Get selected options.
       var selectedOptions = $('.fav_photographer option:selected');
 
-      if (selectedOptions.length >= 3) {
+      if (selectedOptions.length >= 1) {
           // Disable all other checkboxes.
           var nonSelectedOptions = $('.fav_photographer option').filter(function() {
               return !$(this).is(':selected');

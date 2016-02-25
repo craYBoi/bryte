@@ -26,7 +26,13 @@ class PhotographerListView(ListView):
 		query = self.request.GET.get('package_select')
 		if query:
 			context['price_package'] = query
+			# see if there is a get request, to show whether there needs the form
+			context['show_form'] = True
+		else:
+			context['show_form'] = False
+
 		context['title_text'] = 'Photographers'
+
 		return context
 	# queryset = Photographer.objects.all()
 	# template_name = 'photographer/photographer_list.html'

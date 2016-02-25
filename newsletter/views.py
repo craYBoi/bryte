@@ -23,7 +23,7 @@ def home(request):
 
 	featured_pg_one = featured_pg[0]
 	featured_pg_two = featured_pg[1]
-	featured_pg_one_vid = featured_pg_one.photographervideo_set.all()[0]
+	featured_pg_one_vid = featured_pg_one.photographervideo_set.all()[1]
 	featured_pg_two_vid = featured_pg_two.photographervideo_set.all()[0]
 	context = {
 		'signUp': form,

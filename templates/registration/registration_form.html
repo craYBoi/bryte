@@ -7,6 +7,8 @@
 <div class='row medium_padding'>
 <div class='col-sm-4 col-sm-offset-4 col-xs-10 col-xs-offset-1'>
 <h1 class="feature_title text-center bold">Register</h1>
+<div class="small_padding"></div>
+<p class="text-center">*All fields required</p>
 <form method="post" action=".">
   {% csrf_token %}
   {{ form|crispy }}
@@ -20,7 +22,7 @@
 <br>
 <div class='row'>
 <div class='col-sm-6 col-sm-offset-3 text-center'>
-<p class="small_font">Need to <a href="{% url 'auth_login' %}" class="blue">Login</a>?</p>
+<p class="small_font">Already have an account? <a href="{% url 'auth_login' %}" class="blue">Login</a> Here</p>
 </div>
 </div>
 

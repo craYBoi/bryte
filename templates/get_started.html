@@ -5,7 +5,7 @@
 {% endblock %}
 {% block content %}
 	<div class="jumbotron" style="background: url({% static 'img/jumbo3_dark.png' %}); background-size: cover; text-align: center;">
-		<h2 class="text-center bold main_title white small_padding small_padding_bot">Choose Your Package</h2>
+		<h2 class="text-center bold main_title white small_padding small_padding_bot">Tell us about your project</h2>
 	</div>
 	<div class="container content_wrapper text-center">
 
@@ -18,7 +18,7 @@
     {% endif %}
 
 		<form action="{% url 'packages' %}" method="GET" class="form-inline" id='start_first'>
-			<h3 class="background_blue package_title bold package_title_mediumw text-center">What are you looking for?</h3>
+			<h3 class="background_blue package_title bold package_title_mediumw text-center">Step One</h3>
 			<div class="row">
 			<div class="col-sm-8 col-sm-offset-2 get_start_border large_padding large_padding_bot">
 			<div class="radio right_border special_padding_right">
@@ -37,7 +37,7 @@
 		  </div>
 
 		  <div class="row large_padding" id="start_second">
-		  <h3 class="yellow_bg package_title bold package_title_mediumw text-center black">What kind of photos/videos?</h3>
+		  <h3 class="yellow_bg package_title bold package_title_mediumw text-center black">Step Two</h3>
 		  <div class="row">
 		  <div class="col-sm-8 col-sm-offset-2 get_start_border_2 large_padding large_padding_bot" >
 				<div class="radio right_border special_padding_right">
@@ -57,7 +57,7 @@
 			</div>
 
 			<div class="medium_padding small_padding_bot" id="start_submit">
-				<button type="submit" class="btn-blue">See Packages</button>
+				<button type="submit" class="btn-blue">Browse Packages</button>
 			</div>
 		</form>
 	</div>
