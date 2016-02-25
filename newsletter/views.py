@@ -47,7 +47,7 @@ def about(request):
 
 def package(request):
 	# filter get request to get price packages
-	packages = Price.objects.all()
+	packages = Price.objects.all().order_by('price')
 	if request.method == "GET":
 		photo_video = request.GET.get('photo_video')
 		re_sb = request.GET.get('re_sb')
@@ -59,11 +59,8 @@ def package(request):
 			if photo_video=='photography':
 				is_photo = True
 			
-			print is_photo
-			print re_sb
-			packages = Price.objects.filter(is_photography=is_photo)
-			packages = packages.filter(category=re_sb)
-
+			packages = Price.objects.filter(is_photography=is_photo).order_by('price')
+			packages = packages.filter(category=re_sb).order_by('price')
 
 	context = {
 		'title_text': 'Packages',
