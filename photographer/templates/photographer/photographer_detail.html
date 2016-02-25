@@ -36,12 +36,15 @@
           <strong><li>
             {% if has_rating %}
               <img src="{% static rating_static_url %}" width='150px' alt="Rating Not Available"> &nbsp({{ object.rating_set.count }})
+              <div class="medium_padding"></div>
             {% else %}
-              Be the first to Rate me!
+              
+            
             {% endif %}
+
           </li></strong>
           <!--<li class="medium_padding"><a href="{% url 'reserve_detail' object.slug %}" id="photographer_reserve"><button class="btn btn-medium">Contact</button></a></li>-->
-          <li class="medium_padding">{{ object.description }}</li>
+          <li>{{ object.description }}</li>
 
           <!--<li><div class="fb-like small_padding" data-href="{{ page_url }}" data-layout="button" data-action="like" data-show-faces="true" data-share="true"></div></li>-->
         </ul>

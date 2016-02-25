@@ -7,26 +7,34 @@
 {% endblock %}
 
 {% block jumbotron %}
-  <div class="jumbotron large_padding_bot" id="jumbotron" style="background: url({% static 'img/bg3.jpg' %}) no-repeat center; background-size: cover;">
+  <div class="jumbotron" id="jumbotron" style="background: url({% static 'img/bg3.jpg' %}) no-repeat center; background-size: cover;">
     <div class="row medium_padding small_padding_bot">
       <div class="col-sm-8 col-sm-offset-2">
-      <h2 class="xbig_font bold text-center" style='color: #fff' id='tagline'>Making it easy to book local student photographers and videographers</h2>
+      <h2 class="xbig_font bold text-center" style='color: #fff' id='tagline'>Book local student photographers and videographers for your promotions</h2>
       </div>
     </div>
 
     <div class="row small_padding">
-      <div class="col-sm-6 col-sm-offset-3">
+      <div class="col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
+      <div class="row">
+      <div class="col-xs-10 col-xs-offset-1">
       <ul class="list-inline white text-center light">
-        <li class="light">We strive to promote local businesses, create jobs for students<br>and foster a sense of community with our service</li>
+        <li class="light">We strive to create jobs for students, foster a sense of community and provide affordable promotional materials with our service</li>
       </ul>
+      </div>
+      </div>
       </div>
     </div>
 
-    <div class="small_padding"></div>
-    <div class="medium_padding text-center">
-    <a href="#learn_more"><button class="btn btn-white large_font light">Learn More</button></a>
-    <a href="{% url 'get_started' %}"><button class="btn btn-white large_font light">Get Started</button></a>
+    <div class="medium_padding"></div>
+    <div class="small_padding text-center">
+    
+    <a href="{% url 'get_started' %}"><button class="btn btn-blue-big big_font">Get Started</button></a>
     </div>
+
+    <div class="medium_padding"></div>
+    <div class="text-center"><a href="#learn_more" class="white">Learn more <i class="glyphicon glyphicon-arrow-down"></i></a></div>
+
 
   </div>
   <div id="learn_more"></div>
@@ -40,9 +48,56 @@
     <ul class="list-unstyled alternate_list">
       
 
-
       <li>
         <div class="container large_padding_bot">
+          <h2 class="light_title text-center bold">Our Past Work</h2>
+          <div class="row medium_padding">
+            <div class="col-md-8 col-md-offset-0 col-xs-10 col-xs-offset-1">
+                <div class="embed-container video_border" style="margin: 0 auto;text-align:center;">
+                  <iframe src="{{ featured_pg_one_vid.video }}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                </div> 
+            </div>
+            <div class="col-md-4 col-md-offset-0 col-xs-10 col-xs-offset-1 all_padding_medium">
+              <a href="{{ featured_pg_one.get_absolute_url }}">
+              <div class="text-center">
+                <img src="{{ featured_pg_one.profile.url }}" width="100px">
+                <div class="small_padding"></div>
+                <p>{{ featured_pg_one.get_full_name }}<br>{{ featured_pg_one.school }}</p>
+              </div>
+              </a>
+
+              <p class="light small_font">{{ featured_pg_one.description }}</p>
+            </div>
+          </div>
+          <div class="medium_padding"></div>
+          <hr>
+          <div class="row medium_padding">
+            <div class="col-md-4 col-md-offset-0 col-xs-10 col-xs-offset-1 all_padding_medium">
+              <a href="{{ featured_pg_two.get_absolute_url }}">
+              <div class="text-center">
+                <img src="{{ featured_pg_two.profile.url }}" width="100px">
+                <div class="small_padding"></div>
+                <p>{{ featured_pg_two.get_full_name }}<br>{{ featured_pg_two.school }}</p>
+              
+              </div>
+              </a>
+              
+              <p class="light small_font">{{ featured_pg_two.description }}</p>
+              
+            </div>
+            <div class="col-md-8 col-md-offset-0 col-xs-10 col-xs-offset-1">
+                <div class="embed-container video_border" style="margin: 0 auto;text-align:center;">
+                  <iframe src="{{ featured_pg_two_vid.video }}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                </div> 
+            </div>
+          </div>
+
+        </div>
+      </li>
+
+
+      <li>
+        <div class="container large_padding large_padding_bot">
           <h2 class="light_title text-center bold">How Bryte Works</h2>
           <div class="row medium_padding">
             <div class="col-xs-10 col-xs-offset-1">
@@ -51,15 +106,15 @@
                 <div class="col-md-4 text-center">
                   <img src="{% static 'img/workThree.png' %}" class="img-responsive"> 
                   <div class="medium_padding"></div>
-                  <h3>Choose Packages</h3>
-                  <p class="light">We detail what exactly what your <a href="{% url 'get_started' %}" class="blue">package</a> offers</p>
+                  <h3>Choose a Package</h3>
+                  <p class="light">Pick a package that fits your need</p>
                 </div>   
 
                 <div class="col-md-4 text-center">
                   <img src="{% static 'img/workOne.png' %}" class="img-responsive"> 
                   <div class="medium_padding"></div>
                   <h3>Compare Creatives</h3>
-                  <p class="light">Compare creatives say choose the creative that fits your brand and vision, and all of our creative are in rhode island</p>
+                  <p class="light">Compare our creatives and find your best match</p>
                 </div>  
 
                 <div class="col-md-4 text-center">

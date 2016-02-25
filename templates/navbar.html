@@ -27,13 +27,13 @@
                   <input type='password' class='form-control' name='password' placeholder='Password' />
                 </div>
                 <div class="xsmall_padding">
-                <button type='submit' class='btn btn-default btn-block'>Login</button></div>
+                <button type='submit' class='btn btn-default btn-block light'>Login</button></div>
               </form></li>
-              <li><div class='text-center'><a href="{% url 'registration_register' %}">Creative Sign Up<br><a href='{% url "auth_password_reset" %}'>Forgot password</a>?</a></div></li>
+              <li><div class='text-center light'><a href="{% url 'registration_register' %}">Creative Sign Up<br><a href='{% url "auth_password_reset" %}'>Forgot password</a>?</a></div></li>
             </ul>
           </li>
         {% else %}
-          <li class="dropdown">
+          <li class="dropdown light">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ request.user.username }} <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
               <li><a href="{% url 'profile' %}">My Dashboard</a></li>
@@ -43,7 +43,7 @@
           </li>
         {% endif %}
         <li class="light"><a href="{% url 'photographers' %}" id='nav_photographer'>Our Creatives</a></li>
-        <li class="small_padding_right bold"><a href="{% url 'get_started' %}">Get Started</a></li>
+        <li class="small_padding_right bold large_font"><a href="{% url 'get_started' %}"><span class="blue">Get Started</span></a></li>
       </ul>
     </div>
   </div>

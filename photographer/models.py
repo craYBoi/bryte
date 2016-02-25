@@ -27,6 +27,7 @@ class Photographer(models.Model):
 	stripe_user_id = models.CharField(max_length=100, null=True, blank=True)
 	stripe_publishable_key = models.CharField(max_length=100, null=True, blank=True)
 	is_active = models.BooleanField(blank=True, default=False)
+	is_featured = models.BooleanField(blank=True, default=False)
 
 	def __unicode__(self):
 		return self.first_name + ' ' + self.last_name

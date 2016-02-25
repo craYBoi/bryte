@@ -17,17 +17,21 @@ def home(request):
 	title = 'Welcome'
 
 	# featured photographer
-	num_of_featured = 3
-	photographer_qs = Photographer.objects.all()
-	if photographer_qs.count <= num_of_featured:
-		featured_pg = photographer_qs.order_by('?')
-	else:
-		featured_pg = photographer_qs.order_by('?')[:num_of_featured]
 
+	photographer_qs = Photographer.objects.filter(is_featured=True)
+	featured_pg = photographer_qs[:2]
+
+	featured_pg_one = featured_pg[0]
+	featured_pg_two = featured_pg[1]
+	featured_pg_one_vid = featured_pg_one.photographervideo_set.all()[0]
+	featured_pg_two_vid = featured_pg_two.photographervideo_set.all()[0]
 	context = {
 		'signUp': form,
 		'title': title,
-		'featured_pg': featured_pg,
+		'featured_pg_one': featured_pg_one,
+		'featured_pg_two': featured_pg_two,
+		'featured_pg_one_vid': featured_pg_one_vid,
+		'featured_pg_two_vid': featured_pg_two_vid,
 		'title_text': 'Bryte',
 	}
 	return render(request, "index.html", context)

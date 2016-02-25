@@ -50,6 +50,7 @@ def reserve_success(request):
 		business_name = request.POST.get('business_name')
 		special_request = request.POST.get('special_request')
 		phone = request.POST.get('phone')
+		email = request.POST.get('email')
 		photographer_list = request.POST.getlist('fav_photographers')
 		fav_photographers = [get_object_or_404(Photographer, pk=id) for id in photographer_list]
 		package_id = request.POST.get('fav_package')
@@ -59,6 +60,7 @@ def reserve_success(request):
 		fav_package = get_object_or_404(Price, pk=package_id)
 
 		# store reservations and send email
+		photographer_names = ''
 		for fav_photographer in fav_photographers:
 			res = Reservation.objects.create(
 				photographer=fav_photographer,
@@ -68,6 +70,12 @@ def reserve_success(request):
 				price=fav_package,
 				date_range=date_range,
 				)
+			photographer_names += fav_photographer.get_full_name() + ' '
+
+		# send email
+		msg_body = 'You got a new reservation!!\n\nBusiness: ' + str(business_name) + '\nPackage: ' + fav_package.title + '\nPhotographers: ' + photographer_names + '\nDate: ' + str(date_range) + '\nPhone: ' + str(phone) + '\nEmail: ' + str(email) + '\nSpecial Request: ' + str(special_request)
+		send_mail('New Reservation!!', msg_body, 'hello@brytephoto.com',
+    ['hello@brytephoto.com', 'yb@brown.edu'], fail_silently=False)
 
 		return render(request, 'reserve_success.html', context)
 
