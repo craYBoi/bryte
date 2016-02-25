@@ -71,10 +71,7 @@ def package(request):
 			list_of_packages[package.shared_title].append(package)
 		else:
 			list_of_packages[package.shared_title] = [package]
-
-
-	for k,v in list_of_packages.iteritems():
-		print str(k) + ' -> ' + str(v)
+			
 
 	context = {
 		'title_text': 'Packages',

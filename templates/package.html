@@ -28,7 +28,7 @@
 						<div class="background_light_blue package_title package_title_mediumw text-center">
 							<h3 class="bold" id='{{ package.pk }}'>{{ package.title }}</h3>
 							{% if package.subtitle %}
-								<p>{{ package.subtitle }}</p>
+								<p class="light">{{ package.subtitle }}</p>
 							{% endif %}
 						</div>
 
@@ -36,7 +36,7 @@
 								<h2 class="text-center bold big_font">{% if package.price %}
 									${{ package.price }}{% else %}Contact Us to get quote
 								{% endif %}</h2>
-								<h4 class="text-center light small_font small_padding">Included in this packages:</h4>
+								<h4 class="text-center light small_font small_padding">Included in this package:</h4>
 								<ul class="pricing_list light small_font">
 									{% for feature in package.pricefeature_set.all %}
 										<li>{{ feature.feature_text }}</li>
