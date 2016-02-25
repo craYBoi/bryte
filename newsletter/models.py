@@ -32,7 +32,7 @@ class Price(models.Model):
 
 
 	def __unicode__(self):
-		return self.title
+		return self.title + ' ' + self.shared_title
 
 	def save(self, *args, **kwargs):
 		self.stripe_price = 100 * self.price
