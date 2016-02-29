@@ -41,6 +41,10 @@ class Price(models.Model):
 	class Meta:
 		ordering = ['pk']
 
+	def get_feature_set(self):
+		features = self.pricefeature_set.order_by('pk')
+		return features
+
 class PriceFeature(models.Model):
 	price = models.ForeignKey(Price)
 	feature_text = models.CharField(max_length=200)
