@@ -38,7 +38,8 @@ class Price(models.Model):
 		self.stripe_price = 100 * self.price
 		super(Price, self).save(*args, **kwargs)
 
-
+	class Meta:
+		ordering = ['pk']
 
 class PriceFeature(models.Model):
 	price = models.ForeignKey(Price)
