@@ -20,29 +20,28 @@
 		{% endif %}
 		<div class="content_wrapper">
 				{% if message %}
-		    	<div class="row small_padding">
+		    	<div class="row small_padding small_padding_bot">
 						<div class="col-sm-4 col-sm-offset-4 notification_box col-xs-6 col-xs-offset-3">
 						<p class="text-center small_font">{{ message }}</p>
 						</div>
 		    	</div>
 		    {% endif %}
 				{% if auth_message %}
-		    	<div class="row small_padding">
+		    	<div class="row small_padding small_padding_bot">
 						<div class="col-sm-4 col-sm-offset-4 notification_box col-xs-6 col-xs-offset-3">
 						<p class="text-center small_font">{{ auth_message }}</p>
 						</div>
 		    	</div>
 		    {% endif %}
-			<div class="row small_font">
-				<div class="col-sm-3">
-					<div class="medium_padding"></div>
-					<a href="{{ profile.get_photographer_url }}"><button class="btn-blue">My Profile</button></a><br>
-					<div class="xsmall_padding"></div>
-					<a href="{% url 'profile_edit' %}"><button class="btn-blue">Edit Profile</button></a><br>
-					<div class="xsmall_padding"></div>
-				</div>
 
-				<div class="col-sm-3">
+	  	<div class="text-center">
+				<a href="{{ profile.get_photographer_url }}"><button class="btn-blue">My Profile</button></a>
+				<a href="{% url 'profile_edit' %}"><button class="btn-blue">Edit Profile</button></a>
+			</div>
+
+			<div class="row small_font">
+				<div class="col-xs-8 col-xs-offset-2">
+					<div class="medium_padding"></div>
 					<h3 class="text-center bold">Information</h3>
 					<!--<ul class="info_list">
 						<li>username: {{ profile.user.username }}</li>
@@ -55,22 +54,90 @@
 					</div>
 				</div>
 
-				<div class="col-sm-6">
+				<div class="col-xs-10 col-xs-offset-1">
+				<div class="small_padding"></div>
 				<h3 class="text-center bold">Reservations</h3>
-					<div class="row small_padding_bot">
+					<div class="row small_padding_bot small_padding">
 						<div class="col-xs-10 col-xs-offset-1">
 
-						{% if not reservations %}
-							<p class="text-center small_padding">There's no reservations yet!</p>
+						{% if user.is_superuser %}
+							{% if not all_reservations %}
+								<p class="text-center small_padding">There's no reservations yet!</p>
+							{% else %}
+
+								<ul class="list-group">
+								{% for reservation in all_reservations %}
+									<li class="list-group-item">
+										<span class="badge light" id="badge_{{ reservation.pk }}">{{ reservation.status }}</span>
+										<h4 class="list-group-item-heading">{{ reservation.business_name }} ---- {{ reservation.price.title }} {{ reservation.price.shared_title }} ---- ${{ reservation.price.price }}</h4>
+
+										<p class="list-group-item-text"><i class="glyphicon glyphicon-user"></i> {{ reservation.photographer.get_full_name }}</p>
+
+										<div class="small_padding"></div>
+										{% if reservation.status == "Taken" %}
+											<div class="complete_content">
+											<div id="loader_{{ reservation.id }}" class="loader
+											 text-center">
+												<img src="{% static 'logo/ripple.gif' %}">
+											</div>
+											<form class="display_none" id='complete_form' method="GET">
+												<input type='hidden' name='res_pk' value="{{ reservation.pk }}" id="complete_val">
+											</form>
+											<button class="btn-blue" id="complete" type='submit' form='complete_form'>Complete</button>
+											</div>
+										{% endif %}
+									</li>
+								{% endfor %}
+								</ul>
+
+							{% endif %}
+
+
 						{% else %}
-							<div class="list-group small_padding">
-							
-							{% for reservation in reservations %}
 
-								<p class="list-group-item"><i class="fa fa-cog fa-fw"></i>&nbsp;&nbsp;&nbsp; <span class="small_padding_right">${{ reservation.price.price }}</span> <span class="small_padding_right">{{ reservation.price.get_title }}</span> <span class="small_padding_right">{{ reservation.timestamp | date:"Y-m-d" }}</span></p>			
 
-							{% endfor %}
-							</div>
+							{% if not reservations %}
+								<p class="text-center small_padding">There's no reservations yet!</p>
+							{% else %}
+								<div class="list-group small_padding">
+								
+								<ul class="list-group">
+								{% for reservation in reservations %}
+									<li class="list-group-item">
+
+	
+										<span class="badge light" id="badge_{{ reservation.pk }}">{{ reservation.creative_status }}</span>
+
+
+
+										<h4 class="list-group-item-heading">{{ reservation.business_name }} ---- {{ reservation.price.title }} {{ reservation.price.shared_title }} ---- ${{ reservation.price.price }}</h4>
+
+										<p class="list-group-item-text light">
+											<i class="glyphicon glyphicon-calendar"></i> {{ reservation.date_range }}
+											<i class="glyphicon glyphicon-user"></i> {{ reservation.first_name }} {{ reservation.last_name }}
+										</p>
+
+										<div class="small_padding"></div>
+										{% if reservation.creative_pending %}
+											
+											<div id="loader_{{ reservation.id }}" class="loader text-center">
+												<img src="{% static 'logo/ripple.gif' %}">
+											</div>
+											<form class="display_none" id='take_it_form' method="GET">
+												<input type='hidden' name='res_pk' value="{{ reservation.pk }}" id="take_it_val">
+											</form>
+											<div class="take_it_content">
+												<button class="btn-blue" id="take_it" type='submit' form="take_it_form">Take it!</button> <span class="light small_font small_padding_left">By Checking the box, I agree to the <a class="blue" href="{% url 'legal' %}" target="_blank">terms of service.</a></span> <input type="checkbox" id="tos_checkbox">
+											</div>
+										{% endif %}
+
+									</li>
+								{% endfor %}
+								</ul>
+
+
+								</div>
+							{% endif %}
 						{% endif %}
 						</div>
 					</div>
@@ -78,4 +145,80 @@
 			</div>
 		</div>
 	</div>
+{% endblock %}
+
+
+{% block jquery %}
+	$('#take_it').attr('disable', true);
+	//document.getElementById("take_it").disabled = true; 
+	$(function(){
+    $('#tos_checkbox').click(function() {
+        if($(this).is(':checked')){
+            document.getElementById("take_it").disabled = false; 
+        }
+        else {
+            document.getElementById("take_it").disabled = true; 
+        }
+    });
+	});
+
+	$('.loader').hide();
+	var $loading = $('#loader_'+String($('#complete_val').val()));
+	var $loading_take = $('#loader_'+String($('#take_it_val').val()));
+
+	$(document)
+	.ajaxStart(function () {
+    $loading.show();
+    $loading_take.show();
+  })
+  .ajaxStop(function () {
+    $loading.fadeOut(200);
+    $loading_take.fadeOut(200);
+  });
+
+	$('#take_it_form').on('submit', function(event){
+    event.preventDefault();
+	  $('.take_it_content').fadeOut(300);
+    take_it();
+	});
+
+	$('#complete_form').on('submit', function(event){
+    event.preventDefault();
+    $('#complete').fadeOut(300);
+    complete_it();
+	});
+
+	function take_it(){
+		$.ajax({
+	    url: '{% url "ajax_take" %}',
+	    type: 'GET',
+	    data: {res_pk: $('#take_it_val').val()},
+
+	    success: function(data) {
+	    		id = $('#take_it_val').val()
+	    		$('#badge_'+String(id)).html(data['status']);
+	    },
+	    failure: function(data) { 
+	        alert('Got an error dude');
+	    }
+		}); 	
+	}
+
+	function complete_it(){
+		$.ajax({
+	    url: '{% url "ajax_complete" %}',
+	    type: 'GET',
+	    data: {res_pk: $('#complete_val').val()},
+
+	    success: function(data) {
+	    		id = $('#complete_val').val();
+	    		//console.log(data['status']);
+	    		$('#badge_'+String(id)).html(data['status']);
+	    },
+	    failure: function(data) { 
+	        alert('Got an error dude');
+	    }
+		}); 	
+	}
+
 {% endblock %}

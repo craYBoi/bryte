@@ -4,46 +4,56 @@
 
 {% block content %}
 	<div class="medium_padding medium_padding_bot">
+
+		{% if res.status == 'Paid' %}
+			<h2 class="bold text-center">The project was already paid!</h2>
+		{% elif res.status == 'Taken' %}
+			<h2 class="bold text-center">The project is in progress, you can pay after the job has done!</h2>
+		{% elif res.status == 'Pending' %}
+			<h2 class="bold text-center">We are still waiting for the creative to respond</h2>
+		{% else %}
+
+
 		<div class="container medium_padding">
-			<h2 class="feature_title bold text-center">Reservation Review</h2>
-		<div class="row">
-			<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
-			<ul class="list-unstyled medium_padding small_padding_bot checkout_list col-xs-8 col-xs-offset-2">
-				<li><span class="pricing_feature_text">{{ price.get_title }}</span></li>
-				<li><span class="pricing_feature_text">{{ photographer.get_full_name }}</span></li>
-				<li><span class="pricing_feature_text">{{ datetime }}</span></li>
-				<li><span class="pricing_feature_text">{{ phone }}</span></li>
-				{% if note %}
-					<li><span class="pricing_feature_text">{{ note }}</span></li>
-				{% endif %}
-				
-			</ul>
+			<h2 class="feature_title bold text-center">Order Review</h2>
+			<div class="row">
+				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
+				<ul class="list-unstyled medium_padding small_padding_bot checkout_list col-xs-8 col-xs-offset-2">
+					<li><span class="pricing_feature_text">{{ price.shared_title }} {{ price.get_title }}</span></li>
+					<li><span class="pricing_feature_text">{{ res.photographer.get_full_name }}</span></li>
+					<li><span class="pricing_feature_text">{{ res.date_range }}</span></li>
+					<li><span class="pricing_feature_text">{{ res.phone }}</span></li>
+					{% if note %}
+						<li><span class="pricing_feature_text">{{ res.note }}</span></li>
+					{% endif %}
+					
+				</ul>
+				</div>
 			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
-			<ul class="list-unstyled small_padding small_padding_bot col-xs-8 col-xs-offset-2">
-				<p class="bold">Total</p>
-				<li class="bold big_font pull-right">${{ price.price }}</li>				
-			</ul>
+			<div class="row">
+				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
+				<ul class="list-unstyled small_padding small_padding_bot col-xs-8 col-xs-offset-2">
+					<p class="bold">Total</p>
+					<li class="bold big_font pull-right">${{ price.price }}</li>				
+				</ul>
+				</div>
 			</div>
-		</div>
-		<div class="row small_padding small_padding_bot">
-		<div class="col-sm-4 col-sm-offset-4 notification_box col-xs-6 col-xs-offset-3">
-		<p class="text-center small_font">You will be charged a non-refundable 25% of the current package fee right now (You will receive a refund if your photographer cancels the appointment). You will be charged the remainder once the job is completed.</p>
-		</div>
-		</div>
-		<div class="text-center small_padding">
+			<div class="row small_padding small_padding_bot">
+				<div class="col-sm-4 col-sm-offset-4 notification_box col-xs-6 col-xs-offset-3">
+				<p class="text-center small_font">Some text goes here, terms of services and stuff.</p>
+				</div>
+			</div>
+			<div class="text-center small_padding">
 				<form action="{% url 'reserve_success' %}" method="POST">{% csrf_token %}
 					<input type="hidden" value="{{ price.pk }}" name='hidden'/>
-					<input type="hidden" value="{{ res }}" name='reservation'/>
+					<input type="hidden" value="{{ res.pk }}" name='reservation'/>
 				  <script
 				  	id='checkout_script'
 				    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
 				    data-key="{{ publish_key }}"
 				    data-amount="{{ price.stripe_price }}"
 				    data-name="Bryte Photo"
-				    data-description="{{ price.get_title }}"
+				    data-description="{{ price.shared_title }} {{ price.get_title }}"
 				    data-image="{% static 'logo/logo-square.png' %}"
 				    data-locale="auto">
 				  </script>
@@ -51,7 +61,7 @@
 			</div>
 		</div>
 
-
+		{% endif %}
 	</div>
 
 	<script type="text/javascript">

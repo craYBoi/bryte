@@ -23,21 +23,80 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 def reserve(request):
 
 	fav_package=''
-	if request.method == "POST":
-		photographer_list = request.POST.getlist('fav_photographer')
+	fav_photographers = None
+	reserve_form = ReserveForm()
+	context = {}
+
+	if request.method == "GET":
+		form_photographer_name = 'fav_photographer'
+		form_package_name = 'fav_package'
+
+		photographer_list = request.GET.getlist(form_photographer_name)
+
 		fav_photographers = [get_object_or_404(Photographer, pk=id) for id in photographer_list]
-		package_id = request.POST.get('fav_package')
+		package_id = request.GET.get(form_package_name)
 		if package_id:
 			fav_package = get_object_or_404(Price, pk=package_id)
 
-	reserve_form = ReserveForm()
 
-	context = {
-		'reserve_form': reserve_form,
-		'title_text': 'Reserve',
-		'fav_photographers': fav_photographers,
-		'fav_package': fav_package,
-	}
+		context['title_text'] = 'Reserve'
+		context['fav_photographers'] = fav_photographers
+		context['fav_package'] = fav_package
+		context['reserve_form'] = reserve_form
+		
+
+	if request.method == 'POST':
+		reserve_form = ReserveForm(request.POST)
+		if reserve_form.is_valid():
+
+			first_name = request.POST.get('first_name')
+			last_name = request.POST.get('last_name')
+			date_range = request.POST.get('date_range')
+			business_name = request.POST.get('business_name')
+			special_request = request.POST.get('special_request')
+			phone = request.POST.get('phone')
+			email = request.POST.get('email')
+			photographer_list = request.POST.getlist('fav_photographers')
+			fav_photographers = [get_object_or_404(Photographer, pk=id) for id in photographer_list]
+			package_id = request.POST.get('fav_package')
+			if not package_id:
+				messages.add_message(request, messages.ERROR, 'You haven\'t select packages yet. Please try again')
+				return redirect(reverse('get_started'))
+			fav_package = get_object_or_404(Price, pk=package_id)
+
+			# store reservations and send email
+			photographer_names = ''
+			for fav_photographer in fav_photographers:
+				res = Reservation.objects.create(
+					photographer=fav_photographer,
+					business_name=business_name,
+					note=special_request,
+					phone=phone,
+					email=email,
+					price=fav_package,
+					date_range=date_range,
+					first_name=first_name,
+					last_name=last_name,
+					)
+				photographer_names += fav_photographer.get_full_name() + ' '
+
+			# send email
+			msg_body = 'Business: ' + str(business_name) + '\nFull name: ' + first_name + ' ' + last_name + '\nPackage: ' + fav_package.title + ' ' + fav_package.shared_title + '\nCreative: ' + photographer_names + '\nDate: ' + str(date_range) + '\nPhone: ' + str(phone) + '\nEmail: ' + str(email) + '\nSpecial Requests: ' + str(special_request)
+			send_mail('New Reservation: ' + business_name, 'You got a new reservation\n\n' + msg_body, 'hello@brytephoto.com',
+			['yb@brown.edu'], fail_silently=False)
+
+			client_msg_body = 'Dear ' + last_name + ':\n\n' + 'We are processing your booking. We will match you with a creative and let you know as soon as we have!\n\nHere\'s the detail of your booking:\n'
+			send_mail('Your Booking with Bryte', client_msg_body + msg_body + '\n\nThanks,\nBryte Photo Inc\nhello@brytephoto.com', 'hello@brytephoto.com',
+			[email], fail_silently=False)
+
+			return redirect(reverse('reserve_success_new'))	
+		else:
+			messages.add_message(request, messages.ERROR, 'The form you entered is not valid, please try again')
+			photographer_list = request.POST.getlist('fav_photographers')
+			package_id = request.POST.get('fav_package')
+			url = '?'+ 'fav_photographer' + '=' + str(photographer_list[0]) + '&' +  'fav_package' +'=' + str(package_id)
+			return redirect('/reserve/' + url)
+
 	return render(request, 'reserve.html', context)
 
 
@@ -45,50 +104,9 @@ def reserve_success(request):
 	context = {
 		'title_text': 'Successfully Reserved!',
 	}
-	if request.method == "POST":
-		first_name = request.POST.get('first_name')
-		last_name = request.POST.get('last_name')
-		date_range = request.POST.get('date_range')
-		business_name = request.POST.get('business_name')
-		special_request = request.POST.get('special_request')
-		phone = request.POST.get('phone')
-		email = request.POST.get('email')
-		photographer_list = request.POST.getlist('fav_photographers')
-		fav_photographers = [get_object_or_404(Photographer, pk=id) for id in photographer_list]
-		package_id = request.POST.get('fav_package')
-		if not package_id:
-			messages.add_message(request, messages.ERROR, 'You haven\'t select packages yet. Please try again')
-			return redirect(reverse('get_started'))
-		fav_package = get_object_or_404(Price, pk=package_id)
 
-		# store reservations and send email
-		photographer_names = ''
-		for fav_photographer in fav_photographers:
-			res = Reservation.objects.create(
-				photographer=fav_photographer,
-				business_name=business_name,
-				note=special_request,
-				phone=phone,
-				price=fav_package,
-				date_range=date_range,
-				first_name=first_name,
-				last_name=last_name,
-				)
-			photographer_names += fav_photographer.get_full_name() + ' '
+	return render(request, 'reserve_success.html', context)
 
-		# send email
-		msg_body = 'Business: ' + str(business_name) + '\nFull name: ' + first_name + ' ' + last_name + '\nPackage: ' + fav_package.title + '\Creative: ' + photographer_names + '\nDate: ' + str(date_range) + '\nPhone: ' + str(phone) + '\nEmail: ' + str(email) + '\nSpecial Requests: ' + str(special_request)
-		send_mail('New Reservation: ' + business_name, 'You got a new reservation\n\n' + msg_body, 'hello@brytephoto.com',
-		['yb@brown.edu'], fail_silently=False)
-
-		client_msg_body = 'Dear ' + last_name + ':\n\n' + 'We are processing your booking. We will match you with a creative and let you know as soon as we have!\n\nHere\'s the detail of your booking:\n'
-		send_mail('Your Booking with Bryte', client_msg_body + msg_body + '\n\nThanks,\nBryte Photo Inc\nhello@brytephoto.com', 'hello@brytephoto.com',
-		[email], fail_silently=False)
-
-		return render(request, 'reserve_success.html', context)
-
-	messages.add_message(request, messages.ERROR, 'There\'s something wrong. Please try again')
-	return redirect(reverse('get_started'))
 
 
 def reserve_detail(request, slug):
@@ -123,43 +141,55 @@ def checkout(request):
 	publishKey = settings.STRIPE_PUBLISHABLE_KEY
 	context['publish_key'] = publishKey	
 
-	if request.method == 'POST':
-		# create a form to process the data
-		pid = request.POST.get('photographer')
-		photographer = Photographer.objects.get(pk=pid)
-		reserve_form = ReserveDetailStudentForm(request.POST)
+	if request.method == 'GET':
+		rid = request.GET.get('reservation')
+		reservation = get_object_or_404(Reservation, pk=rid)
 
-		if reserve_form.is_valid():
-			# store the reservation to database, with purchased being false
-			photographer = reserve_form.cleaned_data.get('photographer')
-			datetime = reserve_form.cleaned_data.get('datetime')
-			price = reserve_form.cleaned_data.get('package')
-			note = reserve_form.cleaned_data.get('note')
-			phone = reserve_form.cleaned_data.get('phone')
+		# check the status of the reservation,
+		# only allow to pay if the reservation is_complete
 
-			# validate the time
+		context['res'] = reservation
+		context['price'] = reservation.price
 
-			# other intelligent validations
 
-			context['photographer'] = photographer
-			context['datetime'] = datetime
-			context['price'] = price
-			context['note'] = note
-			context['phone'] = phone
 
-			# store the reservation
-			res = Reservation.objects.create(photographer=photographer,
-			datetime=datetime, note=note, phone=phone, price=price, complete=False)
+	# if request.method == 'POST':
+	# 	# create a form to process the data
+	# 	pid = request.POST.get('photographer')
+	# 	photographer = Photographer.objects.get(pk=pid)
+	# 	reserve_form = ReserveDetailStudentForm(request.POST)
 
-			# pass the reservation too as hidden field for successpage to catch it
-			context['res'] = res.pk
+	# 	if reserve_form.is_valid():
+	# 		# store the reservation to database, with purchased being false
+	# 		photographer = reserve_form.cleaned_data.get('photographer')
+	# 		datetime = reserve_form.cleaned_data.get('datetime')
+	# 		price = reserve_form.cleaned_data.get('package')
+	# 		note = reserve_form.cleaned_data.get('note')
+	# 		phone = reserve_form.cleaned_data.get('phone')
 
-		else:
-			slug = photographer.slug
+	# 		# validate the time
+
+	# 		# other intelligent validations
+
+	# 		context['photographer'] = photographer
+	# 		context['datetime'] = datetime
+	# 		context['price'] = price
+	# 		context['note'] = note
+	# 		context['phone'] = phone
+
+	# 		# store the reservation
+	# 		res = Reservation.objects.create(photographer=photographer,
+	# 		datetime=datetime, note=note, phone=phone, price=price, complete=False)
+
+	# 		# pass the reservation too as hidden field for successpage to catch it
+	# 		context['res'] = res.pk
+
+		# else:
+		# 	slug = photographer.slug
 
 			# add the message
-			messages.add_message(request, messages.ERROR, 'The form is not valid. Please try again')
-			return redirect(reverse('reserve_detail', kwargs={'slug': slug}))
+			# messages.add_message(request, messages.ERROR, 'The form is not valid. Please try again')
+			# return redirect(reverse('reserve_detail', kwargs={'slug': slug}))
 
 	else:
 	# for security
@@ -184,7 +214,7 @@ def success(request):
 
 		# get the photographer stripe id
 		res_id = request.POST.get('reservation')
-		reservation = Reservation.objects.get(pk=res_id)
+		reservation = get_object_or_404(Reservation, pk=res_id)
 		photographer = reservation.photographer
 
 		# track somebody paid
@@ -209,7 +239,6 @@ def success(request):
 				destination= photographer.stripe_user_id,
 				application_fee=fee,
 			)
-			is_success = True
 		except stripe.error.CardError, e:
 			body = e.json_body
 			err = body['error']
@@ -225,23 +254,25 @@ def success(request):
 			if error_msg:
 				error_str += error_msg
 			messages.add_message(request, messages.ERROR, error_str)
-			return redirect(reverse('reserve_detail', kwargs={'slug': photographer.slug}))
 
-
-		if is_success:
-			# change reservation complete from False to True
-			res_id = request.POST.get('reservation')
-			reservation = Reservation.objects.get(pk=res_id)
-			reservation.complete = True
+			# need to work on the redirection after failing
+			return redirect(reverse('home'))
+		else:
+			# toggle is_paid
+			reservation.is_paid = True
 			reservation.save()
 
 			# send the email
-			send_mail('Successfully Reserved!',
-				'Thank you for the reservation! You have reserved ' + reservation.photographer.get_full_name() + '! -- Team Bryte',
+			try:
+				send_mail('Successfully Paid!',
+				'Thank you for the payment!',
 				settings.EMAIL_HOST_USER,
-				['chailatte.byy@gmail.com'],
+				[reservation.email],
 				fail_silently=False
 				)
+			except SMTPRecipientsRefused:
+				print 'Email not set!'
+				pass
 
 			# add to context to display
 			context['photographer'] = reservation.photographer

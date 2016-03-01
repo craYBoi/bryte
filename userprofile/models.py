@@ -45,5 +45,7 @@ def profileCallback(sender, request, user, **kwargs):
 		first_name=userProfile.name)
 	userProfile.photographer = photographer
 	userProfile.save()
+	photographer.email = user.email
+	photographer.save()
 
 user_registered.connect(profileCallback)

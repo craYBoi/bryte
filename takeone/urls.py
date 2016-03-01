@@ -21,6 +21,7 @@ from newsletter import views as newsletter_views
 from sms import views as sms_views
 from userprofile import views as profile_views
 
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', newsletter_views.home, name='home'),
@@ -66,6 +67,11 @@ urlpatterns = [
 
     # twilio
     url(r'^sms/$', sms_views.sms, name='sms'),
+
+    # ajax profile
+    url(r'^profile/take$', profile_views.ajax_take, name='ajax_take'),
+    url(r'^profile/complete$', profile_views.ajax_complete, name='ajax_complete'),
+
 ]
 
 

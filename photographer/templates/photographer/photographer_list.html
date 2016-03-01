@@ -31,7 +31,7 @@
                 {% endfor %}
             </select>
             <div class="small_padding_right"></div>
-            <form id="fav_photographer_form" action="{% url 'reserve' %}" method="POST">{% csrf_token %}
+            <form id="fav_photographer_form" action="{% url 'reserve' %}" method="GET">
               <input type="hidden" name="fav_package" value='{{ price_package }}'>
               <button type='submit' class="btn-blue">Next</button>
             </form>

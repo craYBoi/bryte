@@ -8,7 +8,7 @@ from .views import reserve, reserve_detail, success, checkout, reserve_success
 urlpatterns = [
     url(r'^$', reserve, name='reserve'),
     url(r'^reserve_success/$', reserve_success, name="reserve_success_new"),
-    url(r'^checkout/$', checkout, name='reserve_checkout'),
+    url(r'^checkout$', checkout, name='reserve_checkout'),
     url(r'^success/$', success, name='reserve_success'),
     url(r'^(?P<slug>[\w-]+)/$', reserve_detail, name='reserve_detail'),
     # url(r'^(?P<name>[a-z ]+)/$', 'reserve.views.reserve_specific', name='reserve_specific'),

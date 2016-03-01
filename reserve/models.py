@@ -20,9 +20,33 @@ class Reservation(models.Model):
 	date_range = models.CharField(max_length=150)
 	business_name = models.CharField(max_length=100)
 	datetime = models.DateTimeField(blank=True, null=True)
-	complete = models.BooleanField(default=False)
+	is_complete = models.BooleanField(default=False)
+	is_paid = models.BooleanField(default=False)
+	is_taken = models.BooleanField(default=False)
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
+
 
 	def __unicode__(self):
 		return self.photographer.get_full_name()
 
+	def status(self):
+		if self.is_paid:
+			return 'Paid'
+		elif self.is_complete:
+			return 'Complete'
+		elif self.is_taken:
+			return 'Taken'
+		else:
+			return 'Pending'
+
+	def creative_status(self):
+		if self.is_paid:
+			return 'Complete'
+		if self.is_complete:
+			return 'Waiting for client to pay'
+		if self.is_taken:
+			return 'Project in progress'
+		return 'Pending'	
+
+	def creative_pending(self):
+		return not self.is_complete and not self.is_paid and not self.is_taken

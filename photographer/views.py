@@ -76,7 +76,7 @@ def PhotographerDetailViewF(request, slug):
 	# will use @login_required later, and create seperate comment app
 	permission = False
 	if request.user.is_authenticated():
-		reservations = Reservation.objects.filter(complete=True)
+		reservations = Reservation.objects.filter(is_complete=True)
 		if request.user.profile in [pur.profile for pur in reservations]:
 			permission = True
 

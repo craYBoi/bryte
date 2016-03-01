@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django.contrib.sitemaps',
 
     'crispy_forms',
     'storages',
@@ -168,6 +169,8 @@ ACCOUNT_ACTIVATION_DAYS = 7
 REGISTRATION_AUTO_LOGIN = True
 LOGIN_REDIRECT_URL = '/profile'
 SITE_ID = 1
+SITE_URL = 'http://brytephoto.com'
+SITE_EMAIL = 'hello@brytephoto.com'
 
 
 # email 

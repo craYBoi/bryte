@@ -32,7 +32,7 @@
 
     <div class="content_title_padding row">
       <div class="col-sm-4 col-sm-offset-4 col-xs-10 col-xs-offset-1">
-      <form role = "form" method="POST" action="{% url 'reserve_success_new' %}">
+      <form role = "form" method="POST" action="{% url 'reserve' %}">
       	{% csrf_token %}
     		{{ reserve_form | crispy }}
         {% for photographer in fav_photographers %}
