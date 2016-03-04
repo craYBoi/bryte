@@ -9,14 +9,13 @@
   {% if not show_form %}
     
   
-    <div class="jumbotron" style="background: url({% static 'img/jumbo3_dark.png' %}); background-size: cover; text-align: center;">
-      <h1 class="text-center bold main_title white">Our Creatives</h1>
+    <div class="jumbotron" style="background: url({% static 'img/store_bg1.jpg' %}) center; background-size: cover; text-align: center;">
+      <h1 class="text-center bold main_title white medium_padding medium_padding_bot">Our Creatives</h1>
     </div>
   {% endif %}
-
-    <div class="container">
       {% if show_form %}
-      <div class="text-center background_light_blue border_blue_dashed">
+      <div class="jumbotron" style="background: url({% static 'img/store_bg1.jpg' %}) center; background-size: cover; text-align: center;">
+      
         <div class="small_padding"></div>
           <h1 class="white bold">Pick Your Creative</h1>
           <div class="row">
@@ -41,6 +40,8 @@
         <div class="medium_padding"></div>
       </div>
       {% endif %}
+    <div class="container">
+
 
     <!--<div class="medium_padding">
       <p class="text-center large_font"><i class='fa fa-star yellow'></i> &nbsp<a href="{% url 'select_photographer' %}" class="">How do we select our photographer ></a></p>
@@ -59,14 +60,14 @@
 
     <div class="row">
     {% for photographer in object_list %}
-    
+      <a href="{{ photographer.get_absolute_url }}">
       <div class="col-sm-4 text-center small_padding">
         <div class="thumbnail photographer_list_card">
-          <a href="{{ photographer.get_absolute_url }}">
+          
           {% if photographer.profile %}
             <div class="medium_padding"></div>
             <img src="{{ photographer.profile.url }}" width="90px" class="img-circle">
-          {% endif %}</a>
+          {% endif %}
           <a href="{{ photographer.get_absolute_url }}" class="yellow_hover"><h4 class="small_padding bold">{{ photographer.get_full_name }}</h4></a>
 
           <ul class="xsmall_padding">
@@ -101,6 +102,15 @@
             <p class="xsmall_padding_bot">No Reviews</p>
           {% endif %}
           
+          <div class="small_padding"></div>
+          {% if photographer.photography %}
+            <i class="glyphicon glyphicon-camera grey"></i>
+          {% endif %}
+          {% if photographer.videography %}
+            <i class="glyphicon glyphicon-facetime-video grey"></i>
+          {% endif %}
+          
+          
           <!--
             <ul class="list-inline small_padding medium_padding_bot">
             {% for specialty in photographer.specialty_set.all reversed %}
@@ -108,8 +118,10 @@
             {% endfor %}
             </ul>
             -->
-            <div class="medium_padding_bot"></div>
+            <div class="small_padding_bot"></div>
+
           </div>
+
         </div>
         <!--
         <div class="col-sm-4 small_padding">
@@ -129,6 +141,7 @@
           </div>
         </div>
         -->
+        </a>
     {% endfor %}
     </div>
 </div>

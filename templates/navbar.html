@@ -1,6 +1,6 @@
 {% load staticfiles %}
-
-<nav class="navbar navbar-default navbar-fixed-top" id="main_nav">
+<!-- navbar-fixed-top navbar-default-->
+<nav class="navbar transparent navbar-default" id="main_nav">
 <!--style="background: url({% static 'img/nav.jpg' %}) no-repeat center; background-size: cover;"-->
   <div class="">
     <div class="navbar-header">
@@ -10,14 +10,14 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="{% url 'home' %}"><img alt="Bryte Photo logo" src="{% static 'logo/logo2.png' %}" width="150px" style="margin-top: 6px"></a>
+      <a class="navbar-brand" href="{% url 'home' %}"><img alt="Bryte Photo logo" src="{% static 'logo/logo_newwhite.png' %}" width="110px" style="margin-top: 0px"></a>
     </div>
 
     <div class="collapse navbar-collapse" id='bs-example-navbar-collapse-1'>
       <ul class="nav navbar-nav navbar-right" >
         {% if not request.user.is_authenticated %}
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="light">Creative Login</span> <span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle white" data-toggle="dropdown" role="button" aria-expanded="false"><span class="light">Creative Login</span> <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">           
               <li><form class='navbar-form' method='POST' action='{% url "auth_login" %}'>{% csrf_token %}
                 <div class='form-group xsmall_padding'>
@@ -34,7 +34,7 @@
           </li>
         {% else %}
           <li class="dropdown light">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ request.user.username }} <span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle white" data-toggle="dropdown" role="button" aria-expanded="false">{{ request.user.username }} <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
               <li><a href="{% url 'profile' %}">My Dashboard</a></li>
               <li><a href="{{ request.user.profile.photographer.get_absolute_url }}">My Profile</a></li>
@@ -42,8 +42,8 @@
             </ul>
           </li>
         {% endif %}
-        <li class="light"><a href="{% url 'photographers' %}" id='nav_photographer'>Our Creatives</a></li>
-        <li class="small_padding_right bold large_font"><a href="{% url 'get_started' %}"><span class="blue">Get Started</span></a></li>
+        <li class="light"><a href="{% url 'photographers' %}" id='nav_photographer' class="white">Our Creatives</a></li>
+        <li class="small_padding_right bold large_font"><a href="{% url 'packages' %}"><span class="blue">Get Started</span></a></li>
       </ul>
     </div>
   </div>

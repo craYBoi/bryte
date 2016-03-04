@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% load staticfiles %}
-
+{% block description %}
+  <meta name="description" content="Bryte Photo provides a dashboard to allow student photographer and videographer manage their own information.">
+{% endblock %}
 
 {% block profile %}
 	<div class="jumbotron" style="background: url({% static 'img/jumbo3_dark.png' %}); background-size: cover; text-align: center;">

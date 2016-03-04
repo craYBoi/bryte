@@ -28,9 +28,6 @@ urlpatterns = [
     url(r'^about$', newsletter_views.about, name='about'),
     url(r'^photographer/', include('photographer.urls')),
 
-    # get started page
-    url(r'^start$', newsletter_views.get_started, name='get_started'),
-
     # reserve
     url(r'^reserve/', include('reserve.urls')),
 
@@ -45,9 +42,6 @@ urlpatterns = [
 
     # select photographer
     url(r'^select$', newsletter_views.select_photographer, name='select_photographer'),
-
-    # pricing
-    url(r'^pricing$', newsletter_views.pricing, name='pricing'), 
 
     # blogs 
     url(r'^blog/', include('blog.urls')),

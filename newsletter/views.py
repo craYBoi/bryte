@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.conf import settings
+from django.http import Http404, HttpResponse
 
+import json
 
 from .forms import SignUpForm
 from photographer.models import Photographer
@@ -82,15 +84,6 @@ def package(request):
 	return render(request, "package.html", context)
 
 
-def pricing(request):
-	student_prices = Price.objects.all()
-	context = {
-		'title_text': 'pricing',
-		'student_prices': student_prices,
-	}
-
-	return render(request, "pricing.html", context)
-
 
 def become_photographer(request):
 	context = {
@@ -115,16 +108,12 @@ def faq(request):
 	return render(request, 'faq.html', context)
 
 
-def get_started(request):
-	context = {
-		'title_text': 'Get Started'
-	}
-	return render(request, 'get_started.html', context)
-
-
 def legal(request):
 	context = {
 		'title_text': 'Legal Documentations'
 	}
 
 	return render(request, 'legal_stuff.html', context)
+
+
+

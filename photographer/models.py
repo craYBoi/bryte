@@ -33,7 +33,7 @@ class Photographer(models.Model):
 		return self.first_name + ' ' + self.last_name
 
 	def get_full_name(self):
-		return self.first_name + ' ' + self.last_name[0]
+		return self.first_name + ' ' + self.last_name
 
 	def save(self, *args, **kwargs):
 		self.slug = slugify(self.first_name + ' ' + self.last_name)

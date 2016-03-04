@@ -8,12 +8,14 @@
     <meta name="MobileOptimized" content="320">
     <meta name="HandheldFriendly" content="True">
     <meta http-equiv="cleartype" content="on">
+    {% block description %}{% endblock %}
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ title_text }}</title>
     <link rel="alternate" href="https://www.brytephoto.com" hreflang="en-us" />
     <link rel="shortcut icon" type="image/png" href="{% static 'logo/favicon.png' %}"/>
     
-    <link href='https://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>
+    <!--<link href='https://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>-->
+    <link href='https://fonts.googleapis.com/css?family=Quicksand:400,300,700' rel='stylesheet' type='text/css'>
     <!-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css"> -->
 
 		<!-- <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"> -->
@@ -50,8 +52,8 @@
 	    {% include "navbar.html" %}
 
 	    {# offset to fill the space of navbar #}
-	    <div class="offset">
-	    </div>
+	    <!--<div class="offset">
+	    </div>-->
 {# registration #}
 			{% load i18n %}
 

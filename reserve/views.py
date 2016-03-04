@@ -61,7 +61,7 @@ def reserve(request):
 			package_id = request.POST.get('fav_package')
 			if not package_id:
 				messages.add_message(request, messages.ERROR, 'You haven\'t select packages yet. Please try again')
-				return redirect(reverse('get_started'))
+				return redirect(reverse('packages'))
 			fav_package = get_object_or_404(Price, pk=package_id)
 
 			# store reservations and send email

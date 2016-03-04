@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 {% load crispy_forms_tags %}
-
+{% block description %}
+  <meta name="description" content="Book you local student photography and videographer for your small business right now.">
+{% endblock %}
 
 {% block reserve %}
   <div id="content_reserve" class="content_wrapper container">
@@ -16,7 +18,7 @@
       {% else %}
       <div class="row">
         <div class="col-xs-4 col-xs-offset-4">
-        <p class="error_box red">You haven't select a package yet. Click <a href="{% url 'get_started' %}">here</a> to choose your packages</p>
+        <p class="error_box red">You haven't select a package yet. Click <a href="{% url 'packages' %}">here</a> to choose your packages</p>
         </div>
       </div>
       {% endif %}

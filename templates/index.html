@@ -2,13 +2,14 @@
 {% load staticfiles %}
 {% load crispy_forms_tags %}
 
-{% block carousel %}
-
+{% block description %}
+  <meta name="description" content="Bryte Photo allows you to affordably promote your small business, and have your promotional photos and videos shot by a local student.">
 {% endblock %}
 
 {% block jumbotron %}
-  <div class="jumbotron" id="jumbotron" style="background: url({% static 'img/bg3.jpg' %}) no-repeat center; background-size: cover;">
-    <div class="row medium_padding small_padding_bot">
+  <div class="jumbotron" id="jumbotron" style="background: url({% static 'img/bg7.jpg' %}) no-repeat center; background-size: cover;">
+    <div class="medium_padding"></div>
+    <div class="row medium_padding medium_padding_bot">
       <div class="col-sm-8 col-sm-offset-2">
       <h1 class="bold text-center" style='color: #fff' id='tagline'>Affordably promote your business and create local student jobs</h1>
       </div>
@@ -31,7 +32,7 @@
     
     <a href="#learn_more"><button class="btn btn-white large_font">Learn More</button></a>
 
-    <a href="{% url 'get_started' %}"><button class="btn btn-blue-big large_font">Get Started</button></a>
+    <a href="{% url 'packages' %}"><button class="btn btn-blue-big large_font">Get Started</button></a>
     </div>
 
     <div class="large_padding"></div>
@@ -53,7 +54,7 @@
           <h2 class="light_title text-center bold">Our Past Work</h2>
           <div class="row medium_padding">
             <div class="col-md-8 col-md-offset-0 col-xs-10 col-xs-offset-1">
-                <div class="embed-container video_border" style="margin: 0 auto;text-align:center;">
+                <div class="embed-container" style="margin: 0 auto;text-align:center;">
                   <iframe src="{{ featured_pg_one_vid.video }}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
                 </div> 
             </div>
@@ -86,7 +87,7 @@
               
             </div>
             <div class="col-md-8 col-md-offset-0 col-xs-10 col-xs-offset-1">
-                <div class="embed-container video_border" style="margin: 0 auto;text-align:center;">
+                <div class="embed-container" style="margin: 0 auto;text-align:center;">
                   <iframe src="{{ featured_pg_two_vid.video }}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
                 </div> 
             </div>
