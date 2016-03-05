@@ -2,7 +2,7 @@
 {% load staticfiles %}
 
 {% block description %}
-  <meta name="description" content="Bryte Photo has a variaty of promotional photo, video and headshot packages for small businesses.">
+  <meta name="description" content="Bryte Photo has a variaty of promotional photo, video and event photography packages for small businesses.">
 {% endblock %}
 
 {% block content %}
@@ -53,7 +53,7 @@
 					<a href='' class="btn-blue width_big no_hover flow_button" id="headshot_button">
 						<div class="small_padding small_padding_bot">
 							<i class="glyphicon glyphicon-user xxbig_font"></i><br>
-						Headshot
+						Event Photography
 						</div>
 					</a>
 				</div>
@@ -225,8 +225,8 @@
 		else{
 		$('#step_two').fadeOut(200);
 		$('#small_business_button, #real_estate').removeClass('toggle_down');
-		$('#step_three > :not(.Headshot)').fadeOut(200, function(){
-			$('.Headshot').fadeIn(200);
+		$('#step_three > :not(.Event)').fadeOut(200, function(){
+			$('.Event').fadeIn(200);
 			$('#step_three').fadeIn(200);
 		});
 		}
