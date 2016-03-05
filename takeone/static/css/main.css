@@ -848,6 +848,10 @@ h1,h2,h3,h4 {
 	padding: 30px;
 }
 
+.all_padding_medium_except_top {
+	padding: 10px 30px 30px 30px;
+}
+
 .llarge_padding {
 	padding-top: 90px;
 }
