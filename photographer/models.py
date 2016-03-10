@@ -2,9 +2,11 @@ from __future__ import unicode_literals
 from django.utils.text import slugify
 from django.db import models
 from django.core.urlresolvers import reverse
+from django.conf import settings
 
 
 from uuid import uuid4
+import dropbox
 # -*- coding: utf-8 -*- 
 
 
@@ -28,6 +30,9 @@ class Photographer(models.Model):
 	stripe_publishable_key = models.CharField(max_length=100, null=True, blank=True)
 	is_active = models.BooleanField(blank=True, default=False)
 	is_featured = models.BooleanField(blank=True, default=False)
+	dropbox_acct = models.CharField(max_length=120, null=True, blank=True)
+
+
 
 	def __unicode__(self):
 		return self.first_name + ' ' + self.last_name
@@ -43,6 +48,85 @@ class Photographer(models.Model):
 		full_name = self.first_name + ' ' + self.last_name
 		full_name_slug = slugify(full_name)
 		return reverse("photographer_detail", kwargs={"slug": self.slug})
+
+	# create dropbox and share
+	def share_dropbox(self, input_email):
+
+		token = settings.DROPBOX_TOKEN
+		dbx = dropbox.Dropbox(token)
+
+		folder_path = '/' + str(self.get_full_name())
+
+
+		shared_folder_id = None
+		try:
+			shared_folder = dbx.sharing_share_folder(folder_path)
+			if shared_folder.is_complete():
+				shared_folder_id = shared_folder.get_complete().shared_folder_id
+		except dropbox.exceptions.ApiError:
+			shared_folder_id = dbx.files_get_metadata(folder_path).shared_folder_id
+			pass
+
+		permission = 'editor'
+		temp_member = dropbox.sharing.AddMember(
+			member = dropbox.sharing.MemberSelector(
+				'email',
+				input_email
+				),
+			access_level = dropbox.sharing.AccessLevel(
+				permission
+				)
+			)
+
+		try:
+			dbx.sharing_add_folder_member(
+				shared_folder_id,
+				[temp_member],
+				quiet=True,
+				custom_message='Hey ' + self.get_full_name() + '\nPlease upload the edited deliverables in here! Thanks!',
+				)
+		except dropbox.exceptions.ApiError:
+			pass
+		else:
+			self.dropbox_acct = input_email
+			self.save()
+
+
+	def create_subfolder(self, folder_name):
+
+		token = settings.DROPBOX_TOKEN
+		dbx = dropbox.Dropbox(token)
+
+		folder_path = '/' + str(self.get_full_name())
+
+		new_folder_path = folder_path + '/' + str(folder_name)
+
+		# if there's a folder with same name, pass
+		try:
+			dbx.files_create_folder(new_folder_path)
+		except dropbox.exceptions.ApiError:
+			pass
+		else:
+			return 1
+
+
+	def create_share_link(self, folder_name):
+
+		token = settings.DROPBOX_TOKEN
+		dbx = dropbox.Dropbox(token)
+
+		folder_path = '/' + str(self.get_full_name())
+
+		new_folder_path = folder_path + '/' + str(folder_name)
+
+		try:
+			sharing_link = dbx.sharing_create_shared_link(new_folder_path, short_url=False, pending_upload=None)
+		except dropbox.exceptions.ApiError:
+			print 'sharing link error\n'
+			pass
+		else:
+			return str(sharing_link.url)
+
 
 	# for updating the review rating
 	def calculate_total_rating(self):

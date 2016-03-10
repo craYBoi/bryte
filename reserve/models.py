@@ -24,6 +24,7 @@ class Reservation(models.Model):
 	is_paid = models.BooleanField(default=False)
 	is_taken = models.BooleanField(default=False)
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
+	dropbox_link = models.CharField(max_length=150, blank=True, null=True)
 
 
 	def __unicode__(self):
@@ -46,7 +47,21 @@ class Reservation(models.Model):
 			return 'Waiting for client to pay'
 		if self.is_taken:
 			return 'Project in progress'
-		return 'Pending'	
+		return 'Pending'
+
+	def creative_status_code(self):
+		# 1 pending
+		# 2 taken
+		# 3 complete
+		# 4 paid
+
+		if self.is_paid:
+			return 4
+		if self.is_complete:
+			return 3
+		if self.is_taken:
+			return 2
+		return 1
 
 	def creative_pending(self):
 		return not self.is_complete and not self.is_paid and not self.is_taken

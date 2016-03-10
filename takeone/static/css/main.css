@@ -86,6 +86,9 @@ h1,h2,h3,h4 {
 	height: 3px;
 }
 
+.white_border {
+	border: 3.5px solid #fff;
+}
 
 /* jumbotron */
 .jumbotron {
@@ -148,12 +151,12 @@ h1,h2,h3,h4 {
 	border-radius: 25px;
 	padding: 10px 20px;
 	color: #eee;
-	background-color: rgba(0,152,238,0.9);
+	background-color: rgba(0,206,20,0.9);
 }
 
 .btn-blue-big:hover {
 	color: #fff;
-	background-color: rgba(0,152,238,1);
+	background-color: rgba(0,206,20,1);
 }
 
 .btn-text {
@@ -180,29 +183,29 @@ h1,h2,h3,h4 {
 }
 
 .toggle_down {
-  background: #7fc8ef!important;
+  background: rgba(0,206,20,0.5)!important;
 }
 
 .no_hover:hover {
-	background: #0098ee;
+	background: rgba(0,206,20,1);
 	color: #fff;
 	text-decoration: none;
 }
 
 .no_hover:visited {
-	background: #0098ee;
+	background: rgba(0,206,20,1);
 	color: #fff;
 	text-decoration: none;
 }
 
 .no_hover:link {
-	background: #0098ee;
+	background: rgba(0,206,20,1);
 	color: #fff;
 	text-decoration: none;
 }
 
 .no_hover:active {
-	background: #0098ee;
+	background: rgba(0,206,20,1);
 	color: #fff;
 	text-decoration: none;
 }
@@ -242,7 +245,7 @@ h1,h2,h3,h4 {
 
 .btn-blue {
 	border-radius: 4px;
-	background-color: #0098ee;
+	background-color: #00ce14;
 	border: none;
 	font-size: 1em;
 	color: #fff;
@@ -250,7 +253,7 @@ h1,h2,h3,h4 {
 }
 
 .btn-blue:hover {
-	background-color: #72addb;
+	background-color: rgba(0,206,20,1);
 }
 
 .btn-reverse {
@@ -403,7 +406,7 @@ h1,h2,h3,h4 {
 }
 
 .package_border_light_blue {
-	border: 6px solid #7fc8ef;
+	border: 6px solid #7ee588;
 }
 
 .package_border_dark_blue {
@@ -452,8 +455,8 @@ h1,h2,h3,h4 {
 }
 
 #photographer_intro {
-	background-color: #fff;
-	/*color: #fff;*/
+	/*background-color: #fff;*/
+	color: #fff;
 	text-align: center;
 }
 
@@ -811,7 +814,7 @@ h1,h2,h3,h4 {
 }
 
 .border_blue_dashed {
-	border: 10px dashed #0098ee;
+	border: 5px dashed #009313;
 }
 
 .round_border {
@@ -985,7 +988,7 @@ h1,h2,h3,h4 {
 }
 
 .blue {
-	color: #0098ee!important;
+	color: #00ce14!important;
 }
 
 .grey {
@@ -1019,7 +1022,7 @@ h1,h2,h3,h4 {
 }
 
 .background_light_blue {
-	background-color: #7fc8ef;
+	background-color: #7ee588;
 }
 
 .background_dark_blue {
@@ -1027,7 +1030,7 @@ h1,h2,h3,h4 {
 }
 
 .background_blue {
-	background-color: #0098ee;
+	background-color: #009313;
 }
 
 .background_white {
@@ -1035,7 +1038,7 @@ h1,h2,h3,h4 {
 }
 
 .light_blue {
-	color: #7fc8ef;
+	color: #7ee588;
 }
 
 .dark_blue {

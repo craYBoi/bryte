@@ -5,10 +5,13 @@
 {% endblock %}
 
 {% block profile %}
-	<div class="jumbotron" style="background: url({% static 'img/jumbo3_dark.png' %}); background-size: cover; text-align: center;">
-		<h2 class="text-center bold main_title white">Dashboard</h2>
+	<div class="jumbotron" style="background: url({% static 'img/bg_profile.jpg' %}); background-size: cover; text-align: center;">
+		<h2 class="text-center bold main_title white medium_padding medium_padding_bot">Dashboard</h2>
 	</div>
 	<div class="container">
+
+<!-- Set up Stripe Account-->
+
 		{% if not profile.photographer.stripe_user_id %}
 			<div class="row medium_padding">
 				<div class="col-sm-8 col-sm-offset-2 text-center background_light_blue border_blue_dashed">
@@ -20,6 +23,29 @@
 				</div>
 			</div>
 		{% endif %}
+
+
+<!-- Set up Dropbox Account-->
+
+		{% if not profile.photographer.dropbox_acct and not user.is_superuser %}
+			<div class="row medium_padding dropbox_box">
+				<div class="col-sm-8 col-sm-offset-2 text-center background_grey border_blue_dashed">
+					<div class="small_padding"></div>
+					<h3 class="large_font" id='dropbox_msg'>Click here to connect to your Dropbox Account to upload the deliverables for every project.</h3>
+					<div class="small_padding"></div>
+					<form id="dropbox_form">
+						<input type='text' id='dropbox_input' placeholder='Dropbox email'>
+						<button class="btn-blue" id='dropbox_input_button'>Connect</button>
+					</form>
+					<div class="loader text-center">
+						<img src="{% static 'logo/ripple.gif' %}">
+					</div>
+					<div class="medium_padding"></div>
+				</div>
+			</div>
+		{% endif %}
+
+
 		<div class="content_wrapper">
 				{% if message %}
 		    	<div class="row small_padding small_padding_bot">
@@ -129,9 +155,22 @@
 												<input type='hidden' name='res_pk' value="{{ reservation.pk }}" id="take_it_val">
 											</form>
 											<div class="take_it_content">
-												<button class="btn-blue" id="take_it" type='submit' form="take_it_form">Take it!</button> <span class="light small_font small_padding_left">By Checking the box, I agree to the <a class="blue" href="{% url 'legal' %}" target="_blank">terms of service.</a></span> <input type="checkbox" id="tos_checkbox">
+												<button class="btn-blue" id="take_it" type='submit' form="take_it_form">Take it!</button> <span class="light small_font small_padding_left">By clicking on 'Take it!' Button, I agree to the <a class="blue" href="{% url 'legal' %}" target="_blank">terms of service.</a></span>
 											</div>
 										{% endif %}
+
+										<!-- dropbox link here 
+										{% if reservation.creative_status_code == 2 %}
+												<button class="btn-blue">Put Deliverables Here</button>
+										{% endif %}
+										-->
+
+										<div id="dropbox_content">
+											<!-- javascript ajax add content after is taken -->
+											{% if reservation.creative_status_code == 2 %}
+												<a href="{{ reservation.dropbox_link }}" target='_blank'><button class="btn-blue">Put Your Deliverables here</button></a>
+											{% endif %}
+										</div>
 
 									</li>
 								{% endfor %}
@@ -151,18 +190,6 @@
 
 
 {% block jquery %}
-	$('#take_it').attr('disable', true);
-	//document.getElementById("take_it").disabled = true; 
-	$(function(){
-    $('#tos_checkbox').click(function() {
-        if($(this).is(':checked')){
-            document.getElementById("take_it").disabled = false; 
-        }
-        else {
-            document.getElementById("take_it").disabled = true; 
-        }
-    });
-	});
 
 	$('.loader').hide();
 	var $loading = $('#loader_'+String($('#complete_val').val()));
@@ -172,10 +199,12 @@
 	.ajaxStart(function () {
     $loading.show();
     $loading_take.show();
+    $('.loader').show();
   })
   .ajaxStop(function () {
     $loading.fadeOut(200);
     $loading_take.fadeOut(200);
+    $('.loader').fadeOut(200);
   });
 
 	$('#take_it_form').on('submit', function(event){
@@ -190,6 +219,32 @@
     complete_it();
 	});
 
+
+	$('#dropbox_input_button').click(function(event){
+		event.preventDefault();
+		$('#dropbox_form').fadeOut(300)
+		connect_dropbox();
+	});
+
+
+	function connect_dropbox(){
+		$.ajax({
+			url: '{% url "ajax_dropbox" %}',
+			type: 'GET',
+			data: {
+				dropbox_email: $('#dropbox_input').val(),
+			},
+
+			success: function(data){
+				$('#dropbox_msg').html('Successfully connected. Please Accept the share folder invitation.');
+			},
+			failure: function(data){
+				$('#dropbox_msg').html('Error connecting to your Dropbox account.');
+			}
+		});
+	}
+
+
 	function take_it(){
 		$.ajax({
 	    url: '{% url "ajax_take" %}',
@@ -199,9 +254,13 @@
 	    success: function(data) {
 	    		id = $('#take_it_val').val()
 	    		$('#badge_'+String(id)).html(data['status']);
+	    		var dropbox_link = data['dropbox_link'];
+
+	    		var link_str = '<a href="'+ dropbox_link + '" target="_blank"><button class="btn-blue">Put the deliverables here</button></a>'
+	    		$('#dropbox_content').html(link_str)
 	    },
 	    failure: function(data) { 
-	        alert('Got an error dude');
+	        alert('Error');
 	    }
 		}); 	
 	}
@@ -218,7 +277,7 @@
 	    		$('#badge_'+String(id)).html(data['status']);
 	    },
 	    failure: function(data) { 
-	        alert('Got an error dude');
+	        alert('Error');
 	    }
 		}); 	
 	}

@@ -265,10 +265,17 @@ def success(request):
 			# send the email
 			try:
 				send_mail('Successfully Paid!',
-				'Thank you for the payment!',
-				settings.EMAIL_HOST_USER,
-				[reservation.email],
-				fail_silently=False
+					'Thank you for the payment!',
+					settings.EMAIL_HOST_USER,
+					[reservation.email],
+					fail_silently=False
+				)
+
+				send_mail('Awesome Work!',
+					'The client has paid $' + str(reservation.price.price) + ' for your project! You will receive $' +  str(reservation.price.price*0.8) + '\nAwesome Job!',
+					settings.EMAIL_HOST_USER,
+					[photographer.email],
+					fail_silently = False,
 				)
 			except SMTPRecipientsRefused:
 				print 'Email not set!'

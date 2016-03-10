@@ -124,13 +124,25 @@ def edit(request):
 def ajax_take(request):
 	if request.is_ajax() and request.method == 'GET':
 		res_id = request.GET.get('res_pk')
-		print res_id
+		# print res_id
 		reservation = get_object_or_404(Reservation, pk=res_id)
 		photographer = reservation.photographer
 
 		# update the taken attr
 		reservation.is_taken = True
 		reservation.save()
+
+
+		# dropbox create shared folder and share the link
+		shared_link = ''
+		photographer.create_subfolder(reservation.business_name)
+		shared_link = photographer.create_share_link(reservation.business_name)
+
+
+		# save the shared link for every reservation
+		reservation.dropbox_link = shared_link
+		reservation.save()
+
 
 		# send emails
 		html_content = get_template('email_is_taken_client.html')
@@ -172,6 +184,7 @@ def ajax_take(request):
 		# ajax
 		data={}
 		data['status'] = reservation.creative_status()
+		data['dropbox_link'] = shared_link
 
 		return HttpResponse(json.dumps(data), content_type='application/json')
 	else:
@@ -198,6 +211,7 @@ def ajax_complete(request):
 			'business_name': reservation.business_name,
 			'creative_full_name': photographer.get_full_name(),
 			'pay_url': url,
+			'dropbox_preview_link': reservation.dropbox_link,
 			}
 		html_content = str(html_content.render(d))
 		to = reservation.email
@@ -211,5 +225,17 @@ def ajax_complete(request):
 		data['status'] = reservation.status()
 
 		return HttpResponse(json.dumps(data), content_type='application/json')
+	else:
+		raise Http404
+
+
+def ajax_connect_dropbox(request):
+	if request.is_ajax() and request.method == 'GET':
+		email = request.GET.get('dropbox_email')
+		photographer = request.user.profile.photographer
+
+		photographer.share_dropbox(email)
+		
+		return HttpResponse('', content_type='application/json')
 	else:
 		raise Http404

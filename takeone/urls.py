@@ -65,6 +65,7 @@ urlpatterns = [
     # ajax profile
     url(r'^profile/take$', profile_views.ajax_take, name='ajax_take'),
     url(r'^profile/complete$', profile_views.ajax_complete, name='ajax_complete'),
+    url(r'^profile/dropbox$', profile_views.ajax_connect_dropbox, name='ajax_dropbox'),
 
 ]
 

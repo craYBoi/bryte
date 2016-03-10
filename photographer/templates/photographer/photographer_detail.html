@@ -17,10 +17,11 @@
       </div>
     {% endif %}
   {% else %}
-  <div id="photographer_intro" class="medium_padding medium_padding_bot">
+  <div class="jumbotron" style="background: url({% static 'img/bg_detail.jpg' %}) no-repeat center; background-size: cover;">
+  <div id="photographer_intro" class="large_padding medium_padding_bot">
     <div class="small_padding row">
       {% if object.profile %}
-        <img src="{{ object.profile.url }}" width="100px" class="img-circle">
+        <img src="{{ object.profile.url }}" width="100px" class="img-circle white_border">
       {% endif %}
     </div>
     <div class="row small_padding">
@@ -50,8 +51,9 @@
         </ul>
     </div>
   </div>
-  <hr>
-
+  </div>
+  
+<div class="small_padding"></div>
 <div class="container">
   <!-- menu -->
   <div class="row">
