@@ -28,6 +28,9 @@ urlpatterns = [
     url(r'^about$', newsletter_views.about, name='about'),
     url(r'^photographer/', include('photographer.urls')),
 
+    # book
+    url(r'^book/', include('book.urls')),
+
     # reserve
     url(r'^reserve/', include('reserve.urls')),
 

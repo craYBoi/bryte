@@ -2,11 +2,16 @@ from django.shortcuts import render
 from django.conf import settings
 from django.http import Http404, HttpResponse
 
-import json
+import stripe
 
+import json
 from .forms import SignUpForm
 from photographer.models import Photographer
 from .models import Price, PriceFeature
+from book.models import TimeSlot, NextShoot
+
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
 
 # Create your views here.
 def home(request):
@@ -16,25 +21,17 @@ def home(request):
 		# print instance
 		instance.save()
 
-	title = 'Welcome'
+	title = 'Bryte Photo Headshot'
 
-	# featured photographer
+	timeslots = TimeSlot.objects.filter(is_available=True).order_by('time')
+	next_shoot = NextShoot.objects.first()
 
-	photographer_qs = Photographer.objects.filter(is_featured=True)
-	featured_pg = photographer_qs[:2]
 
-	featured_pg_one = featured_pg[0]
-	featured_pg_two = featured_pg[1]
-	featured_pg_one_vid = featured_pg_one.photographervideo_set.all()[1]
-	featured_pg_two_vid = featured_pg_two.photographervideo_set.all()[0]
 	context = {
-		'signUp': form,
-		'title': title,
-		'featured_pg_one': featured_pg_one,
-		'featured_pg_two': featured_pg_two,
-		'featured_pg_one_vid': featured_pg_one_vid,
-		'featured_pg_two_vid': featured_pg_two_vid,
-		'title_text': 'Bryte',
+		'timeslots': timeslots,
+		'publish_key': settings.STRIPE_PUBLISHABLE_KEY,
+		'title_text': title,
+		'next_shoot': next_shoot,
 	}
 	return render(request, "index.html", context)
 

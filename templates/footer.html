@@ -5,30 +5,41 @@
       <ul class="small_font">
       <div class="row">
       <div class="col-md-12">
-        <li><a href="{% url 'about' %}"><span class="blue">A</span>bout</a></li>
+        <li><a href="{% url 'about' %}"><span class="red">A</span>bout</a></li>
       </div>
       <div class="col-md-12">
-        <li><a href="{% url 'photographers' %}"><span class="yellow">C</span>reatives</a></li>
-      </div>
-      <div class="col-md-12">
-        <li><a href="{% url 'faqs' %}"><span class="blue">F</span>AQ</a></li>
+        <li><a href="{% url 'photographers' %}"><span class="red">C</span>reatives</a></li>
       </div>
 <!--      <div class="col-md-12 col-sm-6 col-xs-3">
         <li><a href="{% url 'blogs' %}"><span class="blue">B</span>log</a></li>
       </div> -->
       <div class="col-md-12">
-        <li><a href="{% url 'become_photographer' %}"><span class="blue">J</span>oin as a Creative</a></li>
+        <li><a href="{% url 'legal' %}"><span class="red">L</span>egal Documentation</a></li>
       </div>
+
+      {% if request.user.is_authenticated %}
       <div class="col-md-12">
-        <li><a href="{% url 'legal' %}"><span class="yellow">L</span>egal Documentation</a></li>
+        <li><a href="{{ request.user.profile.photographer.get_absolute_url }}"><span class="red">M</span>y Profile</a></li>
+      </div> 
+      <div class="col-md-12">
+        <li><a href="{% url 'profile' %}"><span class="red">M</span>y Dashboard</a></li>
+      </div> 
+      <div class="col-md-12">
+        <li><a href="{% url 'auth_logout' %}"><span class="red">L</span>og Out</a></li>
+      </div> 
+      {% else %}
+      <div class="col-md-12">
+        <li><a href="{% url 'auth_login' %}"><span class="red">P</span>hotographer Login</a></li>
       </div>
+      {% endif %}
+
       </div>
       </ul>
     </div>
     <div id="footer_about" class="col-md-5 col-xs-10">
-      <p class="light">Browse promotional photography and videography packages and book a local student to shoot your content</p>
+      <p>Professional quality headshot for $25!</p>
       <div class="small_padding"></div>
-      <p>Have any questions? Email <a href="mailto:hello@brytephoto.com" target="_top" class="blue">hello@brytephoto.com</a></p>
+      <p>Have any questions? Email <a href="mailto:hello@brytephoto.com" target="_top" class="red">hello@brytephoto.com</a></p>
     </div>
 <!--     <div id="footer_social" class="col-md-3 pull-right col-xs-12">
       <ul class="list-inline">
@@ -46,4 +57,5 @@
       <p>Copyright 2016</p>
     </div>
   </div>
+  <div class="medium_padding"></div>
 </footer>
