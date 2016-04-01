@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'stripe',
 
     'newsletter',
+    'book',
     'photographer',
     'reserve',
     'sms',
