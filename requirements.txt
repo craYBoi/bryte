@@ -2,7 +2,7 @@ Babel==2.2.0
 boto==2.39.0
 dj-database-url==0.3.0
 dj-static==0.0.6
-Django==1.9.1
+Django==1.9.4
 django-crispy-forms==1.6.0
 django-phonenumber-field==1.0.0
 django-pylibmc==0.6.1
@@ -25,5 +25,4 @@ static3==0.6.1
 stripe==1.28.0
 twilio==5.2.0
 urllib3==1.14
-wheel==0.26.0
 whitenoise==2.0.6
