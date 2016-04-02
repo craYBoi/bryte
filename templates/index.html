@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% block jumbotron %}
-  <div class="jumbotron" id="jumbotron" style="background: url({% static 'img/bg2.jpg' %}) no-repeat center; background-size: cover;">
+  <div class="jumbotron" id="jumbotron" style="background: url({% static 'img/hs_bg1.jpg' %}) no-repeat center; background-size: cover;">
 <!--<div class="jumbotron background_grey" id='jumbotron'>-->
   <!--
     <div class="medium_padding"></div>
@@ -49,22 +49,21 @@
       <div class="row">
 
         <div class="col-sm-12 col-sm-offset-0 col-xs-10 col-xs-offset-1">
-          <h1 class="white main_title">Professional quality headshots for <span class='bold'>$25</span></h1>
-          <h2 class="white">Book in less than 60 seconds</h2>
-          <p class="white medium_padding">
-            <span class='bold big_font red_bg'>Next photoshoot {% if timeslots %}
-              @</span> <br>
-              {{ next_shoot.location }}<br>
-              {{ next_shoot.time_format }}<br>
-            {% else %}
-              <br><span class='light'>{SOLD OUT}</span>
-            {% endif %}
-          </p>
-          <div class="small_padding"></div>
+          <h1 class="white main_title">Fantastic headshots for <span class='bold'>$25</span></h1>
+          <h4 class="white">Book your headshot easily, show up to your session, and receive your headshots within 48 hours! :)</h4>
+          <h2 class="white medium_padding bold">
+            <span class="red_bg large_font">The Bryte Experience</span>
+          </h2>
+          <ul class="white index_landing_list">
+            <li><i class="glyphicon glyphicon-ok"></i> Not unbelievably expensive</li>
+            <li><i class="glyphicon glyphicon-ok"></i> Time to get the photo you want</li>
+            <li><i class="glyphicon glyphicon-ok"></i> Hand-picked photographers</li>
+          </ul>
+          <div class="medium_padding"></div>
           <button class="btn-blue link_white big_font bold">{% if timeslots %}
-            <a href="#book_form">Click to book</a>
+            <a href="#book_form">Book your Headshot</a>
           {% else %}
-            <a href="#signup_form">Click to Signup for Notification</a>
+            <a href="#signup_form">Signup for Notification</a>
           {% endif %}</button>
         </div>
 
@@ -132,18 +131,40 @@
   -->
       <div class="background_grey">
         <div class="container small_padding">
-          <h2 class="feature_title text-center bold medium_padding">Headshots How you Want Them</h2>
+          <h2 class="feature_title text-center bold medium_padding">Bring out your best self</h2>
           <div class="row">
-          <ul class="medium_padding large_font index_list col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
+          <ul class="medium_padding large_font index_list col-xs-10 col-xs-offset-1">
             <li>Take as many photos as you want in your 20 minutes session</li>
-            <li>Photographers you can feel comfortable with</li>
-            <li>Choose your favorite photo to be professionally touched up</li>
+            <li>Feel comfortable asking questions and giving preferences to your photographer</li>
+            <li>We will provide you with the best backdrop, camera and lighting equipment</li>
+            <li>Choose your favourite headshot for professional touchup</li>
           </ul>
           </div>
         </div>
         <div class="large_padding"></div>
       </div>
 
+
+
+      <div class="medium_padding large_padding_bot" style="background: url({% static 'img/simple_bg.jpg' %}) no-repeat center; background-size: cover;">
+
+      <div class="container" id='index_past_work'>
+
+        <h2 class="bold text-center feature_title">Our Past Headshots</h2>
+        <div class="row small_padding_bot">
+        </div>
+        <div class="text-center row">
+          <ul class="list-inline index_carousel">
+            <li><img src="{% static 'img/hs1.jpg' %}" height='250px'></li>
+            <li><img src="{% static 'img/hs2.jpg' %}" height='250px'></li>
+            <li><img src="{% static 'img/hs3.jpg' %}" height='250px'></li>
+            <li><img src="{% static 'img/michael.jpg' %}" height="250px"></li>
+          </ul>
+        </div>
+      </div>
+      </div>
+
+      
       <div class="background_pink">
         <div class="container small_padding_bot medium_padding">
           <h2 class="feature_title text-center bold">How it works</h2>
@@ -154,108 +175,112 @@
                 <div class="col-sm-4 text-center">
                   <img src="{% static 'img/process1.png' %}" class="img-responsive"> 
                   <div class="medium_padding"></div>
-                  <h3>Book your Headshot</h3>
+                  <h3 class="bold big_font">Book</h3>
                   <p class="light col-xs-10 col-xs-offset-1">Choose a time that works for you and pay for it with just a few clicks!</p>
                 </div>   
 
                 <div class="col-sm-4 text-center">
                   <img src="{% static 'img/process2.png' %}" class="img-responsive"> 
                   <div class="medium_padding"></div>
-                  <h3>Take your Headshot</h3>
+                  <h3 class="bold big_font">Smile</h3>
                   <p class="light col-xs-10 col-xs-offset-1">Arrive at your location 5 minutes before your 20 minutes session is scheduled to begin.</p>
                 </div>  
 
                 <div class="col-sm-4 text-center">
                   <img src="{% static 'img/process3.png' %}" class="img-responsive"> 
                   <div class="medium_padding"></div>
-                  <h3>Receive your Headshot</h3>
-                  <p class="light col-xs-10 col-xs-offset-1">We will email you a link to download your headshot photo (there will by no watermarks or logos on it) within 48 hours. The photo is yours to keep forever!</p>
+                  <h3 class="bold big_font">Receive</h3>
+                  <p class="light col-xs-10 col-xs-offset-1">We will email you a link to download it</p>
                 </div>  
               </div>
             </div>
           </div>
           <div class="large_padding"></div>
-          <p class="text-center">More questions? Email us @ <a href="mailto:hello@brytephoto.com" target="_top" class="red">hello@brytephoto.com</a> for more information</p>
+          <p class="text-center">Do you have questions? Email us @ <a href="mailto:hello@brytephoto.com" target="_top" class="red">hello@brytephoto.com</a> or Call us at 248-417-5852 for more information</p>
         </div>
         <div class="medium_padding"></div>
       </div>
 
 
-      <div class="medium_padding large_padding_bot" style="background: url({% static 'img/simple_bg.jpg' %}) no-repeat center; background-size: cover;">
-
-      <div class="container" id='index_past_work'>
-
-        <h2 class="bold text-center feature_title">Our Past Work</h2>
-        <div class="row small_padding_bot">
-          <p class="text-center col-xs-6 col-xs-offset-3 light">We just started! Here are some of the work done by our lovely photographers. Along the road we will post up more past works!</p>
-        </div>
-        <div class="text-center row">
-          <ul class="list-inline index_carousel">
-            <li><img src="{% static 'img/hs1.jpg' %}" height='250px'></li>
-            <li><img src="{% static 'img/hs2.jpg' %}" height='250px'></li>
-            <li><img src="{% static 'img/hs3.jpg' %}" height='250px'></li>
-          </ul>
-        </div>
-      </div>
-      </div>
-
-
-
-
-
-      {% if timeslots %}
-      <div class="text-center red_bg" id="book_form">
-        <h3 class="white bold large_padding zero_margin">Only {{ timeslots.count }} time {% if timeslots.count == 1 %}
-          slot
-        {% else %}
-          slots
-        {% endif %} left! Sign Up ASAP!</h3>
-        <div class="medium_padding row"></div>
-          <form method="POST" action="{% url 'book_checkout' %}" class="book_form white">{% csrf_token %}
-            <div class="small_padding"></div>
-            <label class="light">First & Last Name</label><br>
-            <input type='text' name='book_name' class="form-control" id='book_name' required pattern="[a-zA-Z]{2,}(\s+[a-zA-z]{2,})+">
-            <div class="small_padding"></div>
-            <label class="light">Email</label><br>
-            <input type='email' name='book_email' class="form-control" id='book_email' required pattern='\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\b'>
-            <div class="small_padding"></div>
-            <label class="light">Time Slot</label><br>
-            {% if timeslots %}
-            <select required name='book_time' class="form-control" id='book_time'>
-              {% for timeslot in timeslots %}
-                <option value='{{ timeslot.pk }}'>{{ timeslot }}</option>
-              {% endfor %}
-            </select>
-            {% else %}
-            <label>All the slots are booked! Thanks!</label>
-            {% endif %}
-            <div class="small_padding"></div>
-            <input type='hidden' name='book_photographer' value='{{ next_shoot.photographer.pk }}'>
-            <div class="small_padding"></div>
-            <button class="btn-white large_font" id="pay_button" type='submit'>Book your Time</button>
-            <div class="medium_padding">
-              <p class="white small_font">* You need to pay to complete your booking<br>Full refunds available if you are unsatisfied with any part of your experience</p>
-            </div>
-          </form>
-        <div class="medium_padding"></div>
-      </div>
-
-      {% else %}
-      <div id="signup_form" class="text-center red_bg">
-        <h3 class="white large_padding col-sm-8 col-sm-offset-2">All the timeslots are booked!<br> However, the next shoot will be held soon!<br> Signup to get notification!</h3>
-
-        <form method="POST" action="{% url 'book_signup' %}" class="book_form white">{% csrf_token %}
-          <label class="light medium_padding">Email</label><br>
-          <input type='email' name='signup_email' class="form-control" id='signup_email' required pattern='\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\b'>
-          <div class="small_padding"></div>
-          <button class="btn-white large_font" id="signup_button" type='submit'>Signup</button>
-        </form>
+      <div class="row red_bg">
+        <div class="col-sm-6">
+        {% if timeslots %}
         <div class="large_padding"></div>
+        <div class="text-center" id="book_form">
+          <h3 class="white zero_margin">Only {{ timeslots.count }} time {% if timeslots.count == 1 %}
+            slot
+          {% else %}
+            slots
+          {% endif %} left!<br>We love to see you there!</h3>
+          <div class="small_padding"></div>
+          <div class="row"></div>
+            <form method="POST" action="{% url 'book_checkout' %}" class="book_form white">{% csrf_token %}
+              <div class="small_padding"></div>
+              <label class="light">First & Last Name</label><br>
+              <input type='text' name='book_name' class="form-control" id='book_name' required pattern="[a-zA-Z]{2,}(\s+[a-zA-z]{2,})+">
+              <div class="small_padding"></div>
+              <label class="light">Email</label><br>
+              <input type='email' name='book_email' class="form-control" id='book_email' required pattern='\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\b'>
+              <div class="small_padding"></div>
+              <label class="light">Time Slot</label><br>
+              {% if timeslots %}
+              <select required name='book_time' class="form-control" id='book_time'>
+                {% for timeslot in timeslots %}
+                  <option value='{{ timeslot.pk }}'>{{ timeslot }}</option>
+                {% endfor %}
+              </select>
+              {% else %}
+              <label>All the slots are booked! Thanks!</label>
+              {% endif %}
+              <div class="small_padding"></div>
+              <input type='hidden' name='book_photographer' value='{{ next_shoot.photographer.pk }}'>
+              <div class="small_padding"></div>
+              <button class="btn-white large_font" id="pay_button" type='submit'>Book your Time</button>
+              <div class="medium_padding">
+              </div>
+            </form>
+          <div class="medium_padding"></div>
+        </div>
 
+        {% else %}
+        <div id="signup_form" class="text-center red_bg">
+          <span class='bold big_font'>Next photoshoot {% if timeslots %}
+            @</span> <br>
+            {{ next_shoot.location }}<br>
+            {{ next_shoot.time_format }}<br>
+          {% else %}
+            <br><span class='light'>{SOLD OUT}</span>
+          {% endif %}
+
+          <h3 class="white large_padding col-sm-8 col-sm-offset-2">All the timeslots are booked!<br> However, the next shoot will be held soon!<br> Signup to get notification!</h3>
+
+          <form method="POST" action="{% url 'book_signup' %}" class="book_form white">{% csrf_token %}
+            <label class="light medium_padding">Email</label><br>
+            <input type='email' name='signup_email' class="form-control" id='signup_email' required pattern='\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\b'>
+            <div class="small_padding"></div>
+            <button class="btn-white large_font" id="signup_button" type='submit'>Signup</button>
+          </form>
+          <div class="large_padding"></div>
+
+        </div>
+
+
+        {% endif %}
+        </div>
+        <div class="col-sm-5 col-xs-10 col-xs-offset-1 col-sm-offset-0">
+          <div class="large_padding"></div>
+          <div class="background_grey hs_border special_padding">
+            <h2 class="bold xbig_font red">Next Shoot @</h2>
+            <p class="large_font red">{{ next_shoot.location }}<br>{{ next_shoot.time_format }}</p>
+          </div>
+          <div class="small_padding"></div>
+          <ol class="white index_landing_list special_padding">
+            <li>You need to pay to complete your booking</li>
+            <li>Full refunds available if you are unsatisfied with any part of your experience</li>
+          </ol>
+          <div class="medium_padding"></div>
+        </div>  
       </div>
-
-
-      {% endif %}
       
 
       <ul class="background_grey list-inline" id="index_logos">
