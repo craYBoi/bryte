@@ -3,7 +3,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.http import Http404, HttpResponse
 
-from .models import Book, TimeSlot, Signup
+from .models import Book, TimeSlot, Signup, NextShoot
 from photographer.models import Photographer
 
 
