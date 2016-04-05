@@ -959,6 +959,10 @@ h1,h2,h3,h4 {
 	margin-left: -30px;
 }
 
+.sm_neg_padding {
+	margin-left: 45px;
+}
+
 .small_padding {
 	padding-top: 20px;
 }
@@ -1068,7 +1072,7 @@ h1,h2,h3,h4 {
 }
 
 .red {
-	color: #c94848;
+	color: #c94848!important;
 }
 
 .yellow {
@@ -1301,7 +1305,6 @@ body, html
 
 .book_form {
 	width: 400px;
-
 }
 
 
@@ -1348,12 +1351,19 @@ body, html
 	padding: 20px 80px;
 	background-color: #c94848;
 	color: #fff;
-	border-radius: 35px;
+	border-radius: 15px;
 }
 
 .signup_button:hover {
 	background-color: #c94848;
 	color: #fff;
+}
+
+.landing_button {
+	background-color: #c94848;
+	color: fff;
+	padding: 12px 30px;
+	border-radius: 8px;
 }
 
 /* change css form-inline for mobile */

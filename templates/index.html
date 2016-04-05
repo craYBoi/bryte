@@ -48,24 +48,24 @@
     <div class="container medium_padding">
       <div class="row">
 
-        <div class="col-sm-12 col-sm-offset-0 col-xs-10 col-xs-offset-1">
-          <h1 class="white main_title">Fantastic headshot sessions for <span class='bold'>$25</span></h1>
-          <h2 class="white medium_padding bold">
-            <span class="red_bg large_font">The Bryte Experience</span>
-          </h2>
-          <ul class="white index_landing_list">
-            <li>A custom experience tailored to you</li>
-            <li>Top photography environment</li>
-            <li>A price you can afford</li>
+        <div class="col-sm-12 col-sm-offset-0 col-xs-10 col-xs-offset-1 text-center">
+          <h1 class="white main_title">Fantastic headshot sessions <br>for <span class='bold'>$25</span></h1>
+          <div class="small_padding"></div>
+          <div class="small_padding"></div>
+          <ul class="white list-inline">
+            <li><i class="fa fa-check"></i> A custom experience tailored to you</li>
+            <li><i class="fa fa-check"></i> Top photography environment</li>
+            <li><i class="fa fa-check"></i> A price you can afford</li>
           </ul>
-          <div class="medium_padding"></div>
-          <button class="btn-blue link_white sbig_font bold medium_border_radius">{% if timeslots %}
-            <a href="#book_form">Book your Headshot</a>
+          <div class="large_padding"></div>
+          {% if timeslots %}
+          <a href="#book_form"><button class="btn-blue landing_button link_white medium_border_radius">
+            Book your Headshot</button></a>
           {% else %}
-            <a href="#signup_form">Signup for Notification</a>
-          {% endif %}</button>
+            <a href="#signup_form" class="signup_button"><button class="btn-blue landing_button link_white medium_border_radius">Signup for Notification</button></a>
+          {% endif %}
+          <div class="small_padding"></div>
         </div>
-
       </div>
     </div>
     <div class="large_padding"></div>
@@ -135,7 +135,7 @@
           </div>
           <div class="col-md-7 col-xs-12 large_padding_bot">
           <div class="small_padding">
-            <h2 class="xbig_font bold col-xs-10 col-xs-offset-1 bold medium_padding tight_title">We'll help you bring out your best self</h2>
+            <h2 class="xbig_font bold col-xs-10 col-xs-offset-1 bold medium_padding tight_title sm_neg_padding">We'll help you bring out your best self</h2>
             <ul class="small_padding col-xs-10 col-xs-offset-1 fancy_list index_list large_font">
               <li>You’ll have <span class="bold">20 minutes</span> to take as many photos as you want!</li>
               <li><span class="bold">Dictate your style.</span></li>
@@ -153,7 +153,7 @@
         <div class="row medium_padding medium_padding_bot">
           <div class="col-md-6 col-md-offset-1 col-xs-12 col-xs-offset-0">
             <div class="small_padding">
-              <h2 class="xbig_font text-center bold medium_padding tight_title">Your private photography studio</h2>
+              <h2 class="xbig_font bold medium_padding tight_title col-xs-10 col-xs-offset-1 sm_neg_padding">Your private photography studio</h2>
               <div class="row">
               <ul class="small_padding col-xs-10 col-xs-offset-1 index_list large_font">
                 <li><span class="bold">No lines!</span></li>
