@@ -21,7 +21,7 @@ def home(request):
 		# print instance
 		instance.save()
 
-	title = 'Bryte Photo Headshot'
+	title = 'Bryte Photo | Custom and friendly headshot photography sessions for $25'
 
 	timeslots = TimeSlot.objects.filter(is_available=True).order_by('time')
 	next_shoot = NextShoot.objects.first()
