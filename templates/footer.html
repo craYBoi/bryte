@@ -1,5 +1,6 @@
 {% load staticfiles %}
-<footer id="footer" class="container top_border">
+<footer id="footer" class="container">
+<!--
   <div class="row medium_padding">
     <div class="col-md-3 col-xs-12" id="footer_menu">
       <ul class="small_font">
@@ -10,9 +11,6 @@
       <div class="col-md-12">
         <li><a href="{% url 'photographers' %}"><span class="red">C</span>reatives</a></li>
       </div>
-<!--      <div class="col-md-12 col-sm-6 col-xs-3">
-        <li><a href="{% url 'blogs' %}"><span class="blue">B</span>log</a></li>
-      </div> -->
       <div class="col-md-12">
         <li><a href="{% url 'legal' %}"><span class="red">L</span>egal Documentation</a></li>
       </div>
@@ -37,20 +35,11 @@
       </ul>
     </div>
     <div id="footer_about" class="col-md-5 col-xs-10">
-      <p>Professional quality headshot for $25!</p>
+      <p>Fantastic headshots for $25!</p>
       <div class="small_padding"></div>
-      <p>Have any questions? Email <a href="mailto:hello@brytephoto.com" target="_top" class="red">hello@brytephoto.com</a> or Call us with questions. Even if you just want to say Hi 248-417-5852.</p>
+      <p>Do you have questions? Email <a href="mailto:hello@brytephoto.com" target="_top" class="red">hello@brytephoto.com</a> or call us at 248-417-5852. Even if you just want to say Hi.</p>
     </div>
-<!--     <div id="footer_social" class="col-md-3 pull-right col-xs-12">
-      <ul class="list-inline">
-        <li><a href=""><span class="fa fa-facebook"></span></a></li>
-        <li><a href=""><span class="fa fa-instagram"></span></a></li>
-        <li><a href=""><span class="fa fa-twitter"></span></a></li>
-        <li><a href=""><span class="fa fa-yelp"></span></a></li>
-      </ul>
-    </div> -->
   </div>
-  <!-- <hr> -->
   <div class="row" id="footer_copyright">
     <div class="col-xs-12 text-center">
       <h4><a href="{% url 'home' %}" class="bold">Bryte Photo Inc</a></h4>
@@ -58,4 +47,28 @@
     </div>
   </div>
   <div class="medium_padding"></div>
+  -->
+
+  <div class="large_padding">
+    <ul class="list-inline bold">
+      <li><a href="{% url 'about' %}"><span class="red">A</span>bout</a></li>
+      <li><a href="{% url 'photographers' %}"><span class="red">P</span>hotographers</a></li>
+      <li><a href="{% url 'legal' %}"><span class="red">L</span>egal Documentation</a></li>
+      {% if request.user.is_authenticated %}
+        <li><a href="{{ request.user.profile.photographer.get_absolute_url }}"><span class="red">M</span>y Profile</a></li>
+        <li><a href="{% url 'profile' %}"><span class="red">M</span>y Dashboard</a></li>
+        <li><a href="{% url 'auth_logout' %}"><span class="red">L</span>og Out</a></li>
+      {% else %}
+        <li><a href="{% url 'auth_login' %}"><span class="red">P</span>hotographer Login</a></li>
+      {% endif %}
+    </ul>
+    <div class="medium_padding"></div>
+    <div class="row">
+      <div class="col-md-8 col-xs-10 col-xs-offset-1 col-md-offset-0">
+      <p>Fantastic headshots for $25 <i class="glyphicon glyphicon-heart"></i></p>
+      <p>Do you have questions? Email <a href="mailto:hello@brytephoto.com" target="_top" class="red">hello@brytephoto.com</a> or call us at 248-417-5852. Even if you just want to say Hi.</p>
+      </div>
+    </div>
+    <p class="bold small_padding medium_padding_bot">Copyright © 2016 Bryte Photo, Inc.</p>
+  </div>
 </footer>

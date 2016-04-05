@@ -20,12 +20,12 @@ def signup(request):
 		data = {}
 
 		if email in [signup.email for signup in Signup.objects.all()]:
-			data['successMsg'] = 'You have already signed up!<br>We will notify at ' + str(email) + ' whenever next headshot session is available!<br><br>Thanks!<br>Team Bryte'
+			data['successMsg'] = 'You have already signed up!<br>We will notify at ' + str(email) + ' whenever next headshot session is available!<br><br>Thanks!<br>Team Bryte Photo'
 		else:
 			signup_instance = Signup(email=email)
 			signup_instance.save()
 
-			data['successMsg'] = 'You have successfully signed up!<br>We will notify at ' + str(email) + ' whenever next headshot session is available!<br><br>Thanks!<br>Team Bryte'
+			data['successMsg'] = 'You have successfully signed up!<br>We will notify you at ' + str(email) + ' as soon as we schedule our next event. Looking forward to seeing you there!<br><br>Team Bryte Photo'
 			
 		return HttpResponse(json.dumps(data), content_type='application/json')
 	else:
@@ -49,7 +49,7 @@ def checkout(request):
 		# check for conflict before charging
 		if not time.is_available:
 			data = {
-				'successMsg': 'The slot you chose is not available anymore..<br>Please choose another slot<br>Don\'t worry we didn\'t charge you<br><br>Team Bryte',
+				'successMsg': 'The slot you chose is not available anymore..<br>Please choose another slot<br>Don\'t worry we didn\'t charge you<br><br>Team Bryte Photo',
 			}
 			return HttpResponse(json.dumps(data), content_type='application/json')
 
@@ -86,9 +86,12 @@ def checkout(request):
 			}
 
 			# send the email
+			msg_body = 'Dear ' + str(name) + ':\n\n' + 'Thanks for booking with Bryte Photo! Your headshot is scheduled at ' + str(time) + '\n\n We will see you there!\n\nThanks!\nBryte Photo Inc\nwww.brytephoto.com'
+			admin_msg_body = str(name) + ' has booked a headshot!\n\nTime: ' + str(time) + '\n\n Bryte'
 			try:
-				msg_body = 'Dear ' + str(name) + ':\n\n' + 'Thanks for booking with Bryte Photo! Your headshot is scheduled at ' + str(time) + '\n\n We will see you there!\n\nThanks!\nBryte Photo Inc\nwww.brytephoto.com'
+				# send both customer email and admin email
 				send_mail('Your Booking with Bryte', msg_body, settings.EMAIL_HOST_USER, [email], fail_silently=False)
+				send_mail('New Headshot Order', admin_msg_body, settings.EMAIL_HOST_USER, [settings.EMAIL_HOST_USER], fail_silently=False)
 			except SMTPRecipientsRefused:
 				print 'Email Not Sent!'
 				pass
