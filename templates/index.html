@@ -6,6 +6,10 @@
   <meta name="description" content="Custom and friendly headshot photography sessions for $25">
 {% endblock %}
 
+{% block keywords %}
+  <meta name='keywords' content="headshot, photo, photography, session, custom, friendly, affordable, experience, profile">
+{% endblock %}
+
 
 {% block stylesheet %}
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.min.css">
@@ -242,7 +246,12 @@
           <div class="small_padding"></div>
           <div class="background_grey hs_border special_padding">
             <h2 class="bold xbig_font red">Fantastic Headshot sessions for $25!</h2>
-            <p class="large_font red">Next Shoot @<br>{{ next_shoot.location }}<br>{{ next_shoot.time_format }}</p>
+            {% if timeslots %}
+              <p class="small_padding large_font red"><span class="bold">Next Shoot @</span><br>{{ next_shoot.location }}<br>{{ next_shoot.time_format }}</p>
+            {% else %}
+              <p class="small_padding large_font red"><span class="bold">All the slots were booked!</span><br>Drop us your email and we'll let you know when the next session is available for booking :)</p>
+            {% endif %}
+            
           </div>
           <div class="small_padding"></div>
           <div class="medium_padding"></div>
@@ -254,6 +263,7 @@
         <div class="medium_padding"></div>
         <div class="text-center" id="book_form">
           <h3 class="white text-left">Your booking information</h3>
+          <div class="small_padding"></div>
           <div class="row"></div>
             <form method="POST" action="{% url 'book_checkout' %}" class="book_form white">{% csrf_token %}
               <input type='text' name='book_name' class="form-control" id='book_name' required pattern="[a-zA-Z]{2,}(\s+[a-zA-z]{2,})+" placeholder='First & Last Name'>
@@ -279,36 +289,31 @@
               {% endif %} left!)</p>
             </form>
         </div>
-
-        {% else %}
-        <div id="signup_form" class="text-center red_bg">
-          <span class='bold big_font'>Next photoshoot {% if timeslots %}
-            @</span> <br>
-            {{ next_shoot.location }}<br>
-            {{ next_shoot.time_format }}<br>
-          {% else %}
-            <br><span class='light'>{SOLD OUT}</span>
-          {% endif %}
-
-          <h3 class="white large_padding col-sm-8 col-sm-offset-2">All the timeslots are booked!<br> However, the next shoot will be held soon!<br> Signup to get notification!</h3>
-
-          <form method="POST" action="{% url 'book_signup' %}" class="book_form white">{% csrf_token %}
-            <label class="light medium_padding">Email</label><br>
-            <input type='email' name='signup_email' class="form-control" id='signup_email' required pattern='\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\b'>
-            <div class="small_padding"></div>
-            <button class="btn-white large_font" id="signup_button" type='submit'>Signup</button>
-          </form>
+        <div class="large_padding_bot small_padding col-xs-10">
+        <ul class="white index_landing_list sm_font neg_padding">
+          <li><i class="fa fa-angle-right"></i>Pay $25 for your fantastic headshot to complete your booking</li>
+          <li><i class="fa fa-angle-right"></i>Full refunds guaranteed</li>
+          <li><i class="fa fa-angle-right"></i>Do you have questions? Email <a href="mailto:hello@brytephoto.com" target="_top" class="white">hello@brytephoto.com</a> or call us at 248-417-5852. Even if you just want to say Hi.</li>
+        </ul>
         </div>
 
 
+        {% else %}
+        <div id="signup_form" class="text-center red_bg">
+          <h3 class="white large_padding text-left large_font">Sign up with your email</h3>
+          <div class="small_padding"></div>
+
+          <form method="POST" action="{% url 'book_signup' %}" class="signup_form white">{% csrf_token %}
+            <input type='email' name='signup_email' class="form-control" id='signup_email' required pattern='\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\b' placeholder='Email'>
+            <div class="small_padding"></div>
+            <button class="btn-white xlarge_font tight_title signup_button_white" id="signup_button" type='submit'>Signup</button>
+          </form>
+        </div>
+        <p class="white small_padding small_font">* We won't send you any newsletters and we don't spam</p>
+
+
         {% endif %}
-          <div class="medium_padding_bot small_padding col-xs-10">
-          <ol class="white index_landing_list sm_font neg_padding">
-            <li>Pay $25 for your fantastic headshot to complete your booking</li>
-            <li>Full refunds guaranteed</li>
-            <li>Do you have questions? Email <a href="mailto:hello@brytephoto.com" target="_top" class="white">hello@brytephoto.com</a> or call us at 248-417-5852. Even if you just want to say Hi.</li>
-          </ol>
-          </div>
+
         </div> 
       </div>
       
@@ -324,21 +329,23 @@
       {% if timeslots %}
         <div class="large_padding large_padding_bot">
           <div class="row">
-          <p class="col-xs-6 col-xs-offset-3 small_padding_bot">Can't make it to our event? We are holding another event soon! Drop us your email and we'll let you know about our future headshot sessions.</p>
+          <h3 class="text-center bold big_font">Can't make it to our event?</h3>
+          <p class="col-xs-6 col-xs-offset-3 small_padding_bot small_padding">We are holding another event soon! Drop us your email and we'll let you know about our future headshot sessions.</p>
           
           </div>
 
           <div class="text-center">
           <div class="center_flex">
           <form method="POST" action="{% url 'book_signup' %}" class="book_form white">{% csrf_token %}
-            <input type='email' name='signup_email' class="form-control" id='signup_email' required pattern='\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\b' placeholder='Email'></form>
-          </div>
-          <div class="small_padding"></div>
-          <button class="btn-white large_font signup_button" id="signup_button" type='submit'>Signup!</button>
+            <input type='email' name='signup_email' class="form-control" id='signup_email' required pattern='\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\b' placeholder="Email">
+            <div class="small_padding"></div>
+            <button class="btn-blue large_font signup_button" id="signup_button" type='submit'>Signup!</button>
+          </form>
+          </div>          
           </div>
 
           <div class="row small_padding sm_font">
-          <p class="col-xs-8 col-xs-offset-2 text-center">We won't send you any newsletters and we don't spam</p>
+          <p class="col-xs-8 col-xs-offset-2 text-center">* We won't send you any newsletters and we don't spam</p>
           </div>
         </div>      
       {% endif %}
@@ -443,7 +450,7 @@
   <!--THIS IS IMPORTANT! to close the modal, the class name has to match the name given on the ID  class="close-animatedModal" -->
   <div class="close-animatedModal text-center" id="modal_close_link"> 
       <div class="medium_padding"></div>
-      <a href="" class="modal_close"><i class="white glyphicon glyphicon-remove-circle xbig_font"></i></a>
+      <a href="" class="modal_close white xbig_font"><i class="fa fa-times-circle-o"></i></a>
   </div>
 
   <div class="white text-center medium_padding large_font">      
@@ -456,7 +463,7 @@
 
 <!-- loader -->
 <div id="loader-wrapper" hidden>
-  <div id="loader" class="text-center"><img src="{% static 'logo/loading.svg' %}"></div>
+  <div id="loader" class="text-center"><img src="{% static 'logo/loading.svg' %}" width="140px"></div>
 </div>
 
 
@@ -534,15 +541,12 @@ var csrftoken = getCookie('csrftoken');
     })
 
 
-    // ajax loading animation
-    $loading = $("#loader-wrapper")
-
     .ajaxStart(function () {
-      $loading.show();
+      $("#loader-wrapper").show();
     })
 
     .ajaxStop(function () {
-      $loading.hide();
+      $("#loader-wrapper").hide();
     });
 
 
@@ -572,6 +576,10 @@ var csrftoken = getCookie('csrftoken');
       token: function(token) {
         // Use the token to create the charge with a server-side script.
         // You can access the token ID with `token.id`
+
+        // loader
+        $("#loader-wrapper").show();
+
         $.ajax({
           url: '{% url "book_checkout" %}',
           type: 'POST',
@@ -618,24 +626,28 @@ var csrftoken = getCookie('csrftoken');
 
 
     $('#signup_button').on('click', function(e){
-      e.preventDefault();
-      $.ajax({
-        url: '{% url "book_signup" %}',
-        type: 'POST',
-        data: {
-          email: $('#signup_email').val()
-        },
+      
+      if (document.getElementById('signup_email').checkValidity()){
+        $("#loader-wrapper").show();    
+        $.ajax({
+          url: '{% url "book_signup" %}',
+          type: 'POST',
+          data: {
+            email: $('#signup_email').val()
+          },
 
-        success: function(data){
-          $("#modal_content").html(data['successMsg'])
-          $("#modal_link").trigger('click')
-        },
+          success: function(data){
+            $("#modal_content").html(data['successMsg'])
+            $("#modal_link").trigger('click')
+          },
 
-        failure: function(data){
-          $("#modal_content").html('Something wrong happened, please try again.')
-          $("#modal_link").trigger('click')
-        }
-      });
+          failure: function(data){
+            $("#modal_content").html('Something wrong happened, please try again.')
+            $("#modal_link").trigger('click')
+          }
+        });
+        e.preventDefault();
+      }
     });
 
 

@@ -956,7 +956,7 @@ h1,h2,h3,h4 {
 }
 
 .neg_padding {
-	margin-left: -30px;
+	margin-left: -15px;
 }
 
 .sm_neg_padding {
@@ -1304,10 +1304,12 @@ body, html
 }
 
 .book_form {
-	width: 400px;
+	width: 440px;
 }
 
-
+.signup_form {
+	width: 350px;
+}
 
 
 
@@ -1337,13 +1339,15 @@ body, html
 
 #loader {
 	position: fixed;
-	top: 35%;
-	left: 40%;
+	top: 50%;
+	left: 50%;
+	margin-left: -70px;
+	margin-top: -70px;
 }
 
 
 #pay_button {
-	padding: 30px 110px;
+	padding: 26px 100px;
 	width: 440px;
 }
 
@@ -1354,8 +1358,13 @@ body, html
 	border-radius: 15px;
 }
 
+.signup_button_white {
+	padding: 16px 140px;
+	border-radius: 15px;
+}
+
 .signup_button:hover {
-	background-color: #c94848;
+	background-color: #b64747;
 	color: #fff;
 }
 
