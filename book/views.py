@@ -82,11 +82,12 @@ def checkout(request):
 			book_instance.save()
 
 			data = {
-				'successMsg': 'Thanks for booking with Bryte!<br> You will receive a confirmation email on the shoot soon!<br>See you on the shoot!',
+				'successMsg': 'Thanks for booking with Bryte!<br> You will receive a confirmation email with your booking information soon!<br><br>Team Bryte Photo',
 			}
 
 			# send the email
-			msg_body = 'Dear ' + str(name) + ':\n\n' + 'Thanks for booking with Bryte Photo! Your headshot is scheduled at ' + str(time) + '\n\n We will see you there!\n\nThanks!\nBryte Photo Inc\nwww.brytephoto.com'
+			# put location too
+			msg_body = 'Dear ' + str(name) + ':\n\n' + 'Thanks for booking with Bryte Photo! Your headshot session is scheduled on ' + str(time) + ' at Brown University (115 George St, Wriston Quadrangle). \n\n We look forward to seeing you there!\n\nTeam Bryte Photo\nwww.brytephoto.com'
 			admin_msg_body = str(name) + ' has booked a headshot!\n\nTime: ' + str(time) + '\n\n Bryte'
 			try:
 				# send both customer email and admin email
