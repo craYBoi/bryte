@@ -15,10 +15,8 @@ from .models import Reservation
 
 import stripe
 import datetime
-from mixpanel import Mixpanel
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
-# mp = Mixpanel(settings.MIXPANEL_TOKEN)
 
 def reserve(request):
 

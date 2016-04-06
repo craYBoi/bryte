@@ -466,7 +466,7 @@ h1,h2,h3,h4 {
 }
 
 .hs_border {
-	border: 12px dotted #c94848;
+	border: 12px dashed #c94848;
 	border-radius: 30px;
 }
 
@@ -1304,7 +1304,7 @@ body, html
 }
 
 .book_form {
-	width: 440px;
+	width: 420px;
 }
 
 .signup_form {
@@ -1347,8 +1347,14 @@ body, html
 
 
 #pay_button {
-	padding: 26px 100px;
-	width: 440px;
+	padding: 26px 70px;
+	width: 420px;
+	background-color: yellow;
+	color: #000;
+}
+
+#pay_button:hover {
+	background-color: #eaea3a;
 }
 
 .signup_button {

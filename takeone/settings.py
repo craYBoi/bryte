@@ -260,8 +260,6 @@ STRIPE_PUBLISHABLE_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY')
 CLIENT_ID = 'ca_7ogFyyC52p69QQf6ysSG5jpAcXmEFovq'
 COMMISSION = os.environ.get('COMMISSION')
 
-# mixpanel
-MIXPANEL_TOKEN = 'b27c2c4d1dddc024a8c4b60b153f2968'
 
 # dropbox
 DROPBOX_TOKEN = os.environ.get('DROPBOX_TOKEN')
