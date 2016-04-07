@@ -13,7 +13,13 @@ class TimeSlot(models.Model):
 	is_available = models.BooleanField(default=True)
 
 	def __unicode__(self):
-		return self.time.strftime('%Y/%m/%d %I:%M %p')
+		return self.time.strftime('%m/%d/%Y %I:%M %p')
+
+	def time_slot_format(self):
+		time_format =  self.time.strftime('%I:%M %p')
+		if time_format[0] == '0':
+			return time_format[1:]
+		return time_format
 
 
 class Book(models.Model):

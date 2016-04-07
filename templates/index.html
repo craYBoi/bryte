@@ -273,7 +273,7 @@
               {% if timeslots %}
               <select required name='book_time' class="form-control" id='book_time'>
                 {% for timeslot in timeslots %}
-                  <option value='{{ timeslot.pk }}'>{{ timeslot }}</option>
+                  <option value='{{ timeslot.pk }}'>{{ timeslot.time_slot_format }}</option>
                 {% endfor %}
               </select>
               {% else %}
