@@ -58,7 +58,7 @@ def checkout(request):
 		# charge
 		try:
 			charge = stripe.Charge.create(
-				amount = 2500,
+				amount = 1000,
 				currency="usd",
 				source=token,
 				description="Bryte Photo Headshot"

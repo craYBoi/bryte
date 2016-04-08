@@ -130,7 +130,7 @@ h1,h2,h3,h4 {
 }
 
 .white_border {
-	border: 3.5px solid #fff;
+	border: 5px solid #fff;
 }
 
 /* jumbotron */
@@ -916,7 +916,7 @@ h1,h2,h3,h4 {
 }
 
 .special_padding {
-	padding: 25px;
+	padding: 0 25px 10px 25px;
 }
 
 .special_padding_right {
@@ -1303,12 +1303,8 @@ body, html
 	height: 100%; 
 }
 
-.book_form {
-	width: 420px;
-}
-
 .signup_form {
-	width: 350px;
+	width: 300px;
 }
 
 
@@ -1347,10 +1343,9 @@ body, html
 
 
 #pay_button {
-	padding: 26px 70px;
-	width: 420px;
 	background-color: yellow;
-	color: #000;
+	padding:6% 35%;
+	color: #c94848;
 }
 
 #pay_button:hover {
@@ -1365,13 +1360,17 @@ body, html
 }
 
 .signup_button_white {
-	padding: 16px 140px;
+	padding: 16px 70px;
 	border-radius: 15px;
 }
 
 .signup_button:hover {
 	background-color: #b64747;
 	color: #fff;
+}
+
+.signup_button_white:hover {
+	color: #c94848;
 }
 
 .landing_button {

@@ -16,7 +16,7 @@
 {% endblock %}
 
 {% block jumbotron %}
-  <div class="jumbotron" id="jumbotron" style="background: url({% static 'img/hs_bg1.jpg' %}) no-repeat center; background-size: cover;">
+  <div id="jumbotron" class="red_bg">
 <!--<div class="jumbotron background_grey" id='jumbotron'>-->
   <!--
     <div class="medium_padding"></div>
@@ -48,27 +48,76 @@
 
     <div class="large_padding"></div>
     -->
+    <div class="medium_padding"></div>
     <div class="large_padding"></div>
-    <div class="container medium_padding">
+    <h1 class="white main_title text-center col-xs-10 col-xs-offset-1">Professional headshot for <span class='bold'>$10</span></h1>
+    <div class="container">
+
       <div class="row">
 
-        <div class="col-sm-12 col-sm-offset-0 col-xs-10 col-xs-offset-1 text-center">
-          <h1 class="white main_title">Fantastic headshot sessions <br>for <span class='bold'>$25</span></h1>
-          <div class="small_padding"></div>
-          <div class="small_padding"></div>
-          <ul class="white list-inline">
-            <li><i class="fa fa-check"></i> A custom experience tailored to you</li>
-            <li><i class="fa fa-check"></i> Top photography environment</li>
-            <li><i class="fa fa-check"></i> A price you can afford</li>
-          </ul>
-          <div class="large_padding"></div>
+        <div class="col-sm-6 medium_padding col-xs-10 col-xs-offset-1 col-sm-offset-0">
           {% if timeslots %}
-          <a href="#book_form"><button class="btn-blue landing_button link_white medium_border_radius">
-            Book your Headshot</button></a>
+            <p class="big_font white"><span class="bold background_white red">Next Shoot @</span><br>{{ next_shoot.location }}<br>{{ next_shoot.time_format }}</p>
           {% else %}
-            <a href="#signup_form" class="signup_button"><button class="btn-blue landing_button link_white medium_border_radius">Signup for Notification</button></a>
+            <p class="sbig_font white"><span class="bold">All the slots were booked!</span><br>Drop us your email and we'll let you know when the next session is available for booking :)</p>
           {% endif %}
           <div class="small_padding"></div>
+          <ul class="white large_font">
+            <li><i class="fa fa-check"></i> 10 minutes session</li>
+            <li><i class="fa fa-check"></i> 1 touched up photo</li>
+            <li><i class="fa fa-check"></i> Friendly photographer</li>
+          </ul>
+        </div>
+
+
+        <div class="col-sm-4 col-sm-offset-1 col-xs-10 col-xs-offset-1  medium_padding">
+        <div class="white_border special_padding">
+        {% if timeslots %}
+        <h4 class="bold white xsmall_padding">Sign Up</h4>
+        <div class="xsmall_padding"></div>
+        <div class="text-center" id="book_form">
+          <div class="row"></div>
+            <form method="POST" action="{% url 'book_checkout' %}" class="book_form white">{% csrf_token %}
+              <input type='text' name='book_name' class="form-control" id='book_name' required pattern="[a-zA-Z]{2,}(\s+[a-zA-z]{2,})+" placeholder='First & Last Name'>
+              <div class="small_padding"></div>
+              <input type='email' name='book_email' class="form-control" id='book_email' required pattern='\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\b' placeholder="Email">
+              <div class="small_padding"></div>
+              {% if timeslots %}
+              <select required name='book_time' class="form-control" id='book_time'>
+                {% for timeslot in timeslots %}
+                  <option value='{{ timeslot.pk }}'>{{ timeslot.time_slot_format }}</option>
+                {% endfor %}
+              </select>
+              {% else %}
+              <label>All the slots are booked! Thanks!</label>
+              {% endif %}
+              <input type='hidden' name='book_photographer' value='{{ next_shoot.photographer.pk }}'>
+              <div class="small_padding"></div>
+              <button class="btn-white bold large_font" id="pay_button" type='submit'>Pay $10</button>
+              <p class="text-left small_padding">(Only {{ timeslots.count }} time {% if timeslots.count == 1 %}
+                slot
+              {% else %}
+                slots
+              {% endif %} left!)</p>
+            </form>
+        </div>
+
+
+        {% else %}
+        <div id="signup_form" class="text-center red_bg">
+          <h3 class="white large_padding text-left large_font">Sign up with your email</h3>
+          <div class="small_padding"></div>
+
+          <form method="POST" action="{% url 'book_signup' %}" class="signup_form white">{% csrf_token %}
+            <input type='email' name='signup_email' class="form-control" id='signup_email' required pattern='\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\b' placeholder='Email'>
+            <div class="small_padding"></div>
+            <button class="btn-white xlarge_font tight_title signup_button_white" id="signup_button" type='submit'>Signup</button>
+          </form>
+        </div>
+        <p class="white small_padding small_font">* We won't send you any newsletters and we don't spam</p>
+        {% endif %}
+
+        </div> 
         </div>
       </div>
     </div>
@@ -132,6 +181,8 @@
         </div>
       </li>
   -->
+
+  <!--
       <div class="index_bring">
         <div class="row medium_padding medium_padding_bot">
           <div class="col-md-5 col-xs-12 flex_box_center">
@@ -177,6 +228,7 @@
         </div>
       </div>
 
+-->
 
 
       <div class="background_light_pink">
@@ -189,7 +241,7 @@
         <div class="text-center row">
           <ul class="list-inline index_carousel">
             <li><img src="{% static 'img/hs2.jpg' %}" height='350px'></li>
-            <li><img src="{% static 'img/hs3.jpg' %}" height='350px'></li>
+            <li><img src="{% static 'img/hs1.jpg' %}" height='350px'></li>
             <li><img src="{% static 'img/michael.jpg' %}" height="350px"></li>
           </ul>
         </div>
@@ -210,21 +262,21 @@
                   <img src="{% static 'img/process1.png' %}" class="img-responsive"> 
                   <div class="medium_padding"></div>
                   <h3 class="bold big_font">Book</h3>
-                  <p class=" small_padding small_lh text-left">Choose a time that works for you and pay for it with just a few clicks! We will send you an email to confirm everything.</p>
+                  <p class="col-xs-10 col-xs-offset-1 small_padding small_lh text-left small_font ">Choose a time that works for you and pay for it with just a few clicks! We will send you an email to confirm everything.</p>
                 </div>   
 
                 <div class="col-sm-4 text-center">
                   <img src="{% static 'img/process2.png' %}" class="img-responsive"> 
                   <div class="medium_padding"></div>
                   <h3 class="bold big_font">Smile</h3>
-                  <p class=" small_padding small_lh text-left">Arrive at your location 5 minutes before your 20 minutes session is scheduled to begin. Then have fun at your fantastic headshot session!</p>
+                  <p class="col-xs-10 col-xs-offset-1 small_padding small_lh text-left small_font">Arrive at your location 5 minutes before your 10 minutes session is scheduled to begin. Then have fun at your fantastic headshot session!</p>
                 </div>  
 
                 <div class="col-sm-4 text-center">
                   <img src="{% static 'img/process3.png' %}" class="img-responsive"> 
                   <div class="medium_padding"></div>
                   <h3 class="bold big_font">Receive</h3>
-                  <p class=" small_padding small_lh text-left">We'll send you a link to your headshot within 48 hours. There are no restrictions on how you can use your headshot.</p>
+                  <p class="col-xs-10 col-xs-offset-1 small_padding small_lh text-left small_font">We'll send you a link to your headshot within 48 hours.</p>
                 </div>  
               </div>
             </div>
@@ -238,108 +290,20 @@
 
 
 
-
-      <div class="row red_bg">
-
-        <div class="col-sm-5 col-xs-10 col-xs-offset-1 col-sm-offset-1">
-          <div class="medium_padding"></div>
-          <div class="small_padding"></div>
-          <div class="background_grey hs_border special_padding">
-            <h2 class="bold xbig_font red">Fantastic Headshot sessions for $25!</h2>
-            {% if timeslots %}
-              <p class="small_padding large_font red"><span class="bold">Next Shoot @</span><br>{{ next_shoot.location }}<br>{{ next_shoot.time_format }}</p>
-            {% else %}
-              <p class="small_padding large_font red"><span class="bold">All the slots were booked!</span><br>Drop us your email and we'll let you know when the next session is available for booking :)</p>
-            {% endif %}
-            
-          </div>
-          <div class="small_padding"></div>
-          <div class="medium_padding"></div>
-        </div> 
-
-
-        <div class="col-sm-5 col-sm-offset-1 col-xs-10 col-xs-offset-1">
-        {% if timeslots %}
-        <div class="medium_padding"></div>
-        <div class="text-center" id="book_form">
-          <h3 class="white text-left">Your booking information</h3>
-          <div class="small_padding"></div>
-          <div class="row"></div>
-            <form method="POST" action="{% url 'book_checkout' %}" class="book_form white">{% csrf_token %}
-              <input type='text' name='book_name' class="form-control" id='book_name' required pattern="[a-zA-Z]{2,}(\s+[a-zA-z]{2,})+" placeholder='First & Last Name'>
-              <div class="small_padding"></div>
-              <input type='email' name='book_email' class="form-control" id='book_email' required pattern='\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\b' placeholder="Email">
-              <div class="small_padding"></div>
-              {% if timeslots %}
-              <select required name='book_time' class="form-control" id='book_time'>
-                {% for timeslot in timeslots %}
-                  <option value='{{ timeslot.pk }}'>{{ timeslot.time_slot_format }}</option>
-                {% endfor %}
-              </select>
-              {% else %}
-              <label>All the slots are booked! Thanks!</label>
-              {% endif %}
-              <input type='hidden' name='book_photographer' value='{{ next_shoot.photographer.pk }}'>
-              <div class="medium_padding"></div>
-              <button class="btn-white" id="pay_button" type='submit'>Take me to payment</button>
-              <p class="text-left xsmall_padding">(Only {{ timeslots.count }} time {% if timeslots.count == 1 %}
-                slot
-              {% else %}
-                slots
-              {% endif %} left!)</p>
-            </form>
-        </div>
-        <div class="large_padding_bot small_padding col-xs-9">
-        <ul class="white index_landing_list sm_font neg_padding">
-          <li><i class="fa fa-check"></i>Pay $25 for your fantastic headshot to complete your booking</li>
-          <li><i class="fa fa-check"></i>Full refunds guaranteed</li>
-          <li><i class="fa fa-check"></i>Do you have questions? Email <a href="mailto:hello@brytephoto.com" target="_top" class="white">hello@brytephoto.com</a> or call us at 248-417-5852. Even if you just want to say Hi.</li>
-        </ul>
-        </div>
-
-
-        {% else %}
-        <div id="signup_form" class="text-center red_bg">
-          <h3 class="white large_padding text-left large_font">Sign up with your email</h3>
-          <div class="small_padding"></div>
-
-          <form method="POST" action="{% url 'book_signup' %}" class="signup_form white">{% csrf_token %}
-            <input type='email' name='signup_email' class="form-control" id='signup_email' required pattern='\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\b' placeholder='Email'>
-            <div class="small_padding"></div>
-            <button class="btn-white xlarge_font tight_title signup_button_white" id="signup_button" type='submit'>Signup</button>
-          </form>
-        </div>
-        <p class="white small_padding small_font">* We won't send you any newsletters and we don't spam</p>
-
-
-        {% endif %}
-
-        </div> 
-      </div>
-      
-
-      <ul class="background_grey list-inline" id="index_logos">
-        <li class="col-md-3 col-xs-6 text-center"><img src="{% static 'img/brown.png' %}" height='70px'></li>
-        <li class="col-md-3 col-xs-6 text-center"><img src="{% static 'logo/pbn.gif' %}" height="70px"></li>
-        <li class="col-md-3 col-xs-6 text-center"><img src="{% static 'img/bvf.png' %}" height='70px'></li>
-        <li class="col-md-3 col-xs-6 text-center"><img src="{% static 'img/blab.png' %}" height='70px'></li>
-      </ul>
-
-
       {% if timeslots %}
-        <div class="large_padding large_padding_bot">
+        <div class="large_padding large_padding_bot red_bg white">
           <div class="row">
-          <h3 class="text-center bold big_font">Can't make it to our event?</h3>
-          <p class="col-xs-6 col-xs-offset-3 small_padding_bot small_padding">We are holding another event soon! Drop us your email and we'll let you know about our future headshot sessions.</p>
+          <h3 class="text-center bold big_font col-xs-10 col-xs-offset-1">Can't make it to our event?</h3>
+          <p class="text-center col-xs-8 col-xs-offset-2 small_padding">Don't worry! We are holding another event soon! Drop us your email to get notified!</p>
           
           </div>
-
+          <div class="small_padding"></div>
           <div class="text-center">
           <div class="center_flex">
           <form method="POST" action="{% url 'book_signup' %}" class="book_form white">{% csrf_token %}
             <input type='email' name='signup_email' class="form-control" id='signup_email' required pattern='\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\b' placeholder="Email">
             <div class="small_padding"></div>
-            <button class="btn-blue large_font signup_button" id="signup_button" type='submit'>Signup!</button>
+            <button class="btn-white large_font signup_button_white" id="signup_button" type='submit'>Signup!</button>
           </form>
           </div>          
           </div>
@@ -350,7 +314,12 @@
         </div>      
       {% endif %}
 
-
+      <ul class="background_grey list-inline" id="index_logos">
+        <li class="col-md-3 col-xs-6 text-center"><img src="{% static 'img/brown.png' %}" height='70px'></li>
+        <li class="col-md-3 col-xs-6 text-center"><img src="{% static 'logo/pbn.gif' %}" height="70px"></li>
+        <li class="col-md-3 col-xs-6 text-center"><img src="{% static 'img/bvf.png' %}" height='70px'></li>
+        <li class="col-md-3 col-xs-6 text-center"><img src="{% static 'img/blab.png' %}" height='70px'></li>
+      </ul>
 
 <!--
       <li>
@@ -617,7 +586,7 @@ var csrftoken = getCookie('csrftoken');
         handler.open({
           name: 'Bryte Photo Inc',
           description: 'Headshot',
-          amount: 2500
+          amount: 1000
         });
         e.preventDefault();
       } 
