@@ -50,27 +50,29 @@
     -->
     <div class="medium_padding"></div>
     <div class="large_padding"></div>
-    <h1 class="white main_title text-center col-xs-10 col-xs-offset-1">Professional headshot for <span class='bold'>$10</span></h1>
+    <h1 class="white main_title text-center col-xs-10 col-xs-offset-1">Professional headshots for <span class='bold'>$10</span></h1>
     <div class="container">
 
       <div class="row">
 
         <div class="col-sm-6 medium_padding col-xs-10 col-xs-offset-1 col-sm-offset-0">
+        <div class="small_padding"></div>
           {% if timeslots %}
-            <p class="big_font white"><span class="bold background_white red">Next Shoot @</span><br>{{ next_shoot.location }}<br>{{ next_shoot.time_format }}</p>
+            <p class="big_font white"><span class="bold large_font background_white red">Next Shoot @</span><br>{{ next_shoot.location }}<br>{{ next_shoot.time_format }}</p>
           {% else %}
             <p class="sbig_font white"><span class="bold">All the slots were booked!</span><br>Drop us your email and we'll let you know when the next session is available for booking :)</p>
           {% endif %}
           <div class="small_padding"></div>
           <ul class="white large_font">
-            <li><i class="fa fa-check"></i> 10 minutes session</li>
+            <li><i class="fa fa-check"></i> 10 minute session</li>
             <li><i class="fa fa-check"></i> 1 touched up photo</li>
-            <li><i class="fa fa-check"></i> Friendly photographer</li>
+            <li><i class="fa fa-check"></i> Friendly photographers</li>
           </ul>
         </div>
 
 
         <div class="col-sm-4 col-sm-offset-1 col-xs-10 col-xs-offset-1  medium_padding">
+        <div class="small_padding"></div>
         <div class="white_border special_padding">
         {% if timeslots %}
         <h4 class="bold white xsmall_padding">Sign Up</h4>
