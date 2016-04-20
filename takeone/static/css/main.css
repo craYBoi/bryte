@@ -474,6 +474,11 @@ h1,h2,h3,h4 {
 	border: 1px solid #ddd;
 }
 
+.pink_border {
+	border: 5px dashed #f8f2f2;
+	padding: 15px;
+}
+
 /* content photographer */
 
 #content_photographer h3 {
@@ -1076,7 +1081,11 @@ h1,h2,h3,h4 {
 }
 
 .yellow {
-	color: #ffe83e;
+	color: #ffff00;
+}
+
+.yellow:hover {
+	color: #ffff00;
 }
 
 .yellow_bg {
