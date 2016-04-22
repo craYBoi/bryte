@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<div class="large_padding red_bg">
+		
+	</div>
+
+	{% if notify %}
+	<div class="row medium_padding bold">
+		<div class="text-center large_font col-xs-6 col-xs-offset-3 hs_border">
+			<p>{{ notify }}</p>
+		</div>
+	</div>
+	{% endif %}
+
+	<div class="large_padding text-center">
+	<form action="" method="POST">{% csrf_token %}
+	  <script
+	    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+	    data-key="{{ publish_key }}"
+	    data-amount="15000"
+	    data-name="Bryte Photo Charge"
+	    data-description="Photography Package"
+	    data-image=""
+	    data-locale="auto">
+	  </script>
+	</form>
+	</div>
+
+	<div class="large_padding"></div>
+{% endblock %}

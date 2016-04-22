@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.core.mail import send_mail
 from django.conf import settings
 from django.http import Http404, HttpResponse
@@ -105,3 +105,29 @@ def checkout(request):
 		raise Http404
 
 
+def pay(request):
+	context = {
+		'publish_key': settings.STRIPE_PUBLISHABLE_KEY,
+		'title_text': 'Checkout',
+	}
+	if request.method == 'POST':
+		token = request.POST.get('stripeToken')
+				# charge
+		try:
+			charge = stripe.Charge.create(
+				amount = 15000,
+				currency="usd",
+				source=token,
+				description="Bryte Photo Photography"
+			)
+		except stripe.error.CardError, e:
+			print e
+			data = {'successMsg': 'There\'s an error charging your card. Please provide another card',}
+			return HttpResponse(json.dumps(data), content_type='application/json')
+		else:
+			context['notify'] = 'Thanks! You have successfully paid! Thanks for using Bryte!'
+
+
+
+
+	return render(request, 'book_pay.html', context)
