@@ -545,7 +545,6 @@ var csrftoken = getCookie('csrftoken');
 
     var handler = StripeCheckout.configure({
       key: '{{ publish_key }}',
-      image: '{% static "logo/logo-square.png" %}',
       locale: 'auto',
       token: function(token) {
         // Use the token to create the charge with a server-side script.
