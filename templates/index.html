@@ -61,7 +61,9 @@
             <p class="big_font white"><span class="bold large_font background_white red">Next Shoot @</span><br>{{ next_shoot.location }}<br>{{ next_shoot.time_format }}, 1:00 PM - 4:00 PM</p>
 
           {% else %}
-            <p class="sbig_font white"><span class="bold">All the slots were booked!</span><br>Drop us your email and we'll let you know when the next session is available for booking :)</p>
+            <p class="sbig_font white"><span class="bold">All the slots were booked!</span><br></p>
+              
+            <p class="large_font white">Drop us your email and we'll let you know when the next session is available for booking :)</p>
           {% endif %}
           <div class="small_padding"></div>
           <ul class="white large_font">
@@ -107,15 +109,16 @@
 
 
         {% else %}
-        <div id="signup_form" class="text-center red_bg">
-          <h3 class="white large_padding text-left large_font">Sign up with your email</h3>
-          <div class="small_padding"></div>
-
+        <div id="signup_form">
+          <h3 class="bold white xsmall_padding">Sign up with your email</h3>
+          <div class="xsmall_padding"></div>
+          <div class="text-center">
           <form method="POST" action="{% url 'book_signup' %}" class="signup_form white">{% csrf_token %}
             <input type='email' name='signup_email' class="form-control" id='signup_email' required pattern='\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\b' placeholder='Email'>
             <div class="small_padding"></div>
-            <button class="btn-white xlarge_font tight_title signup_button_white" id="signup_button" type='submit'>Signup</button>
+            <button class="btn-white bold large_font" id="signup_button" type='submit'>Signup</button>
           </form>
+          </div>
         </div>
         <p class="white small_padding small_font">* We won't send you any newsletters and we don't spam</p>
         {% endif %}
