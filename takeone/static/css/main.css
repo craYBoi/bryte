@@ -369,6 +369,8 @@ h1,h2,h3,h4 {
 
 /* main navbar */
 #main_nav {
+	/*background-color: #fff;*/
+	/*border-bottom: 8px solid #064961;*/
 }
 
 /* content advantages */
@@ -1312,11 +1314,21 @@ body, html
 	height: 100%; 
 }
 
-.signup_form {
-
+.seeed_color {
+	color: #008EBD!important;
 }
 
+.seeed_color_main {
+	background-color: #008EBD!important;
+}
 
+.seeed_color_secondary {
+	background-color: #6EC3DF!important;
+}
+
+.seeed_color_tertiary {
+	background-color: #ddf7ff!important;
+}
 
 /* flex box to make form inline */
 .flex_box_center {

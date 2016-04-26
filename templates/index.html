@@ -3,7 +3,7 @@
 {% load crispy_forms_tags %}
 
 {% block description %}
-  <meta name="description" content="Custom and friendly headshot photography sessions for $10">
+  <meta name="description" content="Custom and friendly headshot photography sessions for $20">
 {% endblock %}
 
 {% block keywords %}
@@ -16,7 +16,7 @@
 {% endblock %}
 
 {% block jumbotron %}
-  <div id="jumbotron" class="red_bg">
+  <div id="jumbotron" class="red_bg"> 
 <!--<div class="jumbotron background_grey" id='jumbotron'>-->
   <!--
     <div class="medium_padding"></div>
@@ -50,7 +50,7 @@
     -->
     <div class="medium_padding"></div>
     <div class="large_padding"></div>
-    <h1 class="white main_title text-center col-xs-10 col-xs-offset-1">Professional headshots for <span class='bold'>$10</span></h1>
+    <h1 class="white main_title text-center col-xs-10 col-xs-offset-1">Professional headshots for <span class='bold'>$20</span></h1>
     <div class="container">
 
       <div class="row">
@@ -98,7 +98,7 @@
               {% endif %}
               <input type='hidden' name='book_photographer' value='{{ next_shoot.photographer.pk }}'>
               <div class="small_padding"></div>
-              <button class="btn-white bold large_font" id="pay_button" type='submit'>Pay $10</button>
+              <button class="btn-white bold large_font" id="pay_button" type='submit'>Pay $20</button>
               <p class="text-left small_padding">(Only {{ timeslots.count }} time {% if timeslots.count == 1 %}
                 slot
               {% else %}
@@ -591,7 +591,7 @@ var csrftoken = getCookie('csrftoken');
         handler.open({
           name: 'Bryte Photo Inc',
           description: 'Headshot',
-          amount: 1000
+          amount: 2000
         });
         e.preventDefault();
       } 
