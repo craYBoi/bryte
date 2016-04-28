@@ -9,6 +9,10 @@ button {
 	outline: none;
 }
 
+.droid_serif {
+	font-family: 'Droid Serif', serif!important;
+}
+
 ul {
 	list-style: none;
 	padding-left: 0;
@@ -28,11 +32,13 @@ ul {
 
 
 .offset {
-	height: 65px;
+	height: 71px;
+	background-color: #006b8c!important;
 }
 
 .small_offset {
 	height: 40px;
+
 }
 
 .jumbotron h1 {
@@ -778,7 +784,7 @@ h1,h2,h3,h4 {
 }
 
 .main_title {
-	font-size: 3.6em!important;
+	font-size: 3.4em!important;
 	font-weight: bold;
 }
 
@@ -893,7 +899,11 @@ h1,h2,h3,h4 {
 }
 
 .top_border {
-	border-top: 3px solid #c94848;
+	border-top: 5px solid #006787;
+}
+
+.bottom_border {
+	border-bottom: 8px solid #006787;
 }
 
 .border_blue_dashed {
@@ -1318,16 +1328,24 @@ body, html
 	color: #008EBD!important;
 }
 
+.seeed_color_dark {
+	color: #006b8c!important;
+}
+
 .seeed_color_main {
 	background-color: #008EBD!important;
 }
 
 .seeed_color_secondary {
-	background-color: #6EC3DF!important;
+	background-color: #a3dbed!important;
 }
 
 .seeed_color_tertiary {
-	background-color: #ddf7ff!important;
+	background-color: #f2fcff!important;
+}
+
+.seeed_color_four {
+	background-color: #d3f4ff!important;
 }
 
 /* flex box to make form inline */

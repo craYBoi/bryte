@@ -14,6 +14,7 @@
     <title>{{ title_text }}</title>
     <link rel="alternate" href="https://www.brytephoto.com" hreflang="en-us" />
     <link rel="shortcut icon" type="image/png" href="{% static 'logo/favicon.png' %}"/>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400italic' rel='stylesheet' type='text/css'>
     
     <!--<link href='https://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>-->
     <link href='https://fonts.googleapis.com/css?family=Quicksand:400,300,700' rel='stylesheet' type='text/css'>
@@ -82,6 +83,9 @@
 	    {# jumbotron #}
 	    {% block jumbotron %}
 	    {% endblock %}
+
+	    {% block testimonial %}
+	    {% endblock  %}
 
 			{% block press %}
 			{% endblock %}

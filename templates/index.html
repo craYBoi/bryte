@@ -16,7 +16,8 @@
 {% endblock %}
 
 {% block jumbotron %}
-  <div id="jumbotron" class="red_bg"> 
+  <div class="offset"></div>
+  <div id="jumbotron" class="seeed_color_main red_bg"> 
 <!--<div class="jumbotron background_grey" id='jumbotron'>-->
   <!--
     <div class="medium_padding"></div>
@@ -48,9 +49,9 @@
 
     <div class="large_padding"></div>
     -->
-    <div class="medium_padding"></div>
+    <!--<div class="medium_padding"></div>-->
     <div class="large_padding"></div>
-    <h1 class="white main_title text-center col-xs-10 col-xs-offset-1">Professional headshots for <span class='bold'>$20</span></h1>
+    <h1 class="white main_title text-center col-xs-10 col-xs-offset-1">Get a professional LinkedIn headshot for <span class='large_font'>$20</span></h1>
     <div class="container">
 
       <div class="row">
@@ -58,7 +59,7 @@
         <div class="col-sm-6 medium_padding col-xs-10 col-xs-offset-1 col-sm-offset-0">
         <div class="small_padding"></div>
           {% if timeslots %}
-            <p class="big_font white"><span class="bold large_font background_white red">Next Shoot @</span><br>{{ next_shoot.location }}<br>{{ next_shoot.time_format }}, 10:00 AM - 2:00 PM</p>
+            <p class="big_font white"><span class="bold large_font background_white seeed_color red">Next Shoot @</span><br>{{ next_shoot.location }}<br>{{ next_shoot.time_format }}, 10:00 AM - 2:00 PM</p>
 
           {% else %}
             <p class="sbig_font white"><span class="bold">All the slots were booked!</span><br></p>
@@ -69,16 +70,17 @@
           <ul class="white large_font">
             <li><i class="fa fa-check"></i> 10 minute session</li>
             <li><i class="fa fa-check"></i> 1 touched up photo</li>
-            <li><i class="fa fa-check"></i> Friendly photographers</li>
+            <li><i class="fa fa-check"></i> Multiple backdrops</li>
+            <li><i class="fa fa-check"></i> Pay $10 for each additional touched up photo</li>
           </ul>
         </div>
 
 
-        <div class="col-sm-4 col-sm-offset-1 col-xs-10 col-xs-offset-1  medium_padding">
+        <div class="col-sm-5 col-sm-offset-1 col-xs-10 col-xs-offset-1  medium_padding">
         <div class="small_padding"></div>
         <div class="white_border special_padding">
         {% if timeslots %}
-        <h4 class="bold white xsmall_padding">Sign Up for April 24</h4>
+        <h4 class="bold white xsmall_padding">Sign Up for April 30</h4>
         <div class="xsmall_padding"></div>
         <div class="text-center" id="book_form">
           <div class="row"></div>
@@ -98,7 +100,7 @@
               {% endif %}
               <input type='hidden' name='book_photographer' value='{{ next_shoot.photographer.pk }}'>
               <div class="small_padding"></div>
-              <button class="btn-white bold large_font" id="pay_button" type='submit'>Pay $20</button>
+              <button class="btn-white bold large_font seeed_color" id="pay_button" type='submit'>Pay $20</button>
               <p class="text-left small_padding">(Only {{ timeslots.count }} time {% if timeslots.count == 1 %}
                 slot
               {% else %}
@@ -130,134 +132,50 @@
     <div class="large_padding"></div>
   </div>
   <div id="learn_more"></div>
+
 {% endblock %}
 
+{% block testimonial %}
+  <!-- Testimonials -->
+  <div id="home_testimonial" class="droid_serif seeed_color_tertiary bottom_border">
+    <div class="medium_padding"></div>
+    <div class="row">
+    <div class="container large_font col-xs-10 col-xs-offset-1 seeed_color_dark">
+      <p><span class="big_font bold">" </span>Bryte is easy, quick, very friendly, approachable and affordable. <br>&nbsp&nbsp&nbsp&nbspBeing a college student and I’m broke. But still very high quality!<span class="big_font bold"> "</span></p>
+      <p class="pull-right">--- Travis</p>
+    </div>
+    </div>
+    <div class="small_padding"></div>
+
+  </div>
+{% endblock %}
 
 
 {% block features %}
   <div id="content_advantages">
     <div id="features">
-    <!--<ul class="list-unstyled alternate_list">-->
-      
-    <!--
-      <li>
-        <div class="container medium_padding_bot">
-          <h2 class="light_title text-center bold">Our Past Work</h2>
-          <div class="row medium_padding">
-            <div class="col-md-8 col-md-offset-0 col-xs-10 col-xs-offset-1">
-                <div class="embed-container" style="margin: 0 auto;text-align:center;">
-                  <iframe src="{{ featured_pg_one_vid.video }}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-                </div> 
-            </div>
-            <div class="col-md-4 col-md-offset-0 col-xs-10 col-xs-offset-1 all_padding_medium_except_top">
-              <a href="{{ featured_pg_one.get_absolute_url }}">
-              <div class="text-center">
-                <img src="{{ featured_pg_one.profile.url }}" width="70px" class="img-circle">
-                <div class="small_padding"></div>
-                <p>{{ featured_pg_one.get_full_name }}<br>{{ featured_pg_one.school }}</p>
-              </div>
-              </a>
 
-              <p class="light small_font">{{ featured_pg_one.description }}</p>
-            </div>
-          </div>
-          <div class="medium_padding"></div>
-          <hr>
-          <div class="row medium_padding">
-            <div class="col-md-4 col-md-offset-0 col-xs-10 col-xs-offset-1 all_padding_medium_except_top">
-              <a href="{{ featured_pg_two.get_absolute_url }}">
-              <div class="text-center">
-                <img src="{{ featured_pg_two.profile.url }}" width="70px" class="img-circle">
-                <div class="small_padding"></div>
-                <p>{{ featured_pg_two.get_full_name }}<br>{{ featured_pg_two.school }}</p>
-              
-              </div>
-              </a>
-              
-              <p class="light small_font">{{ featured_pg_two.description }}</p>
-              
-            </div>
-            <div class="col-md-8 col-md-offset-0 col-xs-10 col-xs-offset-1">
-                <div class="embed-container" style="margin: 0 auto;text-align:center;">
-                  <iframe src="{{ featured_pg_two_vid.video }}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-                </div> 
-            </div>
-          </div>
+      <div class="seeed_color_four background_light_pink">
+        <div class="medium_padding"></div>
+        <div class="container" id='index_past_work'>
 
-        </div>
-      </li>
-  -->
-
-  <!--
-      <div class="index_bring">
-        <div class="row medium_padding medium_padding_bot">
-          <div class="col-md-5 col-xs-12 flex_box_center">
-            <img src="{% static 'img/bring.png' %}" width="650px">
+          <h2 class="bold text-center feature_title">Headshots We've Done</h2>
+          <div class="row small_padding_bot">
           </div>
-          <div class="col-md-7 col-xs-12 large_padding_bot">
-          <div class="small_padding">
-            <h2 class="xbig_font bold col-xs-10 col-xs-offset-1 bold medium_padding tight_title sm_neg_padding">We'll help you bring out your best self</h2>
-            <ul class="small_padding col-xs-10 col-xs-offset-1 fancy_list index_list large_font">
-              <li>You’ll have <span class="bold">20 minutes</span> to take as many photos as you want!</li>
-              <li><span class="bold">Dictate your style.</span></li>
-              <li><span class="bold">Knowledgeable</span> photographers</li>
-              <li>Choose your favorite photo for <span class="bold">touchup</span></li>
+          <div class="text-center row">
+            <ul class="list-inline index_carousel">
+              <li><img src="{% static 'img/travis1.jpg' %}" height='350px'></li>
+              <li><img src="{% static 'img/marta1.jpg' %}" height='350px'></li>
+              <li><img src="{% static 'img/michael.jpg' %}" height="350px"></li>
             </ul>
           </div>
-          </div>
         </div>
+        <div class="small_padding"></div>
+        <div class="medium_padding"></div>
       </div>
 
 
-
-      <div class="background_grey">
-        <div class="row medium_padding medium_padding_bot">
-          <div class="col-md-6 col-md-offset-1 col-xs-12 col-xs-offset-0">
-            <div class="small_padding">
-              <h2 class="xbig_font bold medium_padding tight_title col-xs-10 col-xs-offset-1 sm_neg_padding">Your private photography studio</h2>
-              <div class="row">
-              <ul class="small_padding col-xs-10 col-xs-offset-1 index_list large_font">
-                <li><span class="bold">No lines!</span></li>
-                <li><span>The <span class="bold">best</span> backdrop, lighting and camera equipment</span></span></li>
-                <li><span>Light refreshments</span> and <span><span class="bold">friendly</span> photographers :)</span></li>
-              </ul>
-              </div>
-            </div>
-            <div id="index_past_work"></div>
-            <div class="large_padding"></div>
-          </div>
-
-          <div class="col-md-5 col-xs-12 flex_box_center">
-            <img src="{% static 'img/private.png' %}" width="650px">
-          </div>
-          
-        </div>
-      </div>
-
--->
-
-
-      <div class="background_light_pink">
-      <div class="medium_padding"></div>
-      <div class="container" id='index_past_work'>
-
-        <h2 class="bold text-center feature_title">Headshots We've Done</h2>
-        <div class="row small_padding_bot">
-        </div>
-        <div class="text-center row">
-          <ul class="list-inline index_carousel">
-            <li><img src="{% static 'img/hs2.jpg' %}" height='350px'></li>
-            <li><img src="{% static 'img/hs1.jpg' %}" height='350px'></li>
-            <li><img src="{% static 'img/michael.jpg' %}" height="350px"></li>
-          </ul>
-        </div>
-      </div>
-      <div class="small_padding"></div>
-      <div class="medium_padding"></div>
-      </div>
-
-
-      <div class="background_pink large_font">
+      <div class="seeed_color_secondary background_pink large_font">
         <div class="container small_padding_bot medium_padding">
           <h2 class="feature_title text-center bold">How it Works</h2>
           <div class="row small_padding">
@@ -288,16 +206,36 @@
             </div>
           </div>
           <div class="large_padding"></div>
-          <p class="text-center small_padding small_font">Do you have questions? Email us @ <a href="mailto:hello@brytephoto.com" target="_top" class="red">hello@brytephoto.com</a> or Call us at 248-417-5852 for more information</p>
+          <p class="text-center small_padding small_font">Do you have questions? Email us @ <a href="mailto:hello@brytephoto.com" target="_top" class="seeed_color red">hello@brytephoto.com</a> or Call us at 248-417-5852 for more information</p>
         </div>
         <div class="small_padding"></div>
       </div>
 
 
 
+      <div id="home_tent" class="seeed_color_tertiary"> 
+        <div class="row">
+          <div class="col-md-7">
+          <img src="{% static 'img/tent.jpg' %}" class="img-responsive">
+          </div>
+
+          <div class="col-md-5">
+            <div class="col-xs-10 col-xs-offset-1">
+            <div class="small_padding"></div>
+            <h3 class="seeed_color_dark bold text-center">Custom and friendly headshot session</h3>
+            <div class="small_padding"></div>
+            <p>During every headshot session, we invite friendly and professional photographer to shoot your headshot. Pick you favorite picture with the photographer and we will make sure to deliver the best quality to you.</p>
+            <div class="medium_padding"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
 
       {% if timeslots %}
-        <div class="large_padding large_padding_bot red_bg white">
+        <div class="large_padding large_padding_bot seeed_color_main red_bg white">
           <div class="row">
           <h3 class="text-center bold big_font col-xs-10 col-xs-offset-1">Can't make it to our event?</h3>
           <p class="text-center col-xs-8 col-xs-offset-2 small_padding">Don't worry! We are holding another event soon! Drop us your email to get notified!</p>
@@ -309,7 +247,7 @@
           <form method="POST" action="{% url 'book_signup' %}" class="book_form white">{% csrf_token %}
             <input type='email' name='signup_email' class="form-control" id='signup_email' required pattern='\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\b' placeholder="Email">
             <div class="small_padding"></div>
-            <button class="btn-white large_font signup_button_white" id="signup_button" type='submit'>Signup!</button>
+            <button class="seeed_color btn-white large_font signup_button_white" id="signup_button" type='submit'>Signup!</button>
           </form>
           </div>          
           </div>

@@ -1,5 +1,5 @@
 {% load staticfiles %}
-<div class="background_light_pink">
+<div class="seeed_color_tertiary background_light_pink">
 <footer id="footer" class="container">
 <!--
   <div class="row medium_padding">
@@ -52,21 +52,21 @@
 
   <div class="large_padding">
     <ul class="list-inline bold">
-      <li><a href="{% url 'photographers' %}"><span class="red">P</span>hotographers</a></li>
-      <li><a href="{% url 'legal' %}"><span class="red">L</span>egal Documentation</a></li>
+      <li><a href="{% url 'photographers' %}"><span class="seeed_color red">P</span>hotographers</a></li>
+      <li><a href="{% url 'legal' %}"><span class="seeed_color red">L</span>egal Documentation</a></li>
       {% if request.user.is_authenticated %}
-        <li><a href="{{ request.user.profile.photographer.get_absolute_url }}"><span class="red">M</span>y Profile</a></li>
-        <li><a href="{% url 'profile' %}"><span class="red">M</span>y Dashboard</a></li>
-        <li><a href="{% url 'auth_logout' %}"><span class="red">L</span>og Out</a></li>
+        <li><a href="{{ request.user.profile.photographer.get_absolute_url }}"><span class="seeed_color red">M</span>y Profile</a></li>
+        <li><a href="{% url 'profile' %}"><span class="seeed_color red">M</span>y Dashboard</a></li>
+        <li><a href="{% url 'auth_logout' %}"><span class="seeed_color red">L</span>og Out</a></li>
       {% else %}
-        <li><a href="{% url 'auth_login' %}"><span class="red">P</span>hotographer Login</a></li>
+        <li><a href="{% url 'auth_login' %}"><span class="seeed_color red">P</span>hotographer Login</a></li>
       {% endif %}
     </ul>
     <div class="medium_padding"></div>
     <div class="row">
       <div class="col-xs-8 col-xs-offset-0">
       <p>Professional headshots for $20 <i class="fa fa-suitcase"></i></p>
-      <p>Do you have questions? Email <a href="mailto:hello@brytephoto.com" target="_top" class="red">hello@brytephoto.com</a> or call us at 248-417-5852.</p>
+      <p>Do you have questions? Email <a href="mailto:hello@brytephoto.com" target="_top" class="seeed_color red">hello@brytephoto.com</a> or call us at 248-417-5852.</p>
       </div>
     </div>
     <p class="bold small_padding medium_padding_bot">Copyright © 2016 Bryte Photo, Inc.</p>
