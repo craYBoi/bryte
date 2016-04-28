@@ -80,7 +80,7 @@
         <div class="small_padding"></div>
         <div class="white_border special_padding">
         {% if timeslots %}
-        <h4 class="bold white xsmall_padding">Sign Up for April 30</h4>
+        <!--<h4 class="bold white xsmall_padding">Sign Up for April 30</h4>
         <div class="xsmall_padding"></div>
         <div class="text-center" id="book_form">
           <div class="row"></div>
@@ -107,7 +107,19 @@
                 slots
               {% endif %} left!)</p>
             </form>
+        </div> -->
+        <div id="signup_form">
+          <h3 class="bold white xsmall_padding">Sign up if you are interested!</h3>
+          <div class="xsmall_padding"></div>
+          <div class="text-center">
+          <form method="POST" action="{% url 'book_signup' %}" class="signup_form white">{% csrf_token %}
+            <input type='email' name='signup_email' class="form-control" id='signup_email' required pattern='\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\b' placeholder='Email'>
+            <div class="small_padding"></div>
+            <button class="btn-white bold large_font seeed_color" id="signup_button" type='submit'>Signup</button>
+          </form>
+          </div>
         </div>
+        <p class="white small_padding small_font">* We won't send you any newsletters and we don't spam</p>
 
 
         {% else %}
@@ -265,96 +277,7 @@
         <li class="col-md-3 col-xs-6 text-center"><img src="{% static 'img/blab.png' %}" height='70px'></li>
       </ul>
 
-<!--
-      <li>
-        <div class="container large_padding_bot large_padding">
-          <h2 class="light_title text-center bold">How Can We Help?</h2>
-          <div class="row">
-            <div class="col-xs-10 col-xs-offset-1">
-              <div class="row">
 
-                <div class="col-sm-4 text-center">
-                  <div class="medium_padding"></div>
-                  <img src="{% static 'img/zappo.png' %}" class="img-responsive box_shadow_lg" style="border:5px solid #0098ee; border-radius: 20em;"> 
-                  <div class="medium_padding"></div>
-                  <h3>Zappo® Case</h3>
-                  <p class="light">Zappos increased sales by 6-30% after using videos on item product pages</p>
-                </div>   
-
-                
-                <div class="col-sm-4 text-center">
-                  <div class="medium_padding"></div>
-                  <img src="{% static 'img/airbnbstat.png' %}" class="img-responsive box_shadow_lg" style="border:5px solid #0098ee; border-radius: 20em;"> 
-                  <div class="medium_padding"></div>
-                  <h3>Airbnb Case</h3>
-                  <p class="light">This graph shows Airbnb’s revenue, the arrow indicates when they start using professional photographers</p>
-                </div>  
-
-                <div class="col-sm-4 text-center">
-                  <div class="medium_padding"></div>
-                  <img src="{% static 'img/fbstat.png' %}" class="img-responsive box_shadow_lg" style="border:5px solid #0098ee; border-radius: 20em;"> 
-                  <div class="medium_padding"></div>
-                  <h3>The Power of Facebook</h3>
-                  <p class="light">In November, 2015, Facebook hit 8 billion videos views every day.</p>
-                </div>  
-              </div>
-            </div>
-          </div>
-        </div>
-      </li>
--->
-<!--
-      <li>
-        <div class="large_padding"></div>
-        <div class="container">
-          <div class="row">
-            <div class="col-xs-10 col-xs-offset-1" style="text-align:center;">
-              <h2 class="light_title">Find your photography need</h2>
-              <p class="xsmall_padding col-xs-8 col-xs-offset-2 light">We detail what exactly what your <a href="{% url 'packages' %}" class="blue">package</a> offers</p>
-              <img src="{% static 'img/ProcessFour.png' %}" class="img-responsive loading">
-            </div>
-          </div>
-        </div>
-      </li>
-
-      <li>
-        <div class="container">
-          <div class="row">
-            <div class="col-xs-10 col-xs-offset-1 large_padding" style="text-align:center;">
-              <h2 class="light_title">Compare our photographers</h2>
-              <p class="xsmall_padding col-xs-8 col-xs-offset-2 light">Find the college <a href="{% url 'photographers' %}" class="blue">photographer</a> with the right package, price and experience for you</p>
-              <img src="{% static 'img/ProcessOne.png' %}" class="img-responsive loading">
-            </div>
-          </div>
-        </div>
-      </li>
-      <li>
-        <div class="container" id="process_three">
-          <div class="row">
-            <div class="col-xs-10 col-xs-offset-1 large_padding" style="text-align:center;">
-              <h2 class="light_title">Book without the hassle</h2>
-              <p class="col-xs-6 col-xs-offset-3 xsmall_padding light">Reserve a time that works for you and your photographer instantly. <span class='blue'>We are currently in Rhode Island</span></p>
-              <img src="{% static 'img/ProcessTwo.png' %}" class="img-responsive">
-            </div>
-          </div>
-        </div>
-      </li> 
-
-      <li>
-        <div class="container">
-          <div class="row">
-            <div class="col-xs-10 col-xs-offset-1 large_padding" style="text-align:center;">
-              <h2 class="light_title">Pay after the work is done</h2>
-              <p class="xsmall_padding col-xs-6 col-xs-offset-3 light">We use <a href="https://stripe.com/" class="blue">© Stripe</a>, the same platform used by Lyft,<br>Kickstarter and many other companies</p>
-              <img src="{% static 'img/stripe.png' %}" class="img-responsive">
-            </div>
-          </div>
-        </div>
-      </li>
-    </ul>
-  </div>
--->
-<!--</ul>-->
 
 
 <!-- modal -->
