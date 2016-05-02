@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'sms',
     'blog',
     'userprofile',
+    'careerlab',
 ]
 
 MIDDLEWARE_CLASSES = [

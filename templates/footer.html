@@ -1,5 +1,5 @@
 {% load staticfiles %}
-<div class="seeed_color_tertiary background_light_pink">
+<div class="dark_grey_bg">
 <footer id="footer" class="container">
 <!--
   <div class="row medium_padding">
@@ -7,28 +7,28 @@
       <ul class="small_font">
       <div class="row">
       <div class="col-md-12">
-        <li><a href="{% url 'about' %}"><span class="red">A</span>bout</a></li>
+        <li><a href="{% url 'about' %}"><span class="pink">A</span>bout</a></li>
       </div>
       <div class="col-md-12">
-        <li><a href="{% url 'photographers' %}"><span class="red">C</span>reatives</a></li>
+        <li><a href="{% url 'photographers' %}"><span class="pink">C</span>reatives</a></li>
       </div>
       <div class="col-md-12">
-        <li><a href="{% url 'legal' %}"><span class="red">L</span>egal Documentation</a></li>
+        <li><a href="{% url 'legal' %}"><span class="pink">L</span>egal Documentation</a></li>
       </div>
 
       {% if request.user.is_authenticated %}
       <div class="col-md-12">
-        <li><a href="{{ request.user.profile.photographer.get_absolute_url }}"><span class="red">M</span>y Profile</a></li>
+        <li><a href="{{ request.user.profile.photographer.get_absolute_url }}"><span class="pink">M</span>y Profile</a></li>
       </div> 
       <div class="col-md-12">
-        <li><a href="{% url 'profile' %}"><span class="red">M</span>y Dashboard</a></li>
+        <li><a href="{% url 'profile' %}"><span class="pink">M</span>y Dashboard</a></li>
       </div> 
       <div class="col-md-12">
-        <li><a href="{% url 'auth_logout' %}"><span class="red">L</span>og Out</a></li>
+        <li><a href="{% url 'auth_logout' %}"><span class="pink">L</span>og Out</a></li>
       </div> 
       {% else %}
       <div class="col-md-12">
-        <li><a href="{% url 'auth_login' %}"><span class="red">P</span>hotographer Login</a></li>
+        <li><a href="{% url 'auth_login' %}"><span class="pink">P</span>hotographer Login</a></li>
       </div>
       {% endif %}
 
@@ -38,7 +38,7 @@
     <div id="footer_about" class="col-md-5 col-xs-10">
       <p>Fantastic headshots for $25!</p>
       <div class="small_padding"></div>
-      <p>Do you have questions? Email <a href="mailto:hello@brytephoto.com" target="_top" class="red">hello@brytephoto.com</a> or call us at 248-417-5852. Even if you just want to say Hi.</p>
+      <p>Do you have questions? Email <a href="mailto:hello@brytephoto.com" target="_top" class="pink">hello@brytephoto.com</a> or call us at 248-417-5852. Even if you just want to say Hi.</p>
     </div>
   </div>
   <div class="row" id="footer_copyright">
@@ -50,26 +50,26 @@
   <div class="medium_padding"></div>
   -->
 
-  <div class="large_padding">
+  <div class="large_padding white">
     <ul class="list-inline bold">
-      <li><a href="{% url 'photographers' %}"><span class="seeed_color red">P</span>hotographers</a></li>
-      <li><a href="{% url 'legal' %}"><span class="seeed_color red">L</span>egal Documentation</a></li>
+      <li><a href="{% url 'photographers' %}" class="white"><span class="pink">P</span>hotographers</a></li>
+      <li><a href="{% url 'legal' %}" class="white"><span class="pink">L</span>egal Documentation</a></li>
       {% if request.user.is_authenticated %}
-        <li><a href="{{ request.user.profile.photographer.get_absolute_url }}"><span class="seeed_color red">M</span>y Profile</a></li>
-        <li><a href="{% url 'profile' %}"><span class="seeed_color red">M</span>y Dashboard</a></li>
-        <li><a href="{% url 'auth_logout' %}"><span class="seeed_color red">L</span>og Out</a></li>
+        <li><a href="{{ request.user.profile.photographer.get_absolute_url }}" class="white"><span class="pink">M</span>y Profile</a></li>
+        <li><a href="{% url 'profile' %}" class="white"><span class="pink">M</span>y Dashboard</a></li>
+        <li><a href="{% url 'auth_logout' %}" class="white"><span class="pink">L</span>og Out</a></li>
       {% else %}
-        <li><a href="{% url 'auth_login' %}"><span class="seeed_color red">P</span>hotographer Login</a></li>
+        <li><a href="{% url 'auth_login' %}" class="white"><span class="pink">P</span>hotographer Login</a></li>
       {% endif %}
     </ul>
     <div class="medium_padding"></div>
     <div class="row">
       <div class="col-xs-8 col-xs-offset-0">
-      <p>Professional headshots for $20 <i class="fa fa-suitcase"></i></p>
-      <p>Do you have questions? Email <a href="mailto:hello@brytephoto.com" target="_top" class="seeed_color red">hello@brytephoto.com</a> or call us at 248-417-5852.</p>
+      <p>On location high quality headshots at unbelievable prices <i class="fa fa-suitcase"></i></p>
+      <p>Do you have questions? Email <a href="mailto:hello@brytephoto.com" target="_top" class="pink">hello@brytephoto.com</a> or call us at 248-417-5852.</p>
       </div>
     </div>
-    <p class="bold small_padding medium_padding_bot">Copyright © 2016 Bryte Photo, Inc.</p>
+    <div class="medium_padding"></div>
   </div>
 </footer>
 </div>

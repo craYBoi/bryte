@@ -10,13 +10,21 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="{% url 'home' %}"><img alt="Bryte Photo logo" src="{% static 'logo/bryte_logo_white.png' %}" width="120px" style="margin-top: 0px"></a>
-      <a class="navbar-brand" href="http://seeed.org" target="_blank"><img alt="Bryte Photo logo" src="{% static 'img/seeed_white.png' %}" width="180px" style="margin-top: 0px"></a>
+
+      {% if brown_careerlab %}
+        <a class="navbar-brand" href="{% url 'home' %}"><img alt="Bryte Photo logo" src="{% static 'logo/bryte_logo_white.png' %}" width="120px" style="margin-top: 0px"></a>
+        <a class="navbar-brand" href="https://www.brown.edu/" target="_blank"><img alt="Bryte Photo logo" src="{% static 'logo/brown_logo.png' %}" width="40px" style="margin-top: 0px"></a>
+        <a class="navbar-brand" href="https://www.brown.edu/campus-life/support/careerlab/" target="_blank"><img alt="Bryte Photo logo" src="{% static 'logo/careerLAB_logo.jpg' %}" width="198px" style="margin-top: 0px"></a>
+      {% else %}
+        <a class="navbar-brand" href="{% url 'home' %}"><img alt="Bryte Photo logo" src="{% static 'logo/bryte_logo_white.png' %}" width="120px" style="margin-top: 0px"></a>
+      {% endif %}
     </div>
 
     <div class="collapse navbar-collapse" id='bs-example-navbar-collapse-1'>
       <ul class="nav navbar-nav navbar-right">
-        <li class="bold small_padding_right"><a href="#index_past_work"><span class="white">Our Past Work</span></a></li>
+        <li class="bold small_padding_right">{% if brown_careerlab %}
+          <a href="#careerlab_gallery">{% else %}
+        <a href="#index_past_work">{% endif %}<span class="white">Our Past Work</span></a></li>
       </ul>
     </div>
   </div>

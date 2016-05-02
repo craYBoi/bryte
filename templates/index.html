@@ -3,7 +3,7 @@
 {% load crispy_forms_tags %}
 
 {% block description %}
-  <meta name="description" content="Custom and friendly headshot photography sessions for $20">
+  <meta name="description" content="High quality headshots at unbelievable prices">
 {% endblock %}
 
 {% block keywords %}
@@ -16,8 +16,8 @@
 {% endblock %}
 
 {% block jumbotron %}
-  <div class="offset"></div>
-  <div id="jumbotron" class="seeed_color_main red_bg"> 
+  <div id="jumbotron" class="red_bg"> 
+  <div class="medium_padding"></div>
 <!--<div class="jumbotron background_grey" id='jumbotron'>-->
   <!--
     <div class="medium_padding"></div>
@@ -59,7 +59,7 @@
         <div class="col-sm-6 medium_padding col-xs-10 col-xs-offset-1 col-sm-offset-0">
         <div class="small_padding"></div>
           {% if timeslots %}
-            <p class="big_font white"><span class="bold large_font background_white seeed_color red">Next Shoot @</span><br>{{ next_shoot.location }}<br>{{ next_shoot.time_format }}, 10:00 AM - 2:00 PM</p>
+            <p class="big_font white"><span class="bold large_font background_white red">Next Shoot @</span><br>{{ next_shoot.location }}<br>{{ next_shoot.time_format }}, 10:00 AM - 2:00 PM</p>
 
             <p class="white large_font">****** Come by and take a headshot! ******</p>
 
@@ -102,7 +102,7 @@
               {% endif %}
               <input type='hidden' name='book_photographer' value='{{ next_shoot.photographer.pk }}'>
               <div class="small_padding"></div>
-              <button class="btn-white bold large_font seeed_color" id="pay_button" type='submit'>Pay $20</button>
+              <button class="btn-white bold large_font" id="pay_button" type='submit'>Pay $20</button>
               <p class="text-left small_padding">(Only {{ timeslots.count }} time {% if timeslots.count == 1 %}
                 slot
               {% else %}
@@ -117,7 +117,7 @@
           <form method="POST" action="{% url 'book_signup' %}" class="signup_form white">{% csrf_token %}
             <input type='email' name='signup_email' class="form-control" id='signup_email' required pattern='\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\b' placeholder='Email'>
             <div class="small_padding"></div>
-            <button class="btn-white bold large_font seeed_color" id="signup_button" type='submit'>Signup</button>
+            <button class="btn-white bold large_font" id="signup_button" type='submit'>Signup</button>
           </form>
           </div>
         </div>
@@ -151,10 +151,10 @@
 
 {% block testimonial %}
   <!-- Testimonials -->
-  <div id="home_testimonial" class="droid_serif seeed_color_tertiary bottom_border">
+  <div id="home_testimonial" class="droid_serif bottom_border">
     <div class="medium_padding"></div>
     <div class="row">
-    <div class="container large_font col-xs-10 col-xs-offset-1 seeed_color_dark">
+    <div class="container large_font col-xs-10 col-xs-offset-1">
       <p><span class="big_font bold">" </span>Bryte is easy, quick, very friendly, approachable and affordable. <br>&nbsp&nbsp&nbsp&nbspBeing a college student and I’m broke. But still very high quality!<span class="big_font bold"> "</span></p>
       <p class="pull-right">--- Travis</p>
     </div>
@@ -169,7 +169,7 @@
   <div id="content_advantages">
     <div id="features">
 
-      <div class="seeed_color_four background_light_pink">
+      <div class="background_light_pink">
         <div class="medium_padding"></div>
         <div class="container" id='index_past_work'>
 
@@ -189,7 +189,7 @@
       </div>
 
 
-      <div class="seeed_color_secondary background_pink large_font">
+      <div class="background_pink large_font">
         <div class="container small_padding_bot medium_padding">
           <h2 class="feature_title text-center bold">How it Works</h2>
           <div class="row small_padding">
@@ -220,14 +220,14 @@
             </div>
           </div>
           <div class="large_padding"></div>
-          <p class="text-center small_padding small_font">Do you have questions? Email us @ <a href="mailto:hello@brytephoto.com" target="_top" class="seeed_color red">hello@brytephoto.com</a> or Call us at 248-417-5852 for more information</p>
+          <p class="text-center small_padding small_font">Do you have questions? Email us @ <a href="mailto:hello@brytephoto.com" target="_top" class="red">hello@brytephoto.com</a> or Call us at 248-417-5852 for more information</p>
         </div>
         <div class="small_padding"></div>
       </div>
 
 
 
-      <div id="home_tent" class="seeed_color_tertiary"> 
+      <div id="home_tent"> 
         <div class="row">
           <div class="col-md-7">
           <img src="{% static 'img/tent.jpg' %}" class="img-responsive">
@@ -236,7 +236,7 @@
           <div class="col-md-5">
             <div class="col-xs-10 col-xs-offset-1">
             <div class="small_padding"></div>
-            <h3 class="seeed_color_dark bold text-center">Custom and friendly headshot session</h3>
+            <h3 class="bold text-center">Custom and friendly headshot session</h3>
             <div class="small_padding"></div>
             <p>During every headshot session, we invite friendly and professional photographer to shoot your headshot. Pick you favorite picture with the photographer and we will make sure to deliver the best quality to you.</p>
             <div class="medium_padding"></div>
@@ -249,7 +249,7 @@
 
 
       {% if timeslots %}
-        <div class="large_padding large_padding_bot seeed_color_main red_bg white">
+        <div class="large_padding large_padding_bot red_bg white">
           <div class="row">
           <h3 class="text-center bold big_font col-xs-10 col-xs-offset-1">Can't make it to our event?</h3>
           <p class="text-center col-xs-8 col-xs-offset-2 small_padding">Don't worry! We are holding another event soon! Drop us your email to get notified!</p>
@@ -261,7 +261,7 @@
           <form method="POST" action="{% url 'book_signup' %}" class="book_form white">{% csrf_token %}
             <input type='email' name='signup_email' class="form-control" id='signup_email' required pattern='\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\b' placeholder="Email">
             <div class="small_padding"></div>
-            <button class="seeed_color btn-white large_font signup_button_white" id="signup_button" type='submit'>Signup!</button>
+            <button class="btn-white large_font signup_button_white" id="signup_button" type='submit'>Signup!</button>
           </form>
           </div>          
           </div>
@@ -366,6 +366,7 @@
 var csrftoken = getCookie('csrftoken');
   </script>
 {% endblock %}
+
 {% block jquery %}
     // modal 
     $("#modal_link").animatedModal({

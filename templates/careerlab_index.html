@@ -1,0 +1,301 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block description %}
+  <meta name="description" content="On location high quality headshots at unbelievable prices">
+{% endblock %}
+
+{% block keywords %}
+  <meta name='keywords' content="headshot, photo, photography, on location, quality, affordable, profile">
+{% endblock %}
+
+{% block stylesheet %}
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.min.css">
+  <link rel="stylesheet" href="{% static 'css/unslider.css' %}">
+{% endblock %}
+
+
+{% block content %}
+	
+	<div class="offset"></div>
+  <div id="jumbotron" class="top_border red_bg"> 
+    <div class="medium_padding"></div>
+    <h1 class="white text-center main_title col-xs-10 col-xs-offset-1">Free headshots from the Brown CareerLab!</span></h1>
+    <div class="container">
+
+      <!--<div class="row">-->
+
+        <!--<div class="col-sm-6 medium_padding col-xs-10 col-xs-offset-1 col-sm-offset-0">-->
+        <div class="col-xs-10 col-xs-offset-1 text-center">
+
+        <div class="medium_padding"></div>
+          {% if timeslots %}
+            <p class="big_font white"><span class="bold large_font background_white red">Next Shoot @</span><br>Brown CareerLab<br>{{ next_shoot.location }}{{ next_shoot.time_format }}1:30 PM - 3:30 PM</p>
+          {% else %}
+            <p class="sbig_font white"><span class="bold">All the slots were booked!</span><br></p>
+              
+            <p class="large_font white">Drop us your email and we'll let you know when the next session is available for booking :)</p>
+          {% endif %}
+          <div class="small_padding"></div>
+        </div>
+
+
+        <!--<div class="col-sm-5 col-sm-offset-1 col-xs-10 col-xs-offset-1  medium_padding">-->
+        <div class="col-xs-10 col-xs-offset-1">
+        <div class="small_padding"></div>
+        <div class="white_border special_padding signup_form">
+        {% if timeslots %}
+        <div id="book_form">
+          <h3 class="bold white xsmall_padding">Sign up for a free headshot!</h3>
+          <div class="xsmall_padding"></div>
+          <div class="text-center">
+          <form method="POST" action="{% url 'careerlab_book' %}" class=" white">{% csrf_token %}
+          	<input type='text' name='careerlab_book_name' class="form-control" id='careerlab_book_name' required pattern="[a-zA-Z]{2,}(\s+[a-zA-z]{2,})+" placeholder='First & Last Name'>
+          	<div class="small_padding"></div>
+            <input type='email' name='careerlab_book_email' class="form-control" id='careerlab_book_email' required pattern='\b[a-zA-Z0-9._%+-]+@brown.edu\b' placeholder='Brown University email' oninvalid="this.setCustomValidity('Please use your Brown University email address')" onchange="try{setCustomValidity('')}catch(e){}">
+            <div class="small_padding"></div>
+            <select required name='careerlab_book_time' class="form-control" id='careerlab_book_time'>
+              {% for timeslot in timeslots %}
+                <option value='{{ timeslot.pk }}'>{{ timeslot.time_slot_format }}</option>
+              {% endfor %}
+            </select>
+            <div class="small_padding"></div>
+            <button class="btn-white bold large_font" id="careerlab_book_button" type='submit'>Signup</button>
+            <div class="small_padding"></div>
+          </form>
+          </div>
+        </div>
+
+
+        {% else %}
+        <div id="signup_form" class="signup_form">
+          <h3 class="bold white xsmall_padding">Sign up for the careerlab!</h3>
+          <div class="xsmall_padding"></div>
+          <div class="text-center">
+          <form method="POST" action="{% url 'careerlab_signup' %}" class="white">{% csrf_token %}
+          	<input type='text' name='careerlab_signup_name' class="form-control" id='careerlab_signup_name' required pattern="[a-zA-Z]{2,}(\s+[a-zA-z]{2,})+" placeholder='First & Last Name'>
+          	<div class="small_padding"></div>
+            <input type='email' name='careerlab_signup_email' class="form-control" id='careerlab_signup_email' required pattern='\b[a-zA-Z0-9._%+-]+@brown.edu\b' placeholder='Brown University Email' oninvalid="this.setCustomValidity('Please use your Brown University email address')" onchange="try{setCustomValidity('')}catch(e){}">
+            <div class="small_padding"></div>
+            <button class="btn-white bold large_font" id="careerlab_signup_button" type='submit'>Signup</button>
+            <div class="small_padding"></div>
+          </form>
+          </div>
+        </div>
+
+        {% endif %}
+
+        </div> 
+        </div>
+
+      <!--</div>-->
+    </div>
+    <div class="large_padding"></div>
+  </div>
+
+  <div class="medium_padding"></div>
+
+  <div class="row">
+  <div class="col-xs-10 col-xs-offset-1">
+  <div id="careerlab_gallery">
+  	<h2 class="bold text-center feature_title red">Our Past Work</h2>
+  	<div class="medium_padding"></div>
+  	<div class="slider">
+  		<div class="text-center">
+	  	<ul>
+	  		<li><img src="{% static 'img/headshots/val1.jpg' %}" height='400px'></li>
+	  		<li><img src="{% static 'img/headshots/matt1.jpg' %}" height='400px'></li>
+	  		<li><img src="{% static 'img/headshots/travis1.jpg' %}" height='400px'></li>
+	  		<li><img src="{% static 'img/headshots/visona1.jpg' %}" height='400px'></li>
+	  		<li><img src="{% static 'img/headshots/marta1.jpg' %}" height='400px'></li>
+	  		<li><img src="{% static 'img/headshots/cameron1.jpg' %}" height='400px'></li>
+	  	</ul>
+	  	</div>
+  	</div>
+  </div>
+  </div>
+  </div>
+
+  <div class="large_padding"></div>
+
+
+  <div class="background_pink large_font">
+    <div class="container small_padding_bot medium_padding">
+      <h2 class="feature_title text-center bold">How it Works</h2>
+      <div class="row small_padding">
+        <div class="col-xs-12">
+          <div class="row">
+
+            <div class="col-sm-4 text-center">
+              <img src="{% static 'img/process1.png' %}" class="img-responsive"> 
+              <div class="medium_padding"></div>
+              <h3 class="bold big_font">Book</h3>
+              <p class="col-xs-10 col-xs-offset-1 small_padding small_lh text-left small_font ">Choose a time that works for you. We'll send you an email to confirm your booking.</p>
+            </div>   
+
+            <div class="col-sm-4 text-center">
+              <img src="{% static 'img/process2.png' %}" class="img-responsive"> 
+              <div class="medium_padding"></div>
+              <h3 class="bold big_font">Smile</h3>
+              <p class="col-xs-10 col-xs-offset-1 small_padding small_lh text-left small_font">Come to the shoot 5 minutes before your 15 minute time slot is scheduled to begin.  Each person in your timeslot will have 3 with the photographer.</p>
+            </div>  
+
+            <div class="col-sm-4 text-center">
+              <img src="{% static 'img/process3.png' %}" class="img-responsive"> 
+              <div class="medium_padding"></div>
+              <h3 class="bold big_font">Receive</h3>
+              <p class="col-xs-10 col-xs-offset-1 small_padding small_lh text-left small_font">Your photographer will work Photoshop magic to touch up the best photo from your session.  You'll receive digital copies of the touched up version and original within 48 hours</p>
+            </div>  
+          </div>
+        </div>
+      </div>
+      <div class="large_padding"></div>
+      <p class="text-center small_padding small_font">Do you have questions? Email us @ <a href="mailto:hello@brytephoto.com" target="_top" class="red">hello@brytephoto.com</a> or Call us at 248-417-5852 for more information</p>
+    </div>
+    <div class="small_padding"></div>
+  </div>
+
+
+<!-- modal -->
+<a id="modal_link" href="#animatedModal" hidden></a>
+<div id="animatedModal">
+  <!--THIS IS IMPORTANT! to close the modal, the class name has to match the name given on the ID  class="close-animatedModal" -->
+  <div class="close-animatedModal text-center" id="modal_close_link"> 
+      <div class="medium_padding"></div>
+      <a href="" class="modal_close white xbig_font"><i class="fa fa-times-circle-o"></i></a>
+  </div>
+
+  <div class="white text-center medium_padding large_font">      
+  <p id="modal_content"></p>
+  </div>
+</div>
+
+
+<!-- loader -->
+<div id="loader-wrapper" hidden>
+  <div id="loader" class="text-center"><img src="{% static 'logo/loading.svg' %}" width="140px"></div>
+</div>
+{% endblock %}
+
+{% block script %}
+	<script src="{% static 'js/animatedModal.min.js' %}"></script>
+	<script src="{% static 'js/unslider-min.js' %}"></script>
+  <script type="text/javascript">
+  function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+var csrftoken = getCookie('csrftoken');
+  </script>
+{% endblock %}
+
+
+{% block jquery %}
+		// slider
+		$('.slider').unslider({
+			autoplay: true,
+			speed: 500,
+			infinite: true,
+		});
+
+
+    // modal 
+    $("#modal_link").animatedModal({
+      animatedIn: 'zoomInUp',
+      animatedOut: 'bounceOutDown',
+      color: '#c94848'
+    });
+
+    $('#modal_close_link').click(function(){
+      location.reload();
+    })
+
+
+    .ajaxStart(function () {
+      $("#loader-wrapper").show();
+    })
+
+    .ajaxStop(function () {
+      $("#loader-wrapper").hide();
+    });
+
+    var csrftoken = getCookie('csrftoken');
+
+    function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+
+
+    $('#careerlab_book_button').on('click', function(e){
+      if (document.getElementById('careerlab_book_email').checkValidity() && document.getElementById('careerlab_book_name').checkValidity() && document.getElementById('careerlab_book_time').checkValidity()){
+        $("#loader-wrapper").show();    
+        $.ajax({
+          url: '{% url "careerlab_book" %}',
+          type: 'POST',
+          data: {
+          	name: $('#careerlab_book_name').val(),
+            email: $('#careerlab_book_email').val(),
+            time: $('#careerlab_book_time').val(),
+          },
+
+          success: function(data){
+            $("#modal_content").html(data['msg'])
+            $("#modal_link").trigger('click')
+          },
+
+          failure: function(data){
+            $("#modal_content").html('Something wrong happened, please try again. Thanks!')
+            $("#modal_link").trigger('click')
+          }
+        });
+        e.preventDefault();
+      }
+    });
+
+    $('#careerlab_signup_button').on('click', function(e){
+      if (document.getElementById('careerlab_signup_email').checkValidity() && document.getElementById('careerlab_signup_name').checkValidity()){
+        $("#loader-wrapper").show();    
+        $.ajax({
+          url: '{% url "careerlab_signup" %}',
+          type: 'POST',
+          data: {
+          	name: $('#careerlab_signup_name').val(),
+            email: $('#careerlab_signup_email').val(),
+          },
+
+          success: function(data){
+            $("#modal_content").html(data['msg'])
+            $("#modal_link").trigger('click')
+          },
+
+          failure: function(data){
+            $("#modal_content").html('Something wrong happened, please try again. Thanks!')
+            $("#modal_link").trigger('click')
+          }
+        });
+        e.preventDefault();
+      }
+    });
+
+{% endblock %}
