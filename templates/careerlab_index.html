@@ -50,7 +50,7 @@
           <div class="xsmall_padding"></div>
           <div class="text-center">
           <form method="POST" action="{% url 'careerlab_book' %}" class=" white">{% csrf_token %}
-          	<input type='text' name='careerlab_book_name' class="form-control" id='careerlab_book_name' required pattern="[a-zA-Z]{2,}(\s+[a-zA-z]{2,})+" placeholder='First & Last Name'>
+          	<input type='text' name='careerlab_book_name' class="form-control" id='careerlab_book_name' required pattern="[a-zA-Z.]{2,}(\s+[a-zA-z.]{2,})+" placeholder='First & Last Name'>
           	<div class="small_padding"></div>
             <input type='email' name='careerlab_book_email' class="form-control" id='careerlab_book_email' required pattern='\b[a-zA-Z0-9._%+-]+@brown.edu\b' placeholder='Brown University email' oninvalid="this.setCustomValidity('Please use your Brown University email address')" onchange="try{setCustomValidity('')}catch(e){}">
             <div class="small_padding"></div>
