@@ -22,20 +22,20 @@ class Nextshoot(models.Model):
 	def __unicode__(self):
 		return self.location + ' - ' + self.photographer.get_full_name()
 
-	# def send_reminder(self):
-	# 	email_list = [e.email for elem in self.timeslot_set.all() for e in elem.booking_set.all()]
-	# 	try:
-	# 		send_mail('Test', 'This is the test msg', settings.EMAIL_HOST_USER, email_list, fail_silently=False)
-	# 	except Exception, e:
-	# 		print 'Email not sent'
-	# 		pass
+	def send_reminder(self):
+		email_list = [e.email for elem in self.timeslot_set.all() for e in elem.booking_set.all()]
+		try:
+			send_mail('Test', 'This is the test msg', settings.EMAIL_HOST_USER, email_list, fail_silently=False)
+		except Exception, e:
+			print 'Email not sent'
+			pass
 
 
 class Timeslot(models.Model):
 	time = models.DateTimeField()
 	is_available = models.BooleanField(default=True)
 	current_volumn = models.PositiveSmallIntegerField(default=0)
-	# shoot = models.ForeignKey(Nextshoot, default=Nextshoot.objects.first().pk)
+	shoot = models.ForeignKey(Nextshoot, default=Nextshoot.objects.first().pk)
 
 	def __unicode__(self):
 		return self.time.strftime('%m/%d/%Y %I:%M %p')
