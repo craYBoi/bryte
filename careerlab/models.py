@@ -11,6 +11,15 @@ from photographer.models import Photographer
 
 # Create your models here.
 
+class Signup(models.Model):
+	email = models.EmailField()
+	name = models.CharField(max_length=120)
+	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
+
+	def __unicode__(self):
+		return self.name + ' ' + self.email
+
+
 class Nextshoot(models.Model):
 	photographer = models.ForeignKey(Photographer, related_name='nextshoot_photographer')
 	location = models.CharField(max_length=100)
@@ -34,6 +43,28 @@ class Nextshoot(models.Model):
 		except Exception, e:
 			print 'Email not sent'
 			pass
+
+	def send_replacement(self):
+		max_volumn = 5
+		timeslots = self.timeslot_set.all()
+		num_slots_available = max_volumn * len(timeslots) - sum(e.current_volumn for e in timeslots)
+		
+		num_ppl_to_notify = 10 * num_slots_available
+		signups = Signup.objects.order_by('timestamp')
+		if len(signups) > num_ppl_to_notify:
+			signups = signups[:num_ppl_to_notify]
+
+		for e in signups:
+			name = e.name
+			email = e.email
+			title = 'New headshot slots available!'
+			msg = 'Hi ' + name + ',\n\nGreat news! There are now ' + str(num_slots_available) + ' headshots slots available! Sign up before everyone else here:\n\nwww.brytephoto.com/CareerLAB\n\nBest, \nCareerLAB and the Bryte Photo Team'
+
+			try:
+				send_mail(title, msg, 'Bryte Photo and CareerLAB <' + settings.EMAIL_HOST_USER + '>', [email], fail_silently=False)
+			except Exception, e:
+				raise e
+
 
 
 class Timeslot(models.Model):
@@ -81,12 +112,6 @@ class Booking(models.Model):
 		return self.name + ' ' + self.email + ' ' + str(self.timeslot)
 
 
-class Signup(models.Model):
-	email = models.EmailField()
-	name = models.CharField(max_length=120)
-	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
 
-	def __unicode__(self):
-		return self.name + ' ' + self.email
 
 
