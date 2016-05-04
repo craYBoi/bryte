@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'registration',
     'django_twilio',
     'stripe',
+    'import_export',
 
     'newsletter',
     'book',
