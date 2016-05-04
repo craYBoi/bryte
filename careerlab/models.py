@@ -23,9 +23,14 @@ class Nextshoot(models.Model):
 		return self.location + ' - ' + self.photographer.get_full_name()
 
 	def send_reminder(self):
-		email_list = [e.email for elem in self.timeslot_set.all() for e in elem.booking_set.all()]
+		email_list = [e for elem in self.timeslot_set.all() for e in elem.booking_set.all()]
 		try:
-			send_mail('Test', 'This is the test msg', settings.EMAIL_HOST_USER, email_list, fail_silently=False)
+			for e in email_list:
+				name = e.name 
+				title = 'Your Free Headshot at CareerLAB'
+				msg = 'Hi ' + name + ',\n\nThis is a reminder that you have booked a free headshot session tomorrow, Wednesday, May, 3rd at ' + str(e.timeslot) + '.\n\nWe look forward to seeing you at the shoot! Arrive 5 minutes before your scheduled time slot is set to begin. You will have 3 minutes to take your headshot since we are fully booked for tomorrow. If you can\'t make it, please respond to this email letting us know.\n\nBest,\nCareerLAB and the Bryte Photo Team'
+				send_mail('Your Free Headshot at CareerLAB', msg, 'Bryte Photo and CareerLAB <' + settings.EMAIL_HOST_USER + '>', [e.email], fail_silently=False)
+			# send_mail('Test', 'This is the test msg', settings.EMAIL_HOST_USER, email_list, fail_silently=False)
 		except Exception, e:
 			print 'Email not sent'
 			pass
@@ -64,7 +69,6 @@ class Timeslot(models.Model):
 	def reset(self):
 		self.is_available = True
 		self.current_volumn = 0
-
 
 
 class Booking(models.Model):
