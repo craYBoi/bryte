@@ -60,8 +60,8 @@ class Nextshoot(models.Model):
 		for e in signups:
 			name = e.name
 			email = e.email
-			title = 'New headshot slots available!'
-			msg = 'Hi ' + name + ',\n\nGreat news! There are now ' + str(num_slots_available) + ' headshots slots available! Sign up before everyone else here:\n\nwww.brytephoto.com/CareerLAB\n\nBest, \nCareerLAB and the Bryte Photo Team'
+			title = 'New headshot sessions available!'
+			msg = 'Hi ' + name + ',\n\nGreat news! There are now ' + str(num_slots_available) + ' headshots sessions available! Sign up before everyone else here:\n\nwww.brytephoto.com/CareerLAB\n\nBest, \nCareerLAB and the Bryte Photo Team'
 
 			try:
 				send_mail(title, msg, 'Bryte Photo and CareerLAB <' + settings.EMAIL_HOST_USER + '>', [email], fail_silently=False)
