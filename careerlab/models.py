@@ -33,16 +33,19 @@ class Nextshoot(models.Model):
 
 	def send_reminder(self):
 		email_list = [e for elem in self.timeslot_set.all() for e in elem.booking_set.all()]
-		try:
-			for e in email_list:
-				name = e.name 
-				title = 'Your Free Headshot at CareerLAB'
-				msg = 'Hi ' + name + ',\n\nThis is a reminder that you have booked a free headshot session tomorrow, Wednesday, May, 3rd at ' + str(e.timeslot) + '.\n\nWe look forward to seeing you at the shoot! Arrive 5 minutes before your scheduled time slot is set to begin. You will have 3 minutes to take your headshot since we are fully booked for tomorrow. If you can\'t make it, please respond to this email letting us know.\n\nBest,\nCareerLAB and the Bryte Photo Team'
+		
+		for e in email_list:
+			name = e.name 
+			title = 'Your Free Headshot at CareerLAB'
+			msg = 'Hi ' + name + ',\n\nThis is a reminder that you have booked a free headshot session tomorrow, Wednesday, May, 3rd at ' + str(e.timeslot) + '.\n\nWe look forward to seeing you at the shoot! Arrive 5 minutes before your scheduled time slot is set to begin. You will have 3 minutes to take your headshot since we are fully booked for tomorrow. If you can\'t make it, please respond to this email letting us know.\n\nBest,\nCareerLAB and the Bryte Photo Team'
+			try:
 				send_mail('Your Free Headshot at CareerLAB', msg, 'Bryte Photo and CareerLAB <' + settings.EMAIL_HOST_USER + '>', [e.email], fail_silently=False)
-			# send_mail('Test', 'This is the test msg', settings.EMAIL_HOST_USER, email_list, fail_silently=False)
-		except Exception, e:
-			print 'Email not sent'
-			pass
+		# send_mail('Test', 'This is the test msg', settings.EMAIL_HOST_USER, email_list, fail_silently=False)
+			except Exception, e:
+				raise e
+			else:
+				print '[SENT] ' + e.email
+
 
 	def send_replacement(self):
 		max_volumn = 5
@@ -64,6 +67,8 @@ class Nextshoot(models.Model):
 				send_mail(title, msg, 'Bryte Photo and CareerLAB <' + settings.EMAIL_HOST_USER + '>', [email], fail_silently=False)
 			except Exception, e:
 				raise e
+			else:
+				print '[SENT] ' + email
 
 
 
