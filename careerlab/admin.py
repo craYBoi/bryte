@@ -11,7 +11,7 @@ class BookingAdmin(ImportExportModelAdmin):
 	pass
 
 class TimeslotAdmin(admin.ModelAdmin):
-	list_display = ['id', 'time', 'current_volumn']
+	list_display = ['id', 'time', 'shoot','current_volumn']
 
 
 admin.site.register(Timeslot, TimeslotAdmin)
