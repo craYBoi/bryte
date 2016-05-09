@@ -4,19 +4,24 @@ from django.db import models
 from django.utils import timezone
 from django.core.mail import send_mail
 from django.conf import settings
+from django.shortcuts import get_object_or_404
+from django.core.urlresolvers import reverse
 
-
+from uuid import uuid4
 from datetime import datetime
 from photographer.models import Photographer
 
 import os
 import dropbox
 
-# Create your models here.
+# max sessions per time slot
+MAX_VOLUMN = 4
+
 
 class Signup(models.Model):
 	email = models.EmailField()
 	name = models.CharField(max_length=120)
+	notified = models.BooleanField(default=False)
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
 
 	def __unicode__(self):
@@ -35,12 +40,12 @@ class Nextshoot(models.Model):
 		return self.location + ' - ' + self.photographer.get_full_name()
 
 	def send_reminder(self):
-		email_list = [e for elem in self.timeslot_set.all() for e in elem.booking_set.all()]
+		email_list = [e for elem in self.timeslot_set.filter(active=True) for e in elem.booking_set.all()]
 		
 		for e in email_list:
 			name = e.name 
 			title = 'Your Free Headshot at CareerLAB'
-			msg = 'Hi ' + name + ',\n\nThis is a reminder that you have booked a free headshot session tomorrow, Wednesday, May, 3rd at ' + str(e.timeslot) + '.\n\nWe look forward to seeing you at the shoot! Arrive 5 minutes before your scheduled time slot is set to begin. You will have 3 minutes to take your headshot since we are fully booked for tomorrow. If you can\'t make it, please respond to this email letting us know.\n\nBest,\nCareerLAB and the Bryte Photo Team.'
+			msg = 'Hi ' + name + ',\n\nThis is a reminder that you have booked a free headshot session tomorrow, Wednesday, May, 3rd at ' + str(e.timeslot) + '.\n\nWe look forward to seeing you at the shoot! Arrive 5 minutes before your scheduled time slot is set to begin. You will have 3 minutes to take your headshot since we are fully booked for tomorrow. If you can\'t make it, click the link below to cancel the headshot session:\n' + e.generate_cancel_link() +'\n\nBest,\nCareerLAB and the Bryte Photo Team.'
 			try:
 				send_mail('Your Free Headshot at CareerLAB', msg, 'Bryte Photo and CareerLAB <' + settings.EMAIL_HOST_USER + '>', [e.email], fail_silently=False)
 		# send_mail('Test', 'This is the test msg', settings.EMAIL_HOST_USER, email_list, fail_silently=False)
@@ -51,12 +56,12 @@ class Nextshoot(models.Model):
 
 
 	def send_replacement(self):
-		max_volumn = 5
-		timeslots = self.timeslot_set.all()
-		num_slots_available = max_volumn * len(timeslots) - sum(e.current_volumn for e in timeslots)
-		
+		timeslots = self.timeslot_set.filter(active=True)
+		num_slots_available = MAX_VOLUMN * len(timeslots) - sum(e.current_volumn for e in timeslots)
+
 		num_ppl_to_notify = 10 * num_slots_available
-		signups = Signup.objects.order_by('timestamp')
+		signups = Signup.objects.filter(notified=False).order_by('timestamp')
+
 		if len(signups) > num_ppl_to_notify:
 			signups = signups[:num_ppl_to_notify]
 
@@ -65,6 +70,24 @@ class Nextshoot(models.Model):
 			email = e.email
 			title = 'New headshot sessions available!'
 			msg = 'Hi ' + name + ',\n\nGreat news! There are now ' + str(num_slots_available) + ' headshots sessions available! We are shooting this afternoon between 130-330. Book your session here:\n\nwww.brytephoto.com/CareerLAB\n\nBest, \nCareerLAB and the Bryte Photo Team'
+			try:
+				send_mail(title, msg, 'Bryte Photo and CareerLAB <' + settings.EMAIL_HOST_USER + '>', [email], fail_silently=False)
+			except Exception, e:
+				raise e
+			else:
+				e.notified = True
+				e.save()
+				print '[SENT] ' + email
+
+
+	def notify_all(self):
+		signups = Signup.objects.filter(notified=False).order_by('timestamp')
+
+		for e in signups:
+			name = e.name
+			email = e.email
+			title = 'New headshot sessions available!'
+			msg = 'Hi ' + name + ',\n\nGreat news! A new headshot session will be held this Friday, May 13th at Brown CareerLAB. We will be shooting between 12:30pm - 3:30pm. Book your session here:\n\nwww.brytephoto.com/CareerLAB\n\nBest, \nCareerLAB and the Bryte Photo Team'
 			try:
 				send_mail(title, msg, 'Bryte Photo and CareerLAB <' + settings.EMAIL_HOST_USER + '>', [email], fail_silently=False)
 			except Exception, e:
@@ -98,34 +121,36 @@ class Nextshoot(models.Model):
 
 
 
-
 class Timeslot(models.Model):
 	time = models.DateTimeField()
 	is_available = models.BooleanField(default=True)
 	current_volumn = models.PositiveSmallIntegerField(default=0)
-	shoot = models.ForeignKey(Nextshoot, default=Nextshoot.objects.first().pk)
+	shoot = models.ForeignKey(Nextshoot, default=Nextshoot.objects.last().pk)
+	active = models.BooleanField(default=False)
 
 	def __unicode__(self):
 		return self.time.strftime('%m/%d/%Y %I:%M %p')
 
 	def time_slot_format(self):
 		time_format =  self.time.strftime('%I:%M %p')
-		slot_left = ' ------ ' + str(5 - self.current_volumn) + '/5 slots left'
-		time_format += slot_left
+
+		# overbook trick
+		slot_left = min(MAX_VOLUMN - 1, MAX_VOLUMN - self.current_volumn) 
+
+		slot_left_str = ' ------ ' + str(slot_left) + '/3 slots left'
+		time_format += slot_left_str
 		if time_format[0] == '0':
 			return time_format[1:]
 		return time_format
 
 	def increment(self):
-		max_volumn = 5
-
 		# this should not be happening
 		if not self.is_available:
 			print 'this should not be happening'
 
-		if self.current_volumn < max_volumn and self.is_available:
+		if self.current_volumn < MAX_VOLUMN and self.is_available:
 			self.current_volumn += 1
-			if self.current_volumn == max_volumn:
+			if self.current_volumn == MAX_VOLUMN:
 				self.is_available = False
 			self.save()
 
@@ -133,17 +158,37 @@ class Timeslot(models.Model):
 		self.is_available = True
 		self.current_volumn = 0
 
+	def restore_slot(self):
+		self.is_available = True
+		self.current_volumn -= 1
+		self.save()
+
+
 
 class Booking(models.Model):
 	email = models.EmailField()
 	name = models.CharField(max_length=120)
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
 	timeslot = models.ForeignKey(Timeslot)
+	hash_id = models.CharField(max_length=50, default='default')
 
 	def __unicode__(self):
 		return self.name + ' ' + self.email + ' ' + str(self.timeslot)
 
+	# override save to add hashid upon creation
+	def save(self, *args, **kwargs):
+		self.hash_id = uuid4()
+		super(Booking, self).save(*args, **kwargs)
 
+	def cancel_order(self):
+		ts_pk = self.timeslot.pk
+		ts = get_object_or_404(Timeslot, pk=ts_pk)
+		
+		# open up 1 slot 
+		ts.restore_slot()
+		self.delete()
 
+	def generate_cancel_link(self):
+		return settings.SITE_URL + reverse('careerlab_cancel_order') + '?order_id=' + str(self.hash_id)
 
 
