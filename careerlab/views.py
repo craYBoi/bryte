@@ -68,21 +68,21 @@ def signup(request):
 
 		email = request.POST.get('email')
 		name = request.POST.get('name')
+		data = {}
 
-		try:
-			s = Signup.objects.create(
-				email = email,
-				name = name,
-				)
-		except Exception, e:
-			print e
-			data = {'msg': 'There\'s an error signing up. Please try again.'}
-			return HttpResponse(json.dumps(data), content_type='application/json')
-
-
-		data = {
-			'msg': 'Thanks for signing up ' + str(name) + '. We will notify you for the next headshot session!<br><br>Team Bryte Photo',
-		}
+		if email in [signup.email for signup in Signup.objects.all()]:
+			data['msg'] = 'You have already signed up!<br>We will notify at ' + str(email) + ' whenever next headshot session is available!<br><br>Thanks!<br>Team Bryte Photo'
+		else:
+			try:
+				s = Signup.objects.create(
+					email = email,
+					name = name,
+					)
+			except Exception, e:
+				print e
+				data['msg'] = 'There\'s an error signing up. Please try again.'
+			else:
+				data['msg'] = 'Thanks for signing up ' + str(name) + '. We will notify you for the next headshot session!<br><br>Team Bryte Photo'
 
 		return HttpResponse(json.dumps(data), content_type='application/json')
 	else:
