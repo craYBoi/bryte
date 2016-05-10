@@ -44,10 +44,10 @@ class Nextshoot(models.Model):
 		
 		for e in email_list:
 			name = e.name 
-			title = 'Your Free Headshot at CareerLAB'
-			msg = 'Hi ' + name + ',\n\nThis is a reminder that you have booked a free headshot session tomorrow, Wednesday, May, 3rd at ' + str(e.timeslot) + '.\n\nWe look forward to seeing you at the shoot! Arrive 5 minutes before your scheduled time slot is set to begin. You will have 3 minutes to take your headshot since we are fully booked for tomorrow. If you can\'t make it, click the link below to cancel the headshot session:\n' + e.generate_cancel_link() +'\n\nBest,\nCareerLAB and the Bryte Photo Team.'
+			title = 'Bryte Photo Headshot today!'
+			msg = 'Hi ' + name + ',\n\nThis email is to remind you about your free Bryte Photo headshot Friday at ' + str(e.timeslot) + '.The shoot will take place at CareerLAB.\n\nWe look forward to seeing you at the shoot! Please refer to the Bryte Photo Headshot Tips to prepare.\n\nIf you can no longer make it to your headshot, please cancel here\n' + e.generate_cancel_link() +'\n\nWe have a long waitlist so please let us know if you cannot make it!!\n\nBest,\nCareerLAB and the Bryte Photo Team.'
 			try:
-				send_mail('Your Free Headshot at CareerLAB', msg, 'Bryte Photo and CareerLAB <' + settings.EMAIL_HOST_USER + '>', [e.email], fail_silently=False)
+				send_mail(title, msg, 'Bryte Photo and CareerLAB <' + settings.EMAIL_HOST_USER + '>', [e.email], fail_silently=False)
 		# send_mail('Test', 'This is the test msg', settings.EMAIL_HOST_USER, email_list, fail_silently=False)
 			except Exception, e:
 				raise e

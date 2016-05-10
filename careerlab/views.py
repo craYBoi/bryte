@@ -51,7 +51,7 @@ def book(request):
 		}
 
 		# send the email confirmation
-		msg_body = "Hi " + str(name) + ",\n\nYou\'ve book a headshot session at " + str(timeslot) + ". Congratulations for your free headshot! \n\nShow up to the CareerLAB 5 min. before your 15 min. timeslot is scheduled to begin. You'll have 3 minutes with your photographer, so make sure not to be late.\n\nIf you have any questions between now and your headshot session, shoot us an email at hello@brytephoto.com.\n\nYou can cancel the headshot session anytime by clicking the following link:\n" + b.generate_cancel_link() + "\n\nThanks, \nCareerLAB and Bryte Photo"
+		msg_body = "Hi " + str(name) + ",\n\nYou\'re receiving this email to confirm that you have booked a Bryte Photo headshot at " + str(timeslot) + ". The shoot will take place at CareerLAB.\n\nCheck out the Bryte Photo Headshot Tips to prepare for your headshot!\n\nIf you can no longer make it to your headshot, please cancel here:\n\n" + b.generate_cancel_link() + "\n\nWe have a long waitlist so please let us know if you cannot make your session!!\n\nThanks, \nCareerLAB and Bryte Photo"
 		try:
 			send_mail('CareerLAB Headshot Signup Confirmation', msg_body, settings.EMAIL_HOST_USER, [email], fail_silently=False)
 		except SMTPRecipientsRefused:
@@ -101,5 +101,25 @@ def cancel_order(request):
 		except Exception, e:
 			pass
 		else:
+			name = booking.name
+			email = booking.email
+			timeslot = booking.timeslot
 			booking.cancel_order()
+			msg_body = 'Hi ' + str(name) + ',\n\nThis email is to confirm you have cancelled your Bryte Photo headshot. If you would like to book a different time slot you can sign up here:\n\nwww.brytephoto.com/CareerLAB\n\nBest,\nBryte Photo Team'
+			try:
+				send_mail('Cancellation confirmation - Bryte Photo',
+					msg_body, 'Bryte Photo <' + settings.EMAIL_HOST_USER + '>', [email],
+					fail_silently=False)
+			except Exception, e:
+				print 'Email not sent'
+				pass
+
 	return render(request, 'notification.html', context)
+
+
+def tips(request):
+	context = {
+		'brown_careerlab': 1,
+		'title_text': 'Bryte Photo Headshot Tips',
+	}
+	return render(request, 'careerlab_tips.html', context)

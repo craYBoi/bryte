@@ -1270,11 +1270,12 @@ html { overflow-y: scroll; }
 
 /* customizeing bootstrap */
 .navbar-nav li a {
-  line-height: 65px;
-  height: 65px;
-  padding-top: 0;
-  font-size: 0.85em;
+  /*line-height: 65px;*/
+  /*height: 65px;*/
+  padding-top: 20px;
+  /*font-size: 0.85em;*/
 }
+
 
 .navbar {
 	margin-bottom: 0;
@@ -1424,7 +1425,7 @@ body, html
 
 /* signup form */
 .signup_form {
-	max-width: 500px;
+	max-width: 600px;
 	margin: 0 auto;
 }
 
@@ -1569,3 +1570,14 @@ body, html
 }
 
 /* sticky footer */
+
+
+/* social icons */
+.social_icons a{
+	color: #fff;
+	padding-top: 15px;
+}
+
+.social_icons a:hover{
+	color: #c94848;
+}

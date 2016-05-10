@@ -20,7 +20,7 @@
 	<div class="offset"></div>
   <div id="jumbotron" class="top_border red_bg"> 
     <div class="medium_padding"></div>
-    <h1 class="white text-center main_title col-xs-10 col-xs-offset-1">Free professional LinkedIn headshots from CareerLAB!</span></h1>
+    <h1 class="white text-center main_title col-xs-10 col-xs-offset-1">Free LinkedIn headshots from Bryte Photo and CareerLAB!</span></h1>
     <div class="container">
 
       <!--<div class="row">-->
@@ -30,7 +30,7 @@
 
         <div class="medium_padding"></div>
           {% if timeslots %}
-            <p class="big_font white"><span class="bold large_font background_white red">Next Shoot @<br></span> <span class="bold">Brown CareerLAB</span><br>May 13th, 2016<br>{{ next_shoot.location }}{{ next_shoot.time_format }}12:30 PM - 3:30 PM</p>
+            <p class="big_font white"><span class="bold large_font background_white red">Next Shoot @<br></span> <span class="bold">Brown CareerLAB, first floor</span><br>May 13th, 2016<br>{{ next_shoot.location }}{{ next_shoot.time_format }}12:30 PM - 3:30 PM</p>
           {% else %}
           	<p class="white large_font">Brown CareerLAB<br>May 4th, 2016<br>12:30 PM - 3:30 PM</p>
 
@@ -49,7 +49,7 @@
         <div class="white_border special_padding signup_form">
         {% if timeslots %}
         <div id="book_form">
-          <h3 class="bold white xsmall_padding">Sign up for a free headshot!</h3>
+          <h3 class="bold white xsmall_padding">Sign up for a free Bryte Photo headshot!</h3>
           <div class="xsmall_padding"></div>
           <div class="text-center">
           <form method="POST" action="{% url 'careerlab_book' %}" class=" white">{% csrf_token %}
@@ -101,17 +101,17 @@
   <div class="row">
   <div class="col-xs-10 col-xs-offset-1">
   <div id="careerlab_gallery">
-  	<h2 class="bold text-center feature_title red">Our Past Work</h2>
+  	<h2 class="bold text-center feature_title red">Past Bryte Photo Headshots</h2>
   	<div class="medium_padding"></div>
   	<div class="slider">
   		<div class="text-center">
 	  	<ul>
-	  		<li><img src="{% static 'img/headshots/val1.jpg' %}" height='400px'></li>
-	  		<li><img src="{% static 'img/headshots/matt1.jpg' %}" height='400px'></li>
-	  		<li><img src="{% static 'img/headshots/travis1.jpg' %}" height='400px'></li>
-	  		<li><img src="{% static 'img/headshots/visona1.jpg' %}" height='400px'></li>
-	  		<li><img src="{% static 'img/headshots/marta1.jpg' %}" height='400px'></li>
+	  		<li><img src="{% static 'img/headshots/boy1.jpg' %}" height='400px'></li>
+	  		<li><img src="{% static 'img/headshots/girl2.jpg' %}" height='400px'></li>
 	  		<li><img src="{% static 'img/headshots/cameron1.jpg' %}" height='400px'></li>
+	  		<li><img src="{% static 'img/headshots/visona1.jpg' %}" height='400px'></li>
+	  		<li><img src="{% static 'img/headshots/girl1.jpg' %}" height='400px'></li>
+	  		<li><img src="{% static 'img/headshots/val1.jpg' %}" height='400px'></li>
 	  	</ul>
 	  	</div>
   	</div>
@@ -133,21 +133,21 @@
               <img src="{% static 'img/process1.png' %}" class="img-responsive"> 
               <div class="medium_padding"></div>
               <h3 class="bold big_font">Book</h3>
-              <p class="col-xs-10 col-xs-offset-1 small_padding small_lh text-left small_font ">Choose a time that works for you. We'll send you an email to confirm your booking.</p>
+              <p class="col-xs-10 col-xs-offset-1 small_padding small_lh text-left small_font ">Choose a time that works for you. We'll send you an email to confirm your headshot booking.</p>
             </div>   
 
             <div class="col-sm-4 text-center">
               <img src="{% static 'img/process2.png' %}" class="img-responsive"> 
               <div class="medium_padding"></div>
               <h3 class="bold big_font">Smile</h3>
-              <p class="col-xs-10 col-xs-offset-1 small_padding small_lh text-left small_font">Come to the shoot 5 minutes before your 15 minute time slot is scheduled to begin.  Each person in your timeslot will have 3 with the photographer.</p>
+              <p class="col-xs-10 col-xs-offset-1 small_padding small_lh text-left small_font">Come to the shoot 5 minutes before your 10 minute time slot is scheduled to begin. Each person in your time slot will have at least 3 minutes with the Bryte Photo photographer.</p>
             </div>  
 
             <div class="col-sm-4 text-center">
               <img src="{% static 'img/process3.png' %}" class="img-responsive"> 
               <div class="medium_padding"></div>
               <h3 class="bold big_font">Receive</h3>
-              <p class="col-xs-10 col-xs-offset-1 small_padding small_lh text-left small_font">Your photographer will work Photoshop magic to touch up the best photo from your session.  You'll receive digital copies of the touched up version and original within 48 hours</p>
+              <p class="col-xs-10 col-xs-offset-1 small_padding small_lh text-left small_font">Your photographer will touch up your favorite headshot. We'll send you the touched up and raw versions of your headshot within 48 hours of the shoot</p>
             </div>  
           </div>
         </div>
