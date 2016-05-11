@@ -8,13 +8,18 @@ class NextshootAdmin(ImportExportModelAdmin):
 	pass
 
 class BookingAdmin(ImportExportModelAdmin):
+	list_display = ['id', 'email', 'name', 'timeslot', 'hash_id']
 	pass
 
 class TimeslotAdmin(admin.ModelAdmin):
 	list_display = ['id', 'time', 'shoot','current_volumn']
 
 
+class SignupAdmin(admin.ModelAdmin):
+	list_display = ['id', 'email', 'name','notified', 'timestamp']
+
+
 admin.site.register(Timeslot, TimeslotAdmin)
 admin.site.register(Booking, BookingAdmin)
-admin.site.register(Signup)
+admin.site.register(Signup, SignupAdmin)
 admin.site.register(Nextshoot, NextshootAdmin)
