@@ -45,7 +45,7 @@ class Nextshoot(models.Model):
 		for e in email_list:
 			name = e.name 
 			title = 'Bryte Photo Headshot today!'
-			msg = 'Hi ' + name + ',\n\nThis email is to remind you about your free Bryte Photo headshot Friday at ' + str(e.timeslot) + '.The shoot will take place at CareerLAB.\n\nWe look forward to seeing you at the shoot! Please refer to the Bryte Photo Headshot Tips to prepare.\n\nIf you can no longer make it to your headshot, please cancel here\n' + e.generate_cancel_link() +'\n\nWe have a long waitlist so please let us know if you cannot make it!!\n\nBest,\nCareerLAB and the Bryte Photo Team.'
+			msg = 'Hi ' + name + ',\n\nThis email is to remind you about your free Bryte Photo headshot Friday at ' + str(e.timeslot) + ' .The shoot will take place at CareerLAB.\n\nWe look forward to seeing you at the shoot! Please refer to the Bryte Photo Headshot Tips to prepare:\n'+ e.tips_link() +'\n\nIf you can no longer make it to your headshot, please cancel here\n' + e.generate_cancel_link() +'\n\nWe have a long waitlist so please let us know if you cannot make it!!\n\nBest,\nCareerLAB and the Bryte Photo Team.'
 			try:
 				send_mail(title, msg, 'Bryte Photo and CareerLAB <' + settings.EMAIL_HOST_USER + '>', [e.email], fail_silently=False)
 		# send_mail('Test', 'This is the test msg', settings.EMAIL_HOST_USER, email_list, fail_silently=False)
@@ -68,8 +68,8 @@ class Nextshoot(models.Model):
 		for e in signups:
 			name = e.name
 			email = e.email
-			title = 'New headshot sessions available!'
-			msg = 'Hi ' + name + ',\n\nGreat news! There are now ' + str(num_slots_available) + ' headshots sessions available! We are shooting this afternoon between 130-330. Book your session here:\n\nwww.brytephoto.com/CareerLAB\n\nBest, \nCareerLAB and the Bryte Photo Team'
+			title = 'New headshot sessions are opened!'
+			msg = 'Hi ' + name + ',\n\nGreat news! There are now ' + str(num_slots_available) + ' headshots sessions available! We are shooting this afternoon between 12:30 pm - 3:30 pm. Book your session here:\n\nwww.brytephoto.com/CareerLAB\n\nBest, \nCareerLAB and the Bryte Photo Team'
 			try:
 				send_mail(title, msg, 'Bryte Photo and CareerLAB <' + settings.EMAIL_HOST_USER + '>', [email], fail_silently=False)
 			except Exception, e:
@@ -86,8 +86,8 @@ class Nextshoot(models.Model):
 		for e in signups:
 			name = e.name
 			email = e.email
-			title = 'New headshot sessions available!'
-			msg = 'Hi ' + name + ',\n\nGreat news! A new headshot session will be held this Friday, May 13th at Brown CareerLAB. We will be shooting between 12:30pm - 3:30pm. Book your session here:\n\nwww.brytephoto.com/CareerLAB\n\nBest, \nCareerLAB and the Bryte Photo Team'
+			title = 'Free LinkedIn Headshots with Bryte Photo at CareerLAB!'
+			msg = 'Hi ' + name + ',\n\nGreat news! Bryte Photo is partnering with CareerLAB to offer free Linkedin headshots to all students this Friday, May 13th at Brown CareerLAB. We will be shooting between 12:30pm - 3:30pm on the first floor of CareerLAB. Book a session and learn more about Bryte Photo here:\n\nwww.brytephoto.com/CareerLAB\n\nBest, \nCareerLAB and the Bryte Photo Team'
 			try:
 				send_mail(title, msg, 'Bryte Photo and CareerLAB <' + settings.EMAIL_HOST_USER + '>', [email], fail_silently=False)
 			except Exception, e:
@@ -191,4 +191,5 @@ class Booking(models.Model):
 	def generate_cancel_link(self):
 		return settings.SITE_URL + reverse('careerlab_cancel_order') + '?order_id=' + str(self.hash_id)
 
-
+	def tips_link(self):
+		return settings.SITE_URL + reverse('careerlab_tips')

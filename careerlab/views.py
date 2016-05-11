@@ -40,6 +40,15 @@ def book(request):
 				print e
 				data = {'msg': 'There\'s an error signing up. Please try again.'}
 				return HttpResponse(json.dumps(data), content_type='application/json')
+			else:
+				if email in [signup.email for signup in Signup.objects.all()]:
+					try:
+						signup = get_object_or_404(Signup, email=email)
+					except Exception, e:
+						print e
+						pass
+					else:
+						signup.delete()
 
 		else:
 			data = {'msg': 'This time slot is no longer available. Please select a different one.'}
@@ -51,7 +60,8 @@ def book(request):
 		}
 
 		# send the email confirmation
-		msg_body = "Hi " + str(name) + ",\n\nYou\'re receiving this email to confirm that you have booked a Bryte Photo headshot at " + str(timeslot) + ". The shoot will take place at CareerLAB.\n\nCheck out the Bryte Photo Headshot Tips to prepare for your headshot!\n\nIf you can no longer make it to your headshot, please cancel here:\n\n" + b.generate_cancel_link() + "\n\nWe have a long waitlist so please let us know if you cannot make your session!!\n\nThanks, \nCareerLAB and Bryte Photo"
+
+		msg_body = "Hi " + str(name) + ",\n\nYou\'re receiving this email to confirm that you have booked a Bryte Photo headshot at " + str(timeslot) + ". The shoot will take place at CareerLAB.\n\nCheck out the Bryte Photo Headshot Tips to prepare for your headshot!\n" + b.tips_link() + "\n\nIf you can no longer make it to your headshot, please cancel here:\n" + b.generate_cancel_link() + "\n\nWe have a long waitlist so please let us know if you cannot make your session!!\n\nThanks, \nCareerLAB and Bryte Photo"
 		try:
 			send_mail('CareerLAB Headshot Signup Confirmation', msg_body, settings.EMAIL_HOST_USER, [email], fail_silently=False)
 		except SMTPRecipientsRefused:
