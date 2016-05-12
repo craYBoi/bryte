@@ -40,12 +40,12 @@ class Nextshoot(models.Model):
 		return self.location + ' - ' + self.photographer.get_full_name()
 
 	def send_reminder(self):
-		email_list = [e for elem in self.timeslot_set.filter(active=True) for e in elem.booking_set.all()]
+		bookings = [e for elem in self.timeslot_set.filter(active=True) for e in elem.booking_set.all()]
 		
-		for e in email_list:
+		for e in bookings:
 			name = e.name 
-			title = 'Bryte Photo Headshot today!'
-			msg = 'Hi ' + name + ',\n\nThis email is to remind you about your free Bryte Photo headshot Friday at ' + str(e.timeslot) + ' .The shoot will take place at CareerLAB.\n\nWe look forward to seeing you at the shoot! Please refer to the Bryte Photo Headshot Tips to prepare:\n'+ e.tips_link() +'\n\nIf you can no longer make it to your headshot, please cancel here\n' + e.generate_cancel_link() +'\n\nWe have a long waitlist so please let us know if you cannot make it!!\n\nBest,\nCareerLAB and the Bryte Photo Team.'
+			title = 'Bryte Photo Headshot tomorrow!'
+			msg = 'Hi ' + name + ',\n\nThis email is to remind you about your free Bryte Photo headshot on Friday at ' + str(e.timeslot) + '. The shoot will take place at CareerLAB.\n\nWe look forward to seeing you at the shoot! Please refer to the Bryte Photo Headshot Tips to prepare:\n'+ e.tips_link() +'\n\nIf you can no longer make it to your headshot, please cancel here\n' + e.generate_cancel_link() +'\n\nWe have a long waitlist so please let us know if you cannot make it!!\n\nBest,\nCareerLAB and the Bryte Photo Team.'
 			try:
 				send_mail(title, msg, 'Bryte Photo and CareerLAB <' + settings.EMAIL_HOST_USER + '>', [e.email], fail_silently=False)
 		# send_mail('Test', 'This is the test msg', settings.EMAIL_HOST_USER, email_list, fail_silently=False)
@@ -213,3 +213,17 @@ class Booking(models.Model):
 
 	def tips_link(self):
 		return settings.SITE_URL + reverse('careerlab_tips')
+
+	def confirmation_email(self):
+		name = self.name
+		timeslot = self.timeslot
+		email = self.email
+
+		msg_body = "Hi " + str(name) + ",\n\nWe\'re emailing you to confirm yout headshot with Bryte Photo at " + str(timeslot) + ".\n\nCheck out the Bryte Photo Headshot Tips to prepare for your headshot!\n" + self.tips_link() + "\n\nWe\'re sorry you didn\'t get this email earlier. Unfortunately, due to the high traffic on our website, our email client stopped functioning. We\'ve recently upgraded it so you can problem free emails in the future!\n\nIf you can no longer make it to your headshot, please cancel here:\n" + self.generate_cancel_link() + "\n\nWe have a long waitlist so please let us know if you cannot make your session!!\n\nThanks, \nCareerLAB and Bryte Photo"
+
+		try:
+			send_mail('Bryte Photo Headshot Booking Confirmation. Sorry you didn\'t get this earlier', msg_body, settings.EMAIL_HOST_USER, [email], fail_silently=False)
+		except Exception, e:
+			raise e
+		else:
+			print '[SENT] ' + str(email)
