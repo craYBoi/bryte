@@ -108,7 +108,7 @@ def cancel_order(request):
 			email = booking.email
 			timeslot = booking.timeslot
 			booking.cancel_order()
-			msg_body = 'Hi ' + str(name) + ',\n\nThis email is to confirm you have cancelled your Bryte Photo headshot. If you would like to book a different time slot you can sign up here:\n\nwww.brytephoto.com/CareerLAB\n\nBest,\nBryte Photo Team'
+			msg_body = 'Hi ' + str(name) + ',\n\nThis email is to confirm you have cancelled your Bryte Photo headshot on ' + str(booking.timeslot) + '. If you would like to book a different time slot you can sign up here:\n\nwww.brytephoto.com/CareerLAB\n\nBest,\nBryte Photo Team'
 			try:
 				send_mail('Cancellation confirmation - Bryte Photo',
 					msg_body, 'Bryte Photo <' + settings.EMAIL_HOST_USER + '>', [email],
