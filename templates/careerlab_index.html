@@ -49,7 +49,7 @@
         <div class="white_border special_padding signup_form">
         {% if timeslots %}
         <div id="book_form">
-          <h3 class="bold white xsmall_padding">Sign up for a free Bryte Photo headshot!</h3>
+          <h3 class="bold white xsmall_padding">Book a free Bryte Photo headshot!</h3>
           <div class="xsmall_padding"></div>
           <div class="text-center">
           <form method="POST" action="{% url 'careerlab_book' %}" class=" white">{% csrf_token %}
@@ -63,7 +63,7 @@
               {% endfor %}
             </select>
             <div class="small_padding"></div>
-            <button class="btn-white bold large_font" id="careerlab_book_button" type='submit'>Signup</button>
+            <button class="btn-white bold large_font" id="careerlab_book_button" type='submit'>Book</button>
             <div class="small_padding"></div>
           </form>
           </div>

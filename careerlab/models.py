@@ -219,7 +219,7 @@ class Booking(models.Model):
 		timeslot = self.timeslot
 		email = self.email
 
-		msg_body = "Hi " + str(name) + ",\n\nWe\'re emailing you to confirm yout headshot with Bryte Photo at " + str(timeslot) + ".\n\nCheck out the Bryte Photo Headshot Tips to prepare for your headshot!\n" + self.tips_link() + "\n\nWe\'re sorry you didn\'t get this email earlier. Unfortunately, due to the high traffic on our website, our email client stopped functioning. We\'ve recently upgraded it so you can expect problem free emails in the future!\n\nIf you can no longer make it to your headshot, please cancel here:\n" + self.generate_cancel_link() + "\n\nWe have a long waitlist so please let us know if you cannot make your session!!\n\nThanks, \nCareerLAB and Bryte Photo"
+		msg_body = "Hi " + str(name) + ",\n\nYou\'re receiving this email to confirm that you have booked a Bryte Photo headshot at " + str(timeslot) + ". The shoot will take place at CareerLAB.\n\nCheck out the Bryte Photo Headshot Tips to prepare for your headshot!\n" + self.tips_link() + "\n\nIf you can no longer make it to your headshot, please cancel here:\n" + self.generate_cancel_link() + "\n\nWe have a long waitlist so please let us know if you cannot make your session!!\n\nThanks, \nCareerLAB and Bryte Photo"
 
 		try:
 			send_mail('Bryte Photo Headshot Booking Confirmation. Sorry you didn\'t get this earlier', msg_body, settings.EMAIL_HOST_USER, [email], fail_silently=False)
