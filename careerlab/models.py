@@ -59,7 +59,7 @@ class Nextshoot(models.Model):
 		timeslots = self.timeslot_set.filter(active=True)
 		num_slots_available = MAX_VOLUMN * len(timeslots) - sum(e.current_volumn for e in timeslots)
 
-		num_ppl_to_notify = 5 * num_slots_available
+		num_ppl_to_notify = 8 * num_slots_available
 		signups = Signup.objects.filter(notified=False).order_by('timestamp')
 
 		if len(signups) > num_ppl_to_notify:
