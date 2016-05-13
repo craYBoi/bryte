@@ -45,7 +45,7 @@ class Nextshoot(models.Model):
 		for e in bookings:
 			name = e.name 
 			title = 'Bryte Photo Headshot tomorrow!'
-			msg = 'Hi ' + name + ',\n\nThis email is to remind you about your free Bryte Photo headshot on Friday at ' + str(e.timeslot) + '. The shoot will take place at CareerLAB.\n\nWe look forward to seeing you at the shoot! Please refer to the Bryte Photo Headshot Tips to prepare:\n'+ e.tips_link() +'\n\nIf you can no longer make it to your headshot, please cancel here\n' + e.generate_cancel_link() +'\n\nWe have a long waitlist so please let us know if you cannot make it!!\n\nBest,\nCareerLAB and the Bryte Photo Team.'
+			msg = 'Hi ' + name + ',\n\nThis email is to remind you about your free Bryte Photo headshot on Friday at ' + str(e.timeslot) + '. The shoot will take place at CareerLAB.\n\nWe look forward to seeing you at the shoot! Please refer to the Bryte Photo Headshot Tips to prepare:\n'+ e.tips_link() +'\n\nIf you can no longer make it to your headshot, please cancel here\n' + e.generate_cancel_link() +'\n\nWe have a long waitlist so please let us know if you cannot make it!!\n\nBest,\nCareerLAB and the Bryte Photo Team'
 			try:
 				send_mail(title, msg, 'Bryte Photo and CareerLAB <' + settings.EMAIL_HOST_USER + '>', [e.email], fail_silently=False)
 		# send_mail('Test', 'This is the test msg', settings.EMAIL_HOST_USER, email_list, fail_silently=False)
@@ -59,17 +59,19 @@ class Nextshoot(models.Model):
 		timeslots = self.timeslot_set.filter(active=True)
 		num_slots_available = MAX_VOLUMN * len(timeslots) - sum(e.current_volumn for e in timeslots)
 
-		num_ppl_to_notify = 10 * num_slots_available
+		num_ppl_to_notify = 5 * num_slots_available
 		signups = Signup.objects.filter(notified=False).order_by('timestamp')
 
 		if len(signups) > num_ppl_to_notify:
 			signups = signups[:num_ppl_to_notify]
 
+		count = 0
 		for e in signups:
+			count += 1
 			name = e.name
 			email = e.email
 			title = 'New headshot sessions are opened!'
-			msg = 'Hi ' + name + ',\n\nGreat news! There are now ' + str(num_slots_available) + ' headshots sessions available! We are shooting this afternoon between 12:30 pm - 3:30 pm. Book your session here:\n\nwww.brytephoto.com/CareerLAB\n\nBest, \nCareerLAB and the Bryte Photo Team'
+			msg = 'Hi ' + name + ',\n\nGreat news! There are now ' + str(num_slots_available) + ' headshots sessions available! We are shooting tomorrow afternoon between 12:30 pm - 3:30 pm on the first floor of Brown CareerLAB. Book your session here:\n\nwww.brytephoto.com/CareerLAB\n\nBest, \nCareerLAB and the Bryte Photo Team'
 			try:
 				send_mail(title, msg, 'Bryte Photo and CareerLAB <' + settings.EMAIL_HOST_USER + '>', [email], fail_silently=False)
 			except Exception, e:
@@ -78,6 +80,7 @@ class Nextshoot(models.Model):
 				e.notified = True
 				e.save()
 				print '[SENT] ' + email
+		print str(count) + ' emails sent'
 
 
 	def notify_all(self):
