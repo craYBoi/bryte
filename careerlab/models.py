@@ -129,6 +129,8 @@ class Nextshoot(models.Model):
 		name = 'CareerLAB2'
 		path = os.path.join(root, folder, name)
 		folders = dbx.files_list_folder(path)
+		count_sent = 0
+		count_not_sent = 0
 		for e in folders.entries:
 			email = str(e.name)
 			new_path = os.path.join(path, email)
@@ -138,9 +140,13 @@ class Nextshoot(models.Model):
 			try:
 				send_mail(title, msg, 'Bryte Photo and CareerLAB <' + settings.EMAIL_HOST_USER + '>', [email], fail_silently=False)
 			except Exception, e:
-				print '[NOT SENT]' + email
+				print '[NOT SENT] ' + email
+				count_not_sent += 1
 			else:
 				print '[SENT] ' + email
+				count_sent += 1
+		print str(count_sent) + ' emails sent'
+		print str(count_not_sent) + ' email NOT SENT'
 
 
 
