@@ -126,7 +126,7 @@ class Nextshoot(models.Model):
 		video_link = 'https://www.dropbox.com/sh/8kmxk6kvwefvkld/AADpuwmJbcjYLWE3q6TewUDha?dl=0'
 		root = '/'
 		folder = 'Deliverable'
-		name = 'CareerLAB1'
+		name = 'CareerLAB2'
 		path = os.path.join(root, folder, name)
 		folders = dbx.files_list_folder(path)
 		for e in folders.entries:
@@ -134,11 +134,11 @@ class Nextshoot(models.Model):
 			new_path = os.path.join(path, email)
 			sharing_link = dbx.sharing_create_shared_link(new_path, short_url=False, pending_upload=None)
 			title = 'Your headshot photo is available!'
-			msg = 'Hi!\n\nGreat news! Here is your retouched headshot photo!\n\n' + str(sharing_link.url) + '\n\nAlso, please enjoy this Promo Video we created with shots from yesterday afternoon.\n\n' + video_link +'\n\n(Let us know if you don\'t want your photo in the video.)\n\nWe\'re always looking to improve your experience with us. In the next day or two, CareerLAB will be sending out a survey about your headshots and the overall experience. Please do us a favor to fill out the survey. That will help us a lot!\n\nThank you!\nCareerLAB and Bryte Photo Team'
+			msg = 'Hi!\n\nGreat news! Here is your retouched headshot photo!\n\n' + str(sharing_link.url) + '\n\nThank you!\nCareerLAB and Bryte Photo Team'
 			try:
 				send_mail(title, msg, 'Bryte Photo and CareerLAB <' + settings.EMAIL_HOST_USER + '>', [email], fail_silently=False)
 			except Exception, e:
-				raise e
+				print '[NOT SENT]' + email
 			else:
 				print '[SENT] ' + email
 
