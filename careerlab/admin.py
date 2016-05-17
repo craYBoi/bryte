@@ -8,7 +8,7 @@ class NextshootAdmin(ImportExportModelAdmin):
 	pass
 
 class BookingAdmin(ImportExportModelAdmin):
-	list_display = ['id', 'email', 'name', 'timeslot', 'hash_id']
+	list_display = ['id', 'email', 'name', 'timeslot', 'hash_id', 'timestamp']
 	pass
 
 class TimeslotAdmin(admin.ModelAdmin):
