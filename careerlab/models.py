@@ -135,8 +135,8 @@ class Nextshoot(models.Model):
 			email = str(e.name)
 			new_path = os.path.join(path, email)
 			sharing_link = dbx.sharing_create_shared_link(new_path, short_url=False, pending_upload=None)
-			title = 'Your headshot photo is available!'
-			msg = 'Hi!\n\nGreat news! Here is your retouched headshot photo!\n\n' + str(sharing_link.url) + '\n\nThank you!\nCareerLAB and Bryte Photo Team'
+			title = 'Your Touched up Bryte Photo Headshot'
+			msg = 'Hi!\n\nYour touched up Bryte Photo headshot is available!\n\n' + str(sharing_link.url) + '\n\n We\'re always looking to improve your experience. Email us what you think of your photo. We greatly appreciate your feedback!\n\nAlso, we occasionally put our headshots on our website or Facebook Page. Let us know if you do not want your photo to be displayed.\n\nBest,\nBryte Photo Team'
 			try:
 				send_mail(title, msg, 'Bryte Photo and CareerLAB <' + settings.EMAIL_HOST_USER + '>', [email], fail_silently=False)
 			except Exception, e:
