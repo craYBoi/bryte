@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+	<div class="offset"></div>
+	<div class="jumbotron top_border red_bg">
+		<div class="medium_padding"></div>
+		{% if notify %}
+			<div class="row">
+			<div class="col-xs-6 col-xs-offset-3">
+			<h2 class="white text-center">{{ notify }}</h2>
+			</div>
+			</div>
+			{% else %}
+		
+		
+			<h1 class="white bold text-center">Bryte Photo Checkout</h1>
+			<div class="small_padding"></div>
+			<ul class="white text-center">
+				<li>Amount: $374</li>
+				<li>Dscription: 2 Bryte Photo headshot sessions</li>
+			</ul>
+			<div class="small_padding"></div>
+			<div class="text-center">
+			</div>
+
+
+			<div class="large_padding text-center">
+			<form action="" method="POST">{% csrf_token %}
+			  <script
+			    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+			    data-key="{{ publish_key }}"
+			    data-amount="37400"
+			    data-name="Bryte Photo Charge"
+			    data-description="2 Headshot Sessions"
+			    data-image=""
+			    data-locale="auto">
+			  </script>
+			</form>
+			</div>
+		{% endif %}
+
+
+	<div class="large_padding"></div>
+	</div>
+	
+	<!-- loader -->
+	<div id="loader-wrapper" hidden>
+	  <div id="loader" class="text-center"><img src="{% static 'logo/loading.svg' %}" width="140px"></div>
+	</div>
+{% endblock %}
+
+
+{% block jquery %}
+  .ajaxStart(function () {
+    $("#loader-wrapper").show();
+  })
+
+  .ajaxStop(function () {
+    $("#loader-wrapper").hide();
+  });
+{% endblock %}
+
+

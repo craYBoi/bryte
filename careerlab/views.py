@@ -6,6 +6,10 @@ from django.conf import settings
 from .models import Timeslot, Booking, Signup
 
 import json
+import stripe
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
+
 
 def index(request):
 	title = 'Bryte Photo & CareerLab Brown University headshot'
@@ -126,3 +130,36 @@ def tips(request):
 		'title_text': 'Bryte Photo Headshot Tips',
 	}
 	return render(request, 'careerlab_tips.html', context)
+
+
+def pay(request):
+	context = {
+		'brown_careerlab': 1,
+		'title_text': 'Bryte Photo Headshot Pay',	
+	}
+	return render(request, 'careerlab_pay.html', context)
+
+
+def pay(request):
+	context = {
+		'publish_key': settings.STRIPE_PUBLISHABLE_KEY,
+		'title_text': 'Checkout at Bryte Photo',
+	}
+	if request.method == 'POST':
+		token = request.POST.get('stripeToken')
+				# charge
+		try:
+			charge = stripe.Charge.create(
+				amount = 37400,
+				currency="usd",
+				source=token,
+				description="Bryte Photo Photography"
+			)
+		except stripe.error.CardError, e:
+			print e
+			data = {'successMsg': 'There\'s an error charging your card. Please provide another card',}
+			return HttpResponse(json.dumps(data), content_type='application/json')
+		else:
+			context['notify'] = 'Thanks! You have successfully paid! Thanks for using Bryte!'
+
+	return render(request, 'careerlab_pay.html', context)
