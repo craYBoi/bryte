@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.conf import settings
+from django.core.mail import send_mail
 from django.http import Http404, HttpResponse
 
 import stripe
@@ -7,7 +8,7 @@ import stripe
 import json
 from .forms import SignUpForm
 from photographer.models import Photographer
-from .models import Price, PriceFeature
+from .models import Price, PriceFeature, ContactSale, ContactHelp
 from book.models import TimeSlot, NextShoot
 
 
@@ -32,6 +33,7 @@ def home(request):
 		'publish_key': settings.STRIPE_PUBLISHABLE_KEY,
 		'title_text': title,
 		'next_shoot': next_shoot,
+		'is_index': 1,
 	}
 	return render(request, "index.html", context)
 
@@ -114,3 +116,91 @@ def legal(request):
 
 
 
+def clients(request):
+	context = {
+		'title_text': 'Our Clients | Bryte Photo Headshots',
+		'is_clients': 1,
+	}
+	return render(request, 'landing_clients.html', context)
+
+
+def contact(request):
+	context = {
+		'title_text': 'Contact Sales | Bryte Photo Headshots',
+		'is_contact': 1,
+	}
+	return render(request, 'landing_contact.html', context)
+
+
+def help(request):
+	context = {
+		'title_text': 'Contact Help | Bryte Photo Headshots',
+		'is_contact': 1,
+	}
+	return render(request, 'landing_help.html', context)
+
+
+def ajax_contact(request):
+	if request.is_ajax() and request.method == 'POST':
+		data = {}
+		name = request.POST.get('name')
+		email = request.POST.get('email')
+		category = request.POST.get('category')
+		org_name = request.POST.get('orgname')
+		amount = request.POST.get('amount')
+		question = request.POST.get('question')
+
+		first_name = name.strip().split(' ')[0]
+
+		# create database instance
+		try:
+			c = ContactSale.objects.create(name=name, email=email,category=category, organization=org_name, amount=amount,question=question)
+		except Exception, e:
+			print 'Fail to create instance'
+			data['msg'] = 'There\'s an error signing up. Please try again.'
+			raise e
+		else:
+			# send the email
+			data['msg'] = 'Thank you ' + first_name + ' for contacting us! We will get to you as soon as we can!'
+
+			msg_body = 'Contact Sales Information:\n\nName: ' + str(name) + '\nEmail: ' + str(email) + '\nOrganization: ' + str(org_name) + '\nCategory: ' + str(category) + '\nAmount of Headshots Estimate: ' + str(amount) + '\nQuestion & Request: ' + str(question) + '\n\nBest,\nBryte Photo Team'
+
+			try:
+				send_mail('New Contact Sales Inquiry!', msg_body, 'Bryte Photo <' + settings.EMAIL_HOST_USER + '>', [settings.EMAIL_HOST_USER], fail_silently=False)
+			except Exception, e:
+				print 'Email Not Sent!'
+				raise e
+
+		return HttpResponse(json.dumps(data), content_type='application/json')
+
+
+def ajax_help(request):
+	if request.is_ajax() and request.method == 'POST':
+		data = {}
+		name = request.POST.get('name')
+		email = request.POST.get('email')
+		question = request.POST.get('question')
+
+		first_name = name.strip().split(' ')[0]
+
+		# create database instance
+		try:
+			c = ContactHelp.objects.create(name=name, email=email, question=question)
+		except Exception, e:
+			print 'Fail to create instance'
+			data['msg'] = 'There\'s an error signing up. Please try again.'
+			raise e
+		else:
+			# send the message
+			data['msg'] = 'Thank you ' + first_name + ' for contacting us! We will get to you as soon as we can!'
+
+			msg_body = 'Contact Help Information:\n\nName: ' + str(name) + '\nEmail: ' + str(email) + '\nQuestion & Request: ' + str(question) + '\n\nBest,\nBryte Photo Team'
+
+			# send the email
+			try:
+				send_mail('New Contact Help!', msg_body, 'Bryte Photo <' + settings.EMAIL_HOST_USER + '>', [settings.EMAIL_HOST_USER], fail_silently=False)
+			except Exception, e:
+				print 'Email Not Sent!'
+				raise e
+
+		return HttpResponse(json.dumps(data), content_type='application/json')

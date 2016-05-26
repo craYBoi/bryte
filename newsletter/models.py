@@ -51,3 +51,18 @@ class PriceFeature(models.Model):
 
 	def __unicode__(self):
 		return self.price.title + ' ' + str(self.price.price)
+
+
+class ContactSale(models.Model):
+	name = models.CharField(max_length=120)
+	email = models.EmailField()
+	organization = models.CharField(max_length=100)
+	category = models.CharField(max_length=20)
+	amount = models.CharField(max_length=50)
+	question = models.TextField()
+
+
+class ContactHelp(models.Model):
+	name = models.CharField(max_length=120)
+	email = models.EmailField()
+	question = models.TextField()

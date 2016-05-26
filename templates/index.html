@@ -13,484 +13,154 @@
 
 {% block stylesheet %}
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.min.css">
+  <link rel="stylesheet" href="{% static 'css/unslider.css' %}">
 {% endblock %}
 
-{% block jumbotron %}
-  <div id="jumbotron" class="red_bg"> 
-  <div class="medium_padding"></div>
-<!--<div class="jumbotron background_grey" id='jumbotron'>-->
-  <!--
-    <div class="medium_padding"></div>
-    <div class="row medium_padding medium_padding_bot">
-      <div class="col-sm-8 col-sm-offset-2">
-      <h1 class="bold text-center" style='color: #fff' id='tagline'>Affordably promote your business and create local student jobs</h1>
+{% block content %}
+  <div id="vid_background">
+    <video id="landing_video" autoplay muted loop="loop" preload="metadata" poster='{% static "img/landing2.jpg" %}'>
+      <source src="{% static 'vid/cl.mov' %}">
+    </video> 
+    <div id="landing_wrapper" class="center_flex_none">
+     <h1 class="white text-center bold landing_title">Everyone deserves to look more professional</h1>
+     <div class="row">
+      <div class="col-xs-12">
+       <p class="white text-center landing_text_main">
+         High quality and affordable headshot to organizations that need them at scale
+       </p>
       </div>
-    </div>
-
-    <div class="row small_padding">
-      <div class="col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
-      <div class="row">
-      <div class="col-xs-10 col-xs-offset-1">
-      <ul class="list-inline white text-center light">
-        <li class="light">Browse promotional photography and videography packages and book a local student to shoot your project</li>
-      </ul>
-      </div>
-      </div>
-      </div>
-    </div>
-
-    <div class="medium_padding"></div>
-    <div class="small_padding text-center">
-    
-    <a href="#learn_more"><button class="btn btn-white large_font">Learn More</button></a>
-
-    <a href="{% url 'packages' %}"><button class="btn btn-blue-big large_font">Get Started</button></a>
-    </div>
-
-    <div class="large_padding"></div>
-    -->
-    <!--<div class="medium_padding"></div>-->
-    <div class="large_padding"></div>
-    <h1 class="white main_title text-center col-xs-10 col-xs-offset-1">Get a professional LinkedIn headshot for <span class='large_font'>$20</span></h1>
-    <div class="container">
-
-      <div class="row">
-
-        <div class="col-sm-6 medium_padding col-xs-10 col-xs-offset-1 col-sm-offset-0">
-        <div class="small_padding"></div>
-          {% if timeslots %}
-            <p class="big_font white"><span class="bold large_font background_white red">Next Shoot @</span><br>{{ next_shoot.location }}<br>{{ next_shoot.time_format }}, 10:00 AM - 2:00 PM</p>
-
-            <p class="white large_font">****** Come by and take a headshot! ******</p>
-
-          {% else %}
-            <p class="sbig_font white"><span class="bold">All the slots were booked!</span><br></p>
-              
-            <p class="large_font white">Drop us your email and we'll let you know when the next session is available for booking :)</p>
-          {% endif %}
-          <div class="small_padding"></div>
-          <ul class="white large_font">
-            <li><i class="fa fa-check"></i> 10 minute session</li>
-            <li><i class="fa fa-check"></i> 1 touched up photo</li>
-            <li><i class="fa fa-check"></i> Multiple backdrops</li>
-            <li><i class="fa fa-check"></i> Pay $10 for each additional touched up photo</li>
-          </ul>
-        </div>
-
-
-        <div class="col-sm-5 col-sm-offset-1 col-xs-10 col-xs-offset-1  medium_padding">
-        <div class="small_padding"></div>
-        <div class="white_border special_padding">
-        {% if timeslots %}
-        <!--<h4 class="bold white xsmall_padding">Sign Up for April 30</h4>
-        <div class="xsmall_padding"></div>
-        <div class="text-center" id="book_form">
-          <div class="row"></div>
-            <form method="POST" action="{% url 'book_checkout' %}" class="book_form white">{% csrf_token %}
-              <input type='text' name='book_name' class="form-control" id='book_name' required pattern="[a-zA-Z]{2,}(\s+[a-zA-z]{2,})+" placeholder='First & Last Name'>
-              <div class="small_padding"></div>
-              <input type='email' name='book_email' class="form-control" id='book_email' required pattern='\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\b' placeholder="Email">
-              <div class="small_padding"></div>
-              {% if timeslots %}
-              <select required name='book_time' class="form-control" id='book_time'>
-                {% for timeslot in timeslots %}
-                  <option value='{{ timeslot.pk }}'>{{ timeslot.time_slot_format }}</option>
-                {% endfor %}
-              </select>
-              {% else %}
-              <label>All the slots are booked! Thanks!</label>
-              {% endif %}
-              <input type='hidden' name='book_photographer' value='{{ next_shoot.photographer.pk }}'>
-              <div class="small_padding"></div>
-              <button class="btn-white bold large_font" id="pay_button" type='submit'>Pay $20</button>
-              <p class="text-left small_padding">(Only {{ timeslots.count }} time {% if timeslots.count == 1 %}
-                slot
-              {% else %}
-                slots
-              {% endif %} left!)</p>
-            </form>
-        </div> -->
-        <div id="signup_form">
-          <h3 class="bold white xsmall_padding">Sign up if you are interested!</h3>
-          <div class="xsmall_padding"></div>
-          <div class="text-center">
-          <form method="POST" action="{% url 'book_signup' %}" class="signup_form white">{% csrf_token %}
-            <input type='email' name='signup_email' class="form-control" id='signup_email' required pattern='\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\b' placeholder='Email'>
-            <div class="small_padding"></div>
-            <button class="btn-white bold large_font" id="signup_button" type='submit'>Signup</button>
-          </form>
-          </div>
-        </div>
-        <p class="white small_padding small_font">* We won't send you any newsletters and we don't spam</p>
-
-
-        {% else %}
-        <div id="signup_form">
-          <h3 class="bold white xsmall_padding">Sign up with your email</h3>
-          <div class="xsmall_padding"></div>
-          <div class="text-center">
-          <form method="POST" action="{% url 'book_signup' %}" class="signup_form white">{% csrf_token %}
-            <input type='email' name='signup_email' class="form-control" id='signup_email' required pattern='\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\b' placeholder='Email'>
-            <div class="small_padding"></div>
-            <button class="btn-white bold large_font" id="signup_button" type='submit'>Signup</button>
-          </form>
-          </div>
-        </div>
-        <p class="white small_padding small_font">* We won't send you any newsletters and we don't spam</p>
-        {% endif %}
-
-        </div> 
-        </div>
-      </div>
-    </div>
-    <div class="large_padding"></div>
+     </div>
+     <div class="small_padding"></div>
+     <a href="#landing_feature"><button class="white text-center landing_button landing_text_main landing_button_padding">Learn More</button></a>
+     <div class="large_padding"></div>
+    </div> 
   </div>
-  <div id="learn_more"></div>
-
-{% endblock %}
-
-{% block testimonial %}
-  <!-- Testimonials -->
-  <div id="home_testimonial" class="droid_serif bottom_border">
-    <div class="medium_padding"></div>
-    <div class="row">
-    <div class="container large_font col-xs-10 col-xs-offset-1">
-      <p><span class="big_font bold">" </span>Bryte is easy, quick, very friendly, approachable and affordable. <br>&nbsp&nbsp&nbsp&nbspBeing a college student and I’m broke. But still very high quality!<span class="big_font bold"> "</span></p>
-      <p class="pull-right">--- Travis</p>
-    </div>
-    </div>
-    <div class="small_padding"></div>
-
-  </div>
-{% endblock %}
 
 
-{% block features %}
-  <div id="content_advantages">
-    <div id="features">
 
-      <div class="background_light_pink">
-        <div class="medium_padding"></div>
-        <div class="container" id='index_past_work'>
-
-          <h2 class="bold text-center feature_title">Headshots We've Done</h2>
-          <div class="row small_padding_bot">
-          </div>
-          <div class="text-center row">
-            <ul class="list-inline index_carousel">
-              <li><img src="{% static 'img/travis1.jpg' %}" height='350px'></li>
-              <li><img src="{% static 'img/marta1.jpg' %}" height='350px'></li>
-              <li><img src="{% static 'img/michael.jpg' %}" height="350px"></li>
+  <div id="landing_content" hidden>
+    <div id="landing_feature">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="center_flex landing_feature_padding landing_feature_height">
+            <h2 class="landing_title_sec bold">High Quality Headshots</h2>
+            <div class="small_padding"></div>
+            <ul class="package_list">
+              <li>Premium lighting and backdrops</li>
+              <li>Top notch touchup</li>
+              <li>See your photo before you leave</li>
+              <li>Bryte Photo trained photographers</li>
             </ul>
           </div>
         </div>
-        <div class="small_padding"></div>
-        <div class="medium_padding"></div>
-      </div>
-
-
-      <div class="background_pink large_font">
-        <div class="container small_padding_bot medium_padding">
-          <h2 class="feature_title text-center bold">How it Works</h2>
-          <div class="row small_padding">
-            <div class="col-xs-12">
-              <div class="row">
-
-                <div class="col-sm-4 text-center">
-                  <img src="{% static 'img/process1.png' %}" class="img-responsive"> 
-                  <div class="medium_padding"></div>
-                  <h3 class="bold big_font">Book</h3>
-                  <p class="col-xs-10 col-xs-offset-1 small_padding small_lh text-left small_font ">Choose a time that works for you and pay for it with just a few clicks! We will send you an email to confirm everything.</p>
-                </div>   
-
-                <div class="col-sm-4 text-center">
-                  <img src="{% static 'img/process2.png' %}" class="img-responsive"> 
-                  <div class="medium_padding"></div>
-                  <h3 class="bold big_font">Smile</h3>
-                  <p class="col-xs-10 col-xs-offset-1 small_padding small_lh text-left small_font">Arrive at your location 5 minutes before your 10 minutes session is scheduled to begin. Then have fun at your fantastic headshot session!</p>
-                </div>  
-
-                <div class="col-sm-4 text-center">
-                  <img src="{% static 'img/process3.png' %}" class="img-responsive"> 
-                  <div class="medium_padding"></div>
-                  <h3 class="bold big_font">Receive</h3>
-                  <p class="col-xs-10 col-xs-offset-1 small_padding small_lh text-left small_font">We'll send you a link to your headshot within 48 hours.</p>
-                </div>  
-              </div>
-            </div>
-          </div>
-          <div class="large_padding"></div>
-          <p class="text-center small_padding small_font">Do you have questions? Email us @ <a href="mailto:hello@brytephoto.com" target="_top" class="red">hello@brytephoto.com</a> or Call us at 248-417-5852 for more information</p>
-        </div>
-        <div class="small_padding"></div>
-      </div>
-
-
-
-      <div id="home_tent"> 
-        <div class="row">
-          <div class="col-md-7">
-          <img src="{% static 'img/tent.jpg' %}" class="img-responsive">
-          </div>
-
-          <div class="col-md-5">
-            <div class="col-xs-10 col-xs-offset-1">
-            <div class="small_padding"></div>
-            <h3 class="bold text-center">Custom and friendly headshot session</h3>
-            <div class="small_padding"></div>
-            <p>During every headshot session, we invite friendly and professional photographer to shoot your headshot. Pick you favorite picture with the photographer and we will make sure to deliver the best quality to you.</p>
-            <div class="medium_padding"></div>
-            </div>
-          </div>
+        <div class="col-md-6" style="background: url({% static 'img/landing1.jpg' %}) center; background-size: cover; text-align: center;">
+        <div class="whole_padding"></div>
         </div>
       </div>
-
-
-
-
-      {% if timeslots %}
-        <div class="large_padding large_padding_bot red_bg white">
-          <div class="row">
-          <h3 class="text-center bold big_font col-xs-10 col-xs-offset-1">Can't make it to our event?</h3>
-          <p class="text-center col-xs-8 col-xs-offset-2 small_padding">Don't worry! We are holding another event soon! Drop us your email to get notified!</p>
-          
-          </div>
-          <div class="small_padding"></div>
-          <div class="text-center">
-          <div class="center_flex">
-          <form method="POST" action="{% url 'book_signup' %}" class="book_form white">{% csrf_token %}
-            <input type='email' name='signup_email' class="form-control" id='signup_email' required pattern='\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\b' placeholder="Email">
+      <div class="row">
+        <div class="col-md-6 col-md-push-6">
+          <div class="center_flex landing_feature_padding landing_feature_height">
+            <h2 class="landing_title_sec bold text-center">More Than a Photography Company</h2>
             <div class="small_padding"></div>
-            <button class="btn-white large_font signup_button_white" id="signup_button" type='submit'>Signup!</button>
-          </form>
-          </div>          
+            <ul class="package_list">
+              <li>Custom Bryte Photo webpage for scheduling</li>
+              <li>Online booking process with pre-set time slots</li>
+              <li>Automatic emails for confirmation, cancellation and reminders</li>
+              <li>Personal headshot delivery via Dropbox</li>
+            </ul>
           </div>
-
-          <div class="row small_padding sm_font">
-          <p class="col-xs-8 col-xs-offset-2 text-center">* We won't send you any newsletters and we don't spam</p>
-          </div>
-        </div>      
-      {% endif %}
-
-      <ul class="background_grey list-inline" id="index_logos">
-        <li class="col-md-3 col-xs-6 text-center"><img src="{% static 'img/brown.png' %}" height='70px'></li>
-        <li class="col-md-3 col-xs-6 text-center"><img src="{% static 'logo/pbn.gif' %}" height="70px"></li>
-        <li class="col-md-3 col-xs-6 text-center"><img src="{% static 'img/bvf.png' %}" height='70px'></li>
-        <li class="col-md-3 col-xs-6 text-center"><img src="{% static 'img/blab.png' %}" height='70px'></li>
-      </ul>
+        </div>
+        <div class="col-md-6 col-md-pull-6" style="background: url({% static 'img/landing1.jpg' %}) center; background-size: cover; text-align: center;">
+        <div class="whole_padding"></div>
+        </div>
+      </div>
+    </div>
 
 
-
-
-<!-- modal -->
-<a id="modal_link" href="#animatedModal" hidden></a>
-<div id="animatedModal">
-  <!--THIS IS IMPORTANT! to close the modal, the class name has to match the name given on the ID  class="close-animatedModal" -->
-  <div class="close-animatedModal text-center" id="modal_close_link"> 
+    <div class="red_bg">
       <div class="medium_padding"></div>
-      <a href="" class="modal_close white xbig_font"><i class="fa fa-times-circle-o"></i></a>
-  </div>
-
-  <div class="white text-center medium_padding large_font">      
-  <p id="modal_content"></p>
-  </div>
-
-
-</div>
-
-
-<!-- loader -->
-<div id="loader-wrapper" hidden>
-  <div id="loader" class="text-center"><img src="{% static 'logo/loading.svg' %}" width="140px"></div>
-</div>
-
-
-{% endblock %}
-
-{% block about %}
-<!--
-    <div class="jumbotron" style="background: url({% static 'img/store_bg3.jpg' %}) center; background-size: cover; text-align: center;">
-      <h2 class="text-center bold main_title white medium_padding medium_padding_bot">About Us</h2>
-    </div>
-      
-
-    <div id="content_about" class="content_wrapper container">
-
-    <div class="row small_padding">
-      <div class="col-md-4 col-md-offset-1 col-xs-10 col-xs-offset-1">
+      <div class="small_padding"></div>
+      <h2 class="bold text-center landing_title white">Our Clients</h2>
+      <div class="small_padding"></div>
+      <div class="container">
         <div class="row">
-          <div class="text-center">
-            <img src="{% static 'img/michael.jpg' %}" width="40%" class="img-circle">
-            <br><br>
-            <h4 class="bold">Michael Snower</h4>
+          <div class="col-md-4 col-md-offset-0 col-xs-10 col-xs-offset-1">
+            <div class="page-header">
+            <h2 class="white text-left landing_text_main large_text">Brown CareerLAB</h2>
+            </div>
+            <p class="white landing_text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.</p>
+          </div>
+
+          <div class="col-md-7 col-md-offset-1 col-xs-10 col-xs-offset-1">
+            <div class="medium_padding"></div>
+            <video controls preload="metadata" width="100%">
+              <source src="{% static 'vid/cl.mov' %}">
+            </video> 
           </div>
         </div>
-        <p class="small_font small_padding light">Michael studies business at Brown University. He and Ben came up with the idea for Bryte when Michael had a hard time finding affordable and high quality headshot photographers. In his spare time, he plays the guitar and teaches yoga.</p>
       </div>
-      <div class="col-md-4 col-md-offset-2 col-xs-10 col-xs-offset-1">
-        <div class="row">
-          <div class="text-center">
-            <img src="{% static 'img/ben.jpg' %} " width="40%" class="img-circle">
-            <br>
-            <br>
-            <h4 class="bold">Benjamin Bao</h4>
-          </div>
-        </div>
-        <p class="small_font small_padding light">Ben is pursuing a Computer Science Master's degree at Brown University. Ben is passionate about designing and building products that will make people's life better. In his spare time, Ben skateboards and makes music.</p>
-      </div>
-
+      <div class="large_padding"></div>
     </div>
-  </div>  
-  -->
+
+
+
+    <div id="landing_contact">
+      <div class="large_padding"></div>
+      <h2 class="red landing_title text-center bold">High quality | Affordable | Efficient</h2>
+      <div class="small_padding"></div>
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3 col-xs-10 col-xs-offset-1">
+        <p class="red text-center landing_text">We will deliver headshots like you've never seen them before.</p>
+        </div>
+      </div>
+      <div class="text-center medium_padding">
+        <a href="{% url 'landing_contact' %}"><button class="white text-center landing_button landing_text landing_button_padding">Talk to Sales</button></a>
+      </div>
+      <div class="large_padding"></div>
+    </div>
+
+
+  </div>
 {% endblock %}
 
 {% block script %}
-  <script src="https://checkout.stripe.com/checkout.js"></script>
-  <script src="{% static 'js/animatedModal.min.js' %}"></script>
-  <script type="text/javascript">
-  function getCookie(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie != '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = jQuery.trim(cookies[i]);
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
-var csrftoken = getCookie('csrftoken');
-  </script>
+  <script src="{% static 'js/unslider-min.js' %}"></script>
 {% endblock %}
 
 {% block jquery %}
-    // modal 
-    $("#modal_link").animatedModal({
-      animatedIn: 'zoomInUp',
-      animatedOut: 'bounceOutDown',
-      color: '#c94848'
-    });
 
-    $('#modal_close_link').click(function(){
-      location.reload();
+  $('#footer').hide();
+  
+  var offset = 50;
+
+  $(window).load(function(){
+    var height = $('#landing_video').height() - offset;
+    $('#landing_wrapper').delay(100).height(height);
+
+    $('#landing_wrapper').promise().done(function(){
+      $('#landing_wrapper').css({'display': 'flex'});
+      $('#footer').delay(200).fadeIn(100);
+      $('#landing_content').fadeIn(1000);       
     })
+ 
+    console.log(height);
+  }); 
+
+  $(window).on('resize', function(){
+    var height = $('#landing_video').height() - offset;
+    $('#landing_wrapper').height(height);
+    console.log(height);
+  })
 
 
-    .ajaxStart(function () {
-      $("#loader-wrapper").show();
-    })
-
-    .ajaxStop(function () {
-      $("#loader-wrapper").hide();
-    });
-
-
-
-
-    var csrftoken = getCookie('csrftoken');
-
-    function csrfSafeMethod(method) {
-    // these HTTP methods do not require CSRF protection
-    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-    }
-
-
-    $.ajaxSetup({
-        beforeSend: function(xhr, settings) {
-            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-                xhr.setRequestHeader("X-CSRFToken", csrftoken);
-            }
-        }
-    });
-
-
-    var handler = StripeCheckout.configure({
-      key: '{{ publish_key }}',
-      locale: 'auto',
-      token: function(token) {
-        // Use the token to create the charge with a server-side script.
-        // You can access the token ID with `token.id`
-
-        // loader
-        $("#loader-wrapper").show();
-
-        $.ajax({
-          url: '{% url "book_checkout" %}',
-          type: 'POST',
-          data: {
-            token: token.id,
-            name: $('#book_name').val(),
-            time: $('#book_time').val(),  
-            email: $('#book_email').val(),
-            photographer: {{ next_shoot.photographer.pk }}
-          },
-
-          success: function(data){
-            $("#modal_content").html(data['successMsg']);
-            $("#modal_link").trigger('click');
-          },
-
-          failure: function(data) {
-            $("#modal_content").html(data['successMsg'])
-            $("#modal_link").trigger('click')
-          }
-        });
-      }
-    });
-
-    
-    $('#pay_button').on('click', function(e) {
-
-
-      // Open Checkout with further options
-
-      // validate with html form
-      if (document.getElementById('book_email').checkValidity() &&
-        document.getElementById('book_name').checkValidity() && 
-        document.getElementById('book_time').checkValidity()) {
-        handler.open({
-          name: 'Bryte Photo Inc',
-          description: 'Headshot',
-          amount: 2000
-        });
-        e.preventDefault();
-      } 
-      
-    });
-
-
-    $('#signup_button').on('click', function(e){
-      
-      if (document.getElementById('signup_email').checkValidity()){
-        $("#loader-wrapper").show();    
-        $.ajax({
-          url: '{% url "book_signup" %}',
-          type: 'POST',
-          data: {
-            email: $('#signup_email').val()
-          },
-
-          success: function(data){
-            $("#modal_content").html(data['successMsg'])
-            $("#modal_link").trigger('click')
-          },
-
-          failure: function(data){
-            $("#modal_content").html('Something wrong happened, please try again.')
-            $("#modal_link").trigger('click')
-          }
-        });
-        e.preventDefault();
-      }
-    });
-
-
-    // Close Checkout on page navigation
-    $(window).on('popstate', function() {
-      handler.close();
-    });
+  // slider
+  $('.slider').unslider({
+    autoplay: true,
+    speed: 500,
+    infinite: true,
+  });
+  
+  
 {% endblock %}

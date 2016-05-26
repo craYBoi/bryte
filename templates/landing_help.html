@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block stylesheet %}
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.min.css">
+{% endblock %}
+
+{% block content %}
+	<div class="red_bg">
+		<div class="container">
+			<div class="large_padding"></div>
+			<div class="row">
+				<div class="col-sm-7 col-sm-offset-0 col-xs-10 col-xs-offset-1">
+					<div class="page-header">
+					<h1 class="white landing_title bold">Contact Help</h1>
+					</div>
+					<form id="landing_help_form">
+						<div class="small_padding"></div>
+						<h4 class="white landing_text_main">First & Last Name</h4>
+						<input name='landing_help_name' id="landing_help_name" required type='text' class="form-control" placeholder='First & Last Name' pattern="[a-zA-Z.]{2,}(\s+[a-zA-z.]{2,})+" >
+						<div class="small_padding"></div>
+
+						<h4 class="white landing_text_main">Email</h4>
+						<input type='email' id="landing_help_email" name="landing_help_email" class="form-control" placeholder='Email Address' required>
+						<div class="small_padding"></div>
+
+
+						<h4 class="white landing_text_main">What can we help?</h4>
+						<textarea class="form-control" placeholder='Questions and Requests' name="landing_help_question" id="landing_help_question" form="landing_help_form"></textarea>
+
+						<div class="medium_padding"></div>
+
+						<button id="landing_help_button" class="btn-white bold landing_text_main landing_button_padding" type='submit'>Submit</button>
+					</form>
+
+				</div>
+				<div class="col-sm-4 col-sm-offset-1 col-xs-10 col-xs-offset-1">
+					<div class="medium_padding"></div>
+					<div id="contact_sidebox">
+						<h2 class="white landing_text_main text-center bold">Not sure?</h2>
+						<div class="row">
+							<div class="col-xs-10 col-xs-offset-1">
+								<p class="white landing_text text-center">Check out what our clients say about us</p>
+								<div class="xsmall_padding"></div>
+								<div class="text-center">
+									<a href="{% url 'landing_clients' %}"><button class="landing_button_padding btn-white landing_text">Our Testimonials</button></a>
+								</div>
+								<div class="small_padding"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="large_padding"></div>
+		</div>
+
+	</div>
+
+<!-- modal -->
+	<a id="modal_link" href="#animatedModal" hidden></a>
+	<div id="animatedModal">
+	  <!--THIS IS IMPORTANT! to close the modal, the class name has to match the name given on the ID  class="close-animatedModal" -->
+	  <div class="close-animatedModal text-center" id="modal_close_link"> 
+	      <div class="medium_padding"></div>
+	      <a href="" class="modal_close white xbig_font"><i class="fa fa-times-circle-o"></i></a>
+	  </div>
+
+	  <div class="white text-center medium_padding large_font">      
+	  <p id="modal_content"></p>
+	  </div>
+	</div>
+
+
+	<!-- loader -->
+	<div id="loader-wrapper" hidden>
+	  <div id="loader" class="text-center"><img src="{% static 'logo/loading.svg' %}" width="140px"></div>
+	</div>
+{% endblock %}
+
+{% block script %}
+	<script src="{% static 'js/animatedModal.min.js' %}"></script>
+  <script type="text/javascript">
+  function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+var csrftoken = getCookie('csrftoken');
+  </script>
+{% endblock %}
+
+
+{% block jquery %}
+  // modal 
+  $("#modal_link").animatedModal({
+    animatedIn: 'zoomInUp',
+    animatedOut: 'bounceOutDown',
+    color: '#c94848'
+  });
+
+  $('#modal_close_link').click(function(){
+    location.reload();
+  })
+
+  .ajaxStart(function () {
+    $("#loader-wrapper").show();
+  })
+
+  .ajaxStop(function () {
+    $("#loader-wrapper").hide();
+  });
+
+  var csrftoken = getCookie('csrftoken');
+
+  function csrfSafeMethod(method) {
+  // these HTTP methods do not require CSRF protection
+  return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+  }
+
+
+  $.ajaxSetup({
+      beforeSend: function(xhr, settings) {
+          if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+              xhr.setRequestHeader("X-CSRFToken", csrftoken);
+          }
+      }
+  });
+
+  $('#landing_help_button').on('click', function(e){
+    if (document.getElementById('landing_help_name').checkValidity() && document.getElementById('landing_help_email').checkValidity() && document.getElementById('landing_help_question').checkValidity()){
+      $("#loader-wrapper").show();    
+      $.ajax({
+        url: '{% url "ajax_landing_help" %}',
+        type: 'POST',
+        data: {
+        	name: $('#landing_help_name').val(),
+          email: $('#landing_help_email').val(),
+          question: $('#landing_help_question').val(),      
+        },
+
+        success: function(data){
+          $("#modal_content").html(data['msg'])
+          $("#modal_link").trigger('click')
+        },
+
+        failure: function(data){
+          $("#modal_content").html('Something wrong happened, please try again. Thanks!')
+          $("#modal_link").trigger('click')
+        }
+      });
+      e.preventDefault();
+    }
+  });
+{% endblock %}

@@ -28,6 +28,11 @@ urlpatterns = [
     url(r'^about$', newsletter_views.about, name='about'),
     url(r'^photographer/', include('photographer.urls')),
 
+    url(r'^clients/', newsletter_views.clients, name='landing_clients'),
+    url(r'^contact/', newsletter_views.contact, name='landing_contact'),
+    url(r'^ajax_contact/', newsletter_views.ajax_contact, name='ajax_landing_contact'),
+    url(r'^help/', newsletter_views.help, name='landing_help'),
+    url(r'^ajax_help/', newsletter_views.ajax_help, name='ajax_landing_help'),
     # book
     url(r'^book/', include('book.urls')),
 

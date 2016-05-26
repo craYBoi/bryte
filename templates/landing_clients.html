@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+	<div class="red_bg">
+		<div class="container">
+			<div class="medium_padding"></div>
+			<div class="small_padding"></div>
+			<h1 class="white landing_title text-center bold">Our Clients</h1>
+			<div class="medium_padding"></div>
+			<div class="small_padding"></div>
+			<div class="row">
+				<div class="col-md-4">
+					<a href="#" class="thumbnail">
+			      <img src="{% static 'logo/CareerLAB_logo.jpg' %}" alt="Brown CareerLAB Logo" height="80px">
+			      <div class="caption">
+        			<h4 class="text-center red bold landing_text_main">Brown CareerLAB</h4>
+      			</div>
+			    </a>
+		    </div>
+		    <div class="col-md-4">
+					<a href="{% url 'landing_contact' %}" class="thumbnail no_text_decor">
+			      <img src="{% static 'img/client2.jpg' %}" alt="Be Our Client" height="80px">
+			      <div class="caption">
+        			<h4 class="text-center red bold landing_text_main">Be Our Client!</h4>
+      			</div>
+			    </a>
+		    </div>
+			</div>
+
+				
+			
+
+		</div>
+		<div class="medium_padding"></div>
+		<div class="small_padding"></div>
+	</div>
+	<div class="background_light_pink top_border">
+		<div class="medium_padding"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="page-header red">
+						<h2 class="red bold landing_title_sec">Amy Tarbox</h2>
+					</div>
+					<p class="landing_text red">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
+				</div>
+
+			</div>
+
+		</div>
+
+		<div class="large_padding"></div>
+	</div>
+
+
+	
+{% endblock %}

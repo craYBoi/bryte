@@ -4,21 +4,21 @@
   <meta name="description" content="Bryte Photo Legal Documentation, including Terms of Service, Independent Contractor Agreement and Privacy Policy.">
 {% endblock %}
 {% block content %}
-    <div class="jumbotron" style="background: url({% static 'img/store_bg2.jpg' %}); background-size: cover; text-align: center;">
+    <div class="red_bg">
       <div class="medium_padding"></div>
-      <h1 class="text-center bold main_title white">Legal Documentation</h1>
+      <h1 class="text-center bold landing_title white">Legal Documentation</h1>
       <div class="medium_padding"></div>
+
+
+    <div class="medium_padding"></div>
+    <div class="text-center landing_text">
+	    	<button id="terms_of_services_button" class="btn-white">Terms of Services</button>
+	    	<button id="independent_contractor_agreement_button" class="btn-white">Independent Contractor Agreement</button>
+	    	<button id="privacy_policy_button" class="btn-white">Privacy Policy</button>
     </div>
 
     <div class="medium_padding"></div>
-    <div class="text-center">
-	    	<button id="terms_of_services_button" class="btn-blue">Terms of Services</button>
-	    	<button id="independent_contractor_agreement_button" class="btn-blue">Independent Contractor Agreement</button>
-	    	<button id="privacy_policy_button" class="btn-blue">Privacy Policy</button>
-    </div>
-
-    <div class="medium_padding"></div>
-    <div class="container light small_font">
+    <div class="container light small_font white">
     <p id="terms_of_services">
     	Terms of Service<br><br>
 Effective Feb. 22, 2016<br><br>
@@ -267,12 +267,11 @@ If you are located outside of the United States, please note that the informatio
 
 
     </div>
-
+</div>
 
 {% endblock %}
 
 {% block jquery %}
-	$('#terms_of_services').hide();
 	$('#independent_contractor_agreement').hide();
 	$('#privacy_policy').hide();
 

@@ -1,6 +1,17 @@
 {% load staticfiles %}
 <!-- navbar-fixed-top navbar-default-->
-<nav class="navbar navbar-default navbar-fixed-top" id="main_nav">
+{% if is_index %}
+  <nav class="navbar navbar-default" id="main_nav">
+{% elif is_contact %}
+  <nav class="navbar navbar-default navbar_grey navbar_border" id="main_nav">
+{% elif is_clients %}
+  <nav class="navbar navbar-default navbar_grey navbar_border" id="main_nav">
+{% elif brown_careerlab %}
+  <nav class="navbar navbar-default navbar_grey navbar_border" id="main_nav">
+{% else %}
+  <nav class="navbar navbar-default navbar_grey navbar_border" id="main_nav">
+{% endif %}
+
 <!--style="background: url({% static 'img/nav.jpg' %}) no-repeat center; background-size: cover;"-->
   <div class="">
     <div class="navbar-header">
@@ -11,21 +22,30 @@
         <span class="icon-bar"></span>
       </button>
 
+      <a href="{% url 'home' %}" class="navbar-brand">
+        {% if is_index %}
+          <img alt="Bryte Photo logo" src="{% static 'logo/bryte_logo_white.png' %}" height="50px">
+        {% elif is_contact %}
+          <img alt="Bryte Photo logo" src="{% static 'logo/bryte_logo_white.png' %}" height="50px">
+        {% elif is_clients %}
+          <img alt="Bryte Photo logo" src="{% static 'logo/bryte_logo_white.png' %}" height="50px">
+        {% elif brown_careerlab %}
+          <img alt="Bryte Photo logo" src="{% static 'logo/bryte_logo_white.png' %}" height="50px">
+        {% endif %}
+      </a>
+
       {% if brown_careerlab %}
-        <a class="navbar-brand" href="{% url 'home' %}"><img alt="Bryte Photo logo" src="{% static 'logo/bryte_logo_white.png' %}" width="120px" style="margin-top: 0px"></a>
-        <a class="navbar-brand" href="https://www.brown.edu/" target="_blank"><img alt="Brown University" src="{% static 'logo/brown_logo.png' %}" width="40px" style="margin-top: 0px"></a>
-        <a class="navbar-brand" href="https://www.brown.edu/campus-life/support/careerlab/" target="_blank"><img alt="CareerLAB" src="{% static 'logo/CareerLAB_logo.jpg' %}" width="198px" style="margin-top: 0px"></a>
-      {% else %}
-        <a class="navbar-brand" href="{% url 'home' %}"><img alt="Bryte Photo logo" src="{% static 'logo/bryte_logo_white.png' %}" width="120px" style="margin-top: 0px"></a>
+        <a href="https://www.brown.edu/" target="_blank"><img alt="Brown University" src="{% static 'logo/brown_logo.png' %}" height="50px"></a>
+        <a href="https://www.brown.edu/campus-life/support/careerlab/" target="_blank"><img alt="CareerLAB" src="{% static 'logo/CareerLAB_logo.jpg' %}" height="50px"></a>
       {% endif %}
     </div>
 
     <div class="collapse navbar-collapse" id='bs-example-navbar-collapse-1'>
       <ul class="nav navbar-nav navbar-right">
-        <li class="social_icons"><a href="https://www.facebook.com/Brytephoto" target="_blank"><span class="white"><i class="fa fa-facebook fa-2x" aria-hidden="true"></i></span></a></li>
+        <li class="bold"><a href="{% url 'landing_contact' %}"><span class="white">Contact Us</span></a></li>
         <li class="bold small_padding_right">{% if brown_careerlab %}
           <a href="#careerlab_gallery">{% else %}
-        <a href="#index_past_work">{% endif %}<span class="white">Our Past Work</span></a></li>
+        <a href="{% url 'landing_clients' %}">{% endif %}<span class="white">Our Clients</span></a></li>
       </ul>
     </div>
   </div>
