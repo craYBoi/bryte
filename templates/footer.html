@@ -52,7 +52,6 @@
 
   <div class="large_padding white">
     <ul class="list-inline bold">
-      <li><a href="{% url 'photographers' %}" class="white"><span class="pink">P</span>hotographers</a></li>
       <li><a href="{% url 'legal' %}" class="white"><span class="pink">L</span>egal Documentation</a></li>
       {% if request.user.is_authenticated %}
         <li><a href="{{ request.user.profile.photographer.get_absolute_url }}" class="white"><span class="pink">M</span>y Profile</a></li>

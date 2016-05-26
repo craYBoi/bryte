@@ -42,10 +42,10 @@
 
     <div class="collapse navbar-collapse" id='bs-example-navbar-collapse-1'>
       <ul class="nav navbar-nav navbar-right">
-        <li class="bold"><a href="{% url 'landing_contact' %}"><span class="white">Contact Us</span></a></li>
-        <li class="bold small_padding_right">{% if brown_careerlab %}
+        <li class="bold">{% if brown_careerlab %}
           <a href="#careerlab_gallery">{% else %}
         <a href="{% url 'landing_clients' %}">{% endif %}<span class="white">Our Clients</span></a></li>
+        <li class="bold small_padding_right"><a href="{% url 'landing_contact' %}"><span class="light_red large_font">Contact Sales</span></a></li>
       </ul>
     </div>
   </div>

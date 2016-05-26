@@ -17,7 +17,7 @@
 {% endblock %}
 
 {% block content %}
-  <div id="vid_background">
+  <!--<div id="vid_background">
     <video id="landing_video" autoplay muted loop="loop" preload="metadata" poster='{% static "img/landing2.jpg" %}'>
       <source src="{% static 'vid/cl.mov' %}">
     </video> 
@@ -34,16 +34,32 @@
      <a href="#landing_feature"><button class="white text-center landing_button landing_text_main landing_button_padding">Learn More</button></a>
      <div class="large_padding"></div>
     </div> 
+  </div>-->
+
+  <div style="background: url({% static 'img/landing2.jpg' %}) center; background-size: cover; text-align: center;" id="landing_pic">
+    <div id="landing_wrapper" class="center_flex">
+     <h1 class="white text-center bold landing_title">Everyone deserves to look more professional</h1>
+     <div class="row">
+      <div class="col-xs-12">
+       <p class="white text-center landing_text_main">
+         High quality and affordable headshot to organizations that need them at scale
+       </p>
+      </div>
+     </div>
+     <div class="small_padding"></div>
+     <a href="#landing_feature"><button class="white text-center landing_button landing_text_main landing_button_padding">Learn More</button></a>
+     <div class="large_padding"></div>
+    </div>  
   </div>
 
 
 
-  <div id="landing_content" hidden>
+  <div id="landing_content">
     <div id="landing_feature">
       <div class="row">
         <div class="col-md-6">
           <div class="center_flex landing_feature_padding landing_feature_height">
-            <h2 class="landing_title_sec bold">High Quality Headshots</h2>
+            <h2 class="landing_title_sec bold text-center">High Quality Headshots</h2>
             <div class="small_padding"></div>
             <ul class="package_list">
               <li>Premium lighting and backdrops</li>
@@ -57,7 +73,7 @@
         <div class="whole_padding"></div>
         </div>
       </div>
-      <div class="row">
+      <div class="row" id="vid_morethanaphotographycompany">
         <div class="col-md-6 col-md-push-6">
           <div class="center_flex landing_feature_padding landing_feature_height">
             <h2 class="landing_title_sec bold text-center">More Than a Photography Company</h2>
@@ -70,34 +86,32 @@
             </ul>
           </div>
         </div>
-        <div class="col-md-6 col-md-pull-6" style="background: url({% static 'img/landing1.jpg' %}) center; background-size: cover; text-align: center;">
-        <div class="whole_padding"></div>
+        <div class="col-md-6 col-md-pull-6">
+          <script charset="ISO-8859-1" src="//fast.wistia.com/assets/external/E-v1.js" async></script><div class="wistia_responsive_padding" style="padding:56.25% 0 0 0;position:relative;"><div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;"><span class="wistia_embed wistia_async_13mzf8lu3p popover=true popoverAnimateThumbnail=true videoFoam=true" style="display:inline-block;height:100%;width:100%">&nbsp;</span></div></div>
         </div>
       </div>
     </div>
 
 
-    <div class="red_bg">
+    <div class="red_bg" id="landing_our_clients">
       <div class="medium_padding"></div>
       <div class="small_padding"></div>
-      <h2 class="bold text-center landing_title white">Our Clients</h2>
+      <h2 class="bold text-center landing_title white">CareerLAB, Brown University</h2>
       <div class="small_padding"></div>
       <div class="container">
         <div class="row">
           <div class="col-md-4 col-md-offset-0 col-xs-10 col-xs-offset-1">
             <div class="page-header">
-            <h2 class="white text-left landing_text_main large_text">Brown CareerLAB</h2>
+              <h4 class="white"><span class="landing_title_sec">Amy</span> | <span class="landing_text">CareerLAB Advisor</span></h4>
             </div>
-            <p class="white landing_text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.</p>
+            <p class="white">"I think Bryte Photo is a great addition to the services we provide to our students. We want to help them build a great LinkedIn profile so that employers look at them, and Bryte Photo is perfect for that: that professional headshot that they may not be able to get otherwise".<br><br>On taking headshots previously: "It was a lot of legwork on behalf of the office that frankly we just don’t have time for. Bryte has eliminated so much of that for us… the majority of the work is done by Bryte"</p>
+            <div class="small_padding"></div>
+            <a href="{% url 'landing_clients' %}"><button class="btn-white landing_text landing_button_padding">See the rest of our clients</button></a>
           </div>
 
           <div class="col-md-7 col-md-offset-1 col-xs-10 col-xs-offset-1">
-            <div class="medium_padding"></div>
-            <video controls preload="metadata" width="100%">
-              <source src="{% static 'vid/cl.mov' %}">
-            </video> 
+            <div class="large_padding"></div>
+            <script charset="ISO-8859-1" src="//fast.wistia.com/assets/external/E-v1.js" async></script><div class="wistia_responsive_padding" style="padding:56.25% 0 28px 0;position:relative;"><div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;"><span class="wistia_embed wistia_async_alcw5ktch2 popover=true popoverAnimateThumbnail=true videoFoam=true" style="display:inline-block;height:100%;width:100%">&nbsp;</span></div></div>
           </div>
         </div>
       </div>
@@ -112,7 +126,7 @@
       <div class="small_padding"></div>
       <div class="row">
         <div class="col-md-6 col-md-offset-3 col-xs-10 col-xs-offset-1">
-        <p class="red text-center landing_text">We will deliver headshots like you've never seen them before.</p>
+        <p class="red text-center landing_text">We deliver headshots like you've never seen them before.</p>
         </div>
       </div>
       <div class="text-center medium_padding">
@@ -131,28 +145,28 @@
 
 {% block jquery %}
 
-  $('#footer').hide();
+  // $('#footer').hide();
   
-  var offset = 50;
+  // var offset = 50;
 
-  $(window).load(function(){
-    var height = $('#landing_video').height() - offset;
-    $('#landing_wrapper').delay(100).height(height);
+  // $(window).load(function(){
+  //   var height = $('#landing_video').height() - offset;
+  //   $('#landing_wrapper').delay(100).height(height);
 
-    $('#landing_wrapper').promise().done(function(){
-      $('#landing_wrapper').css({'display': 'flex'});
-      $('#footer').delay(200).fadeIn(100);
-      $('#landing_content').fadeIn(1000);       
-    })
+  //   $('#landing_wrapper').promise().done(function(){
+  //     $('#landing_wrapper').css({'display': 'flex'});
+  //     $('#footer').delay(200).fadeIn(100);
+  //     $('#landing_content').fadeIn(1000);       
+  //   })
  
-    console.log(height);
-  }); 
+  //   console.log(height);
+  // }); 
 
-  $(window).on('resize', function(){
-    var height = $('#landing_video').height() - offset;
-    $('#landing_wrapper').height(height);
-    console.log(height);
-  })
+  // $(window).on('resize', function(){
+  //   var height = $('#landing_video').height() - offset;
+  //   $('#landing_wrapper').height(height);
+  //   console.log(height);
+  // })
 
 
   // slider

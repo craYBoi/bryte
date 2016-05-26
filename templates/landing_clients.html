@@ -2,6 +2,11 @@
 {% load staticfiles %}
 {% load crispy_forms_tags %}
 
+{% block stylesheet %}
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.min.css">
+  <link rel="stylesheet" href="{% static 'css/unslider.css' %}">
+{% endblock %}
+
 {% block content %}
 	<div class="red_bg">
 		<div class="container">
@@ -36,26 +41,114 @@
 		<div class="medium_padding"></div>
 		<div class="small_padding"></div>
 	</div>
+
 	<div class="background_light_pink top_border">
 		<div class="medium_padding"></div>
+
+		<h1 class="red text-center landing_title_sec bold">Brown CareerLAB</h1>
+
 		<div class="container">
 			<div class="row">
-				<div class="col-md-4">
+				<div class="col-md-12 col-md-offset-0 col-xs-10 col-xs-offset-1">
 					<div class="page-header red">
-						<h2 class="red bold landing_title_sec">Amy Tarbox</h2>
+						<h2 class="red landing_title_sec">The Story</h2>
 					</div>
-					<p class="landing_text red">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
+					<p class="landing_text red">In May 2016, the career services center at Brown University, CareerLAB, hired Bryte Photo to take headshots for Brown University students. The CareerLAB originally hired Bryte Photo to shoot for two hours, enough time for 40 headshots. To advertise the shoot, CareerLAB posted once on their Facebook Page and sent out a single email to Brown Undergraduates. The response was unbelievable: in 94 minutes all 40 headshots on the Bryte Photo website were booked. The next 24 hours saw 208 email signups from students requesting waitlist spots for the shoot. Between the exciting response from students, and an excellent solution provided by Bryte Photo, CareerLAB proceeded to purchase another 60 headshots in May 2016, and also hired Bryte Photo for 5 more shoots during the Fall 2016 Semester.</p>
 				</div>
-
 			</div>
-
 		</div>
 
 		<div class="large_padding"></div>
+
+		<div class="red_bg">
+			<div class="row white">
+				<div class="small_padding"></div>
+				<div class="col-sm-2 col-sm-offset-3 text-center">
+					<h3 class="landing_title_l">100</h3>
+					<p class="landing_text">sessions<br>booked</p>
+				</div>
+				<div class="col-sm-2 text-center">
+					<h3 class="landing_title_l">148</h3>
+					<p class="landing_text">email signups<br>in addition</p>
+				</div>
+				<div class="col-sm-2 text-center">
+					<h3 class="landing_title_l">517</h3>
+					<p class="landing_text">visitors<br>in one day</p>
+				</div>
+				
+			</div>
+
+			<div class="medium_padding"></div>
+		</div>
+
+		<div class="medium_padding"></div>
+
+		<div class="container">
+			<div class="row red">
+				<div class="col-md-12 col-md-offset-0 col-xs-10 col-xs-offset-1">
+					<div class="page-header">
+						<h2 class="landing_title_sec">The Process</h2>
+					</div>
+					<p class="landing_text">Each student had 3 minutes to take a headshot, the standard time for Bryte Photo headshots at career service centers.  The headshots were taken by Bryte Photo photographer, Sarah Morse.  Sarah is a RISD student with freelance photography experience.  She helped the clients choose poses on photo day and also touched up the headshots after the shoot.  Here are some of the headshots from shoot day!</p>
+				</div>
+			</div>
+			<div class="medium_padding"></div>
+
+		</div>
+
+
+		<div id="careerlab_gallery">
+	  	<div class="medium_padding"></div>
+	  	<div class="slider">
+	  		<div class="text-center">
+		  	<ul>
+		  		<li><img src="{% static 'img/headshots/boy1.jpg' %}" height='450px'></li>
+		  		<li><img src="{% static 'img/headshots/girl2.jpg' %}" height='450px'></li>
+		  		<li><img src="{% static 'img/headshots/cameron1.jpg' %}" height='450px'></li>
+		  		<li><img src="{% static 'img/headshots/visona1.jpg' %}" height='450px'></li>
+		  		<li><img src="{% static 'img/headshots/girl1.jpg' %}" height='450px'></li>
+		  		<li><img src="{% static 'img/headshots/val1.jpg' %}" height='450px'></li>
+		  	</ul>
+		  	</div>
+	  	</div>
+	  </div>
+
+	  <div class="large_padding"></div>
+
+	  <div class="red_bg">
+	  <div class="container">
+	  	<div class="medium_padding"></div>
+	  	<div class="row white">
+	  		<div class="col-md-7">
+	  			<div class="page-header">
+	  				<h2><span class="landing_title">Amy</span> |  <span class="landing_text">CareerLAB Advisor</span></h2>
+	  			</div>
+	  			<p>"I think Bryte Photo is a great addition to the services we provide to our students. We want to help them build a great LinkedIn profile so that employers look at them, and Bryte Photo is perfect for that: that professional headshot that they may not be able to get otherwise".<br><br>On taking headshots previously: "It was a lot of legwork on behalf of the office that frankly we just don’t have time for.  Bryte has eliminated so much of that for us [...] the majority of the work is done by Bryte"</p>
+	  		</div>
+	  		<div class="col-md-5">
+					<div class="large_padding"></div>
+          <script charset="ISO-8859-1" src="//fast.wistia.com/assets/external/E-v1.js" async></script><div class="wistia_responsive_padding" style="padding:56.25% 0 28px 0;position:relative;"><div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;"><span class="wistia_embed wistia_async_alcw5ktch2 popover=true popoverAnimateThumbnail=true videoFoam=true" style="display:inline-block;height:100%;width:100%">&nbsp;</span></div></div>
+	  		</div>
+	  	</div>
+	  </div>
+	  <div class="large_padding"></div>
+	  </div>
+
+
 	</div>
 
 
 	
+{% endblock %}
+
+{% block script %}
+	<script src="{% static 'js/unslider-min.js' %}"></script>
+{% endblock %}
+{% block jquery %}
+	// slider
+	$('.slider').unslider({
+		autoplay: true,
+		speed: 500,
+		infinite: true,
+	});
 {% endblock %}

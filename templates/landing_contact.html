@@ -25,6 +25,10 @@
 						<input type='email' id="landing_contact_email" name="landing_contact_email" class="form-control" placeholder='Email Address' required>
 						<div class="small_padding"></div>
 
+						<h4 class="white landing_text_main">Phone Number</h4>
+						<input type='text' id="landing_contact_phone" name="landing_contact_phone" class="form-control" placeholder='Phone Number' required>
+						<div class="small_padding"></div>
+
 						<h4 class="white landing_text_main">School / Organization Name</h4>
 						<input type='text' id="landing_contact_orgname" name="landing_contact_orgname" class="form-control" placeholder='Organization Name' required>
 						<div class="small_padding"></div>
@@ -34,11 +38,12 @@
 							<option>School</option>
 							<option>For-profit Business</option>
 							<option>Non-profit Business</option>
-							<option>Individual</option>
+							<option>Conference</option>
+							<option>Other</option>
 						</select>
 						<div class="small_padding"></div>
 
-						<h4 class="white landing_text_main">How many Headshots are you looking for in total in a year?</h4>
+						<h4 class="white landing_text_main">How many Headshots are you looking for in total / year?</h4>
 						<select class="form-control" required name="landing_contact_amount" id="landing_contact_amount">
 							<option>Less than 50</option>
 							<option>50 - 300</option>
@@ -170,6 +175,7 @@ var csrftoken = getCookie('csrftoken');
         data: {
         	name: $('#landing_contact_name').val(),
           email: $('#landing_contact_email').val(),
+          phone: $('#landing_contact_phone').val(),
           orgname: $('#landing_contact_orgname').val(),
         	category: $('#landing_contact_category').val(),
           amount: $('#landing_contact_amount').val(),

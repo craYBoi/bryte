@@ -149,12 +149,13 @@ def ajax_contact(request):
 		org_name = request.POST.get('orgname')
 		amount = request.POST.get('amount')
 		question = request.POST.get('question')
+		phone = request.POST.get('phone')
 
 		first_name = name.strip().split(' ')[0]
 
 		# create database instance
 		try:
-			c = ContactSale.objects.create(name=name, email=email,category=category, organization=org_name, amount=amount,question=question)
+			c = ContactSale.objects.create(name=name, email=email,category=category, organization=org_name, amount=amount,question=question, phone=phone)
 		except Exception, e:
 			print 'Fail to create instance'
 			data['msg'] = 'There\'s an error signing up. Please try again.'
@@ -163,7 +164,7 @@ def ajax_contact(request):
 			# send the email
 			data['msg'] = 'Thank you ' + first_name + ' for contacting us! We will get to you as soon as we can!'
 
-			msg_body = 'Contact Sales Information:\n\nName: ' + str(name) + '\nEmail: ' + str(email) + '\nOrganization: ' + str(org_name) + '\nCategory: ' + str(category) + '\nAmount of Headshots Estimate: ' + str(amount) + '\nQuestion & Request: ' + str(question) + '\n\nBest,\nBryte Photo Team'
+			msg_body = 'Contact Sales Information:\n\nName: ' + str(name) + '\nEmail: ' + str(email) + '\nPhone: ' + str(phone) + '\nOrganization: ' + str(org_name) + '\nCategory: ' + str(category) + '\nAmount of Headshots Estimate: ' + str(amount) + '\nQuestion & Request: ' + str(question) + '\n\nBest,\nBryte Photo Team'
 
 			try:
 				send_mail('New Contact Sales Inquiry!', msg_body, 'Bryte Photo <' + settings.EMAIL_HOST_USER + '>', [settings.EMAIL_HOST_USER], fail_silently=False)

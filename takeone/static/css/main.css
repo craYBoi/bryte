@@ -924,7 +924,7 @@ h1,h2,h3,h4 {
 }
 
 .whole_padding {
-	padding-top: 500px;
+	padding-top: 450px;
 }
 
 .special_padding {
@@ -1085,6 +1085,10 @@ h1,h2,h3,h4 {
 
 .red {
 	color: #c94848!important;
+}
+
+.light_red {
+	color: #ef7777!important;
 }
 
 .dark_grey_bg {
@@ -1559,7 +1563,7 @@ body, html
 }
 
 .landing_feature_height {
-	height: 500px;
+	height: 450px;
 }
 
 
@@ -1598,6 +1602,9 @@ body, html
 }
 
 @media (min-width: 992px) {
+  .landing_title_l {
+    font-size: 6em!important;
+  }
   .landing_title {
     font-size: 3em!important;
   }
@@ -1616,6 +1623,9 @@ body, html
   }
 }
 @media (max-width: 992px) {
+  .landing_title_l {
+    font-size: 5.4em!important;
+  }
   .landing_title {
     font-size: 2.7em!important;
   }
@@ -1634,6 +1644,9 @@ body, html
   }
 }
 @media (max-width: 768px) {
+  .landing_title_l {
+    font-size: 4em!important;
+  }
   .landing_title {
     font-size: 1.5em!important;
   }
@@ -1652,6 +1665,9 @@ body, html
   }
 }
 @media (max-width: 500px) {
+  .landing_title_l {
+    font-size: 3em!important;
+  }
   .landing_title {
     font-size: 1.2em!important;
   }
@@ -1726,4 +1742,19 @@ body, html
 .thumbnail:hover {
 	text-decoration: none!important;	
 }
+
+
+#landing_pic {
+	margin-top: -48px;
+	height: 100vh;
+}
+
+#landing_wrapper {
+	height: inherit;
+	margin: 0;
+	width: 100%;
+}
+
+#vid_morethanaphotographycompany {
+	padding: 0;
 }
