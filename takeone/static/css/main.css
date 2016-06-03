@@ -1758,3 +1758,11 @@ body, html
 #vid_morethanaphotographycompany {
 	padding: 0;
 }
+
+.justified-gallery>a {
+	padding: 0;
+}
+
+.justified-gallery>a>img {
+	vertical-align: middle;
+}

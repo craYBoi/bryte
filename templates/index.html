@@ -13,6 +13,8 @@
 
 {% block stylesheet %}
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.min.css">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/justifiedGallery.min.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/lightgallery.css' %}">
   <link rel="stylesheet" href="{% static 'css/unslider.css' %}">
 {% endblock %}
 
@@ -42,7 +44,7 @@
      <div class="row">
       <div class="col-xs-12">
        <p class="white text-center landing_text_main">
-         High quality and affordable headshots for organizations that need them at scale
+         We take your current LinkedIn headshot solution and supercharge it
        </p>
       </div>
      </div>
@@ -59,14 +61,19 @@
       <div class="row">
         <div class="col-md-6">
           <div class="center_flex landing_feature_padding landing_feature_height">
-            <h2 class="landing_title_sec bold text-center">High Quality Headshots</h2>
+            <h2 class="landing_title_sec bold text-center">The Best Headshot Experience</h2>
             <div class="small_padding"></div>
+            <div class="row">
+              <div class="col-xs-10 col-xs-offset-1">
             <ul class="package_list">
-              <li>Premium lighting and backdrops</li>
-              <li>Top notch touchup</li>
-              <li>See your photo before you leave</li>
-              <li>Bryte Photo trained photographers</li>
+              <li>Touched up process designed by Bryte Photo, <a href="http://www.risd.edu/" class="red">RISD</a> and photography gurus</li>
+              <li>Students see the photos to pick their favorites</li>
+              <li>Backdrop color options</li>
+              <li>Bryte Photo hires your student photographers</li>
+              <li>On your campus</li>
             </ul>
+            </div>
+            </div>
           </div>
         </div>
         <div class="col-md-6" style="background: url({% static 'img/landing1.jpg' %}) center; background-size: cover; text-align: center;">
@@ -92,6 +99,46 @@
       </div>
     </div>
 
+    <!-- light gallery -->
+
+    <div id="lightgallery" class="justified-gallery">
+      <a href="{% static 'img/headshots/hs3.jpg' %}">
+          <img src="{% static 'img/thumbnails/hs3_thumb.jpg' %}" class="img-responsive"/>
+      </a>
+      <a href="{% static 'img/headshots/hs4.jpg' %}">
+          <img src="{% static 'img/thumbnails/hs4_thumb.jpg' %}" class="img-responsive"/>
+      </a>
+      <a href="{% static 'img/headshots/hs5.jpg' %}">
+          <img src="{% static 'img/thumbnails/hs5_thumb.jpg' %}" class="img-responsive"/>
+      </a>
+      <a href="{% static 'img/headshots/hs6.jpg' %}">
+          <img src="{% static 'img/thumbnails/hs6_thumb.jpg' %}" class="img-responsive"/>
+      </a>
+      <a href="{% static 'img/headshots/hs7.jpg' %}">
+          <img src="{% static 'img/thumbnails/hs7_thumb.jpg' %}" class="img-responsive"/>
+      </a>
+      <a href="{% static 'img/headshots/hs8.jpg' %}">
+          <img src="{% static 'img/thumbnails/hs8_thumb.jpg' %}"  class="img-responsive" />
+      </a>
+      <a href="{% static 'img/headshots/hs9.jpg' %}">
+          <img src="{% static 'img/thumbnails/hs9_thumb.jpg' %}" class="img-responsive"/>
+      </a>
+      <a href="{% static 'img/headshots/hs10.jpg' %}">
+          <img src="{% static 'img/thumbnails/hs10_thumb.jpg' %}" class="img-responsive"/>
+      </a>
+      <a href="{% static 'img/headshots/hs11.jpg' %}">
+          <img src="{% static 'img/thumbnails/hs11_thumb.jpg' %}" class="img-responsive"/>
+      </a>
+      <a href="{% static 'img/headshots/hs12.jpg' %}">
+          <img src="{% static 'img/thumbnails/hs12_thumb.jpg' %}" class="img-responsive"/>
+      </a>
+      <a href="{% static 'img/headshots/hs13.jpg' %}">
+          <img src="{% static 'img/thumbnails/hs13_thumb.jpg' %}" class="img-responsive"/>
+      </a>
+      <a href="{% static 'img/headshots/hs14.jpg' %}">
+          <img src="{% static 'img/thumbnails/hs14_thumb.jpg' %}" class="img-responsive"/>
+      </a>
+    </div>
 
     <div class="red_bg" id="landing_our_clients">
       <div class="medium_padding"></div>
@@ -122,15 +169,19 @@
 
     <div id="landing_contact">
       <div class="large_padding"></div>
-      <h2 class="red landing_title text-center bold">High quality | Affordable | Efficient</h2>
+      <div class="row">
+      <div class="col-xs-10 col-xs-offset-1">
+      <h2 class="red landing_title_sec text-center">The best part is that it’s <span class="bold big_font">free</span> for career centers and students</h2>
+      </div>
+      </div>
       <div class="small_padding"></div>
       <div class="row">
         <div class="col-md-6 col-md-offset-3 col-xs-10 col-xs-offset-1">
-        <p class="red text-center landing_text">Our prices will make you smile big</p>
+        <p class="red text-center landing_text_main">Contact us to learn about our process</p>
         </div>
       </div>
       <div class="text-center small_padding">
-        <a href="{% url 'landing_contact' %}"><button class="white text-center landing_button landing_text landing_button_padding">Talk to Sales</button></a>
+        <a href="{% url 'landing_contact' %}"><button class="white text-center landing_button landing_text landing_button_padding">Contact Us</button></a>
       </div>
       <div class="large_padding"></div>
     </div>
@@ -140,7 +191,11 @@
 {% endblock %}
 
 {% block script %}
+  <script src="{% static 'js/jquery.justifiedGallery.min.js' %}"></script>
   <script src="{% static 'js/unslider-min.js' %}"></script>
+  <script src="{% static 'js/lightgallery.js' %}"></script>
+  <script src="{% static 'js/lg-thumbnail.js' %}"></script>
+  <script src="{% static 'js/lg-fullscreen.js' %}"></script>
 {% endblock %}
 
 {% block jquery %}
@@ -175,6 +230,21 @@
     speed: 500,
     infinite: true,
   });
+
+  var $gallery = $('#lightgallery');
+  if ($gallery.length) {
+    $gallery.justifiedGallery({
+      margins: 0,
+      rowHeight: 125,
+      lastRow: 'hide'
+    }).on('jg.complete', function(){
+      $gallery.lightGallery({
+        thumbnail: true,
+        showThumbByDefault: false
+      })
+    })
+  }
+
   
   
 {% endblock %}
