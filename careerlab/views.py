@@ -3,7 +3,7 @@ from django.http import Http404, HttpResponse
 from django.core.mail import send_mail
 from django.conf import settings
 
-from .models import Timeslot, Booking, Signup
+from .models import Timeslot, Booking, Signup, Nextshoot
 
 import json
 import stripe
@@ -13,9 +13,11 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 
 def index(request):
 	title = 'Bryte Photo & CareerLab Brown University headshot'
-	timeslots = Timeslot.objects.filter(active=True, is_available=True).order_by('time')
-	if timeslots:
-		next_shoot = timeslots.first().shoot
+	next_shoot = Nextshoot.objects.first()
+	timeslots = next_shoot.timeslot_set.filter(is_available=True).order_by('time')
+	# timeslots = Timeslot.objects.filter(active=True, is_available=True).order_by('time')
+	# if timeslots:
+	# 	next_shoot = timeslots.first().shoot
 	context = {
 		'title_text': title,
 		'timeslots': timeslots,
