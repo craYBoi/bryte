@@ -198,7 +198,7 @@ class Signup(models.Model):
 	name = models.CharField(max_length=120)
 	notified = models.BooleanField(default=False)
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
-	shoot = models.ForeignKey(Nextshoot, default=Nextshoot.objects.first().pk)
+	# shoot = models.ForeignKey(Nextshoot, default=Nextshoot.objects.first().pk)
 
 	def __unicode__(self):
 		return self.name + ' ' + self.email
@@ -343,7 +343,7 @@ class Booking(models.Model):
 		ts = get_object_or_404(Timeslot, pk=ts_pk)
 		shoot_pk = ts.shoot.pk
 		shoot = get_object_or_404(Nextshoot, pk=shoot_pk)
-		# shoot_name = shoot.name
+		shoot_name = shoot.name
 
 		root_folder = settings.DROPBOX_PATH
 
