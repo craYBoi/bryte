@@ -5,7 +5,7 @@ from import_export.admin import ImportExportModelAdmin
 from .models import Timeslot, Booking, Signup, Nextshoot
 
 class NextshootAdmin(ImportExportModelAdmin):
-	list_display = ['id', 'photographer', 'location', 'school', 'timestamp']
+	list_display = ['id', 'photographer', 'location', 'school', 'name' ,'timestamp']
 
 class BookingAdmin(ImportExportModelAdmin):
 	list_display = ['id', 'email', 'name', 'timeslot', 'hash_id', 'dropbox_folder', 'timestamp']

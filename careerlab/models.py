@@ -198,7 +198,7 @@ class Signup(models.Model):
 	name = models.CharField(max_length=120)
 	notified = models.BooleanField(default=False)
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
-	# shoot = models.ForeignKey(Nextshoot, default=Nextshoot.objects.first().pk)
+	shoot = models.ForeignKey(Nextshoot, blank=True, null=True)
 
 	def __unicode__(self):
 		return self.name + ' ' + self.email
