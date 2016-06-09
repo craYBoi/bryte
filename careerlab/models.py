@@ -10,34 +10,77 @@ from django.core.urlresolvers import reverse
 from uuid import uuid4
 from datetime import datetime
 from photographer.models import Photographer
+from random import SystemRandom
+import string
 
 import os
 import dropbox
+import sendgrid
+from sendgrid import SendGridError, SendGridClientError, SendGridServerError
+
+
+# call sendgrid api
+sg = sendgrid.SendGridClient(settings.SENDGRID_KEY, None, raise_errors=True)
+
 
 # max sessions per time slot
 MAX_VOLUMN = 4
-
-
-class Signup(models.Model):
-	email = models.EmailField()
-	name = models.CharField(max_length=120)
-	notified = models.BooleanField(default=False)
-	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
-
-	def __unicode__(self):
-		return self.name + ' ' + self.email
 
 
 class Nextshoot(models.Model):
 	photographer = models.ForeignKey(Photographer, related_name='nextshoot_photographer')
 	location = models.CharField(max_length=100)
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
+	name = models.CharField(max_length=100, blank=True, null=True)
+	school = models.CharField(max_length=60, default='not assigned')
 
 	class Meta:
 		ordering = ('-timestamp',)
 
+
+	# override save method to first create folder
+	def save(self, *args, **kwargs):
+		name = self.location + ' - ' + str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+
+		# populate the shoot name field
+		self.name = name
+
+		token = settings.DROPBOX_TOKEN
+		dbx = dropbox.Dropbox(token)
+
+		root_folder = settings.DROPBOX_PATH
+
+		folder_path = os.path.join(root_folder, name)
+
+		try:
+			dbx.files_create_folder(folder_path)
+		except Exception, e:
+			raise e
+			pass
+
+		super(Nextshoot, self).save(*args, **kwargs)
+
+
 	def __unicode__(self):
 		return self.location + ' - ' + self.photographer.get_full_name()
+
+
+	def get_date_string(self):
+		timeslots = self.timeslot_set.filter(active=True)
+		if timeslots:
+			return str(timeslots.first().time.strftime('%b %-d'))
+		return None
+
+
+	def get_time_interval_string(self):
+		timeslots = self.timeslot_set.filter(active=True)
+		if timeslots:
+			a = sorted(timeslots, reverse=True)
+			str_time_start = a[0].time.strftime('%-I:%M %p')
+			str_time_end = a[-1].time.strftime('%-I:%M %p')
+			return str_time_start + ' - ' + str_time_end
+		return None
+
 
 	def send_reminder(self):
 		bookings = [e for elem in self.timeslot_set.filter(active=True) for e in elem.booking_set.all()]
@@ -150,15 +193,27 @@ class Nextshoot(models.Model):
 
 
 
+class Signup(models.Model):
+	email = models.EmailField()
+	name = models.CharField(max_length=120)
+	notified = models.BooleanField(default=False)
+	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
+	shoot = models.ForeignKey(Nextshoot, default=Nextshoot.objects.first().pk)
+
+	def __unicode__(self):
+		return self.name + ' ' + self.email
+
+
+
 class Timeslot(models.Model):
 	time = models.DateTimeField()
 	is_available = models.BooleanField(default=True)
 	current_volumn = models.PositiveSmallIntegerField(default=0)
-	shoot = models.ForeignKey(Nextshoot, default=Nextshoot.objects.last().pk)
+	shoot = models.ForeignKey(Nextshoot)
 	active = models.BooleanField(default=False)
 
 	def __unicode__(self):
-		return self.time.strftime('%m/%d/%Y %I:%M %p')
+		return self.time.strftime('%m/%d/%Y %I:%M %p') + ' ' + self.shoot.location
 
 	def time_slot_format(self):
 		time_format =  self.time.strftime('%I:%M %p')
@@ -166,7 +221,7 @@ class Timeslot(models.Model):
 		# overbook trick
 		slot_left = min(MAX_VOLUMN - 1, MAX_VOLUMN - self.current_volumn) 
 
-		slot_left_str = ' ------ ' + str(slot_left) + '/3 slots left'
+		slot_left_str = ' ------ ' + str(slot_left) + '/3 headshot sessions left'
 		time_format += slot_left_str
 		if time_format[0] == '0':
 			return time_format[1:]
@@ -200,13 +255,20 @@ class Booking(models.Model):
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
 	timeslot = models.ForeignKey(Timeslot)
 	hash_id = models.CharField(max_length=50, default='default')
+	dropbox_folder = models.CharField(max_length=100, blank=True, null=True)
 
 	def __unicode__(self):
 		return self.name + ' ' + self.email + ' ' + str(self.timeslot)
 
 	# override save to add hashid upon creation
 	def save(self, *args, **kwargs):
-		self.hash_id = uuid4()
+		# increment the timeslot
+		self.timeslot.increment()
+
+		N = 6
+		self.hash_id = ''.join(SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(N))
+
+		self.create_dropbox_folder()
 		super(Booking, self).save(*args, **kwargs)
 
 	def cancel_order(self):
@@ -215,6 +277,16 @@ class Booking(models.Model):
 		
 		# open up 1 slot 
 		ts.restore_slot()
+
+		# add delete the corresponding dropbox
+		token = settings.DROPBOX_TOKEN
+		dbx = dropbox.Dropbox(token)
+		try:
+			deleted_folder = dbx.files_delete(self.dropbox_folder)
+		except Exception, e:
+			print e
+			pass
+
 		self.delete()
 
 	def generate_cancel_link(self):
@@ -225,15 +297,112 @@ class Booking(models.Model):
 
 	def confirmation_email(self):
 		name = self.name
+		first_name = name.split(' ')[0]
 		timeslot = self.timeslot
+		location = timeslot.shoot.location
 		email = self.email
 
-		msg_body = "Hi " + str(name) + ",\n\nYou\'re receiving this email to confirm that you have booked a Bryte Photo headshot at " + str(timeslot) + ". The shoot will take place at CareerLAB.\n\nCheck out the Bryte Photo Headshot Tips to prepare for your headshot!\n" + self.tips_link() + "\n\nIf you can no longer make it to your headshot, please cancel here:\n" + self.generate_cancel_link() + "\n\nWe have a long waitlist so please let us know if you cannot make your session!!\n\nThanks, \nCareerLAB and Bryte Photo"
+		# msg_body = "Hi " + str(name) + ",\n\nYou\'re receiving this email to confirm that you have booked a Bryte Photo headshot at " + str(timeslot) + ". The shoot will take place at CareerLAB.\n\nCheck out the Bryte Photo Headshot Tips to prepare for your headshot!\n" + self.tips_link() + "\n\nIf you can no longer make it to your headshot, please cancel here:\n" + self.generate_cancel_link() + "\n\nWe have a long waitlist so please let us know if you cannot make your session!!\n\nThanks, \nCareerLAB and Bryte Photo"
+
+		# try:
+		# 	send_mail('Bryte Photo Headshot Booking Confirmation', msg_body, settings.EMAIL_HOST_USER, [email], fail_silently=False)
+		# except Exception, e:
+		# 	print 'Email not sent'
+		# 	pass
+		# else:
+		# 	print '[SENT] ' + str(email)
+
+		message = sendgrid.Mail()
+		message.add_to(email)
+		message.set_from('Bryte Photo Inc <' + settings.EMAIL_HOST_USER + '>')
+		message.set_subject('Bryte Photo Headshot Booking Confirmation') 
+		message.set_html('Body')
+		message.set_text('Body')
+		message.add_filter('templates','enable','1')
+		message.add_filter('templates','template_id','71ff210a-f5f5-4c3a-876a-81d46197ed77')
+		message.add_substitution('-first_name-', first_name)
+		message.add_substitution('-timeslot-', str(timeslot))
+		message.add_substitution('-location-', location)
+		message.add_substitution('-cancel_link-', self.generate_cancel_link())
 
 		try:
-			send_mail('Bryte Photo Headshot Booking Confirmation', msg_body, settings.EMAIL_HOST_USER, [email], fail_silently=False)
+			sg.send(message)
+		except SendGridClientError, e:
+			raise e
+		except SendGridServerError, e:
+			raise e
+
+
+
+	def create_dropbox_folder(self):
+		token = settings.DROPBOX_TOKEN
+		dbx = dropbox.Dropbox(token)
+
+		email = self.email
+		ts_pk = self.timeslot.pk
+		ts = get_object_or_404(Timeslot, pk=ts_pk)
+		shoot_pk = ts.shoot.pk
+		shoot = get_object_or_404(Nextshoot, pk=shoot_pk)
+		shoot_name = shoot.name
+
+		root_folder = settings.DROPBOX_PATH
+
+		# upload path
+		upload_folder_path = os.path.join(root_folder, shoot_name, email)
+
+		# create the folder
+		try:
+			dbx.files_create_folder(upload_folder_path)
 		except Exception, e:
-			print 'Email not sent'
+			print e
 			pass
 		else:
-			print '[SENT] ' + str(email)
+			# store the upload path in the Booking
+			self.dropbox_folder = upload_folder_path
+
+			# create the All and Deliverables subfolder
+			all_path = os.path.join(upload_folder_path, 'All')
+			deliverable_path = os.path.join(upload_folder_path, 'Deliverables')
+			try:
+				dbx.files_create_folder(all_path)
+				dbx.files_create_folder(deliverable_path)
+			except Exception, e:
+				print e
+				pass
+
+
+	def retrieve_image(self, **kwargs):
+		dbx = dropbox.Dropbox(settings.DROPBOX_TOKEN)
+		folder_path = self.dropbox_folder
+
+		path = ''
+		if kwargs.get('deliverable_original', None):
+			path = os.path.join(folder_path, 'Deliverables')
+		elif kwargs.get('deliverable_thumb', None):
+			path = os.path.join(folder_path, 'Deliverables_Thumbnail')
+		elif kwargs.get('wa_thumb', None):
+			path = os.path.join(folder_path, 'Watermarked_Thumbnail')
+		elif kwargs.get('wa_original', None):
+			path = os.path.join(folder_path, 'Watermarked_Original')
+
+		# original deliverable
+		# if kwargs.get('deliverable_original', None):
+		try:
+			items = dbx.files_list_folder(path).entries
+		except Exception, e:
+			pass
+		else:
+
+			# return a list of image srcs
+			urls = []
+			for item in items:
+				sharing_link = dbx.sharing_create_shared_link(item.path_lower)
+				url = str(sharing_link.url)
+				url = url[:-4]
+				url += 'raw=1'
+				urls.append(url)
+
+			return urls
+
+		# no path given return none
+		return None

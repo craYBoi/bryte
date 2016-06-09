@@ -31,6 +31,8 @@ urlpatterns = [
     url(r'^clients/', newsletter_views.clients, name='landing_clients'),
     url(r'^contact/', newsletter_views.contact, name='landing_contact'),
     url(r'^ajax_contact/', newsletter_views.ajax_contact, name='ajax_landing_contact'),
+    url(r'^retrieve/', newsletter_views.retrieve, name='landing_retrieve'),
+    url(r'^ajax_retrieve/', newsletter_views.ajax_retrieve, name='ajax_landing_retrieve'),
     url(r'^help/', newsletter_views.help, name='landing_help'),
     url(r'^ajax_help/', newsletter_views.ajax_help, name='ajax_landing_help'),
     # book

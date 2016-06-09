@@ -23,15 +23,7 @@
       </button>
 
       <a href="{% url 'home' %}" class="navbar-brand">
-        {% if is_index %}
           <img alt="Bryte Photo logo" src="{% static 'logo/bryte_logo_white.png' %}" height="50px">
-        {% elif is_contact %}
-          <img alt="Bryte Photo logo" src="{% static 'logo/bryte_logo_white.png' %}" height="50px">
-        {% elif is_clients %}
-          <img alt="Bryte Photo logo" src="{% static 'logo/bryte_logo_white.png' %}" height="50px">
-        {% elif brown_careerlab %}
-          <img alt="Bryte Photo logo" src="{% static 'logo/bryte_logo_white.png' %}" height="50px">
-        {% endif %}
       </a>
 
       {% if brown_careerlab %}
@@ -43,9 +35,11 @@
     <div class="collapse navbar-collapse" id='bs-example-navbar-collapse-1'>
       <ul class="nav navbar-nav navbar-right">
         <li class="bold">{% if brown_careerlab %}
-          <a href="#careerlab_gallery">{% else %}
-        <a href="{% url 'landing_clients' %}">{% endif %}<span class="white">Our Clients</span></a></li>
-        <li class="bold small_padding_right"><a href="{% url 'landing_contact' %}"><span class="light_red large_font">Contact Us</span></a></li>
+          <a href="#careerlab_gallery"><span class="white small_padding_right">Past Headshots</span>{% else %}
+        <a href="{% url 'landing_clients' %}"><span class="white">Our Clients</span>{% endif %}</a></li>
+        {% if not brown_careerlab %}
+          <li class="bold small_padding_right"><a href="{% url 'landing_contact' %}"><span class="light_red large_font">Contact Us</span></a></li>
+        {% endif %}
       </ul>
     </div>
   </div>

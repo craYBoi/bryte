@@ -265,3 +265,8 @@ COMMISSION = os.environ.get('COMMISSION')
 
 # dropbox
 DROPBOX_TOKEN = os.environ.get('DROPBOX_TOKEN')
+DROPBOX_PATH = os.path.join('/', 'Test')
+
+
+# sendgrid
+SENDGRID_KEY = os.environ.get('SENDGRID_KEY')

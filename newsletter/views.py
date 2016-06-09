@@ -4,12 +4,15 @@ from django.core.mail import send_mail
 from django.http import Http404, HttpResponse
 
 import stripe
+import os
+import dropbox
 
 import json
 from .forms import SignUpForm
 from photographer.models import Photographer
 from .models import Price, PriceFeature, ContactSale, ContactHelp
 from book.models import TimeSlot, NextShoot
+from careerlab.models import Booking
 
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -103,6 +106,25 @@ def faq(request):
 	context = {
 		'title_text': 'FAQs'
 	}
+	dbx = dropbox.Dropbox(settings.DROPBOX_TOKEN)
+
+	root = '/'
+	folder = 'Deliverables'
+	name = 'CareerLAB1'
+	path = os.path.join(root, folder, name)
+
+	urls = []
+	folders = dbx.files_list_folder(path).entries
+	entry = folders[0]
+	items = dbx.files_list_folder(entry.path_display).entries
+	for item in items:
+		sharing_link = dbx.sharing_create_shared_link(item.path_display, short_url=False, pending_upload=None)
+		url = str(sharing_link.url)
+		url = url[:-4]
+		url += 'raw=1'
+		urls.append(url)
+
+	context['urls'] = urls
 
 	return render(request, 'faq.html', context)
 
@@ -205,3 +227,42 @@ def ajax_help(request):
 				raise e
 
 		return HttpResponse(json.dumps(data), content_type='application/json')
+
+
+
+def retrieve(request):
+	context = {
+		'title_text': 'Retrive your headshot | Bryte Photo',
+	}
+	return render(request, 'landing_retrieve.html', context)
+
+
+def ajax_retrieve(request):
+	if request.is_ajax() and request.method == 'POST':
+		data = {}
+		# do the trimming in case people paste it with spacebar
+		unique_id = request.POST.get('unique_id').strip()
+
+		try:
+			booking = get_object_or_404(Booking, hash_id=unique_id)
+		except Exception, e:
+			pass
+		else:
+			email = booking.email
+			dropbox_folder_url = booking.dropbox_folder
+
+			# retrieve images from Dropbox
+			deliverable_thumbs = booking.retrieve_image(deliverable_thumb=True)
+			deliverable_originals = booking.retrieve_image(deliverable_original=True)
+			wa_originals = booking.retrieve_image(wa_original=True)
+			wa_thumbs = booking.retrieve_image(wa_thumb=True)
+
+			data['deliverable_originals'] = deliverable_originals
+			data['deliverable_thumbs'] = deliverable_thumbs
+			data['wa_originals'] = wa_originals
+			data['wa_thumbs'] = wa_thumbs
+
+
+		return HttpResponse(json.dumps(data), content_type='application/json')
+	else:
+		raise Http404

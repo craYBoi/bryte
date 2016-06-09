@@ -18,7 +18,7 @@
 {% block content %}
 	  <div id="jumbotron" class="red_bg"> 
     <div class="medium_padding"></div>
-    <h1 class="white text-center main_title col-xs-10 col-xs-offset-1">Free LinkedIn headshots from Bryte Photo and CareerLAB!</span></h1>
+    <h1 class="white text-center bold col-xs-10 col-xs-offset-1 landing_title">Free LinkedIn headshots from Bryte Photo and CareerLAB!</span></h1>
     <div class="container">
 
       <!--<div class="row">-->
@@ -28,14 +28,14 @@
 
         <div class="medium_padding"></div>
           {% if timeslots %}
-            <p class="big_font white"><span class="bold large_font background_white red">Next Shoot @<br></span> <span class="bold">Brown CareerLAB, first floor</span><br>May 13th, 2016<br>{{ next_shoot.location }}{{ next_shoot.time_format }}12:30 PM - 3:30 PM</p>
+            <p class="big_font white"><span class="bold landing_text">{{ next_shoot.location }}</span><br><span class="landing_text">{{ next_shoot.get_date_string }}</span><br><span class="landing_text">{{ next_shoot.get_time_interval_string }}</span></p>
           {% else %}
-          	<p class="white large_font">Brown CareerLAB<br>May 13th, 2016<br>12:30 PM - 3:30 PM</p>
+          	<p class="white large_font landing_text">Brown CareerLAB<br>May 13th, 2016<br>12:30 PM - 3:30 PM</p>
 
 
-            <p class="sbig_font white"><span class="bold">All the headshots were booked!</span><br></p>
+            <p class="sbig_font white landing_text"><span class="bold">All the headshots were booked!</span><br></p>
               
-            <p class="large_font white">Drop us your email and we'll let you know when the next free Bryte Photo headshot shoot is open for booking :)</p>
+            <p class="large_font white landing_text">Drop us your email and we'll let you know when the next free Bryte Photo headshot shoot is open for booking :)</p>
           {% endif %}
           <div class="small_padding"></div>
         </div>
@@ -47,7 +47,7 @@
         <div class="white_border special_padding signup_form">
         {% if timeslots %}
         <div id="book_form">
-          <h3 class="bold white xsmall_padding">Book a free Bryte Photo headshot!</h3>
+          <h3 class="bold white xsmall_padding">Book your LinkedIn headshot</h3>
           <div class="xsmall_padding"></div>
           <div class="text-center">
           <form method="POST" action="{% url 'careerlab_book' %}" class=" white">{% csrf_token %}
@@ -99,7 +99,7 @@
   <div class="row">
   <div class="col-xs-10 col-xs-offset-1">
   <div id="careerlab_gallery">
-  	<h2 class="bold text-center feature_title red">Past Bryte Photo Headshots</h2>
+  	<h2 class="bold text-center red landing_title">Past Bryte Photo Headshots</h2>
   	<div class="medium_padding"></div>
   	<div class="slider">
   		<div class="text-center">
@@ -122,7 +122,7 @@
 
   <div class="background_pink large_font">
     <div class="container small_padding_bot medium_padding">
-      <h2 class="feature_title text-center bold">How it Works</h2>
+      <h2 class="feature_title text-center bold landing_title">How it Works</h2>
       <div class="row small_padding">
         <div class="col-xs-12">
           <div class="row">
@@ -130,22 +130,22 @@
             <div class="col-sm-4 text-center">
               <img src="{% static 'img/process1.png' %}" class="img-responsive"> 
               <div class="medium_padding"></div>
-              <h3 class="bold big_font">Book</h3>
-              <p class="col-xs-10 col-xs-offset-1 small_padding small_lh text-left small_font ">Choose a time that works for you. We'll send you an email to confirm your headshot booking.</p>
+              <h3 class="bold landing_text_main">Book</h3>
+              <p class="col-xs-10 col-xs-offset-1 small_padding small_lh text-left small_font ">Choose a time slot that works for you, and we’ll confirm you booked a headshot session via email.</p>
             </div>   
 
             <div class="col-sm-4 text-center">
               <img src="{% static 'img/process2.png' %}" class="img-responsive"> 
               <div class="medium_padding"></div>
-              <h3 class="bold big_font">Smile</h3>
-              <p class="col-xs-10 col-xs-offset-1 small_padding small_lh text-left small_font">Come to the shoot 5 minutes before your 10 minute time slot is scheduled to begin. Each person in your time slot will have at least 3 minutes with the Bryte Photo photographer.</p>
+              <h3 class="bold landing_text_main">Smile</h3>
+              <p class="col-xs-10 col-xs-offset-1 small_padding small_lh text-left small_font">You’ll have 3 minutes for headshots and will get to select your favorite for our touch up process.</p>
             </div>  
 
             <div class="col-sm-4 text-center">
               <img src="{% static 'img/process3.png' %}" class="img-responsive"> 
               <div class="medium_padding"></div>
-              <h3 class="bold big_font">Receive</h3>
-              <p class="col-xs-10 col-xs-offset-1 small_padding small_lh text-left small_font">Your photographer will touch up your favorite headshot. We'll send you the touched up and raw versions of your headshot within 48 hours of the shoot.</p>
+              <h3 class="bold landing_text_main">Download</h3>
+              <p class="col-xs-10 col-xs-offset-1 small_padding small_lh text-left small_font">Your headshot will be expertly touched up and then made available for download.</p>
             </div>  
           </div>
         </div>

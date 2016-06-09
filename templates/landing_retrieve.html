@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block stylesheet %}
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.min.css">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/justifiedGallery.min.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/lightgallery.css' %}">
+{% endblock %}
+
+{% block content %}
+	<div class="red_bg">
+		<div class="large_padding"></div>
+		<h1 class="text-center white landing_title_sec bold">Get your deliverable!</h1>
+
+		<div class="row">
+			<div class="small_padding"></div>
+			<div class="text-center">
+			<form method="POST" action="{% url 'ajax_landing_retrieve' %}" class="form-inline">{% csrf_token %}
+				<input type="text" name="retrieve_search" id="retrieve_search" class="form-control" required placeholder="your 6-digit photo retrieval ID" onchange="try{setCustomValidity('')}catch(e){}" style="width:250px">
+					<button class="btn-white" id="retrieve_search_button" type="submit">Search</button>
+			</form>
+			</div>
+			<div class="small_padding"></div>
+			
+		</div>
+		<div class="container">
+			<div class="white" id="deliverables_title"></div>
+			<div class="justified-gallery lightgallery" id="deliverables"></div>
+
+			<div class="medium_padding"></div>
+
+			<div class="white" id="all_title"></div>
+			<div class="justified-gallery lightgallery" id="all"></div>
+
+		</div>
+		<div class="medium_padding"></div>
+	</div>
+
+
+	<!-- loader -->
+	<div id="loader-wrapper" hidden>
+	  <div id="loader" class="text-center"><img src="{% static 'logo/loading.svg' %}" width="140px"></div>
+	</div>
+{% endblock %}
+
+{% block script %}
+  <script src="{% static 'js/jquery.justifiedGallery.min.js' %}"></script>
+  <script src="{% static 'js/lightgallery.js' %}"></script>
+  <script src="{% static 'js/lg-thumbnail.js' %}"></script>
+  <script src="{% static 'js/lg-fullscreen.js' %}"></script>
+	<script type="text/javascript">
+	  function getCookie(name) {
+	    var cookieValue = null;
+	    if (document.cookie && document.cookie != '') {
+	        var cookies = document.cookie.split(';');
+	        for (var i = 0; i < cookies.length; i++) {
+	            var cookie = jQuery.trim(cookies[i]);
+	            // Does this cookie string begin with the name we want?
+	            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+	                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+	                break;
+	            }
+	        }
+	    }
+	    return cookieValue;
+	}
+		var csrftoken = getCookie('csrftoken');
+	</script>	
+{% endblock %}
+{% block jquery %}
+ 
+  var csrftoken = getCookie('csrftoken');
+  function csrfSafeMethod(method) {
+  // these HTTP methods do not require CSRF protection
+  return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+  }
+
+  $.ajaxSetup({
+      beforeSend: function(xhr, settings) {
+          if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+              xhr.setRequestHeader("X-CSRFToken", csrftoken);
+          }
+      }
+  });
+
+
+  $('#retrieve_search_button').on('click', function(e){
+    if (document.getElementById('retrieve_search').checkValidity()){
+      $("#loader-wrapper").show();    
+      $.ajax({
+        url: '{% url "ajax_landing_retrieve" %}',
+        type: 'POST',
+        data: {
+        	unique_id: $('#retrieve_search').val(),
+        },
+
+        success: function(data){
+        	deliverables = data['deliverable_originals'];
+        	deliverables_thumbs = data['deliverable_thumbs'];
+
+        	deliverable_html_content = ""
+        	deliverable_title_html_content = "<h2 class='landing_text_main bold'>Deliverables</h2><div class='small_padding'></div>"
+        	for (i=0; i<deliverables.length; i++){	
+        		deliverable_html_content += 
+        		"<a href='" + deliverables[i] + "'>" + "<img src='" + deliverables_thumbs[i] + "' height='150' /></a>"
+        	}
+
+        	$('#deliverables').html(deliverable_html_content);
+        	$('#deliverables_title').html(deliverable_title_html_content);
+        	$('#loader-wrapper').hide();
+
+        	// watermarked images
+        	wa_originals = data['wa_originals'];
+        	wa_thumbs = data['wa_thumbs'];
+
+        	all_html_content = ""
+        	all_title_html_content = "<h2 class='landing_text_main bold'>All Photos</h2><div class='small_padding'></div>"
+        	for (i=0; i<wa_thumbs.length; i++){	
+        		all_html_content += 
+        		"<a href='" + wa_originals[i] + "'>" + "<img src='" + wa_thumbs[i] + "' height='150' /></a>"
+        	}
+        	$('#all').html(all_html_content);
+        	$('#all_title').html(all_title_html_content);
+        },
+
+        failure: function(data){
+        	$('.msg').html('not successful');
+        	$('#loader-wrapper').hide();
+        }
+      });
+      e.preventDefault();
+    }
+  });
+
+	$( document ).ajaxComplete(function() {
+	  var $gallery = $('#deliverables');
+	  if ($gallery.length) {
+	    $gallery.justifiedGallery({
+	    }).on('jg.complete', function(){
+	      $gallery.lightGallery({
+	        thumbnail: true,
+	      })
+	    })
+	  }
+	});
+
+{% endblock %}

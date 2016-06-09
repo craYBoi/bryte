@@ -5,18 +5,16 @@ from import_export.admin import ImportExportModelAdmin
 from .models import Timeslot, Booking, Signup, Nextshoot
 
 class NextshootAdmin(ImportExportModelAdmin):
-	pass
+	list_display = ['id', 'photographer', 'location', 'school', 'timestamp']
 
 class BookingAdmin(ImportExportModelAdmin):
-	list_display = ['id', 'email', 'name', 'timeslot', 'hash_id', 'timestamp']
-	pass
+	list_display = ['id', 'email', 'name', 'timeslot', 'hash_id', 'dropbox_folder', 'timestamp']
 
 class TimeslotAdmin(admin.ModelAdmin):
 	list_display = ['id', 'time', 'shoot','current_volumn']
 
-
 class SignupAdmin(admin.ModelAdmin):
-	list_display = ['id', 'email', 'name','notified', 'timestamp']
+	list_display = ['id', 'email', 'name','notified', 'shoot', 'timestamp']
 
 
 admin.site.register(Timeslot, TimeslotAdmin)

@@ -14,10 +14,13 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 def index(request):
 	title = 'Bryte Photo & CareerLab Brown University headshot'
 	timeslots = Timeslot.objects.filter(active=True, is_available=True).order_by('time')
+	if timeslots:
+		next_shoot = timeslots.first().shoot
 	context = {
 		'title_text': title,
 		'timeslots': timeslots,
 		'brown_careerlab': 1,
+		'next_shoot': next_shoot,
 	}
 	return render(request, 'careerlab_index.html', context)
 
@@ -30,39 +33,42 @@ def book(request):
 		email = request.POST.get('email')
 		name = request.POST.get('name')
 
-		time_id = request.POST.get('time')
-		timeslot = get_object_or_404(Timeslot, pk=time_id)
-
-		# increment the timeslot first to reduce confliction
-		if timeslot.is_available:
-			timeslot.increment()
-			try:
-				b = Booking.objects.create(
-					email = email,
-					name = name,
-					timeslot = timeslot,
-					)
-			except Exception, e:
-				print e
-				data['msg'] = 'There\'s an error signing up. Please try again.'
-			else:
-				# delete record in the signup list
-				if email in [signup.email for signup in Signup.objects.all()]:
-					try:
-						signup = get_object_or_404(Signup, email=email)
-					except Exception, e:
-						print e
-						pass
-					else:
-						signup.delete()
-
-				# send email
-				b.confirmation_email()
-
-				data['msg'] = 'Thanks for signing up ' + str(name) + '.<br><br>A confirmation email will be sent to you at \"' + str(email) + '\" with your booking information soon!<br><br>Team Bryte Photo'
-
+		# avoid duplicate booking
+		if email in [booking.email for booking in Booking.objects.all()]:
+			data['msg'] = 'Looks like you have already booked an headshot before. If you have not recieved a confirmation email, don\'t worry about it. We have you in the system :)<br>'		
 		else:
-			data['msg'] = 'This time slot is no longer available. Please select a different one.'
+			time_id = request.POST.get('time')
+			timeslot = get_object_or_404(Timeslot, pk=time_id)
+
+			# increment the timeslot first to reduce confliction
+			if timeslot.is_available:
+				try:
+					b = Booking.objects.create(
+						email = email,
+						name = name,
+						timeslot = timeslot,
+						)
+				except Exception, e:
+					raise e
+					data['msg'] = 'There\'s an error signing up. Please try again.'
+				else:
+					# delete record in the signup list
+					if email in [signup.email for signup in Signup.objects.all()]:
+						try:
+							signup = get_object_or_404(Signup, email=email)
+						except Exception, e:
+							print e
+							pass
+						else:
+							signup.delete()
+
+					# send email
+					b.confirmation_email()
+
+					data['msg'] = 'Thanks for signing up ' + str(name) + '.<br><br>A confirmation email will be sent to you at \"' + str(email) + '\" with your booking information soon!<br><br>Team Bryte Photo'
+
+			else:
+				data['msg'] = 'This time slot is no longer available. Please select a different one.'
 
 
 		return HttpResponse(json.dumps(data), content_type='application/json')
@@ -77,6 +83,7 @@ def signup(request):
 		name = request.POST.get('name')
 		data = {}
 
+		# avoid duplicate signup
 		if email in [signup.email for signup in Signup.objects.all()]:
 			data['msg'] = 'You have already signed up!<br>We will notify at ' + str(email) + ' whenever next headshot session is available!<br><br>Thanks!<br>Team Bryte Photo'
 		else:
@@ -131,13 +138,6 @@ def tips(request):
 	}
 	return render(request, 'careerlab_tips.html', context)
 
-
-def pay(request):
-	context = {
-		'brown_careerlab': 1,
-		'title_text': 'Bryte Photo Headshot Pay',	
-	}
-	return render(request, 'careerlab_pay.html', context)
 
 
 def pay(request):
