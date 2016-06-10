@@ -68,7 +68,7 @@ class Nextshoot(models.Model):
 	def get_date_string(self):
 		timeslots = self.timeslot_set.filter(active=True)
 		if timeslots:
-			return str(timeslots.first().time.strftime('%b %-d'))
+			return str(timeslots.first().time.strftime('%B %-d'))
 		return None
 
 

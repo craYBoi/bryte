@@ -37,7 +37,7 @@ def book(request):
 
 		# avoid duplicate booking
 		if email in [booking.email for booking in Booking.objects.all()]:
-			data['msg'] = 'Looks like you have already booked an headshot before. If you have not recieved a confirmation email, don\'t worry about it. We have you in the system :)<br>'		
+			data['msg'] = 'Looks like you have already booked a headshot. If you have not recieved a confirmation email, you will get one soon. We have you in the system :)<br>'		
 		else:
 			time_id = request.POST.get('time')
 			timeslot = get_object_or_404(Timeslot, pk=time_id)
@@ -126,7 +126,7 @@ def cancel_order(request):
 			email = booking.email
 			timeslot = booking.timeslot
 			booking.cancel_order()
-			msg_body = 'Hi ' + str(name) + ',\n\nThis email is to confirm you have cancelled your Bryte Photo headshot on ' + str(booking.timeslot) + '. If you would like to book a different time slot you can sign up here:\n\nwww.brytephoto.com/CareerLAB\n\nBest,\nBryte Photo Team'
+			msg_body = 'Hi ' + str(name) + ',\n\nThis email is to confirm you have cancelled your Bryte Photo headshot on ' + str(booking.timeslot) + '. If you would like to book a different time slot you can sign up here:\n\nwww.brytephoto.com/RIC\n\nBest,\nBryte Photo Team'
 			try:
 				send_mail('Cancellation confirmation - Bryte Photo',
 					msg_body, 'Bryte Photo <' + settings.EMAIL_HOST_USER + '>', [email],
