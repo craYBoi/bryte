@@ -141,6 +141,14 @@ def tips(request):
 	return render(request, 'careerlab_tips.html', context)
 
 
+def sales(request):
+	context = {
+		'brown_careerlab': 1,
+		'title_text': 'Getting extra headshots',
+	}
+	return render(request, 'careerlab_sales.html', context)
+
+
 
 def pay(request):
 	context = {

@@ -213,7 +213,7 @@ class Timeslot(models.Model):
 	active = models.BooleanField(default=False)
 
 	def __unicode__(self):
-		return self.time.strftime('%m/%d/%Y %I:%M %p') + ' ' + self.shoot.location
+		return self.time.strftime('%m/%d/%Y %I:%M %p')
 
 	def time_slot_format(self):
 		time_format =  self.time.strftime('%I:%M %p')

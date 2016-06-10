@@ -182,12 +182,22 @@ h1,h2,h3,h4 {
 }
 
 .btn-white {
-	border-radius: 6px;
+	border-radius: 4px;
 	padding: 6px 15px;
 	border: none;
 	color: #c94848;
 	background-color: rgba(255,255,255,0.95);
 }
+
+
+.btn-white-lg {
+	border-radius: 6px;
+	padding: 10px 40px;
+	border: none;
+	color: #c94848;
+	background-color: rgba(255,255,255,0.95);
+}
+
 
 .link_white a{
 	color: #fff;
@@ -195,6 +205,11 @@ h1,h2,h3,h4 {
 }
 
 .btn-white:hover {
+	color: #000;
+	background-color: #fff;
+}
+
+.btn-white-lg:hover {
 	color: #000;
 	background-color: #fff;
 }
