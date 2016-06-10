@@ -8,7 +8,7 @@ from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse
 
 from uuid import uuid4
-from datetime import datetime
+from datetime import datetime, timedelta
 from photographer.models import Photographer
 from random import SystemRandom
 import string
@@ -77,7 +77,8 @@ class Nextshoot(models.Model):
 		if timeslots:
 			a = sorted(timeslots, reverse=False, key=lambda timeslot: timeslot.time)
 			str_time_start = a[0].time.strftime('%-I:%M %p')
-			str_time_end = a[-1].time.strftime('%-I:%M %p')
+			time_end = a[-1].time + timedelta(seconds=600)
+			str_time_end = time_end.strftime('%-I:%M %p')
 			return str_time_start + ' - ' + str_time_end
 		return None
 
