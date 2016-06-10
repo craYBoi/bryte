@@ -87,18 +87,23 @@ def signup(request):
 
 		# avoid duplicate signup
 		if email in [signup.email for signup in Signup.objects.all()]:
-			data['msg'] = 'You have already signed up!<br>We will notify at ' + str(email) + ' whenever next headshot session is available!<br><br>Thanks!<br>Team Bryte Photo'
+			data['msg'] = 'It seems that you have already signed up!<br>We will notify at ' + str(email) + ' whenever next headshot session is available!<br><br>Thanks!<br>Team Bryte Photo'
 		else:
+			# get the first shooting instance
+			shoot = Nextshoot.objects.first()
 			try:
 				s = Signup.objects.create(
 					email = email,
 					name = name,
+					shoot = shoot,
 					)
 			except Exception, e:
 				print e
 				data['msg'] = 'There\'s an error signing up. Please try again.'
+				pass
 			else:
-				data['msg'] = 'Thanks for signing up ' + str(name) + '. We will notify you for the next headshot session!<br><br>Team Bryte Photo'
+				first_name = name.split(' ')[0]
+				data['msg'] = 'Thanks for signing up ' + str(first_name) + '. We will notify you for the next headshot session!<br><br>Team Bryte Photo'
 
 		return HttpResponse(json.dumps(data), content_type='application/json')
 	else:

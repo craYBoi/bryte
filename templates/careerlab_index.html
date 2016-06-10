@@ -30,10 +30,10 @@
           {% if timeslots %}
             <p class="big_font white"><span class="bold landing_text">{{ next_shoot.location }}</span><br><span class="landing_text">{{ next_shoot.get_date_string }}</span><br><span class="landing_text">{{ next_shoot.get_time_interval_string }}</span></p>
           {% else %}
-          	<p class="white large_font landing_text">Brown CareerLAB<br>May 13th, 2016<br>12:30 PM - 3:30 PM</p>
+            <p class="big_font white"><span class="bold landing_text">{{ next_shoot.location }}</span><br><span class="landing_text">{{ next_shoot.get_date_string }}</span><br><span class="landing_text">{{ next_shoot.get_time_interval_string }}</span></p>
 
-
-            <p class="sbig_font white landing_text"><span class="bold">All the headshots were booked!</span><br></p>
+            <div class="small_padding"></div>
+            <p class="sbig_font white"><span class="bold landing_text">All the headshots were booked!</span><br></p>
               
             <p class="large_font white landing_text">Drop us your email and we'll let you know when the next free Bryte Photo headshot shoot is open for booking :)</p>
           {% endif %}
@@ -53,7 +53,7 @@
           <form method="POST" action="{% url 'careerlab_book' %}" class=" white">{% csrf_token %}
           	<input type='text' name='careerlab_book_name' class="form-control" id='careerlab_book_name' required pattern="[a-zA-Z.]{2,}(\s+[a-zA-z.]{2,})+" placeholder='First & Last Name'>
           	<div class="small_padding"></div>
-            <input type='email' name='careerlab_book_email' class="form-control" id='careerlab_book_email' required pattern='\b[a-zA-Z0-9._%+-]+@brown.edu\b' placeholder='Brown University email' oninvalid="this.setCustomValidity('Please use your Brown University email address')" onchange="try{setCustomValidity('')}catch(e){}">
+            <input type='email' name='careerlab_book_email' class="form-control" id='careerlab_book_email' required pattern='\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9._%+-]+.edu\b' placeholder='RIC Email Address' oninvalid="this.setCustomValidity('Please use your RIC email address')" onchange="try{setCustomValidity('')}catch(e){}">
             <div class="small_padding"></div>
             <select required name='careerlab_book_time' class="form-control" id='careerlab_book_time'>
               {% for timeslot in timeslots %}
@@ -70,13 +70,13 @@
 
         {% else %}
         <div id="signup_form" class="signup_form">
-          <h3 class="bold white xsmall_padding">Sign up for notification!</h3>
+          <h3 class="bold white xsmall_padding">Sign up for notification for the next shoot!</h3>
           <div class="xsmall_padding"></div>
           <div class="text-center">
           <form method="POST" action="{% url 'careerlab_signup' %}" class="white">{% csrf_token %}
           	<input type='text' name='careerlab_signup_name' class="form-control" id='careerlab_signup_name' required pattern="[a-zA-Z]{2,}(\s+[a-zA-z]{2,})+" placeholder='First & Last Name'>
           	<div class="small_padding"></div>
-            <input type='email' name='careerlab_signup_email' class="form-control" id='careerlab_signup_email' required pattern='\b[a-zA-Z0-9._%+-]+@brown.edu\b' placeholder='Brown University Email' oninvalid="this.setCustomValidity('Please use your Brown University email address')" onchange="try{setCustomValidity('')}catch(e){}">
+            <input type='email' name='careerlab_signup_email' class="form-control" id='careerlab_signup_email' required pattern='\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9._%+-]+.edu\b' placeholder='RIC Email Address' oninvalid="this.setCustomValidity('Please use your RIC email address')" onchange="try{setCustomValidity('')}catch(e){}">
             <div class="small_padding"></div>
             <button class="btn-white bold large_font" id="careerlab_signup_button" type='submit'>Signup</button>
             <div class="small_padding"></div>
