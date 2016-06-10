@@ -75,7 +75,7 @@ class Nextshoot(models.Model):
 	def get_time_interval_string(self):
 		timeslots = self.timeslot_set.filter(active=True)
 		if timeslots:
-			a = sorted(timeslots, reverse=True)
+			a = sorted(timeslots, reverse=False, key=lambda timeslot: timeslot.time)
 			str_time_start = a[0].time.strftime('%-I:%M %p')
 			str_time_end = a[-1].time.strftime('%-I:%M %p')
 			return str_time_start + ' - ' + str_time_end
