@@ -1,0 +1,468 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block description %}
+  <meta name="description" content="Get More Headshot with Bryte Photo">
+{% endblock %}
+
+{% block content %}
+	<div class="red_bg">
+		<div class="large_padding"></div>
+		<h1 class="white text-center bold landing_title zero_margin">Get more out of your headshot shoot</h1>
+		<div class="medium_padding"></div>
+	<div class="small_padding"></div>
+
+	<!-- Three Things -->
+	<div class="container white">
+		<div class="row">
+			<div class="col-md-4 col-md-offset-0 col-xs-10 col-xs-offset-1 text-center">
+				<div class="page-header">
+				<h3 class="landing_text_main">Take Many Headshots</h3>
+				</div>
+				<p class="small_padding">We take multiple headshots on photo day so you can choose your favorites. This means you’ll take headshots in many different poses with different backdrops.</p>
+			</div>
+			<div class="col-md-4 col-md-offset-0 col-xs-10 col-xs-offset-1 text-center">
+				<div class="page-header">
+				<h3 class="landing_text_main">Affordable headshots and touchup</h3>
+				</div>
+				<p class="small_padding">All the headshots you take on shoot day will be made available privately 48 hours after the shoot. You can buy headshots and touchup options (in addition to your free headshot) in the straightforward and secure system we provide.</p>
+			</div>
+			<div class="col-md-4 col-md-offset-0 col-xs-10 col-xs-offset-1 text-center">
+				<div class="page-header">
+				<h3 class="landing_text_main">We deliver to you</h3>
+				</div>
+				<p class="small_padding">When you buy an original headshot your headshot will be emailed to you for download within 24 hours. If you buy a touchup upgrade with your headshot it will be emailed to you within 48 hours. See the pricing section for full details.</p>
+			</div>
+		</div>
+		<div class="text-center neg_margin">
+			<div class="large_padding"></div>
+			<a href="#landing_sales_benefit"><button class="btn-blue landing_text_main">Learn More</button></a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#landing_sales_pricing"><button class="btn-blue landing_text_main">See Pricing</button></a>
+		</div>
+	</div>
+	</div>
+
+
+	<!-- Benefits -->
+	<div class="background_pink">
+	<div class="large_padding" id="landing_sales_benefit"></div>
+	<div class="container">
+
+		<h3 class="landing_title_third text-center">Can’t say no to those great photos?</h3>
+		<div class="medium_padding"></div>
+    <div class="row">
+      <div class="col-md-6">
+      	<div class="medium_padding"></div>
+      	<div class="row">
+      		<div class="col-xs-6">
+	      	<img src="{% static 'img/headshots/boy1.jpg' %}" class="img-responsive">
+	      	</div>
+      		<div class="col-xs-6">
+	      	<img src="{% static 'img/headshots/boy1.jpg' %}" class="img-responsive">
+	      	</div>
+      	</div>
+      </div>
+      <div class="col-md-6">
+      	<div class="medium_padding"></div>
+          <div class="row">
+          	<div class="col-xs-10 col-xs-offset-1">
+          		<h3>Save them for you, family, and friends</h3>
+		          <p>You can affordably buy all the headshots you like when they’re made available. If you want to share them with your family, <a href="{% url 'landing_family' %}" class="red">we make it easy! Whenever you or they buy a headshot, both of you will automatically get to keep it.</a></p>
+		        </div>
+          </div>
+      </div>
+    </div>
+
+    <div class="medium_padding"></div>
+    <div class="row">
+      <div class="col-md-6 col-md-push-6">
+      	<div class="medium_padding"></div>
+      	<div class="row">
+      		<div class="col-xs-6">
+	      	<img src="{% static 'img/headshots/boy1.jpg' %}" class="img-responsive">
+	      	</div>
+      		<div class="col-xs-6">
+	      	<img src="{% static 'img/headshots/boy1.jpg' %}" class="img-responsive">
+	      	</div>
+      	</div>
+      </div>
+      <div class="col-md-6 col-md-pull-6">
+      	<div class="medium_padding"></div>
+          <div class="row">
+          	<div class="col-xs-10 col-xs-offset-1">
+          		<h3>Different colors, choose your favorite</h3>
+		          <p>We offer different colored backdrops on photo day so you can choose the backdrops that work well with your natural features and clothes. Choose these headshots to add dimension and variety to your photo collection you have saved.</p>
+		         </div>
+          </div>
+      </div>
+    </div>
+    <div class="large_padding"></div>
+	</div>
+	<div class="medium_padding"></div>
+	</div>
+
+	<!-- quote -->
+	<div class="red_bg">
+		<div class="row">
+		<div class="col-md-8 col-md-offset-2 col-xs-10 col-xs-offset-1">
+		<div class="large_padding"></div>
+		<p class="white landing_text_main">"Simple and easy, and the pictures look great"</p>
+		<p class="text-right white">– Sam W.</p>
+
+		<div class="medium_padding"></div>
+		<p class="white landing_text_main">"Affordable, being a college student and I’m broke. But still very high quality." </p>
+		<p class="text-right white">– – Travis F.</p>
+		<div class="medium_padding"></div>
+		</div>
+		</div>
+
+	</div>
+
+<!-- Basic Touchup -->
+	<div class="large_padding"></div>
+	<div class="container">
+
+		<h3 class="landing_title_third text-center">Basic Touchup</h3>
+		<div class="medium_padding"></div>
+    <div class="row">
+      <div class="col-md-6">
+      	<div class="medium_padding"></div>
+      	<div class="row">
+      		<div class="col-xs-6">
+	      	<img src="{% static 'img/headshots/boy1.jpg' %}" class="img-responsive">
+	      	</div>
+      		<div class="col-xs-6">
+	      	<img src="{% static 'img/headshots/boy1.jpg' %}" class="img-responsive">
+	      	</div>
+      	</div>
+      </div>
+      <div class="col-md-6">
+      	<div class="medium_padding"></div>
+          <div class="row">
+          	<div class="col-xs-10 col-xs-offset-1">
+          		<h3>Bryte Photo Magicians</h3>
+		          <p>All of our touchup processes are done by experts who give your headshot personal attention. Our staff know how to touch up headshots because it’s their specialty and will approach each headshot with an open mind.</p>
+		         </div>
+          </div>
+      </div>
+    </div>
+
+    <div class="medium_padding"></div>
+    <div class="row">
+      <div class="col-md-6 col-md-push-6">
+      	<div class="medium_padding"></div>
+      	<div class="row">
+      		<div class="col-xs-6">
+	      	<img src="{% static 'img/headshots/boy1.jpg' %}" class="img-responsive">
+	      	</div>
+      		<div class="col-xs-6">
+	      	<img src="{% static 'img/headshots/boy1.jpg' %}" class="img-responsive">
+	      	</div>
+      	</div>
+      </div>
+      <div class="col-md-6 col-md-pull-6">
+      	<div class="medium_padding"></div>
+          <div class="row">
+          	<div class="col-xs-10 col-xs-offset-1">
+          		<h3>Better lighting, no glare on glasses</h3>
+		          <p>Our basic touchup process improves the lighting on your face, body and background. We’ll ensure that your headshots look professional and high quality!  We also remove any glare on your glasses that may occur during the photo process so you can wear glasses.</p>
+		         </div>
+          </div>
+      </div>
+    </div>
+    <div class="large_padding"></div>
+	</div>
+	<div class="medium_padding"></div>
+
+
+<!-- premium touchup -->
+	
+	<div class="background_pink">
+	<div class="large_padding"></div>
+	<div class="container">
+		<h2 class="landing_title_third text-center">Premium Touchup - Our secret sauce!</h2>
+		<div class="medium_padding"></div>
+		<div class="row">
+			<div class="col-md-4 col-md-offset-0 col-xs-10 col-xs-offset-1 text-center">
+				<h3 class="landing_text_main bold">Bryte Photoshop Magicians</h3>
+				<p class="small_padding">The personal attention from our Photoshop magicians will give your headshots a premium look. They look at each headshot individually and touch it up in its unique way.</p>
+			</div>
+			<div class="col-md-4 col-md-offset-0 col-xs-10 col-xs-offset-1 text-center">
+				<h3 class="landing_text_main bold">Natural Skin Enhancement</h3>
+				<p class="small_padding">Don’t be afraid to choose a headshot with bad glare on your glasses! Our touchup process will remove even the worst glare and reflections on your glasses. We’ll ensure you look clean and professional.</p>
+			</div>
+			<div class="col-md-4 col-md-offset-0 col-xs-10 col-xs-offset-1 text-center">
+				<h3 class="landing_text_main bold">Special Requests and more</h3>
+				<p class="small_padding">We provide light that will support your professional look as part of our touchup process. Our process will make you stand out!</p>
+			</div>
+		</div>
+	</div>
+	<div class="large_padding"></div>
+	</div>
+
+<!-- passport -->
+	<div class="large_padding"></div>
+	<div class="container">
+
+		<h3 class="landing_title_third text-center">Have more time and high quality passport/ID photos</h3>
+		<div class="medium_padding"></div>
+    <div class="row">
+      <div class="col-md-6">
+      	<div class="medium_padding"></div>
+      	<div class="row">
+      		<div class="col-xs-6">
+	      	<img src="{% static 'img/headshots/boy1.jpg' %}" class="img-responsive">
+	      	</div>
+      		<div class="col-xs-6">
+	      	<img src="{% static 'img/headshots/boy1.jpg' %}" class="img-responsive">
+	      	</div>
+      	</div>
+      </div>
+      <div class="col-md-6">
+      	<div class="medium_padding"></div>
+          <div class="row">
+          	<div class="col-xs-10 col-xs-offset-1">
+          		<h3>Delivered straight to you – no travel</h3>
+		          <p>Don’t worry about having to take time out of your busy schedule to make a trip to get your headshot taken.  At Bryte Photo, we offer digitially touched up passport photos and if you need 2x2 prints, we’ll mail 6 copies right to your doorstep!</p>
+		         </div>
+          </div>
+      </div>
+    </div>
+
+    <div class="medium_padding"></div>
+    <div class="row">
+      <div class="col-md-6 col-md-push-6">
+      	<div class="medium_padding"></div>
+      	<div class="row">
+      		<div class="col-xs-6">
+	      	<img src="{% static 'img/headshots/boy1.jpg' %}" class="img-responsive">
+	      	</div>
+      		<div class="col-xs-6">
+	      	<img src="{% static 'img/headshots/boy1.jpg' %}" class="img-responsive">
+	      	</div>
+      	</div>
+      </div>
+      <div class="col-md-6 col-md-pull-6">
+      	<div class="medium_padding"></div>
+          <div class="row">
+          	<div class="col-xs-10 col-xs-offset-1">
+          		<h3>Look good in your passport/ID photos</h3>
+		          <p>We've all been there: having to wake up early to run to the Post Office, DMV, or some other low quality headshot service only to have a "not-so-great" photo taken. Bryte Photo offers a special "Passport/ID Touchup" process to make sure your photo is prepared for official use.</p>
+		         </div>
+          </div>
+      </div>
+    </div>
+    <div class="large_padding"></div>
+	</div>
+	<div class="medium_padding"></div>
+
+	
+	<!-- quote -->
+	<div class="red_bg">
+		<div class="row">
+		<div class="col-md-8 col-md-offset-2 col-xs-10 col-xs-offset-1">
+		<div class="large_padding"></div>
+		<p class="white landing_text_main">"We want to help students build a great Linkedin profile so that employers look at them, and Bryte Photo is perfect for that: that professional headshot that they may not be able to get otherwise"</p>
+		<p class="text-right white">– Amy, Career Counselor</p>
+
+		<div class="medium_padding"></div>
+		</div>
+		</div>
+
+	</div>
+
+	<div class="medium_padding"></div>
+	<!-- Pricing -->
+	<div class="container" id='landing_sales_pricing'>
+		<h2 class="text-center landing_title bold">Find the perfect headshot for you</h2>
+		<div class="medium_padding"></div>
+		<div class="row">
+			<div class="small_padding"></div>
+			<div class="row">
+				<div class="col-xs-10 col-xs-offset-1 price_list_card pricing_list">
+					<div class="page-header small_margin zero_margin_bot">
+						<h4 class="bold red landing_text_main text-center">FREE!</h4>
+					</div>
+					<ul>
+						<li><a href="{% url 'landing_family' %}" class="red">Click here for how</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="small_padding"></div>
+
+		<div class="row sm_font">
+			<div class="col-md-4">
+
+				<div class="small_padding"></div>
+				<div class="row">
+					<div class="col-xs-10 col-xs-offset-1 price_list_card pricing_list">
+						<div class="page-header small_margin zero_margin_bot">
+							<h4 class="bold red landing_text_main text-center">$4.99 - Original Headshot</h4>
+						</div>
+						<ul>
+							<li>Receive a digital copy of any original headshot you took at your shoot</li>
+							<li>Full sized digital copy</li>
+							<li>Emailed to you within 24 hours</li>
+						</ul>
+					</div>
+				</div>
+				<div class="small_padding"></div>
+			</div>
+
+			<div class="col-md-4">
+				<div class="small_padding"></div>
+				<div class="row">
+					<div class="col-xs-10 col-xs-offset-1 price_list_card pricing_list">
+						<div class="page-header small_margin zero_margin_bot">
+							<h4 class="bold red landing_text_main text-center">$6.99 - Headshot with Basic Touchup</h4>
+						</div>
+						<ul>
+							<li>Touched up by a Bryte Photoshop Magician</li>
+							<li>Improved lighting on face, body and background</li>
+							<li>Glare will be removed on glasses</li>
+							<li>Emailed to you within 48 hours</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-4">
+				<div class="small_padding"></div>
+				<div class="row">
+					<div class="col-xs-10 col-xs-offset-1 price_list_card pricing_list">
+						<div class="page-header small_margin zero_margin_bot">
+							<h4 class="bold red landing_text_main text-center">$8.99 - Headshot with Premium Touchup</h4>
+						</div>
+						<ul>
+							<li>Everything in "Headshot with Basic Touchup"</li>
+							<li>Acne/Mole removal</li>
+							<li>Custom requests will be taken within reason</li>
+							<li>Natural skin smoothening</li>
+							<li>Teeth whitening</li>
+							<li>Eye enhancement</li>
+							<li>Emailed to you within 48 hours</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="small_padding"></div>
+
+		<div class="row">
+			<div class="small_padding"></div>
+			<div class="row">
+				<div class="col-xs-10 col-xs-offset-1 price_list_card pricing_list">
+					<div class="page-header small_margin zero_margin_bot">
+						<h4 class="bold red landing_text_main text-center">$12.99 – US Passport/Visa/IDs</h4>
+					</div>
+					<ul>
+						<li>Your headshot will undergo our Basic Touchup process, AND will be touched up and resized according to requirements specified by the US Department of State</li>
+						<li>6 2x2 glossy prints of the touched up headshot delivered to an address in the US</li>
+						<li>You’ll also be emailed 2 digital headshots:  the headshot with Basic touchup at it’s original size AND the headshot with basic touchup at it’s 2x2 resized version</li>
+						<li>Touched up photos emailed to you within 48 hours, prints delivered within 1 week</li>
+						<li>Additional postage costs will be applied at checkout</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="medium_padding"></div>
+  <a href="{% url 'landing_family' %}" class="red"><p class="text-center">Keep your premium touched up headshots at no cost to you!</p></a>
+
+  <div class="medium_padding"></div>
+
+	<!-- table -->
+	<div class="container">
+	<h3 class="landing_text_main">Prices for a Single Headshot</h3>
+	<div class="background_white">
+	<table class="table">
+	  <thead>
+	    <tr>
+	      <th></th>
+	      <th>Price</th>
+	      <th>On Location</th>
+	      <th>Touchup</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr class="landing_text_main bold red">
+	      <th scope="row">Bryte Photo</th>
+	      <td>< $13</td>
+	      <td>Yes</td>
+	      <td>Yes</td>
+	    </tr>
+	    <tr class="landing_text">
+	      <th scope="row">Photography Studios</th>
+	      <td>$50+</td>
+	      <td>Extra $</td>
+	      <td>No</td>
+	    </tr>
+	    <tr class="landing_text">
+	      <th scope="row">Freelancer</th>
+	      <td>$100+</td>
+	      <td>Extra $</td>
+	      <td>Extra $</td>
+	    </tr>
+	  </tbody>
+	</table>
+	</div>
+	</div>
+ <div class="medium_padding"></div>
+
+
+<div class="background_pink">
+	<div class="container">
+		<div class="medium_padding"></div>
+    <div class="row">
+      <div class="col-md-6">
+      	<div class="medium_padding"></div>
+      	<div class="row">
+      		<div class="col-xs-6">
+	      	<img src="{% static 'img/headshots/boy1.jpg' %}" class="img-responsive">
+	      	</div>
+      		<div class="col-xs-6">
+	      	<img src="{% static 'img/headshots/boy1.jpg' %}" class="img-responsive">
+	      	</div>
+      	</div>
+      </div>
+      <div class="col-md-6">
+      	<div class="medium_padding"></div>
+          <div class="row">
+          	<div class="col-xs-10 col-xs-offset-1">
+		          <p>"It was really quick and professional.  I felt really good about the photos"</p>
+		          <p class="text-right"> – Matt C.</p>
+		         </div>
+          </div>
+      </div>
+    </div>
+
+    <div class="medium_padding"></div>
+    <div class="row">
+      <div class="col-md-6 col-md-push-6">
+      	<div class="medium_padding"></div>
+      	<div class="row">
+      		<div class="col-xs-6">
+	      	<img src="{% static 'img/headshots/boy1.jpg' %}" class="img-responsive">
+	      	</div>
+      		<div class="col-xs-6">
+	      	<img src="{% static 'img/headshots/boy1.jpg' %}" class="img-responsive">
+	      	</div>
+      	</div>
+      </div>
+      <div class="col-md-6 col-md-pull-6">
+      	<div class="medium_padding"></div>
+	          <div class="row">
+	          	<div class="col-xs-10 col-xs-offset-1">
+			          <p>"I’ve been waiting for this forever"</p>
+			          <p class="text-right"> - Mikaela G.</p>
+			         </div>
+	          </div>
+      </div>
+    </div>
+    <div class="large_padding"></div>
+	</div>
+</div>
+
+{% endblock %}

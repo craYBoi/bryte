@@ -1,0 +1,624 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block stylesheet %}
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.min.css">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/justifiedGallery.min.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/lightgallery.css' %}">
+{% endblock %}
+
+{% block content %}
+	<div class="red_bg">
+		{% if not headshots %}
+		<div class="large_padding"></div>
+		<h1 class="text-center white landing_title_sec bold">Enter your ID and get your headshots!</h1>
+
+		<div class="row">
+			<div class="small_padding"></div>
+			<div class="text-center">
+			<form method="POST" action="{% url 'landing_retrieve1' %}" class="form-inline">{% csrf_token %}
+				<input type="text" name="retrieve_search" id="retrieve_search" class="form-control" required placeholder="your 6-digit photo retrieval ID" onchange="try{setCustomValidity('')}catch(e){}" style="width:250px">
+					<button class="btn btn-default" id="retrieve_search_button" type="submit">Submit</button>
+			</form>
+			</div>
+			<div class="small_padding"></div>
+
+			{% if msg %}
+				<p class="white text-center">{{ msg }}</p>
+			{% endif %}
+			<div class="container" id='landing_sales_pricing'>
+				<div class="medium_padding"></div>
+				<p class="white text-center">Other headshot photographers charge hundreds for premium services.<br>Our premium touchup process costs $2.99. There’s no catch.</p>
+			</div>
+					
+		</div>
+		{% endif %}
+
+		<div class="large_padding"></div>
+		<div class="container">
+		{% if headshots %}
+			<div class="white" id="deliverables_title"></div>
+
+			<h3 class="white bold text-center landing_title_third">Here are your headshots!</h3><p class="white text-center landing_text_main">Scroll down for information on touchup, passport packages, and extra headshots.</p>
+			<div class="small_padding"></div>
+
+			<!-- total -->
+			<div class="text-right" id="checkout_total" hidden>
+				<p class="white"><span class="big_font bold">Total: $<span class="checkout_total_amount"></span></span> <br><a href="#checkout_detail" class="white">see my shopping cart</a></p> 
+				<button class="btn btn-blue checkout_button">Checkout</button>
+			</div>
+			<div class="medium_padding"></div>
+
+			<div class="lightgallery row">
+				{% for headshot in headshots %}
+				<div class="col-sm-4">
+					{% if headshot.is_deliverable %}
+					<div class="deliverables text-center">
+						<a href="{{ headshot.thumbnail_url }}"><img src="{{ headshot.thumbnail_url }}" style="height: 200px!important" class="video_desc_border" /></a>
+						{% else %}		
+					<div class="thumbnail deliverables">		
+						<a href="{{ headshot.original_url }}"><img src="{{ headshot.thumbnail_url }}" class="img-responsive" /></a>
+						{% endif %}
+					</div>
+						{% if headshot.is_deliverable %}
+							<h3 class="yellow small_font text-center">Free headshot with Basic Touchup</h3>
+							<div class="xsmall_padding"></div>
+							<a href="{{ headshot.original_url }}" id="download_button_url"><button class="btn btn-blue small_font" style="width:100%!important" id="download_button">Download with Basic Touchup</button></a>
+
+
+							<div id="download_loader" class="row">
+								<div class="small_padding"></div>
+								<div class="col-sm-6"><p class="white">preparing your headshot for downloading..</p></div>
+								<div class="col-sm-6">
+								<img src="{% static 'logo/loading.svg' %}" width="60px">
+								</div>
+								<div class="xsmall_padding"></div>
+							</div>
+
+							<div class="xsmall_padding"></div>
+							<form class="" id="{{ headshot.pk }}_form">
+
+								<div class="xsmall_padding"></div>
+								<select class="form-control" id="{{ headshot.pk }}_select">
+									<option value="2.99" class="premium_touchup_option" id="{{ headshot.pk }}_premium_touchup_option">Original Headshot + Premium Touchup - $2.99</option>
+									<option value="7.99" class="passport_option" id="{{ headshot.pk }}_passport_option">Passport Package - $7.99</option>
+								</select>
+								<input type="hidden" value="{{ headshot.thumbnail_url }}" id="{{ headshot.pk }}_thumbnail_url">
+								<div class="xsmall_padding"></div>
+
+								<div class="xsmall_padding"></div>
+
+								<div class="row">
+									<div class="col-xs-9">
+										<input type="text" id="{{ headshot.pk }}_request" placeholder="Type Special Requests" class="form-control">				
+										<input type="text" id="{{ headshot.pk }}_address" placeholder="Type your mailing address" class="form-control form_address" hidden>		
+									</div>	
+									<div class="col-xs-3">
+										<button type="submit" class="btn btn-default" id="{{ headshot.pk }}_add" name="photo_add">Add</button>
+									</div>	
+								</div>
+							</form>
+						{% else %}
+						<form class="" id="{{ headshot.pk }}_form">
+							<div class="xsmall_padding"></div>
+							<select class="form-control" id="{{ headshot.pk }}_select">
+								<option value="4.99">Original Headshot - $4.99</option>
+								<option selected value="6.99">Original Headshot + Basic Touchup - $6.99</option>
+								<option value="8.99" id="{{ headshot.pk }}_premium_touchup_option">Original Headshot + Premium Touchup - $8.99</option>
+								<option value="12.99" id="{{ headshot.pk }}_passport_option">Passport Package - $12.99</option>
+							</select>
+							<input type="hidden" value="{{ headshot.thumbnail_url }}" id="{{ headshot.pk }}_thumbnail_url">
+							<div class="xsmall_padding"></div>
+								<div class="row">
+									<div class="col-xs-9">
+										<input type="text" id="{{ headshot.pk }}_request" placeholder="Type Special Requests" class="form-control form_request">				
+										<input type="text" id="{{ headshot.pk }}_address" placeholder="Type your mailing address" class="form-control form_address" hidden>		
+									</div>	
+									<div class="col-xs-3">
+										<button type="submit" class="btn btn-default" id="{{ headshot.pk }}_add" name="photo_add">Add</button>
+									</div>	
+								</div>
+						</form>
+						{% endif %}
+					<div class="medium_padding"></div>
+				</div>
+				{% endfor %}
+			</div>		
+		
+
+		</div>
+
+		<div class="medium_padding"></div>
+		<p class="white text-center">Have questions? Contact us at <a href="mailto:hello@brytephoto.com" target="_top" class="pink">hello@brytephoto.com</a></p>
+		<div class="medium_padding"></div>
+
+
+		<div class="container" id="checkout_cart">
+			<h2 class="landing_title_third white bold">Shopping Cart</h2>
+			<span class="small_font light white">(if you want to remove anything from your cart, refresh the page, click continue when asked, and your cart will be cleared )</span>
+			<div class="small_padding"></div>
+			<div class="small_padding top_border"></div>
+			<ul id="checkout_detail" class="package_list">
+
+			</ul>
+			<div class="text-right">
+				<p class="white bold big_font large_padding">Total: $<span class="checkout_total_amount"></span></p>
+				<a href=""><button class="btn btn-blue checkout_button">Checkout</button></a>
+			</div>
+		</div>
+
+		<div class="medium_padding"></div>
+
+		<div class="container top_border">
+			<div class="medium_padding"></div>
+			<h3 class="white text-center landing_title_third">Bryte Touchup – Click headshots to enlarge!</h3>
+			<div class="medium_padding"></div>
+			<div class="row">
+				<!--imgs-->
+				<div class="col-sm-4">
+					<img src="{% static 'img/headshots/boy1.jpg' %}" class="img-responsive white_border">
+				</div>
+
+				<div class="col-sm-4">
+					<img src="{% static 'img/headshots/boy1.jpg' %}" class="img-responsive white_border">
+				</div>
+
+				<div class="col-sm-4">
+					<img src="{% static 'img/headshots/boy1.jpg' %}" class="img-responsive white_border">
+				</div>
+			</div>
+
+			<div class="small_padding"></div>
+
+			<div class="text-center" id="sample_see_more">
+				<div class="small_padding"></div>
+				<button class="btn btn-blue" id="sample_see_more_button">See More</button>
+			</div>
+
+			<div id="more_samples" hidden>
+				<div class="row">
+					<!--imgs-->
+					<div class="col-sm-4">
+						<img src="{% static 'img/headshots/boy1.jpg' %}" class="img-responsive white_border">
+					</div>
+
+					<div class="col-sm-4">
+						<img src="{% static 'img/headshots/boy1.jpg' %}" class="img-responsive white_border">
+					</div>
+
+					<div class="col-sm-4">
+						<img src="{% static 'img/headshots/boy1.jpg' %}" class="img-responsive white_border">
+					</div>
+				</div>
+
+				<div class="small_padding"></div>
+
+				<div class="row">
+					<!--imgs-->
+					<div class="col-sm-4">
+						<img src="{% static 'img/headshots/boy1.jpg' %}" class="img-responsive white_border">
+					</div>
+
+					<div class="col-sm-4">
+						<img src="{% static 'img/headshots/boy1.jpg' %}" class="img-responsive white_border">
+					</div>
+
+					<div class="col-sm-4">
+						<img src="{% static 'img/headshots/boy1.jpg' %}" class="img-responsive white_border">
+					</div>
+				</div>
+			</div>
+
+		<div class="large_padding"></div>
+
+		<!-- Pricing -->
+			<div class="container red" id='landing_sales_pricing'>
+				<h3 class="white landing_title_third text-center">Bryte Offerings</h3>
+				<div class="small_padding"></div>
+				<div class="row sm_font">
+					<div class="col-md-4">
+						<div class="small_padding"></div>
+						<div class="row">
+							<div class="col-xs-10 col-xs-offset-1 price_list_card pricing_list background_white">
+								<div class="page-header small_margin zero_margin_bot">
+									<h4 class="bold landing_text_main text-center">FREE!</h4>
+								</div>
+								<ul>
+									<li><a href="{% url 'landing_family' %}">Click here for how</a></li>
+								</ul>
+							</div>
+						</div>
+
+						<div class="small_padding"></div>
+						<div class="row">
+							<div class="col-xs-10 col-xs-offset-1 price_list_card pricing_list background_white">
+								<div class="page-header small_margin zero_margin_bot">
+									<h4 class="bold landing_text_main text-center">$4.99 - Original Headshot</h4>
+								</div>
+								<ul>
+									<li>Receive a digital copy of any original headshot you took at your shoot</li>
+									<li>Full sized digital copy</li>
+									<li>Emailed to you within 24 hours</li>
+								</ul>
+							</div>
+						</div>
+						<div class="small_padding"></div>
+						<div class="row">
+							<div class="col-xs-10 col-xs-offset-1 price_list_card pricing_list background_white">
+								<div class="page-header small_margin zero_margin_bot">
+									<h4 class="bold landing_text_main text-center">$6.99 - Headshot with Basic Touchup</h4>
+								</div>
+								<ul>
+									<li>Touched up by a Bryte Photoshop Magician</li>
+									<li>Improved lighting on face, body and background</li>
+									<li>Glare will be removed on glasses</li>
+									<li>Emailed to you within 48 hours</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-4">
+						<div class="small_padding"></div>
+						<div class="row">
+							<div class="col-xs-10 col-xs-offset-1 price_list_card pricing_list background_white">
+								<div class="page-header small_margin zero_margin_bot">
+									<h4 class="bold landing_text_main text-center">$8.99 - Headshot with Premium Touchup</h4>
+								</div>
+								<ul>
+									<li>Everything in "Headshot with Basic Touchup"</li>
+									<li>Acne/Mole removal</li>
+									<li>Custom requests will be taken within reason</li>
+									<li>Natural skin smoothening</li>
+									<li>Teeth whitening</li>
+									<li>Eye enhancement</li>
+									<li>Emailed to you within 48 hours</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-4">
+						<div class="small_padding"></div>
+						<div class="row">
+							<div class="col-xs-10 col-xs-offset-1 price_list_card pricing_list background_white">
+								<div class="page-header small_margin zero_margin_bot">
+									<h4 class="bold landing_text_main text-center">$12.99 – US Passport/Visa/IDs</h4>
+								</div>
+								<ul>
+									<li>Your headshot will undergo our Basic Touchup process, AND will be touched up and resized according to requirements specified by the US Department of State</li>
+									<li>6 2x2 glossy prints of the touched up headshot delivered to an address in the US</li>
+									<li>You’ll also be emailed 2 digital headshots:  the headshot with Basic touchup at it’s original size AND the headshot with basic touchup at it’s 2x2 resized version</li>
+									<li>Touched up photos emailed to you within 48 hours, prints delivered within 1 week</li>
+									<li>Additional postage costs will be applied at checkout</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- table -->
+			<div class="large_padding"></div>
+			<h3 class="white text-center landing_title_third">Prices for a Single Headshot</h3>
+			<div class="small_padding"></div>
+			<div class="background_white">
+			<table class="table">
+			  <thead>
+			    <tr>
+			      <th></th>
+			      <th>Price</th>
+			      <th>On Location</th>
+			      <th>Touchup</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <tr class="landing_text_main bold red">
+			      <th scope="row">Bryte Photo</th>
+			      <td>< $13</td>
+			      <td>Yes</td>
+			      <td>Yes</td>
+			    </tr>
+			    <tr class="landing_text">
+			      <th scope="row">Photography Studios</th>
+			      <td>$50+</td>
+			      <td>Extra $</td>
+			      <td>No</td>
+			    </tr>
+			    <tr class="landing_text">
+			      <th scope="row">Freelancer</th>
+			      <td>$100+</td>
+			      <td>Extra $</td>
+			      <td>Extra $</td>
+			    </tr>
+			  </tbody>
+			</table>
+			</div>
+
+
+
+			<div class="large_padding"></div>			
+			<h3 class="white text-center landing_title_third">Testimonials</h3>
+			<div class="small_padding"></div>
+			<div class="row">
+				<div class="col-sm-3">
+					<p class="white landing_text">"I've been waiting for this forever"<br><br> – Mikaela G., Junior</p>
+				</div>
+				<div class="col-sm-3">
+					<p class="white landing_text">"It was really quick and professional. I felt really good about the photos."<br><br> – Matt C., Sophomore</p>
+				</div>
+				<div class="col-sm-3">
+					<p class="white landing_text">"Affordable, being a college student and I’m broke. But still very high quality."<br><br> – Travis F., Freshman</p>
+				</div>
+				<div class="col-sm-3">
+					<p class="white landing_text">"Simple and easy, and the pictures look great"<br><br> – Sam W., Freshman</p>
+				</div>
+			</div>
+			<div class="large_padding"></div>
+		</div>
+		{% endif %}
+
+	</div>
+
+
+
+
+	<!-- modal -->
+	<a id="modal_link" href="#animatedModal" hidden></a>
+	<div id="animatedModal">
+	  <!--THIS IS IMPORTANT! to close the modal, the class name has to match the name given on the ID  class="close-animatedModal" -->
+	  <div class="close-animatedModal text-center" id="modal_close_link"> 
+	      <div class="medium_padding"></div>
+	      <a href="" class="modal_close white xbig_font"><i class="fa fa-times-circle-o"></i></a>
+	  </div>
+
+	  <div class="white text-center medium_padding large_font">      
+	  <p id="modal_content"></p>
+	  </div>
+	</div>
+
+	<!-- loader -->
+	<div id="loader-wrapper" hidden>
+	  <div id="loader" class="text-center"><img src="{% static 'logo/loading.svg' %}" width="140px"></div>
+	</div>
+{% endblock %}
+
+{% block script %}
+  <script src="{% static 'js/lightgallery.js' %}"></script>
+  <script src="{% static 'js/lg-thumbnail.js' %}"></script>
+  <script src="{% static 'js/lg-fullscreen.js' %}"></script>
+  <script src="https://checkout.stripe.com/checkout.js"></script>
+  <script src="{% static 'js/animatedModal.min.js' %}"></script>
+	<script type="text/javascript">
+	  function getCookie(name) {
+	    var cookieValue = null;
+	    if (document.cookie && document.cookie != '') {
+	        var cookies = document.cookie.split(';');
+	        for (var i = 0; i < cookies.length; i++) {
+	            var cookie = jQuery.trim(cookies[i]);
+	            // Does this cookie string begin with the name we want?
+	            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+	                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+	                break;
+	            }
+	        }
+	    }
+	    return cookieValue;
+		}
+		var csrftoken = getCookie('csrftoken');
+	</script>
+{% endblock %}
+{% block jquery %}
+ 	
+	var total = 0;
+
+	var purchases = []
+
+
+	// download
+	$('#download_loader').hide();
+	$('#download_button').click(function(e){
+		e.preventDefault();
+		var url = $('#download_button_url').attr('href');
+		len = url.length;
+		url = url.substring(0, len-5);
+		url += 'dl=1';		
+
+		$('#download_loader').show();
+		setTimeout(function(){
+			window.location.href = url;
+			$('#download_loader').hide();
+		}, 10000);
+	});
+
+	$(document).ready(function(event, xhr, settings) {
+		var $gallery = $('.deliverables');
+		$gallery.lightGallery({
+			thumbnail: true,
+		})
+	});
+
+  // modal 
+  $("#modal_link").animatedModal({
+    animatedIn: 'zoomInUp',
+    animatedOut: 'bounceOutDown',
+    color: '#c94848'
+  });
+
+  $('#modal_close_link').click(function(){
+    location.reload();
+  }).ajaxStart(function () {
+    $("#loader-wrapper").show();
+  }).ajaxStop(function () {
+    $("#loader-wrapper").hide();
+  });
+
+	$('#checkout_total').hide();
+	$('#checkout_cart').hide();
+	$('.form_address').hide();
+	$('.form_request').hide();
+
+	// show form
+	$('select').on('change', function(e){
+		var select_id = e.target.id;
+		var pk = select_id.split('_')[0];
+		pt_id = '#' + pk + '_premium_touchup_option';
+		pp_id = '#' + pk + '_passport_option';
+		addr_id = '#' + pk + '_address';
+		req_id = '#' + pk + '_request';
+		if($(pt_id).is(':selected')){
+			$(req_id).fadeIn(200);
+		}
+		else{
+			$(req_id).fadeOut(200);
+			$(req_id).val('');
+		}
+		if($(pp_id).is(':selected')){
+			$(addr_id).fadeIn(200);
+		}
+		else{
+			$(addr_id).fadeOut(200);
+			$(addr_id).val('');
+		}
+	})
+
+	$("button[name=photo_add]").click(function(e){
+		e.preventDefault();
+
+		// show loader
+		$('#loader-wrapper').show();
+		setTimeout(function(){
+			$('#loader-wrapper').hide();
+		}, 300);
+
+    var idClicked = e.target.id;
+    var pk = idClicked.split('_')[0];
+    thumbnail_id = '#' + pk + '_thumbnail_url';
+    thumbnail_url = $(thumbnail_id).val();
+    select_id = '#' + pk + '_select';
+    option_val = $(select_id).find(':selected').val();
+    option_text = $(select_id).find(':selected').text();
+
+
+
+    // text matching
+    option_list = option_text.split(' ');
+    option = option_text.split(' ')[option_list.length-2][0] + option_text.split(' ')[option_list.length-1][0]
+
+    var purchase = {
+    	'img_id': pk,
+    	'option': option.toLowerCase(),
+    	'value': option_val,
+    };
+    purchases.push(purchase);
+
+    // update the total
+
+    total = total + parseFloat(option_val);
+    if($('#checkout_total').is(":hidden")){
+    	$('#checkout_total').fadeIn(200)
+    }
+    $('.checkout_total_amount').html(total);
+
+
+    // get the addr and req
+		addr_id = '#' + pk + '_address';
+		req_id = '#' + pk + '_request';
+		special_checkout_html = '';
+    if($(addr_id).val()){
+    	special_checkout_html = '<div class="col-xs-6 white text-center"><p>Mailing Address: ' + $(addr_id).val() + '</p></div>';
+
+    	// add to the data
+    	purchase['address'] = $(addr_id).val();
+    	$(addr_id).val('');
+    }
+    if($(req_id).val()){
+    	special_checkout_html = '<div class="col-xs-6 white text-center"><p>Special Requests: ' + $(req_id).val() + '</p></div>';
+
+    	// add to the data
+    	purchase['request'] = $(req_id).val();
+    	$(req_id).val('');
+    }
+    
+    checkout_html = '<li class="row"><div class="col-xs-6"><img src="' + thumbnail_url + '" style="height:120px!important" class="video_desc_border"></div><div class="col-xs-6 white text-center"><p>' + option_text + '</p></div>'+ special_checkout_html +'</li>';
+
+		$('#checkout_detail').append(checkout_html);
+		$('#checkout_cart').fadeIn(200);
+		//console.log(purchases);
+	});
+
+
+
+
+	// all ajax
+
+  var csrftoken = getCookie('csrftoken');
+
+  function csrfSafeMethod(method) {
+  // these HTTP methods do not require CSRF protection
+  return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+  }
+
+
+  $.ajaxSetup({
+      beforeSend: function(xhr, settings) {
+          if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+              xhr.setRequestHeader("X-CSRFToken", csrftoken);
+          }
+      }
+  });
+
+  
+
+  var handler = StripeCheckout.configure({
+  	
+    key: '{{ publish_key }}',
+    locale: 'auto',
+    token: function(token) {
+      // You can access the token ID with `token.id`.
+      // Get the token ID to your server-side code for use.
+      $.ajax({
+	  		url: '{% url "landing_retrieve1" %}',
+	  		type: 'POST',
+	  		data: {
+	  			purchases: JSON.stringify(purchases),
+	  			token: token.id,
+	  			total: total,
+	  		},
+
+	      success: function(data){
+          $("#modal_content").html(data['msg']);
+          $("#modal_link").trigger('click');
+	      },
+
+	      failure: function(data){
+          $("#modal_content").html('Something wrong happened, please try again. Thanks!')
+          $("#modal_link").trigger('click');
+	      }
+	  	})
+    }
+  });
+
+  $('.checkout_button').on('click', function(e) {
+    // Open Checkout with further options:
+    handler.open({
+      name: 'Bryte Headshot Upgrade',
+      description: 'Bryte Headshot Upgrade',
+      amount: total * 100,
+    });
+    e.preventDefault();
+  });
+
+  // Close Checkout on page navigation:
+  $(window).on('popstate', function() {
+    handler.close();
+  });
+
+
+  // sample see more
+  $('#sample_see_more_button').click(function(){
+  	$('#sample_see_more').fadeOut(200);
+  	$('#more_samples').fadeIn(500);
+  });
+
+{% endblock %}

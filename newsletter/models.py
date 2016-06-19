@@ -3,6 +3,8 @@ from __future__ import unicode_literals
 from photographer.models import Photographer
 from django.db import models
 
+from careerlab.models import Booking
+
 # Create your models here.
 class SignUp(models.Model):
 	email = models.EmailField()
@@ -67,3 +69,9 @@ class ContactHelp(models.Model):
 	name = models.CharField(max_length=120)
 	email = models.EmailField()
 	question = models.TextField()
+
+
+class FamilyContact(models.Model):
+	email = models.EmailField()
+	book = models.ForeignKey(Booking, blank=True, null=True)
+	family_email = models.EmailField()

@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block stylesheet %}
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.min.css">
+{% endblock %}
+
+
+{% block content %}
+	<div class="red_bg">
+		<div class="container">
+			<div class="large_padding"></div>
+			<h2 class="landing_title_sec bold white text-center">Let your family know about your headshots!</h2>
+
+			<h3 class="white text-center landing_text_main">We make it easy to share your headshots with your family. </h3>
+
+
+			<div class="medium_padding"></div>
+
+			<div class="signup_form">
+			<div class="text-center">
+      <form method="POST" action="" class="white">{% csrf_token %}
+      	<input type='email' name='family_email' class="form-control" id='family_email' required placeholder='Your email address'>
+      	<div class="small_padding"></div>
+        <input type='email' name='family_email_family' class="form-control" id='family_email_family' placeholder='Your family email address'>
+        <div class="small_padding"></div>
+        <div class="small_padding"></div>
+        <button class="btn-white bold large_font" id="family_button" type='submit'>Submit</button>
+        <div class="small_padding"></div>
+        <p class="text-center small_font">We will never spam your family.<br>If you want to enter more than one email<br>hit refresh and enter the desired email.</p>
+      </form>
+      </div>
+      </div>
+
+			<div class="medium_padding"></div>
+			<ol class="white light">
+				<li>Input their email(s) below and we will let them know when your headshots are available (only you and whoever has email access to the account you input will be able to see your headshots – we’ll give you each a special code)</li>
+				<li>They will be able to see your headshots and buy as many as they’d like.</li>
+				<li>Whenever your family buys headshots, they will become instantly available for you to download and keep!</li>
+			</ol>
+			<div class="medium_padding"></div>
+		</div>
+	</div>
+
+<!-- modal -->
+<a id="modal_link" href="#animatedModal" hidden></a>
+<div id="animatedModal">
+  <!--THIS IS IMPORTANT! to close the modal, the class name has to match the name given on the ID  class="close-animatedModal" -->
+  <div class="close-animatedModal text-center" id="modal_close_link"> 
+      <div class="medium_padding"></div>
+      <a href="" class="modal_close white xbig_font"><i class="fa fa-times-circle-o"></i></a>
+  </div>
+
+  <div class="white text-center medium_padding large_font">      
+  <p id="modal_content"></p>
+  </div>
+</div>
+
+
+<!-- loader -->
+<div id="loader-wrapper" hidden>
+  <div id="loader" class="text-center"><img src="{% static 'logo/loading.svg' %}" width="140px"></div>
+</div>
+{% endblock %}
+
+{% block script %}
+	<script src="{% static 'js/animatedModal.min.js' %}"></script>
+  <script type="text/javascript">
+  function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+var csrftoken = getCookie('csrftoken');
+  </script>
+{% endblock %}
+
+
+{% block jquery %}
+    // modal 
+    $("#modal_link").animatedModal({
+      animatedIn: 'zoomInUp',
+      animatedOut: 'bounceOutDown',
+      color: '#c94848'
+    });
+
+    $('#modal_close_link').click(function(){
+      location.reload();
+    })
+
+
+    .ajaxStart(function () {
+      $("#loader-wrapper").show();
+    })
+
+    .ajaxStop(function () {
+      $("#loader-wrapper").hide();
+    });
+
+    var csrftoken = getCookie('csrftoken');
+
+    function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+
+    $('#family_button').on('click', function(e){
+      if (document.getElementById('family_email').checkValidity() && document.getElementById('family_email_family').checkValidity()){
+        $("#loader-wrapper").show();    
+        $.ajax({
+          url: '{% url "landing_family" %}',
+          type: 'POST',
+          data: {
+          	email: $('#family_email').val(),
+            family_email: $('#family_email_family').val(),
+          },
+
+          success: function(data){
+            $("#modal_content").html(data['msg'])
+            $("#modal_link").trigger('click')
+          },
+
+          failure: function(data){
+            $("#modal_content").html('Something wrong happened, please try again. Thanks!')
+            $("#modal_link").trigger('click')
+          }
+        });
+        e.preventDefault();
+      }
+    });
+{% endblock %}

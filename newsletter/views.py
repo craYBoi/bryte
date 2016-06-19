@@ -10,9 +10,10 @@ import dropbox
 import json
 from .forms import SignUpForm
 from photographer.models import Photographer
-from .models import Price, PriceFeature, ContactSale, ContactHelp
+from .models import Price, PriceFeature, ContactSale, ContactHelp, FamilyContact
 from book.models import TimeSlot, NextShoot
-from careerlab.models import Booking
+from careerlab.models import Booking, ImagePurchase, HeadshotImage
+
 
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -162,6 +163,46 @@ def help(request):
 	return render(request, 'landing_help.html', context)
 
 
+def family(request):
+	if request.is_ajax() and request.method == 'POST':
+		data = {}
+		email = request.POST.get('email')
+		family_email = request.POST.get('family_email')
+
+		try:
+			b = get_object_or_404(Booking, email=email)
+			try:
+				f = FamilyContact.objects.create(
+						email=email,
+						book = b,
+						family_email=family_email
+					)
+			except Exception, e:
+				data['msg'] = 'Something went wrong, Please try again'
+				pass
+			else:
+				# send the email and stuff
+				pass
+		except Exception, e:
+			data['msg'] = 'We haven\'t seen that email before! Are you sure that this is the email you booked your headshot with?'
+			pass
+		else:
+			data['msg'] = 'We got the email you entered. We will send out notification when your headshots are available'
+		return HttpResponse(json.dumps(data), content_type='application/json')
+
+	context = {
+		'title_text': 'Family Free Headshot | Bryte Photo Headshots',
+	}
+	return render(request, 'landing_family.html', context)
+
+
+def sales(request):
+	context = {
+		'title_text': 'Getting extra headshots',
+	}
+	return render(request, 'landing_sales.html', context)
+
+
 def ajax_contact(request):
 	if request.is_ajax() and request.method == 'POST':
 		data = {}
@@ -266,3 +307,82 @@ def ajax_retrieve(request):
 		return HttpResponse(json.dumps(data), content_type='application/json')
 	else:
 		raise Http404
+
+
+def test_retrieve(request):
+	context = {
+		'title_text': 'Retrive your headshot | Bryte Photo',
+		'publish_key': settings.STRIPE_PUBLISHABLE_KEY,
+	}
+
+	if request.method == 'POST':
+		if request.is_ajax():
+			data = {}
+			print request.POST
+			try:
+				purchases = json.loads(request.POST.get('purchases'))
+			except Exception, e:
+				raise e
+			else:
+				# charge first
+				token = request.POST.get('token')
+				total = request.POST.get('total')
+
+				try:
+					charge = stripe.Charge.create(
+						amount = int(float(total) * 100),
+						currency="usd",
+						source=token,
+						description="Bryte Photo Headshot"
+					)
+				except stripe.error.CardError, e:
+					data['msg'] = 'There\'s an error charging your card. Please provide another card'
+
+					# update the status in purchase
+					charge_successful = False
+				else:
+					
+					# populate the purchases
+					charge_successful = True
+
+					data['msg'] = 'Thanks for the order! We will send a confirmatiln email to you and will deliver the order in 48 hours!'
+
+					for purchase in purchases:
+						# find the Image intance first
+						try:
+							img = get_object_or_404(HeadshotImage, pk=purchase.get('img_id'))
+						except Exception, e:
+							raise e
+						else:
+							try:
+								ImagePurchase.objects.create(
+									image=img,
+									option=purchase.get('option'),
+									value=purchase.get('value'),
+									email=img.book.email,
+									address=purchase.get('address'),
+									request=purchase.get('request'),
+									charge_successful=charge_successful,
+								)
+								# send the email as a method of Purchase
+
+							except Exception, e:
+								print 'create purchase fail'
+								raise e
+							else:
+								print 'create successfully'
+			return HttpResponse(json.dumps(data), content_type='application/json')
+		else:
+			unique_id = request.POST.get('retrieve_search').strip()
+			try:
+				b = get_object_or_404(Booking, hash_id=unique_id)
+				# grab all the image from booking
+				headshots = b.headshotimage_set.all().order_by('pk')
+			except Exception, e:
+				context['msg'] = 'Did you enter the right ID? Check your email to make sure.'
+			else:
+				context['headshots'] = headshots
+
+	return render(request, 'test_retrieve.html', context)
+
+

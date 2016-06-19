@@ -312,16 +312,17 @@ h1,h2,h3,h4 {
 
 .btn-blue {
 	border-radius: 4px;
-	background-color: #c94848;
+	background-color: #fff999;
 	border: none;
 	font-size: 1em;
-	color: #fff;
-	padding: 6px 15px;
+	color: #c94848;
+	padding: 15px 45px;
 }
 
 .btn-blue:hover {
-	background-color: rgba(201,72,72,0.8);
+	background-color: #eae164;
 }
+
 
 .btn-reverse {
 	color: #fff;
@@ -603,9 +604,9 @@ h1,h2,h3,h4 {
 
 /* pricing */
 .price_list_card {
-	border-radius: 30px;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15), 0 6px 20px 0 rgba(0, 0, 0, 0.15);
-	font-size: 1.1em;
+	border-radius: 5px;
+	border: 1px solid #c94848;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05), 0 6px 20px 0 rgba(0, 0, 0, 0.05);
 }
 
 .price_list_card_student {
@@ -627,8 +628,8 @@ h1,h2,h3,h4 {
 }
 
 .pricing_list li {
-	padding: 20px 0;
-	padding-left: 2.3em;
+	padding: 20px 0px;
+	padding-left: 1.3em;
 	border-bottom: 1px dashed #eee;
 }
 
@@ -637,13 +638,13 @@ h1,h2,h3,h4 {
 }
 
 .pricing_list li:before {
-	content: "\f005"; /* FontAwesome Unicode */
+	/*content: "\f005"; */
   font-family: FontAwesome;
   display: inline-block;
   margin-left: -2.3em; /* same as padding-left set on li */
-  width: 1.3em; /* same as padding-left set on li */
-  margin-right: 1em;
-  color: #0098ee;
+  width: 3.5em; /* same as padding-left set on li */
+  margin-right: -1.3em;
+  color: #c94848;
 }
 
 .faq_answer:before {
@@ -1022,8 +1023,16 @@ h1,h2,h3,h4 {
 	margin-top: 40px;
 }
 
+.neg_margin {
+	margin-bottom: -20px!important;
+}
+
 .small_margin {
-	margin-top: 20px;
+	margin-top: 20px!important;
+}
+
+.zero_margin_bot {
+	margin-bottom: 0!important;
 }
 
 .small_margin_lr {
@@ -1632,6 +1641,9 @@ body, html
   .landing_title_sec {
     font-size: 2.6em!important;
   }
+  .landing_title_third {
+    font-size: 2em!important;
+  }
   .landing_button_padding {
   	padding: 15px 40px;
   	border-radius: .4em;
@@ -1652,6 +1664,9 @@ body, html
   }  
   .landing_title_sec {
     font-size: 2.8em!important;
+  }
+  .landing_title_third {
+    font-size: 2.2em!important;
   }
   .landing_button_padding {
   	padding: 10px 30px;
@@ -1677,6 +1692,9 @@ body, html
   .landing_title_sec {
     font-size: 2.2em!important;
   }
+  .landing_title_third {
+    font-size: 1.5em!important;
+  }
   .landing_button_padding {
   	padding: 8px 20px;
   	border-radius: .3em;
@@ -1700,6 +1718,9 @@ body, html
   }
   .landing_title_sec {
     font-size: 1.5em!important;
+  }
+  .landing_title_third {
+    font-size: 1.2em!important;
   }
   .landing_button_padding {
   	padding: 5px 15px;

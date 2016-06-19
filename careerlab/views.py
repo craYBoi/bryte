@@ -66,8 +66,8 @@ def book(request):
 
 					# send email
 					b.confirmation_email()
-
-					data['msg'] = 'Thanks for signing up ' + str(name) + '.<br><br>A confirmation email will be sent to you at \"' + str(email) + '\" with your booking information soon!<br><br>Team Bryte Photo'
+					first_name = name.split(' ')[0]
+					data['msg'] = 'Thanks for signing up ' + first_name + '.<br><br>A confirmation email will be sent to you at \"' + str(email) + '\" with your booking information soon!<br><br>Team Bryte Photo'
 
 			else:
 				data['msg'] = 'This time slot is no longer available. Please select a different one.'
@@ -144,14 +144,6 @@ def tips(request):
 		'title_text': 'Bryte Photo Headshot Tips',
 	}
 	return render(request, 'careerlab_tips.html', context)
-
-
-def sales(request):
-	context = {
-		'brown_careerlab': 1,
-		'title_text': 'Getting extra headshots',
-	}
-	return render(request, 'careerlab_sales.html', context)
 
 
 
