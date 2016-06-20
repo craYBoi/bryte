@@ -14,7 +14,7 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 def index(request):
 	title = 'Bryte Photo & CareerLab Brown University headshot'
 	next_shoot = Nextshoot.objects.first()
-	timeslots = next_shoot.timeslot_set.filter(is_available=True).order_by('time')
+	timeslots = next_shoot.timeslot_set.filter(is_available=True, active=True).order_by('time')
 	# timeslots = Timeslot.objects.filter(active=True, is_available=True).order_by('time')
 	# if timeslots:
 	# 	next_shoot = timeslots.first().shoot

@@ -65,15 +65,17 @@ class Nextshoot(models.Model):
 		return self.location + ' - ' + self.photographer.get_full_name()
 
 
+	# need to return all the timeslots
+	# since it's needed when the shoot is closed
 	def get_date_string(self):
-		timeslots = self.timeslot_set.filter(active=True)
+		timeslots = self.timeslot_set.all()
 		if timeslots:
 			return str(timeslots.first().time.strftime('%B %-d'))
 		return None
 
 
 	def get_time_interval_string(self):
-		timeslots = self.timeslot_set.filter(active=True)
+		timeslots = self.timeslot_set.all()
 		if timeslots:
 			a = sorted(timeslots, reverse=False, key=lambda timeslot: timeslot.time)
 			str_time_start = a[0].time.strftime('%-I:%M %p')
@@ -91,6 +93,13 @@ class Nextshoot(models.Model):
 			if(booking.reminder_email()):
 				count += 1
 		print 'Total --- ' + str(len(bookings)) + ' Emails\nSENT --- ' + str(count) + ' Emails'
+
+
+	def close_shoot(self):
+		timeslots = self.timeslot_set.filter(active=True)
+		for timeslot in timeslots:
+			timeslot.active = False
+			timeslot.save()
 
 
 	def send_replacement(self):
