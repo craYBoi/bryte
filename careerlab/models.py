@@ -546,7 +546,7 @@ class ImagePurchase(models.Model):
 
 	UPGRADES = (
 		('oh', 'Original Headshot'),
-		('bt', 'Basic Touchup'),
+		('st', 'Standard Touchup'),
 		('pt', 'Premium Touchup'),
 		('pp', 'Passport Package'),
 	)

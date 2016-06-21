@@ -1291,6 +1291,7 @@ html { overflow-y: scroll; }
   max-width: 100%;
 }
 
+
 /* customizeing bootstrap */
 
 
@@ -1355,6 +1356,12 @@ body, html
 .seeed_color_four {
 	background-color: #d3f4ff!important;
 }
+
+#price_table tr > *{
+	height: 100px;
+	font-size: 1.2em;
+}
+
 
 /* flex box to make form inline */
 .flex_box_center {
