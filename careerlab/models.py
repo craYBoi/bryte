@@ -472,29 +472,30 @@ class Booking(models.Model):
 			print 'access deliverable original folder fail'
 			pass
 		else:
-			for deliverable_t, deliverable_o in zip(deliverable_t_list, deliverable_o_list):
-				print 'Creating Deliverable Original..'
-				url = dbx.sharing_create_shared_link(deliverable_o.path_lower)
-				t_url = dbx.sharing_create_shared_link(deliverable_t.path_lower)
-				url = str(url.url)
-				url = url[:-4]
-				url += 'raw=1'
-				t_url = str(t_url.url)
-				t_url = t_url[:-4]
-				t_url += 'raw=1'
-				try:
-					HeadshotImage.objects.create(
-						book=self,
-						is_watermarked=False,
-						is_deliverable=True,
-						original_url=url,
-						thumbnail_url=t_url,
-						)
-				except Exception, e:
-					print 'create image instance fail'
-					raise e
-				else:
-					print 'image [deliverable] successfully created'
+			if deliverable_t_list:
+				for deliverable_t, deliverable_o in zip(deliverable_t_list, deliverable_o_list):
+					print 'Creating Deliverable Original..'
+					url = dbx.sharing_create_shared_link(deliverable_o.path_lower)
+					t_url = dbx.sharing_create_shared_link(deliverable_t.path_lower)
+					url = str(url.url)
+					url = url[:-4]
+					url += 'raw=1'
+					t_url = str(t_url.url)
+					t_url = t_url[:-4]
+					t_url += 'raw=1'
+					try:
+						HeadshotImage.objects.create(
+							book=self,
+							is_watermarked=False,
+							is_deliverable=True,
+							original_url=url,
+							thumbnail_url=t_url,
+							)
+					except Exception, e:
+						print 'create image instance fail'
+						raise e
+					else:
+						print 'image [deliverable] successfully created'
 
 
 		# Watermark Original
@@ -505,29 +506,30 @@ class Booking(models.Model):
 			print 'access watermark folder fail'
 			pass
 		else:
-			for watermarked_t, watermarked_o in zip(watermarked_t_list, watermarked_o_list):
-				print 'Creating Watermarked Original..'
-				url = dbx.sharing_create_shared_link(watermarked_o.path_lower)
-				t_url = dbx.sharing_create_shared_link(watermarked_t.path_lower)
-				url = str(url.url)
-				url = url[:-4]
-				url += 'raw=1'
-				t_url = str(t_url.url)
-				t_url = t_url[:-4]
-				t_url += 'raw=1'
-				try:
-					HeadshotImage.objects.create(
-						book=self,
-						is_watermarked=True,
-						is_deliverable=False,
-						original_url=url,
-						thumbnail_url=t_url,
-						)
-				except Exception, e:
-					print 'create image instance fail'
-					raise e
-				else:
-					print 'image [watermark original] successfully created'
+			if watermarked_t_list:
+				for watermarked_t, watermarked_o in zip(watermarked_t_list, watermarked_o_list):
+					print 'Creating Watermarked Original..'
+					url = dbx.sharing_create_shared_link(watermarked_o.path_lower)
+					t_url = dbx.sharing_create_shared_link(watermarked_t.path_lower)
+					url = str(url.url)
+					url = url[:-4]
+					url += 'raw=1'
+					t_url = str(t_url.url)
+					t_url = t_url[:-4]
+					t_url += 'raw=1'
+					try:
+						HeadshotImage.objects.create(
+							book=self,
+							is_watermarked=True,
+							is_deliverable=False,
+							original_url=url,
+							thumbnail_url=t_url,
+							)
+					except Exception, e:
+						print 'create image instance fail'
+						raise e
+					else:
+						print 'image [watermark original] successfully created'
 
 
 class HeadshotImage(models.Model):
