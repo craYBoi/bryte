@@ -688,7 +688,7 @@ class Booking(models.Model):
 
 class HeadshotImage(models.Model):
 	book = models.ForeignKey(Booking)
-	name = models.CharField(max_length=30, blank=True, null=True)
+	name = models.CharField(max_length=80, blank=True, null=True)
 	is_watermarked = models.BooleanField(default=False)
 	is_deliverable = models.BooleanField(default=False)
 	is_premium = models.BooleanField(default=False)
