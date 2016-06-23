@@ -9,7 +9,7 @@
 
 {% block content %}
 	<div class="red_bg">
-		{% if not headshots %}
+		{% if not deliverable %}
 		<div class="large_padding"></div>
 		<h1 class="text-center white landing_title_sec bold">Enter your ID and get your headshots!</h1>
 
@@ -56,7 +56,7 @@
 
 		<div class="large_padding"></div>
 		<div class="container">
-		{% if headshots %}
+		{% if deliverable %}
 			<div class="white" id="deliverables_title"></div>
 
 			<h3 class="white bold text-center landing_title_third">Here are your headshots!</h3><p class="white text-center landing_text_main">Scroll down for information on touchup, passport packages, and extra headshots.</p>
@@ -70,32 +70,48 @@
 			<div class="medium_padding"></div>
 
 			<div class="lightgallery row">
-				{% for headshot in headshots %}
 				<div class="col-sm-4">
-					{% if headshot.is_deliverable %}
+					<div class="small_padding"></div>
 					<div class="deliverables text-center">
-						<a href="{{ headshot.thumbnail_url }}"><img src="{{ headshot.thumbnail_url }}" style="height: 200px!important" class="video_desc_border" /></a>
-						{% else %}		
-					<div class="thumbnail deliverables">		
-						<a href="{{ headshot.original_url }}"><img src="{{ headshot.thumbnail_url }}" class="img-responsive" /></a>
-						{% endif %}
+						<a href="{{ deliverable.thumbnail_url }}"><img src="{{ deliverable.thumbnail_url }}" style="height: 200px!important" class="video_desc_border" /></a>
 					</div>
-						{% if headshot.is_deliverable %}
-							<h3 class="yellow small_font text-center">Free headshot with Standard Touchup</h3>
-							<div class="xsmall_padding"></div>
-							<a href="{{ headshot.original_url }}" id="download_button_url"><button class="btn btn-blue small_font" style="width:100%!important" id="download_button">Download with Standard Touchup</button></a>
+					<h3 class="yellow small_font text-center">Free headshot with Standard Touchup</h3>
+					<div class="xsmall_padding"></div>
+					<a href="{{ deliverable.original_url }}" id="download_button_url"><button class="btn btn-blue small_font" style="width:100%!important" id="download_button">Download with Standard Touchup</button></a>
 
 
-							<div id="download_loader" class="row">
-								<div class="small_padding"></div>
-								<div class="col-sm-6"><p class="white">preparing your headshot for downloading..</p></div>
-								<div class="col-sm-6">
-								<img src="{% static 'logo/loading.svg' %}" width="60px">
-								</div>
-								<div class="xsmall_padding"></div>
-							</div>
 
-							<div class="xsmall_padding"></div>
+					<div id="download_loader" class="row">
+						<div class="small_padding"></div>
+						<div class="col-sm-6"><p class="white">preparing your headshot for downloading..</p></div>
+						<div class="col-sm-6">
+						<img src="{% static 'logo/loading.svg' %}" width="60px">
+						</div>
+						<div class="xsmall_padding"></div>
+					</div>
+				</div>
+
+				<div class="col-sm-4">
+					<div class="small_padding"></div>
+					<div class="deliverables text-center">
+						<a href="{{ fullsize.original_url }}"><img src="{{ fullsize.thumbnail_url }}" style="height: 200px!important" class="video_desc_border" /></a>
+					</div>
+					<h3 class="yellow small_font text-center">Full Size</h3>
+					<div class="xsmall_padding"></div>
+					<button class="btn btn-blue small_font" style="width:100%!important" id="fullsize_button" name='{{ fullsize.pk }}'>Download for $2.99</button>
+				</div>
+
+				<div class="col-sm-4">
+					<div class="small_padding"></div>
+					<div class="deliverables text-center">
+						<a href="{{ premium.original_url }}"><img src="{{ premium.thumbnail_url }}" style="height: 200px!important" class="video_desc_border" /></a>
+					</div>
+					<h3 class="yellow small_font text-center">Premium Touchup</h3>
+					<div class="xsmall_padding"></div>
+					<button class="btn btn-blue small_font" style="width:100%!important" id="premium_button" name='{{ premium.pk }}'>Download for $6.99</button>
+				</div>
+			</div>
+							<!-- Change dropdown to button
 							<form class="" id="{{ headshot.pk }}_form">
 
 								<div class="xsmall_padding"></div>
@@ -118,11 +134,18 @@
 									</div>	
 								</div>
 							</form>
-						{% else %}
+							-->
+				<div class="large_padding"></div>
+				<div class="lightgallery row">
+					{% for headshot in extra %}
+						<div class="col-sm-4">
+						<div class="thumbnail deliverables">		
+							<a href="{{ headshot.original_url }}"><img src="{{ headshot.thumbnail_url }}" class="img-responsive" /></a>
+						</div>
 						<form class="" id="{{ headshot.pk }}_form">
 							<div class="xsmall_padding"></div>
 							<select class="form-control" id="{{ headshot.pk }}_select">
-								<option value="4.99" name="oh">Original Headshot - $4.99</option>
+								<option value="4.99" name="oh">originalnal Headshot - $4.99</option>
 								<option selected value="6.99" name="st">Original Headshot + Standard Touchup - $6.99</option>
 								<option value="8.99" id="{{ headshot.pk }}_premium_touchup_option" name="pt">Original Headshot + Premium Touchup - $8.99</option>
 								<option value="12.99" id="{{ headshot.pk }}_passport_option" name="pp">Passport Package - $12.99</option>
@@ -139,18 +162,14 @@
 									</div>	
 								</div>
 						</form>
-						{% endif %}
 					<div class="medium_padding"></div>
-				</div>
+					</div>
 				{% endfor %}
 			</div>		
 		
 
 		</div>
-
-		<div class="medium_padding"></div>
 		<p class="white text-center">Have questions? Contact us at <a href="mailto:hello@brytephoto.com" target="_top" class="pink">hello@brytephoto.com</a></p>
-		<div class="medium_padding"></div>
 
 
 		<div class="container" id="checkout_cart">
@@ -158,6 +177,9 @@
 			<span class="small_font light white">(if you want to remove anything from your cart, refresh the page, click continue when asked, and your cart will be cleared )</span>
 			<div class="small_padding"></div>
 			<div class="small_padding top_border"></div>
+
+
+
 			<ul id="checkout_detail" class="package_list">
 
 			</ul>
@@ -476,6 +498,40 @@
 			$('#download_loader').hide();
 		}, 10000);
 	});
+
+
+	// fullsize and premium
+	$('#fullsize_button').click(function(e){
+		purchases.push({
+    	'img_id': $('#fullsize_button').attr('name'),
+    	'option': 'st',
+    	'value': 2.99,
+		})
+		total = total + 2.99;
+    if($('#checkout_total').is(":hidden")){
+    	$('#checkout_total').fadeIn(200)
+    }
+    $('.checkout_total_amount').html(total);
+    e.preventDefault();
+	});
+
+	$('#premium_button').click(function(e){
+		purchases.push({
+    	'img_id': $('#premium_button').attr('name'),
+    	'option': 'pt',
+    	'value': 6.99,
+		})
+		total = total + 6.99;
+    if($('#checkout_total').is(":hidden")){
+    	$('#checkout_total').fadeIn(200)
+    }
+    $('.checkout_total_amount').html(total);
+    e.preventDefault();
+	});
+
+
+
+
 
 	$(document).ready(function(event, xhr, settings) {
 		var $gallery = $('.deliverables');

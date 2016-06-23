@@ -191,8 +191,8 @@ h1,h2,h3,h4 {
 
 
 .btn-white-lg {
-	border-radius: 6px;
-	padding: 10px 40px;
+	border-radius: 4px;
+	padding: 15px 40px;
 	border: none;
 	color: #c94848;
 	background-color: rgba(255,255,255,0.95);
@@ -316,7 +316,7 @@ h1,h2,h3,h4 {
 	border: none;
 	font-size: 1em;
 	color: #c94848;
-	padding: 15px 45px;
+	padding: 15px 40px;
 }
 
 .btn-blue:hover {

@@ -17,10 +17,11 @@ class SignupAdmin(admin.ModelAdmin):
 	list_display = ['id', 'email', 'name','notified', 'shoot', 'timestamp']
 
 class HeadshotImageAdmin(admin.ModelAdmin):
-	list_display = ['id', 'book', 'is_watermarked', 'is_deliverable', 'original_url', 'thumbnail_url']
+	list_display = ['id', 'book', 'name', 'is_watermarked', 'is_deliverable','is_fullsize','is_premium', 'original_url', 'thumbnail_url']
 
 class ImagePurchaseAdmin(admin.ModelAdmin):
-	list_display = ['id', 'image', 'email','option', 'value', 'address', 'request', 'charge_successful', 'timestamp']
+	list_display = ['id', 'image', 'email','option', 'value', 'address', 'request', 'charge_successful','is_delivered', 'timestamp']
+
 
 admin.site.register(Timeslot, TimeslotAdmin)
 admin.site.register(Booking, BookingAdmin)

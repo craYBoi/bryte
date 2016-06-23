@@ -375,6 +375,32 @@ class Booking(models.Model):
 		return send
 
 
+	def dropbox_delivery_email(self, img_link):
+		send = False
+		name = self.name
+		first_name = name.split(' ')[0]
+		email = self.email
+
+		message = sendgrid.Mail()
+		message.add_to(email)
+		message.set_from('Bryte Photo Inc <' + settings.EMAIL_HOST_USER + '>')
+		message.set_subject('Download your headshot') 
+		message.set_html('Body')
+		message.set_text('Body')
+		message.add_filter('templates','enable','1')
+		message.add_filter('templates','template_id','3ee6fdaa-0e23-4914-8f53-c06265dbbd57')
+		message.add_substitution('-first_name-', first_name)
+		message.add_substitution('-download_link-', img_link)
+
+		try:
+			sg.send(message)
+		except Exception, e:
+			print '[NOT SENT] --- ' + str(email) 
+		else:
+			send = True
+			print '[SENT] --- ' + str(email)
+		return send
+
 
 	def create_dropbox_folder(self):
 		token = settings.DROPBOX_TOKEN
@@ -451,96 +477,231 @@ class Booking(models.Model):
 
 
 	# go through dropbox to create image instance in the local database
-	def create_image(self):
+	def create_image(self, deliverable=False, watermarked=False, premium=False, fullsize=False):
 		dbx = dropbox.Dropbox(settings.DROPBOX_TOKEN)
 		folder_path = self.dropbox_folder
 
+		subfolder_path = 'Other'
+
 		deliverable_o_path = os.path.join(folder_path, 'Deliverables')
-		deliverable_t_path = os.path.join(folder_path, 'Deliverables_Thumbnail')
-		watermarked_t_path = os.path.join(folder_path, 'Watermarked_Thumbnail')
-		watermarked_o_path = path = os.path.join(folder_path, 'Watermarked_Original')
+		deliverable_t_path = os.path.join(folder_path, subfolder_path, 'Deliverables Thumbnail')
+		watermarked_t_path = os.path.join(folder_path, subfolder_path, 'Watermarked Thumbnail')
+		watermarked_o_path = os.path.join(folder_path, subfolder_path, 'Watermarked Original')
+		premium_w_path = os.path.join(folder_path, subfolder_path, 'Premium Watermarked')
+		premium_wt_path = os.path.join(folder_path, subfolder_path, 'Premium Watermarked Thumbnail')
+		premium_o_path = os.path.join(folder_path, 'Premium')
+		fullsize_w_path = os.path.join(folder_path, subfolder_path, 'Full Size Watermarked')
+		fullsize_wt_path = os.path.join(folder_path, subfolder_path, 'Full Size Watermarked Thumbnail')
+		fullsize_o_path = os.path.join(folder_path, 'Full Size')
+
+
+
+		# if original url is already there, do not create new instance
+		headshot_images = self.headshotimage_set.all()
+		urls = [img.original_url for img in headshot_images]
 
 		# Deliverable Original 
-		try:
-			deliverable_o_list = dbx.files_list_folder(deliverable_o_path).entries
-			deliverable_t_list = dbx.files_list_folder(deliverable_t_path).entries
+		if deliverable:
+			try:
+				deliverable_o_list = dbx.files_list_folder(deliverable_o_path).entries
+				deliverable_t_list = dbx.files_list_folder(deliverable_t_path).entries
 
-			# see if they share the same length
-			assert(len(deliverable_o_list) == len(deliverable_t_list)), 'Original - Thumbnails don\t have same number of files'
+				# see if they share the same length
+				assert(len(deliverable_o_list) == len(deliverable_t_list)), 'Original - Thumbnails don\t have same number of files'
 
-		except Exception, e:
-			print 'access deliverable original folder fail'
-			pass
-		else:
-			if deliverable_t_list:
-				for deliverable_t, deliverable_o in zip(deliverable_t_list, deliverable_o_list):
-					print 'Creating Deliverable Original..'
-					url = dbx.sharing_create_shared_link(deliverable_o.path_lower)
-					t_url = dbx.sharing_create_shared_link(deliverable_t.path_lower)
-					url = str(url.url)
-					url = url[:-4]
-					url += 'raw=1'
-					t_url = str(t_url.url)
-					t_url = t_url[:-4]
-					t_url += 'raw=1'
-					try:
-						HeadshotImage.objects.create(
-							book=self,
-							is_watermarked=False,
-							is_deliverable=True,
-							original_url=url,
-							thumbnail_url=t_url,
-							)
-					except Exception, e:
-						print 'create image instance fail'
-						raise e
-					else:
-						print 'image [deliverable] successfully created'
+			except Exception, e:
+				print 'access deliverable original folder fail'
+				pass
+			else:
+				if deliverable_t_list:
+					for deliverable_t, deliverable_o in zip(deliverable_t_list, deliverable_o_list):
+						print 'Creating Deliverable..'
 
+						url = dbx.sharing_create_shared_link(deliverable_o.path_lower)
+						t_url = dbx.sharing_create_shared_link(deliverable_t.path_lower)
+						url = str(url.url)
+						url = url[:-4]
+						url += 'raw=1'
+						t_url = str(t_url.url)
+						t_url = t_url[:-4]
+						t_url += 'raw=1'
 
-		# Watermark Original
-		try:
-			watermarked_o_list = dbx.files_list_folder(watermarked_o_path).entries
-			watermarked_t_list = dbx.files_list_folder(watermarked_t_path).entries
-		except Exception, e:
-			print 'access watermark folder fail'
-			pass
-		else:
-			if watermarked_t_list:
-				for watermarked_t, watermarked_o in zip(watermarked_t_list, watermarked_o_list):
-					print 'Creating Watermarked Original..'
-					url = dbx.sharing_create_shared_link(watermarked_o.path_lower)
-					t_url = dbx.sharing_create_shared_link(watermarked_t.path_lower)
-					url = str(url.url)
-					url = url[:-4]
-					url += 'raw=1'
-					t_url = str(t_url.url)
-					t_url = t_url[:-4]
-					t_url += 'raw=1'
-					try:
-						HeadshotImage.objects.create(
-							book=self,
-							is_watermarked=True,
-							is_deliverable=False,
-							original_url=url,
-							thumbnail_url=t_url,
-							)
-					except Exception, e:
-						print 'create image instance fail'
-						raise e
-					else:
-						print 'image [watermark original] successfully created'
+						# if original url is already there, do not create new instance
+						if url not in urls:
+							# create new instance
+							try:
+								HeadshotImage.objects.create(
+									book=self,
+									name=deliverable_o.name,
+									is_watermarked=False,
+									is_deliverable=True,
+									original_url=url,
+									thumbnail_url=t_url,
+									)
+							except Exception, e:
+								print 'create image instance fail'
+								raise e
+							else:
+								print 'image [deliverable] successfully created'
+
+		if watermarked:
+			# Watermark Original
+			try:
+				watermarked_o_list = dbx.files_list_folder(watermarked_o_path).entries
+				watermarked_t_list = dbx.files_list_folder(watermarked_t_path).entries
+			except Exception, e:
+				print 'access watermark folder fail'
+				pass
+			else:
+				if watermarked_t_list:
+					for watermarked_t, watermarked_o in zip(watermarked_t_list, watermarked_o_list):
+						print 'Creating Watermarked Images..'
+						url = dbx.sharing_create_shared_link(watermarked_o.path_lower)
+						t_url = dbx.sharing_create_shared_link(watermarked_t.path_lower)
+						url = str(url.url)
+						url = url[:-4]
+						url += 'raw=1'
+						t_url = str(t_url.url)
+						t_url = t_url[:-4]
+						t_url += 'raw=1'
+
+						# if original url is already there, do not create new instance
+						if url not in urls:
+							try:
+								HeadshotImage.objects.create(
+									book=self,
+									name=watermarked_o.name,
+									is_watermarked=True,
+									is_deliverable=False,
+									original_url=url,
+									thumbnail_url=t_url,
+									)
+							except Exception, e:
+								print 'create image instance fail'
+								raise e
+							else:
+								print 'image [watermark] successfully created'
+
+		if fullsize:
+			# Watermark Original
+			try:
+				fullsize_o_list = dbx.files_list_folder(fullsize_o_path).entries
+				fullsize_w_list = dbx.files_list_folder(fullsize_w_path).entries
+				fullsize_wt_list = dbx.files_list_folder(fullsize_wt_path).entries
+			except Exception, e:
+				print 'access watermark folder fail'
+				pass
+			else:
+				if fullsize_o_list:
+					for fullsize_o, fullsize_w, fullsize_wt in zip(fullsize_o_list, fullsize_w_list, fullsize_wt_list):
+						print 'Creating Watermarked Images..'
+						url = dbx.sharing_create_shared_link(fullsize_o.path_lower)
+						t_url = dbx.sharing_create_shared_link(fullsize_wt.path_lower)
+						w_url = dbx.sharing_create_shared_link(fullsize_w.path_lower)
+						url = str(url.url)
+						url = url[:-4]
+						url += 'raw=1'
+						t_url = str(t_url.url)
+						t_url = t_url[:-4]
+						t_url += 'raw=1'
+						w_url = str(w_url.url)
+						w_url = w_url[:-4]
+						w_url += 'raw=1'
+
+						# if original url is already there, do not create new instance
+						if url not in urls:
+							try:
+								# first create the watermarked version
+								HeadshotImage.objects.create(
+									book=self,
+									name=fullsize_w.name,
+									is_watermarked=True,
+									is_fullsize=True,
+									original_url=w_url,
+									thumbnail_url=t_url,
+									)
+								# then create the original version
+								HeadshotImage.objects.create(
+									book=self,
+									name=fullsize_o.name,
+									is_fullsize=True,
+									original_url=url,
+									)
+							except Exception, e:
+								print 'create image instance fail'
+								raise e
+							else:
+								print 'image [fullsize] successfully created'
+
+		if premium:
+			# Watermark Original
+			try:
+				premium_o_list = dbx.files_list_folder(premium_o_path).entries
+				premium_w_list = dbx.files_list_folder(premium_w_path).entries
+				premium_wt_list = dbx.files_list_folder(premium_wt_path).entries
+			except Exception, e:
+				print 'access watermark folder fail'
+				pass
+			else:
+				if premium_o_list:
+					for premium_o, premium_w, premium_wt in zip(premium_o_list, premium_w_list, premium_wt_list):
+						print 'Creating Watermarked Images..'
+						url = dbx.sharing_create_shared_link(premium_o.path_lower)
+						t_url = dbx.sharing_create_shared_link(premium_wt.path_lower)
+						w_url = dbx.sharing_create_shared_link(premium_w.path_lower)
+						url = str(url.url)
+						url = url[:-4]
+						url += 'raw=1'
+						t_url = str(t_url.url)
+						t_url = t_url[:-4]
+						t_url += 'raw=1'
+						w_url = str(w_url.url)
+						w_url = w_url[:-4]
+						w_url += 'raw=1'
+
+						# if original url is already there, do not create new instance
+						if url not in urls:
+							try:
+								# first create the watermarked version
+								HeadshotImage.objects.create(
+									book=self,
+									name=premium_w.name,
+									is_watermarked=True,
+									is_premium=True,
+									original_url=w_url,
+									thumbnail_url=t_url,
+									)
+								# then create the original version
+								HeadshotImage.objects.create(
+									book=self,
+									name=premium_o.name,
+									is_premium=True,
+									original_url=url,
+									)
+							except Exception, e:
+								print 'create image instance fail'
+								raise e
+							else:
+								print 'image [premium] successfully created'
+
 
 
 class HeadshotImage(models.Model):
 	book = models.ForeignKey(Booking)
+	name = models.CharField(max_length=30, blank=True, null=True)
 	is_watermarked = models.BooleanField(default=False)
 	is_deliverable = models.BooleanField(default=False)
+	is_premium = models.BooleanField(default=False)
+	is_fullsize = models.BooleanField(default=False)
 	original_url = models.CharField(max_length=80)
-	thumbnail_url = models.CharField(max_length=80)
+	thumbnail_url = models.CharField(max_length=80, blank=True, null=True)
 
 	def __unicode__(self):
 		return str(self.pk) + ' -- ' + self.book.__unicode__()
+
+	def is_extra(self):
+		return not(self.is_deliverable or self.is_premium or self.is_fullsize)
+
 
 class ImagePurchase(models.Model):
 	image = models.ForeignKey(HeadshotImage)
@@ -553,12 +714,13 @@ class ImagePurchase(models.Model):
 		('pp', 'Passport Package'),
 	)
 
-	option = models.CharField(max_length=2, choices=UPGRADES, default='og')
+	option = models.CharField(max_length=2, choices=UPGRADES, default='oh')
 	address = models.CharField(max_length=100, blank=True, null=True)
 	request = models.TextField(blank=True, null=True)
 	value = models.DecimalField(max_digits=5, decimal_places=2)
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
 	charge_successful = models.BooleanField(default=True)
+	is_delivered = models.BooleanField(default=False)
 
 
 

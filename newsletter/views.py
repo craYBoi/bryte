@@ -328,6 +328,13 @@ def test_retrieve(request):
 				token = request.POST.get('token')
 				total = request.POST.get('total')
 
+				# for fullsize and premium
+				if str(float(total))=='0':
+					total = purchases[0].get('value')
+
+				print purchases[0].get('value')
+				print total
+
 				try:
 					charge = stripe.Charge.create(
 						amount = int(float(total) * 100),
@@ -336,10 +343,10 @@ def test_retrieve(request):
 						description="Bryte Photo Headshot"
 					)
 				except stripe.error.CardError, e:
-					data['msg'] = 'There\'s an error charging your card. Please provide another card'
-
 					# update the status in purchase
 					charge_successful = False
+
+					data['msg'] = 'There\'s an error charging your card. Please provide another card'
 				else:
 					
 					# populate the purchases
@@ -347,30 +354,44 @@ def test_retrieve(request):
 
 					data['msg'] = 'Thanks for the order! We will send a confirmatiln email to you and will deliver the order in 48 hours!'
 
-					for purchase in purchases:
-						# find the Image intance first
+				for purchase in purchases:
+					# find the Image intance first
+					try:
+						img = get_object_or_404(HeadshotImage, pk=purchase.get('img_id'))
+					except Exception, e:
+						raise e
+					else:
+						is_delivered = False
+						# send the email as a method of Purchase
+						if img.is_fullsize:
+							fullsize = img.book.headshotimage_set.filter(is_fullsize=True, is_watermarked=False)[0]
+
+							img.book.dropbox_delivery_email(fullsize.original_url)
+							is_delivered = True
+
+						if img.is_premium:
+							premium = img.book.headshotimage_set.filter(is_premium=True, is_watermarked=False)[0]
+
+							img.book.dropbox_delivery_email(premium.original_url)
+							is_delivered = True
+
 						try:
-							img = get_object_or_404(HeadshotImage, pk=purchase.get('img_id'))
+							ImagePurchase.objects.create(
+								image=img,
+								option=purchase.get('option'),
+								value=purchase.get('value'),
+								email=img.book.email,
+								address=purchase.get('address'),
+								request=purchase.get('request'),
+								charge_successful=charge_successful,
+								is_delivered=is_delivered,
+							)
+
 						except Exception, e:
+							print 'create purchase fail'
 							raise e
 						else:
-							try:
-								ImagePurchase.objects.create(
-									image=img,
-									option=purchase.get('option'),
-									value=purchase.get('value'),
-									email=img.book.email,
-									address=purchase.get('address'),
-									request=purchase.get('request'),
-									charge_successful=charge_successful,
-								)
-								# send the email as a method of Purchase
-
-							except Exception, e:
-								print 'create purchase fail'
-								raise e
-							else:
-								print 'create successfully'
+							print 'create successfully'
 			return HttpResponse(json.dumps(data), content_type='application/json')
 		else:
 			unique_id = request.POST.get('retrieve_search').strip()
@@ -381,7 +402,11 @@ def test_retrieve(request):
 			except Exception, e:
 				context['msg'] = 'Did you enter the right ID? Check your email to make sure.'
 			else:
-				context['headshots'] = headshots
+				# break down the deliverable, premium and fullsize
+				context['deliverable'] = [hs for hs in headshots if hs.is_deliverable][0]
+				context['premium'] = [hs for hs in headshots if hs.is_premium and hs.is_watermarked][0]
+				context['fullsize'] = [hs for hs in headshots if hs.is_fullsize and hs.is_watermarked][0]
+				context['extra'] = [hs for hs in headshots if hs.is_extra()]
 
 	return render(request, 'test_retrieve.html', context)
 
