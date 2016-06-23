@@ -688,13 +688,13 @@ class Booking(models.Model):
 
 class HeadshotImage(models.Model):
 	book = models.ForeignKey(Booking)
-	name = models.CharField(max_length=80, blank=True, null=True)
+	name = models.CharField(max_length=50, blank=True, null=True)
 	is_watermarked = models.BooleanField(default=False)
 	is_deliverable = models.BooleanField(default=False)
 	is_premium = models.BooleanField(default=False)
 	is_fullsize = models.BooleanField(default=False)
-	original_url = models.CharField(max_length=80)
-	thumbnail_url = models.CharField(max_length=80, blank=True, null=True)
+	original_url = models.CharField(max_length=150)
+	thumbnail_url = models.CharField(max_length=150, blank=True, null=True)
 
 	def __unicode__(self):
 		return str(self.pk) + ' -- ' + self.book.__unicode__()
