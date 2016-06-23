@@ -403,10 +403,13 @@ def test_retrieve(request):
 				context['msg'] = 'Did you enter the right ID? Check your email to make sure.'
 			else:
 				# break down the deliverable, premium and fullsize
-				context['deliverable'] = [hs for hs in headshots if hs.is_deliverable][0]
-				context['premium'] = [hs for hs in headshots if hs.is_premium and hs.is_watermarked][0]
-				context['fullsize'] = [hs for hs in headshots if hs.is_fullsize and hs.is_watermarked][0]
-				context['extra'] = [hs for hs in headshots if hs.is_extra()]
+				if headshots:
+					context['deliverable'] = [hs for hs in headshots if hs.is_deliverable][0]
+					context['premium'] = [hs for hs in headshots if hs.is_premium and hs.is_watermarked][0]
+					context['fullsize'] = [hs for hs in headshots if hs.is_fullsize and hs.is_watermarked][0]
+					context['extra'] = [hs for hs in headshots if hs.is_extra()]
+				else:
+					context['msg'] = 'Your headshots are not ready yet! They should be good to go soon!'
 
 	return render(request, 'test_retrieve.html', context)
 
