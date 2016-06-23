@@ -401,6 +401,7 @@ def test_retrieve(request):
 				headshots = b.headshotimage_set.all().order_by('pk')
 			except Exception, e:
 				context['msg'] = 'Did you enter the right ID? Check your email to make sure.'
+				pass
 			else:
 				# break down the deliverable, premium and fullsize
 				if headshots:
