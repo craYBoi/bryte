@@ -396,8 +396,8 @@ class Booking(models.Model):
 			print '[SENT] --- ' + str(email)
 		return send
 
-
-	def dropbox_delivery_email(self, img_link):
+	# upgrade confirmation email, takes in order detail
+	def upgrade_confirmation_email(self, html_content):
 		send = False
 		name = self.name
 		first_name = name.split(' ')[0]
@@ -406,13 +406,42 @@ class Booking(models.Model):
 		message = sendgrid.Mail()
 		message.add_to(email)
 		message.set_from('Bryte Photo Inc <' + settings.EMAIL_HOST_USER + '>')
-		message.set_subject('Download your headshot') 
+		message.set_subject('Your super-awesome order from Bryte') 
+		message.set_html('Body')
+		message.set_text('Body')
+		message.add_filter('templates','enable','1')
+		message.add_filter('templates','template_id','c8690ffe-8ca3-4531-b46e-dbf747bdc18b')
+		message.add_substitution('-first_name-', first_name)
+		message.add_substitution('-order_detail-', html_content)
+
+		try:
+			sg.send(message)
+		except Exception, e:
+			print '[NOT SENT] --- ' + str(email) 
+		else:
+			send = True
+			print '[SENT] --- ' + str(email)
+		return send
+
+
+	def dropbox_delivery_email(self, upgrade_link):
+		send = False
+		name = self.name
+		first_name = name.split(' ')[0]
+		email = self.email
+		hash_id = self.hash_id		
+
+		message = sendgrid.Mail()
+		message.add_to(email)
+		message.set_from('Bryte Photo Inc <' + settings.EMAIL_HOST_USER + '>')
+		message.set_subject('Your purchase is ready for download!') 
 		message.set_html('Body')
 		message.set_text('Body')
 		message.add_filter('templates','enable','1')
 		message.add_filter('templates','template_id','3ee6fdaa-0e23-4914-8f53-c06265dbbd57')
 		message.add_substitution('-first_name-', first_name)
-		message.add_substitution('-download_link-', img_link)
+		message.add_substitution('-download_link-', upgrade_link)
+		message.add_substitution('-unique_id-', hash_id)
 
 		try:
 			sg.send(message)
@@ -734,6 +763,63 @@ class HeadshotImage(models.Model):
 
 	def is_extra(self):
 		return not(self.is_deliverable or self.is_premium or self.is_fullsize)
+
+
+	# temp method to copy to upgrade folder on dropbox
+	def copy_to_upgrade(self, deliverable=False, fullsize=False, premium=False):
+		dbx = dropbox.Dropbox(settings.DROPBOX_TOKEN)
+		path = self.book.dropbox_folder
+		upgrade_path = os.path.join(path, 'Upgrade')
+
+		# create share link for upgrade folder
+		upgrade_link = dbx.sharing_create_shared_link(upgrade_path)
+
+		if deliverable:
+			d_path = os.path.join(path, 'Deliverables')
+			files = dbx.files_list_folder(d_path).entries
+			if files:
+				try:
+					file = files[0]
+
+					dbx.files_copy(file.path_lower, os.path.join(upgrade_path, file.name))
+				except Exception, e:
+					print 'copy [deliverable] failed'
+					pass
+				else:
+					print 'copy [deliverable] successfully'
+
+		if fullsize:
+			f_path = os.path.join(path, 'Full Size')
+			files = dbx.files_list_folder(f_path).entries
+
+			if files:
+				try:
+					file = files[0]
+
+					dbx.files_copy(file.path_lower, os.path.join(upgrade_path, 'fs' + str(file.name)))
+				except Exception, e:
+					print 'copy [full size] failed'
+					pass
+				else:
+					print 'copy [full size] successfully'
+
+		if premium:
+			p_path = os.path.join(path, 'Premium')
+			files = dbx.files_list_folder(p_path).entries
+
+			if files:
+				try:
+					file = files[0]
+
+					dbx.files_copy(file.path_lower, os.path.join(upgrade_path, 'p' + str(file.name)))
+				except Exception, e:
+					print 'copy [premium] failed'
+					pass
+				else:
+					print 'copy [premium] successfully'
+
+		return upgrade_link.url
+
 
 
 class ImagePurchase(models.Model):

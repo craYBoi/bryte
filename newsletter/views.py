@@ -321,6 +321,7 @@ def test_retrieve(request):
 			print request.POST
 			# just for the single download
 			if request.POST.get('is_download'):
+				link = ''
 				pk = request.POST.get('pk')
 				try:
 					img = get_object_or_404(HeadshotImage, pk=pk)
@@ -330,7 +331,13 @@ def test_retrieve(request):
 				else:	
 					data['msg'] = 'Congratulations on your free Linkedin headshot!  You will receive it via email shortly.'
 					# send the email
-					img.book.dropbox_delivery_email(img.original_url)
+					link = img.copy_to_upgrade(deliverable=True)
+
+					if link:
+						img.book.dropbox_delivery_email(link)
+					else:
+						print 'Upgrade Link is None'
+
 					try:
 						ImagePurchase.objects.create(
 							image=img,
@@ -384,6 +391,46 @@ def test_retrieve(request):
 
 					data['msg'] = 'Congratulations on your purchase! We will send you a confirmation email explaining when you will receive your purchase.'
 
+				# send out upgrade confirmation email
+				confirmation_content = ''
+
+				for purchase in purchases:
+					special_note = ''
+
+					img = get_object_or_404(HeadshotImage, pk=purchase.get('img_id'))
+					if img.is_fullsize or img.is_premium or img.is_deliverable:
+						special_note = 'Expect to receive your headshot via email right away'
+					else:
+						special_note = 'Expect to receive your headshot via email within 48 hours.'
+
+					option=purchase.get('option')
+					option_text = ''
+					if option == 'oh':
+						option_text = 'Full Size Headshot'
+					elif option == 'st':
+						option_text = 'Full Size Headshot with Standard Touchup'
+					elif option == 'pt':
+						option_text = 'Full Size Headshot with Premium Touchup'
+					elif option == 'pp':
+						option_text = 'Passport/VISA/IDs Package'
+
+					value=purchase.get('value')
+					address=purchase.get('address')
+					request=purchase.get('request')
+
+					# special note for passport
+					if option == 'pp' and address:
+						special_note += '<br>Expect your physical prints to be delivered within one week.<br>Address: ' + address
+
+					confirmation_content += '1 ' + option_text + ' ---------------- $' + str(value) + '<br>' + special_note + '<br><br>'
+
+				# send it
+				img.book.upgrade_confirmation_email(confirmation_content)
+
+				# upgrade path link
+				link = ''
+
+				# top headshots delivery
 				for purchase in purchases:
 					# find the Image intance first
 					try:
@@ -395,22 +442,30 @@ def test_retrieve(request):
 						# send the email as a method of Purchase
 						# for fullsize
 						if img.is_fullsize:
-							fullsize = img.book.headshotimage_set.filter(is_fullsize=True, is_watermarked=False)[0]
-
-							img.book.dropbox_delivery_email(fullsize.original_url)
-							is_delivered = True
+							try:
+								link = img.copy_to_upgrade(fullsize=True)
+							except Exception, e:
+								pass
+							else:
+								is_delivered = True
 
 						# for premium
 						if img.is_premium:
-							premium = img.book.headshotimage_set.filter(is_premium=True, is_watermarked=False)[0]
-
-							img.book.dropbox_delivery_email(premium.original_url)
-							is_delivered = True
+							try:
+								link = img.copy_to_upgrade(premium=True)
+							except Exception, e:
+								pass
+							else:
+								is_delivered = True
 
 						# for deliverable
 						if img.is_deliverable:
-							img.book.dropbox_delivery_email(img.original_url)
-							is_delivered = True
+							try:
+								link = img.copy_to_upgrade(deliverable=True)
+							except Exception, e:
+								pass
+							else:
+								is_delivered = True
 
 						try:
 							ImagePurchase.objects.create(
@@ -429,6 +484,14 @@ def test_retrieve(request):
 							raise e
 						else:
 							print 'create successfully'
+
+				# send one email to upgrade link
+				if link:
+					img.book.dropbox_delivery_email(link)
+				else:
+					print 'Upgrade link is None'
+
+
 			return HttpResponse(json.dumps(data), content_type='application/json')
 		else:
 			unique_id = request.POST.get('retrieve_search').strip()

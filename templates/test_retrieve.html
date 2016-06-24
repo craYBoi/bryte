@@ -744,10 +744,7 @@
     // Open Checkout with further options:
     if(total==0){
 			// show loader
-			$('#loader-wrapper').show();
-			setTimeout(function(){
-				$('#loader-wrapper').hide();
-			}, 800);    
+			$('#loader-wrapper').show();   
     	$.ajax({
 	  		url: '{% url "landing_retrieve1" %}',
 	  		type: 'POST',
@@ -765,6 +762,7 @@
 	      }
     	})
     }else{
+    	$('#loader-wrapper').show();
     	handler.open({
 	      name: 'Bryte Headshot Upgrade',
 	      description: 'Bryte Headshot Upgrade',
@@ -777,6 +775,7 @@
   // Close Checkout on page navigation:
   $(window).on('popstate', function() {
     handler.close();
+    $('#loader-wrapper').hide();
   });
 
 
