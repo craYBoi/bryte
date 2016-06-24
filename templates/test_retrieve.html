@@ -35,7 +35,7 @@
 			<div class="medium_padding"></div>
 			<div class="row">
 				<div class="col-sm-4">
-					<img src="{% static 'img/affordable/premium 4.jpg' %}" class="img-responsive">
+					<img src="{% static 'img/affordable/premium 4 b.jpg' %}" class="img-responsive">
 					<p class="text-center white xsmall_padding">Original</p>
 				</div>
 				<div class="col-sm-4">
@@ -62,7 +62,6 @@
 
 
 			<h2 class="landing_title_third white bold">Here is your free LinkedIn headshot plus two special offers!</h2>
-			<a href="#landing_sales_pricing"><button class="btn btn-white-lg large_font">Learn about Our Offerings</button></a>
 			<div class="small_padding"></div>
 			<div class="small_padding top_border"></div>
 
@@ -75,11 +74,11 @@
 			</div>
 			
 
-			<div class="lightgallery row">
+			<div class="row">
 				<div class="col-sm-4">
 					<div class="small_padding"></div>
-					<h4 class="white text-center sm_font">Free Headshot with Standard Touchup Sized for Linkedin</h4>
-					<div class="deliverables text-center">
+					<h4 class="white text-center sm_font">Free Headshot with Standard Touchup Sized for Linkedin (500 x 500px)</h4>
+					<div class="text-center">
 						<img src="{{ deliverable.original_url }}" style="height: 200px!important" class="video_desc_border" />
 					</div>
 					
@@ -104,8 +103,8 @@
 
 				<div class="col-sm-4">
 					<div class="small_padding"></div>
-					<h4 class="white text-center sm_font">Upgrade with Premium Touchup and keep your full size photo for <span class="bold">50% off</span></h4>
-					<div class="deliverables text-center">
+					<h4 class="white text-center sm_font"><span class="big_font">Premium Touchup</span><br>with full size headshot</span></h4>
+					<div class="lightgallery deliverables text-center">
 						<a href="{{ premium.original_url }}"><img src="{{ premium.thumbnail_url }}" style="height: 200px!important" class="video_desc_border" /></a>
 					</div>
 					<div class="small_padding"></div>
@@ -117,8 +116,8 @@
 
 				<div class="col-sm-4">
 					<div class="small_padding"></div>
-					<h4 class="white text-center sm_font">Keep the full size photo with Standard Touchup for <span class="bold">50% off</span></h4>
-					<div class="deliverables text-center">
+					<h4 class="white text-center sm_font"><span class="big_font">Standard Touchup</span><br>with full size headshot</h4>
+					<div class="lightgallery deliverables text-center">
 						<a href="{{ fullsize.original_url }}"><img src="{{ fullsize.thumbnail_url }}" style="height: 200px!important" class="video_desc_border" /></a>
 					</div>
 					<div class="small_padding"></div>
@@ -153,12 +152,18 @@
 								</div>
 							</form>
 							-->
-				<div class="medium_padding"></div>
-
-				<h2 class="landing_title_third white bold">Here are the rest of your headshots!</h2>
-				<a href="#landing_sales_pricing"><button class="btn btn-white-lg large_font">Learn about Our Offerings</button></a>
+				<a href="#notice"><h2 class="landing_title_third white bold text-center small_padding ">
+					See the rest of your headshots from shoot day below!
+				</h2>
+				</a>
 				<div class="small_padding"></div>
-				<div class="small_padding top_border"></div>
+				<h2 class="landing_title_third white bold top_border small_padding" id="notice"><span class="big_font">IMPORTANT:</span> If you want to buy touchup upgrades for the rest of your headshots from shoot day, click the dropdown menu under each headshot! Check the headshots at the top of this page to see examples of Basic and Premium Touchup. </h2>
+				<div class="small_padding"></div>
+				<p class="text-center white large_font">
+				Any questions? Email us at <a href="mailto:hello@brytephoto.com" target="_top" class="pink">hello@brytephoto.com</a> or call us at (248)-417-5852
+				</p>
+				<div class="small_padding"></div>
+				<div class="small_padding"></div>
 
 				<div class="lightgallery row">
 					{% for headshot in extra %}
@@ -196,10 +201,7 @@
 		
 
 		</div>
-		<div class="small_padding"></div>
-		<div class="text-center">
-			<a href="#landing_sales_pricing"><button class="btn btn-white-lg large_font">Learn about Our Offerings</button></a>
-		</div>
+
 		<div class="small_padding"></div>
 		<p class="white text-center">Have questions? Email us at <a href="mailto:hello@brytephoto.com" target="_top" class="pink">hello@brytephoto.com</a> or call us at (248)-417-5852</p>
 
