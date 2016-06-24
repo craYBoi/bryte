@@ -168,7 +168,7 @@ class Nextshoot(models.Model):
 	# temp method integrated with dropbox
 	def send_delivery(self):
 		# filter out the no shows
-		bookings = [e for elem in self.timeslot_set.filter(active=True) for e in elem.booking_set.all()]
+		bookings = [e for elem in self.timeslot_set.filter(active=True) for e in elem.booking_set.filter(show_up=True)]
 		
 		count = 0
 		for booking in bookings:
