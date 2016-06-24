@@ -165,7 +165,9 @@ class Nextshoot(models.Model):
 				print '[SENT] ' + email
 
 
-	def send_dropbox_links(self):
+	# temp method integrated with dropbox
+	def send_delivery(self):
+		# filter out the no shows
 		bookings = [e for elem in self.timeslot_set.filter(active=True) for e in elem.booking_set.all()]
 		
 		count = 0
@@ -173,6 +175,25 @@ class Nextshoot(models.Model):
 			if(booking.delivery_email()):
 				count += 1
 		print 'Total --- ' + str(len(bookings)) + ' Emails\nSENT --- ' + str(count) + ' Emails'
+
+
+	# temp method integrated with dropbox
+	def update_showups(self):
+		bookings = [e for elem in self.timeslot_set.filter(active=True) for e in elem.booking_set.all()]
+
+		count = 0
+		for booking in bookings:
+			if(booking.update_showup()):
+				count += 1
+		print str(count) + ' people showed up!'
+
+
+	def create_images(self, deliverable=False, watermarked=False, premium=False, fullsize=False):
+		bookings = [e for elem in self.timeslot_set.filter(active=True) for e in elem.booking_set.all()]
+
+		for booking in bookings:
+			# this already handles the empty folder
+			booking.create_image(deliverable=deliverable, watermarked=watermarked, premium=premium, fullsize=fullsize)
 
 
 class Signup(models.Model):
@@ -238,6 +259,7 @@ class Booking(models.Model):
 	timeslot = models.ForeignKey(Timeslot)
 	hash_id = models.CharField(max_length=50, default='default')
 	dropbox_folder = models.CharField(max_length=100, blank=True, null=True)
+	show_up = models.BooleanField(default=False)
 
 
 	def __unicode__(self):
@@ -476,6 +498,19 @@ class Booking(models.Model):
 		return None
 
 
+	# check dropbox to see if there are deliverables in the folder in order to check if this person shows up at the shoot
+	# could be changed
+	def update_showup(self):	
+		dbx = dropbox.Dropbox(settings.DROPBOX_TOKEN)
+	
+		db_path = os.path.join(self.dropbox_folder, 'All')
+		if dbx.files_list_folder(db_path).entries:
+			self.show_up = True
+			self.save()
+			return True
+		return False
+
+
 	# go through dropbox to create image instance in the local database
 	def create_image(self, deliverable=False, watermarked=False, premium=False, fullsize=False):
 		dbx = dropbox.Dropbox(settings.DROPBOX_TOKEN)
@@ -554,7 +589,7 @@ class Booking(models.Model):
 				pass
 			else:
 				if watermarked_t_list:
-					for watermarked_t, watermarked_o in zip(watermarked_t_list, watermarked_o_list):
+					for watermarked_t, watermarked_o in zip(sorted(watermarked_t_list, key=lambda item:item.name), sorted(watermarked_o_list, key=lambda item:item.name)):
 						print 'Creating Watermarked Images..'
 						url = dbx.sharing_create_shared_link(watermarked_o.path_lower)
 						t_url = dbx.sharing_create_shared_link(watermarked_t.path_lower)

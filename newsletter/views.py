@@ -319,11 +319,41 @@ def test_retrieve(request):
 		if request.is_ajax():
 			data = {}
 			print request.POST
+			# just for the single download
+			if request.POST.get('is_download'):
+				pk = request.POST.get('pk')
+				try:
+					img = get_object_or_404(HeadshotImage, pk=pk)
+				except Exception, e:
+					data['msg'] = 'We have some problems delivering the photos, we are solving that right now.'
+					raise e
+				else:	
+					data['msg'] = 'Congratulations on your free Linkedin headshot!  You will receive it via email shortly.'
+					# send the email
+					img.book.dropbox_delivery_email(img.original_url)
+					try:
+						ImagePurchase.objects.create(
+							image=img,
+							option='oh',
+							value='0',
+							email=img.book.email,
+							charge_successful=True,
+							is_delivered=True,
+						)
+					except Exception, e:
+						print 'create purchase instance fail'
+						raise e
+
+					print 'send the email'
+				return HttpResponse(json.dumps(data), content_type='application/json')
+
+
 			try:
 				purchases = json.loads(request.POST.get('purchases'))
 			except Exception, e:
 				raise e
 			else:
+				print purchases
 				# charge first
 				token = request.POST.get('token')
 				total = request.POST.get('total')
@@ -352,7 +382,7 @@ def test_retrieve(request):
 					# populate the purchases
 					charge_successful = True
 
-					data['msg'] = 'Thanks for the order! We will send a confirmatiln email to you and will deliver the order in 48 hours!'
+					data['msg'] = 'Congratulations on your purchase! We will send you a confirmation email explaining when you will receive your purchase.'
 
 				for purchase in purchases:
 					# find the Image intance first
@@ -363,16 +393,23 @@ def test_retrieve(request):
 					else:
 						is_delivered = False
 						# send the email as a method of Purchase
+						# for fullsize
 						if img.is_fullsize:
 							fullsize = img.book.headshotimage_set.filter(is_fullsize=True, is_watermarked=False)[0]
 
 							img.book.dropbox_delivery_email(fullsize.original_url)
 							is_delivered = True
 
+						# for premium
 						if img.is_premium:
 							premium = img.book.headshotimage_set.filter(is_premium=True, is_watermarked=False)[0]
 
 							img.book.dropbox_delivery_email(premium.original_url)
+							is_delivered = True
+
+						# for deliverable
+						if img.is_deliverable:
+							img.book.dropbox_delivery_email(img.original_url)
 							is_delivered = True
 
 						try:

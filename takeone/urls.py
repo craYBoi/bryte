@@ -35,7 +35,7 @@ urlpatterns = [
 
     url(r'^ajax_contact/', newsletter_views.ajax_contact, name='ajax_landing_contact'),
     url(r'^retrieve/', newsletter_views.retrieve, name='landing_retrieve'),
-    url(r'^enterid/', newsletter_views.test_retrieve, name='landing_retrieve1'),
+    url(r'^myheadshots/', newsletter_views.test_retrieve, name='landing_retrieve1'),
     
     url(r'^ajax_retrieve/', newsletter_views.ajax_retrieve, name='ajax_landing_retrieve'),
     url(r'^help/', newsletter_views.help, name='landing_help'),

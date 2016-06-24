@@ -8,7 +8,7 @@ class NextshootAdmin(ImportExportModelAdmin):
 	list_display = ['id', 'photographer', 'location', 'school', 'name' ,'timestamp']
 
 class BookingAdmin(ImportExportModelAdmin):
-	list_display = ['id', 'email', 'name', 'timeslot', 'hash_id', 'dropbox_folder', 'timestamp']
+	list_display = ['id', 'email', 'name', 'timeslot', 'hash_id', 'dropbox_folder', 'show_up', 'timestamp']
 
 class TimeslotAdmin(admin.ModelAdmin):
 	list_display = ['id', 'time', 'shoot','current_volumn']
