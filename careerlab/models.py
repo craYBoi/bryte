@@ -546,7 +546,6 @@ class Booking(models.Model):
 		if deliverable:
 			try:
 				deliverable_o_list = dbx.files_list_folder(deliverable_o_path).entries
-				deliverable_t_list = dbx.files_list_folder(deliverable_t_path).entries
 
 				# see if they share the same length
 				assert(len(deliverable_o_list) == len(deliverable_t_list)), 'Original - Thumbnails don\t have same number of files'
@@ -555,18 +554,14 @@ class Booking(models.Model):
 				print 'access deliverable original folder fail'
 				pass
 			else:
-				if deliverable_t_list:
-					for deliverable_t, deliverable_o in zip(deliverable_t_list, deliverable_o_list):
+				if deliverable_o_list:
+					for deliverable_o in deliverable_o_list:
 						print 'Creating Deliverable..'
 
 						url = dbx.sharing_create_shared_link(deliverable_o.path_lower)
-						t_url = dbx.sharing_create_shared_link(deliverable_t.path_lower)
 						url = str(url.url)
 						url = url[:-4]
 						url += 'raw=1'
-						t_url = str(t_url.url)
-						t_url = t_url[:-4]
-						t_url += 'raw=1'
 
 						# if original url is already there, do not create new instance
 						if url not in urls:
@@ -578,7 +573,6 @@ class Booking(models.Model):
 									is_watermarked=False,
 									is_deliverable=True,
 									original_url=url,
-									thumbnail_url=t_url,
 									)
 							except Exception, e:
 								print 'create image instance fail'
