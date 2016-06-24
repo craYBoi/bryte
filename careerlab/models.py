@@ -379,7 +379,7 @@ class Booking(models.Model):
 		message = sendgrid.Mail()
 		message.add_to(email)
 		message.set_from('Bryte Photo Inc <' + settings.EMAIL_HOST_USER + '>')
-		message.set_subject('Download your free Linkedin headshot') 
+		message.set_subject('Your free LinkedIn headshot is ready for download!') 
 		message.set_html('Body')
 		message.set_text('Body')
 		message.add_filter('templates','enable','1')
