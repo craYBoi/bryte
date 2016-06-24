@@ -189,7 +189,7 @@ class Nextshoot(models.Model):
 
 
 	def create_images(self, deliverable=False, watermarked=False, premium=False, fullsize=False):
-		bookings = [e for elem in self.timeslot_set.filter(active=True) for e in elem.booking_set.all()]
+		bookings = [e for elem in self.timeslot_set.filter(active=True) for e in elem.booking_set.filter(show_up=True)]
 
 		for booking in bookings:
 			# this already handles the empty folder
@@ -540,6 +540,8 @@ class Booking(models.Model):
 		headshot_images = self.headshotimage_set.all()
 		urls = [img.original_url for img in headshot_images]
 
+
+		print 'creating for ' + self.email + '...'
 		# Deliverable Original 
 		if deliverable:
 			try:
