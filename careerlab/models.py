@@ -547,9 +547,6 @@ class Booking(models.Model):
 			try:
 				deliverable_o_list = dbx.files_list_folder(deliverable_o_path).entries
 
-				# see if they share the same length
-				assert(len(deliverable_o_list) == len(deliverable_t_list)), 'Original - Thumbnails don\t have same number of files'
-
 			except Exception, e:
 				print 'access deliverable original folder fail'
 				pass
