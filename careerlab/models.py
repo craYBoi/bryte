@@ -500,14 +500,19 @@ class Booking(models.Model):
 
 	# check dropbox to see if there are deliverables in the folder in order to check if this person shows up at the shoot
 	# could be changed
-	def update_showup(self):	
+	def update_showup(self, *args, **kwargs):	
 		dbx = dropbox.Dropbox(settings.DROPBOX_TOKEN)
 	
 		db_path = os.path.join(self.dropbox_folder, 'All')
+
+		print 'checking ' + db_path + '...',
+
 		if dbx.files_list_folder(db_path).entries:
 			self.show_up = True
-			self.save()
+			super(Booking, self).save(*args, **kwargs)
+			print 'positive'
 			return True
+		print 'negtive'
 		return False
 
 
