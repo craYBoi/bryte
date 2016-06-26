@@ -163,6 +163,13 @@ def help(request):
 	return render(request, 'landing_help.html', context)
 
 
+def test(request):
+	context = {
+		'title_text': 'Internal Test',
+	}
+	return render(request, 'test.html', context)
+
+
 def family(request):
 	if request.is_ajax() and request.method == 'POST':
 		data = {}

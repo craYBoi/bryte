@@ -40,6 +40,10 @@ urlpatterns = [
     url(r'^ajax_retrieve/', newsletter_views.ajax_retrieve, name='ajax_landing_retrieve'),
     url(r'^help/', newsletter_views.help, name='landing_help'),
     url(r'^ajax_help/', newsletter_views.ajax_help, name='ajax_landing_help'),
+
+    url(r'^test/', newsletter_views.test, name='test'),
+
+
     # book
     url(r'^book/', include('book.urls')),
 

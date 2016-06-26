@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block stylesheet %}
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.min.css">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/justifiedGallery.min.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/lightgallery.css' %}">
+{% endblock %}
+
+{% block content %}
+	<div class="background_grey">
+		<div class="container">
+			<div class="small_padding"></div>
+			<h2 class="red">Here is your free LinkedIn headshot with a special upgrade offer!</h2>	
+			<div class="xsmall_padding"></div>
+			<div class="medium_padding red_top_border"></div>
+			<div class="row">
+				<div class="col-sm-4">
+					<div class="text-center">
+						<img src="https://www.dropbox.com/s/md2jvpjq2f4sj3e/DSC_0032%20%281%29-Edit_t.jpg?raw=1" height="250" class="headshot_border">
+						<div class="xsmall_padding"></div>
+						<p>500 * 500<br>Free LinkedIn Headshot<br><span class="bold big_font red">FREE</span></p>
+						<button class="btn btn-checkout">Add</button>
+					</div>
+				</div>
+				<div class="col-sm-1">
+					<div class="large_padding"></div>
+					<div class="medium_padding"></div>
+					<p class="text-center neg_padding"><i class="fa fa-long-arrow-right fa-5x" aria-hidden="true"></i></p>
+				</div>
+				<div class="col-sm-7">
+					<img src="https://www.dropbox.com/s/9uacoqkutuz8nmb/DSC_0032%20%281%29-Edit_w.jpg?raw=1" class="img-responsive headshot_border">
+					<div class="xsmall_padding"></div>
+					<div class="row">
+						<div class="md_height">
+							<div class="col-xs-6 full_height center_vertical">
+								<ul>
+									<li>Original Size</li>
+									<li>Premium Touchup</li>
+								</ul>
+							</div> 
+							<div class="col-xs-6 full_height right_align center_vertical">
+								<p class="bold landing_title_third"><del>$9.99</del> <span class="red">$4.99</span></p>
+							</div>
+						</div>
+						<button class="btn btn-checkout">Buy it Now</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="large_padding"></div>
+
+		<div class="container">
+			<h2 class="red">Here are the rest of your headshots from shoot day!</h2>
+	
+			<div class="xsmall_padding"></div>
+			<div class="medium_padding red_top_border"></div>
+
+			<div class="row">
+				<div class="col-sm-4">
+					<div class="text-center">
+						<img src="https://www.dropbox.com/s/8hgyoquw2bhcsjq/DSC_0036_wt.jpg?raw=1" height="250" class="headshot_border">
+					</div>
+				</div>
+				<div class="col-sm-1">
+					<div class="large_padding"></div>
+					<div class="medium_padding"></div>
+					<p class="text-center"><i class="fa fa-long-arrow-right fa-3x" aria-hidden="true"></i></p>
+				</div>
+				<div class="col-sm-7">
+					<img src="https://www.dropbox.com/s/9uacoqkutuz8nmb/DSC_0032%20%281%29-Edit_w.jpg?raw=1" class="img-responsive headshot_border">
+					<div class="xsmall_padding"></div>
+					<div class="row">
+						<div class="md_height">
+							<div class="col-xs-6 full_height center_vertical">
+								<ul>
+									<li>Original Size</li>
+									<li>Premium Touchup</li>
+								</ul>
+							</div> 
+							<div class="col-xs-6 full_height right_align center_vertical">
+								<p class="bold landing_title_third"><span class="red">$9.99</span></p>
+							</div>
+						</div>
+						<button class="btn btn-checkout">Buy it Now</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="large_padding"></div>
+			<div class="row">
+				<div class="col-sm-4">
+					<div class="text-center">
+						<img src="https://www.dropbox.com/s/8hgyoquw2bhcsjq/DSC_0036_wt.jpg?raw=1" height="250" class="headshot_border">
+					</div>
+				</div>
+				<div class="col-sm-1">
+					<div class="large_padding"></div>
+					<div class="medium_padding"></div>
+					<p class="text-center"><i class="fa fa-long-arrow-right fa-3x" aria-hidden="true"></i></p>
+				</div>
+				<div class="col-sm-7">
+					<div class="text-center">
+						<img src="{% static 'img/blackbox.jpg' %}" height="250" class="headshot_border">
+					</div>
+					<div class="xsmall_padding"></div>
+					<div class="row">
+						<div class="md_height">
+							<div class="col-xs-12 full_height center_flex">
+								<p class="bold landing_title_third"><span class="red">$9.99</span></p>
+							</div>
+						</div>
+						<button class="btn btn-checkout">Buy it Now</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="large_padding"></div>
+			<div class="row">
+				<div class="col-sm-4">
+					<div class="text-center">
+						<img src="https://www.dropbox.com/s/8hgyoquw2bhcsjq/DSC_0036_wt.jpg?raw=1" height="250" class="headshot_border">
+					</div>
+				</div>
+				<div class="col-sm-1">
+					<div class="large_padding"></div>
+					<div class="medium_padding"></div>
+					<p class="text-center"><i class="fa fa-long-arrow-right fa-3x" aria-hidden="true"></i></p>
+				</div>
+				<div class="col-sm-7">
+					<div class="text-center">
+						<img src="{% static 'img/blackbox.jpg' %}" height="250" class="headshot_border">
+					</div>
+					<div class="xsmall_padding"></div>
+					<div class="row">
+						<div class="md_height">
+							<div class="col-xs-12 full_height center_flex">
+								<p class="bold landing_title_third"><span class="red">$9.99</span></p>
+							</div>
+						</div>
+						<button class="btn btn-checkout">Buy it Now</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="large_padding"></div>
+
+			
+		</div>
+	</div>
+
+{% endblock %}
