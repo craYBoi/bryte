@@ -17,7 +17,9 @@
 			<div class="row">
 				<div class="col-sm-4">
 					<div class="text-center">
-						<img src="https://www.dropbox.com/s/e54xf3wd8yvf4qd/DSC_0032%20%281%29-Edit-2%20%281%29_t.jpg?dl=1" height="250" class="headshot_border">
+						<div class="lightgallery deliverables">
+						<a href="https://www.dropbox.com/s/88xet2y63qhek2b/DSC_0032%20%281%29-Edit-2%20%281%29_t_w.jpg?raw=1"><img src="https://www.dropbox.com/s/88xet2y63qhek2b/DSC_0032%20%281%29-Edit-2%20%281%29_t_w.jpg?raw=1" height="250" class="headshot_border"></a>
+						</div>
 						<div class="xsmall_padding"></div>
 						<p>500 * 500<br>Free LinkedIn Headshot<br><span class="bold big_font red">FREE</span></p>
 						<button class="btn btn-checkout">Add</button>
@@ -145,9 +147,32 @@
 			</div>
 
 			<div class="large_padding"></div>
+			<div class="large_padding"></div>
 
+			<div class="lightgallery deliverables inline">
+				<a href="https://www.dropbox.com/s/88xet2y63qhek2b/DSC_0032%20%281%29-Edit-2%20%281%29_t_w.jpg?raw=1"><img src="https://www.dropbox.com/s/88xet2y63qhek2b/DSC_0032%20%281%29-Edit-2%20%281%29_t_w.jpg?raw=1" height="250" class="headshot_border"><p>500</p></a>
+				<a href="https://www.dropbox.com/s/jqw6t0nkgqicq0g/450_w.jpg?raw=1"><img src="https://www.dropbox.com/s/jqw6t0nkgqicq0g/450_w.jpg?raw=1" height="250" class="headshot_border"><p>450</p></a>
+				<a href="https://www.dropbox.com/s/hvp9iumlpbyza72/400_w.jpg?raw=1"><img src="https://www.dropbox.com/s/hvp9iumlpbyza72/400_w.jpg?raw=1" height="250" class="headshot_border"><p>400</p></a>
+				<a href="https://www.dropbox.com/s/bcccd0630sytbkk/350_w.jpg?raw=1"><img src="https://www.dropbox.com/s/bcccd0630sytbkk/350_w.jpg?raw=1" height="250" class="headshot_border"><p>350</p></a>
+			</div>
 
 		</div>
 	</div>
 
+{% endblock %}
+
+{% block script %}
+  <script src="{% static 'js/lightgallery.js' %}"></script>
+  <script src="{% static 'js/lg-thumbnail.js' %}"></script>
+  <script src="{% static 'js/lg-fullscreen.js' %}"></script>
+{% endblock %}
+
+
+{% block jquery %}
+	$(document).ready(function(event, xhr, settings) {
+		var $gallery = $('.deliverables');
+		$gallery.lightGallery({
+			thumbnail: true,
+		})
+	});
 {% endblock %}
