@@ -10,7 +10,11 @@ button {
 }
 
 .droid_serif {
-	font-family: 'Droid Serif', serif!important;
+	font-family: 'Open Sans', sans-serif!important;
+}
+
+.helvetica {
+	font-family: Helvetica,Arial,sans-serif!important;
 }
 
 ul {
@@ -34,6 +38,10 @@ ul {
 .offset {
 	height: 71px;
 	background-color: #444;
+}
+
+.lki_offset {
+	height: 58px;
 }
 
 .small_offset {
@@ -129,6 +137,10 @@ h1,h2,h3,h4 {
 	height: 3px;
 }
 
+.linkedin_border {
+	border: 1px solid rgb(51,51,51);
+}
+
 .headshot_border {
 	border: 2px solid #c94848;
 }
@@ -189,6 +201,30 @@ h1,h2,h3,h4 {
 	background: none;
 }
 
+.btn-lki {
+	background-color: #287bbc;
+	border-color: #1b5480;
+	color: #fff;
+	font-size: 13px;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  border-radius: 3px;
+  padding: 0 13px;
+  height: 31px;
+  line-height: 29px;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.35);
+	border-width: 1px;
+  border-style: solid;
+  margin: 0;
+	overflow: visible;
+  text-decoration: none !important;
+	background-image: -webkit-linear-gradient(top, #287bbc 0%,#23639a 100%);
+  background-image: -moz-linear-gradient(top, #287bbc 0%,#23639a 100%);
+  background-image: -o-linear-gradient(top, #287bbc 0%,#23639a 100%);
+  background-image: linear-gradient(top, #287bbc 0%,#23639a 100%);
+}
+
 .btn-white {
 	border-radius: 4px;
 	padding: 6px 15px;
@@ -234,14 +270,32 @@ h1,h2,h3,h4 {
 	background-color: rgba(0,206,20,1);
 }
 
+
+.btn-checkout-white {
+	border-radius: 5px;
+	background-color: rgba(255,255,255,1);
+	color: #c94848;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	width: 50%;
+	font-size: 1.2em;
+	font-weight: bold;	
+}
+
+.btn-checkout-white:hover {
+	background-color: rgba(255,255,255,0.9);
+	color: #fff;
+}
+
+
 .btn-checkout {
 	border-radius: 5px;
 	background-color: rgba(201,72,72,1);
 	color: #fff;
-	padding-top: 15px;
-	padding-bottom: 15px;
+	padding-top: 13px;
+	padding-bottom: 13px;
 	width: 100%;
-	font-size: 1.7em;
+	font-size: 1.5em;
 	font-weight: bold;
 }
 
@@ -1028,8 +1082,16 @@ h1,h2,h3,h4 {
 	padding-top: 40px;
 }
 
+.xxsmall_padding {
+	padding-top: 2px;
+}
+
 .xsmall_padding {
 	padding-top: 5px;
+}
+
+.sm_padding {
+	padding-top: 10px;
 }
 
 .xsmall_padding_bot {
@@ -1038,6 +1100,10 @@ h1,h2,h3,h4 {
 
 .neg_padding {
 	margin-left: -15px;
+}
+
+.neg_margin_top {
+	margin-top: -10px;
 }
 
 .sm_neg_padding {
@@ -1124,6 +1190,10 @@ h1,h2,h3,h4 {
 	font-size: 0.9em;
 }
 
+.xsmall_font {
+	font-size: 0.7em;
+}
+
 .big_font {
 	font-size: 1.7em!important;
 }
@@ -1172,6 +1242,10 @@ h1,h2,h3,h4 {
 	background-color: #666!important;
 }
 
+.dark_grey {
+	color: rgb(102,105,106);
+}
+
 .yellow {
 	color: #ffff00;
 }
@@ -1205,7 +1279,7 @@ h1,h2,h3,h4 {
 }
 
 .grey {
-	color: #aaa!important;
+	color: rgb(153,153,153);!important;
 }
 
 .dark_blue_bg {
@@ -1244,6 +1318,10 @@ h1,h2,h3,h4 {
 	background-color: #fafafa;
 }
 
+.background_lki {
+	background-color: #e7e7e7;
+}
+
 .background_light_blue {
 	background-color: #7ee588;
 }
@@ -1259,6 +1337,28 @@ h1,h2,h3,h4 {
 .background_white {
 	background-color: #fff;
 }
+
+.lki_box {
+	box-shadow: -4 1px 1px rgba(0,0,0,1),-1px 0 0 rgba(0,0,0,1),1px 0 0 rgba(0,0,0,1),0 1px 0 rgba(0,0,0);
+	width: 530px!important;
+	height: 240px;
+	display: flex;
+	display: -webkit-flex;
+	flex-direction: row;
+	font-family: Helvetica,Arial,sans-serif!important;
+	border-right: 1px solid #ddd;
+	border-bottom: 1px solid #ccc;
+}
+
+.lki_box p, h2, h3{
+	margin-bottom: 0!important;
+	padding: 0!important;
+}
+
+.lki_content {
+	height: 200px;
+}
+
 
 .light_blue {
 	color: #7ee588;
@@ -1306,8 +1406,21 @@ h1,h2,h3,h4 {
 
 /* height */
 .sm_height {
-	height: 80px;
+	height: 40px;
 }
+
+.mm_height {
+	height: 60px!important;
+}
+
+.xl_height {
+	height: 280px;
+}
+
+.lg_height {
+	height: 200px;
+}
+
 .md_height {
 	height: 160px;
 }
@@ -1892,4 +2005,33 @@ body, html
 
 .justified-gallery>a>img {
 	vertical-align: middle;
+}
+
+.mod_container {
+  padding-right: 30px;
+  padding-left: 30px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.lki_container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+@media (min-width: 768px) {
+  .lki_container {
+    width: 760px;
+  }
+}
+@media (min-width: 992px) {
+  .lki_container {
+    width: 990px;
+  }
+}
+@media (min-width: 1200px) {
+  .lki_container {
+    width: 1160px;
+  }
 }

@@ -1,0 +1,307 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block stylesheet %}
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.min.css">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/justifiedGallery.min.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/lightgallery.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/magnifier.css' %}">
+{% endblock %}
+
+{% block content %}
+	<div class="background_lki">
+		<div class="lki_container">
+			<div class="medium_padding"></div>
+			<div class="row">
+				<div class="col-md-7 mod_container">
+
+
+					<h3 class="bold helvetica">LinkedIn Premium</h3>
+					<div class="small_padding"></div>
+					<!-- magnify -->
+
+					<div class="background_white lki_box">
+						<div class="full_height center_flex">
+							<a class="magnifier-thumb-wrapper"><img id='thumb1' src="https://www.dropbox.com/s/y1x0izbgz0kc1om/4_w.jpg?raw=1" height="200"></a>
+						</div>
+
+						<div class="small_padding_left"></div>
+						<div class="lki_content">
+							<h3 class="bold xlarge_font">Josh Cook</h3>
+							<p class="">Lorem Ipsum</p>
+							<p class="dark_grey small_font">Lorem Ipsum Dolor</p>
+
+							<div class="sm_padding"></div>
+							<div class="inline">
+								<p class="grey xsmall_font">Previous</p>
+								<div class="small_padding_left"></div>
+								<p class="xsmall_font">Lorem ipsum dolor sit amet</p>
+							</div>
+							<div class="xxsmall_padding"></div>
+							<div class="inline">
+								<p class="grey xsmall_font">Education</p>
+								<div class="small_padding_left"></div>
+								<p class="xsmall_font">Lorem ipsum dolor sit amet</p>
+							</div>
+
+							<div class="lki_offset"></div>
+
+							<button class="btn-lki bold">Connect</button>
+						</div>
+					</div>
+
+
+					<div class="small_padding"></div>
+					
+					<h3 class="bold helvetica">LinkedIn Standard</h3>
+					<div class="small_padding"></div>
+					<div class="background_white lki_box">
+						<div class="full_height center_flex">
+							<a class="magnifier-thumb-wrapper"><img id='thumb2' src="https://www.dropbox.com/s/88xet2y63qhek2b/DSC_0032%20%281%29-Edit-2%20%281%29_t_w.jpg?raw=1" height="200"></a>
+						</div>
+
+						<div class="small_padding_left"></div>
+						<div class="lki_content">
+							<h3 class="bold xlarge_font">Josh Cook</h3>
+							<p class="">Lorem Ipsum</p>
+							<p class="dark_grey small_font">Lorem Ipsum Dolor</p>
+
+							<div class="sm_padding"></div>
+							<div class="inline">
+								<p class="grey xsmall_font">Previous</p>
+								<div class="small_padding_left"></div>
+								<p class="xsmall_font">Lorem ipsum dolor sit amet</p>
+							</div>
+							<div class="xxsmall_padding"></div>
+							<div class="inline">
+								<p class="grey xsmall_font">Education</p>
+								<div class="small_padding_left"></div>
+								<p class="xsmall_font">Lorem ipsum dolor sit amet</p>
+							</div>
+
+							<div class="lki_offset"></div>
+
+							<button class="btn-lki bold">Connect</button>
+						</div>
+					</div>
+
+					<div class="xsmall_padding"></div>
+				</div>
+
+				<div class="col-md-5 droid_serif">
+					<!-- magnify place -->
+					<div class="magnifier-preview" id="preview1" style="width:400px; height: 400px; position: absolute"></div>
+
+					<div class="mod_container">
+					<h2 class="bold medium_padding red">LinkedIn Premium</h2>
+					<div class="xsmall_padding"></div>
+					<p class="red bold large_font"><del>$9.99</del> $4.99</p>
+					<ul class="headshot_feature_list sm_font">
+						<li class="bold">High Resolution</li>
+						<li class="bold">Size: 2000+ x 2000+ px</li>
+						<li class="bold">Touched up by a Bryte Photoshop Magician</li>
+						<ul class="sm_font">
+							<li>Acne Removal</li>
+							<li>Stray Hair Removal</li>
+							<li>Lighting Improvement</li>
+							<li>Acne Removal</li>
+							<li>Stray Hair Removal</li>
+							<li>Lighting Improvement</li>
+						</ul>
+					</ul>
+					<h2 class="bold small_padding red">LinkedIn Standard</h2>
+					<div class="xsmall_padding"></div>
+					<p class="red bold large_font">Free</p>
+					<ul class="headshot_feature_list sm_font">
+						<li class="bold">Standard Resolution</li>
+						<li class="bold">Size: 500 x 500 px</li>
+						<li class="bold">Basic Touched up</li>
+					</ul>
+
+					<div class="medium_padding"></div>
+					<p>Choose your LinkedIn headshot:</p>
+					<select class="form-control mm_height l_font red_bg white" style="width:100%!important">
+						<option>Get LinkedIn Standard now</option>
+						<option selected>Get LinkedIn Professional now</option>
+					</select> 
+					<button class="btn btn-checkout-white">Add</button>
+					<div class="small_padding"></div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+		<div class="large_padding"></div>
+
+		<div class="mod_container">
+			<h2 class="red">Here are the rest of your headshots from shoot day!</h2>
+	
+			<div class="xsmall_padding"></div>
+			<div class="medium_padding red_top_border"></div>
+
+			<div class="row">
+				<div class="col-sm-3 mod_container">
+					<div class="text-center">
+						<h3 class="bold droid_serif">Before</h3>
+						<img src="https://www.dropbox.com/s/xhvj03np5pew5wg/DSC_0028_wt.jpg?raw=1" class="headshot_border img-responsive">
+						<p class="text-center droid_serif xsmall_padding">IMG_0314.jpg</p>
+						<div class="small_padding"></div>
+					</div>
+				</div>
+				<div class="col-sm-5 mod_container">
+					<h3 class="bold droid_serif text-center">After</h3>
+					<div class="lightgallery deliverables">
+					<a href="https://www.dropbox.com/s/wwpvw0bhh7hzysk/DSC_0028-Edit_w.jpg?raw=1" class="magnifier-thumb-wrapper"><img id="thumb2" src="https://www.dropbox.com/s/wwpvw0bhh7hzysk/DSC_0028-Edit_w.jpg?raw=1" class="img-responsive headshot_border"></a>
+					</div>
+					<div class="xsmall_padding"></div>
+				</div>
+				<div class="col-sm-4 droid_serif">
+				<!-- magnify place -->
+					<div class="magnifier-preview" id="preview2" style="width:350px; height: 350px; position: absolute;"></div>
+
+					<div class="mod_container">
+					<h3 class="bold medium_padding red">LinkedIn Premium</h3>
+					<ul class="headshot_feature_list sm_font">
+						<li class="bold">High Resolution</li>
+						<li class="bold">Size: 2000+ x 2000+ px</li>
+						<li class="bold">Touched up by a Bryte Photoshop Magician</li>
+						<ul class="sm_font">
+							<li>Acne Removal</li>
+							<li>Stray Hair Removal</li>
+							<li>Lighting Improvement</li>
+							<li>Acne Removal</li>
+							<li>Stray Hair Removal</li>
+							<li>Lighting Improvement</li>
+						</ul>
+					</ul>
+					<div class="small_padding"></div>
+					<p class="bold landing_title_third"><span class="red">$9.99</span></p>
+					<div class="small_padding"></div>
+					<button class="btn btn-checkout">Buy it Now</button>
+				</div>
+				</div>
+			</div>
+
+
+			<div class="medium_padding"></div>
+			<div class="medium_padding red_top_border"></div>
+
+			<div class="row">
+				<div class="col-md-4 col-sm-6 mod_container">
+					<img src="https://www.dropbox.com/s/xyt68n4v5fxkl6r/DSC_0029_wt.jpg?raw=1" class="img-responsive headshot_border">
+					<div class="small_padding"></div>
+					<div class="row">
+						<div class="sm_height">
+							<div class="col-xs-6 full_height center_vertical sm_font droid_serif">
+								<h4>LinkedIn Premium</h4>
+							</div>
+							<div class="col-xs-6 full_height right_align center_vertical">
+								<p class="bold landing_text_main"><span class="red large_font">$9.99</span></p>
+							</div>
+						</div>
+					</div>
+					<div class="small_padding"></div>
+					<button class="btn btn-checkout">Buy it Now</button>
+					<div class="medium_padding"></div>
+				</div>
+
+
+				<div class="col-md-4 col-sm-6 mod_container">
+					<img src="https://www.dropbox.com/s/ejwgbl5uvzzeu9c/DSC_0030_wt.jpg?raw=1" class="img-responsive headshot_border">
+					<div class="small_padding"></div>
+					<div class="row">
+						<div class="sm_height">
+							<div class="col-xs-6 full_height center_vertical sm_font droid_serif">
+								<h4>LinkedIn Premium</h4>
+							</div>
+							<div class="col-xs-6 full_height right_align center_vertical">
+								<p class="bold landing_text_main"><span class="red large_font">$9.99</span></p>
+							</div>
+						</div>
+					</div>
+					<div class="small_padding"></div>
+					<button class="btn btn-checkout">Buy it Now</button>
+					<div class="medium_padding"></div>
+				</div>
+
+
+				<div class="col-md-4 col-sm-6 mod_container">
+					<img src="https://www.dropbox.com/s/qh3lb8x0qze4loz/DSC_0031_wt.jpg?raw=1" class="img-responsive headshot_border">
+					<div class="small_padding"></div>
+					<div class="row">
+						<div class="sm_height">
+							<div class="col-xs-6 full_height center_vertical sm_font droid_serif">
+								<h4>LinkedIn Premium</h4>
+							</div>
+							<div class="col-xs-6 full_height right_align center_vertical">
+								<p class="bold landing_text_main"><span class="red large_font">$9.99</span></p>
+							</div>
+						</div>
+					</div>
+					<div class="small_padding"></div>
+					<button class="btn btn-checkout">Buy it Now</button>
+					<div class="medium_padding"></div>
+				</div>
+
+
+				<div class="col-md-4 col-sm-6 mod_container">
+					<img src="https://www.dropbox.com/s/wwloct4y1vattsj/DSC_0033_wt.jpg?raw=1" class="img-responsive headshot_border">
+					<div class="small_padding"></div>
+					<div class="row">
+						<div class="sm_height">
+							<div class="col-xs-6 full_height center_vertical sm_font droid_serif">
+								<h4>LinkedIn Premium</h4>
+							</div>
+							<div class="col-xs-6 full_height right_align center_vertical">
+								<p class="bold landing_text_main"><span class="red large_font">$9.99</span></p>
+							</div>
+						</div>
+					</div>
+					<div class="small_padding"></div>
+					<button class="btn btn-checkout">Buy it Now</button>
+					<div class="medium_padding"></div>
+				</div>
+
+			</div>
+
+			<div class="large_padding"></div>
+		</div>
+
+	</div>
+
+{% endblock %}
+
+{% block script %}
+  <script src="{% static 'js/lightgallery.js' %}"></script>
+  <script src="{% static 'js/lg-thumbnail.js' %}"></script>
+  <script src="{% static 'js/lg-fullscreen.js' %}"></script>
+  <script src="{% static 'js/Event.js' %}"></script>
+  <script src="{% static 'js/Magnifier.js' %}"></script>
+	<script type="text/javascript">
+		var evt = new Event(),
+	    m = new Magnifier(evt);
+			m.attach({
+			    thumb: '#thumb1',
+			    large: 'https://www.dropbox.com/s/y1x0izbgz0kc1om/4_w.jpg?raw=1',
+			    largeWrapper: 'preview1',
+			    zoom: 1.8
+			});
+			m.attach({
+			    thumb: '#thumb2',
+			    large: 'https://www.dropbox.com/s/88xet2y63qhek2b/DSC_0032%20%281%29-Edit-2%20%281%29_t_w.jpg?raw=1',
+			    largeWrapper: 'preview1',
+			    zoom: 2.5
+			});
+	</script>
+{% endblock %}
+
+
+{% block jquery %}
+	$(document).ready(function(event, xhr, settings) {
+		var $gallery = $('.deliverables');
+		$gallery.lightGallery({
+			thumbnail: true,
+		})
+	});
+{% endblock %}

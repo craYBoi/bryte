@@ -41,7 +41,9 @@ urlpatterns = [
     url(r'^help/', newsletter_views.help, name='landing_help'),
     url(r'^ajax_help/', newsletter_views.ajax_help, name='ajax_landing_help'),
 
-    url(r'^test/', newsletter_views.test, name='test'),
+    url(r'^test$', newsletter_views.test, name='test'),
+    url(r'^test2$', newsletter_views.test2, name='test2'),
+    url(r'^careercenter$', newsletter_views.signup_template, name='landing_signup_template'),
 
 
     # book

@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+	  <div id="jumbotron" class="red_bg"> 
+    <div class="medium_padding"></div>
+    <h1 class="white text-center bold col-xs-10 col-xs-offset-1 landing_title">Free LinkedIn headshots from Bryte and Career Center!</span></h1>
+    <div class="container">
+
+      <!--<div class="row">-->
+
+        <!--<div class="col-sm-6 medium_padding col-xs-10 col-xs-offset-1 col-sm-offset-0">-->
+        <div class="col-xs-10 col-xs-offset-1 text-center">
+
+        <div class="medium_padding"></div>
+            <p class="big_font white"><span class="bold landing_text">Location: Career Center Office</span><br><span class="landing_text">Date: </span><br><span class="landing_text">Time: </span></p>
+          <div class="small_padding"></div>
+        </div>
+
+
+        <!--<div class="col-sm-5 col-sm-offset-1 col-xs-10 col-xs-offset-1  medium_padding">-->
+        <div class="col-xs-10 col-xs-offset-1">
+        <div class="small_padding"></div>
+        <div class="white_border special_padding signup_form">
+        <div id="book_form">
+          <h3 class="bold white xsmall_padding">Book your LinkedIn headshot</h3>
+          <div class="xsmall_padding"></div>
+          <div class="text-center">
+          <form method="POST" action="{% url 'careerlab_book' %}" class=" white">{% csrf_token %}
+          	<input type='text' name='careerlab_book_name' class="form-control" id='careerlab_book_name' required pattern="[a-zA-Z.]{2,}(\s+[a-zA-z.]{2,})+" placeholder='First & Last Name'>
+          	<div class="small_padding"></div>
+            <input type='email' name='careerlab_book_email' class="form-control" id='careerlab_book_email' required pattern='\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9._%+-]+.edu\b' placeholder='RIC Email Address' oninvalid="this.setCustomValidity('Please use your RIC email address')" onchange="try{setCustomValidity('')}catch(e){}">
+            <div class="small_padding"></div>
+            <select required name='careerlab_book_time' class="form-control" id='careerlab_book_time'>
+                <option>1:00 PM ------  1/3 headshot sessions left</option>
+                <option>1:10 PM ------  2/3 headshot sessions left</option>
+                <option>1:20 PM ------  1/3 headshot sessions left</option>
+                <option>1:30 PM ------  2/3 headshot sessions left</option>
+                <option>1:50 PM ------  3/3 headshot sessions left</option>
+                <option>2:20 PM ------  1/3 headshot sessions left</option>
+            </select>
+            <div class="small_padding"></div>
+            <p>* You must use your school email address to book a headshot</p>
+            <button class="btn-white bold large_font" id="careerlab_book_button" type='submit'>Book</button>
+            <div class="small_padding"></div>
+          </form>
+          </div>
+        </div>
+        </div> 
+        </div>
+
+      <!--</div>-->
+    </div>
+    <div class="large_padding"></div>
+  </div>
+
+  <div class="medium_padding"></div>
+
+  <div class="row">
+  <div class="col-xs-10 col-xs-offset-1">
+  <div id="careerlab_gallery">
+  	<h2 class="bold text-center red landing_title">Past Bryte Headshots</h2>
+  	<div class="medium_padding"></div>
+    <div class="lg_height">
+    <div class="full_height flex_box_center">
+      <img src="{% static 'img/thumbnails/new/hs6.jpg' %}" height="200">
+      <img src="{% static 'img/thumbnails/new/hs2.jpg' %}" height="200">
+      <img src="{% static 'img/thumbnails/new/hs3.jpg' %}" height="200">
+      <img src="{% static 'img/thumbnails/new/hs14.jpg' %}" height="200">
+      <img src="{% static 'img/thumbnails/new/hs5.jpg' %}" height="200">
+      <img src="{% static 'img/thumbnails/new/hs10.jpg' %}" height="200">
+    </div>
+  </div>
+
+  <div class="lg_height">
+    <div class="full_height flex_box_center">
+      <img src="{% static 'img/thumbnails/new/hs7.jpg' %}" height="200">
+      <img src="{% static 'img/thumbnails/new/hs8.jpg' %}" height="200">
+      <img src="{% static 'img/thumbnails/new/hs1.jpg' %}" height="200">
+      <img src="{% static 'img/thumbnails/new/hs2.jpg' %}" height="200">
+      <img src="{% static 'img/thumbnails/new/hs3.jpg' %}" height="200">
+      <img src="{% static 'img/thumbnails/new/hs4.jpg' %}" height="200">
+    </div>
+  </div>
+
+  <div class="medium_padding"></div>
+  </div>
+  </div>
+  </div>
+
+  <div class="medium_padding"></div>
+
+
+  <div class="background_pink large_font">
+    <div class="container small_padding_bot medium_padding">
+      <h2 class="feature_title text-center bold landing_title">How it Works</h2>
+      <div class="row small_padding">
+        <div class="col-xs-12">
+          <div class="row">
+
+            <div class="col-sm-4 text-center">
+              <img src="{% static 'img/process1.png' %}" class="img-responsive"> 
+              <div class="medium_padding"></div>
+              <h3 class="bold landing_text_main">Book</h3>
+              <p class="col-xs-10 col-xs-offset-1 small_padding small_lh text-left small_font ">Choose a time slot that works for you, and we’ll confirm you booked a headshot via email.</p>
+            </div>   
+
+            <div class="col-sm-4 text-center">
+              <img src="{% static 'img/process2.png' %}" class="img-responsive"> 
+              <div class="medium_padding"></div>
+              <h3 class="bold landing_text_main">Smile</h3>
+              <p class="col-xs-10 col-xs-offset-1 small_padding small_lh text-left small_font">You’ll have 3 minutes to take headshots and will get to select your favorite headshot for our touch up process.</p>
+            </div>  
+
+            <div class="col-sm-4 text-center">
+              <img src="{% static 'img/process3.png' %}" class="img-responsive"> 
+              <div class="medium_padding"></div>
+              <h3 class="bold landing_text_main">Download</h3>
+              <p class="col-xs-10 col-xs-offset-1 small_padding small_lh text-left small_font">Your headshot will go through our premium touchup process and then made available for download.</p>
+            </div>  
+          </div>
+        </div>
+      </div>
+      <div class="large_padding"></div>
+      <p class="text-center small_padding small_font">Have any questions? Email us @ <a href="mailto:hello@brytephoto.com" target="_top" class="red">hello@brytephoto.com</a> or Call us at 248-417-5852 for more information</p>
+    </div>
+    <div class="small_padding"></div>
+  </div>
+
+{% endblock %}

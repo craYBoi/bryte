@@ -15,7 +15,7 @@ class PriceFeatureAdmin(admin.ModelAdmin):
 	list_display = ['pk', 'price', 'feature_text']
 
 class ContactSaleAdmin(admin.ModelAdmin):
-	list_display = ['pk', 'name', 'email', 'organization', 'category', 'amount', 'question']
+	list_display = ['pk', 'name', 'email', 'organization', 'amount']
 
 class ContactHelpAdmin(admin.ModelAdmin):
 	list_display = ['pk', 'name', 'email', 'question']

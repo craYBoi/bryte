@@ -163,11 +163,26 @@ def help(request):
 	return render(request, 'landing_help.html', context)
 
 
+def signup_template(request):
+	context = {
+		'title_text': 'Contact Help | Bryte Photo Headshots',
+		'brown_careerlab': 1,
+	}	
+	return render(request, 'landing_signup_template.html', context)
+
+
 def test(request):
 	context = {
 		'title_text': 'Internal Test',
 	}
 	return render(request, 'test.html', context)
+
+
+def test2(request):
+	context = {
+		'title_text': 'Internal Test 2',
+	}
+	return render(request, 'test2.html', context)
 
 
 def family(request):

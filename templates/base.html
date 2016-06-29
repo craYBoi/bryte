@@ -14,7 +14,7 @@
     <title>{{ title_text }}</title>
     <link rel="alternate" href="https://www.brytephoto.com" hreflang="en-us" />
     <link rel="shortcut icon" type="image/png" href="{% static 'logo/favicon.png' %}"/>
-    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
     
     <!--<link href='https://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>-->
     <link href='https://fonts.googleapis.com/css?family=Quicksand:400,300,700' rel='stylesheet' type='text/css'>
@@ -26,7 +26,7 @@
 		{% block stylesheet %}{% endblock %}
 		<link rel="stylesheet" href="{% static 'css/main.css' %}">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-		<link rel="stylesheet" type="text/css" href="{% static 'css/datetimepicker.css' %}">
+<!-- 		<link rel="stylesheet" type="text/css" href="{% static 'css/datetimepicker.css' %}"> -->
 
     <!-- <link rel="stylesheet" href="{% static 'css/normalize.css' %}"> -->
     
@@ -42,21 +42,6 @@
 		  ga('send', 'pageview');
 		</script>
 
-		<!-- Facebook Pixel Code -->
-		<script>
-		!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-		n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-		n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-		t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-		document,'script','https://connect.facebook.net/en_US/fbevents.js');
-
-		fbq('init', '1062188053860454');
-		fbq('track', "PageView");
-			</script>
-		<noscript><img height="1" width="1" style="display:none"
-		src="https://www.facebook.com/tr?id=1062188053860454&ev=PageView&noscript=1"
-		/></noscript>
-		<!-- End Facebook Pixel Code -->
 
   </head>
   <body>
@@ -176,6 +161,5 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.0.0/imagesloaded.min.js"></script>
   	<!--<script src="{% static 'js/imagesloaded.js' %}"></script>-->
   	<script src="{% static 'js/main.js' %} "></script>
-  	<script src="{% static 'js/datetimepicker.js' %} "></script>
   </body>
 </html>

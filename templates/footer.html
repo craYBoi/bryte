@@ -50,7 +50,9 @@
   <div class="medium_padding"></div>
   -->
 
-  <div class="large_padding white">
+  <div class="medium_padding white">
+    <p class="text-center">Have any questions? Email <a href="mailto:hello@brytephoto.com" target="_top" class="pink">hello@brytephoto.com</a></p>
+    <div class="small_padding"></div>
     <ul class="list-inline bold">
       <li><a href="{% url 'legal' %}" class="white"><span class="pink">L</span>egal Documentation</a></li>
       {% if request.user.is_authenticated %}
@@ -61,11 +63,10 @@
         <li><a href="{% url 'auth_login' %}" class="white"><span class="pink">P</span>hotographer Login</a></li>
       {% endif %}
     </ul>
-    <div class="medium_padding"></div>
+    <div class="small_padding"></div>
     <div class="row">
       <div class="col-xs-8 col-xs-offset-0">
-      <p>We take your current solution for LinkedIn headshots solution and supercharge it <i class="fa fa-suitcase"></i></p>
-      <p>Have any questions? Email <a href="mailto:hello@brytephoto.com" target="_top" class="pink">hello@brytephoto.com</a></p>
+      <p>We take your current solution for LinkedIn headshots and supercharge it <i class="fa fa-suitcase"></i></p>
       </div>
     </div>
     <div class="medium_padding"></div>

@@ -60,9 +60,7 @@ class ContactSale(models.Model):
 	email = models.EmailField()
 	phone = models.CharField(max_length=30, blank=True)
 	organization = models.CharField(max_length=100)
-	category = models.CharField(max_length=20)
 	amount = models.CharField(max_length=50)
-	question = models.TextField()
 
 
 class ContactHelp(models.Model):
