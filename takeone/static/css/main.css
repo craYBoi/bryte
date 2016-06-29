@@ -275,10 +275,10 @@ h1,h2,h3,h4 {
 	border-radius: 5px;
 	background-color: rgba(255,255,255,1);
 	color: #c94848;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	width: 50%;
-	font-size: 1.2em;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	width: 100%;
+	font-size: 1em;
 	font-weight: bold;	
 }
 
@@ -295,7 +295,7 @@ h1,h2,h3,h4 {
 	padding-top: 13px;
 	padding-bottom: 13px;
 	width: 100%;
-	font-size: 1.5em;
+	font-size: 1.3em;
 	font-weight: bold;
 }
 
@@ -734,8 +734,12 @@ h1,h2,h3,h4 {
   color: #c94848;
 }
 
+.headshot_feature_b_list>li {
+	padding-top: 7px;
+}
+
 .headshot_feature_list>li{
-	padding-left: 1.3em;
+	padding-left: 3em;
 }
 
 .headshot_feature_list>ul>li{
@@ -747,7 +751,7 @@ h1,h2,h3,h4 {
   font-family: FontAwesome;
   display: inline-block;
   color: #c94848;
-  padding-left: -1.3em;
+  padding-left: -3em;
   padding-right: 1.3em;
   margin-left: -2.2em;
   font-size: 0.5em;

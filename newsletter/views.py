@@ -165,7 +165,7 @@ def help(request):
 
 def signup_template(request):
 	context = {
-		'title_text': 'Contact Help | Bryte Photo Headshots',
+		'title_text': 'Signup Template',
 		'brown_careerlab': 1,
 	}	
 	return render(request, 'landing_signup_template.html', context)
