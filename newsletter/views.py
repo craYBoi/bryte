@@ -181,6 +181,7 @@ def test(request):
 def test2(request):
 	context = {
 		'title_text': 'Internal Test 2',
+		'myheadshot': 1,
 	}
 	return render(request, 'test2.html', context)
 
