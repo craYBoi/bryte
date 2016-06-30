@@ -336,6 +336,7 @@ def test_retrieve(request):
 	context = {
 		'title_text': 'Retrive your headshot | Bryte Photo',
 		'publish_key': settings.STRIPE_PUBLISHABLE_KEY,
+		'myheadshot': 1,
 	}
 
 	if request.method == 'POST':

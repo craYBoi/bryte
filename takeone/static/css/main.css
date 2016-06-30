@@ -742,6 +742,10 @@ h1,h2,h3,h4 {
 	padding-left: 3em;
 }
 
+.headshot_feature_list_black_bullet>li:before {
+	color: #000!important;
+}
+
 .headshot_feature_list>ul>li{
 	padding-left: 2.3em;
 }
@@ -1045,6 +1049,10 @@ h1,h2,h3,h4 {
 	margin: 0!important;
 }
 
+.zero_padding {
+	padding: 0!important;
+}
+
 
 .large_padding {
 	padding-top: 80px;
@@ -1275,7 +1283,7 @@ h1,h2,h3,h4 {
 }
 
 .blue {
-	color: #c94848!important;
+	color: #0000ff!important;
 }
 
 .red_bg {
@@ -1410,7 +1418,7 @@ h1,h2,h3,h4 {
 
 /* height */
 .sm_height {
-	height: 40px;
+	height: 40px!important;
 }
 
 .mm_height {
