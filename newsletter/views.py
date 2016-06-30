@@ -250,7 +250,7 @@ def ajax_contact(request):
 
 		# create database instance
 		try:
-			c = ContactSale.objects.create(name=name, email=email,category=category, organization=org_name, amount=amount,question=question, phone=phone)
+			c = ContactSale.objects.create(name=name, email=email, organization=org_name, amount=amount, phone=phone)
 		except Exception, e:
 			print 'Fail to create instance'
 			data['msg'] = 'There\'s an error signing up. Please try again.'
