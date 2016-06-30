@@ -28,7 +28,9 @@ urlpatterns = [
     url(r'^about$', newsletter_views.about, name='about'),
     url(r'^photographer/', include('photographer.urls')),
 
-    url(r'^clients/', newsletter_views.clients, name='landing_clients'),
+    url(r'^partners/$', newsletter_views.clients, name='landing_clients'),
+    url(r'^partners/[a-zA-Z]+/$', newsletter_views.clients, name='landing_clients_names'),
+ 
     url(r'^contact/', newsletter_views.contact, name='landing_contact'),
     url(r'^affordable/', newsletter_views.sales, name='landing_sales'),
     url(r'^family/', newsletter_views.family, name='landing_family'),

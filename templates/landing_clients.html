@@ -12,15 +12,23 @@
 		<div class="container">
 			<div class="medium_padding"></div>
 			<div class="small_padding"></div>
-			<h1 class="white landing_title text-center bold">Our Clients</h1>
+			<h1 class="white landing_title text-center bold">Our Partners</h1>
 			<div class="medium_padding"></div>
 			<div class="small_padding"></div>
 			<div class="row">
 				<div class="col-md-4">
-					<a href="#" class="thumbnail">
+					<a href="{% url 'landing_clients' %}" class="thumbnail no_text_decor">
 			      <img src="{% static 'logo/CareerLAB_logo.jpg' %}" alt="Brown CareerLAB Logo" height="80px">
 			      <div class="caption">
         			<h4 class="text-center red bold landing_text_main">Brown CareerLAB</h4>
+      			</div>
+      			</a>
+		    </div>
+		    <div class="col-md-4">
+					<a href="https://brytephoto.com/partners/ric" class="thumbnail no_text_decor">
+			      <img src="{% static 'img/ric/ric_client.png' %}" alt="RIC" height="80px">
+			      <div class="caption">
+        			<h4 class="text-center red bold landing_text_main">Learn about partnering!</h4>
       			</div>
 			    </a>
 		    </div>
@@ -28,7 +36,7 @@
 					<a href="{% url 'landing_contact' %}" class="thumbnail no_text_decor">
 			      <img src="{% static 'img/client2.jpg' %}" alt="Be Our Client" height="80px">
 			      <div class="caption">
-        			<h4 class="text-center red bold landing_text_main">Be Our Client!</h4>
+        			<h4 class="text-center red bold landing_text_main">Learn about partnering!</h4>
       			</div>
 			    </a>
 		    </div>
@@ -53,7 +61,7 @@
 					<div class="page-header red">
 						<h2 class="red landing_title_sec">The Story</h2>
 					</div>
-					<p class="landing_text red">In May 2016, the career services center at Brown University, CareerLAB, hired Bryte Photo to take headshots for Brown University students. The CareerLAB originally hired Bryte Photo to shoot for two hours, enough time for 40 headshots. To advertise the shoot, CareerLAB posted once on their Facebook Page and sent out a single email to Brown Undergraduates. The response was unbelievable: in 94 minutes all 40 headshots on the Bryte Photo website were booked. The next 24 hours saw 208 email signups from students requesting waitlist spots for the shoot. Between the exciting response from students, and an excellent solution provided by Bryte Photo, CareerLAB proceeded to purchase another 60 headshots in May 2016, and also hired Bryte Photo for 5 more shoots during the Fall 2016 Semester.</p>
+					<p class="landing_text red">In May 2016, CareerLAB, the career services center at Brown University, did a pilot shoot with Bryte to take headshots for Brown University students. To advertise the shoot, CareerLAB posted once on their Facebook Page and sent out a single email to Brown Undergraduates. The response was unbelievable: in 94 minutes all 40 headshots on the Bryte website were booked. The next 24 hours saw 208 email signups from students requesting waitlist spots for the shoot. Between the exciting response from students, and an excellent solution provided by Bryte, CareerLAB proceeded to purchase another 60 headshots in May 2016, and also hired Bryte for 5 more shoots during the Fall 2016 Semester.</p>
 				</div>
 			</div>
 		</div>
@@ -89,29 +97,12 @@
 					<div class="page-header">
 						<h2 class="landing_title_sec">The Process</h2>
 					</div>
-					<p class="landing_text">Each student had 3 minutes to take a headshot, the standard time for Bryte Photo headshots at career service centers.  The headshots were taken by Bryte Photo photographer, Sarah Morse.  Sarah is a RISD student with freelance photography experience.  She helped the clients choose poses on photo day and also touched up the headshots after the shoot.  Here are some of the headshots from shoot day!</p>
+					<p class="landing_text">Each student had 3 minutes to take a headshot, the standard time for Bryte headshots at career service centers. The headshots were taken by Bryte photographer, Sarah Morse. Sarah is a RISD student with freelance photography experience. She helped the clients choose poses on photo day and also touched up the headshots after the shoot. </p>
 				</div>
 			</div>
 			<div class="medium_padding"></div>
 
 		</div>
-
-
-		<div id="careerlab_gallery">
-	  	<div class="medium_padding"></div>
-	  	<div class="slider">
-	  		<div class="text-center">
-		  	<ul>
-		  		<li><img src="{% static 'img/headshots/boy1.jpg' %}" height='450px'></li>
-		  		<li><img src="{% static 'img/headshots/girl2.jpg' %}" height='450px'></li>
-		  		<li><img src="{% static 'img/headshots/cameron1.jpg' %}" height='450px'></li>
-		  		<li><img src="{% static 'img/headshots/visona1.jpg' %}" height='450px'></li>
-		  		<li><img src="{% static 'img/headshots/girl1.jpg' %}" height='450px'></li>
-		  		<li><img src="{% static 'img/headshots/val1.jpg' %}" height='450px'></li>
-		  	</ul>
-		  	</div>
-	  	</div>
-	  </div>
 
 	  <div class="large_padding"></div>
 
@@ -123,7 +114,7 @@
 	  			<div class="page-header">
 	  				<h2><span class="landing_title">Amy</span> |  <span class="landing_text">CareerLAB Advisor</span></h2>
 	  			</div>
-	  			<p>"I think Bryte Photo is a great addition to the services we provide to our students. We want to help them build a great LinkedIn profile so that employers look at them, and Bryte Photo is perfect for that: that professional headshot that they may not be able to get otherwise".<br><br>On taking headshots previously: "It was a lot of legwork on behalf of the office that frankly we just don’t have time for.  Bryte has eliminated so much of that for us [...] the majority of the work is done by Bryte"</p>
+	  			<p>"I think Bryte is a great addition to the services we provide to our students. We want to help them build a great LinkedIn profile so that employers look at them, and Bryte is perfect for that: that professional headshot that they may not be able to get otherwise".<br><br>On taking headshots previously: "It was a lot of legwork on behalf of the office that frankly we just don’t have time for.  Bryte has eliminated so much of that for us [...] the majority of the work is done by Bryte"</p>
 	  		</div>
 	  		<div class="col-md-5">
 					<div class="large_padding"></div>

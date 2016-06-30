@@ -144,6 +144,15 @@ def clients(request):
 		'title_text': 'Our Clients | Bryte Photo Headshots',
 		'is_clients': 1,
 	}
+
+	url = request.get_full_path()
+	index = url[::-1][1:].index('/')
+	url = url[-index-1:-1]
+
+	if url == 'ric':
+		return render(request, 'landing_clients_ric.html', context)
+	
+
 	return render(request, 'landing_clients.html', context)
 
 
