@@ -12,42 +12,34 @@
 	{% if not headshots %}
 	<div class="background_lki droid_serif">
 		<div class="medium_padding"></div>
-		<h1 class="text-center red landing_title_sec bold">Enter your ID to view and download your headshots!</h1>
-
 		<div class="row">
 			<div class="small_padding"></div>
 			<div class="text-center">
 			<form method="POST" action="{% url 'landing_retrieve1' %}" class="form-inline">{% csrf_token %}
-				<input type="text" name="retrieve_search" id="retrieve_search" class="form-control mm_height large_font helvetica" required placeholder="your 6-digit photo retrieval ID" onchange="try{setCustomValidity('')}catch(e){}" style="width:300px">
+				<label class="large_font">Enter your Unique ID: </label> <input type="text" name="retrieve_search" id="retrieve_search" class="form-control mm_height large_font helvetica" required placeholder="your 6-digit photo retrieval ID" onchange="try{setCustomValidity('')}catch(e){}" style="width:300px">
 					<button class="btn btn-white-lg" id="retrieve_search_button" type="submit">Submit</button>
 			</form>
 			</div>
 			<div class="small_padding"></div>
 
 			{% if msg %}
-				<p class="white text-center">{{ msg }}</p>
+				<p class="text-center">{{ msg }}</p>
 			{% endif %}
-			<div class="container" id='landing_sales_pricing'>
-				<div class="small_padding"></div>
-				<p class="text-center">The industry charges $100 for touched up headshots. <br>Bryte premium touchup is $2.99. Check it out below.</p>
-			</div>
 
 			<div class="container">
+			<div class="small_padding"></div>
+
+			<h3 class="bold text-center">On average, recruiters spend only 6 seconds looking at an online resume.</h3>
+			<p class="xsmall_padding text-center">Guess what they look at on <span class="blue bold">Linkedin</span>? Your name, current job, and <span class="red bold">Linkedin Headshot</span>.</p>
 			<div class="medium_padding"></div>
-			<div class="row">
-				<div class="col-sm-4">
-					<img src="{% static 'img/affordable/premium 4 b.jpg' %}" class="img-responsive">
-					<p class="text-center white xsmall_padding">Original</p>
-				</div>
-				<div class="col-sm-4">
-					<img src="{% static 'img/affordable/premium 5.jpg' %}" class="img-responsive">
-					<p class="text-center white xsmall_padding">Standard Touchup</p>
-				</div>
-				<div class="col-sm-4">
-					<img src="{% static 'img/affordable/premium 6 text.jpg' %}" class="img-responsive">
-					<p class="text-center white xsmall_padding">Premium Touchup</p>
-				</div>
+
+			<p class="text-center bold large_font"><span class="red">This is a Linkedin Profile</span>. <span class="red">Red</span> is where recruiters are <span class="red">looking a lot</span>.</p>
+
+			<div class="center_flex">
+				<img src="{% static 'img/heatmap.png' %}" class="img-responsive">
 			</div>
+
+			<div class="medium_padding"></div>
 			</div>
 		</div>
 	</div>
@@ -214,7 +206,7 @@
 						<li class="bold italic">High Resolution</li>
 						<ul class="sm_font headshot_feature_list">
 							<li>High level of detail in all areas of image</li>
-							<li>2000+ x 2000+ pixels</li>
+							<li>1000 x 1000 pixels</li>
 						</ul>
 					</ul>
 
@@ -354,7 +346,7 @@
 						<li class="bold italic">High Resolution</li>
 						<ul class="sm_font headshot_feature_list">
 							<li>High level of detail in all areas of image</li>
-							<li>2000+ x 2000+ pixels</li>
+							<li>1000 x 1000 pixels</li>
 						</ul>
 					</ul>
 					
@@ -406,7 +398,7 @@
 						<li class="bold italic">High Resolution</li>
 						<ul class="sm_font headshot_feature_list">
 							<li>High level of detail in all areas of image</li>
-							<li>2000+ x 2000+ pixels</li>
+							<li>2000 x 2500 pixels</li>
 						</ul>
 					</ul>
 

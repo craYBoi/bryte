@@ -383,12 +383,25 @@ class Booking(models.Model):
 		message = sendgrid.Mail()
 		message.add_to(email)
 		message.set_from('Bryte Photo Inc <' + settings.EMAIL_HOST_USER + '>')
+
+		# message.set_subject('Your free LinkedIn headshot is ready for download!')
+
+		# follow up email title
 		message.set_subject('Your free LinkedIn headshot is ready for download!') 
 		message.set_html('Body')
 		message.set_text('Body')
 		message.add_filter('templates','enable','1')
-		message.add_filter('templates','template_id','d2750257-04b4-4e24-a785-aa34a7942606')
-		message.add_category('free headshot delivery email')
+		
+		# message.add_filter('templates','template_id','d2750257-04b4-4e24-a785-aa34a7942606')
+
+		# follow up email template
+		message.add_filter('templates','template_id','91554ce0-b80a-4c1f-ad12-0a3ec606e29e')
+
+		# message.add_category('free headshot delivery email')
+
+		# follow up email category
+		message.add_category('RIC followup delivery email')
+
 		message.add_substitution('-first_name-', first_name)
 		message.add_substitution('-unique_id-', hash_id)
 
