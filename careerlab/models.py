@@ -99,7 +99,7 @@ class Nextshoot(models.Model):
 	def close_shoot(self):
 		timeslots = self.timeslot_set.filter(active=True)
 		for timeslot in timeslots:
-			timeslot.active = False
+			timeslot.is_available = False
 			timeslot.save()
 
 
