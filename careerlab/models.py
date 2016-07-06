@@ -387,7 +387,7 @@ class Booking(models.Model):
 		# message.set_subject('Your free LinkedIn headshot is ready for download!')
 
 		# follow up email title
-		message.set_subject('Your free LinkedIn headshot is ready for download!') 
+		message.set_subject('New version of your Linkedin headshot') 
 		message.set_html('Body')
 		message.set_text('Body')
 		message.add_filter('templates','enable','1')

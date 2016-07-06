@@ -11,7 +11,7 @@ class BookingAdmin(ImportExportModelAdmin):
 	list_display = ['id', 'email', 'name', 'timeslot', 'hash_id', 'dropbox_folder', 'upgrade_folder_path', 'show_up', 'timestamp']
 
 class TimeslotAdmin(admin.ModelAdmin):
-	list_display = ['id', 'time', 'shoot','current_volumn']
+	list_display = ['id', 'time', 'shoot','current_volumn', 'active', 'is_available']
 
 class SignupAdmin(admin.ModelAdmin):
 	list_display = ['id', 'email', 'name','notified', 'shoot', 'timestamp']
