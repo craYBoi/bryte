@@ -33,6 +33,7 @@ class Nextshoot(models.Model):
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
 	name = models.CharField(max_length=100, blank=True, null=True)
 	school = models.CharField(max_length=60, default='not assigned')
+	date = models.DateField(default=timezone.now)
 
 	class Meta:
 		ordering = ('-timestamp',)
@@ -40,7 +41,7 @@ class Nextshoot(models.Model):
 
 	# override save method to first create folder
 	def save(self, *args, **kwargs):
-		name = self.location + ' - ' + str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+		name = self.location + ' - ' + str(self.date.strftime('%Y-%m-%d'))
 
 		# populate the shoot name field
 		self.name = name
@@ -259,6 +260,7 @@ class Booking(models.Model):
 	timeslot = models.ForeignKey(Timeslot)
 	hash_id = models.CharField(max_length=50, default='default')
 	dropbox_folder = models.CharField(max_length=100, blank=True, null=True)
+	upgrade_folder_path = models.CharField(max_length=100, blank=True, null=True)
 	show_up = models.BooleanField(default=False)
 
 
@@ -428,7 +430,7 @@ class Booking(models.Model):
 		return send
 
 
-	def dropbox_delivery_email(self, upgrade_link):
+	def dropbox_delivery_email(self):
 		send = False
 		name = self.name
 		first_name = name.split(' ')[0]
@@ -445,19 +447,21 @@ class Booking(models.Model):
 		message.add_filter('templates','template_id','3ee6fdaa-0e23-4914-8f53-c06265dbbd57')
 		message.add_category('upgrade delivery email')
 		message.add_substitution('-first_name-', first_name)
-		message.add_substitution('-download_link-', upgrade_link)
+		message.add_substitution('-download_link-', self.upgrade_folder_path)
 		message.add_substitution('-unique_id-', hash_id)
 
 		try:
 			sg.send(message)
 		except Exception, e:
 			print '[NOT SENT] --- ' + str(email) 
+			raise e
 		else:
 			send = True
 			print '[SENT] --- ' + str(email)
 		return send
 
 
+	# create all the folders when sign up and get the upgrade link
 	def create_dropbox_folder(self):
 		token = settings.DROPBOX_TOKEN
 		dbx = dropbox.Dropbox(token)
@@ -474,25 +478,62 @@ class Booking(models.Model):
 		# upload path
 		upload_folder_path = os.path.join(root_folder, shoot_name, email)
 
+		print upload_folder_path
 		# create the folder
 		try:
 			dbx.files_create_folder(upload_folder_path)
 		except Exception, e:
 			print e
-			pass
+			raise e
 		else:
 			# store the upload path in the Booking
 			self.dropbox_folder = upload_folder_path
 
 			# create the All and Deliverables subfolder
-			all_path = os.path.join(upload_folder_path, 'All')
-			deliverable_path = os.path.join(upload_folder_path, 'Deliverables')
+			EDITED_FOLDER = 'Edited'
+			OTHER_FOLDER = 'Other'
+			RAW_FOLDER = 'Raw'
+			UPGRADE_FOLDER = 'Upgrade'
+
+			edited_folder_path = os.path.join(upload_folder_path, EDITED_FOLDER)
+			edited_fav_path = os.path.join(edited_folder_path, 'Fav')
+			# edited_top_path = os.path.join(edited_folder_path, 'Top')
+			edited_portrait_path = os.path.join(edited_folder_path, 'Top Portrait')
+			edited_all_path = os.path.join(edited_folder_path, 'All')
+
+			other_folder_path = os.path.join(upload_folder_path, OTHER_FOLDER)
+			raw_folder_path = os.path.join(upload_folder_path, RAW_FOLDER)
+			raw_fav_path = os.path.join(raw_folder_path, 'Fav')
+			raw_top_path = os.path.join(raw_folder_path, 'Top')
+			raw_all_path = os.path.join(raw_folder_path, 'All')
+
+			upgrade_folder_path = os.path.join(upload_folder_path, UPGRADE_FOLDER)
+			upgrade_edited_path = os.path.join(upgrade_folder_path, 'Edited')
+			upgrade_raw_path = os.path.join(upgrade_folder_path, 'Raw')
+
 			try:
-				dbx.files_create_folder(all_path)
-				dbx.files_create_folder(deliverable_path)
+				dbx.files_create_folder(edited_fav_path)
+				# dbx.files_create_folder(edited_top_path)
+				dbx.files_create_folder(edited_portrait_path)
+				dbx.files_create_folder(edited_all_path)
+				dbx.files_create_folder(other_folder_path)
+				dbx.files_create_folder(raw_fav_path)
+				dbx.files_create_folder(raw_top_path)
+				dbx.files_create_folder(raw_all_path)
+				dbx.files_create_folder(upgrade_edited_path)
+				dbx.files_create_folder(upgrade_raw_path)
 			except Exception, e:
 				print e
-				pass
+				raise e
+			else:
+				# create upgrade folder link
+				try:
+					upgrade_link = dbx.sharing_create_shared_link(upgrade_edited_path)
+				except Exception, e:
+					print e
+				else:
+					self.upgrade_folder_path = upgrade_link.url
+
 
 
 	def retrieve_image(self, **kwargs):
@@ -537,7 +578,7 @@ class Booking(models.Model):
 	def update_showup(self, *args, **kwargs):	
 		dbx = dropbox.Dropbox(settings.DROPBOX_TOKEN)
 	
-		db_path = os.path.join(self.dropbox_folder, 'All')
+		db_path = os.path.join(self.dropbox_folder, 'Raw', 'All')
 
 		print 'checking ' + db_path + '...',
 
@@ -551,279 +592,461 @@ class Booking(models.Model):
 
 
 	# go through dropbox to create image instance in the local database
-	def create_image(self, deliverable=False, watermarked=False, premium=False, fullsize=False):
+	def create_image(self, raw=False, edited=False, fav=False, top=False, portrait=False, all=False):
 		dbx = dropbox.Dropbox(settings.DROPBOX_TOKEN)
 		folder_path = self.dropbox_folder
 
-		subfolder_path = 'Other'
+		EDITED_FOLDER = 'Edited'
+		OTHER_FOLDER = 'Other'
+		RAW_FOLDER = 'Raw'
 
-		deliverable_o_path = os.path.join(folder_path, 'Deliverables')
-		deliverable_t_path = os.path.join(folder_path, subfolder_path, 'Deliverables Thumbnail')
-		watermarked_t_path = os.path.join(folder_path, subfolder_path, 'Watermarked Thumbnail')
-		watermarked_o_path = os.path.join(folder_path, subfolder_path, 'Watermarked Original')
-		premium_w_path = os.path.join(folder_path, subfolder_path, 'Premium Watermarked')
-		premium_wt_path = os.path.join(folder_path, subfolder_path, 'Premium Watermarked Thumbnail')
-		premium_o_path = os.path.join(folder_path, 'Premium')
-		fullsize_w_path = os.path.join(folder_path, subfolder_path, 'Full Size Watermarked')
-		fullsize_wt_path = os.path.join(folder_path, subfolder_path, 'Full Size Watermarked Thumbnail')
-		fullsize_o_path = os.path.join(folder_path, 'Full Size')
+		# Material Folder
+		ALL_PATH = 'All'
+		TOP_PATH = 'Top'
+		PORTRAIT_PATH = 'Top Portrait'
+		FAV_PATH = 'Fav'
+
+		# Upload Folder
+		RAW_ALL_WT_path = 'Raw All WT'
+		RAW_TOP_WT_PATH = 'Raw Top WT'
+		RAW_FAV_WT_PATH = 'Raw Fav WT'
+		EDITED_FAV_WT_PATH = 'Edit Fav WT'
+		EDITED_FAV_W_PATH = 'Edit Fav W'
+		# EDITED_TOP_WT_PATH = 'Edit Top WT'
+		# EDITED_TOP_W_PATH = 'Edit Top W'
+		EDITED_TOPP_WT_PATH = 'Edit Top Portrait WT'
+		EDITED_TOPP_W_PATH = 'Edit Top Portrait W'
 
 
+		# migrate Raw + All
+		if raw:
+			if all:
+				path = os.path.join(folder_path, OTHER_FOLDER, RAW_ALL_WT_path)
 
-		# if original url is already there, do not create new instance
-		headshot_images = self.headshotimage_set.all()
-		urls = [img.original_url for img in headshot_images]
-
-
-		print 'creating for ' + self.email + '...'
-		# Deliverable Original 
-		if deliverable:
-			try:
-				deliverable_o_list = dbx.files_list_folder(deliverable_o_path).entries
-
-			except Exception, e:
-				print 'access deliverable original folder fail'
-				pass
-			else:
-				if deliverable_o_list:
-					for deliverable_o in deliverable_o_list:
-						print 'Creating Deliverable..'
-
-						url = dbx.sharing_create_shared_link(deliverable_o.path_lower)
-						url = str(url.url)
+				try:
+					items = dbx.files_list_folder(path).entries
+				except Exception, e:
+					print '[FAILED][RAW FAV] ' + ' list folder failed'
+				else:
+					assert len(items) > 0, 'RAW ALL has no items!'
+					for item in items:
+						sharing_link = dbx.sharing_create_shared_link(item.path_lower)
+						url = str(sharing_link.url)
 						url = url[:-4]
 						url += 'raw=1'
 
-						# if original url is already there, do not create new instance
-						if url not in urls:
-							# create new instance
-							try:
-								HeadshotImage.objects.create(
-									book=self,
-									name=deliverable_o.name,
-									is_watermarked=False,
-									is_deliverable=True,
-									original_url=url,
-									)
-							except Exception, e:
-								print 'create image instance fail'
-								raise e
-							else:
-								print 'image [deliverable] successfully created'
+						# create new image instance
+						try:
+							HeadshotImage.objects.create(
+								book=self,
+								name=item.name,
+								is_raw=True,
+								wt_url=url,
+								)
+						except Exception, e:
+							raise e
+						else:
+							print '[SUCCESS][RAW ALL] ' + item.name
 
-		if watermarked:
-			# Watermark Original
-			try:
-				watermarked_o_list = dbx.files_list_folder(watermarked_o_path).entries
-				watermarked_t_list = dbx.files_list_folder(watermarked_t_path).entries
-			except Exception, e:
-				print 'access watermark folder fail'
-				pass
-			else:
-				if watermarked_t_list:
-					for watermarked_t, watermarked_o in zip(sorted(watermarked_t_list, key=lambda item:item.name), sorted(watermarked_o_list, key=lambda item:item.name)):
-						print 'Creating Watermarked Images..'
-						url = dbx.sharing_create_shared_link(watermarked_o.path_lower)
-						t_url = dbx.sharing_create_shared_link(watermarked_t.path_lower)
-						url = str(url.url)
-						url = url[:-4]
-						url += 'raw=1'
-						t_url = str(t_url.url)
-						t_url = t_url[:-4]
-						t_url += 'raw=1'
+			# migrate Raw + fav (Standard Headshot and free deliverable)
+			if fav:
+				o_path = os.path.join(folder_path, RAW_FOLDER, FAV_PATH)
+				wt_path = os.path.join(folder_path, OTHER_FOLDER, RAW_FAV_WT_PATH)
 
-						# if original url is already there, do not create new instance
-						if url not in urls:
-							try:
-								HeadshotImage.objects.create(
-									book=self,
-									name=watermarked_o.name,
-									is_watermarked=True,
-									is_deliverable=False,
-									original_url=url,
-									thumbnail_url=t_url,
-									)
-							except Exception, e:
-								print 'create image instance fail'
-								raise e
-							else:
-								print 'image [watermark] successfully created'
+				try:
+					o_items = dbx.files_list_folder(o_path).entries
+				except Exception, e:
+					print '[FAILED][RAW FAV] ' + ' list folder failed'
+				else:
+					assert len(o_items) == 1, 'Raw Fav has more than 1 item!'
 
-		if fullsize:
-			# Watermark Original
-			try:
-				fullsize_o_list = dbx.files_list_folder(fullsize_o_path).entries
-				fullsize_w_list = dbx.files_list_folder(fullsize_w_path).entries
-				fullsize_wt_list = dbx.files_list_folder(fullsize_wt_path).entries
-			except Exception, e:
-				print 'access watermark folder fail'
-				pass
-			else:
-				if fullsize_o_list:
-					for fullsize_o, fullsize_w, fullsize_wt in zip(fullsize_o_list, fullsize_w_list, fullsize_wt_list):
-						print 'Creating Watermarked Images..'
-						url = dbx.sharing_create_shared_link(fullsize_o.path_lower)
-						t_url = dbx.sharing_create_shared_link(fullsize_wt.path_lower)
-						w_url = dbx.sharing_create_shared_link(fullsize_w.path_lower)
-						url = str(url.url)
-						url = url[:-4]
-						url += 'raw=1'
-						t_url = str(t_url.url)
-						t_url = t_url[:-4]
-						t_url += 'raw=1'
-						w_url = str(w_url.url)
-						w_url = w_url[:-4]
-						w_url += 'raw=1'
+					o_item = o_items[0]
+					o_sharing_link = dbx.sharing_create_shared_link(o_item.path_lower)
+					o_url = str(o_sharing_link.url)
+					o_url = o_url[:-4]
+					o_url += 'raw=1'	
 
-						# if original url is already there, do not create new instance
-						if url not in urls:
-							try:
-								# first create the watermarked version
-								HeadshotImage.objects.create(
-									book=self,
-									name=fullsize_w.name,
-									is_watermarked=True,
-									is_fullsize=True,
-									original_url=w_url,
-									thumbnail_url=t_url,
-									)
-								# then create the original version
-								HeadshotImage.objects.create(
-									book=self,
-									name=fullsize_o.name,
-									is_fullsize=True,
-									original_url=url,
-									)
-							except Exception, e:
-								print 'create image instance fail'
-								raise e
-							else:
-								print 'image [fullsize] successfully created'
+					wt_items = dbx.files_list_folder(wt_path).entries
+					assert len(wt_items) == 1, 'RAW FAV WT has more than 1 item!'
 
-		if premium:
-			# Watermark Original
-			try:
-				premium_o_list = dbx.files_list_folder(premium_o_path).entries
-				premium_w_list = dbx.files_list_folder(premium_w_path).entries
-				premium_wt_list = dbx.files_list_folder(premium_wt_path).entries
-			except Exception, e:
-				print 'access watermark folder fail'
-				pass
-			else:
-				if premium_o_list:
-					for premium_o, premium_w, premium_wt in zip(premium_o_list, premium_w_list, premium_wt_list):
-						print 'Creating Watermarked Images..'
-						url = dbx.sharing_create_shared_link(premium_o.path_lower)
-						t_url = dbx.sharing_create_shared_link(premium_wt.path_lower)
-						w_url = dbx.sharing_create_shared_link(premium_w.path_lower)
-						url = str(url.url)
-						url = url[:-4]
-						url += 'raw=1'
-						t_url = str(t_url.url)
-						t_url = t_url[:-4]
-						t_url += 'raw=1'
-						w_url = str(w_url.url)
-						w_url = w_url[:-4]
-						w_url += 'raw=1'
+					wt_item = wt_items[0]
+					wt_sharing_link = dbx.sharing_create_shared_link(wt_item.path_lower)
+					wt_url = str(wt_sharing_link.url)
+					wt_url = wt_url[:-4]
+					wt_url += 'raw=1'
 
-						# if original url is already there, do not create new instance
-						if url not in urls:
-							try:
-								# first create the watermarked version
-								HeadshotImage.objects.create(
-									book=self,
-									name=premium_w.name,
-									is_watermarked=True,
-									is_premium=True,
-									original_url=w_url,
-									thumbnail_url=t_url,
-									)
-								# then create the original version
-								HeadshotImage.objects.create(
-									book=self,
-									name=premium_o.name,
-									is_premium=True,
-									original_url=url,
-									)
-							except Exception, e:
-								print 'create image instance fail'
-								raise e
-							else:
-								print 'image [premium] successfully created'
+					try:
+						# w_url = wt_url since they all 500 * 500
+						HeadshotImage.objects.create(
+							book=self,
+							name=o_item.name,
+							is_raw=True,
+							is_fav=True,
+							o_url=o_url,
+							wt_url=wt_url,
+							wo_url=wt_url,
+							)
+					except Exception, e:
+						raise e
+					else:
+						print '[SUCCESS][RAW FAV] ' + o_item.name
+
+
+			if top:
+				path = os.path.join(folder_path, OTHER_FOLDER, RAW_TOP_WT_PATH)
+				try:
+					items = dbx.files_list_folder(path).entries
+				except Exception, e:
+					print '[FAILED][RAW TOP] ' + ' list folder failed'
+				else:
+					assert len(items) == 1, 'RAW TOP WT has more than 1 item!'
+					item = items[0]
+					sharing_link = dbx.sharing_create_shared_link(item.path_lower)
+					url = str(sharing_link.url)
+					url = url[:-4]
+					url += 'raw=1'
+
+					# create new image instance
+					try:
+						HeadshotImage.objects.create(
+							book=self,
+							name=item.name,
+							is_raw=True,
+							is_top=True,
+							wt_url=url,
+							)
+					except Exception, e:
+						raise e
+					else:
+						print '[SUCCESS][RAW TOP] ' + item.name
+
+
+		# edited photo migration
+		if edited:
+			if fav:
+				o_path = os.path.join(folder_path, EDITED_FOLDER, FAV_PATH)
+				wt_path = os.path.join(folder_path, OTHER_FOLDER, EDITED_FAV_WT_PATH)
+				wo_path = os.path.join(folder_path, OTHER_FOLDER, EDITED_FAV_W_PATH)
+
+				try:
+					o_items = dbx.files_list_folder(o_path).entries
+					wt_items = dbx.files_list_folder(wt_path).entries
+					wo_items = dbx.files_list_folder(wo_path).entries
+				except Exception, e:
+					print '[FAILED][EDITED FAV] ' + ' list folder failed'
+				else:
+					assert len(o_items)==len(wt_items)==len(wo_items)==1, 'EDITED FAV O/WT/WO has more than 1 items or None!'
+					o_item = o_items[0]
+					wt_item = wt_items[0]
+					wo_item = wo_items[0]
+					o_sharing_link = dbx.sharing_create_shared_link(o_item.path_lower)
+					wt_sharing_link = dbx.sharing_create_shared_link(wt_item.path_lower)
+					wo_sharing_link = dbx.sharing_create_shared_link(wo_item.path_lower)
+
+					o_url = str(o_sharing_link.url)
+					o_url = o_url[:-4]
+					o_url += 'raw=1'	
+					wt_url = str(wt_sharing_link.url)
+					wt_url = wt_url[:-4]
+					wt_url += 'raw=1'
+					wo_url = str(wo_sharing_link.url)
+					wo_url = wo_url[:-4]
+					wo_url += 'raw=1'
+					try:
+						HeadshotImage.objects.create(
+							book=self,
+							name=o_item.name,
+							is_fav=True,
+							o_url=o_url,
+							wt_url=wt_url,
+							wo_url=wo_url,
+							)
+					except Exception, e:
+						raise e
+					else:
+						print '[SUCCESS][EDITED FAV] ' + o_item.name
+
+			# if top:
+			# 	o_path = os.path.join(folder_path, EDITED_FOLDER, TOP_PATH)
+			# 	wt_path = os.path.join(folder_path, OTHER_FOLDER, EDITED_TOP_WT_PATH)
+			# 	wo_path = os.path.join(folder_path, OTHER_FOLDER, EDITED_TOP_W_PATH)
+
+			# 	try:
+			# 		o_items = dbx.files_list_folder(o_path).entries
+			# 		wt_items = dbx.files_list_folder(wt_path).entries
+			# 		wo_items = dbx.files_list_folder(wo_path).entries
+			# 	except Exception, e:
+			# 		print '[FAILED][EDITED TOP] ' + ' list folder failed'
+			# 	else:
+			# 		assert len(o_items)==len(wt_items)==len(wo_items)==1, 'EDITED TOP O/WT/WO has more than 1 items or None!'
+			# 		o_item = o_items[0]
+			# 		wt_item = wt_items[0]
+			# 		wo_item = wo_items[0]
+			# 		o_sharing_link = dbx.sharing_create_shared_link(o_item.path_lower)
+			# 		wt_sharing_link = dbx.sharing_create_shared_link(wt_item.path_lower)
+			# 		wo_sharing_link = dbx.sharing_create_shared_link(wo_item.path_lower)
+
+			# 		o_url = str(o_sharing_link.url)
+			# 		o_url = o_url[:-4]
+			# 		o_url += 'raw=1'	
+			# 		wt_url = str(wt_sharing_link.url)
+			# 		wt_url = wt_url[:-4]
+			# 		wt_url += 'raw=1'
+			# 		wo_url = str(wo_sharing_link.url)
+			# 		wo_url = wo_url[:-4]
+			# 		wo_url += 'raw=1'
+			# 		try:
+			# 			HeadshotImage.objects.create(
+			# 				book=self,
+			# 				name=o_item.name,
+			# 				is_top=True,
+			# 				o_url=o_url,
+			# 				wt_url=wt_url,
+			# 				wo_url=wo_url,
+			# 				)
+			# 		except Exception, e:
+			# 			raise e
+			# 		else:
+			# 			print '[SUCCESS][EDITED TOP] ' + o_item.name
+
+			if portrait:
+				o_path = os.path.join(folder_path, EDITED_FOLDER, PORTRAIT_PATH)
+				wt_path = os.path.join(folder_path, OTHER_FOLDER, EDITED_TOPP_WT_PATH)
+				wo_path = os.path.join(folder_path, OTHER_FOLDER, EDITED_TOPP_W_PATH)
+
+				try:
+					o_items = dbx.files_list_folder(o_path).entries
+					wt_items = dbx.files_list_folder(wt_path).entries
+					wo_items = dbx.files_list_folder(wo_path).entries
+				except Exception, e:
+					print '[FAILED][EDITED PORTRAIT] ' + ' list folder failed'
+				else:
+					assert len(o_items)==len(wt_items)==len(wo_items)==1, 'EDITED PORTRAIT O/WT/WO has more than 1 items or None!'
+					o_item = o_items[0]
+					wt_item = wt_items[0]
+					wo_item = wo_items[0]
+					o_sharing_link = dbx.sharing_create_shared_link(o_item.path_lower)
+					wt_sharing_link = dbx.sharing_create_shared_link(wt_item.path_lower)
+					wo_sharing_link = dbx.sharing_create_shared_link(wo_item.path_lower)
+
+					o_url = str(o_sharing_link.url)
+					o_url = o_url[:-4]
+					o_url += 'raw=1'	
+					wt_url = str(wt_sharing_link.url)
+					wt_url = wt_url[:-4]
+					wt_url += 'raw=1'
+					wo_url = str(wo_sharing_link.url)
+					wo_url = wo_url[:-4]
+					wo_url += 'raw=1'
+					try:
+						HeadshotImage.objects.create(
+							book=self,
+							name=o_item.name,
+							is_portrait=True,
+							o_url=o_url,
+							wt_url=wt_url,
+							wo_url=wo_url,
+							)
+					except Exception, e:
+						raise e
+					else:
+						print '[SUCCESS][EDITED PORTRAIT] ' + o_item.name
 
 
 
 class HeadshotImage(models.Model):
 	book = models.ForeignKey(Booking)
 	name = models.CharField(max_length=50, blank=True, null=True)
-	is_watermarked = models.BooleanField(default=False)
-	is_deliverable = models.BooleanField(default=False)
-	is_premium = models.BooleanField(default=False)
-	is_fullsize = models.BooleanField(default=False)
-	original_url = models.CharField(max_length=150)
-	thumbnail_url = models.CharField(max_length=150, blank=True, null=True)
+	is_raw = models.BooleanField(default=False)
+	is_fav = models.BooleanField(default=False)
+	is_top = models.BooleanField(default=False)
+	is_portrait = models.BooleanField(default=False)
+	o_url = models.CharField(max_length=150, blank=True, null=True)
+	wt_url = models.CharField(max_length=150, blank=True, null=True)
+	wo_url = models.CharField(max_length=150, blank=True, null=True)
 
 	def __unicode__(self):
-		return str(self.pk) + ' -- ' + self.book.__unicode__()
+		return str(self.pk) + ' -- ' + self.name
 
 	def is_extra(self):
 		return not(self.is_deliverable or self.is_premium or self.is_fullsize)
 
 
-	# temp method to copy to upgrade folder on dropbox
-	def copy_to_upgrade(self, deliverable=False, fullsize=False, premium=False):
+	def copy_to_upgrade(self):
 		dbx = dropbox.Dropbox(settings.DROPBOX_TOKEN)
-		path = self.book.dropbox_folder
-		upgrade_path = os.path.join(path, 'Upgrade')
+		root_path = self.book.dropbox_folder
+		RAW_FOLDER = 'Raw'
+		EDITED_FOLDER = 'Edited'
+		UPGRADE_FOLDER = os.path.join('Upgrade', 'Edited')
+		UPGRADE_RAW_FOLDER = os.path.join('Upgrade', 'Raw')
+		ALL_PATH = 'All'
+		FAV_PATH = 'Fav'
+		TOP_PATH = 'Top'
+		PORTRAIT_PATH = 'Top Portrait'
 
-		# create share link for upgrade folder
-		upgrade_link = dbx.sharing_create_shared_link(upgrade_path)
+		upgrade_path = os.path.join(root_path, UPGRADE_FOLDER)
+		upgrade_raw_path = os.path.join(root_path, UPGRADE_RAW_FOLDER)
+		path = ''
 
-		if deliverable:
-			d_path = os.path.join(path, 'Deliverables')
-			files = dbx.files_list_folder(d_path).entries
-			if files:
+		copied = False
+
+		if self.is_raw:
+			# raw fav
+			if self.is_fav:
+				path = os.path.join(root_path, RAW_FOLDER, FAV_PATH)
 				try:
-					file = files[0]
-
-					dbx.files_copy(file.path_lower, os.path.join(upgrade_path, file.name))
+					files = dbx.files_list_folder(path).entries
 				except Exception, e:
-					print 'copy [deliverable] failed'
-					pass
+					print '[FAILED][RAW FAV] ' + self.name + ' list folder failed'
+					raise e
 				else:
-					print 'copy [deliverable] successfully'
-
-		if fullsize:
-			f_path = os.path.join(path, 'Full Size')
-			files = dbx.files_list_folder(f_path).entries
-
-			if files:
+					assert len(files)==1, 'RAW FAV does not have 1 item!'
+					file = files[0]
+					try:
+						dbx.files_copy(file.path_lower, os.path.join(upgrade_path, file.name))
+					except Exception, e:
+						print '[FAILED][RAW FAV] ' + self.name + ' copy file failed'
+					else:
+						copied = True
+						print '[SUCCESS][RAW FAV] ' + self.name + ' copied'
+			# raw all
+			# [TRICKY] copy the file based on file name, move to upgrade raw folder so admin will know what to touch up
+			# file name trick, not sustainable, get rid the 'wt'
+			else:
+				path = os.path.join(root_path, RAW_FOLDER, ALL_PATH)
 				try:
-					file = files[0]
-
-					dbx.files_copy(file.path_lower, os.path.join(upgrade_path, 'fs' + str(file.name)))
+					files = dbx.files_list_folder(path).entries
 				except Exception, e:
-					print 'copy [full size] failed'
-					pass
+					print '[FAILED][RAW ALL] ' + self.name + ' list folder failed'
+					raise e
 				else:
-					print 'copy [full size] successfully'
+					# trick
+					file_name, file_ext = os.path.splitext(self.name)
+					cleaned_file_name = file_name[:-3] + file_ext
+					print cleaned_file_name
+					file_list = [f for f in files if f.name.lower() == cleaned_file_name.lower()]
+					assert len(file_list)>0, '[FAILED][RAW ALL] ' + self.name + ' file name not found among raw all!'
+					file = file_list[0]
+					try:
+						dbx.files_copy(file.path_lower, os.path.join(upgrade_raw_path, file.name))
+					except Exception, e:
+						print '[FAILED][RAW ALL] ' + self.name + ' copy file failed'
+					else:
+						copied = True
+						print '[SUCCESS][RAW ALL] ' + self.name + ' copied'
 
-		if premium:
-			p_path = os.path.join(path, 'Premium')
-			files = dbx.files_list_folder(p_path).entries
 
-			if files:
+		else:
+			if self.is_fav:
+				path = os.path.join(root_path, EDITED_FOLDER, FAV_PATH)
 				try:
-					file = files[0]
-
-					dbx.files_copy(file.path_lower, os.path.join(upgrade_path, 'p' + str(file.name)))
+					files = dbx.files_list_folder(path).entries
 				except Exception, e:
-					print 'copy [premium] failed'
-					pass
+					print '[FAILED][EDITED FAV] ' + self.name + ' list folder failed'
+					raise e
 				else:
-					print 'copy [premium] successfully'
+					assert len(files)==1, 'EDITED FAV does not have 1 item!'
+					file = files[0]
+					try:
+						dbx.files_copy(file.path_lower, os.path.join(upgrade_path, file.name))
+					except Exception, e:
+						print '[FAILED][EDITED FAV] ' + self.name + ' copy file failed'
+					else:
+						copied = True
+						print '[SUCCESS][EDITED FAV] ' + self.name + ' copied'
+			if self.is_top:
+				path = os.path.join(root_path, EDITED_FOLDER, TOP_PATH)
+				try:
+					files = dbx.files_list_folder(path).entries
+				except Exception, e:
+					print '[FAILED][EDITED TOP] ' + self.name + ' list folder failed'
+					raise e
+				else:
+					assert len(files)==1, 'EDITED TOP does not have 1 item!'
+					file = files[0]
+					try:
+						dbx.files_copy(file.path_lower, os.path.join(upgrade_path, file.name))
+					except Exception, e:
+						print '[FAILED][EDITED TOP] ' + self.name + ' copy file failed'
+					else:
+						copied = True
+						print '[SUCCESS][EDITED TOP] ' + self.name + ' copied'
+			if self.is_portrait:
+				path = os.path.join(root_path, EDITED_FOLDER, PORTRAIT_PATH)
+				try:
+					files = dbx.files_list_folder(path).entries
+				except Exception, e:
+					print '[FAILED][EDITED PORTRAIT] ' + self.name + ' list folder failed'
+					raise e
+				else:
+					assert len(files)==1, 'EDITED PORTRAIT does not have 1 item!'
+					file = files[0]
+					try:
+						dbx.files_copy(file.path_lower, os.path.join(upgrade_path, file.name))
+					except Exception, e:
+						print '[FAILED][EDITED PORTRAIT] ' + self.name + ' copy file failed'
+					else:
+						copied = True
+						print '[SUCCESS][EDITED PORTRAIT] ' + self.name + ' copied'
 
-		return upgrade_link.url
+		return copied
+
+
+
+	# temp method to copy to upgrade folder on dropbox
+	# def copy_to_upgrade(self, deliverable=False, fullsize=False, premium=False):
+	# 	dbx = dropbox.Dropbox(settings.DROPBOX_TOKEN)
+	# 	path = self.book.dropbox_folder
+	# 	upgrade_path = os.path.join(path, 'Upgrade')
+
+	# 	# create share link for upgrade folder
+	# 	upgrade_link = dbx.sharing_create_shared_link(upgrade_path)
+
+	# 	if deliverable:
+	# 		d_path = os.path.join(path, 'Deliverables')
+	# 		files = dbx.files_list_folder(d_path).entries
+	# 		if files:
+	# 			try:
+	# 				file = files[0]
+
+	# 				dbx.files_copy(file.path_lower, os.path.join(upgrade_path, file.name))
+	# 			except Exception, e:
+	# 				print 'copy [deliverable] failed'
+	# 				pass
+	# 			else:
+	# 				print 'copy [deliverable] successfully'
+
+	# 	if fullsize:
+	# 		f_path = os.path.join(path, 'Full Size')
+	# 		files = dbx.files_list_folder(f_path).entries
+
+	# 		if files:
+	# 			try:
+	# 				file = files[0]
+
+	# 				dbx.files_copy(file.path_lower, os.path.join(upgrade_path, 'fs' + str(file.name)))
+	# 			except Exception, e:
+	# 				print 'copy [full size] failed'
+	# 				pass
+	# 			else:
+	# 				print 'copy [full size] successfully'
+
+	# 	if premium:
+	# 		p_path = os.path.join(path, 'Premium')
+	# 		files = dbx.files_list_folder(p_path).entries
+
+	# 		if files:
+	# 			try:
+	# 				file = files[0]
+
+	# 				dbx.files_copy(file.path_lower, os.path.join(upgrade_path, 'p' + str(file.name)))
+	# 			except Exception, e:
+	# 				print 'copy [premium] failed'
+	# 				pass
+	# 			else:
+	# 				print 'copy [premium] successfully'
+
+	# 	return upgrade_link.url
 
 
 
@@ -832,19 +1055,18 @@ class ImagePurchase(models.Model):
 	email = models.EmailField()
 
 	UPGRADES = (
-		('oh', 'Original Headshot'),
-		('st', 'Standard Touchup'),
-		('pt', 'Premium Touchup'),
-		('pp', 'Passport Package'),
+		('fh', 'Free Headshot'),
+		('pu', 'Professional Upgrade'),
+		('ph', 'Premium Headshot'),
+		('pp', 'Premium Portrait'),
 	)
 
-	option = models.CharField(max_length=2, choices=UPGRADES, default='oh')
-	address = models.CharField(max_length=100, blank=True, null=True)
-	request = models.TextField(blank=True, null=True)
+	option = models.CharField(max_length=2, choices=UPGRADES, default='pu')
 	value = models.DecimalField(max_digits=5, decimal_places=2)
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
-	charge_successful = models.BooleanField(default=True)
+	charge_successful = models.BooleanField(default=False)
 	is_delivered = models.BooleanField(default=False)
+	is_copied = models.BooleanField(default=False)
 
 
 

@@ -11,7 +11,7 @@ import stripe
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
-def index(request):
+def index(request, school='brown'):
 	title = 'Bryte Photo & CareerLab Brown University headshot'
 	next_shoot = Nextshoot.objects.first()
 	timeslots = next_shoot.timeslot_set.filter(is_available=True, active=True).order_by('time')
@@ -34,13 +34,15 @@ def book(request):
 
 		email = request.POST.get('email')
 		name = request.POST.get('name')
+		time_id = request.POST.get('time')
+		timeslot = get_object_or_404(Timeslot, pk=time_id)
+		shoot = timeslot.shoot
+		emails = [e.email for elem in shoot.timeslot_set.filter(active=True) for e in elem.booking_set.all()]
 
 		# avoid duplicate booking
-		if email in [booking.email for booking in Booking.objects.all()]:
+		if email in emails:
 			data['msg'] = 'Looks like you have already booked a headshot. If you have not recieved a confirmation email, you will get one soon. We have you in the system :)<br>'		
 		else:
-			time_id = request.POST.get('time')
-			timeslot = get_object_or_404(Timeslot, pk=time_id)
 
 			# increment the timeslot first to reduce confliction
 			if timeslot.is_available:

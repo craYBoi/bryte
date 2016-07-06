@@ -3,22 +3,23 @@
 
 {% block stylesheet %}
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.min.css">
-  <link rel="stylesheet" type="text/css" href="{% static 'css/justifiedGallery.min.css' %}">
-  <link rel="stylesheet" type="text/css" href="{% static 'css/lightgallery.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/magnifier.css' %}">
 {% endblock %}
 
 {% block content %}
-	<div class="red_bg">
-		{% if not deliverable %}
+
+	<!-- retrieve page -->
+	{% if not headshots %}
+	<div class="background_lki droid_serif">
 		<div class="medium_padding"></div>
-		<h1 class="text-center white landing_title_sec bold">Enter your ID to view and download your headshots!</h1>
+		<h1 class="text-center red landing_title_sec bold">Enter your ID to view and download your headshots!</h1>
 
 		<div class="row">
 			<div class="small_padding"></div>
 			<div class="text-center">
 			<form method="POST" action="{% url 'landing_retrieve1' %}" class="form-inline">{% csrf_token %}
-				<input type="text" name="retrieve_search" id="retrieve_search" class="form-control" required placeholder="your 6-digit photo retrieval ID" onchange="try{setCustomValidity('')}catch(e){}" style="width:250px">
-					<button class="btn btn-white" id="retrieve_search_button" type="submit">Submit</button>
+				<input type="text" name="retrieve_search" id="retrieve_search" class="form-control mm_height large_font helvetica" required placeholder="your 6-digit photo retrieval ID" onchange="try{setCustomValidity('')}catch(e){}" style="width:300px">
+					<button class="btn btn-white-lg" id="retrieve_search_button" type="submit">Submit</button>
 			</form>
 			</div>
 			<div class="small_padding"></div>
@@ -28,7 +29,7 @@
 			{% endif %}
 			<div class="container" id='landing_sales_pricing'>
 				<div class="small_padding"></div>
-				<p class="white text-center">The industry charges $100 for touched up headshots. <br>Bryte premium touchup is $2.99. Check it out below.</p>
+				<p class="text-center">The industry charges $100 for touched up headshots. <br>Bryte premium touchup is $2.99. Check it out below.</p>
 			</div>
 
 			<div class="container">
@@ -48,386 +49,435 @@
 				</div>
 			</div>
 			</div>
-
-
-					
 		</div>
-		{% endif %}
+	</div>
+	{% endif %}
 
+	<!-- headshot page -->
+	{% if headshots %}
+
+
+
+	<div class="background_lki">
+	<!-- checkout -->
+	<div class="red_bg white checkout_cart">
+	<div class="container">
+		<div class="small_padding"></div>
+		<h2 class="landing_title_third bold white">My Cart</h2>
+		<span class="small_font">(if you want to remove anything from your cart, refresh the page, click continue when asked, and your cart will be cleared )</span>
+		<div class="small_padding"></div>
+		<div class="small_padding top_border"></div>
+
+
+
+		<ul class="checkout_detail" class="package_list">
+
+		</ul>
+		<div class="text-right">
+			<p class="bold big_font large_padding">Total: $<span class="checkout_total_amount"></span></p>
+			<a href=""><button class="btn btn-blue checkout_button">Checkout</button></a>
+		</div>
 		<div class="medium_padding"></div>
-		<div class="container">
-		{% if deliverable %}
-			<div class="white" id="deliverables_title"></div>
+	</div>
+	</div>
 
 
-
-			<h2 class="landing_title_third white bold">Here is your free LinkedIn headshot plus two special offers!</h2>
-			<div class="small_padding"></div>
-			<div class="small_padding top_border"></div>
-
-
-			<!-- total -->
-			<div class="text-right" id="checkout_total" hidden>
-				<p class="white"><span class="big_font bold">Total: $<span class="checkout_total_amount"></span></span> <br><a href="#checkout_detail" class="white">See my cart</a></p> 
-				<button class="btn btn-blue checkout_button">Checkout</button>
-				<div class="medium_padding"></div>
-			</div>
+		<div class="lki_container">
+			<div class="medium_padding"></div>
 			
-
 			<div class="row">
-				<div class="col-sm-4">
-					<div class="small_padding"></div>
-					<h4 class="white text-center sm_font">Free Headshot with Standard Touchup Sized for Linkedin (500 x 500px)</h4>
-					<div class="text-center">
-						<img src="{{ deliverable.original_url }}" style="height: 200px!important" class="video_desc_border" />
+				<div class="col-md-7 mod_container">
+
+
+					<p class="helvetica small_font"><span class="bold red xlarge_font">Professional LinkedIn Headshot</span> – actual size it will appear on Linkedin!</p>
+					<!-- magnify -->
+
+					<div class="background_white lki_box">
+						<div class="full_height center_flex" id="{{ edited_fav.pk }}_thumbnail">
+							<a class="magnifier-thumb-wrapper"><img id='thumb1' src="{{ edited_fav.wt_url }}" height="200"></a>
+						</div>
+
+						<div class="small_padding_left"></div>
+						<div class="lki_content">
+							<h3 class="bold xlarge_font">{{ booking.name }}</h3>
+							<p class="">Sample LinkedIn profile</p>
+							<div class="lki_line"></div>
+
+							<div class="sm_padding"></div>
+							<div class="inline">
+								<p class="grey xsmall_font">Previous</p>
+								<div class="small_padding_left"></div>
+								<div class="lki_line_sm"></div>
+							</div>
+							<div class="xxsmall_padding"></div>
+							<div class="inline">
+								<p class="grey xsmall_font">Education</p>
+								<div class="small_padding_left"></div>
+								<div class="lki_line_sm"></div>
+							</div>
+
+							<div class="lki_offset"></div>
+
+							<button class="btn-lki bold cursor_pointer">Connect</button>
+						</div>
 					</div>
+
+
+					<div class="medium_padding"></div>
 					
-					<div class="small_padding"></div>
-					<div class="text-center">
-						<button class="btn btn-blue bold" style="width:100%!important" id="download_button" name='{{ deliverable.pk }}' data-url="{{ deliverable.original_url }}">Add to cart for FREE</button>
+					<p class="helvetica small_font"><span class="bold xlarge_font">Standard LinkedIn Headshot</span> - actual size it will appear on Linkedin!</p>
+					<div class="background_white lki_box">
+						<div class="full_height center_flex" id="{{ raw_fav.pk }}_thumbnail">
+							<a class="magnifier-thumb-wrapper"><img id='thumb2' src="{{ raw_fav.wt_url }}" height="200" ></a>
+						</div>
+
+						<div class="small_padding_left"></div>
+						<div class="lki_content">
+							<h3 class="bold xlarge_font">{{ booking.name }}</h3>
+							<p class="">Sample LinkedIn profile</p>
+							<div class="lki_line"></div>
+
+							<div class="sm_padding"></div>
+							<div class="inline">
+								<p class="grey xsmall_font">Previous</p>
+								<div class="small_padding_left"></div>
+								<div class="lki_line_sm"></div>
+							</div>
+							<div class="xxsmall_padding"></div>
+							<div class="inline">
+								<p class="grey xsmall_font">Education</p>
+								<div class="small_padding_left"></div>
+								<div class="lki_line_sm"></div>
+							</div>
+
+							<div class="lki_offset"></div>
+
+							<button class="btn-lki bold cursor_pointer">Connect</button>
+						</div>
 					</div>
 
+					<div class="xsmall_padding"></div>
+				</div>
 
-					<!--
+				<div class="col-md-5 droid_serif">
+					<!-- magnify place -->
+					<div class="magnifier-preview" id="preview1" style="width:400px; height: 400px; position: absolute"></div>
 
-					<div id="download_loader" class="row">
-						<div class="small_padding"></div>
-						<div class="col-sm-6"><p class="white">preparing your headshot for downloading..</p></div>
-						<div class="col-sm-6">
-						<img src="{% static 'logo/loading.svg' %}" width="60px">
+					<div class="mod_container">
+					<h3 class="bold zero_margin">Professional LinkedIn Headshot</h3>
+					<div class="small_padding"></div>
+
+					<div class="row">
+						<div class="col-xs-8"><p class="small_font zero_margin">Studio and freelancers:</p></div>
+						<div class="col-xs-4"><p class="small_font zero_margin"><del>$50</del></p></div>
+					</div>
+					<div class="row">
+						<div class="col-xs-8"><p class="small_font zero_margin bold">Bryte Price:</p></div>
+						<div class="col-xs-4"><p class="small_font zero_margin"><del>$9.99</del></p></div>
+					</div>
+					<div class="row">
+						<div class="col-xs-8"><p class="bold landing_text_main zero_margin"><span class="red">Bryte Special Offer:</span></p></div>
+						<div class="col-xs-4"><p class="red bold landing_text_main zero_margin">$4.99</p></div>
+					</div>
+					<div class="row">
+						<div class="col-xs-8"><p class="small_font zero_margin">You save:<p></div>
+						<div class="col-xs-4 small_font zero_margin red">$45.01 (90%)</div>
+					</div>
+					<p class="xsmall_font dark_grey">Bryte <span class="bold">Special Offer</span> only available for <span class="bold">two weeks</span> after the shoot</p>
+
+					<div class="xsmall_padding"></div>
+					<ul class="sm_font headshot_feature_b_list">
+						<div class="text_border">
+						<li class="bold italic red">Give the recruiter at your dream job a reason to look at your profile</li>
+						<ul class="sm_font headshot_feature_list bold">
+							<li>Recruiters look at hundreds of Linkedin profiles</li>
+							<li><span class="red">Recruiters spend an average of six seconds</span> looking at an online resume</li>
+						</ul>	
 						</div>
 						<div class="xsmall_padding"></div>
-					</div>
-					-->
-				</div>
-
-				<div class="col-sm-4">
-					<div class="small_padding"></div>
-					<h4 class="white text-center sm_font"><span class="big_font">Premium Touchup</span><br>with full size headshot</span></h4>
-					<div class="lightgallery deliverables text-center">
-						<a href="{{ premium.original_url }}"><img src="{{ premium.thumbnail_url }}" style="height: 200px!important" class="video_desc_border" /></a>
-					</div>
-					<div class="small_padding"></div>
-					<div class="text-center">
-						<button class="btn btn-blue bold" style="width:100%!important" id="premium_button" name='{{ premium.pk }}' data-url="{{ premium.thumbnail_url }}">Add to cart for $4.99</button>
-					</div>
-					<p class="white text-center xsmall_padding large_font">Normally priced: <del class="large_font">$9.99</del></p>
-					<ul class="white small_font">
-						<li><i class="fa fa-star" aria-hidden="true"></i> acne removal and natural skin smoothening</li>
-						<li><i class="fa fa-star" aria-hidden="true"></i> stray hair removal</li>
-						<li><i class="fa fa-star" aria-hidden="true"></i> natural teeth/eye whitening</li>
+						<div class="xsmall_padding"></div>
+						<li class="bold italic">Clear and bright lighting</li>
+						<ul class="sm_font headshot_feature_list">
+							<li>Brings out your features in a natural way</li>
+							<li>Backdrop is touched up to be more well-lit and smooth to help you stand out</li>
+						</ul>
+						<li class="bold italic">Cropping to overcome the small LinkedIn thumbnail</li>
+						<ul class="sm_font headshot_feature_list">
+							<li>Makes your face clearly visible in the small LinkedIn thumbnail</li>
+							<li>Personalized cropping for your headshot</li>
+						</ul>	
+						<li class="bold italic">Extra shine with touchup on every detail</li>
+						<ul class="sm_font headshot_feature_list">
+							<li>Acne and stray hair removal</li>
+							<li>Glare removal on glasses</li>
+						</ul>
+						<li class="bold italic">High Resolution</li>
+						<ul class="sm_font headshot_feature_list">
+							<li>High level of detail in all areas of image</li>
+							<li>2000+ x 2000+ pixels</li>
+						</ul>
 					</ul>
-				</div>
 
-				<div class="col-sm-4">
+
 					<div class="small_padding"></div>
-					<h4 class="white text-center sm_font"><span class="big_font">Standard Touchup</span><br>with full size headshot</h4>
-					<div class="lightgallery deliverables text-center">
-						<a href="{{ fullsize.original_url }}"><img src="{{ fullsize.thumbnail_url }}" style="height: 200px!important" class="video_desc_border" /></a>
-					</div>
+					<h3 class="bold small_padding">Standard LinkedIn Headshot</h3>
 					<div class="small_padding"></div>
-					<div class="text-center">
-						<button class="btn btn-blue bold" style="width:100%!important" id="fullsize_button" name='{{ fullsize.pk }}' data-url="{{ fullsize.thumbnail_url }}">Add to cart for $2.99</button>
+
+					<div class="row">
+						<div class="col-xs-2"><p class="bold zero_margin"><span class="">Price:</span></p></div>
+						<div class="col-xs-10"><p class="bold zero_margin">FREE</p></div>
 					</div>
-					<p class="white text-center xsmall_padding large_font">Normally priced: <del class="large_font">$6.99</del></p>
-				</div>
 
-			</div>
-							<!-- Change dropdown to button
-							<form class="" id="{{ headshot.pk }}_form">
+					<div class="xsmall_padding"></div>
+					<ul class="sm_font headshot_feature_b_list">
+						<li class="bold italic">Standard Resolution</li>
+						<ul class="sm_font headshot_feature_list headshot_feature_list_black_bullet">
+							<li>Standard level of detail in all areas of image</li>
+							<li>500 x 500 pixels</li>
+						</ul>
+					</ul>
 
-								<div class="xsmall_padding"></div>
-								<select class="form-control" id="{{ headshot.pk }}_select">
-									<option value="2.99" class="premium_touchup_option" id="{{ headshot.pk }}_premium_touchup_option" name="pt">Original Headshot + Premium Touchup - $2.99</option>
-									<option value="7.99" class="passport_option" id="{{ headshot.pk }}_passport_option" name='pp'>Passport Package - $7.99</option>
-								</select>
-								<input type="hidden" value="{{ headshot.thumbnail_url }}" id="{{ headshot.pk }}_thumbnail_url">
-								<div class="xsmall_padding"></div>
-
-								<div class="xsmall_padding"></div>
-
-								<div class="row">
-									<div class="col-xs-9">
-										<input type="text" id="{{ headshot.pk }}_request" placeholder="Type Special Requests" class="form-control">				
-										<input type="text" id="{{ headshot.pk }}_address" placeholder="Type your mailing address" class="form-control form_address" hidden>		
-									</div>	
-									<div class="col-xs-3">
-										<button type="submit" class="btn btn-default" id="{{ headshot.pk }}_add" name="photo_add">Add</button>
-									</div>	
-								</div>
-							</form>
-							-->
-				<a href="#notice"><h2 class="landing_title_third white bold text-center small_padding ">
-					See the rest of your headshots from shoot day below!
-				</h2>
-				</a>
-				<div class="small_padding"></div>
-				<h2 class="landing_title_third white bold top_border small_padding" id="notice"><span class="big_font">IMPORTANT:</span> If you want to buy touchup upgrades for the rest of your headshots from shoot day, click the dropdown menu under each headshot! Check the headshots at the top of this page to see examples of Basic and Premium Touchup. </h2>
-				<div class="small_padding"></div>
-				<p class="text-center white large_font">
-				Any questions? Email us at <a href="mailto:hello@brytephoto.com" target="_top" class="pink">hello@brytephoto.com</a> or call us at (248)-417-5852
-				</p>
-				<div class="small_padding"></div>
-				<div class="small_padding"></div>
-
-				<div class="lightgallery row">
-					{% for headshot in extra %}
-						<div class="col-sm-4 col-sm-offset-0 col-xs-10 col-xs-offset-1">
-						<div class=" deliverables">		
-							<a href="{{ headshot.original_url }}"><img src="{{ headshot.thumbnail_url }}" class="img-responsive video_desc_border" /></a>
+					<div class="small_padding"></div>
+					<div class="small_padding"></div>
+					<p>Choose your LinkedIn headshot:</p>
+					<div class="row">
+						<div class="col-xs-9">
+						<select class="form-control mm_height l_font red_bg white" style="width:100%!important" id="fav_select">
+							<option value="0" name="fh" data-description="Standard LinkedIn Headshot">Get LinkedIn Standard now</option>
+							<option selected value="4.99" name="pu" data-description="Professional LinkedIn Headshot">Get LinkedIn Professional now</option>
+						</select> 
 						</div>
-						<form class="" id="{{ headshot.pk }}_form">
-							<div class="xsmall_padding"></div>
-							<select class="form-control" id="{{ headshot.pk }}_select">
-								<option selected value="4.99" name="oh">Full Sized headshot - $4.99</option>
-								<option value="6.99" name="st" id="{{ headshot.pk }}_standard_touchup_option">Full Sized headshot with Standard Touchup - $6.99</option>
-								<option value="9.99" id="{{ headshot.pk }}_premium_touchup_option" name="pt">Full sized headshot with Premium Touchup - $9.99</option>
-								<option value="12.99" id="{{ headshot.pk }}_passport_option" name="pp">US Passport/Visa/IDs Package - $12.99</option>
-							</select>
-							<input type="hidden" value="{{ headshot.thumbnail_url }}" id="{{ headshot.pk }}_thumbnail_url">
-							<div class="xsmall_padding"></div>
-								<div class="row">
-									<div class="col-xs-9">
-										<input type="text" id="{{ headshot.pk }}_request" placeholder="Type Special Requests" required class="form-control form_request">				
-										<input type="text" id="{{ headshot.pk }}_address" placeholder="Type your mailing address" class="form-control form_address" required hidden>		
-									</div>	
-									<div class="col-xs-3">
-										<button type="submit" class="btn btn-default" id="{{ headshot.pk }}_add" name="photo_add">Add</button>
-									</div>	
-								</div>
-								<p class="xsmall_padding white small_font" id="{{ headshot.pk }}_standard_text" hidden>After you checkout we will touch up this headshot and email you the touched up version within 48 hours</p>
-								<p class="xsmall_padding white small_font" id="{{ headshot.pk }}_premium_text" hidden>After you checkout we will touch up this headshot and email you the touched up version within 48 hours</p>
-								<p class="xsmall_padding white small_font" id="{{ headshot.pk }}_passport_text" hidden>Special Note for passport request</p>
-						</form>
+						<div class="col-xs-3">
+						<button class="btn btn-checkout-white" id="fav_add" name="add">Add</button>
+						</div>
+					</div>
+					<div class="small_padding"></div>
+					<p class="zero_padding zero_margin"><span class="bold">Special offer</span> available until <span class="blue underline">date</span></p>
+					<p class="dark_grey xsmall_font italic">Watermark removed on all the headshots! Use your headshots however you'd like!</p>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+		<div class="large_padding"></div>
+
+
+	</div>
+		<div class="background_pink">
+			<div class="small_padding"></div>
+			<h2 class="bold text-center droid_serif zero_margin">Turn the rest of your photos from the shoot into headshots or portraits!</h2>
+			<div class="small_padding"></div>
+		</div>
+	<div class="">
+
+
+
+		<div class="mod_container">
+			
+	
+			<div class="small_padding"></div>
+			<div class="medium_padding"></div>
+
+			<div class="row">
+				<div class="col-md-3 mod_container">
+					<div class="text-center">
+						<h3 class="bold droid_serif">Before</h3>
+						<div class="small_padding"></div>
+						<img src="{{ raw_top.wt_url }}" class="headshot_border" width="250">
+						<p class="text-center droid_serif xsmall_padding">{{ raw_top.name }}</p>
+						<div class="small_padding"></div>
+					</div>
+				</div>
+				<div class="col-md-5 mod_container">
+
+					<div class="center_flex">
+					<h3 class="bold droid_serif">Extra Professional Headshot</h3>
+					<div class="small_padding"></div>
+					<a class="magnifier-thumb-wrapper"><img id="thumb3" src="{{ edited_fav.wt_url }}" height="200" class="headshot_border"></a>
+					<p class="text-center droid_serif xsmall_padding small_font">(We used your professional<br>LinkedIn headshot above as an example)</p>
+					</div>
+
 					<div class="medium_padding"></div>
+
+					<div class="center_flex">
+						<h3 class="bold droid_serif">Premium Portrait</h3>
+						<div class="small_padding"></div>
+						<a class="magnifier-thumb-wrapper"><img id="thumb4" src="{{ edited_portrait.wo_url }}" width='400' class="headshot_border"></a>
 					</div>
-				{% endfor %}
-			</div>		
-		
 
-		</div>
-
-		<div class="small_padding"></div>
-		<p class="white text-center">Have questions? Email us at <a href="mailto:hello@brytephoto.com" target="_top" class="pink">hello@brytephoto.com</a> or call us at (248)-417-5852</p>
-
-
-
-		<div class="container" id="checkout_cart">
-			<h2 class="landing_title_third white bold">My Cart</h2>
-			<span class="small_font light white">(if you want to remove anything from your cart, refresh the page, click continue when asked, and your cart will be cleared )</span>
-			<div class="small_padding"></div>
-			<div class="small_padding top_border"></div>
-
-
-
-			<ul id="checkout_detail" class="package_list">
-
-			</ul>
-			<div class="text-right">
-				<p class="white bold big_font large_padding">Total: $<span class="checkout_total_amount"></span></p>
-				<a href=""><button class="btn btn-blue checkout_button">Checkout</button></a>
-			</div>
-		</div>
-
-		<div class="medium_padding"></div>
-
-
-
-		<div class="medium_padding top_border"></div>
-
-	<!-- Pricing -->
-	<div class="container" id='landing_sales_pricing'>
-		<h2 class="text-center landing_title bold white">Bryte Offerings</h2>
-		<p class="xsmall_padding text-center white">Click on an offering to learn more about it</p>
-		<div class="medium_padding"></div>
-		<div class="row">
-			<div class="small_padding"></div>
-			<div class="row">
-				<div class="col-xs-10 col-xs-offset-1 price_list_card pricing_list background_white">
-					<div class="page-header small_margin zero_margin_bot">
-						<h4 class="bold red landing_text_main text-center">Linkedin Headshot with Standard Touchup</h4>
-					</div>
-					<p class="bold red landing_title_third text-center small_padding">FREE</p>
-					<ul>
-						<li>Digital copy of a headshot with standard touchup, already sized for Linkedin, on us!</li>
-						<li>500 x 500 pixels</li>
-					</ul>
+					<div class="xsmall_padding"></div>
 				</div>
-			</div>
-		</div>
+				<div class="col-md-4 droid_serif">
+				<!-- magnify place -->
+					<div class="magnifier-preview" id="preview2" style="width:350px; height:350px; position: absolute;"></div>
 
-		<div class="small_padding"></div>
+					<div class="mod_container">
+					<h2 class="bold medium_padding">Extra Professional Headshot</h2>
+					<div class="small_padding"></div>
 
-		<div class="row sm_font">
-			<div class="col-md-4">
 
-				<div class="small_padding"></div>
-				<div class="row">
-				<a href="{% url 'landing_sales' %}#original_headshot">
-					<div class="col-xs-10 col-xs-offset-1 price_list_card pricing_list background_white">
-						<div class="page-header small_margin zero_margin_bot">
-							<h4 class="bold red landing_text_main text-center">Full sized headshot</h4>
-						</div>
-						<p class="bold red landing_title_third text-center small_padding">$4.99</p>
-						<ul>
-							<li>Perfect for people who want to touchup their headshots themselves!</li>
-							<li>Receive a full sized digital copy (3000+ x 3000+ pixels) of a headshot you took at the shoot</li>
-							<li>Full sized digital copy</li>
-							<li>Headshot will be emailed to you within 24 hours</li>
-							<li>The headshot you buy will be exactly how it looks in the thumbnail, but will NOT include the Bryte logo on it</li>
+					<div class="row">
+						<div class="col-xs-8"><p class="small_font zero_margin">Studio and freelancers:</p></div>
+						<div class="col-xs-4"><p class="small_font zero_margin">$50+</p></div>
+					</div>
+					<div class="row">
+						<div class="col-xs-8"><p class="bold landing_text_main zero_margin"><span class="red">Bryte Price:</span></p></div>
+						<div class="col-xs-4"><p class="red bold landing_text_main zero_margin">$9.99</p></div>
+					</div>
+					<div class="row">
+						<div class="col-xs-8"><p class="small_font zero_margin">You save:<p></div>
+						<div class="col-xs-4 small_font zero_margin red">$40.01 (80%)</div>
+					</div>
+					<p class="xsmall_font dark_grey">Photos <span class="bold">only available</span> in our database for <span class="bold">two weeks</span> after the shoot</p>
+
+
+
+					<ul class="sm_font headshot_feature_b_list">
+						<li class="bold italic">Clear and bright lighting</li>
+						<ul class="sm_font headshot_feature_list">
+							<li>Brings out your features in a natural way</li>
+							<li>Backdrop is touched up to be more well-lit and smooth to help you stand out</li>
+							<li>Uniquely adjusted lighting on each Premium Headshot we touch up</li>
 						</ul>
-					</div>
-				</a>
-				</div>
-				<div class="small_padding"></div>
-			</div>
-
-			<div class="col-md-4">
-				<div class="small_padding"></div>
-				<div class="row">
-				<a href="{% url 'landing_sales' %}#standard_touchup">
-					<div class="col-xs-10 col-xs-offset-1 price_list_card pricing_list background_white">
-						<div class="page-header small_margin zero_margin_bot">
-							<h4 class="bold red landing_text_main text-center">Full sized headshot with Standard Touchup</h4>
-						</div>
-						<p class="bold red landing_title_third text-center small_padding">$6.99</p>
-						<ul>
-							<li>Touched up by a Bryte Photoshop Magician</li>
-							<li>Improved lighting on face, body and background</li>
-							<li>Backdrop you are in front will be extended horizontally</li>
-							<li>Glare will be removed on glasses</li>
-							<li>Headshot will be emailed to you within 48 hours</li>
-						</ul>
-					</div>
-				</a>
-				</div>
-			</div>
-
-			<div class="col-md-4">
-				<div class="small_padding"></div>
-				<div class="row">
-				<a href="{% url 'landing_sales' %}#premium_touchup">
-					<div class="col-xs-10 col-xs-offset-1 price_list_card pricing_list background_white">
-						<div class="page-header small_margin zero_margin_bot">
-							<h4 class="bold red landing_text_main text-center">Full sized headshot with Premium Touchup</h4>
-						</div>
-						<p class="bold red landing_title_third text-center small_padding">$9.99</p>
-						<ul>
-							<li>Everything in "Headshot with Standard Touchup"</li>
-							<li>Acne/Mole removal</li>
-							<li>We will take custom requests (within reason) at the time of purchase</li>
+						<li class="bold italic">Cropping to highlight you</li>
+						<ul class="sm_font headshot_feature_list">
+							<li>Emphasizes the clarity of your headshot</li>
+							<li>Personalized cropping for all of our headshots</li>
+						</ul>	
+						<li class="bold italic">Touchup on every detail</li>
+						<ul class="sm_font headshot_feature_list">
+							<li>Acne touchup</li>
 							<li>Stray hair removal</li>
-							<li>Natural skin smoothening</li>
-							<li>Natural teeth whitening</li>
-							<li>Natural Eye enhancement</li>
-							<li>Headshot will be emailed to you within 48 hours</li>
+							<li>Glare removal on glasses</li>
 						</ul>
-					</div>
-				</a>
-				</div>
-			</div>
-		</div>
-
-		<div class="small_padding"></div>
-
-		<div class="row">
-			<div class="small_padding"></div>
-			<div class="row">
-			<a href="{% url 'landing_sales' %}#passport_package">
-				<div class="col-xs-10 col-xs-offset-1 price_list_card pricing_list background_white">
-					<div class="page-header small_margin zero_margin_bot">
-						<h4 class="bold red landing_text_main text-center">US Passport/VISA/IDs Package</h4>
-					</div>
-					<p class="bold red landing_title_third text-center small_padding">$12.99</p>
-					<ul>
-						<li>Your headshot will undergo our Standard Touchup process, AND will be touched up and resized according to requirements specified by the US Department of State</li>
-						<li>6 2x2 glossy prints of the touched up headshot delivered to an address in the US</li>
-						<li>You’ll also be emailed 2 digital headshots:  the headshot with Standard touchup at it’s original size AND the headshot with Standard touchup at it’s 2x2 resized version</li>
-						<li>Touched up photos will be emailed to you within 48 hours of purchase.  Prints will be delivered within 1 week of purchase</li>
-						<li class="bold">Your headshot must be in front of a white backdrop, where you are not showing teeth, and your body is turned directly towards the camera</li>
+						<li class="bold italic">High Resolution</li>
+						<ul class="sm_font headshot_feature_list">
+							<li>High level of detail in all areas of image</li>
+							<li>2000+ x 2000+ pixels</li>
+						</ul>
 					</ul>
+					
+					<div class="magnifier-preview" id="preview3" style="width:350px; height:437.5px; position: absolute;"></div>
+
+					<div class="small_padding"></div>
+					<h2 class="bold medium_padding">Premium Portrait</h2>
+					<div class="small_padding"></div>
+
+
+					<div class="row">
+						<div class="col-xs-8"><p class="small_font zero_margin">Studio and freelancers:</p></div>
+						<div class="col-xs-4"><p class="small_font zero_margin">$200+</p></div>
+					</div>
+					<div class="row">
+						<div class="col-xs-8"><p class="bold landing_text_main zero_margin"><span class="red">Bryte Price:</span></p></div>
+						<div class="col-xs-4"><p class="red bold landing_text_main zero_margin">$15.99</p></div>
+					</div>
+					<div class="row">
+						<div class="col-xs-8"><p class="small_font zero_margin">You save:<p></div>
+						<div class="col-xs-4 small_font zero_margin red">$184.01 (92%)</div>
+					</div>
+					<p class="xsmall_font dark_grey">Photos <span class="bold">only available</span> in our database for <span class="bold">two weeks</span> after the shoot</p>
+
+
+					<ul class="sm_font headshot_feature_b_list">
+						<li class="bold italic">Clear and bright lighting</li>
+						<ul class="sm_font headshot_feature_list">
+							<li>Brings out your features in a natural way</li>
+							<li>Backdrop is touched up to be more well-lit and smooth to help you stand out</li>
+							<li>Uniquely adjusted lighting on each Premium Portrait we touch up</li>
+						</ul>
+						<li class="bold italic red">Enhanced backdrop</li>
+						<ul class="sm_font headshot_feature_list">
+							<li>Extended on both sides of your body</li>
+							<li>Improved and touched up color on the backdrop</li>
+						</ul>	
+						<li class="bold italic">Cropping to highlight you</li>
+						<ul class="sm_font headshot_feature_list">
+							<li>Emphasizes the clarity of your headshot</li>
+							<li>Personalized cropping for all of our headshots</li>
+						</ul>	
+						<li class="bold italic">Touchup on every detail</li>
+						<ul class="sm_font headshot_feature_list">
+							<li>Acne touchup</li>
+							<li>Stray hair removal</li>
+							<li>Glare removal on glasses</li>
+						</ul>
+						<li class="bold italic">High Resolution</li>
+						<ul class="sm_font headshot_feature_list">
+							<li>High level of detail in all areas of image</li>
+							<li>2000+ x 2000+ pixels</li>
+						</ul>
+					</ul>
+
+
+
+					<div class="small_padding"></div>
+					<select class="form-control sm_height l_font" style="width:100%!important" id="top_select">
+						<option value="9.99" name="ph" data-description="Extra Professional Headshot" selected>Extra Professional Headshot</option>
+						<option value="15.99" name="pp" data-description="Premium Portrait">Premium Portrait</option>
+					</select> 
+					<div class="small_padding"></div>
+					<button class="btn btn-checkout" id="top_add_button" name="add">Add to cart</button>
+
+					<div class="small_padding"></div>
+					<p class="zero_padding zero_margin"><span class="bold">Photos</span> available until <span class="blue underline">date</span></p>
+					<p class="dark_grey xsmall_font italic">Watermark removed on all the headshots! Use your headshots however you'd like!</p>
 				</div>
-			</a>
-			</div>
-		</div>
-	</div>
-
-	<div class="container">
-
-			<!-- table -->
-			<div class="large_padding"></div>
-			<h3 class="white text-center landing_title_third">Prices for a single headshot in the industry</h3>
-			<div class="small_padding"></div>
-			<div class="background_white">
-			<table class="table">
-			  <thead>
-			    <tr>
-			      <th></th>
-			      <th>Price</th>
-			      <th>On Location</th>
-			      <th>Touchup</th>
-			    </tr>
-			  </thead>
-			  <tbody>
-			    <tr class="landing_text_main bold red danger">
-			      <th scope="row">Bryte</th>
-			      <td>< $13</td>
-			      <td>Yes</td>
-			      <td>Yes</td>
-			    </tr>
-			    <tr class="landing_text">
-			      <th scope="row">JCPenney</th>
-			      <td>$49.99</td>
-			      <td>No</td>
-			      <td>No</td>
-			    </tr>
-			    <tr class="landing_text">
-			      <th scope="row">Photography Studios</th>
-			      <td>$50+</td>
-			      <td>Extra $</td>
-			      <td>No</td>
-			    </tr>
-			    <tr class="landing_text">
-			      <th scope="row">Freelancer</th>
-			      <td>$100+</td>
-			      <td>Extra $</td>
-			      <td>Extra $</td>
-			    </tr>
-			  </tbody>
-			</table>
+				</div>
 			</div>
 
 
-
-			<div class="large_padding"></div>			
-			<h3 class="white text-center landing_title_third bold">Testimonials</h3>
 			<div class="medium_padding"></div>
+			<div class="medium_padding red_top_border"></div>
+
 			<div class="row">
-				<div class="col-sm-3">
-					<p class="white landing_text">"I've been waiting for this forever"<br><br> – Mikaela G., Junior</p>
-				</div>
-				<div class="col-sm-3">
-					<p class="white landing_text">"It was really quick and professional. I felt really good about the photos."<br><br> – Matt C., Sophomore</p>
-				</div>
-				<div class="col-sm-3">
-					<p class="white landing_text">"Affordable, being a college student and I’m broke. But still very high quality."<br><br> – Travis F., Freshman</p>
-				</div>
-				<div class="col-sm-3">
-					<p class="white landing_text">"Simple and easy, and the pictures look great"<br><br> – Sam W., Freshman</p>
-				</div>
+			{% for extra in extras %}
+				<div class="col-md-4 col-sm-6 mod_container droid_serif">
+					<div>
+						<img src="{{ extra.wt_url }}" class="img-responsive headshot_border" id="{{ extra.pk }}_thumbnail">
+					</div>
+					<p class="text-center xsmall_padding">{{ extra.name }}</p>
+					<div class="xsmall_padding"></div>
+					<select class="form-control sm_height l_font" style="width:100%!important" id="{{ extra.pk }}_select">
+						<option selected value="9.99" name="ph" data-description="Extra Professional Headshot">Extra Professional Headshot - $9.99</option>
+						<option value="15.99" name="pp" data-description="Premium Portrait">Premium Portrait - $15.99</option>
+					</select> 			
+					<div class="xsmall_padding"></div>
+					<button class="btn btn-checkout" id="{{ extra.pk }}_add" name="add">Add to cart</button>
+					<div class="xsmall_padding"></div>
+					<p class="small_font dark_grey">Your headshot will be delivered via email within 48 hours</p>
+					<div class="medium_padding"></div>
+				</div>				
+			{% endfor %}
 			</div>
+
 			<div class="large_padding"></div>
-			<p class="white text-center">Have questions? Email us at <a href="mailto:hello@brytephoto.com" target="_top" class="pink">hello@brytephoto.com</a> or call us at (248)-417-5852</p>
-			<div class="medium_padding"></div>
 		</div>
-		{% endif %}
 
 	</div>
+	<!-- checkout -->
+	<div class="red_bg white checkout_cart">
+	<div class="container">
+		<div class="small_padding"></div>
+		<h2 class="landing_title_third bold white">My Cart</h2>
+		<span class="small_font">(if you want to remove anything from your cart, refresh the page, click continue when asked, and your cart will be cleared )</span>
+		<div class="small_padding"></div>
+		<div class="small_padding top_border"></div>
+
+
+
+		<ul class="checkout_detail" class="package_list">
+
+		</ul>
+		<div class="text-right">
+			<p class="bold big_font large_padding">Total: $<span class="checkout_total_amount"></span></p>
+			<a href=""><button class="btn btn-blue checkout_button">Checkout</button></a>
+		</div>
+		<div class="medium_padding"></div>
 	</div>
-
-
-
-
+	</div>
+	{% endif %}
 	<!-- modal -->
 	<a id="modal_link" href="#animatedModal" hidden></a>
 	<div id="animatedModal">
@@ -446,15 +496,16 @@
 	<div id="loader-wrapper" hidden>
 	  <div id="loader" class="text-center"><img src="{% static 'logo/loading.svg' %}" width="140px"></div>
 	</div>
+
 {% endblock %}
 
 {% block script %}
-  <script src="{% static 'js/lightgallery.js' %}"></script>
-  <script src="{% static 'js/lg-thumbnail.js' %}"></script>
-  <script src="{% static 'js/lg-fullscreen.js' %}"></script>
   <script src="https://checkout.stripe.com/checkout.js"></script>
   <script src="{% static 'js/animatedModal.min.js' %}"></script>
+  <script src="{% static 'js/Event.js' %}"></script>
+  <script src="{% static 'js/Magnifier.js' %}"></script>
 	<script type="text/javascript">
+		// cookies
 	  function getCookie(name) {
 	    var cookieValue = null;
 	    if (document.cookie && document.cookie != '') {
@@ -471,104 +522,39 @@
 	    return cookieValue;
 		}
 		var csrftoken = getCookie('csrftoken');
+		// magnifier
+			var evt = new Event(),
+	    m = new Magnifier(evt);
+			m.attach({
+			    thumb: '#thumb1',
+			    large: '{{ edited_fav.wo_url }}',
+			    largeWrapper: 'preview1',
+			    zoom: 1.8
+			});
+			m.attach({
+			    thumb: '#thumb2',
+			    large: '{{ raw_fav.wt_url }}',
+			    largeWrapper: 'preview1',
+			    zoom: 2.5
+			});
+			m.attach({
+			    thumb: '#thumb3',
+			    large: '{{ edited_fav.wo_url }}',
+			    largeWrapper: 'preview2',
+			    zoom: 2.5
+			});
+			m.attach({
+			    thumb: '#thumb4',
+			    large: '{{ edited_portrait.wo_url }}',
+			    largeWrapper: 'preview3',
+			    zoom: 2.5
+			});
 	</script>
 {% endblock %}
+
 {% block jquery %}
- 	
 	var total = 0;
-
 	var purchases = []
-
-
-	// download
-	$('#download_loader').hide();
-	$('#download_button').click(function(e){
-		// show loader
-		$('#loader-wrapper').show();
-		setTimeout(function(){
-			$('#loader-wrapper').hide();
-		}, 300); 
-
-		e.preventDefault();
-		$('#checkout_total').fadeIn(200)
-		$('.checkout_total_amount').html(total.toFixed(2));
-
-		thumbnail_url = $('#download_button').attr('data-url')
-    checkout_html = '<li class="row"><div class="col-xs-6"><img src="' + thumbnail_url + '" style="height:120px!important" class="video_desc_border"></div><div class="col-xs-6 white text-center"><p>Full Size with Standard touchup - FREE</p></div></li>';
-    $('#checkout_detail').append(checkout_html);
-    $('#checkout_cart').fadeIn(200);
-
-		purchases.push({
-    	'img_id': $('#download_button').attr('name'),
-    	'option': 'oh',
-    	'value': 0,
-		})
-	});
-
-
-	// fullsize and premium
-	$('#fullsize_button').click(function(e){
-		// show loader
-		$('#loader-wrapper').show();
-		setTimeout(function(){
-			$('#loader-wrapper').hide();
-		}, 300);
-
-		purchases.push({
-    	'img_id': $('#fullsize_button').attr('name'),
-    	'option': 'st',
-    	'value': 2.99,
-		})
-		total = total + 2.99;
-    if($('#checkout_total').is(":hidden")){
-    	$('#checkout_total').fadeIn(200)
-    }
-    $('.checkout_total_amount').html(total.toFixed(2));
-
-    thumbnail_url = $('#fullsize_button').attr('data-url')
-    checkout_html = '<li class="row"><div class="col-xs-6"><img src="' + thumbnail_url + '" style="height:120px!important" class="video_desc_border"></div><div class="col-xs-6 white text-center"><p>Full Size with Standard touchup - <del>$6.99</del> $2.99</p></div></li>';
-
-		$('#checkout_detail').append(checkout_html);
-		$('#checkout_cart').fadeIn(200);
-    e.preventDefault();
-	});
-
-	$('#premium_button').click(function(e){
-		// show loader
-		$('#loader-wrapper').show();
-		setTimeout(function(){
-			$('#loader-wrapper').hide();
-		}, 300);
-		purchases.push({
-    	'img_id': $('#premium_button').attr('name'),
-    	'option': 'pt',
-    	'value': 4.99,
-		})
-		total = total + 4.99;
-    if($('#checkout_total').is(":hidden")){
-    	$('#checkout_total').fadeIn(200)
-    }
-    $('.checkout_total_amount').html(total.toFixed(2));
-
-    thumbnail_url = $('#fullsize_button').attr('data-url')
-    checkout_html = '<li class="row"><div class="col-xs-6"><img src="' + thumbnail_url + '" style="height:120px!important" class="video_desc_border"></div><div class="col-xs-6 white text-center"><p>Full Size with Premium touchup - <del>$9.99</del> $4.99</p></div></li>';
-
-		$('#checkout_detail').append(checkout_html);
-		$('#checkout_cart').fadeIn(200);
-    e.preventDefault();
-	});
-
-
-
-
-
-	$(document).ready(function(event, xhr, settings) {
-		var $gallery = $('.deliverables');
-		$gallery.lightGallery({
-			thumbnail: true,
-		})
-	});
-
   // modal 
   $("#modal_link").animatedModal({
     animatedIn: 'zoomInUp',
@@ -584,69 +570,59 @@
     $("#loader-wrapper").hide();
   });
 
-	$('#checkout_total').hide();
-	$('#checkout_cart').hide();
-	$('.form_address').hide();
-	$('.form_request').hide();
+	$('.checkout_cart').hide();
 
 	// show form
-	$('select').on('change', function(e){
-		var select_id = e.target.id;
-		var pk = select_id.split('_')[0];
-		pt_id = '#' + pk + '_premium_touchup_option';
-		pp_id = '#' + pk + '_passport_option';
-		st_id = '#' + pk + '_standard_touchup_option';
-		addr_id = '#' + pk + '_address';
-		req_id = '#' + pk + '_request';
-		standard_text = '#' + pk + '_standard_text';
-		premium_text = '#' + pk + '_premium_text';
-		passport_text = '#' + pk + '_passport_text';
-
-		if($(st_id).is(':selected')){
-			$(standard_text).fadeIn(200)
-		}
-		else{
-			$(standard_text).fadeOut(200);
-		}
-
-		if($(pt_id).is(':selected')){
-			$(req_id).fadeIn(200);
-			$(premium_text).fadeIn(200);
-		}
-		else{
-			$(req_id).fadeOut(200);
-			$(req_id).val('');
-			$(premium_text).fadeOut(200);
-		}
-		if($(pp_id).is(':selected')){
-			$(addr_id).fadeIn(200);
-			$(passport_text).fadeIn(200);
-		}
-		else{
-			$(addr_id).fadeOut(200);
-			$(addr_id).val('');
-			$(passport_text).fadeOut(200);
-		}
-	})
-
-	$("button[name=photo_add]").click(function(e){
+	$("button[name=add]").click(function(e){
 		e.preventDefault();
-
 		// show loader
 		$('#loader-wrapper').show();
 		setTimeout(function(){
 			$('#loader-wrapper').hide();
 		}, 300);
 
-    var idClicked = e.target.id;
-    var pk = idClicked.split('_')[0];
-    thumbnail_id = '#' + pk + '_thumbnail_url';
-    thumbnail_url = $(thumbnail_id).val();
-    select_id = '#' + pk + '_select';
-    option_val = $(select_id).find(':selected').val();
-    option_text = $(select_id).find(':selected').text();
-    option_name = $(select_id).find(':selected').attr('name');
+		var $select;
+		var id = e.target.id;
+		var thumbnail='';
+		var pk;
 
+		if(id=='fav_add'){
+			$select = $('#fav_select');
+			if($select.find(':selected').attr('name')=='fh'){
+				thumbnail='{{ raw_fav.wt_url }}';
+				pk='{{ raw_fav.pk }}';
+			}
+			if($select.find(':selected').attr('name')=='pu'){
+				thumbnail='{{ edited_fav.wt_url }}';
+				pk='{{ edited_fav.pk }}';
+			}
+		} 
+		else if(id=='top_add_button'){
+			$select = $('#top_select');
+			if($select.find(':selected').attr('name')=='ph'){
+				thumbnail='{{ edited_top.wt_url }}';
+				pk='{{ edited_top.pk }}';
+			}
+			if($select.find(':selected').attr('name')=='pp'){
+				thumbnail='{{ edited_portrait.wt_url }}';
+				pk='{{ edited_portrait.pk }}';
+			}		
+		}
+		else{
+			pk = id.split('_')[0];
+			select_id = '#'+pk+'_select';
+			$select = $(select_id);
+			thumbnail_id='#'+pk+'_thumbnail';
+			thumbnail = $(thumbnail_id).attr('src');
+		}
+
+
+    option_val = $select.find(':selected').val();
+    option_text = $select.find(':selected').data('description');
+    option_name = $select.find(':selected').attr('name');
+
+
+    console.log(thumbnail);
 
     var purchase = {
     	'img_id': pk,
@@ -655,6 +631,7 @@
     };
     purchases.push(purchase);
 
+    console.log(purchases);
     // update the total
 
     total = total + parseFloat(option_val);
@@ -663,41 +640,11 @@
     }
     $('.checkout_total_amount').html(total.toFixed(2));
 
+    checkout_html = '<li class="row"><div class="col-xs-6"><img src="' + thumbnail + '" style="height:120px!important" class="video_desc_border"><div class="xsmall_padding small_font"><p>(When we email you your headshot, it will have the watermark removed and will include any touchup processes that you have purchased)</p></div></div><div class="col-xs-6 text-center"><p>' + option_text + '<br>$' + option_val + '</p></div></li>';
 
-    // get the addr and req
-		addr_id = '#' + pk + '_address';
-		req_id = '#' + pk + '_request';
-		special_checkout_html = '';
-
-
-    if($(addr_id).val()){
-    	special_checkout_html = '<div class="col-xs-6 white text-center"><p>Mailing Address: ' + $(addr_id).val() + '</p></div>';
-    	
-
-    	// add to the data
-    	purchase['address'] = $(addr_id).val();
-    	$(addr_id).val('');
-    }
-    if($(req_id).val()){
-    	special_checkout_html = '<div class="col-xs-6 white text-center"><p>Special Requests: ' + $(req_id).val() + '</p></div>';
-
-  
-    	// add to the data
-    	purchase['request'] = $(req_id).val();
-    	$(req_id).val('');
-    }
-
-    
-    checkout_html = '<li class="row"><div class="col-xs-6"><img src="' + thumbnail_url + '" style="height:120px!important" class="video_desc_border"><div class="xsmall_padding small_font"><p class="white">(When we email you your headshot, it will have the watermark removed and will include any touchup processes that you have purchased)</p></div></div><div class="col-xs-6 white text-center"><p>' + option_text + '</p></div>'+ special_checkout_html +'</li>';
-
-		$('#checkout_detail').append(checkout_html);
-		$('#checkout_cart').fadeIn(200);
-		//console.log(purchases);
-	});
-
-
-
-
+		$('.checkout_detail').append(checkout_html);
+		$('.checkout_cart').fadeIn(200);
+	})
 	// all ajax
 
   var csrftoken = getCookie('csrftoken');
@@ -715,9 +662,6 @@
           }
       }
   });
-
-  
-
   var handler = StripeCheckout.configure({
   	
     key: '{{ publish_key }}',
@@ -757,7 +701,7 @@
 	  		type: 'POST',
 	  		data: {
 	  			is_download: true,
-	  			pk: $('#download_button').attr('name'),
+	  			pk: '{{ raw_fav.pk }}',
 	  		},
 	      success: function(data){
 	        $("#modal_content").html(data['msg']);
@@ -785,11 +729,8 @@
     $('#loader-wrapper').hide();
   });
 
-
-  // sample see more
-  $('#sample_see_more_button').click(function(){
-  	$('#sample_see_more').fadeOut(200);
-  	$('#more_samples').fadeIn(500);
-  });
+  $(".close").click(function(){
+  	$('#loader-wrapper').hide();
+  })
 
 {% endblock %}

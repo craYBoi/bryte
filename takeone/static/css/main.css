@@ -503,11 +503,6 @@ h1,h2,h3,h4 {
 	margin-right: auto;
 }
 
-.width_offset_bg{
-	width: 700px;
-	margin-left: auto;
-	margin-right: auto;
-}
 
 
 
@@ -1376,6 +1371,7 @@ h1,h2,h3,h4 {
 .background_grey {
 	background-color: #fafafa;
 }
+
 
 .background_lki {
 	background-color: #e7e7e7;

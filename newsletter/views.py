@@ -354,7 +354,7 @@ def test_retrieve(request):
 			print request.POST
 			# just for the single download
 			if request.POST.get('is_download'):
-				link = ''
+				copied = False
 				pk = request.POST.get('pk')
 				try:
 					img = get_object_or_404(HeadshotImage, pk=pk)
@@ -364,27 +364,24 @@ def test_retrieve(request):
 				else:	
 					data['msg'] = 'Congratulations on your free Linkedin headshot!  You will receive it via email shortly.'
 					# send the email
-					link = img.copy_to_upgrade(deliverable=True)
+					copied = img.copy_to_upgrade()
 
-					if link:
-						img.book.dropbox_delivery_email(link)
-					else:
-						print 'Upgrade Link is None'
+					img.book.dropbox_delivery_email()
+					is_delivered = True
 
 					try:
 						ImagePurchase.objects.create(
 							image=img,
-							option='oh',
+							option='',
 							value='0',
 							email=img.book.email,
 							charge_successful=True,
-							is_delivered=True,
+							is_delivered=is_delivered,
+							is_copied=copied,
 						)
 					except Exception, e:
-						print 'create purchase instance fail'
-						raise e
+						print '[Failed] Create download instance'
 
-					print 'send the email'
 				return HttpResponse(json.dumps(data), content_type='application/json')
 
 
@@ -431,98 +428,75 @@ def test_retrieve(request):
 					special_note = ''
 
 					img = get_object_or_404(HeadshotImage, pk=purchase.get('img_id'))
-					if img.is_fullsize or img.is_premium or img.is_deliverable:
+					if img.is_fav or img.is_top or img.is_portrait:
 						special_note = 'Expect to receive your headshot via email right away'
 					else:
 						special_note = 'Expect to receive your headshot via email within 48 hours.'
 
 					option=purchase.get('option')
 					option_text = ''
-					if option == 'oh':
-						option_text = 'Full Size Headshot'
-					elif option == 'st':
-						option_text = 'Full Size Headshot with Standard Touchup'
-					elif option == 'pt':
-						option_text = 'Full Size Headshot with Premium Touchup'
+					if option == 'fh':
+						option_text = 'Free Standard LinkedIn headshot'
+					elif option == 'pu':
+						option_text = 'Professional LinkedIn headshot'
+					elif option == 'ph':
+						option_text = 'Extra Professional Headshot'
 					elif option == 'pp':
-						option_text = 'Passport/VISA/IDs Package'
+						option_text = 'Premium Portrait'
 
 					value=purchase.get('value')
-					address=purchase.get('address')
-					request=purchase.get('request')
 
-					# special note for passport
-					if option == 'pp' and address:
-						special_note += '<br>Expect your physical prints to be delivered within one week.<br>Address: ' + address
 
 					confirmation_content += '1 ' + option_text + ' ---------------- $' + str(value) + '<br>' + special_note + '<br><br>'
 
 				# send it
 				img.book.upgrade_confirmation_email(confirmation_content)
 
-				# upgrade path link
-				link = ''
+
 
 				# top headshots delivery
+				ips = []
 				for purchase in purchases:
+					# is_copied
+					copied = False
 					# find the Image intance first
 					try:
 						img = get_object_or_404(HeadshotImage, pk=purchase.get('img_id'))
 					except Exception, e:
 						raise e
 					else:
-						is_delivered = False
-						# send the email as a method of Purchase
-						# for fullsize
-						if img.is_fullsize:
-							try:
-								link = img.copy_to_upgrade(fullsize=True)
-							except Exception, e:
-								pass
-							else:
-								is_delivered = True
-
-						# for premium
-						if img.is_premium:
-							try:
-								link = img.copy_to_upgrade(premium=True)
-							except Exception, e:
-								pass
-							else:
-								is_delivered = True
-
-						# for deliverable
-						if img.is_deliverable:
-							try:
-								link = img.copy_to_upgrade(deliverable=True)
-							except Exception, e:
-								pass
-							else:
-								is_delivered = True
+						try:
+							copied = img.copy_to_upgrade()
+						except Exception, e:
+							# change later
+							print '[FAILED] Copy To Upgrade'
 
 						try:
-							ImagePurchase.objects.create(
+							ip = ImagePurchase.objects.create(
 								image=img,
 								option=purchase.get('option'),
 								value=purchase.get('value'),
 								email=img.book.email,
-								address=purchase.get('address'),
-								request=purchase.get('request'),
 								charge_successful=charge_successful,
-								is_delivered=is_delivered,
+								is_delivered=False,
+								is_copied=copied,
 							)
 
 						except Exception, e:
-							print 'create purchase fail'
-							raise e
+							print '[FAILED] Create purchase instance'
 						else:
-							print 'create successfully'
+							ips.append(ip)
+							print '[SUCCESS] Create purchase instance'
 
-				# send one email to upgrade link
-				if link:
-					img.book.dropbox_delivery_email(link)
-				else:
-					print 'Upgrade link is None'
+				# only send one delivery email
+				# is_delivered not true when cannot be delivered right away, extra photos
+				if img.book.dropbox_delivery_email():
+					for ip in ips:
+						img = ip.image
+						if img.is_fav or img.is_top or img.is_portrait:
+							ip.is_delivered = True
+							ip.save()
+
 
 
 			return HttpResponse(json.dumps(data), content_type='application/json')
@@ -538,10 +512,14 @@ def test_retrieve(request):
 			else:
 				# break down the deliverable, premium and fullsize
 				if headshots:
-					context['deliverable'] = [hs for hs in headshots if hs.is_deliverable][0]
-					context['premium'] = [hs for hs in headshots if hs.is_premium and hs.is_watermarked][0]
-					context['fullsize'] = [hs for hs in headshots if hs.is_fullsize and hs.is_watermarked][0]
-					context['extra'] = [hs for hs in headshots if hs.is_extra()]
+					context['booking'] = b
+					context['headshots'] = headshots
+					context['raw_fav'] = [hs for hs in headshots if hs.is_raw and hs.is_fav][0]
+					context['edited_fav'] = [hs for hs in headshots if hs.is_fav and not hs.is_raw][0]
+					context['raw_top'] = [hs for hs in headshots if hs.is_top and hs.is_raw][0]
+					# context['edited_top'] = [hs for hs in headshots if hs.is_top and not hs.is_raw][0]
+					context['edited_portrait'] = [hs for hs in headshots if hs.is_portrait][0]
+					context['extras'] = [hs for hs in headshots if not hs.is_fav and not hs.is_top and not hs.is_portrait and hs.is_raw]
 				else:
 					context['msg'] = 'Your headshots are not ready yet! They should be good to go soon!'
 
