@@ -8,7 +8,7 @@ class NextshootAdmin(ImportExportModelAdmin):
 	list_display = ['id', 'photographer', 'location', 'school', 'name' ,'timestamp']
 
 class BookingAdmin(ImportExportModelAdmin):
-	list_display = ['id', 'email', 'name', 'timeslot', 'hash_id', 'dropbox_folder', 'show_up', 'timestamp']
+	list_display = ['id', 'email', 'name', 'timeslot', 'hash_id', 'dropbox_folder', 'upgrade_folder_path', 'show_up', 'timestamp']
 
 class TimeslotAdmin(admin.ModelAdmin):
 	list_display = ['id', 'time', 'shoot','current_volumn']
@@ -16,11 +16,11 @@ class TimeslotAdmin(admin.ModelAdmin):
 class SignupAdmin(admin.ModelAdmin):
 	list_display = ['id', 'email', 'name','notified', 'shoot', 'timestamp']
 
-class HeadshotImageAdmin(admin.ModelAdmin):
-	list_display = ['id', 'book', 'name', 'is_watermarked', 'is_deliverable','is_fullsize','is_premium', 'original_url', 'thumbnail_url']
+class HeadshotImageAdmin(ImportExportModelAdmin):
+	list_display = ['id', 'book', 'name', 'is_raw', 'is_fav','is_top','is_portrait', 'o_url', 'wt_url', 'wo_url']
 
-class ImagePurchaseAdmin(admin.ModelAdmin):
-	list_display = ['id', 'image', 'email','option', 'value', 'address', 'request', 'charge_successful','is_delivered', 'timestamp']
+class ImagePurchaseAdmin(ImportExportModelAdmin):
+	list_display = ['id', 'image', 'email','option', 'value', 'charge_successful','is_delivered', 'is_copied', 'timestamp']
 
 
 admin.site.register(Timeslot, TimeslotAdmin)
