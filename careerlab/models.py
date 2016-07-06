@@ -189,12 +189,12 @@ class Nextshoot(models.Model):
 		print str(count) + ' people showed up!'
 
 
-	def create_images(self, deliverable=False, watermarked=False, premium=False, fullsize=False):
+	def create_images(self, raw=False, edited=False, fav=False, top=False, portrait=False, all=False):
 		bookings = [e for elem in self.timeslot_set.filter(active=True) for e in elem.booking_set.filter(show_up=True)]
 
 		for booking in bookings:
 			# this already handles the empty folder
-			booking.create_image(deliverable=deliverable, watermarked=watermarked, premium=premium, fullsize=fullsize)
+			booking.create_image(raw=raw, edited=edited, fav=fav, top=top, portrait=portrait, all=all)
 
 
 class Signup(models.Model):
