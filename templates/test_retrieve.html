@@ -18,6 +18,7 @@
 			<form method="POST" action="{% url 'landing_retrieve1' %}" class="form-inline">{% csrf_token %}
 				<label class="large_font">Enter your Unique ID: </label> <input type="text" name="retrieve_search" id="retrieve_search" class="form-control mm_height large_font helvetica" required placeholder="your 6-digit photo retrieval ID" onchange="try{setCustomValidity('')}catch(e){}" style="width:300px">
 					<button class="btn btn-white-lg" id="retrieve_search_button" type="submit">Submit</button>
+					<button class="btn btn-white-lg" id="retrieve_search_button_invis" type="submit" hidden style="display:none">Submit</button>
 			</form>
 			</div>
 			<div class="small_padding"></div>
@@ -29,11 +30,11 @@
 			<div class="container">
 			<div class="small_padding"></div>
 
-			<h3 class="bold text-center">On average, recruiters spend only 6 seconds looking at an online resume.</h3>
-			<p class="xsmall_padding text-center">Guess what they look at on <span class="blue bold">Linkedin</span>? Your name, current job, and <span class="red bold">Linkedin Headshot</span>.</p>
+			<h2 class="bold text-center">Recruiters spend a lot of time looking at your Linkedin headshot! And, on average, they spend 6 seconds looking at your resume total!</h2>
+
 			<div class="medium_padding"></div>
 
-			<p class="text-center bold large_font"><span class="red">This is a Linkedin Profile</span>. <span class="red">Red</span> is where recruiters are <span class="red">looking a lot</span>.</p>
+			<p class="text-center bold">This is a Linkedin Profile. <span class="red">The red spots are where recruiters are looking a lot</span>.</p>
 
 			<div class="center_flex">
 				<img src="{% static 'img/heatmap.png' %}" class="img-responsive">
@@ -183,7 +184,7 @@
 						<li class="bold italic red">Give the recruiter at your dream job a reason to look at your profile</li>
 						<ul class="sm_font headshot_feature_list bold">
 							<li>Recruiters look at hundreds of Linkedin profiles</li>
-							<li><span class="red">Recruiters spend an average of six seconds</span> looking at an online resume</li>
+							<li><span class="red">Recruiters spend a lot of time looking at your Linkedin headshot!</span> And, on average, they spend 6 seconds looking at your resume total!</li>
 						</ul>	
 						</div>
 						<div class="xsmall_padding"></div>
@@ -547,6 +548,19 @@
 {% block jquery %}
 	var total = 0;
 	var purchases = []
+
+
+	// enter id
+	$('#retrieve_search_button').on('click', function(e){
+		e.preventDefault();
+		console.log('asd');
+		$('#loader-wrapper').show();
+		setTimeout(function(){
+			$('#loader-wrapper').hide();
+			$('#retrieve_search_button_invis').trigger('click');
+		}, 6000);
+	});
+
   // modal 
   $("#modal_link").animatedModal({
     animatedIn: 'zoomInUp',

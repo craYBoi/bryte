@@ -911,7 +911,7 @@ class HeadshotImage(models.Model):
 					files = dbx.files_list_folder(path).entries
 				except Exception, e:
 					print '[FAILED][RAW FAV] ' + self.name + ' list folder failed'
-					raise e
+					# raise e
 				else:
 					assert len(files)==1, 'RAW FAV does not have 1 item!'
 					file = files[0]
@@ -931,7 +931,7 @@ class HeadshotImage(models.Model):
 					files = dbx.files_list_folder(path).entries
 				except Exception, e:
 					print '[FAILED][RAW ALL] ' + self.name + ' list folder failed'
-					raise e
+					# raise e
 				else:
 					# trick
 					file_name, file_ext = os.path.splitext(self.name)
@@ -956,7 +956,7 @@ class HeadshotImage(models.Model):
 					files = dbx.files_list_folder(path).entries
 				except Exception, e:
 					print '[FAILED][EDITED FAV] ' + self.name + ' list folder failed'
-					raise e
+					# raise e
 				else:
 					assert len(files)==1, 'EDITED FAV does not have 1 item!'
 					file = files[0]
@@ -973,7 +973,7 @@ class HeadshotImage(models.Model):
 					files = dbx.files_list_folder(path).entries
 				except Exception, e:
 					print '[FAILED][EDITED TOP] ' + self.name + ' list folder failed'
-					raise e
+					# raise e
 				else:
 					assert len(files)==1, 'EDITED TOP does not have 1 item!'
 					file = files[0]
@@ -990,7 +990,7 @@ class HeadshotImage(models.Model):
 					files = dbx.files_list_folder(path).entries
 				except Exception, e:
 					print '[FAILED][EDITED PORTRAIT] ' + self.name + ' list folder failed'
-					raise e
+					# raise e
 				else:
 					assert len(files)==1, 'EDITED PORTRAIT does not have 1 item!'
 					file = files[0]
