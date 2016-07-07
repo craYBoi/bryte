@@ -1,5 +1,6 @@
 {% load staticfiles %}
 <!-- navbar-fixed-top navbar-default-->
+{% if not myheadshot %}
 {% if is_index %}
   <nav class="navbar navbar-default" id="main_nav">
 {% elif is_contact %}
@@ -11,6 +12,9 @@
 {% else %}
   <nav class="navbar navbar-default navbar_grey navbar_border" id="main_nav">
 {% endif %}
+
+
+  
 
 <!--style="background: url({% static 'img/nav.jpg' %}) no-repeat center; background-size: cover;"-->
   <div class="">
@@ -59,3 +63,4 @@
 </nav>
 
 
+{% endif %}
