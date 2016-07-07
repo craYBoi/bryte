@@ -16,7 +16,7 @@
 			<div class="small_padding"></div>
 			<div class="text-center">
 			<form method="POST" action="{% url 'landing_retrieve1' %}" class="form-inline">{% csrf_token %}
-				<label class="large_font">Enter your Unique ID: </label> <input type="text" name="retrieve_search" id="retrieve_search" class="form-control mm_height large_font helvetica" required placeholder="your 6-digit photo retrieval ID" onchange="try{setCustomValidity('')}catch(e){}" style="width:300px">
+				<input type="text" name="retrieve_search" id="retrieve_search" class="form-control mm_height large_font helvetica" required placeholder="Enter your Unique ID" onchange="try{setCustomValidity('')}catch(e){}" style="width:300px">
 					<button class="btn btn-white-lg" id="retrieve_search_button" type="submit">Submit</button>
 					<button class="btn btn-white-lg" id="retrieve_search_button_invis" type="submit" hidden style="display:none">Submit</button>
 			</form>
@@ -28,7 +28,6 @@
 			{% endif %}
 
 			<div class="container">
-			<div class="small_padding"></div>
 
 			<h2 class="bold text-center">Recruiters spend a lot of time looking at your Linkedin headshot! And, on average, they spend 6 seconds looking at your resume total!</h2>
 
