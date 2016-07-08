@@ -52,11 +52,11 @@ urlpatterns = [
     url(r'^book/', include('book.urls')),
 
     # careerlab
-    url(r'^CareerLAB/', include('careerlab.urls')),
-    url(r'^Careerlab/', include('careerlab.urls')),
-    url(r'^careerlab/', include('careerlab.urls')),
-    url(r'^RIC/', include('careerlab.urls')),
-    url(r'^ric/', include('careerlab.urls')),
+    url(r'^school/', include('careerlab.urls')),
+    # url(r'^Careerlab/', include('careerlab.urls')),
+    # url(r'^careerlab/', include('careerlab.urls')),
+    # url(r'^RIC/', include('careerlab.urls')),
+    # url(r'^ric/', include('careerlab.urls')),
 
     # reserve
     url(r'^reserve/', include('reserve.urls')),

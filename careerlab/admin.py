@@ -5,13 +5,13 @@ from import_export.admin import ImportExportModelAdmin
 from .models import Timeslot, Booking, Signup, Nextshoot, HeadshotImage, ImagePurchase
 
 class NextshootAdmin(ImportExportModelAdmin):
-	list_display = ['id', 'photographer', 'location', 'school', 'name' ,'timestamp']
+	list_display = ['id', 'photographer', 'location', 'school', 'active', 'name' ,'timestamp']
 
 class BookingAdmin(ImportExportModelAdmin):
 	list_display = ['id', 'email', 'name', 'timeslot', 'hash_id', 'dropbox_folder', 'upgrade_folder_path', 'show_up', 'timestamp']
 
 class TimeslotAdmin(admin.ModelAdmin):
-	list_display = ['id', 'time', 'shoot','current_volumn', 'active', 'is_available']
+	list_display = ['id', 'time', 'shoot','current_volumn', 'is_available']
 
 class SignupAdmin(admin.ModelAdmin):
 	list_display = ['id', 'email', 'name','notified', 'shoot', 'timestamp']

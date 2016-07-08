@@ -10,4 +10,5 @@ urlpatterns = [
 	url(r'^cancel$', cancel_order, name='careerlab_cancel_order'),
 	url(r'^tips$', tips, name='careerlab_tips'),
 	url(r'^pay$', pay, name='careerlab_pay'),
+	url(r'^(?P<school>[a-zA-Z]*)/$', index, name='careerlab_index'),
 ]

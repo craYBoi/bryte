@@ -18,8 +18,10 @@ from careerlab.models import Booking, ImagePurchase, HeadshotImage
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
+
 # Create your views here.
 def home(request):
+
 	form = SignUpForm(request.POST or None)
 	if form.is_valid():
 		instance = form.save(commit=False)

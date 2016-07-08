@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import Http404, HttpResponse
 from django.core.mail import send_mail
 from django.conf import settings
+from django.contrib.staticfiles.templatetags.staticfiles import static
 
 from .models import Timeslot, Booking, Signup, Nextshoot
 
@@ -10,20 +11,89 @@ import stripe
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
+# School url definition
+# brown -> Brown University
+# ric -> Rhode Island College
+# bu -> Boston University
+# bc -> Boston College
+# ccri -> Community College of Rhode Island
+
 
 def index(request, school='brown'):
-	title = 'Bryte Photo & CareerLab Brown University headshot'
-	next_shoot = Nextshoot.objects.first()
-	timeslots = next_shoot.timeslot_set.filter(is_available=True, active=True).order_by('time')
+
+	context = {
+		'brown_careerlab': 1,
+	}
+	timeslots = ''
+	nextshoot = ''
+	title = ''
+	bg_url = ''
+	logo_url = ''
+	school_name = ''
+	school_url = ''
+
+	# view logic for different schools here
+	# filter by the school name and pick the first
+	if school == 'brown':
+		title = 'Bryte Photo & CareerLab Brown University Headshot'
+		nextshoot = Nextshoot.objects.filter(school='Brown University')
+		bg_url = static('img/brown_campus.jpg')
+		logo_url = static('logo/brown_logo.png')
+		school_name = 'Brown University CareerLAB'
+		school_url = 'http://www.brown.edu'
+		if nextshoot:
+			nextshoot = nextshoot[0]
+			timeslots = nextshoot.timeslot_set.filter(is_available=True).order_by('time')	
+		else:
+			raise Http404
+
+
+	elif school == 'ccri':
+		title = 'Bryte Photo & Community College of Rhode Island Headshot'
+		bg_url = static('img/ccri/bg.jpg')
+		logo_url = static('img/ccri/logo.png')
+		school_name = 'Community College of Rhode Island'
+		school_url = 'http://www.ccri.edu'
+		nextshoot = Nextshoot.objects.filter(school='Community College of Rhode Island')
+		if nextshoot:
+			nextshoot = nextshoot[0]
+			timeslots = nextshoot.timeslot_set.filter(is_available=True).order_by('time')	
+		else:
+			raise Http404
+
+	elif school == 'bu':
+		title = 'Bryte Photo & Boston University of Rhode Island Headshot'
+		bg_url = static('img/ccri/bg.jpg')
+		logo_url = static('img/ccri/logo.png')
+		school_name = 'Boston University'
+		school_url = 'http://www.ccri.edu'
+		nextshoot = Nextshoot.objects.filter(school='Boston University')
+		if nextshoot:
+			nextshoot = nextshoot[0]
+			timeslots = nextshoot.timeslot_set.filter(is_available=True).order_by('time')	
+		else:
+			raise Http404
+
+
+
+	else:
+		raise Http404
+
+
+	context['title_text'] = title
+	context['timeslots'] = timeslots
+	context['next_shoot'] = nextshoot
+	context['logo_url'] = logo_url
+	context['bg_url'] = bg_url
+	context['school_url'] = school_url
+	context['school_name'] = school_name
+
+	# next_shoot = Nextshoot.objects.first()
+	# timeslots = next_shoot.timeslot_set.filter(is_available=True, active=True).order_by('time')
 	# timeslots = Timeslot.objects.filter(active=True, is_available=True).order_by('time')
 	# if timeslots:
 	# 	next_shoot = timeslots.first().shoot
-	context = {
-		'title_text': title,
-		'timeslots': timeslots,
-		'brown_careerlab': 1,
-		'next_shoot': next_shoot,
-	}
+
 	return render(request, 'careerlab_index.html', context)
 
 
@@ -37,7 +107,7 @@ def book(request):
 		time_id = request.POST.get('time')
 		timeslot = get_object_or_404(Timeslot, pk=time_id)
 		shoot = timeslot.shoot
-		emails = [e.email for elem in shoot.timeslot_set.filter(active=True) for e in elem.booking_set.all()]
+		emails = [e.email for elem in shoot.timeslot_set.all() for e in elem.booking_set.all()]
 
 		# avoid duplicate booking
 		if email in emails:

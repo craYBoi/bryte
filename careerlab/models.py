@@ -34,6 +34,7 @@ class Nextshoot(models.Model):
 	name = models.CharField(max_length=100, blank=True, null=True)
 	school = models.CharField(max_length=60, default='not assigned')
 	date = models.DateField(default=timezone.now)
+	active = models.BooleanField(default=True)
 
 	class Meta:
 		ordering = ('-timestamp',)
@@ -45,25 +46,18 @@ class Nextshoot(models.Model):
 
 		# populate the shoot name field
 		self.name = name
-
-		token = settings.DROPBOX_TOKEN
-		dbx = dropbox.Dropbox(token)
-
-		root_folder = settings.DROPBOX_PATH
-
-		folder_path = os.path.join(root_folder, name)
-
-		try:
-			dbx.files_create_folder(folder_path)
-		except Exception, e:
-			raise e
-			pass
-
 		super(Nextshoot, self).save(*args, **kwargs)
+
+		# create shoot folder in PROD
+		self.create_prod_folder()
+
+		# create shoot folder in PHOTO
+		self.create_photo_folder()
+
 
 
 	def __unicode__(self):
-		return self.location + ' - ' + self.photographer.get_full_name()
+		return self.name
 
 
 	# need to return all the timeslots
@@ -86,8 +80,43 @@ class Nextshoot(models.Model):
 		return None
 
 
+	# create dropbox folder
+	def create_prod_folder(self):
+		token = settings.DROPBOX_TOKEN
+		dbx = dropbox.Dropbox(token)
+
+		root_folder = settings.DROPBOX_PATH
+		folder_path = os.path.join(root_folder, self.name)
+
+		try:
+			dbx.files_create_folder(folder_path)
+		except Exception, e:
+			print e
+			return 0
+		else:
+			return 1
+
+
+	# create dropbox folder for photographers/photoshoppers
+	def create_photo_folder(self):
+		token = settings.DROPBOX_TOKEN
+		dbx = dropbox.Dropbox(token)
+
+		root_folder = settings.DROPBOX_PHOTO
+		folder_path = os.path.join(root_folder, self.name)
+
+		try:
+			dbx.files_create_folder(folder_path)
+		except Exception, e:
+			print e
+			return 0
+		else:
+			return 1
+
+
+
 	def send_reminder(self):
-		bookings = [e for elem in self.timeslot_set.filter(active=True) for e in elem.booking_set.all()]
+		bookings = [e for elem in self.timeslot_set.all() for e in elem.booking_set.all()]
 		
 		count = 0
 		for booking in bookings:
@@ -97,14 +126,12 @@ class Nextshoot(models.Model):
 
 
 	def close_shoot(self):
-		timeslots = self.timeslot_set.filter(active=True)
-		for timeslot in timeslots:
-			timeslot.is_available = False
-			timeslot.save()
+		self.active = False
+		super(Nextshoot, self).save()
 
 
 	def send_replacement(self):
-		timeslots = self.timeslot_set.filter(active=True)
+		timeslots = self.timeslot_set.all()
 		num_slots_available = MAX_VOLUMN * len(timeslots) - sum(e.current_volumn for e in timeslots)
 
 		num_ppl_to_notify = 8 * num_slots_available
@@ -169,7 +196,7 @@ class Nextshoot(models.Model):
 	# temp method integrated with dropbox
 	def send_delivery(self):
 		# filter out the no shows
-		bookings = [e for elem in self.timeslot_set.filter(active=True) for e in elem.booking_set.filter(show_up=True)]
+		bookings = [e for elem in self.timeslot_set.all() for e in elem.booking_set.filter(show_up=True)]
 		
 		count = 0
 		for booking in bookings:
@@ -180,7 +207,7 @@ class Nextshoot(models.Model):
 
 	# temp method integrated with dropbox
 	def update_showups(self):
-		bookings = [e for elem in self.timeslot_set.filter(active=True) for e in elem.booking_set.all()]
+		bookings = [e for elem in self.timeslot_set.all() for e in elem.booking_set.all()]
 
 		count = 0
 		for booking in bookings:
@@ -190,7 +217,7 @@ class Nextshoot(models.Model):
 
 
 	def create_images(self, raw=False, edited=False, fav=False, top=False, portrait=False, all=False):
-		bookings = [e for elem in self.timeslot_set.filter(active=True) for e in elem.booking_set.filter(show_up=True)]
+		bookings = [e for elem in self.timeslot_set.filter.all() for e in elem.booking_set.filter(show_up=True)]
 
 		for booking in bookings:
 			# this already handles the empty folder
@@ -214,7 +241,6 @@ class Timeslot(models.Model):
 	is_available = models.BooleanField(default=True)
 	current_volumn = models.PositiveSmallIntegerField(default=0)
 	shoot = models.ForeignKey(Nextshoot)
-	active = models.BooleanField(default=False)
 
 	def __unicode__(self):
 		return self.time.strftime('%m/%d/%Y %I:%M %p')
@@ -275,7 +301,12 @@ class Booking(models.Model):
 		N = 6
 		self.hash_id = ''.join(SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(N))
 
+		# create booking folder in PROD
 		self.create_dropbox_folder()
+
+		# create booking folder in PHOTO
+		self.create_dropbox_photo_folder()
+
 		super(Booking, self).save(*args, **kwargs)
 
 	def cancel_order(self):
@@ -391,7 +422,7 @@ class Booking(models.Model):
 		message.set_html('Body')
 		message.set_text('Body')
 		message.add_filter('templates','enable','1')
-		
+
 		# message.add_filter('templates','template_id','d2750257-04b4-4e24-a785-aa34a7942606')
 
 		# follow up email template
@@ -491,7 +522,7 @@ class Booking(models.Model):
 		# upload path
 		upload_folder_path = os.path.join(root_folder, shoot_name, email)
 
-		print upload_folder_path
+		# print upload_folder_path
 		# create the folder
 		try:
 			dbx.files_create_folder(upload_folder_path)
@@ -537,7 +568,7 @@ class Booking(models.Model):
 				dbx.files_create_folder(upgrade_raw_path)
 			except Exception, e:
 				print e
-				raise e
+				# raise e
 			else:
 				# create upgrade folder link
 				try:
@@ -546,6 +577,44 @@ class Booking(models.Model):
 					print e
 				else:
 					self.upgrade_folder_path = upgrade_link.url
+
+
+	def create_dropbox_photo_folder(self):
+		token = settings.DROPBOX_TOKEN
+		dbx = dropbox.Dropbox(token)
+
+		email = self.email
+		ts_pk = self.timeslot.pk
+		ts = get_object_or_404(Timeslot, pk=ts_pk)
+		shoot_pk = ts.shoot.pk
+		shoot = get_object_or_404(Nextshoot, pk=shoot_pk)
+		shoot_name = shoot.name
+
+		root_folder = settings.DROPBOX_PHOTO
+
+		# upload path
+		upload_folder_path = os.path.join(root_folder, shoot_name, email)
+
+		# create the folder
+		try:
+			dbx.files_create_folder(upload_folder_path)
+		except Exception, e:
+			print e
+		else:
+			RAW_FOLDER = 'Raw'
+			EDITED_FOLDER = 'Edited'
+
+			edited_folder_path = os.path.join(upload_folder_path, EDITED_FOLDER)
+			raw_folder_path = os.path.join(upload_folder_path, RAW_FOLDER)
+
+			try:
+				dbx.files_create_folder(edited_folder_path)
+				dbx.files_create_folder(raw_folder_path)
+			except Exception, e:
+				print e
+				return 0
+			else:
+				return 1
 
 
 
