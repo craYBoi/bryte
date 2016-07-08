@@ -53,13 +53,13 @@ def index(request, school='brown'):
 
 
 	elif school.lower() == 'ccriknight':
-		title = 'Bryte & Community College of Rhode Island Knight Campus Headshot'
+		title = 'Bryte & the Community College of Rhode Island Knight Campus Headshot'
 		bg_url = static('img/ccri/bg.JPG')
 		logo_url = static('img/ccri/logo.png')
 		school_name = 'Community College of Rhode Island'
 		school_url = 'http://www.ccri.edu'
 		school_title = 'Career Planning'
-		school_location = 'Great Hall outside the Career Planning Office'
+		school_location = 'Great Hall just outside the Career Planning Office'
 		nextshoot = Nextshoot.objects.filter(school='Community College of Rhode Island')
 		if nextshoot:
 			nextshoot = nextshoot[0]
