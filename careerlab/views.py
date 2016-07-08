@@ -50,7 +50,7 @@ def index(request, school='brown'):
 
 	elif school == 'ccri':
 		title = 'Bryte Photo & Community College of Rhode Island Headshot'
-		bg_url = static('img/ccri/bg.jpg')
+		bg_url = static('img/ccri/bg.JPG')
 		logo_url = static('img/ccri/logo.png')
 		school_name = 'Community College of Rhode Island'
 		school_url = 'http://www.ccri.edu'
