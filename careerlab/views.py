@@ -31,6 +31,7 @@ def index(request, school='brown'):
 	logo_url = ''
 	school_name = ''
 	school_url = ''
+	form_placeholder = ''
 
 	# view logic for different schools here
 	# filter by the school name and pick the first
@@ -181,7 +182,7 @@ def signup(request):
 	else:
 		raise Http404
 
-
+# could subject to change to Shoot school name
 def cancel_order(request):
 	context = {
 		'brown_careerlab': 1,
@@ -197,8 +198,17 @@ def cancel_order(request):
 			name = booking.name
 			email = booking.email
 			timeslot = booking.timeslot
+			shoot = timeslot.shoot
+
+			# generate the correct booking url in email
+			url = ''
+			if shoot.school == 'Community College of Rhode Island':
+				url = 'www.brytephoto.com/school/ccri'
+			else:
+				url = ''
+
 			booking.cancel_order()
-			msg_body = 'Hi ' + str(name) + ',\n\nThis email is to confirm you have cancelled your Bryte Photo headshot on ' + str(booking.timeslot) + '. If you would like to book a different time slot you can sign up here:\n\nwww.brytephoto.com/RIC\n\nBest,\nBryte Photo Team'
+			msg_body = 'Hi ' + str(name) + ',\n\nThis email is to confirm you have cancelled your Bryte Photo headshot on ' + str(booking.timeslot) + '. If you would like to book a different time slot you can sign up here:\n\n'+ url +'\n\nBest,\nBryte Photo Team'
 			try:
 				send_mail('Cancellation confirmation - Bryte Photo',
 					msg_body, 'Bryte Photo <' + settings.EMAIL_HOST_USER + '>', [email],
