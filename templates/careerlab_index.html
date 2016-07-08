@@ -574,11 +574,10 @@
         {% if next_shoot.active %}
           
         
-          {% if timeslots %}
-            <p class="big_font white"><span class="bold landing_text">{{ school_location }}</span><br><span class="landing_text">{{ next_shoot.get_date_string }}</span><br><span class="landing_text">{{ next_shoot.get_time_interval_string }}</span></p>
-          {% else %}
-            <p class="big_font white"><span class="bold landing_text">{{ school_location }}</span><br><span class="landing_text">{{ next_shoot.get_date_string }}</span><br><span class="landing_text">{{ next_shoot.get_time_interval_string }}</span></p>
+            <p class="big_font white"><span class="landing_text"><span class="bold">Location:</span> {{ school_location }}</span><br><span class="landing_text"><span class="bold">Date & Time:</span> {{ next_shoot.get_date_string }}, {{ next_shoot.get_time_interval_string }}</span></p>
 
+          {% if not timeslots %}
+            
             <div class="small_padding"></div>
             <p class="sbig_font white"><span class="bold landing_text">All the headshots were booked!</span><br></p>
               
