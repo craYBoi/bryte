@@ -22,7 +22,7 @@
     <div class="container center_vertical full_height">
     <div class="row">
       <div class="col-md-8 col-sm-10 col-xs-12">
-      <h1 class="white text-left landing_title_sec bold">Free LinkedIn headshots from Bryte and {{ next_shoot.location }}!</span></h1>
+      <h1 class="white text-left landing_title_sec bold">Free LinkedIn headshots from Bryte and {{ school_title }}!</span></h1>
       <div class="small_padding"></div>
       <a href="#signup_signup_form"><button class="btn btn-white-lg large_font">Book Now</button></a>
       </div>
@@ -301,7 +301,7 @@
     <div class="col-md-6 center_flex">
       <div class="background_white lki_box lki_box_small">
         <div class="full_height center_flex">
-          <a class="magnifier-thumb-wrapper"><img id='thumb2' src="{% static 'img/thumbnails/hs1s.jpg' %}" height="200"></a>
+          <a class="magnifier-thumb-wrapper"><img id='thumb2' src="{% static 'img/thumbnails/new/O/h2.jpg' %}" height="200"></a>
         </div>
 
         <div class="small_padding_left"></div>
@@ -388,7 +388,7 @@
     <div class="col-md-6 center_flex">
       <div class="background_white lki_box lki_box_small">
         <div class="full_height center_flex">
-          <a class="magnifier-thumb-wrapper"><img id='thumb2' src="{% static 'img/thumbnails/hs2s.jpg' %}" height="200"></a>
+          <a class="magnifier-thumb-wrapper"><img id='thumb2' src="{% static 'img/thumbnails/new/O/h7.jpg' %}" height="200"></a>
         </div>
 
         <div class="small_padding_left"></div>
@@ -478,13 +478,13 @@
       <div class="row">
         <div class="col-sm-4 center_flex">
           <img src="{% static 'img/thumbnails/hs1.jpg' %}" height="150" class="headshot_border">
-          <img src="{% static 'img/thumbnails/hs1.jpg' %}" height="150" class="headshot_border">
+          <img src="{% static 'img/thumbnails/hs3.jpg' %}" height="150" class="headshot_border">
         </div>
         <div class="col-sm-4 center_flex">
           <img src="{% static 'img/thumbnails/pt1.jpg' %}" height="300">
         </div>
         <div class="col-sm-4 center_flex">
-          <img src="{% static 'img/thumbnails/pt1.jpg' %}" height="300">
+          <img src="{% static 'img/thumbnails/pt2.jpg' %}" height="300">
         </div>
 
       </div>
@@ -533,7 +533,7 @@
               <img src="{% static 'img/process2.png' %}" class="img-responsive"> 
               <div class="medium_padding"></div>
               <h3 class="bold landing_text_main">Smile</h3>
-              <p class="col-xs-10 col-xs-offset-1 small_padding small_lh text-left small_font">You'll have 3 minutes to take headshots and will get to select your favorite headshot for our touch up process.</p>
+              <p class="col-xs-10 col-xs-offset-1 small_padding small_lh text-left small_font">You'll have 3 minutes to take headshots and will get to select your favorite</p>
             </div>  
 
             <div class="col-sm-4 text-center">
@@ -570,19 +570,20 @@
           
         
           {% if timeslots %}
-            <p class="big_font white"><span class="bold landing_text">{{ next_shoot.location }}</span><br><span class="landing_text">{{ next_shoot.get_date_string }}</span><br><span class="landing_text">{{ next_shoot.get_time_interval_string }}</span></p>
+            <p class="big_font white"><span class="bold landing_text">{{ school_location }}</span><br><span class="landing_text">{{ next_shoot.get_date_string }}</span><br><span class="landing_text">{{ next_shoot.get_time_interval_string }}</span></p>
           {% else %}
-            <p class="big_font white"><span class="bold landing_text">{{ next_shoot.location }}</span><br><span class="landing_text">{{ next_shoot.get_date_string }}</span><br><span class="landing_text">{{ next_shoot.get_time_interval_string }}</span></p>
+            <p class="big_font white"><span class="bold landing_text">{{ school_location }}</span><br><span class="landing_text">{{ next_shoot.get_date_string }}</span><br><span class="landing_text">{{ next_shoot.get_time_interval_string }}</span></p>
 
             <div class="small_padding"></div>
             <p class="sbig_font white"><span class="bold landing_text">All the headshots were booked!</span><br></p>
               
-            <p class="large_font white landing_text">Drop us your email and we'll let you know when the next free Bryte Photo headshot shoot is open for booking :)</p>
+            <p class="large_font white landing_text">Drop us your email and we'll let you know when the next free Bryte headshot shoot is open for booking :) Check back to this website before the shoot if there are more headshots open. (some people might cancel their headshots)</p>
+
           {% endif %}
 
         <!-- shoot is not active -->
         {% else %}
-          <p class="big_font white"><span class="bold landing_text">{{ next_shoot.location }}</span><br><span class="landing_text">{{ next_shoot.get_date_string }}</span><br><span class="landing_text">{{ next_shoot.get_time_interval_string }}</span></p>
+          <p class="big_font white"><span class="bold landing_text">{{ school_location }}</span><br><span class="landing_text">{{ next_shoot.get_date_string }}</span><br><span class="landing_text">{{ next_shoot.get_time_interval_string }}</span></p>
           <div class="small_padding"></div>
           <p class="xlarge_font small_padding small_padding_bot white white_border">The shoot is closed. Don't worry! We'll be back soon!</p>
         {% endif %}
@@ -609,7 +610,7 @@
             <form method="POST" action="{% url 'careerlab_book' %}" class=" white">{% csrf_token %}
             	<input type='text' name='careerlab_book_name' class="form-control" id='careerlab_book_name' required pattern="[a-zA-Z.]{2,}(\s+[a-zA-z.]{2,})+" placeholder='First & Last Name'>
             	<div class="small_padding"></div>
-              <input type='email' name='careerlab_book_email' class="form-control" id='careerlab_book_email' required pattern='\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9._%+-]+.edu\b' placeholder='Email Address' onchange="try{setCustomValidity('')}catch(e){}">
+              <input type='email' name='careerlab_book_email' class="form-control" id='careerlab_book_email' required placeholder='Email Address' onchange="try{setCustomValidity('')}catch(e){}">
               <div class="small_padding"></div>
               <select required name='careerlab_book_time' class="form-control" id='careerlab_book_time'>
                 {% for timeslot in timeslots %}
@@ -633,10 +634,11 @@
             <form method="POST" action="{% url 'careerlab_signup' %}" class="white">{% csrf_token %}
             	<input type='text' name='careerlab_signup_name' class="form-control" id='careerlab_signup_name' required pattern="[a-zA-Z]{2,}(\s+[a-zA-z]{2,})+" placeholder='First & Last Name'>
             	<div class="small_padding"></div>
-              <input type='email' name='careerlab_signup_email' class="form-control" id='careerlab_signup_email' required pattern='\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9._%+-]+.edu\b' placeholder='RIC Email Address' oninvalid="this.setCustomValidity('Please use your RIC email address')" onchange="try{setCustomValidity('')}catch(e){}">
+              <input type='email' name='careerlab_signup_email' class="form-control" id='careerlab_signup_email' required placeholder='Email Address' onchange="try{setCustomValidity('')}catch(e){}">
               <div class="small_padding"></div>
               <button class="btn-white bold large_font" id="careerlab_signup_button" type='submit'>Signup</button>
               <div class="small_padding"></div>
+              <input type="hidden" value="{{ next_shoot.pk }}" id="signup_shoot_id">
             </form>
             </div>
           </div>
@@ -807,6 +809,7 @@ var csrftoken = getCookie('csrftoken');
           data: {
           	name: $('#careerlab_signup_name').val(),
             email: $('#careerlab_signup_email').val(),
+            shoot: $('#signup_shoot_id').val(),
           },
 
           success: function(data){

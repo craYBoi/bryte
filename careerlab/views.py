@@ -31,17 +31,20 @@ def index(request, school='brown'):
 	logo_url = ''
 	school_name = ''
 	school_url = ''
-	form_placeholder = ''
+	school_title = ''
+	school_location = ''
 
 	# view logic for different schools here
 	# filter by the school name and pick the first
-	if school == 'brown':
-		title = 'Bryte Photo & CareerLab Brown University Headshot'
+	if school.lower() == 'brown':
+		title = 'Bryte & CareerLab Brown University Headshot'
 		nextshoot = Nextshoot.objects.filter(school='Brown University')
 		bg_url = static('img/brown_campus.jpg')
 		logo_url = static('logo/brown_logo.png')
 		school_name = 'Brown University CareerLAB'
 		school_url = 'http://www.brown.edu'
+		school_title = 'CareerLAB'
+		school_location = 'Brown CareerLAB, 167 Angell St'
 		if nextshoot:
 			nextshoot = nextshoot[0]
 			timeslots = nextshoot.timeslot_set.filter(is_available=True).order_by('time')	
@@ -49,12 +52,14 @@ def index(request, school='brown'):
 			raise Http404
 
 
-	elif school == 'ccri':
-		title = 'Bryte Photo & Community College of Rhode Island Headshot'
+	elif school.lower() == 'ccriknight':
+		title = 'Bryte & Community College of Rhode Island Knight Campus Headshot'
 		bg_url = static('img/ccri/bg.JPG')
 		logo_url = static('img/ccri/logo.png')
 		school_name = 'Community College of Rhode Island'
 		school_url = 'http://www.ccri.edu'
+		school_title = 'Career Planning'
+		school_location = 'Great Hall outside the Career Planning Office'
 		nextshoot = Nextshoot.objects.filter(school='Community College of Rhode Island')
 		if nextshoot:
 			nextshoot = nextshoot[0]
@@ -62,8 +67,8 @@ def index(request, school='brown'):
 		else:
 			raise Http404
 
-	elif school == 'bu':
-		title = 'Bryte Photo & Boston University of Rhode Island Headshot'
+	elif school.lower() == 'bu':
+		title = 'Bryte & Boston University of Rhode Island Headshot'
 		bg_url = static('img/ccri/bg.jpg')
 		logo_url = static('img/ccri/logo.png')
 		school_name = 'Boston University'
@@ -88,6 +93,8 @@ def index(request, school='brown'):
 	context['bg_url'] = bg_url
 	context['school_url'] = school_url
 	context['school_name'] = school_name
+	context['school_title'] = school_title
+	context['school_location'] = school_location
 
 	# next_shoot = Nextshoot.objects.first()
 	# timeslots = next_shoot.timeslot_set.filter(is_available=True, active=True).order_by('time')
@@ -140,7 +147,7 @@ def book(request):
 					# send email
 					b.confirmation_email()
 					first_name = name.split(' ')[0]
-					data['msg'] = 'Thanks for signing up ' + first_name + '.<br><br>A confirmation email will be sent to you at \"' + str(email) + '\" with your booking information soon!<br><br>Team Bryte Photo'
+					data['msg'] = 'Thanks for signing up ' + first_name + '.<br><br>A confirmation email will be sent to you at \"' + str(email) + '\" with your booking information soon!<br><br>Team Bryte'
 
 			else:
 				data['msg'] = 'This time slot is no longer available. Please select a different one.'
@@ -156,14 +163,18 @@ def signup(request):
 
 		email = request.POST.get('email')
 		name = request.POST.get('name')
+		shoot_pk = request.POST.get('shoot')
+
+		print shoot_pk
+
 		data = {}
 
 		# avoid duplicate signup
 		if email in [signup.email for signup in Signup.objects.all()]:
-			data['msg'] = 'It seems that you have already signed up!<br>We will notify at ' + str(email) + ' whenever next headshot session is available!<br><br>Thanks!<br>Team Bryte Photo'
+			data['msg'] = 'It seems that you have already signed up!<br>We will notify at ' + str(email) + ' whenever next headshot session is available!<br><br>Thanks!<br>Team Bryte'
 		else:
 			# get the first shooting instance
-			shoot = Nextshoot.objects.first()
+			shoot = get_object_or_404(Nextshoot, pk=shoot_pk)
 			try:
 				s = Signup.objects.create(
 					email = email,
@@ -176,7 +187,7 @@ def signup(request):
 				pass
 			else:
 				first_name = name.split(' ')[0]
-				data['msg'] = 'Thanks for signing up ' + str(first_name) + '. We will notify you for the next headshot session!<br><br>Team Bryte Photo'
+				data['msg'] = 'Thanks for signing up ' + str(first_name) + '. We will notify you for the next headshot session!<br><br>Team Bryte'
 
 		return HttpResponse(json.dumps(data), content_type='application/json')
 	else:
@@ -208,7 +219,7 @@ def cancel_order(request):
 				url = ''
 
 			booking.cancel_order()
-			msg_body = 'Hi ' + str(name) + ',\n\nThis email is to confirm you have cancelled your Bryte Photo headshot on ' + str(booking.timeslot) + '. If you would like to book a different time slot you can sign up here:\n\n'+ url +'\n\nBest,\nBryte Photo Team'
+			msg_body = 'Hi ' + str(name) + ',\n\nThis email is to confirm you have cancelled your Bryte Photo headshot on ' + str(booking.timeslot) + '. If you would like to book a different time slot you can sign up here:\n\n'+ url +'\n\nBest,\nTeam Bryte'
 			try:
 				send_mail('Cancellation confirmation - Bryte Photo',
 					msg_body, 'Bryte Photo <' + settings.EMAIL_HOST_USER + '>', [email],
