@@ -214,7 +214,7 @@ def cancel_order(request):
 			# generate the correct booking url in email
 			url = ''
 			if shoot.school == 'Community College of Rhode Island':
-				url = 'www.brytephoto.com/school/ccri'
+				url = 'www.brytephoto.com/school/ccriknight'
 			else:
 				url = ''
 
