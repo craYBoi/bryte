@@ -305,7 +305,7 @@ class Booking(models.Model):
 		self.create_dropbox_folder()
 
 		# create booking folder in PHOTO
-		self.create_dropbox_photo_folder()
+		self.create_dropbox_photo_folder()	
 
 		super(Booking, self).save(*args, **kwargs)
 
@@ -319,8 +319,15 @@ class Booking(models.Model):
 		# add delete the corresponding dropbox
 		token = settings.DROPBOX_TOKEN
 		dbx = dropbox.Dropbox(token)
+
+		# also delete the PHOTO folder
+		root_folder = settings.DROPBOX_PHOTO
+		shoot_name = ts.shoot.name
+		photo_path = os.path.join(root_folder, shoot_name, self.email)
+
 		try:
 			deleted_folder = dbx.files_delete(self.dropbox_folder)
+			dbx.files_delete(photo_path)
 		except Exception, e:
 			print e
 			pass

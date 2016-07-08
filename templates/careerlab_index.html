@@ -602,7 +602,7 @@
             <form method="POST" action="{% url 'careerlab_book' %}" class=" white">{% csrf_token %}
             	<input type='text' name='careerlab_book_name' class="form-control" id='careerlab_book_name' required pattern="[a-zA-Z.]{2,}(\s+[a-zA-z.]{2,})+" placeholder='First & Last Name'>
             	<div class="small_padding"></div>
-              <input type='email' name='careerlab_book_email' class="form-control" id='careerlab_book_email' required pattern='\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9._%+-]+.edu\b' placeholder='RIC Email Address' oninvalid="this.setCustomValidity('Please use your RIC email address')" onchange="try{setCustomValidity('')}catch(e){}">
+              <input type='email' name='careerlab_book_email' class="form-control" id='careerlab_book_email' required pattern='\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9._%+-]+.edu\b' placeholder='Email Address' onchange="try{setCustomValidity('')}catch(e){}">
               <div class="small_padding"></div>
               <select required name='careerlab_book_time' class="form-control" id='careerlab_book_time'>
                 {% for timeslot in timeslots %}
