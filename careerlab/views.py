@@ -210,6 +210,7 @@ def cancel_order(request):
 			email = booking.email
 			timeslot = booking.timeslot
 			shoot = timeslot.shoot
+			first_name = name.split(' ')[0]
 
 			# generate the correct booking url in email
 			url = ''
@@ -219,7 +220,7 @@ def cancel_order(request):
 				url = ''
 
 			booking.cancel_order()
-			msg_body = 'Hi ' + str(name) + ',\n\nThis email is to confirm you have cancelled your Bryte Photo headshot on ' + str(booking.timeslot) + '. If you would like to book a different time slot you can sign up here:\n\n'+ url +'\n\nBest,\nTeam Bryte'
+			msg_body = 'Hi ' + str(first_name) + ',\n\nThis email is to confirm you have cancelled your Bryte Photo headshot on ' + str(booking.timeslot) + '. If you would like to book a different time slot you can sign up here:\n\n'+ url +'\n\nBest,\nTeam Bryte'
 			try:
 				send_mail('Cancellation confirmation - Bryte Photo',
 					msg_body, 'Bryte Photo <' + settings.EMAIL_HOST_USER + '>', [email],
