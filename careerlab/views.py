@@ -251,10 +251,10 @@ def pay(request):
 				# charge
 		try:
 			charge = stripe.Charge.create(
-				amount = 37400,
+				amount = 1199,
 				currency="usd",
 				source=token,
-				description="Bryte Photo Photography"
+				description="Bryte Passport Photo"
 			)
 		except stripe.error.CardError, e:
 			print e
