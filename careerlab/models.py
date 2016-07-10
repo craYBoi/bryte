@@ -146,9 +146,9 @@ class Nextshoot(models.Model):
 			name = e.name
 			email = e.email
 			title = 'New headshot sessions are opened!'
-			msg = 'Hi ' + name + ',\n\nGreat news! There are now ' + str(num_slots_available) + ' headshots sessions available! We are shooting tomorrow afternoon between 12:30 pm - 3:30 pm on the first floor of Brown CareerLAB. Book your session here:\n\nwww.brytephoto.com/CareerLAB\n\nBest, \nCareerLAB and the Bryte Photo Team'
+			msg = 'Hi ' + name + ',\n\nGreat news! There are now ' + str(num_slots_available) + ' headshots sessions available! We are shooting tomorrow afternoon between 12:30 pm - 3:30 pm on the first floor of Brown CareerLAB. Book your session here:\n\nwww.brytephoto.com/CareerLAB\n\nBest, \nCareerLAB and the Team Bryte'
 			try:
-				send_mail(title, msg, 'Bryte Photo and CareerLAB <' + settings.EMAIL_HOST_USER + '>', [email], fail_silently=False)
+				send_mail(title, msg, 'Bryte and CareerLAB <' + settings.EMAIL_HOST_USER + '>', [email], fail_silently=False)
 			except Exception, e:
 				raise e
 			else:
@@ -344,7 +344,10 @@ class Booking(models.Model):
 		name = self.name
 		first_name = name.split(' ')[0]
 		timeslot = self.timeslot
-		location = timeslot.shoot.location
+		shoot = timeslot.shoot
+		location = shoot.location
+		date = shoot.date
+		school = shoot.school
 		email = self.email
 
 		# msg_body = "Hi " + str(name) + ",\n\nYou\'re receiving this email to confirm that you have booked a Bryte Photo headshot at " + str(timeslot) + ". The shoot will take place at CareerLAB.\n\nCheck out the Bryte Photo Headshot Tips to prepare for your headshot!\n" + self.tips_link() + "\n\nIf you can no longer make it to your headshot, please cancel here:\n" + self.generate_cancel_link() + "\n\nWe have a long waitlist so please let us know if you cannot make your session!!\n\nThanks, \nCareerLAB and Bryte Photo"
@@ -365,7 +368,12 @@ class Booking(models.Model):
 		message.set_text('Body')
 		message.add_filter('templates','enable','1')
 		message.add_filter('templates','template_id','71ff210a-f5f5-4c3a-876a-81d46197ed77')
-		message.add_category('booking confirmation email')
+
+		# get template, version name, and automatically add to category
+
+		category = [school, str(date), 'Booking Confirmation', 'bc1']
+
+		message.set_categories(category)
 		message.add_substitution('-first_name-', first_name)
 		message.add_substitution('-timeslot-', str(timeslot))
 		message.add_substitution('-location-', location)
@@ -375,6 +383,7 @@ class Booking(models.Model):
 			sg.send(message)
 		except Exception, e:
 			print '[NOT SENT] --- ' + str(email) 
+			# raise e
 		else:
 			print '[SENT] --- ' + str(email)
 
