@@ -41,12 +41,19 @@ INSTALLED_APPS = [
     'django.contrib.sites',
 
     'crispy_forms',
-    # 'registration',
+    'registration',
+    'django_twilio',
+    'stripe',
+    'import_export',
 
     'newsletter',
     'photographer',
     'reserve',
-    'Photoer',
+    'blog',
+    'sms',
+    'userprofile',
+    'book',
+    'careerlab',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -122,15 +129,22 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 # registration redux
-# ACCOUNT_ACTIVATION_DAYS = 7
-# REGISTRATION_AUTO_LOGIN = True
+ACCOUNT_ACTIVATION_DAYS = 7
+REGISTRATION_AUTO_LOGIN = True
+LOGIN_REDIRECT_URL = '/profile'
 SITE_ID = 1
+SITE_URL = 'http://127.0.0.1:8000'
+SITE_EMAIL = 'hello@brytephoto.com'
+
+
+# crispy form
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 
 # email 
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'bestprofpics'
-EMAIL_HOST_PASSWORD = 'Ycombinator'
+EMAIL_HOST_USER = 'hello@brytephoto.com'
+EMAIL_HOST_PASSWORD = 'YCombinator!'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
@@ -164,3 +178,33 @@ STATICFILES_DIRS = [
 STATIC_ROOT = 'staticfiles'
 
 MEDIA_ROOT = 'mediafiles'
+
+# Time Zone
+TIMEZONE = 'America/New_York'
+
+# twilio
+TWILIO_ACCOUNT_SID = 'ACa508a195425ca7341d5469a54a91cb36'
+TWILIO_AUTH_TOKEN = '4005b7c244086f9986d6375b2b7530e3'
+BEN_CELL = '+13109139124'
+TWILIO_CELL = '+13137698688'
+
+
+# strip
+STRIPE_SECRET_KEY = 'sk_test_WOCKGbny1dkmA6NsOQARm0a0'
+STRIPE_PUBLISHABLE_KEY = 'pk_test_mpoNaxCzG3mO8CqAYE9OWzng'
+CLIENT_ID = 'ca_7ogFGpVd6vsmx5rmZ8zbRgyokyCnzOU0'
+COMMISSION = 0.2
+
+# mixpanel
+MIXPANEL_TOKEN = 'b27c2c4d1dddc024a8c4b60b153f2968'
+
+# dropbox
+DROPBOX_TOKEN = 'Ke0AGlcGduAAAAAAAAAAFD8Nh_z7mnFNokERrunQtMoQ3xwusnSCpT0ZRNckEbvt'
+
+DROPBOX_PATH = os.path.join('/', 'Test')
+DROPBOX_PHOTO = os.path.join('/', 'TEST PHOTO')
+
+
+# sendgrid
+SENDGRID_KEY = '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'
+

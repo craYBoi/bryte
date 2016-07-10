@@ -14,6 +14,7 @@ from random import SystemRandom
 import string
 
 import os
+import json
 import dropbox
 import sendgrid
 from sendgrid import SendGridError, SendGridClientError, SendGridServerError
@@ -21,6 +22,14 @@ from sendgrid import SendGridError, SendGridClientError, SendGridServerError
 
 # call sendgrid api
 sg = sendgrid.SendGridClient(settings.SENDGRID_KEY, None, raise_errors=True)
+sgapi = sendgrid.SendGridAPIClient(apikey=settings.SENDGRID_KEY)
+BOOKING_CONFIRMATION_ID = '71ff210a-f5f5-4c3a-876a-81d46197ed77'
+DB_REMINDER_ID = 'ef27b980-d764-4ee3-8ffc-e8cd7f9377d8'
+MY_HEADSHOT_1_ID = 'd2750257-04b4-4e24-a785-aa34a7942606'
+PHOTO_DELIVERY_ID = '3ee6fdaa-0e23-4914-8f53-c06265dbbd57'
+ORDER_DELIVERY_ID = 'c8690ffe-8ca3-4531-b46e-dbf747bdc18b'
+PASSPORT_ID = 'daa1b2ab-9d4d-4023-8546-d2bd88b73c02'
+
 
 
 # max sessions per time slot
@@ -120,7 +129,7 @@ class Nextshoot(models.Model):
 		
 		count = 0
 		for booking in bookings:
-			if(booking.reminder_email()):
+			if(booking.db_reminder_email()):
 				count += 1
 		print 'Total --- ' + str(len(bookings)) + ' Emails\nSENT --- ' + str(count) + ' Emails'
 
@@ -200,7 +209,7 @@ class Nextshoot(models.Model):
 		
 		count = 0
 		for booking in bookings:
-			if(booking.delivery_email()):
+			if(booking.my_headshot_1_email()):
 				count += 1
 		print 'Total --- ' + str(len(bookings)) + ' Emails\nSENT --- ' + str(count) + ' Emails'
 
@@ -340,7 +349,7 @@ class Booking(models.Model):
 	def tips_link(self):
 		return settings.SITE_URL + reverse('careerlab_tips')
 
-	def confirmation_email(self):
+	def booking_confirmation_email(self):
 		name = self.name
 		first_name = name.split(' ')[0]
 		timeslot = self.timeslot
@@ -350,15 +359,6 @@ class Booking(models.Model):
 		school = shoot.school
 		email = self.email
 
-		# msg_body = "Hi " + str(name) + ",\n\nYou\'re receiving this email to confirm that you have booked a Bryte Photo headshot at " + str(timeslot) + ". The shoot will take place at CareerLAB.\n\nCheck out the Bryte Photo Headshot Tips to prepare for your headshot!\n" + self.tips_link() + "\n\nIf you can no longer make it to your headshot, please cancel here:\n" + self.generate_cancel_link() + "\n\nWe have a long waitlist so please let us know if you cannot make your session!!\n\nThanks, \nCareerLAB and Bryte Photo"
-
-		# try:
-		# 	send_mail('Bryte Photo Headshot Booking Confirmation', msg_body, settings.EMAIL_HOST_USER, [email], fail_silently=False)
-		# except Exception, e:
-		# 	print 'Email not sent'
-		# 	pass
-		# else:
-		# 	print '[SENT] ' + str(email)
 
 		message = sendgrid.Mail()
 		message.add_to(email)
@@ -370,8 +370,17 @@ class Booking(models.Model):
 		message.add_filter('templates','template_id','71ff210a-f5f5-4c3a-876a-81d46197ed77')
 
 		# get template, version name, and automatically add to category
+		email_purpose = 'Error'
+		version_number = 'Error'
+		try:
+			email_template = json.loads(sgapi.client.templates._(BOOKING_CONFIRMATION_ID).get().response_body)
+			versions = email_template.get('versions')
+			version_number = [v.get('name') for v in versions if v.get('active')][0]
+			email_purpose = email_template.get('name')
+		except Exception, e:
+			pass
 
-		category = [school, str(date), 'Booking Confirmation', 'bc1']
+		category = [school, str(date), email_purpose, version_number]
 
 		message.set_categories(category)
 		message.add_substitution('-first_name-', first_name)
@@ -388,13 +397,29 @@ class Booking(models.Model):
 			print '[SENT] --- ' + str(email)
 
 
-	def reminder_email(self):
+	def db_reminder_email(self):
 		sent = False
 		name = self.name
 		first_name = name.split(' ')[0]
 		timeslot = self.timeslot
-		location = timeslot.shoot.location
+		shoot = timeslot.shoot
+		location = shoot.location
+		date = shoot.date
+		school = shoot.school
 		email = self.email
+
+		# get template, version name, and automatically add to category
+		email_purpose = 'Error'
+		version_number = 'Error'
+		try:
+			email_template = json.loads(sgapi.client.templates._(DB_REMINDER_ID).get().response_body)
+			versions = email_template.get('versions')
+			version_number = [v.get('name') for v in versions if v.get('active')][0]
+			email_purpose = email_template.get('name')
+		except Exception, e:
+			pass
+
+		category = [school, str(date), email_purpose, version_number]
 
 		message = sendgrid.Mail()
 		message.add_to(email)
@@ -403,8 +428,8 @@ class Booking(models.Model):
 		message.set_html('Body')
 		message.set_text('Body')
 		message.add_filter('templates','enable','1')
-		message.add_filter('templates','template_id','ef27b980-d764-4ee3-8ffc-e8cd7f9377d8')
-		message.add_category('reminder email')
+		message.add_filter('templates','template_id', DB_REMINDER_ID)
+		message.set_categories(category)
 		message.add_substitution('-first_name-', first_name)
 		message.add_substitution('-time_slot-', str(timeslot))
 		message.add_substitution('-location-', location)
@@ -420,34 +445,47 @@ class Booking(models.Model):
 		return send
 
 
-	def delivery_email(self):
+	def my_headshot_1_email(self):
 		sent = False
 		name = self.name
 		first_name = name.split(' ')[0]
 		email = self.email
 		hash_id = self.hash_id
+		timeslot = self.timeslot
+		shoot = timeslot.shoot
+		location = shoot.location
+		date = shoot.date
+		school = shoot.school
+
+
+		# get template, version name, and automatically add to category
+		email_purpose = 'Error'
+		version_number = 'Error'
+		try:
+			email_template = json.loads(sgapi.client.templates._(MY_HEADSHOT_1_ID).get().response_body)
+			versions = email_template.get('versions')
+			version_number = [v.get('name') for v in versions if v.get('active')][0]
+			email_purpose = email_template.get('name')
+		except Exception, e:
+			pass
+
+		category = [school, str(date), email_purpose, version_number]
+
 
 		message = sendgrid.Mail()
 		message.add_to(email)
 		message.set_from('Bryte Photo Inc <' + settings.EMAIL_HOST_USER + '>')
 
-		# message.set_subject('Your free LinkedIn headshot is ready for download!')
-
-		# follow up email title
-		message.set_subject('New version of your Linkedin headshot') 
+		message.set_subject('Your free LinkedIn headshot is ready for download!')
+ 
 		message.set_html('Body')
 		message.set_text('Body')
 		message.add_filter('templates','enable','1')
 
-		# message.add_filter('templates','template_id','d2750257-04b4-4e24-a785-aa34a7942606')
+		message.add_filter('templates','template_id', MY_HEADSHOT_1_ID)
 
-		# follow up email template
-		message.add_filter('templates','template_id','91554ce0-b80a-4c1f-ad12-0a3ec606e29e')
 
-		# message.add_category('free headshot delivery email')
-
-		# follow up email category
-		message.add_category('RIC followup delivery email')
+		message.set_categories(category)
 
 		message.add_substitution('-first_name-', first_name)
 		message.add_substitution('-unique_id-', hash_id)
@@ -462,11 +500,29 @@ class Booking(models.Model):
 		return send
 
 	# upgrade confirmation email, takes in order detail
-	def upgrade_confirmation_email(self, html_content):
+	def order_delivery_email(self, html_content):
 		send = False
 		name = self.name
 		first_name = name.split(' ')[0]
 		email = self.email
+		timeslot = self.timeslot
+		shoot = timeslot.shoot
+		location = shoot.location
+		date = shoot.date
+		school = shoot.school
+
+		# get template, version name, and automatically add to category
+		email_purpose = 'Error'
+		version_number = 'Error'
+		try:
+			email_template = json.loads(sgapi.client.templates._(ORDER_DELIVERY_ID).get().response_body)
+			versions = email_template.get('versions')
+			version_number = [v.get('name') for v in versions if v.get('active')][0]
+			email_purpose = email_template.get('name')
+		except Exception, e:
+			pass
+
+		category = [school, str(date), email_purpose, version_number]
 
 		message = sendgrid.Mail()
 		message.add_to(email)
@@ -475,8 +531,8 @@ class Booking(models.Model):
 		message.set_html('Body')
 		message.set_text('Body')
 		message.add_filter('templates','enable','1')
-		message.add_filter('templates','template_id','c8690ffe-8ca3-4531-b46e-dbf747bdc18b')
-		message.add_category('upgrade confirmation email')
+		message.add_filter('templates','template_id', ORDER_DELIVERY_ID)
+		message.set_categories(category)
 		message.add_substitution('-first_name-', first_name)
 		message.add_substitution('-order_detail-', html_content)
 
@@ -490,12 +546,30 @@ class Booking(models.Model):
 		return send
 
 
-	def dropbox_delivery_email(self):
+	def photo_delivery_email(self):
 		send = False
 		name = self.name
 		first_name = name.split(' ')[0]
 		email = self.email
 		hash_id = self.hash_id		
+		timeslot = self.timeslot
+		shoot = timeslot.shoot
+		location = shoot.location
+		date = shoot.date
+		school = shoot.school
+
+		# get template, version name, and automatically add to category
+		email_purpose = 'Error'
+		version_number = 'Error'
+		try:
+			email_template = json.loads(sgapi.client.templates._(PHOTO_DELIVERY_ID).get().response_body)
+			versions = email_template.get('versions')
+			version_number = [v.get('name') for v in versions if v.get('active')][0]
+			email_purpose = email_template.get('name')
+		except Exception, e:
+			pass
+
+		category = [school, str(date), email_purpose, version_number]
 
 		message = sendgrid.Mail()
 		message.add_to(email)
@@ -504,8 +578,8 @@ class Booking(models.Model):
 		message.set_html('Body')
 		message.set_text('Body')
 		message.add_filter('templates','enable','1')
-		message.add_filter('templates','template_id','3ee6fdaa-0e23-4914-8f53-c06265dbbd57')
-		message.add_category('upgrade delivery email')
+		message.add_filter('templates','template_id', PHOTO_DELIVERY_ID)
+		message.set_categories(category)
 		message.add_substitution('-first_name-', first_name)
 		message.add_substitution('-download_link-', self.upgrade_folder_path)
 		message.add_substitution('-unique_id-', hash_id)

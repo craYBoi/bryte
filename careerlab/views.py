@@ -145,7 +145,7 @@ def book(request):
 							signup.delete()
 
 					# send email
-					b.confirmation_email()
+					b.booking_confirmation_email()
 					first_name = name.split(' ')[0]
 					data['msg'] = 'Thanks for signing up ' + first_name + '.<br><br>A confirmation email will be sent to you at \"' + str(email) + '\" with your booking information soon!<br><br>Team Bryte'
 
