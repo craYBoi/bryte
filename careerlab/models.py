@@ -29,6 +29,7 @@ MY_HEADSHOT_1_ID = 'd2750257-04b4-4e24-a785-aa34a7942606'
 PHOTO_DELIVERY_ID = '3ee6fdaa-0e23-4914-8f53-c06265dbbd57'
 ORDER_DELIVERY_ID = 'c8690ffe-8ca3-4531-b46e-dbf747bdc18b'
 PASSPORT_ID = 'daa1b2ab-9d4d-4023-8546-d2bd88b73c02'
+RIC_NOT_PAYING_ID = '91554ce0-b80a-4c1f-ad12-0a3ec606e29e'
 
 
 
@@ -369,6 +370,7 @@ class Booking(models.Model):
 		message.add_filter('templates','enable','1')
 		message.add_filter('templates','template_id','71ff210a-f5f5-4c3a-876a-81d46197ed77')
 
+
 		# get template, version name, and automatically add to category
 		email_purpose = 'Error'
 		version_number = 'Error'
@@ -593,6 +595,58 @@ class Booking(models.Model):
 			send = True
 			print '[SENT] --- ' + str(email)
 		return send
+
+
+	def ric_not_paying(self):
+		send = False
+		name = self.name
+		first_name = name.split(' ')[0]
+		email = self.email
+		hash_id = self.hash_id		
+		timeslot = self.timeslot
+		shoot = timeslot.shoot
+		location = shoot.location
+		date = shoot.date
+		school = shoot.school
+		# get template, version name, and automatically add to category
+		email_purpose = 'Error'
+		version_number = 'Error'
+		try:
+			email_template = json.loads(sgapi.client.templates._(RIC_NOT_PAYING_ID).get().response_body)
+			versions = email_template.get('versions')
+			version_number = [v.get('name') for v in versions if v.get('active')][0]
+			email_purpose = email_template.get('name')
+		except Exception, e:
+			pass
+
+		category = [school + ' - ' + str(date), email_purpose, version_number]
+		
+		message = sendgrid.Mail()
+		message.add_to(email)
+		message.set_from('Bryte Photo Inc <' + settings.EMAIL_HOST_USER + '>')
+		message.set_subject('New version of your Linkedin headshot') 
+		message.set_html('Body')
+		message.set_text('Body')
+		message.add_filter('templates','enable','1')
+		message.add_filter('templates','template_id', RIC_NOT_PAYING_ID)
+		message.set_categories(category)
+		message.add_substitution('-first_name-', first_name)
+		message.add_substitution('-download_link-', self.upgrade_folder_path)
+		message.add_substitution('-unique_id-', hash_id)
+
+		message.add_filter('subscriptiontrack','enable','1')
+		message.add_filter('subscriptiontrack','replace','[unsubscribe]')
+
+		try:
+			sg.send(message)
+		except Exception, e:
+			print '[NOT SENT] --- ' + str(email) 
+			raise e
+		else:
+			send = True
+			print '[SENT] --- ' + str(email)
+		return send
+
 
 
 	# create all the folders when sign up and get the upgrade link
