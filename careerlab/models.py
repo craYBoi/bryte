@@ -380,7 +380,7 @@ class Booking(models.Model):
 		except Exception, e:
 			pass
 
-		category = [school, str(date), email_purpose, version_number]
+		category = [school + ' - ' + str(date), email_purpose, version_number]
 
 		message.set_categories(category)
 		message.add_substitution('-first_name-', first_name)
@@ -419,7 +419,7 @@ class Booking(models.Model):
 		except Exception, e:
 			pass
 
-		category = [school, str(date), email_purpose, version_number]
+		category = [school + ' - ' + str(date), email_purpose, version_number]
 
 		message = sendgrid.Mail()
 		message.add_to(email)
@@ -469,7 +469,7 @@ class Booking(models.Model):
 		except Exception, e:
 			pass
 
-		category = [school, str(date), email_purpose, version_number]
+		category = [school + ' - ' + str(date), email_purpose, version_number]
 
 
 		message = sendgrid.Mail()
@@ -522,7 +522,7 @@ class Booking(models.Model):
 		except Exception, e:
 			pass
 
-		category = [school, str(date), email_purpose, version_number]
+		category = [school + ' - ' + str(date), email_purpose, version_number]
 
 		message = sendgrid.Mail()
 		message.add_to(email)
@@ -569,7 +569,7 @@ class Booking(models.Model):
 		except Exception, e:
 			pass
 
-		category = [school, str(date), email_purpose, version_number]
+		category = [school + ' - ' + str(date), email_purpose, version_number]
 
 		message = sendgrid.Mail()
 		message.add_to(email)
