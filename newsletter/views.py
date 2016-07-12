@@ -109,25 +109,7 @@ def faq(request):
 	context = {
 		'title_text': 'FAQs'
 	}
-	dbx = dropbox.Dropbox(settings.DROPBOX_TOKEN)
-
-	root = '/'
-	folder = 'Deliverables'
-	name = 'CareerLAB1'
-	path = os.path.join(root, folder, name)
-
-	urls = []
-	folders = dbx.files_list_folder(path).entries
-	entry = folders[0]
-	items = dbx.files_list_folder(entry.path_display).entries
-	for item in items:
-		sharing_link = dbx.sharing_create_shared_link(item.path_display, short_url=False, pending_upload=None)
-		url = str(sharing_link.url)
-		url = url[:-4]
-		url += 'raw=1'
-		urls.append(url)
-
-	context['urls'] = urls
+	
 
 	return render(request, 'faq.html', context)
 
@@ -368,7 +350,7 @@ def test_retrieve(request):
 					# send the email
 					copied = img.copy_to_upgrade()
 
-					img.book.dropbox_delivery_email()
+					img.book.photo_delivery_email()
 					is_delivered = True
 
 					try:
@@ -452,7 +434,7 @@ def test_retrieve(request):
 					confirmation_content += '1 ' + option_text + ' ---------------- $' + str(value) + '<br>' + special_note + '<br><br>'
 
 				# send it
-				img.book.upgrade_confirmation_email(confirmation_content)
+				img.book.order_delivery_email(confirmation_content)
 
 
 
@@ -492,7 +474,7 @@ def test_retrieve(request):
 
 				# only send one delivery email
 				# is_delivered not true when cannot be delivered right away, extra photos
-				if img.book.dropbox_delivery_email():
+				if img.book.photo_delivery_email():
 					for ip in ips:
 						img = ip.image
 						if img.is_fav or img.is_top or img.is_portrait:

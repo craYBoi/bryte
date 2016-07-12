@@ -240,6 +240,9 @@ class Signup(models.Model):
 	notified = models.BooleanField(default=False)
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
 	shoot = models.ForeignKey(Nextshoot, blank=True, null=True)
+	school_year = models.CharField(max_length=30, blank=True, null=True)
+	headshot_for = models.CharField(max_length=40, blank=True, null=True)
+	professional_path = models.CharField(max_length=40, blank=True, null=True)
 
 	def __unicode__(self):
 		return self.name + ' ' + self.email
@@ -298,6 +301,9 @@ class Booking(models.Model):
 	dropbox_folder = models.CharField(max_length=100, blank=True, null=True)
 	upgrade_folder_path = models.CharField(max_length=100, blank=True, null=True)
 	show_up = models.BooleanField(default=False)
+	school_year = models.CharField(max_length=30, blank=True, null=True)
+	headshot_for = models.CharField(max_length=40, blank=True, null=True)
+	professional_path = models.CharField(max_length=40, blank=True, null=True)
 
 
 	def __unicode__(self):

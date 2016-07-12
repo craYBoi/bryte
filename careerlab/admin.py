@@ -8,13 +8,13 @@ class NextshootAdmin(ImportExportModelAdmin):
 	list_display = ['id', 'photographer', 'location', 'school', 'active', 'name' ,'timestamp']
 
 class BookingAdmin(ImportExportModelAdmin):
-	list_display = ['id', 'email', 'name', 'timeslot', 'hash_id', 'dropbox_folder', 'upgrade_folder_path', 'show_up', 'timestamp']
+	list_display = ['id', 'email', 'name', 'timeslot', 'hash_id', 'dropbox_folder', 'upgrade_folder_path', 'show_up', 'timestamp', 'school_year', 'headshot_for', 'professional_path']
 
 class TimeslotAdmin(admin.ModelAdmin):
 	list_display = ['id', 'time', 'shoot','current_volumn', 'is_available']
 
 class SignupAdmin(admin.ModelAdmin):
-	list_display = ['id', 'email', 'name','notified', 'shoot', 'timestamp']
+	list_display = ['id', 'email', 'name','notified', 'shoot', 'timestamp', 'school_year', 'headshot_for', 'professional_path']
 
 class HeadshotImageAdmin(ImportExportModelAdmin):
 	list_display = ['id', 'book', 'name', 'is_raw', 'is_fav','is_top','is_portrait', 'o_url', 'wt_url', 'wo_url']

@@ -622,7 +622,8 @@
                 {% endfor %}
               </select>
               <div class="small_padding"></div>
-              <button class="btn-white bold large_font" id="careerlab_book_button" type='submit'>Book Now</button>
+              <button class="btn-white bold large_font" type='submit' id="book_modal_button">Book Now</button>
+              <button class="btn-white bold large_font" type='button' id="book_modal_button_shadow" data-toggle="modal" data-target="#myModal" hidden>Book Now</button>
               <div class="small_padding"></div>
             </form>
             </div>
@@ -639,7 +640,8 @@
             	<div class="small_padding"></div>
               <input type='email' name='careerlab_signup_email' class="form-control" id='careerlab_signup_email' required placeholder='Email Address' onchange="try{setCustomValidity('')}catch(e){}">
               <div class="small_padding"></div>
-              <button class="btn-white bold large_font" id="careerlab_signup_button" type='submit'>Signup</button>
+              <button class="btn-white bold large_font" id="signup_modal_button" type='submit'>Signup</button>
+              <button class="btn-white bold large_font" id="signup_modal_button_shadow" type='button' data-toggle="modal" data-target="#myModalSignup" hidden>Signup</button>
               <div class="small_padding"></div>
               <input type="hidden" value="{{ next_shoot.pk }}" id="signup_shoot_id">
             </form>
@@ -692,6 +694,111 @@
 <div id="loader-wrapper" hidden>
   <div id="loader" class="text-center"><img src="{% static 'logo/loading.svg' %}" width="140px"></div>
 </div>
+
+<!-- modal form -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+    <div class="modal-dialog" role="document">
+      <div class="modal-content red_bg white">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+        </div>
+        <div class="modal-body">
+          <form>
+            <label>School Year</label>
+            <select class="form-control" required name="careerlab_book_schoolyear" id="careerlab_book_schoolyear">
+              <option>Freshman</option>
+              <option>Sophomore</option>
+              <option>Junior</option>
+              <option>Senior</option>
+              <option>Super Senior</option>
+              <option>Master Student</option>
+              <option>Ph.D Student</option>
+              <option>Other</option>
+            </select>
+            <div class="small_padding"></div>
+
+            <label>What is your headshot for?</label>
+            <select class="form-control" required name="careerlab_book_headshot_for" id="careerlab_book_headshot_for">
+              <option>Update my LinkedIn Profile</option>
+              <option>Job Hunting</option>
+              <option>Show it to my parents</option>
+              <option>Other</option>
+            </select>
+            <div class="small_padding"></div>
+
+            <label>What's your professional Path</label>
+            <select class="form-control" required name='careerlab_book_profession' id="careerlab_book_profession">
+              <option>Business</option>
+              <option>Computer Science</option>
+              <option>Art</option>
+              <option>Marketing</option>
+              <option>Other</option>
+            </select>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <div class="text-center">
+          <button type="button" class="btn btn-white bold large_font" id="careerlab_book_button">Book Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<!-- modal form -->
+  <div class="modal fade" id="myModalSignup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+    <div class="modal-dialog" role="document">
+      <div class="modal-content red_bg white">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">A little more about yourself..</h4>
+        </div>
+        <div class="modal-body">
+          <form>
+            <label>School Year</label>
+            <select class="form-control" required name="careerlab_book_schoolyear" id="careerlab_signup_schoolyear">
+              <option>Freshman</option>
+              <option>Sophomore</option>
+              <option>Junior</option>
+              <option>Senior</option>
+              <option>Super Senior</option>
+              <option>Master Student</option>
+              <option>Ph.D Student</option>
+              <option>Other</option>
+            </select>
+            <div class="small_padding"></div>
+
+            <label>What is your headshot for?</label>
+            <select class="form-control" required name="careerlab_book_headshot_for" id="careerlab_signup_headshot_for">
+              <option>Update my LinkedIn Profile</option>
+              <option>Job Hunting</option>
+              <option>Show it to my parents</option>
+              <option>Other</option>
+            </select>
+            <div class="small_padding"></div>
+
+            <label>What's your professional Path</label>
+            <select class="form-control" required name='careerlab_book_profession' id="careerlab_signup_profession">
+              <option>Business</option>
+              <option>Computer Science</option>
+              <option>Art</option>
+              <option>Marketing</option>
+              <option>Other</option>
+            </select>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <div class="text-center">
+          <button type="button" class="btn btn-white bold large_font" id="careerlab_signup_button">Sign Up</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}
 
 {% block script %}
@@ -777,6 +884,23 @@ var csrftoken = getCookie('csrftoken');
     });
 
 
+    $('#book_modal_button').on('click', function(e){
+      if (document.getElementById('careerlab_book_email').checkValidity() && document.getElementById('careerlab_book_name').checkValidity() && document.getElementById('careerlab_book_time').checkValidity()){
+
+        $('#book_modal_button_shadow').trigger('click');
+        e.preventDefault();
+      }
+    });
+
+    $('#signup_modal_button').on('click', function(e){
+      if (document.getElementById('careerlab_signup_email').checkValidity() && document.getElementById('careerlab_signup_name').checkValidity()){
+
+        $('#signup_modal_button_shadow').trigger('click');
+        e.preventDefault();
+      }
+    });
+
+
     $('#careerlab_book_button').on('click', function(e){
       if (document.getElementById('careerlab_book_email').checkValidity() && document.getElementById('careerlab_book_name').checkValidity() && document.getElementById('careerlab_book_time').checkValidity()){
         $("#loader-wrapper").show();    
@@ -787,6 +911,9 @@ var csrftoken = getCookie('csrftoken');
           	name: $('#careerlab_book_name').val(),
             email: $('#careerlab_book_email').val(),
             time: $('#careerlab_book_time').val(),
+            schoolyear: $('#careerlab_book_schoolyear').val(),
+            headshot_for: $('#careerlab_book_headshot_for').val(),
+            profession: $('#careerlab_book_profession').val(),
           },
 
           success: function(data){
@@ -813,6 +940,9 @@ var csrftoken = getCookie('csrftoken');
           	name: $('#careerlab_signup_name').val(),
             email: $('#careerlab_signup_email').val(),
             shoot: $('#signup_shoot_id').val(),
+            schoolyear: $('#careerlab_signup_schoolyear').val(),
+            headshot_for: $('#careerlab_signup_headshot_for').val(),
+            profession: $('#careerlab_signup_profession').val(),
           },
 
           success: function(data){
