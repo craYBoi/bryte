@@ -390,6 +390,12 @@ class Booking(models.Model):
 		message.add_substitution('-location-', location)
 		message.add_substitution('-cancel_link-', self.generate_cancel_link())
 
+		# message.add_filter('ganalytics', 'enable', '1')
+		# message.add_filter('ganalytics', 'utm_source', 'Booking Confirmation Email [GA]')
+		# message.add_filter('ganalytics', 'utm_medium', 'email [GA]')
+		# message.add_filter('ganalytics', 'utm_content', 'Confirm their booking [GA]')
+		# message.add_filter('ganalytics', 'utm_campaign', 'Campaign Name! [GA]')
+
 		try:
 			sg.send(message)
 		except Exception, e:
@@ -590,7 +596,7 @@ class Booking(models.Model):
 			sg.send(message)
 		except Exception, e:
 			print '[NOT SENT] --- ' + str(email) 
-			raise e
+			# raise e
 		else:
 			send = True
 			print '[SENT] --- ' + str(email)
@@ -620,7 +626,7 @@ class Booking(models.Model):
 			pass
 
 		category = [school + ' - ' + str(date), email_purpose, version_number]
-		
+
 		message = sendgrid.Mail()
 		message.add_to(email)
 		message.set_from('Bryte Photo Inc <' + settings.EMAIL_HOST_USER + '>')
@@ -641,12 +647,62 @@ class Booking(models.Model):
 			sg.send(message)
 		except Exception, e:
 			print '[NOT SENT] --- ' + str(email) 
-			raise e
+			# raise e
 		else:
 			send = True
 			print '[SENT] --- ' + str(email)
 		return send
 
+
+	def passport_email(self):
+		send = False
+		name = self.name
+		first_name = name.split(' ')[0]
+		email = self.email
+		hash_id = self.hash_id		
+		timeslot = self.timeslot
+		shoot = timeslot.shoot
+		location = shoot.location
+		date = shoot.date
+		school = shoot.school
+		# get template, version name, and automatically add to category
+		email_purpose = 'Error'
+		version_number = 'Error'
+		try:
+			email_template = json.loads(sgapi.client.templates._(PASSPORT_ID).get().response_body)
+			versions = email_template.get('versions')
+			version_number = [v.get('name') for v in versions if v.get('active')][0]
+			email_purpose = email_template.get('name')
+		except Exception, e:
+			pass
+
+		category = [school + ' - ' + str(date), email_purpose, version_number]
+		
+		message = sendgrid.Mail()
+		message.add_to(email)
+		message.set_from('Bryte Photo Inc <' + settings.EMAIL_HOST_USER + '>')
+		message.set_subject('New version of your Linkedin headshot') 
+		message.set_html('Body')
+		message.set_text('Body')
+		message.add_filter('templates','enable','1')
+		message.add_filter('templates','template_id', PASSPORT_ID)
+		message.set_categories(category)
+		message.add_substitution('-first_name-', first_name)
+		message.add_substitution('-download_link-', self.upgrade_folder_path)
+		message.add_substitution('-unique_id-', hash_id)
+
+		message.add_filter('subscriptiontrack','enable','1')
+		message.add_filter('subscriptiontrack','replace','[unsubscribe]')
+
+		try:
+			sg.send(message)
+		except Exception, e:
+			print '[NOT SENT] --- ' + str(email) 
+			# raise e
+		else:
+			send = True
+			print '[SENT] --- ' + str(email)
+		return send
 
 
 	# create all the folders when sign up and get the upgrade link
@@ -672,7 +728,7 @@ class Booking(models.Model):
 			dbx.files_create_folder(upload_folder_path)
 		except Exception, e:
 			print e
-			raise e
+			# raise e
 		else:
 			# store the upload path in the Booking
 			self.dropbox_folder = upload_folder_path
