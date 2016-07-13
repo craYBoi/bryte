@@ -31,9 +31,43 @@
   </div>
 
 
+  <div class="background_pink">
   <div class="container">
     <div class="medium_padding"></div>
     <h2 class="bold landing_title_sec text-center">Get closer to your dream job</h2>
+
+    <div class="row">
+      <div class="col-md-4 all_padding">
+        <div class="page-header">
+          <h3 class="bold">Make your profile more professional</h3>
+        </div>
+        <p>"We want to help students build a great Linkedin profile so that employers look at them, and Bryte is perfect for that: that professional headshot that they may not be able to get otherwise" </p>
+        <div class="text-right">– Amy, Career Counselor</div>
+      </div>
+      <div class="col-md-4 all_padding">
+        <div class="page-header">
+          <h3 class="bold">Generate more views on <span class="blue">Linkedin</span></h3>
+        </div>
+        <p>A great profile picture is essential to finding success on Linkedin. "In fact, your profile is 14x more likely to be viewed simply by having a profile picture"</p>
+        <div class="text-right">– Linkedin Official Blog</div>
+      </div>
+      <div class="col-md-4 all_padding">
+        <div class="page-header">
+          <h3 class="bold">Look good to recruiters</h3>
+        </div>
+        <p>Your profile picture will help you stand out to the recruiters looking at you online. "My advice? Make sure there are images of yourself available when that inevitable Internet search happens."</p>
+        <div class="text-right">– HR Manager at CCTV</div>
+      </div>
+    </div>
+
+
+    <div class="large_padding"></div>
+
+    </div>
+    </div>
+
+    <div class="container">
+
     <div class="medium_padding"></div>
 
       <h2 class="bold text-center">Recruiters spend a lot of time looking at your Linkedin headshot! And, on average, they spend 6 seconds looking at your resume total!</h2>
@@ -80,6 +114,7 @@
 -->
 
     <div class="large_padding"></div>
+  </div>
   </div>
 
   <div id="careerlab_gallery">
@@ -622,8 +657,8 @@
                 {% endfor %}
               </select>
               <div class="small_padding"></div>
-              <button class="btn-white bold large_font" type='submit' id="book_modal_button">Book Now</button>
-              <button class="btn-white bold large_font" type='button' id="book_modal_button_shadow" data-toggle="modal" data-target="#myModal" hidden>Book Now</button>
+              <button class="btn-white bold large_font" type='submit' id="book_modal_button">Submit</button>
+              <button class="btn-white bold large_font" type='button' id="book_modal_button_shadow" data-toggle="modal" data-target="#myModal" hidden>Submit</button>
               <div class="small_padding"></div>
             </form>
             </div>
@@ -640,8 +675,8 @@
             	<div class="small_padding"></div>
               <input type='email' name='careerlab_signup_email' class="form-control" id='careerlab_signup_email' required placeholder='Email Address' onchange="try{setCustomValidity('')}catch(e){}">
               <div class="small_padding"></div>
-              <button class="btn-white bold large_font" id="signup_modal_button" type='submit'>Signup</button>
-              <button class="btn-white bold large_font" id="signup_modal_button_shadow" type='button' data-toggle="modal" data-target="#myModalSignup" hidden>Signup</button>
+              <button class="btn-white bold large_font" id="signup_modal_button" type='submit'>Submit</button>
+              <button class="btn-white bold large_font" id="signup_modal_button_shadow" type='button' data-toggle="modal" data-target="#myModalSignup" hidden>Submit</button>
               <div class="small_padding"></div>
               <input type="hidden" value="{{ next_shoot.pk }}" id="signup_shoot_id">
             </form>
@@ -702,7 +737,7 @@
       <div class="modal-content red_bg white">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+          <h4 class="modal-title" id="myModalLabel">A little more about yourself..</h4>
         </div>
         <div class="modal-body">
           <form>

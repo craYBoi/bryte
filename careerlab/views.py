@@ -51,6 +51,21 @@ def index(request, school='brown'):
 		else:
 			raise Http404
 
+	elif school.lower() == 'bu':
+		title = 'Bryte & Boston University Headshot'
+		nextshoot = Nextshoot.objects.filter(school='Boston University')
+		bg_url = static('img/bu/bg.jpg')
+		logo_url = static('img/bu/logo.png')
+		school_name = 'Boston University Feld Career Center'
+		school_url = 'http://www.bu.edu'
+		school_title = 'BU Career Center'
+		school_location = 'Feld Career Center, 595 Commonwealth Ave.'
+		if nextshoot:
+			nextshoot = nextshoot[0]
+			timeslots = nextshoot.timeslot_set.filter(is_available=True).order_by('time')	
+		else:
+			raise Http404
+
 
 	elif school.lower() == 'ccriknight':
 		title = 'Bryte & the Community College of Rhode Island Knight Campus Headshot'

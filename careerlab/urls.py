@@ -8,7 +8,7 @@ urlpatterns = [
 	url(r'^book$', book, name='careerlab_book'),
 	url(r'^signup$', signup, name='careerlab_signup'),
 	url(r'^cancel$', cancel_order, name='careerlab_cancel_order'),
-	url(r'^tips$', tips, name='careerlab_tips'),
-	url(r'^pay$', pay, name='careerlab_pay'),
+	url(r'^tips/$', tips, name='careerlab_tips'),
+	url(r'^pay/$', pay, name='careerlab_pay'),
 	url(r'^(?P<school>[a-zA-Z]*)/$', index, name='careerlab_index'),
 ]

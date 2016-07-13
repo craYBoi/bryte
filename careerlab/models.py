@@ -350,6 +350,9 @@ class Booking(models.Model):
 
 		self.delete()
 
+	def generate_booking_link(self, school_url):
+		return os.path.join(settings.SITE_URL, 'school', school_url)
+
 	def generate_cancel_link(self):
 		return settings.SITE_URL + reverse('careerlab_cancel_order') + '?order_id=' + str(self.hash_id)
 
@@ -422,6 +425,14 @@ class Booking(models.Model):
 		school = shoot.school
 		email = self.email
 
+		school_url = ''
+		if school == 'Community College of Rhode Island':
+			school_url = 'ccriknight'
+		elif school == 'Boston University':
+			school_url = 'bu'
+		else:
+			school_url = 'brown'
+
 		# get template, version name, and automatically add to category
 		email_purpose = 'Error'
 		version_number = 'Error'
@@ -448,6 +459,7 @@ class Booking(models.Model):
 		message.add_substitution('-time_slot-', str(timeslot))
 		message.add_substitution('-location-', location)
 		message.add_substitution('-cancel_link-', self.generate_cancel_link())
+		message.add_substitution('-book_link-', self.generate_booking_link(school_url))
 
 		try:
 			sg.send(message)
