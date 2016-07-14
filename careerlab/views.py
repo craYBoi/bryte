@@ -138,7 +138,7 @@ def book(request):
 		name = request.POST.get('name')
 		school_year = request.POST.get('schoolyear')
 		professional_path = request.POST.get('profession')
-		headshot_for = request.POST.get('headshot_for')
+		area_of_study = request.POST.get('major')
 		time_id = request.POST.get('time')
 		timeslot = get_object_or_404(Timeslot, pk=time_id)
 		shoot = timeslot.shoot
@@ -156,8 +156,8 @@ def book(request):
 						email = email,
 						name = name,
 						timeslot = timeslot,
-						school_year = school_year,
-						headshot_for = headshot_for,
+						program_progress = school_year,
+						area_of_study = area_of_study,
 						professional_path = professional_path,
 						)
 				except Exception, e:
@@ -196,7 +196,7 @@ def signup(request):
 		shoot_pk = request.POST.get('shoot')
 		school_year = request.POST.get('schoolyear')
 		professional_path = request.POST.get('profession')
-		headshot_for = request.POST.get('headshot_for')
+		major = request.POST.get('headshot_for')
 
 		print shoot_pk
 
@@ -213,8 +213,8 @@ def signup(request):
 					email = email,
 					name = name,
 					shoot = shoot,
-					school_year = school_year,
-					headshot_for = headshot_for,
+					program_progress = school_year,
+					area_of_study = major,
 					professional_path = professional_path,
 					)
 			except Exception, e:
