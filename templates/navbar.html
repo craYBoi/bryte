@@ -27,7 +27,7 @@
       </button>
 
       {% if brown_careerlab %}
-        <a href="{% url 'careerlab_index' %}" class="navbar-brand">
+        <a href="{% url 'careerlab_index' %}{{ school_bryte_url }}" class="navbar-brand">
             <img alt="Bryte Photo logo" src="{% static 'logo/bryte_logo_white.png' %}" height="50px">
         </a>    
       {% else %}
