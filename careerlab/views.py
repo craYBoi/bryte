@@ -196,6 +196,7 @@ def book(request):
 		return HttpResponse(json.dumps(data), content_type='application/json')
 	else:
 		# for mobile
+		data = {}
 		data['msg'] = 'There seems to be a little problem signing up, did you use your school email?'
 		return HttpResponse(json.dumps(data), content_type='application/json')
 
@@ -240,6 +241,7 @@ def signup(request):
 		return HttpResponse(json.dumps(data), content_type='application/json')
 	else:
 		# for mobile
+		data = {}
 		data['msg'] = 'There seems to be a little problem signing up, did you use your school email?'
 		return HttpResponse(json.dumps(data), content_type='application/json')
 
