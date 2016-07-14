@@ -51,6 +51,9 @@ class Nextshoot(models.Model):
 
 
 	# override save method to first create folder
+	# Create PROD Shoot Folder - customer
+	# Create PHOTO Shoot Folder - photographer
+	# Create TOUCHUP Shoot Folder - photoshopper
 	def save(self, *args, **kwargs):
 		name = self.location + ' - ' + str(self.date.strftime('%Y-%m-%d'))
 
@@ -64,6 +67,8 @@ class Nextshoot(models.Model):
 		# create shoot folder in PHOTO
 		self.create_photo_folder()
 
+		# create shoot folder in TOUCHUP
+		self.create_touchup_folder()
 
 
 	def __unicode__(self):
@@ -90,7 +95,7 @@ class Nextshoot(models.Model):
 		return None
 
 
-	# create dropbox folder
+	# create dropbox folder for Shoot
 	def create_prod_folder(self):
 		token = settings.DROPBOX_TOKEN
 		dbx = dropbox.Dropbox(token)
@@ -107,7 +112,7 @@ class Nextshoot(models.Model):
 			return 1
 
 
-	# create dropbox folder for photographers/photoshoppers
+	# create dropbox folder for photographers for shoot
 	def create_photo_folder(self):
 		token = settings.DROPBOX_TOKEN
 		dbx = dropbox.Dropbox(token)
@@ -123,6 +128,86 @@ class Nextshoot(models.Model):
 		else:
 			return 1
 
+
+	# create shoot folder for photoshoppers
+	# create a subfolder called Edited for photoshoppers to put in deliverables. Should be 3 versions for each single favorite raw photo
+	# _pf -> professional headshot
+	# _pt -> professional portrait
+	# _s -> standard_headshot
+	def create_touchup_folder(self):
+		token = settings.DROPBOX_TOKEN
+		dbx = dropbox.Dropbox(token)
+
+		root_folder = settings.DROPBOX_TOUCHUP
+		folder_path = os.path.join(root_folder, self.name)
+
+		try:
+			dbx.files_create_folder(folder_path)
+		except Exception, e:
+			print e
+			return 0
+		else:
+			# create Edited folder inside for photoshoppers
+			edited_folder_path = os.path.join(folder_path, 'Edited')
+			try:
+				dbx.files_create_folder(edited_folder_path)
+			except Exception, e:
+				print e
+				return 0
+			else:
+				return 1	
+
+
+	# migrate favs in PHOTO to TOUCHUP for photoshopper for this shoot
+	def migrate_photo_to_touchup(self):
+		token = settings.DROPBOX_TOKEN
+		dbx = dropbox.Dropbox(token)
+
+		photo_folder_path = os.path.join(settings.DROPBOX_PHOTO, self.name)
+
+		try:
+			items = dbx.files_list_folder(photo_folder_path).entries
+		except Exception, e:
+			raise e
+		else:
+			for item in items:
+				path = item.path_lower
+				email = item.name
+				try:
+					images = dbx.files_list_folder(path).entries
+					# find the one with _fav
+					# list image here and concat with email with '+', get rid of _fav and ready to copy to touchup folder
+				except Exception, e:
+					raise e
+				else:
+					# find the one with fav
+					try:
+						fav = [image for image in images if os.path.splitext(image.name)[-2].split('_')[-1] == 'fav'][0]
+					except Exception, e:
+						print 'Fav not found in folder'
+						raise e
+					else:
+						# copy files
+						# get rid of _fav and add email address with '+' as splitter
+						name = '+'.join([email, fav.name.replace('_fav', '')])
+
+						# copy path to touchup folder
+						copy_path = os.path.join(settings.DROPBOX_TOUCHUP, self.name, name)
+						try:
+							dbx.files_copy(fav.path_lower, copy_path)
+						except Exception, e:
+							print 'copy image failed'
+							pass
+						else:
+							print 'Found fav and copied to TOUCHUP'
+			return 1
+
+
+	# compress the image in TOUCH Edited
+
+	# migrate image from TOUCH Edited to PROD/TEST Edited 
+
+	# migrate raw image from PHOTO to PROD/TEST RAW
 
 
 	def send_reminder(self):
@@ -301,8 +386,8 @@ class Booking(models.Model):
 	dropbox_folder = models.CharField(max_length=100, blank=True, null=True)
 	upgrade_folder_path = models.CharField(max_length=100, blank=True, null=True)
 	show_up = models.BooleanField(default=False)
-	school_year = models.CharField(max_length=30, blank=True, null=True)
-	headshot_for = models.CharField(max_length=40, blank=True, null=True)
+	program_progress = models.CharField(max_length=30, blank=True, null=True)
+	area_of_study = models.CharField(max_length=40, blank=True, null=True)
 	professional_path = models.CharField(max_length=40, blank=True, null=True)
 
 
@@ -797,6 +882,8 @@ class Booking(models.Model):
 					self.upgrade_folder_path = upgrade_link.url
 
 
+	# create email folder in PHOTO for photographer when people sign up
+	# name format, the photo picked by student should be added _fav in filename before the format extension. eg.. DSC_194.jpg -> DSC_194_fav.jpg
 	def create_dropbox_photo_folder(self):
 		token = settings.DROPBOX_TOKEN
 		dbx = dropbox.Dropbox(token)
@@ -818,22 +905,9 @@ class Booking(models.Model):
 			dbx.files_create_folder(upload_folder_path)
 		except Exception, e:
 			print e
+			return 0
 		else:
-			RAW_FOLDER = 'Raw'
-			EDITED_FOLDER = 'Edited'
-
-			edited_folder_path = os.path.join(upload_folder_path, EDITED_FOLDER)
-			raw_folder_path = os.path.join(upload_folder_path, RAW_FOLDER)
-
-			try:
-				dbx.files_create_folder(edited_folder_path)
-				dbx.files_create_folder(raw_folder_path)
-			except Exception, e:
-				print e
-				return 0
-			else:
-				return 1
-
+			return 1
 
 
 	def retrieve_image(self, **kwargs):

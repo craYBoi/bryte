@@ -267,7 +267,7 @@ COMMISSION = os.environ.get('COMMISSION')
 DROPBOX_TOKEN = os.environ.get('DROPBOX_TOKEN')
 DROPBOX_PATH = os.path.join('/', os.environ.get('DROPBOX_PATH'))
 DROPBOX_PHOTO = os.path.join('/', 'PHOTO')
-
+DROPBOX_TOUCHUP = os.path.join('/', 'TOUCHUP')
 
 # sendgrid
 SENDGRID_KEY = os.environ.get('SENDGRID_KEY')

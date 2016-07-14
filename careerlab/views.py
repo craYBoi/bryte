@@ -33,6 +33,10 @@ def index(request, school='brown'):
 	school_url = ''
 	school_title = ''
 	school_location = ''
+	school_year_choices = ['<25% of credits completed', '25-50% of credits completed', '50-75% of credits completed', '>75% of credits completed']
+	area_of_study_choices = ['Biological/Medicinal Sciences', 'Nursing', 'Human Services', 'Psychology', 'Physical Sciences', 'Computer Science', 'Mathematics and Statistics', 'English/Literature', 'History', 'Sociology', 'Education', 'Environmental Sciences', 'Public Administration/Social Services', 'Business/Management', 'Marketing/Communications', 'Economics/Finance', 'Public Administration/Social Services', 'Visual and Performing Arts', 'Journalism']
+	professional_path_choices = ['Business Administration/Management', 'Social Services and Nonprofits', 'Government', 'Education', 'Personal Care and Other Services', 'Marketing', 'Sales and Related', 'Healthcare, Pharmaceuticals', 'Finance, Insurance', 'Real Estate', 'Computer Engineering/IT', 'Architecture', 'Freelance Artist', 'Legal', 'Media/Journalism', 'Sports and Physical Fitness']
+	modal_form_title = ''
 
 	# view logic for different schools here
 	# filter by the school name and pick the first
@@ -45,6 +49,7 @@ def index(request, school='brown'):
 		school_url = 'http://www.brown.edu'
 		school_title = 'CareerLAB'
 		school_location = 'Brown CareerLAB, 167 Angell St'
+		modal_form_title = 'Brown Form Title'
 		if nextshoot:
 			nextshoot = nextshoot[0]
 			timeslots = nextshoot.timeslot_set.filter(is_available=True).order_by('time')	
@@ -60,6 +65,7 @@ def index(request, school='brown'):
 		school_url = 'http://www.bu.edu'
 		school_title = 'BU Career Center'
 		school_location = 'Feld Career Center, 595 Commonwealth Ave.'
+		modal_form_title = 'BU Form title'
 		if nextshoot:
 			nextshoot = nextshoot[0]
 			timeslots = nextshoot.timeslot_set.filter(is_available=True).order_by('time')	
@@ -75,6 +81,7 @@ def index(request, school='brown'):
 		school_url = 'http://www.ccri.edu'
 		school_title = 'Career Planning'
 		school_location = 'Great Hall just outside the Career Planning Office'
+		modal_form_title = 'Thank you for helping Bryte and Career Planning better engage with CCRI students'
 		nextshoot = Nextshoot.objects.filter(school='Community College of Rhode Island')
 		if nextshoot:
 			nextshoot = nextshoot[0]
@@ -95,8 +102,6 @@ def index(request, school='brown'):
 		else:
 			raise Http404
 
-
-
 	else:
 		raise Http404
 
@@ -110,6 +115,10 @@ def index(request, school='brown'):
 	context['school_name'] = school_name
 	context['school_title'] = school_title
 	context['school_location'] = school_location
+	context['school_year_choices'] = school_year_choices
+	context['modal_form_title'] = modal_form_title
+	context['professional_path_choices'] = sorted(professional_path_choices)
+	context['area_of_study_choices'] = sorted(area_of_study_choices)
 
 	# next_shoot = Nextshoot.objects.first()
 	# timeslots = next_shoot.timeslot_set.filter(is_available=True, active=True).order_by('time')

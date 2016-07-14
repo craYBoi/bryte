@@ -34,7 +34,7 @@
   <div class="background_pink">
   <div class="container">
     <div class="medium_padding"></div>
-    <h2 class="bold landing_title_sec text-center">Get closer to your dream job</h2>
+    <h2 class="bold landing_title text-center">Get closer to your dream job</h2>
 
     <div class="row">
       <div class="col-md-4 all_padding">
@@ -53,7 +53,7 @@
       </div>
       <div class="col-md-4 all_padding">
         <div class="page-header">
-          <h3 class="bold">Look good to recruiters</h3>
+          <h3 class="bold">Get attention from recruiters</h3>
         </div>
         <p>Your profile picture will help you stand out to the recruiters looking at you online. "My advice? Make sure there are images of yourself available when that inevitable Internet search happens."</p>
         <div class="text-right">– HR Manager at CCTV</div>
@@ -130,7 +130,7 @@
         <div class="flex_box_center xl_height">
           <div class="background_white lki_box">
             <div class="full_height center_flex">
-              <img src="{% static 'img/thumbnails/new/O/h2.jpg' %}" height="200px">
+              <img src="{% static 'img/thumbnails/new/O/h5.jpg' %}" height="200px">
             </div>
             <div class="small_padding_left"></div>
             <div class="lki_content">
@@ -192,7 +192,7 @@
         <div class="flex_box_center xl_height">
           <div class="background_white lki_box">
             <div class="full_height center_flex">
-              <img src="{% static 'img/thumbnails/new/O/h1.jpg' %}" height="200px">
+              <img src="{% static 'img/thumbnails/new/O/h2.jpg' %}" height="200px">
             </div>
             <div class="small_padding_left"></div>
             <div class="lki_content">
@@ -737,45 +737,39 @@
       <div class="modal-content red_bg white">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel">A little more about yourself..</h4>
+          <h4 class="modal-title small_font" id="myModalLabel">{{ modal_form_title }}</h4>
+          <div class="xsmall_padding"></div>
         </div>
         <div class="modal-body">
           <form>
-            <label>School Year</label>
+            <label>Progress in Program of Study</label>
             <select class="form-control" required name="careerlab_book_schoolyear" id="careerlab_book_schoolyear">
-              <option>Freshman</option>
-              <option>Sophomore</option>
-              <option>Junior</option>
-              <option>Senior</option>
-              <option>Super Senior</option>
-              <option>Master Student</option>
-              <option>Ph.D Student</option>
-              <option>Other</option>
+              {% for school_year in school_year_choices %}
+                <option>{{ school_year }}</option>
+              {% endfor %}
             </select>
             <div class="small_padding"></div>
 
-            <label>What is your headshot for?</label>
+            <label>What is your area of study in school?</label>
             <select class="form-control" required name="careerlab_book_headshot_for" id="careerlab_book_headshot_for">
-              <option>Update my LinkedIn Profile</option>
-              <option>Job Hunting</option>
-              <option>Show it to my parents</option>
-              <option>Other</option>
+              {% for area_of_study in area_of_study_choices %}
+                <option>{{ area_of_study }}</option>
+              {% endfor %}
             </select>
             <div class="small_padding"></div>
 
-            <label>What's your professional Path</label>
+            <label>What's your current professional path?</label>
             <select class="form-control" required name='careerlab_book_profession' id="careerlab_book_profession">
-              <option>Business</option>
-              <option>Computer Science</option>
-              <option>Art</option>
-              <option>Marketing</option>
-              <option>Other</option>
+              {% for professional_path in professional_path_choices %}
+                <option>{{ professional_path }}</option>
+              {% endfor %}
             </select>
           </form>
         </div>
         <div class="modal-footer">
           <div class="text-center">
           <button type="button" class="btn btn-white bold large_font" id="careerlab_book_button">Book Now</button>
+          <p class="white small_padding xsmall_font">Your information is kept completely private between Bryte and your Career Center and will not be shard with anyone else.</p>
           </div>
         </div>
       </div>
@@ -790,45 +784,39 @@
       <div class="modal-content red_bg white">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel">A little more about yourself..</h4>
+          <h4 class="modal-title small_font" id="myModalLabel">{{ modal_form_title }}</h4>
+          <div class="xsmall_padding"></div>
         </div>
         <div class="modal-body">
           <form>
-            <label>School Year</label>
+            <label>Progress in Program of Study</label>
             <select class="form-control" required name="careerlab_book_schoolyear" id="careerlab_signup_schoolyear">
-              <option>Freshman</option>
-              <option>Sophomore</option>
-              <option>Junior</option>
-              <option>Senior</option>
-              <option>Super Senior</option>
-              <option>Master Student</option>
-              <option>Ph.D Student</option>
-              <option>Other</option>
+              {% for school_year in school_year_choices %}
+                <option>{{ school_year }}</option>
+              {% endfor %}
             </select>
             <div class="small_padding"></div>
 
-            <label>What is your headshot for?</label>
+            <label>What is your area of study in school?</label>
             <select class="form-control" required name="careerlab_book_headshot_for" id="careerlab_signup_headshot_for">
-              <option>Update my LinkedIn Profile</option>
-              <option>Job Hunting</option>
-              <option>Show it to my parents</option>
-              <option>Other</option>
+              {% for area_of_study in area_of_study_choices %}
+                <option>{{ area_of_study }}</option>
+              {% endfor %}
             </select>
             <div class="small_padding"></div>
 
-            <label>What's your professional Path</label>
+            <label>What's your current professional path?</label>
             <select class="form-control" required name='careerlab_book_profession' id="careerlab_signup_profession">
-              <option>Business</option>
-              <option>Computer Science</option>
-              <option>Art</option>
-              <option>Marketing</option>
-              <option>Other</option>
+              {% for professional_path in professional_path_choices %}
+                <option>{{ professional_path }}</option>
+              {% endfor %}
             </select>
           </form>
         </div>
         <div class="modal-footer">
           <div class="text-center">
           <button type="button" class="btn btn-white bold large_font" id="careerlab_signup_button">Sign Up</button>
+          <p class="white small_padding xsmall_font">Your information is kept completely private between Bryte and your Career Center and will not be shard with anyone else.</p>
           </div>
         </div>
       </div>
