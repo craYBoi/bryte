@@ -203,6 +203,10 @@ class Nextshoot(models.Model):
 			return 1
 
 
+	# PHOTO check script
+
+	# TOUCHUP check script
+
 	# compress the image in TOUCH Edited
 
 	# migrate image from TOUCH Edited to PROD/TEST Edited 

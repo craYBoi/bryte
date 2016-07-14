@@ -644,12 +644,12 @@
           {% if timeslots %}
           <div id="book_form">
             <h3 class="bold white xsmall_padding">Book your LinkedIn headshot</h3>
-            <div class="xsmall_padding"></div>
+            <div class="small_padding"></div>
             <div class="text-center">
             <form method="POST" action="{% url 'careerlab_book' %}" class=" white">{% csrf_token %}
             	<input type='text' name='careerlab_book_name' class="form-control" id='careerlab_book_name' required pattern="[a-zA-Z.]{2,}(\s+[a-zA-z.]{2,})+" placeholder='First & Last Name'>
             	<div class="small_padding"></div>
-              <input type='email' name='careerlab_book_email' class="form-control" id='careerlab_book_email' required placeholder='Email Address' onchange="try{setCustomValidity('')}catch(e){}">
+              <input type='email' name='careerlab_book_email' class="form-control" id='careerlab_book_email' required pattern='\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9._%+-]+.edu\b' placeholder='Use {{ school_abbr }} Email Address' oninvalid="this.setCustomValidity('Please use your {{ school_abbr }} email address')" onchange="try{setCustomValidity('')}catch(e){}">
               <div class="small_padding"></div>
               <select required name='careerlab_book_time' class="form-control" id='careerlab_book_time'>
                 {% for timeslot in timeslots %}
@@ -673,7 +673,7 @@
             <form method="POST" action="{% url 'careerlab_signup' %}" class="white">{% csrf_token %}
             	<input type='text' name='careerlab_signup_name' class="form-control" id='careerlab_signup_name' required pattern="[a-zA-Z]{2,}(\s+[a-zA-z]{2,})+" placeholder='First & Last Name'>
             	<div class="small_padding"></div>
-              <input type='email' name='careerlab_signup_email' class="form-control" id='careerlab_signup_email' required placeholder='Email Address' onchange="try{setCustomValidity('')}catch(e){}">
+              <input type='email' name='careerlab_signup_email' class="form-control" id='careerlab_signup_email' required pattern='\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9._%+-]+.edu\b' placeholder='Use {{ school_abbr }} Email Address' oninvalid="this.setCustomValidity('Please use your {{ school_abbr }} email address')" onchange="try{setCustomValidity('')}catch(e){}">
               <div class="small_padding"></div>
               <button class="btn-white bold large_font" id="signup_modal_button" type='submit'>Submit</button>
               <button class="btn-white bold large_font" id="signup_modal_button_shadow" type='button' data-toggle="modal" data-target="#myModalSignup" hidden>Submit</button>
@@ -945,7 +945,7 @@ var csrftoken = getCookie('csrftoken');
           },
 
           failure: function(data){
-            $("#modal_content").html('Something wrong happened, please try again. Thanks!')
+            $("#modal_content").html(data['msg'])
             $("#modal_link").trigger('click')
           }
         });
@@ -974,7 +974,7 @@ var csrftoken = getCookie('csrftoken');
           },
 
           failure: function(data){
-            $("#modal_content").html('Something wrong happened, please try again. Thanks!')
+            $("#modal_content").html(data['msg'])
             $("#modal_link").trigger('click')
           }
         });

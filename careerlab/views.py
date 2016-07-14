@@ -30,6 +30,7 @@ def index(request, school='brown'):
 	bg_url = ''
 	logo_url = ''
 	school_name = ''
+	school_abbr = ''
 	school_url = ''
 	school_bryte_url = ''
 	school_title = ''
@@ -49,6 +50,7 @@ def index(request, school='brown'):
 		school_name = 'Brown University CareerLAB'
 		school_url = 'http://www.brown.edu'
 		school_bryte_url = 'brown'
+		school_abbr = 'Brown'
 		school_title = 'CareerLAB'
 		school_location = 'Brown CareerLAB, 167 Angell St'
 		modal_form_title = 'Brown Form Title'
@@ -67,6 +69,7 @@ def index(request, school='brown'):
 		school_url = 'http://www.bu.edu'
 		school_title = 'BU Career Center'
 		school_bryte_url = 'bu'
+		school_abbr = 'BU'
 		school_location = 'Feld Career Center, 595 Commonwealth Ave.'
 		modal_form_title = 'BU Form title'
 		if nextshoot:
@@ -83,6 +86,7 @@ def index(request, school='brown'):
 		school_name = 'Community College of Rhode Island'
 		school_url = 'http://www.ccri.edu'
 		school_bryte_url = 'ccriknight'
+		school_abbr = 'CCRI'
 		school_title = 'Career Planning'
 		school_location = 'Great Hall just outside the Career Planning Office'
 		modal_form_title = 'Thank you for helping Bryte and Career Planning better engage with CCRI students'
@@ -120,6 +124,7 @@ def index(request, school='brown'):
 	context['school_title'] = school_title
 	context['school_bryte_url'] = school_bryte_url
 	context['school_location'] = school_location
+	context['school_abbr'] = school_abbr
 	context['school_year_choices'] = school_year_choices
 	context['modal_form_title'] = modal_form_title
 	context['professional_path_choices'] = sorted(professional_path_choices)
@@ -190,7 +195,9 @@ def book(request):
 
 		return HttpResponse(json.dumps(data), content_type='application/json')
 	else:
-		raise Http404
+		# for mobile
+		data['msg'] = 'There seems to be a little problem signing up, did you use your school email?'
+		return HttpResponse(json.dumps(data), content_type='application/json')
 
 
 def signup(request):
@@ -232,7 +239,9 @@ def signup(request):
 
 		return HttpResponse(json.dumps(data), content_type='application/json')
 	else:
-		raise Http404
+		# for mobile
+		data['msg'] = 'There seems to be a little problem signing up, did you use your school email?'
+		return HttpResponse(json.dumps(data), content_type='application/json')
 
 # could subject to change to Shoot school name
 def cancel_order(request):
