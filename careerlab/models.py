@@ -325,8 +325,8 @@ class Signup(models.Model):
 	notified = models.BooleanField(default=False)
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
 	shoot = models.ForeignKey(Nextshoot, blank=True, null=True)
-	school_year = models.CharField(max_length=30, blank=True, null=True)
-	headshot_for = models.CharField(max_length=40, blank=True, null=True)
+	program_progress = models.CharField(max_length=30, blank=True, null=True)
+	area_of_study = models.CharField(max_length=40, blank=True, null=True)
 	professional_path = models.CharField(max_length=40, blank=True, null=True)
 
 	def __unicode__(self):

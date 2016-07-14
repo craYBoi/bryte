@@ -201,7 +201,7 @@ def signup(request):
 		shoot_pk = request.POST.get('shoot')
 		school_year = request.POST.get('schoolyear')
 		professional_path = request.POST.get('profession')
-		major = request.POST.get('headshot_for')
+		major = request.POST.get('major')
 
 		print shoot_pk
 

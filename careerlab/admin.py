@@ -14,7 +14,7 @@ class TimeslotAdmin(admin.ModelAdmin):
 	list_display = ['id', 'time', 'shoot','current_volumn', 'is_available']
 
 class SignupAdmin(admin.ModelAdmin):
-	list_display = ['id', 'email', 'name','notified', 'shoot', 'timestamp', 'school_year', 'headshot_for', 'professional_path']
+	list_display = ['id', 'email', 'name','notified', 'shoot', 'timestamp', 'program_progress', 'area_of_study', 'professional_path']
 
 class HeadshotImageAdmin(ImportExportModelAdmin):
 	list_display = ['id', 'book', 'name', 'is_raw', 'is_fav','is_top','is_portrait', 'o_url', 'wt_url', 'wo_url']
