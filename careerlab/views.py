@@ -35,6 +35,10 @@ def index(request, school='brown'):
 	school_bryte_url = ''
 	school_title = ''
 	school_location = ''
+	main_color = 'red'
+	main_bg_color = 'red_bg'
+	secondary_bg_color = 'background_pink'
+
 	school_year_choices = ['<25% of credits completed', '25-50% of credits completed', '50-75% of credits completed', '>75% of credits completed']
 	area_of_study_choices = ['Biological/Medicinal Sciences', 'Nursing', 'Human Services', 'Psychology', 'Physical Sciences', 'Computer Science', 'Mathematics and Statistics', 'English/Literature', 'History', 'Sociology', 'Education', 'Environmental Sciences', 'Public Administration/Social Services', 'Business/Management', 'Marketing/Communications', 'Economics/Finance', 'Visual and Performing Arts', 'Journalism']
 	professional_path_choices = ['Business Administration/Management', 'Social Services and Nonprofits', 'Government', 'Education', 'Personal Care and Other Services', 'Marketing', 'Sales and Related', 'Healthcare, Pharmaceuticals', 'Finance, Insurance', 'Real Estate', 'Computer Engineering/IT', 'Architecture', 'Freelance Artist', 'Legal', 'Media/Journalism', 'Sports and Physical Fitness']
@@ -89,6 +93,9 @@ def index(request, school='brown'):
 		school_abbr = 'CCRI'
 		school_title = 'Career Planning'
 		school_location = 'Great Hall just outside the Career Planning Office'
+		main_color = 'green'
+		main_bg_color = 'green_bg'
+		secondary_bg_color = 'light_green_bg'
 		modal_form_title = 'Thank you for helping Bryte and Career Planning better engage with CCRI students'
 		nextshoot = Nextshoot.objects.filter(school='Community College of Rhode Island')
 		if nextshoot:
@@ -129,6 +136,10 @@ def index(request, school='brown'):
 	context['modal_form_title'] = modal_form_title
 	context['professional_path_choices'] = sorted(professional_path_choices)
 	context['area_of_study_choices'] = sorted(area_of_study_choices)
+
+	context['main_color'] = main_color
+	context['main_bg_color'] = main_bg_color
+	context['secondary_bg_color'] = secondary_bg_color
 
 	# next_shoot = Nextshoot.objects.first()
 	# timeslots = next_shoot.timeslot_set.filter(is_available=True, active=True).order_by('time')

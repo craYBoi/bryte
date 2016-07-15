@@ -264,7 +264,7 @@ h1,h2,h3,h4 {
 	border-radius: 4px;
 	padding: 6px 15px;
 	border: none;
-	color: #c94848;
+	color: rgba(0,0,0,0.9);
 	background-color: rgba(255,255,255,0.95);
 }
 
@@ -1287,6 +1287,18 @@ h1,h2,h3,h4 {
 	color: #c94848!important;
 }
 
+.green {
+	color: #0B6A40!important;
+}
+
+.green_bg {
+	background-color: #0B6A40!important;
+}
+
+.light_green_bg {
+	background-color: #a5e2c7!important;
+}
+
 .light_red {
 	color: #ef7777!important;
 }
@@ -2032,7 +2044,7 @@ body, html
 }
 
 .navbar_border {
-	border-bottom: solid 7px #6C0104!important;
+	border-bottom: solid 7px rgba(0,0,0,0.5)!important;
 }
 
 
