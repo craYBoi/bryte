@@ -30,7 +30,8 @@ PHOTO_DELIVERY_ID = '3ee6fdaa-0e23-4914-8f53-c06265dbbd57'
 ORDER_DELIVERY_ID = 'c8690ffe-8ca3-4531-b46e-dbf747bdc18b'
 PASSPORT_ID = 'daa1b2ab-9d4d-4023-8546-d2bd88b73c02'
 RIC_NOT_PAYING_ID = '91554ce0-b80a-4c1f-ad12-0a3ec606e29e'
-
+SURVEY_EMAIL_TO_RIC_ID = '6e9cb0a1-535b-42dc-9279-4b9d23f19a1a'
+SURVEY_EMAIL_TO_BROWN_ID = '5c562a0c-25f6-4151-a81a-99089ea00d61'
 
 
 # max sessions per time slot
@@ -755,6 +756,96 @@ class Booking(models.Model):
 		except Exception, e:
 			print '[NOT SENT] --- ' + str(email) 
 			# raise e
+		else:
+			send = True
+			print '[SENT] --- ' + str(email)
+		return send
+
+
+	def survey_email_to_ric(self):
+		send = False
+		name = self.name
+		first_name = name.split(' ')[0]
+		email = self.email
+		timeslot = self.timeslot
+		shoot = timeslot.shoot
+		location = shoot.location
+		date = shoot.date
+		school = shoot.school
+
+		# get template, version name, and automatically add to category
+		email_purpose = 'Error'
+		version_number = 'Error'
+		try:
+			email_template = json.loads(sgapi.client.templates._(SURVEY_EMAIL_TO_RIC_ID).get().response_body)
+			versions = email_template.get('versions')
+			version_number = [v.get('name') for v in versions if v.get('active')][0]
+			email_purpose = email_template.get('name')
+		except Exception, e:
+			pass
+
+		category = [school + ' - ' + str(date), email_purpose, version_number]
+
+		message = sendgrid.Mail()
+		message.add_to(email)
+		message.set_from('Bryte Photo Inc <' + settings.EMAIL_HOST_USER + '>')
+		message.set_subject('Get a $10 Amazon gift card for your feedback') 
+		message.set_html('Body')
+		message.set_text('Body')
+		message.add_filter('templates','enable','1')
+		message.add_filter('templates','template_id', SURVEY_EMAIL_TO_RIC_ID)
+		message.set_categories(category)
+		message.add_substitution('-first_name-', first_name)
+
+		try:
+			sg.send(message)
+		except Exception, e:
+			print '[NOT SENT] --- ' + str(email) 
+		else:
+			send = True
+			print '[SENT] --- ' + str(email)
+		return send
+
+
+	def survey_email_to_brown(self):
+		send = False
+		name = self.name
+		first_name = name.split(' ')[0]
+		email = self.email
+		timeslot = self.timeslot
+		shoot = timeslot.shoot
+		location = shoot.location
+		date = shoot.date
+		school = shoot.school
+
+		# get template, version name, and automatically add to category
+		email_purpose = 'Error'
+		version_number = 'Error'
+		try:
+			email_template = json.loads(sgapi.client.templates._(SURVEY_EMAIL_TO_BROWN_ID).get().response_body)
+			versions = email_template.get('versions')
+			version_number = [v.get('name') for v in versions if v.get('active')][0]
+			email_purpose = email_template.get('name')
+		except Exception, e:
+			pass
+
+		category = [school + ' - ' + str(date), email_purpose, version_number]
+
+		message = sendgrid.Mail()
+		message.add_to(email)
+		message.set_from('Bryte Photo Inc <' + settings.EMAIL_HOST_USER + '>')
+		message.set_subject('An opportunity to give back') 
+		message.set_html('Body')
+		message.set_text('Body')
+		message.add_filter('templates','enable','1')
+		message.add_filter('templates','template_id', SURVEY_EMAIL_TO_BROWN_ID)
+		message.set_categories(category)
+		message.add_substitution('-first_name-', first_name)
+
+		try:
+			sg.send(message)
+		except Exception, e:
+			print '[NOT SENT] --- ' + str(email) 
 		else:
 			send = True
 			print '[SENT] --- ' + str(email)
