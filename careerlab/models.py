@@ -204,15 +204,145 @@ class Nextshoot(models.Model):
 			return 1
 
 
-	# PHOTO check script
+	# CHECK TOUCHUP Folder
+	def touchup_folder_check(self):
+		booking_emails = [e.email for elem in self.timeslot_set.all() for e in elem.booking_set.filter(show_up=True)]
+		num_of_showups = len(booking_emails)
 
-	# TOUCHUP check script
+		num_of_email_in_booking_failure = 0
+		num_of_file_ext_failure = 0
+
+		# store the photo name for checking edited folder
+		# photo_name -> num of edits (should be 3, pr, pt, s)
+		photo_names = {}
+
+		# check both total number and name format of the picture
+		token = settings.DROPBOX_TOKEN
+		dbx = dropbox.Dropbox(token)
+
+		root_folder = settings.DROPBOX_TOUCHUP
+		folder_path = os.path.join(root_folder, self.name)
+
+		try:
+			items = dbx.files_list_folder(folder_path).entries
+		except Exception, e:
+			print e
+			return 0
+		else:
+			for item in items:
+				# check if that's a folder or a file
+				if isinstance(item, dropbox.files.FileMetadata):
+					# if it's a file, first check name format
+					name = item.name
+
+					# populate the dict for checking the edited folder later
+					photo_names[name.lower()] = 0
+
+					email, file_name = name.split('+')
+					# check if email is in the booking list
+					try:
+						assert email in booking_emails
+					except Exception, e:
+						print '[FAIL] Email name is not in the Booking list -- ' + str(email)
+						num_of_email_in_booking_failure += 1
+
+					# check if it ends with jpg
+					ext = os.path.splitext(file_name)[-1]
+					try:
+						assert ext.lower() == '.jpg'
+					except Exception, e:
+						print '[FAIL] file does not end with jpg -- ' + str(email)
+						num_of_file_ext_failure += 1
+
+
+			# check the total number of files match the number of showups
+			num_of_pic = len([item for item in items if isinstance(item, dropbox.files.FileMetadata)])
+			try:
+				assert num_of_pic == num_of_showups
+			except Exception, e:
+				print '[FAIL] Total number does not match ---\nNum of showups: ' + str(num_of_showups) + '\nNum of files: ' + str(num_of_pic) 
+			else:
+				print '[SUCCESS] Total number matches!'
+
+
+			print '\nTotal Cases: ' + str(num_of_showups)
+			print 'Failure email name in booking: ' + str(num_of_email_in_booking_failure)
+			print 'Failure file ext: ' + str(num_of_file_ext_failure)
+
+
+		# check edited folder script
+		print '\nChecking Edited Folder...'
+
+		edited_path = os.path.join(folder_path, 'Edited')
+		try:
+			items = dbx.files_list_folder(edited_path).entries
+		except Exception, e:
+			print e
+			return 0
+		else:
+			# check to see if the name appears 3 times for _pr, _pt, _s
+			names = [item.name.replace('_pf', '').replace('_pt', '').replace('_s', '') for item in items]
+			for name in names:
+				if name.lower() in photo_names:
+					photo_names[name.lower()] += 1
+
+			for key, val in photo_names.iteritems():
+				try:
+					assert val == 3
+				except Exception, e:
+					print '[FAIL] don\'t have 3 copies, have ' + str(val) + ' instead -- ' + str(key)
+				else:
+					print '[SUCCESS] 3 copies confirmed -- ' + str(key)	
+
+
+
+	# PHOTO check script
+	def photo_folder_check(self):
+		# iterate through photos, if none meaning no show
+		# if any, check if there's 1 _fav
+		dbx = dropbox.Dropbox(settings.DROPBOX_TOKEN)
+		root_folder = settings.DROPBOX_PHOTO
+		folder_path = os.path.join(root_folder, self.name)
+
+		try:
+			items = dbx.files_list_folder(folder_path).entries
+		except Exception, e:
+			print e
+			return 0
+		else:
+			for item in items:
+				booking_path = item.path_lower
+				try:
+					booking_photos = dbx.files_list_folder(booking_path).entries
+				except Exception, e:
+					raise e
+				else:
+					if not len(booking_photos) == 0:
+						# check only 1 fav
+						booking_photos_names = [b.name for b in booking_photos]
+						count = 0
+						for booking_photo_name in booking_photos_names:
+							if '_fav' in booking_photo_name:
+								count += 1
+						try:
+							assert count == 1
+						except Exception, e:
+							print '[FAILURE] number of fav not equal to 1 --- ' + item.name
+						else:
+							print '[SUCCESS] num of fav is 1 --- ' + item.name
+
+
 
 	# compress the image in TOUCH Edited
 
 	# migrate image from TOUCH Edited to PROD/TEST Edited 
+	def migrate_touchup_to_prod(self):
+		pass
+
 
 	# migrate raw image from PHOTO to PROD/TEST RAW
+	def migrate_photo_to_prod(self):
+		pass
 
 
 	def send_reminder(self):
@@ -313,6 +443,9 @@ class Nextshoot(models.Model):
 		for booking in bookings:
 			if(booking.update_showup()):
 				count += 1
+
+		print '\n'
+		print str(len(bookings)) + ' people in total'
 		print str(count) + ' people showed up!'
 
 
@@ -1044,20 +1177,26 @@ class Booking(models.Model):
 
 	# check dropbox to see if there are deliverables in the folder in order to check if this person shows up at the shoot
 	# could be changed
+	# [TODO] change to check PHOTO folder
 	def update_showup(self, *args, **kwargs):	
 		dbx = dropbox.Dropbox(settings.DROPBOX_TOKEN)
-	
-		db_path = os.path.join(self.dropbox_folder, 'Raw', 'All')
+		root_folder = settings.DROPBOX_PHOTO
+		folder_path = os.path.join(root_folder, self.timeslot.shoot.name, self.email)
 
-		print 'checking ' + db_path + '...',
-
-		if dbx.files_list_folder(db_path).entries:
-			self.show_up = True
-			super(Booking, self).save(*args, **kwargs)
-			print 'positive'
-			return True
-		print 'negtive'
-		return False
+		try:
+			items = dbx.files_list_folder(folder_path).entries
+		except Exception, e:
+			print e
+			return 0
+		else:
+			if not len(items) == 0:
+				# meaning this person shows up
+				self.show_up = True
+				super(Booking, self).save(*args, **kwargs)
+				print '[Positive] -- ' + self.email
+				return True
+			print '[Negative] -- ' + self.email
+			return False
 
 
 	# go through dropbox to create image instance in the local database
