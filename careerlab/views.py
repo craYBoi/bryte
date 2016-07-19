@@ -40,8 +40,8 @@ def index(request, school='brown'):
 	secondary_bg_color = 'background_pink'
 
 	school_year_choices = ['<25% of credits completed', '25-50% of credits completed', '50-75% of credits completed', '>75% of credits completed']
-	area_of_study_choices = ['Biological/Medicinal Sciences', 'Nursing', 'Human Services', 'Psychology', 'Physical Sciences', 'Computer Science', 'Mathematics and Statistics', 'English/Literature', 'History', 'Sociology', 'Education', 'Environmental Sciences', 'Public Administration/Social Services', 'Business/Management', 'Marketing/Communications', 'Economics/Finance', 'Visual and Performing Arts', 'Journalism']
-	professional_path_choices = ['Business Administration/Management', 'Social Services and Nonprofits', 'Government', 'Education', 'Personal Care and Other Services', 'Marketing', 'Sales and Related', 'Healthcare, Pharmaceuticals', 'Finance, Insurance', 'Real Estate', 'Computer Engineering/IT', 'Architecture', 'Freelance Artist', 'Legal', 'Media/Journalism', 'Sports and Physical Fitness']
+	area_of_study_choices = ['Accounting/Actuary','Biological/Medicinal Sciences', 'Nursing', 'Human Services', 'Psychology', 'Physical Sciences', 'Computer Science', 'Mathematics and Statistics', 'English/Literature', 'History', 'Sociology', 'Education', 'Environmental Sciences', 'Public Administration/Social Services', 'Business/Management', 'Marketing/Communications', 'Economics/Finance', 'Visual and Performing Arts', 'Journalism']
+	professional_path_choices = ['Accounting/Actuary', 'Business Administration/Management', 'Social Services and Nonprofits', 'Government', 'Education', 'Personal Care and Other Services', 'Marketing', 'Sales and Related', 'Healthcare, Pharmaceuticals', 'Finance, Insurance', 'Real Estate', 'Computer Engineering/IT', 'Architecture', 'Freelance Artist', 'Legal', 'Media/Journalism', 'Sports and Physical Fitness']
 	modal_form_title = ''
 
 	# view logic for different schools here
