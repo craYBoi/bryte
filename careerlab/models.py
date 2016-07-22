@@ -1187,6 +1187,7 @@ class Booking(models.Model):
 			items = dbx.files_list_folder(folder_path).entries
 		except Exception, e:
 			print e
+			print self.email
 			return 0
 		else:
 			if not len(items) == 0:
