@@ -15,6 +15,7 @@ import string
 
 import os
 import json
+
 import dropbox
 import sendgrid
 from sendgrid import SendGridError, SendGridClientError, SendGridServerError
@@ -204,6 +205,18 @@ class Nextshoot(models.Model):
 			return 1
 
 
+	# compress photo folder
+	# call booking sub method
+	def compress_photo_folder(self):
+		pass
+
+
+	# compress touchup folder
+	# do as a batch, no need to call sub method
+	def compress_touchup_folder(self):
+		pass
+
+
 	# CHECK TOUCHUP Folder
 	def touchup_folder_check(self):
 		booking_emails = [e.email for elem in self.timeslot_set.all() for e in elem.booking_set.filter(show_up=True)]
@@ -322,7 +335,7 @@ class Nextshoot(models.Model):
 						booking_photos_names = [b.name for b in booking_photos]
 						count = 0
 						for booking_photo_name in booking_photos_names:
-							if '_fav' in booking_photo_name:
+							if '_fav' in booking_photo_name.lower():
 								count += 1
 						try:
 							assert count == 1
@@ -337,12 +350,74 @@ class Nextshoot(models.Model):
 
 	# migrate image from TOUCH Edited to PROD/TEST Edited 
 	def migrate_touchup_to_prod(self):
-		pass
+		# different from photo to prod, since all the photos from 1 shoot is in the same folder, no need to call Booking subclass
+		dbx = dropbox.Dropbox(settings.DROPBOX_TOKEN)
+		root_folder = settings.DROPBOX_TOUCHUP
+		folder_path = os.path.join(root_folder, self.name, 'Edited')
+
+		EDITED_FOLDER = 'Edited'
+		RAW_FOLDER = 'Raw'
+		FAV_PATH = 'Fav'
+		TOP_PATH = 'Top'
+		PORTRAIT_PATH = 'Top Portrait'
+
+		# migrate one by one
+		try:
+			items = dbx.files_list_folder(folder_path).entries
+		except Exception, e:
+			raise e
+		else:
+			all_photo = [(item.name, item.path_lower) for item in items]
+
+			for photo in all_photo:
+				# extract email address and photo type, locate the dest folder
+				name = photo[0]
+				email = name.split('+')[0]
+				file_name = name.split('+')[1]
+				ext = os.path.splitext(file_name)[0].split('_')[-1]
+				dest_folder = ''
+				photo_type = ''
+
+				# need to find the Booking instance and access the dropbox_folder
+				try:
+					b = Booking.objects.filter(email=email).order_by('-pk')[0]
+				except Exception, e:
+					print '[FAILURE] Can\'t find the corresponding booking instance --- ' + email
+				else:
+					# target dest folder
+					if ext == 's':
+						dest_folder = os.path.join(b.dropbox_folder, RAW_FOLDER, FAV_PATH, file_name)
+						photo_type = 'RAW FAV'
+					elif ext == 'pf':
+						dest_folder = os.path.join(b.dropbox_folder, EDITED_FOLDER, FAV_PATH, file_name)
+						photo_type = 'EDITED FAV'
+					elif ext == 'pt':
+						dest_folder = os.path.join(b.dropbox_folder, EDITED_FOLDER, PORTRAIT_PATH, file_name)
+						photo_type = 'EDITED PORTRAIT'
+
+					# actual migration
+					try:
+						dbx.files_copy(photo[1], dest_folder)
+					except Exception, e:
+						print 'It seems ' + photo_type + ' has already been migrated..  --- ' + name
+					else:
+						print '[SUCCESS] ' + photo_type + ' migrated from TOUCHUP --- ' + email
+
 
 
 	# migrate raw image from PHOTO to PROD/TEST RAW
 	def migrate_photo_to_prod(self):
-		pass
+		# need to call sub migrate method under Booking, do the same thing as update showup
+		bookings = [e for elem in self.timeslot_set.all() for e in elem.booking_set.filter(show_up=True)]
+
+		count = 0
+		for booking in bookings:
+			if(booking.migrate_photo_to_prod_single()):
+				count += 1
+
+		print '\n'
+		print str(len(bookings)) + ' bookings in total to be migrated to Raw'
+		print str(count) + ' bookings migrated to Raw'
 
 
 	def send_reminder(self):
@@ -450,7 +525,7 @@ class Nextshoot(models.Model):
 
 
 	def create_images(self, raw=False, edited=False, fav=False, top=False, portrait=False, all=False):
-		bookings = [e for elem in self.timeslot_set.filter.all() for e in elem.booking_set.filter(show_up=True)]
+		bookings = [e for elem in self.timeslot_set.all() for e in elem.booking_set.filter(show_up=True)]
 
 		for booking in bookings:
 			# this already handles the empty folder
@@ -1197,6 +1272,107 @@ class Booking(models.Model):
 				return True
 			print '[Negative] -- ' + self.email
 			return False
+
+
+	# compress PHOTO folder for raw
+	# download, run compression, upload
+	def compress_photo_folder_single(self):
+		dbx = dropbox.Dropbox(settings.DROPBOX_TOKEN)
+		root_folder = settings.DROPBOX_PHOTO
+		folder_path = os.path.join(root_folder, self.timeslot.shoot.name, self.email)
+
+
+		# compress all of them
+		# download the file
+		print 'Downloading from folder ' + folder_path + '...'
+
+		# store the file names for clean up
+		file_names = []
+
+		try:
+			items = dbx.files_list_folder(path).entries
+		except Exception, e:
+			print 'Folder don\'t exist, skip..'
+			return None
+		else:
+			if items:
+				for item in items:
+					try:
+						f = dbx.files_download_to_file(os.path.join(os.getcwd(), item.name), item.path_lower)
+					except Exception, e:
+						print '[FAILURE] Downloading fail... --- ' + f.name
+					else:
+						file_names.append(f.name)
+						print '[SUCCESS] Downloaded --- ' + f.name
+
+			print file_names
+
+
+
+
+	def migrate_photo_to_prod_single(self):
+		dbx = dropbox.Dropbox(settings.DROPBOX_TOKEN)
+		root_folder = settings.DROPBOX_PHOTO
+		folder_path = os.path.join(root_folder, self.timeslot.shoot.name, self.email)
+		
+		try:
+			items = dbx.files_list_folder(folder_path).entries
+		except Exception, e:
+			print e
+			return 0
+		else:
+			# find favorite and migrate to RAW FAV
+			# others go to RAW ALL
+			success_all = False
+			success_fav = False
+
+			fav_photo = 0
+
+			all_photo = [(item.name, item.path_lower) for item in items]
+			for name, path in all_photo:
+				if '_fav' in name.lower():
+					# by removing fav from all, the rest go to RAW ALL
+					fav_photo = (name, path)
+					all_photo.remove(fav_photo)
+
+
+			# Now do the migration to PROD
+			RAW_FOLDER = 'Raw'
+			FAV_PATH = 'Fav'
+			ALL_PATH = 'All'
+			TOP_PATH = 'TOP'
+
+			fav_dest_folder = os.path.join(self.dropbox_folder, RAW_FOLDER, TOP_PATH)
+			all_dest_folder = os.path.join(self.dropbox_folder, RAW_FOLDER, ALL_PATH)
+
+
+			# fav migration
+			print 'Migrating fav photo to raw top... ' + str(self.email)
+			try:
+				# remove _fav for fav photo
+				dbx.files_copy(fav_photo[1], os.path.join(fav_dest_folder, fav_photo[0].replace('_fav', '')))
+			except Exception, e:
+				print 'It seems RAW TOP has already been migrated..  --- ' + str(self.email) + '\n'
+				# return 0
+			else:
+				print '[SUCCESS] RAW TOP migrated from PHOTO --- ' + str(self.email) + '\n'
+				success_fav = True
+
+
+			# all migration
+			print 'Migrating all photo to raw all... ' + str(self.email)
+			try:
+				for photo in all_photo:
+					dbx.files_copy(photo[1], os.path.join(all_dest_folder, photo[0]))
+			except Exception, e:
+				print 'It seems RAW ALL has already been migrated.. --- ' + str(self.email) + '\n'
+				# return 0
+			else:
+				print '[SUCCESS] RAW ALL migrated from PHOTO --- ' + str(self.email) + '\n'
+				success_all = True
+
+			return success_all and success_fav
+
 
 
 	# go through dropbox to create image instance in the local database
