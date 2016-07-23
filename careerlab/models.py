@@ -186,8 +186,8 @@ class Nextshoot(models.Model):
 					try:
 						fav = [image for image in images if os.path.splitext(image.name)[-2].split('_')[-1] == 'fav'][0]
 					except Exception, e:
-						print 'Fav not found in folder'
-						raise e
+						# print 'Fav not found in folder'
+						pass
 					else:
 						# copy files
 						# get rid of _fav and add email address with '+' as splitter
@@ -1262,6 +1262,7 @@ class Booking(models.Model):
 			items = dbx.files_list_folder(folder_path).entries
 		except Exception, e:
 			print e
+			print self.email
 			return 0
 		else:
 			if not len(items) == 0:
