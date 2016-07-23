@@ -332,180 +332,180 @@ def test_retrieve(request):
 		'myheadshot': 1,
 	}
 
-	if request.method == 'POST':
-		if request.is_ajax():
-			data = {}
-			print request.POST
-			# just for the single download
-			if request.POST.get('is_download'):
-				copied = False
-				pk = request.POST.get('pk')
-				try:
-					img = get_object_or_404(HeadshotImage, pk=pk)
-				except Exception, e:
-					data['msg'] = 'We have some problems delivering the photos, we are solving that right now.'
-					raise e
-				else:	
-					data['msg'] = 'Congratulations on your free Linkedin headshot!  You will receive it via email shortly.'
-					# send the email
-					copied = img.copy_to_upgrade()
-
-					img.book.photo_delivery_email()
-					is_delivered = True
-
-					try:
-						ImagePurchase.objects.create(
-							image=img,
-							option='',
-							value='0',
-							email=img.book.email,
-							charge_successful=True,
-							is_delivered=is_delivered,
-							is_copied=copied,
-						)
-					except Exception, e:
-						print '[Failed] Create download instance'
-
-				return HttpResponse(json.dumps(data), content_type='application/json')
-
-
+	# if request.method == 'POST':
+	if request.is_ajax():
+		data = {}
+		print request.POST
+		# just for the single download
+		if request.POST.get('is_download'):
+			copied = False
+			pk = request.POST.get('pk')
 			try:
-				purchases = json.loads(request.POST.get('purchases'))
+				img = get_object_or_404(HeadshotImage, pk=pk)
 			except Exception, e:
+				data['msg'] = 'We have some problems delivering the photos, we are solving that right now.'
 				raise e
-			else:
-				print purchases
-				# charge first
-				token = request.POST.get('token')
-				total = request.POST.get('total')
+			else:	
+				data['msg'] = 'Congratulations on your free Linkedin headshot!  You will receive it via email shortly.'
+				# send the email
+				copied = img.copy_to_upgrade()
 
-				# for fullsize and premium
-				if str(float(total))=='0':
-					total = purchases[0].get('value')
-
-				print purchases[0].get('value')
-				print total
+				img.book.photo_delivery_email()
+				is_delivered = True
 
 				try:
-					charge = stripe.Charge.create(
-						amount = int(float(total) * 100),
-						currency="usd",
-						source=token,
-						description="Bryte Photo Headshot"
+					ImagePurchase.objects.create(
+						image=img,
+						option='',
+						value='0',
+						email=img.book.email,
+						charge_successful=True,
+						is_delivered=is_delivered,
+						is_copied=copied,
 					)
-				except stripe.error.CardError, e:
-					# update the status in purchase
-					charge_successful = False
-
-					data['msg'] = 'There\'s an error charging your card. Please provide another card'
-				else:
-					
-					# populate the purchases
-					charge_successful = True
-
-					data['msg'] = 'Congratulations on your purchase! We will send you a confirmation email explaining when you will receive your purchase.'
-
-				# send out upgrade confirmation email
-				confirmation_content = ''
-
-				for purchase in purchases:
-					special_note = ''
-
-					img = get_object_or_404(HeadshotImage, pk=purchase.get('img_id'))
-					if img.is_fav or img.is_top or img.is_portrait:
-						special_note = 'Expect to receive your headshot via email right away'
-					else:
-						special_note = 'Expect to receive your headshot via email within 48 hours.'
-
-					option=purchase.get('option')
-					option_text = ''
-					if option == 'fh':
-						option_text = 'Free Standard LinkedIn headshot'
-					elif option == 'pu':
-						option_text = 'Professional LinkedIn headshot'
-					elif option == 'ph':
-						option_text = 'Extra Professional Headshot'
-					elif option == 'pp':
-						option_text = 'Premium Portrait'
-
-					value=purchase.get('value')
-
-
-					confirmation_content += '1 ' + option_text + ' ---------------- $' + str(value) + '<br>' + special_note + '<br><br>'
-
-				# send it
-				img.book.order_delivery_email(confirmation_content)
-
-
-
-				# top headshots delivery
-				ips = []
-				for purchase in purchases:
-					# is_copied
-					copied = False
-					# find the Image intance first
-					try:
-						img = get_object_or_404(HeadshotImage, pk=purchase.get('img_id'))
-					except Exception, e:
-						raise e
-					else:
-						try:
-							copied = img.copy_to_upgrade()
-						except Exception, e:
-							# change later
-							print '[FAILED] Copy To Upgrade'
-
-						try:
-							ip = ImagePurchase.objects.create(
-								image=img,
-								option=purchase.get('option'),
-								value=purchase.get('value'),
-								email=img.book.email,
-								charge_successful=charge_successful,
-								is_delivered=False,
-								is_copied=copied,
-							)
-
-						except Exception, e:
-							print '[FAILED] Create purchase instance'
-						else:
-							ips.append(ip)
-							print '[SUCCESS] Create purchase instance'
-
-				# only send one delivery email
-				# is_delivered not true when cannot be delivered right away, extra photos
-				if img.book.photo_delivery_email():
-					for ip in ips:
-						img = ip.image
-						if img.is_fav or img.is_top or img.is_portrait:
-							ip.is_delivered = True
-							ip.save()
-
-
+				except Exception, e:
+					print '[Failed] Create download instance'
 
 			return HttpResponse(json.dumps(data), content_type='application/json')
+
+
+		try:
+			purchases = json.loads(request.POST.get('purchases'))
+		except Exception, e:
+			raise e
 		else:
-			unique_id = request.POST.get('retrieve_search').strip()
+			print purchases
+			# charge first
+			token = request.POST.get('token')
+			total = request.POST.get('total')
+
+			# for fullsize and premium
+			if str(float(total))=='0':
+				total = purchases[0].get('value')
+
+			print purchases[0].get('value')
+			print total
+
 			try:
-				b = get_object_or_404(Booking, hash_id=unique_id)
-				# grab all the image from booking
-				headshots = b.headshotimage_set.all().order_by('pk')
-			except Exception, e:
-				context['msg'] = 'Did you enter the right ID? Check your email to make sure.'
-				pass
+				charge = stripe.Charge.create(
+					amount = int(float(total) * 100),
+					currency="usd",
+					source=token,
+					description="Bryte Photo Headshot"
+				)
+			except stripe.error.CardError, e:
+				# update the status in purchase
+				charge_successful = False
+
+				data['msg'] = 'There\'s an error charging your card. Please provide another card'
 			else:
-				# break down the deliverable, premium and fullsize
-				if headshots:
-					context['booking'] = b
-					context['headshots'] = headshots
-					context['raw_fav'] = [hs for hs in headshots if hs.is_raw and hs.is_fav][0]
-					context['edited_fav'] = [hs for hs in headshots if hs.is_fav and not hs.is_raw][0]
-					context['raw_top'] = [hs for hs in headshots if hs.is_top and hs.is_raw][0]
-					# context['edited_top'] = [hs for hs in headshots if hs.is_top and not hs.is_raw][0]
-					context['edited_portrait'] = [hs for hs in headshots if hs.is_portrait][0]
-					context['extras'] = [hs for hs in headshots if not hs.is_fav and not hs.is_top and not hs.is_portrait and hs.is_raw]
+				
+				# populate the purchases
+				charge_successful = True
+
+				data['msg'] = 'Congratulations on your purchase! We will send you a confirmation email explaining when you will receive your purchase.'
+
+			# send out upgrade confirmation email
+			confirmation_content = ''
+
+			for purchase in purchases:
+				special_note = ''
+
+				img = get_object_or_404(HeadshotImage, pk=purchase.get('img_id'))
+				if img.is_fav or img.is_top or img.is_portrait:
+					special_note = 'Expect to receive your headshot via email right away'
 				else:
-					context['msg'] = 'Your headshots are not ready yet! They should be good to go soon!'
+					special_note = 'Expect to receive your headshot via email within 48 hours.'
+
+				option=purchase.get('option')
+				option_text = ''
+				if option == 'fh':
+					option_text = 'Free Standard LinkedIn headshot'
+				elif option == 'pu':
+					option_text = 'Professional LinkedIn headshot'
+				elif option == 'ph':
+					option_text = 'Extra Professional Headshot'
+				elif option == 'pp':
+					option_text = 'Premium Portrait'
+
+				value=purchase.get('value')
+
+
+				confirmation_content += '1 ' + option_text + ' ---------------- $' + str(value) + '<br>' + special_note + '<br><br>'
+
+			# send it
+			img.book.order_delivery_email(confirmation_content)
+
+
+
+			# top headshots delivery
+			ips = []
+			for purchase in purchases:
+				# is_copied
+				copied = False
+				# find the Image intance first
+				try:
+					img = get_object_or_404(HeadshotImage, pk=purchase.get('img_id'))
+				except Exception, e:
+					raise e
+				else:
+					try:
+						copied = img.copy_to_upgrade()
+					except Exception, e:
+						# change later
+						print '[FAILED] Copy To Upgrade'
+
+					try:
+						ip = ImagePurchase.objects.create(
+							image=img,
+							option=purchase.get('option'),
+							value=purchase.get('value'),
+							email=img.book.email,
+							charge_successful=charge_successful,
+							is_delivered=False,
+							is_copied=copied,
+						)
+
+					except Exception, e:
+						print '[FAILED] Create purchase instance'
+					else:
+						ips.append(ip)
+						print '[SUCCESS] Create purchase instance'
+
+			# only send one delivery email
+			# is_delivered not true when cannot be delivered right away, extra photos
+			if img.book.photo_delivery_email():
+				for ip in ips:
+					img = ip.image
+					if img.is_fav or img.is_top or img.is_portrait:
+						ip.is_delivered = truee
+						ip.save()
+
+
+
+		return HttpResponse(json.dumps(data), content_type='application/json')
+	if request.method == 'GET':
+		unique_id = request.GET.get('id').strip()
+		try:
+			b = get_object_or_404(Booking, hash_id=unique_id)
+			# grab all the image from booking
+			headshots = b.headshotimage_set.all().order_by('pk')
+		except Exception, e:
+			context['msg'] = 'Did you enter the right ID? Check your email to make sure.'
+			pass
+		else:
+			# break down the deliverable, premium and fullsize
+			if headshots:
+				context['booking'] = b
+				context['headshots'] = headshots
+				context['raw_fav'] = [hs for hs in headshots if hs.is_raw and hs.is_fav][0]
+				context['edited_fav'] = [hs for hs in headshots if hs.is_fav and not hs.is_raw][0]
+				context['raw_top'] = [hs for hs in headshots if hs.is_top and hs.is_raw][0]
+				# context['edited_top'] = [hs for hs in headshots if hs.is_top and not hs.is_raw][0]
+				context['edited_portrait'] = [hs for hs in headshots if hs.is_portrait][0]
+				context['extras'] = [hs for hs in headshots if not hs.is_fav and not hs.is_top and not hs.is_portrait and hs.is_raw]
+			else:
+				context['msg'] = 'Your headshots are not ready yet! They should be good to go soon!'
 
 	return render(request, 'test_retrieve.html', context)
 

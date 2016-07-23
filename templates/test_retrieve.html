@@ -9,7 +9,11 @@
 {% block content %}
 
 	<!-- retrieve page -->
+	
 	{% if not headshots %}
+
+	Headshot not available
+	<!--
 	<div class="background_lki droid_serif">
 		<div class="small_padding"></div>
 		<div class="row">
@@ -49,7 +53,9 @@
 			<div class="small_padding"></div>
 		</div>
 	</div>
+	-->
 	{% endif %}
+	
 
 	<!-- headshot page -->
 	{% if headshots %}
@@ -71,8 +77,12 @@
 		<ul class="checkout_detail" class="package_list">
 
 		</ul>
-		<div class="text-right">
-			<p class="bold big_font large_padding">Total: $<span class="checkout_total_amount"></span></p>
+		<div class="text-right large_padding">
+			<p class="checkout_original_total large_font">Subtotal: $<span class="checkout_original_total_amount"></span></p>
+			<p class="yellow checkout_discount large_font">Discount: $<span class="checkout_discount_amount"></span></p>
+
+			<div class="small_padding top_border"></div>
+			<p class="bold big_font">Order Total: $<span class="checkout_total_amount"></span></p>
 			<a href=""><button class="btn btn-blue checkout_button">Checkout</button></a>
 		</div>
 		<div class="medium_padding"></div>
@@ -167,19 +177,19 @@
 
 					<div class="row">
 						<div class="col-xs-8"><p class="small_font zero_margin">Studio and freelancers:</p></div>
-						<div class="col-xs-4"><p class="small_font zero_margin"><del>$50</del></p></div>
+						<div class="col-xs-4"><p class="small_font zero_margin"><del>$100</del></p></div>
 					</div>
 					<div class="row">
 						<div class="col-xs-8"><p class="small_font zero_margin bold">Bryte Price:</p></div>
-						<div class="col-xs-4"><p class="small_font zero_margin"><del>$9.99</del></p></div>
+						<div class="col-xs-4"><p class="small_font zero_margin"><del>$19.99</del></p></div>
 					</div>
 					<div class="row">
 						<div class="col-xs-8"><p class="bold landing_text_main zero_margin"><span class="red">Bryte Special Offer:</span></p></div>
-						<div class="col-xs-4"><p class="red bold landing_text_main zero_margin">$4.99</p></div>
+						<div class="col-xs-4"><p class="red bold landing_text_main zero_margin">$9.99</p></div>
 					</div>
 					<div class="row">
 						<div class="col-xs-8"><p class="small_font zero_margin">You save:<p></div>
-						<div class="col-xs-4 small_font zero_margin red">$45.01 (90%)</div>
+						<div class="col-xs-4 small_font zero_margin red">$90.01 (90%)</div>
 					</div>
 					<p class="xsmall_font dark_grey">Bryte <span class="bold">Special Offer</span> only available for <span class="bold">two weeks</span> after the shoot</p>
 
@@ -242,7 +252,7 @@
 						<div class="col-xs-9">
 						<select class="form-control mm_height l_font red_bg white" style="width:100%!important" id="fav_select">
 							<option value="0" name="fh" data-description="Standard LinkedIn Headshot">Get LinkedIn Standard now</option>
-							<option selected value="4.99" name="pu" data-description="Professional LinkedIn Headshot">Get LinkedIn Professional now</option>
+							<option selected value="9.99" name="pu" data-description="Professional LinkedIn Headshot">Get LinkedIn Professional now</option>
 						</select> 
 						</div>
 						<div class="col-xs-3">
@@ -262,11 +272,17 @@
 
 
 	</div>
-		<div class="background_pink">
-			<div class="small_padding"></div>
-			<h2 class="bold text-center droid_serif zero_margin">Turn the rest of your photos from the shoot into headshots or portraits!</h2>
-			<div class="small_padding"></div>
-		</div>
+	<div class="background_pink">
+		<div class="small_padding"></div>
+		<h2 class="bold text-center droid_serif zero_margin">Turn the rest of your photos from the shoot into headshots or portraits!</h2>
+		<div class="small_padding"></div>
+	</div>
+	<div class="red_bg">
+		<div class="small_padding"></div>
+		<h2 class="text-center droid_serif zero_margin white sm_font">Buy 2 headshot or portrait, get your third one for free! (Automatically reflected at checkout)</h2>
+		<div class="small_padding"></div>
+	</div>
+
 	<div class="">
 
 
@@ -317,15 +333,15 @@
 
 					<div class="row">
 						<div class="col-xs-8"><p class="small_font zero_margin">Studio and freelancers:</p></div>
-						<div class="col-xs-4"><p class="small_font zero_margin">$50+</p></div>
+						<div class="col-xs-4"><p class="small_font zero_margin">$100+</p></div>
 					</div>
 					<div class="row">
 						<div class="col-xs-8"><p class="bold landing_text_main zero_margin"><span class="red">Bryte Price:</span></p></div>
-						<div class="col-xs-4"><p class="red bold landing_text_main zero_margin">$9.99</p></div>
+						<div class="col-xs-4"><p class="red bold landing_text_main zero_margin">$19.99</p></div>
 					</div>
 					<div class="row">
 						<div class="col-xs-8"><p class="small_font zero_margin">You save:<p></div>
-						<div class="col-xs-4 small_font zero_margin red">$40.01 (80%)</div>
+						<div class="col-xs-4 small_font zero_margin red">$80.01 (80%)</div>
 					</div>
 					<p class="xsmall_font dark_grey">Photos <span class="bold">only available</span> in our database for <span class="bold">two weeks</span> after the shoot</p>
 
@@ -369,11 +385,11 @@
 					</div>
 					<div class="row">
 						<div class="col-xs-8"><p class="bold landing_text_main zero_margin"><span class="red">Bryte Price:</span></p></div>
-						<div class="col-xs-4"><p class="red bold landing_text_main zero_margin">$15.99</p></div>
+						<div class="col-xs-4"><p class="red bold landing_text_main zero_margin">$29.99</p></div>
 					</div>
 					<div class="row">
 						<div class="col-xs-8"><p class="small_font zero_margin">You save:<p></div>
-						<div class="col-xs-4 small_font zero_margin red">$184.01 (92%)</div>
+						<div class="col-xs-4 small_font zero_margin red">$170.01 (85%)</div>
 					</div>
 					<p class="xsmall_font dark_grey">Photos <span class="bold">only available</span> in our database for <span class="bold">two weeks</span> after the shoot</p>
 
@@ -412,8 +428,8 @@
 
 					<div class="small_padding"></div>
 					<select class="form-control sm_height l_font" style="width:100%!important" id="top_select">
-						<option value="9.99" name="ph" data-description="Extra Professional Headshot" selected>Extra Professional Headshot</option>
-						<option value="15.99" name="pp" data-description="Premium Portrait">Premium Portrait</option>
+						<option value="19.99" name="ph" data-description="Extra Professional Headshot" selected>Extra Professional Headshot</option>
+						<option value="29.99" name="pp" data-description="Premium Portrait">Premium Portrait</option>
 					</select> 
 					<div class="small_padding"></div>
 					<button class="btn btn-checkout" id="top_add_button" name="add">Add to cart</button>
@@ -438,8 +454,8 @@
 					<p class="text-center xsmall_padding">{{ extra.name }}</p>
 					<div class="xsmall_padding"></div>
 					<select class="form-control sm_height l_font" style="width:100%!important" id="{{ extra.pk }}_select">
-						<option selected value="9.99" name="ph" data-description="Extra Professional Headshot">Extra Professional Headshot - $9.99</option>
-						<option value="15.99" name="pp" data-description="Premium Portrait">Premium Portrait - $15.99</option>
+						<option selected value="19.99" name="ph" data-description="Extra Professional Headshot">Extra Professional Headshot - $19.99</option>
+						<option value="29.99" name="pp" data-description="Premium Portrait">Premium Portrait - $29.99</option>
 					</select> 			
 					<div class="xsmall_padding"></div>
 					<button class="btn btn-checkout" id="{{ extra.pk }}_add" name="add">Add to cart</button>
@@ -468,8 +484,12 @@
 		<ul class="checkout_detail" class="package_list">
 
 		</ul>
-		<div class="text-right">
-			<p class="bold big_font large_padding">Total: $<span class="checkout_total_amount"></span></p>
+		<div class="text-right large_padding">
+			<p class="checkout_original_total large_font">Subtotal: $<span class="checkout_original_total_amount"></span></p>
+			<p class="yellow checkout_discount large_font">Discount: $<span class="checkout_discount_amount"></span></p>
+
+			<div class="small_padding top_border"></div>
+			<p class="bold big_font">Order Total: $<span class="checkout_total_amount"></span></p>
 			<a href=""><button class="btn btn-blue checkout_button">Checkout</button></a>
 		</div>
 		<div class="medium_padding"></div>
@@ -582,6 +602,8 @@
   });
 
 	$('.checkout_cart').hide();
+	$('.checkout_discount').hide();
+	$('.checkout_original_total').hide();
 
 	// show form
 	$("button[name=add]").click(function(e){
@@ -633,7 +655,7 @@
     option_name = $select.find(':selected').attr('name');
 
 
-    console.log(thumbnail);
+    // console.log(thumbnail);
 
     var purchase = {
     	'img_id': pk,
@@ -642,14 +664,34 @@
     };
     purchases.push(purchase);
 
-    console.log(purchases);
+    // console.log(purchases);
     // update the total
 
     total = total + parseFloat(option_val);
     if($('#checkout_total').is(":hidden")){
     	$('#checkout_total').fadeIn(200)
     }
-    $('.checkout_total_amount').html(total.toFixed(2));
+
+    // detect discount
+   	count = 0;
+   	discount_amount = 0;
+   	for(var i=0; i<purchases.length; i++){
+   		if(purchases[i].option == 'ph' | purchases[i].option == 'pp'){
+   			count += 1;
+   		}
+   	}
+   	discount_count = Math.floor(count/3);
+   	discount_amount = discount_count * 30;
+   	if(discount_count){
+   		$('.checkout_discount').show();
+   		$('.checkout_original_total').show();
+   		$('.checkout_original_total_amount').html(total.toFixed(2));
+   		$('.checkout_discount_amount').html(discount_amount);
+   	}
+   	console.log(discount_count);
+
+
+    $('.checkout_total_amount').html((total - discount_amount).toFixed(2));
 
     checkout_html = '<li class="row"><div class="col-xs-6"><img src="' + thumbnail + '" style="height:120px!important" class="video_desc_border"><div class="xsmall_padding small_font"><p>(When we email you your headshot, it will have the watermark removed and will include any touchup processes that you have purchased)</p></div></div><div class="col-xs-6 text-center"><p>' + option_text + '<br>$' + option_val + '</p></div></li>';
 
@@ -686,7 +728,7 @@
 	  		data: {
 	  			purchases: JSON.stringify(purchases),
 	  			token: token.id,
-	  			total: total,
+	  			total: (total - discount_amount).toFixed(2),
 	  		},
 
 	      success: function(data){
@@ -728,7 +770,7 @@
     	handler.open({
 	      name: 'Bryte Headshot Upgrade',
 	      description: 'Bryte Headshot Upgrade',
-	      amount: total * 100,
+	      amount: (total - discount_amount).toFixed(2) * 100,
     	});
     }
     e.preventDefault();
