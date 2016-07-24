@@ -795,6 +795,7 @@ class Booking(models.Model):
 
 		category = [school + ' - ' + str(date), email_purpose, version_number]
 
+		my_headshot_link = settings.SITE_URL + '/myheadshots/?id=' + hash_id + '&utm_source=My%20Headshot%20My%Headshot&utm_medium=Campaign%20Medium%20URL%20Builder'
 
 		message = sendgrid.Mail()
 		message.add_to(email)
@@ -813,6 +814,7 @@ class Booking(models.Model):
 
 		message.add_substitution('-first_name-', first_name)
 		message.add_substitution('-unique_id-', hash_id)
+		message.add_substitution('-my_headshot-', my_headshot_link)
 
 		try:
 			sg.send(message)
@@ -895,6 +897,8 @@ class Booking(models.Model):
 
 		category = [school + ' - ' + str(date), email_purpose, version_number]
 
+		my_headshot_link = settings.SITE_URL + '/myheadshots/?id=' + hash_id + '&utm_source=Photo%20Delivery%20My%20Headshot&utm_medium=Campaign%20Medium%20URL%20Builder'
+
 		message = sendgrid.Mail()
 		message.add_to(email)
 		message.set_from('Bryte Photo Inc <' + settings.EMAIL_HOST_USER + '>')
@@ -906,6 +910,9 @@ class Booking(models.Model):
 		message.set_categories(category)
 		message.add_substitution('-first_name-', first_name)
 		message.add_substitution('-download_link-', self.upgrade_folder_path)
+		message.add_substitution('-my_headshot-', my_headshot_link)
+
+
 		message.add_substitution('-unique_id-', hash_id)
 
 		try:

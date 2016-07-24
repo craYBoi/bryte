@@ -378,6 +378,8 @@ def test_retrieve(request):
 			# charge first
 			token = request.POST.get('token')
 			total = request.POST.get('total')
+			subtotal = request.POST.get('subtotal')
+			discount = float(subtotal) - float(total)
 
 			# for fullsize and premium
 			if str(float(total))=='0':
@@ -431,8 +433,10 @@ def test_retrieve(request):
 				value=purchase.get('value')
 
 
-				confirmation_content += '1 ' + option_text + ' ---------------- $' + str(value) + '<br>' + special_note + '<br><br>'
+				confirmation_content += '1 ' + option_text + ' ---------------- $' + str(value) + '<br>' + special_note + '<br>'
 
+
+			confirmation_content += '<br><br>Subtotal: $' + str(subtotal) + '<br>Discount: $' + str(discount) + '<br><br><span style="font-size:1.5em; color: #c94848; font-weight: bold;">Total: $' + str(total) + '</span>'
 			# send it
 			img.book.order_delivery_email(confirmation_content)
 
