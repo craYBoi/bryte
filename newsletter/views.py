@@ -478,14 +478,17 @@ def test_retrieve(request):
 				for ip in ips:
 					img = ip.image
 					if img.is_fav or img.is_top or img.is_portrait:
-						ip.is_delivered = truee
+						ip.is_delivered = True
 						ip.save()
 
 
 
 		return HttpResponse(json.dumps(data), content_type='application/json')
 	if request.method == 'GET':
-		unique_id = request.GET.get('id').strip()
+		try:
+			unique_id = request.GET.get('id').strip()
+		except Exception, e:
+			return render(request, 'test_retrieve.html', context)
 		try:
 			b = get_object_or_404(Booking, hash_id=unique_id)
 			# grab all the image from booking
