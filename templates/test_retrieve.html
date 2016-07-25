@@ -10,6 +10,8 @@
 
 	<!-- retrieve page -->
 	
+	
+	
 	{% if not headshots %}
 
 		<div class="red_bg center_flex" style="height:75vh;">
@@ -283,7 +285,7 @@
 	</div>
 	<div class="red_bg">
 		<div class="small_padding"></div>
-		<h2 class="text-center droid_serif zero_margin white sm_font">Buy 2 headshot or portrait, <span class="yellow">get your third one for free!</span> (Discount will be automatically reflected at checkout)</h2>
+		<h2 class="text-center droid_serif zero_margin white sm_font">buy 2 photos, <span class="yellow lbig_font bold">get your third for FREE!</span> (Discount will be automatically applied at checkout)</h2>
 		<div class="small_padding"></div>
 	</div>
 
@@ -446,6 +448,9 @@
 			</div>
 
 
+			{% if extras %}
+				
+			
 			<div class="medium_padding"></div>
 			<div class="medium_padding red_top_border"></div>
 
@@ -469,6 +474,8 @@
 				</div>				
 			{% endfor %}
 			</div>
+
+			{% endif %}
 
 			<div class="large_padding"></div>
 		</div>

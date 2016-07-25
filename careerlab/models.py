@@ -641,7 +641,7 @@ class Booking(models.Model):
 
 		try:
 			deleted_folder = dbx.files_delete(self.dropbox_folder)
-			dbx.files_delete(photo_path)
+			# dbx.files_delete(photo_path)
 		except Exception, e:
 			print e
 			pass
