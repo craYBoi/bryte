@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.conf import settings
 from django.core.mail import send_mail
 from django.http import Http404, HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 
 import stripe
 import os
@@ -325,6 +326,7 @@ def ajax_retrieve(request):
 		raise Http404
 
 
+@csrf_exempt
 def test_retrieve(request):
 	context = {
 		'title_text': 'Retrive your headshot | Bryte Photo',
