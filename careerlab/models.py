@@ -81,11 +81,13 @@ class Nextshoot(models.Model):
 	def create_folder_after_close(self):
 		bookings = [e for elem in self.timeslot_set.all() for e in elem.booking_set.all()]
 
+		print 'creating folders...'
 		count = 0
 		for booking in bookings:
 			# create dropbox in PROD and PHOTO
 			if(booking.create_dropbox_folder() and booking.create_dropbox_photo_folder()):
 				count += 1
+				print str(booking.email) + ' [DONE]'
 
 		print '\n'
 		print str(len(bookings)) + ' bookings in total'
@@ -1166,38 +1168,18 @@ class Booking(models.Model):
 			self.dropbox_folder = upload_folder_path
 
 			# create the All and Deliverables subfolder
-			EDITED_FOLDER = 'Edited'
-			OTHER_FOLDER = 'Other'
+			TBT_FOLDER = 'To Be retouched'
+			DELIVERABLE_FOLDER = 'Deliverable'
 			RAW_FOLDER = 'Raw'
-			UPGRADE_FOLDER = 'Upgrade'
 
-			edited_folder_path = os.path.join(upload_folder_path, EDITED_FOLDER)
-			edited_fav_path = os.path.join(edited_folder_path, 'Fav')
-			# edited_top_path = os.path.join(edited_folder_path, 'Top')
-			edited_portrait_path = os.path.join(edited_folder_path, 'Top Portrait')
-			edited_all_path = os.path.join(edited_folder_path, 'All')
-
-			other_folder_path = os.path.join(upload_folder_path, OTHER_FOLDER)
-			raw_folder_path = os.path.join(upload_folder_path, RAW_FOLDER)
-			raw_fav_path = os.path.join(raw_folder_path, 'Fav')
-			raw_top_path = os.path.join(raw_folder_path, 'Top')
-			raw_all_path = os.path.join(raw_folder_path, 'All')
-
-			upgrade_folder_path = os.path.join(upload_folder_path, UPGRADE_FOLDER)
-			upgrade_edited_path = os.path.join(upgrade_folder_path, 'Edited')
-			upgrade_raw_path = os.path.join(upgrade_folder_path, 'Raw')
+			tbt_path = os.path.join(upload_folder_path, TBT_FOLDER)
+			deliverable_path = os.path.join(upload_folder_path, DELIVERABLE_FOLDER)
+			raw_path = os.path.join(upload_folder_path, RAW_FOLDER)
 
 			try:
-				dbx.files_create_folder(edited_fav_path)
-				# dbx.files_create_folder(edited_top_path)
-				dbx.files_create_folder(edited_portrait_path)
-				dbx.files_create_folder(edited_all_path)
-				dbx.files_create_folder(other_folder_path)
-				dbx.files_create_folder(raw_fav_path)
-				dbx.files_create_folder(raw_top_path)
-				dbx.files_create_folder(raw_all_path)
-				dbx.files_create_folder(upgrade_edited_path)
-				dbx.files_create_folder(upgrade_raw_path)
+				dbx.files_create_folder(tbt_path)
+				dbx.files_create_folder(deliverable_path)
+				dbx.files_create_folder(raw_path)
 			except Exception, e:
 				print e
 				return False
@@ -1205,12 +1187,13 @@ class Booking(models.Model):
 			else:
 				# create upgrade folder link
 				try:
-					upgrade_link = dbx.sharing_create_shared_link(upgrade_edited_path)
+					deliverable_link = dbx.sharing_create_shared_link(deliverable_path)
 				except Exception, e:
 					return False
 					print e
 				else:
-					self.upgrade_folder_path = upgrade_link.url
+					self.upgrade_folder_path = deliverable_link.url
+					super(Booking, self).save()
 					return True
 
 
@@ -1237,9 +1220,9 @@ class Booking(models.Model):
 			dbx.files_create_folder(upload_folder_path)
 		except Exception, e:
 			print e
-			return 0
+			return False
 		else:
-			return 1
+			return True
 
 
 	def retrieve_image(self, **kwargs):
