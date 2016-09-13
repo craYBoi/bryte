@@ -39,9 +39,6 @@ def index(request, school='brown'):
 	main_bg_color = 'red_bg'
 	secondary_bg_color = 'background_pink'
 
-	school_year_choices = ['<25% of credits completed', '25-50% of credits completed', '50-75% of credits completed', '>75% of credits completed']
-	area_of_study_choices = ['Accounting/Actuary','Biological/Medicinal Sciences', 'Nursing', 'Human Services', 'Psychology', 'Physical Sciences', 'Computer Science', 'Mathematics and Statistics', 'English/Literature', 'History', 'Sociology', 'Education', 'Environmental Sciences', 'Public Administration/Social Services', 'Business/Management', 'Marketing/Communications', 'Economics/Finance', 'Visual and Performing Arts', 'Journalism']
-	professional_path_choices = ['Accounting/Actuary', 'Business Administration/Management', 'Social Services and Nonprofits', 'Government', 'Education', 'Personal Care and Other Services', 'Marketing', 'Sales and Related', 'Healthcare, Pharmaceuticals', 'Finance, Insurance', 'Real Estate', 'Computer Engineering/IT', 'Architecture', 'Freelance Artist', 'Legal', 'Media/Journalism', 'Sports and Physical Fitness']
 	modal_form_title = ''
 
 	# view logic for different schools here
@@ -57,7 +54,6 @@ def index(request, school='brown'):
 		school_abbr = 'Brown'
 		school_title = 'CareerLAB'
 		school_location = 'Brown CareerLAB, 167 Angell St'
-		modal_form_title = 'Brown Form Title'
 		if nextshoot:
 			nextshoot = nextshoot[0]
 			timeslots = nextshoot.timeslot_set.filter(is_available=True).order_by('time')	
@@ -75,7 +71,7 @@ def index(request, school='brown'):
 		school_bryte_url = 'bu'
 		school_abbr = 'BU'
 		school_location = 'Feld Career Center, 595 Commonwealth Ave.'
-		modal_form_title = 'BU Form title'
+
 		if nextshoot:
 			nextshoot = nextshoot[0]
 			timeslots = nextshoot.timeslot_set.filter(is_available=True).order_by('time')	
@@ -96,7 +92,6 @@ def index(request, school='brown'):
 		main_color = 'green'
 		main_bg_color = 'green_bg'
 		secondary_bg_color = 'light_green_bg'
-		modal_form_title = 'Thank you for helping Bryte and Career Planning better engage with CCRI students'
 		nextshoot = Nextshoot.objects.filter(school='Community College of Rhode Island')
 		if nextshoot:
 			nextshoot = nextshoot[0]
@@ -104,21 +99,29 @@ def index(request, school='brown'):
 		else:
 			raise Http404
 
-	elif school.lower() == 'bu':
-		title = 'Bryte & Boston University of Rhode Island Headshot'
-		bg_url = static('img/ccri/bg.jpg')
+
+
+	elif school.lower() == 'ccriflanagan':
+		title = 'Bryte & the Community College of Rhode Island Flanagan Campus Headshot'
+		bg_url = static('img/ccri/bg.JPG')
 		logo_url = static('img/ccri/logo.png')
-		school_name = 'Boston University'
+		school_name = 'Community College of Rhode Island'
 		school_url = 'http://www.ccri.edu'
-		nextshoot = Nextshoot.objects.filter(school='Boston University')
+		school_bryte_url = 'ccriflanagan'
+		school_abbr = 'CCRI'
+		school_title = 'CCRI Flanagan Campus'
+		school_location = 'CCRI Flanagan Campus, rear of the cafeteria'
+		main_color = 'green'
+		main_bg_color = 'green_bg'
+		secondary_bg_color = 'light_green_bg'
+		nextshoot = Nextshoot.objects.filter(school='Community College of Rhode Island Flanagan')
 		if nextshoot:
 			nextshoot = nextshoot[0]
 			timeslots = nextshoot.timeslot_set.filter(is_available=True).order_by('time')	
 		else:
 			raise Http404
 
-	else:
-		raise Http404
+
 
 
 	context['title_text'] = title
@@ -132,10 +135,6 @@ def index(request, school='brown'):
 	context['school_bryte_url'] = school_bryte_url
 	context['school_location'] = school_location
 	context['school_abbr'] = school_abbr
-	context['school_year_choices'] = school_year_choices
-	context['modal_form_title'] = modal_form_title
-	context['professional_path_choices'] = sorted(professional_path_choices)
-	context['area_of_study_choices'] = sorted(area_of_study_choices)
 
 	context['main_color'] = main_color
 	context['main_bg_color'] = main_bg_color
@@ -157,9 +156,6 @@ def book(request):
 
 		email = request.POST.get('email')
 		name = request.POST.get('name')
-		school_year = request.POST.get('schoolyear')
-		professional_path = request.POST.get('profession')
-		area_of_study = request.POST.get('major')
 		time_id = request.POST.get('time')
 		timeslot = get_object_or_404(Timeslot, pk=time_id)
 		shoot = timeslot.shoot
@@ -177,9 +173,6 @@ def book(request):
 						email = email,
 						name = name,
 						timeslot = timeslot,
-						program_progress = school_year,
-						area_of_study = area_of_study,
-						professional_path = professional_path,
 						)
 				except Exception, e:
 					raise e
@@ -197,6 +190,7 @@ def book(request):
 
 					# send email
 					b.booking_confirmation_email()
+
 					first_name = name.split(' ')[0]
 					data['msg'] = 'Thanks for signing up ' + first_name + '.<br><br>A confirmation email will be sent to you at \"' + str(email) + '\" with your booking information soon!<br><br>Team Bryte'
 
@@ -218,9 +212,6 @@ def signup(request):
 		email = request.POST.get('email')
 		name = request.POST.get('name')
 		shoot_pk = request.POST.get('shoot')
-		school_year = request.POST.get('schoolyear')
-		professional_path = request.POST.get('profession')
-		major = request.POST.get('major')
 
 		print shoot_pk
 
@@ -237,9 +228,6 @@ def signup(request):
 					email = email,
 					name = name,
 					shoot = shoot,
-					program_progress = school_year,
-					area_of_study = major,
-					professional_path = professional_path,
 					)
 			except Exception, e:
 				print e
@@ -260,7 +248,8 @@ def signup(request):
 def cancel_order(request):
 	context = {
 		'brown_careerlab': 1,
-		'title_text': 'Cancel your signup'
+		'title_text': 'Cancel your signup',
+		'notification_text': 'You have successfully cancelled your headshot!',
 	}
 	if request.method == 'GET':
 		order_id = request.GET.get('order_id')
@@ -275,10 +264,21 @@ def cancel_order(request):
 			shoot = timeslot.shoot
 			first_name = name.split(' ')[0]
 
+			# need to disable cancellation after the shoot is closed
+			if not shoot.active:
+				context['notification_text'] = 'You cannot cancel the booking right now since the shoot is already closed'
+				return render(request, 'notification.html', context)
+
 			# generate the correct booking url in email
 			url = ''
 			if shoot.school == 'Community College of Rhode Island':
 				url = 'www.brytephoto.com/school/ccriknight'
+			elif shoot.school == 'Community College of Rhode Island Flanagan':
+				url = 'www.brytephoto.com/school/ccriflanagan'
+			elif shoot.school == 'Brown University':
+				url = 'www.brytephoto.com/school/brown'
+			elif shoot.school == 'Boston University':
+				url = 'www.brytephoto.com/school/bu'
 			else:
 				url = ''
 

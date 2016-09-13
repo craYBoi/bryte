@@ -77,6 +77,21 @@ class Nextshoot(models.Model):
 		return self.name
 
 
+
+	def create_folder_after_close(self):
+		bookings = [e for elem in self.timeslot_set.all() for e in elem.booking_set.all()]
+
+		count = 0
+		for booking in bookings:
+			# create dropbox in PROD and PHOTO
+			if(booking.create_dropbox_folder() and booking.create_dropbox_photo_folder()):
+				count += 1
+
+		print '\n'
+		print str(len(bookings)) + ' bookings in total'
+		print str(count) + ' bookings dropbox folder created'
+
+
 	# need to return all the timeslots
 	# since it's needed when the shoot is closed
 	def get_date_string(self):
@@ -84,6 +99,7 @@ class Nextshoot(models.Model):
 		if timeslots:
 			return str(timeslots.first().time.strftime('%B %-d'))
 		return None
+
 
 
 	def get_time_interval_string(self):
@@ -430,6 +446,7 @@ class Nextshoot(models.Model):
 		print 'Total --- ' + str(len(bookings)) + ' Emails\nSENT --- ' + str(count) + ' Emails'
 
 
+	# need to disable signup and cancel
 	def close_shoot(self):
 		self.active = False
 		super(Nextshoot, self).save()
@@ -538,9 +555,9 @@ class Signup(models.Model):
 	notified = models.BooleanField(default=False)
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
 	shoot = models.ForeignKey(Nextshoot, blank=True, null=True)
-	program_progress = models.CharField(max_length=30, blank=True, null=True)
-	area_of_study = models.CharField(max_length=40, blank=True, null=True)
-	professional_path = models.CharField(max_length=40, blank=True, null=True)
+	# see if it's from cancelling the booking order
+	cancelled = models.BooleanField(default=False)
+
 
 	def __unicode__(self):
 		return self.name + ' ' + self.email
@@ -590,6 +607,13 @@ class Timeslot(models.Model):
 
 
 
+# 1 day before the shoot
+# manually create the dropbox folders
+# create booking folder in PROD
+# self.create_dropbox_folder()
+# create booking folder in PHOTO
+# self.create_dropbox_photo_folder()	
+
 class Booking(models.Model):
 	email = models.EmailField()
 	name = models.CharField(max_length=120)
@@ -599,15 +623,14 @@ class Booking(models.Model):
 	dropbox_folder = models.CharField(max_length=100, blank=True, null=True)
 	upgrade_folder_path = models.CharField(max_length=100, blank=True, null=True)
 	show_up = models.BooleanField(default=False)
-	program_progress = models.CharField(max_length=30, blank=True, null=True)
-	area_of_study = models.CharField(max_length=40, blank=True, null=True)
-	professional_path = models.CharField(max_length=40, blank=True, null=True)
 
 
 	def __unicode__(self):
 		return self.name + ' ' + self.email + ' ' + str(self.timeslot)
 
+
 	# override save to add hashid upon creation
+	# make sure can't book for new slots once the shoot is closed, but it's already in the logic, so it's good right now
 	def save(self, *args, **kwargs):
 		# increment the timeslot
 		self.timeslot.increment()
@@ -615,13 +638,8 @@ class Booking(models.Model):
 		N = 6
 		self.hash_id = ''.join(SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(N))
 
-		# create booking folder in PROD
-		self.create_dropbox_folder()
-
-		# create booking folder in PHOTO
-		self.create_dropbox_photo_folder()	
-
 		super(Booking, self).save(*args, **kwargs)
+
 
 	def cancel_order(self):
 		ts_pk = self.timeslot.pk
@@ -630,23 +648,22 @@ class Booking(models.Model):
 		# open up 1 slot 
 		ts.restore_slot()
 
-		# add delete the corresponding dropbox
-		token = settings.DROPBOX_TOKEN
-		dbx = dropbox.Dropbox(token)
-
-		# also delete the PHOTO folder
-		root_folder = settings.DROPBOX_PHOTO
-		shoot_name = ts.shoot.name
-		photo_path = os.path.join(root_folder, shoot_name, self.email)
-
-		try:
-			deleted_folder = dbx.files_delete(self.dropbox_folder)
-			# dbx.files_delete(photo_path)
-		except Exception, e:
-			print e
-			pass
-
 		self.delete()
+
+		# add to signup list
+		try:
+			s = Signup.objects.create(
+				email = self.email,
+				name = self.name,
+				timestamp = self.timestamp,
+				cancelled = True,
+				shoot = self.timeslot.shoot,
+				)
+		except Exception, e:
+			raise e
+		else:
+			print 'Signup instance is created ' + str(self.email)
+
 
 	def generate_booking_link(self, school_url):
 		return os.path.join(settings.SITE_URL, 'school', school_url)
@@ -1183,15 +1200,18 @@ class Booking(models.Model):
 				dbx.files_create_folder(upgrade_raw_path)
 			except Exception, e:
 				print e
+				return False
 				# raise e
 			else:
 				# create upgrade folder link
 				try:
 					upgrade_link = dbx.sharing_create_shared_link(upgrade_edited_path)
 				except Exception, e:
+					return False
 					print e
 				else:
 					self.upgrade_folder_path = upgrade_link.url
+					return True
 
 
 	# create email folder in PHOTO for photographer when people sign up

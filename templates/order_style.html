@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="{% static 'css/unslider.css' %}">	
+{% endblock %}
+
+
+{% block content %}
+
+	<div class="futura background_grey">
+		<div class="container">
+			<div class="medium_padding"></div>
+			<h1 class="text-center landing_title">Style Your Photo</h1>
+
+			<div class="small_padding"></div>
+
+			<!-- headshot raw photos -->
+			<div class="row">
+				<div class="col-sm-4 col-xs-10 col-sm-offset-0 col-xs-offset-1">
+					
+					<div class="hs_margin">
+						<img src="{% static 'img/order/sample1.jpg' %}" class="img-responsive">
+					</div>
+
+
+					<div class="text-center">
+						<div class="xsmall_padding"></div>
+						<h3 class="text-center landing_text_main bold">The Just Enough</h3>
+						<div class="small_padding"></div>
+						<p class="landing_text_main">$0</p>
+
+						<div class="xsmall_padding"></div>
+
+						<!-- work on the modal button -->
+						<a data-toggle="modal" data-target="#modal_style_basic">See More Examples</a>
+						<p class="landing_text">Reviews</p>
+						<button class="ord_button">Choose</button>
+					</div>
+
+					<div class="medium_padding"></div>
+
+				</div>
+				<div class="col-sm-4 col-xs-10 col-sm-offset-0 col-xs-offset-1">
+					<div class="hs_margin hs_shadow_border">
+						<img src="{% static 'img/order/sample1.jpg' %}" class="img-responsive">
+					</div>
+				</div>
+				<div class="col-sm-4 col-xs-10 col-sm-offset-0 col-xs-offset-1">
+					<div class="hs_margin">
+						<img src="{% static 'img/order/sample1.jpg' %}" class="img-responsive">
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+
+
+
+	<!-- basic style example -->
+
+  <div class="modal fade" id="modal_style_basic" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+    <div class="modal-dialog" role="document">
+      <div class="modal-content main_bg_color white">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title small_font" id="myModalLabel"></h4>
+          <div class="xsmall_padding"></div>
+        </div>
+
+        <div class="modal-footer">
+          <div class="text-center">
+          <button type="button" class="btn btn-white bold large_font" id="careerlab_signup_button">Sign Up</button>
+          <p class="white small_padding xsmall_font">Your information is kept completely private between Bryte and your Career Center and will not be shard with anyone else.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block script %}
+	<script src="{% static 'js/unslider-min.js' %}"></script>
+{% endblock %}
+
+
+{% block jquery %}
+		$('.slider').unslider({
+			autoplay: true,
+			speed: 500,
+			infinite: true,
+      nav: false,
+      arrows: false,
+		});
+{% endblock %}
