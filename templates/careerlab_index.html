@@ -16,10 +16,10 @@
 
 
 {% block content %}
-  
-  <div class="{{ main_bg_color }}" id="signup_signup_form" style="background: url({% static 'img/ccri/bg4.jpg' %}) no-repeat center; background-size: cover;"> 
+
+  <div class="{{ main_bg_color }}" id="signup_signup_form" style="background: url({% static 'img/ccri/bg5.jpg' %}) no-repeat center; background-size: cover;"> 
     <div class="large_padding"></div>
-    <h1 class="white text-center bold col-xs-10 col-xs-offset-1 landing_title">Get an amazing headshot for free!</span></h1>
+    <h1 class="white text-center bold col-xs-10 col-xs-offset-1 landing_title">Step your professional image up with free photography!</span></h1>
     <div class="container">
 
 
@@ -28,7 +28,6 @@
         <div class="medium_padding"></div>
         {% if next_shoot.active %}    
         
-          <p class="big_font white">Headshot specialists will be taking free headshots at the {{ next_shoot.location }}.</p>
 
           {% if not timeslots %}
             
@@ -47,9 +46,14 @@
             <div class="small_padding"></div>
             <!-- The booking button -->
 
-            <div class="text-center">
-              <button class="btn-white-lg bold large_font" type='submit' id="book_modal_button_1">Book a free headshot!</button>
-              <button class="btn-white-lg bold large_font" type='button' id="book_modal_button_shadow_1" data-toggle="modal" data-target="#myModal" hidden>Book a free headshot!</button>  
+            <div class="row">
+              <div class="col-sm-6 text-center">
+                <p class="large_font white"><span class="landing_text"><span class="bold">Photoshoot Location:</span> {{ school_location }}</span><br><br><span class="landing_text"><span class="bold">Date & Time:</span> {{ next_shoot.get_date_string }}, {{ next_shoot.get_time_interval_string }}</span></p>         
+              </div>
+              <div class="col-sm-6">
+                <button class="btn-white-xl bold xlarge_font" type='submit' id="book_modal_button_1">Reserve your spot at the photoshoot</button>
+                <button class="btn-white-xl bold xlarge_font" type='button' id="book_modal_button_shadow_1" data-toggle="modal" data-target="#myModal" hidden>Reserve your spot at the photoshoot</button>   
+              </div>
             </div>
 
           {% endif %}
@@ -67,9 +71,6 @@
             <button class="btn-white-lg bold large_font" id="signup_modal_button_shadow_1" type='button' data-toggle="modal" data-target="#myModalSignup" hidden>Sign up for notification</button>
           </div>
         {% endif %}
-
-        <div class="small_padding"></div>
-        <a href="#process"><span class="white">How the process works</span></a>
 
         <div class="large_padding"></div>
       </div>
@@ -627,22 +628,24 @@
 
       <div class="medium_padding"></div>
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
           <div class="medium_padding"></div>
           <div class="row">
-            <div class="col-xs-12">
-            <img src="{% static 'img/ccri/pic2.png' %}" class="img-responsive">
+            <div class="col-xs-10 col-xs-offset-1">
+            <img src="{% static 'img/headshots/examples/premium/black.jpg' %}" class="img-responsive hs_shadow_border">
+            <p class="small_font grey text-center small_padding">*The displayed headshot includes extra features</p>
             </div>
+
           </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-8">
           <div class="medium_padding"></div>
             <div class="row">
               <div class="col-xs-10 col-xs-offset-1">
                 <div class="page-header">
-                <h3>Book an Amazing Headshot</h3>
+                <h3>We take amazing headshots</h3>
                 </div>
-                <p>Click "Book a free headshot" to book a timeslot for your headshot session. We'll confirm you did via email. Then show up during your timeslot on photo day to take your headshot.</p>
+                <p>The photos we'll take of you are headshots. Young professionals use them all the time nowadays. We are headshot specialists and have the creative expertise and high quality equipment  to get you an amazing headshot.</p>
                </div>
             </div>
         </div>
@@ -654,7 +657,7 @@
           <div class="medium_padding"></div>
           <div class="row">
             <div class="col-xs-12">
-            <img src="{% static 'img/ccri/pic3.png' %}" class="img-responsive">
+            <img src="{% static 'img/ccri/pic2.png' %}" class="img-responsive">
             </div>
 
           </div>
@@ -664,9 +667,9 @@
             <div class="row">
               <div class="col-xs-10 col-xs-offset-1">
                 <div class="page-header">
-                <h3>Equipment and coaching to help you look awesome</h3>
+                <h3>Getting an amazing headshot</h3>
                 </div>
-                <p>We've got the best equipment setup out there for a spectacular lighting display. Bryte photographers will be coaching you with cues and unique poses to make you look your best on photo day!</p>
+                <p>Start by reserving your spot at the photoshoot on this website. Then show up to the photoshoot.</p>
                </div>
             </div>
         </div>
@@ -678,7 +681,7 @@
           <div class="medium_padding"></div>
           <div class="row">
             <div class="col-xs-12">
-            <img src="{% static 'img/ccri/pic1.png' %}" class="img-responsive">
+            <img src="{% static 'img/ccri/pic3.png' %}" class="img-responsive">
             </div>
           </div>
         </div>
@@ -687,9 +690,33 @@
             <div class="row">
               <div class="col-xs-10 col-xs-offset-1">
                 <div class="page-header">
-                <h3>Pick your favorite headshot, download, and accessorize</h3>
+                <h3>Smile at the photoshoot</h3>
                 </div>
-                <p>We'll email you all the photos you took at the photoshoot later that day and you can pick your favorite photo from the photoshoot. Then you can download your favorite, get more than one and buy frames, prints, and other goodies for your headshots.</p>
+                <p>Show up on photo day and our photographers will handle the rest. They will give you easy-to-follow cues to help you pose in highly professionally ways for your headshot.</p>
+               </div>
+            </div>
+        </div>
+      </div>
+
+      <div class="medium_padding"></div>
+      <div class="row">
+        <div class="col-md-6 col-md-push-6">
+          <div class="medium_padding"></div>
+          <div class="row">
+            <div class="col-xs-12">
+            <img src="{% static 'img/ccri/pic1.png' %}" class="img-responsive">
+            </div>
+
+          </div>
+        </div>
+        <div class="col-md-6 col-md-pull-6">
+          <div class="medium_padding"></div>
+            <div class="row">
+              <div class="col-xs-10 col-xs-offset-1">
+                <div class="page-header">
+                <h3>Pick your favorite and download</h3>
+                </div>
+                <p>We'll email you all the photos you took at the photoshoot. Then you can pick your favorite headshot and download it at no cost to you!</p>
                </div>
             </div>
         </div>
@@ -703,7 +730,7 @@
     {% if next_shoot.active %}
       {% if timeslots %}
         <div class="text-center">
-          <button class="ord_button bold large_font" type='submit' id="book_modal_button_2">Book a free headshot!</button>
+          <button class="ord_button bold large_font" type='submit' id="book_modal_button_2">Reserve your spot at the photoshoot</button>
           <button class="ord_button bold large_font" type='button' id="book_modal_button_shadow_2" data-toggle="modal" data-target="#myModal" hidden>Book a free headshot!</button>  
         </div>
 
@@ -829,10 +856,11 @@
           <!-- model location info and school -->
           <div class="text-center">
 
-          <div class="medium_padding"></div>
           
+          <h3 class="bold">Reserve your spot</h3>
+          <!--
             <p class="large_font white"><span class="landing_text"><span class="bold">Location:</span> {{ school_location }}</span><br><span class="landing_text"><span class="bold">Date & Time:</span> {{ next_shoot.get_date_string }}, {{ next_shoot.get_time_interval_string }}</span></p>
-
+          -->
           <!-- booking form! -->
           <div class="special_padding signup_form">
             <div id="book_form">
