@@ -866,12 +866,17 @@
             <div id="book_form">
 
               <div class="medium_padding"></div>
-              <div class="text-center">
+              <div class="">
               <form method="POST" action="{% url 'careerlab_book' %}" class=" white">{% csrf_token %}
+                <p class="text-left bold">First & Last Name</p>
                 <input type='text' name='careerlab_book_name' class="form-control" id='careerlab_book_name' required pattern="[a-zA-Z.]{2,}(\s+[a-zA-z.]{2,})+" placeholder='First & Last Name'>
                 <div class="small_padding"></div>
+
+                <p class="text-left bold">Email</p>
                 <input type='email' name='careerlab_book_email' class="form-control" id='careerlab_book_email' required placeholder='Email Address' onchange="try{setCustomValidity('')}catch(e){}">
                 <div class="small_padding"></div>
+
+                <p class="text-left bold">Choose a timeslot</p>
                 <select required name='careerlab_book_time' class="form-control" id='careerlab_book_time'>
                   {% for timeslot in timeslots %}
                     <option value='{{ timeslot.pk }}'>{{ timeslot.time_slot_format }}</option>
