@@ -3,15 +3,64 @@
 
 {% block content %}
 
-	<div class="futura">
-		<div class="container">
+	<div class="futura background_grey">
+		<div class="mod_container">
 			<div class="large_padding"></div>
-			<h1 class="text-center">First, Choose a photo</h1>
-
+			{% if proceed %}
+				<h1 class="text-center landing_title">Choose another photo</h1>
+			{% else %}
+				<h1 class="text-center landing_title">Select one of your photos</h1>
+			{% endif %}
+			
 			<div class="large_padding"></div>
 
+			<!-- for second for more -->
+			{% if proceed %}
+				<div class="text-center">
+				<form action='{% url "headshot_checkout" %}'>
+					<button class="ord_button_w" type="submit">Checkout ${{ order_total }}</button>
+				</form>
+				</div>
+				<div class="medium_padding"></div>
+			{% endif %}
+
+			{% for hs_url, hs_pk in headshots %}
+
+				{% cycle '<div class="row">' '' '' %}
+
+					<div class="col-sm-4 special_padding">
+						<img src="{{ hs_url }}" class="img-responsive">
+						<div class="small_padding"></div>
+
+
+						<form method="GET" action={% url 'headshot_style' %}>
+							<input type="hidden" value={{ hs_pk }} name="hs_pk">
+							<div class="text-center">
+								<button class="ord_button" type="submit">Select</button>
+							</div>
+						</form>
+						<div class="medium_padding"></div>
+					</div>
+					
+				
+				{% cycle '' '' '</div>' %}
+
+			{% endfor %}
 
 
 		</div>
 	</div>
+
+	<!-- loader -->
+	<div id="loader-wrapper" hidden>
+	  <div id="loader" class="text-center"><img src="{% static 'img/order/balls.svg' %}" width="140px"></div>
+	</div>
+
+{% endblock %}
+
+{% block jquery %}
+	$('.ord_button_w, .ord_button').on('click', function(){
+		$('#loader-wrapper').show();  
+	})
+
 {% endblock %}

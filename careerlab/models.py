@@ -616,6 +616,8 @@ class Timeslot(models.Model):
 # create booking folder in PHOTO
 # self.create_dropbox_photo_folder()	
 
+
+
 class Booking(models.Model):
 	email = models.EmailField()
 	name = models.CharField(max_length=120)
@@ -1649,6 +1651,102 @@ class Booking(models.Model):
 					else:
 						print '[SUCCESS][EDITED PORTRAIT] ' + o_item.name
 
+
+	# NEW migrate to local image instance
+	def migrate_local(self):
+		dbx = dropbox.Dropbox(settings.DROPBOX_TOKEN)
+		folder_path = self.dropbox_folder
+
+		raw_path = os.path.join(folder_path, 'Raw')
+
+		try:
+			items = dbx.files_list_folder(raw_path).entries
+		except Exception, e:
+			raise e
+		else:
+			for item in items:
+				sharing_link = dbx.sharing_create_shared_link(item.path_lower)
+				url = str(sharing_link.url)
+				url = url[:-4]
+				url += 'raw=1'
+
+				# create new image instance
+				try:
+
+					OriginalHeadshot.objects.create(
+					booking=self,
+					name=item.name,
+					raw_url=url,
+					)
+				except Exception, e:
+					raise e
+					return False
+				else:
+					print '[SUCCESS] create local instance ' + item.name
+		return True
+
+
+class OriginalHeadshot(models.Model):
+	booking = models.ForeignKey(Booking)
+	name = models.CharField(max_length=50)
+	raw_url = models.CharField(max_length=80, blank=True, null=True)
+	deliverable_url = models.CharField(max_length=80, blank=True, null=True)
+	hash_id = models.CharField(max_length=20, default='default')
+
+
+	def __unicode__(self):
+		return self.name + ' ' + str(self.booking.email)
+
+	def save(self, *args, **kwargs):
+		N = 16
+		self.hash_id = ''.join(SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(N))
+
+		super(OriginalHeadshot, self).save(*args, **kwargs)
+
+
+class HeadshotOrder(models.Model):
+	booking = models.ForeignKey(Booking)
+	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
+	total = models.DecimalField(max_digits=5, decimal_places=2)
+	charged = models.BooleanField(default=False)
+	copied = models.BooleanField(default=False)
+	address = models.CharField(max_length=100, blank=True, null=True)
+
+
+class HeadshotPurchase(models.Model):
+	image = models.ForeignKey(OriginalHeadshot)
+	order = models.ForeignKey(HeadshotOrder, blank=True, null=True)
+
+	TOUCHUPS = (
+		(1, 'Free'),
+		(2, 'Upgraded'),
+		(3, 'Customized'),
+		)
+
+	touchup = models.PositiveSmallIntegerField(choices=TOUCHUPS, default=1)
+	special_request = models.CharField(max_length=50, blank=True, null=True)
+
+	BACKGROUNDS = (
+		(1, 'White'),
+		(2, 'Polished Gray'),
+		(3, 'Designer Bricks'),
+		(4, 'Sanguine Blue'),
+		(5, 'Nighttime Black'),
+		)
+
+	background = models.PositiveSmallIntegerField(choices=BACKGROUNDS, default=1)
+
+	PACKAGES = (
+		(1, 'No Package'),
+		(2, 'Wallet Prints'),
+		(3, 'Friends and Family'),
+		(4, 'Complete Collection'),
+		(5, 'Premium Framed Print'),
+		)
+	package = models.PositiveSmallIntegerField(choices=PACKAGES, default=1)
+	total = models.DecimalField(max_digits=5, decimal_places=2, default=0)
+	# keep track of if customer finishes a round
+	complete = models.BooleanField(default=False)
 
 
 class HeadshotImage(models.Model):

@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+
+{% block stylesheets %}
+{% endblock %}
+
+
+{% block content %}
+
+	<div class="futura background_grey text-center">
+		<div class="left_right_padding">
+			<div class="large_padding"></div>
+			<h1 class="text-center landing_title">Checkout</h1>
+
+			<div class="medium_padding"></div>
+
+			<!-- for charging error msg -->
+			{% if msg %}
+				<div class="container">
+					<p class="red text-center">{{ msg }}</p>
+				</div>
+			{% endif %}
+
+			<div class="text-center">
+				{% for order in orders %}
+					<div class="medium_padding"></div>
+					<div class="row">
+						<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
+
+							<div class="row text-left">
+								<div class="col-sm-5">
+									<img src="{{ order.image.raw_url }}" class="img-responsive">
+								</div>
+								<div class="col-sm-7">
+									<ul class="package_list">
+										<li>Style: {{ order.get_touchup_display }}</li>
+										{% if order.special_request %}
+											<li>Special Request: {{ order.special_request }}</li>
+										{% endif %}
+										<li>Background: {{ order.get_background_display }}</li>
+										<li>Keepsake: {{ order.get_package_display }}</li>
+										<li>Subtotal: ${{ order.total }}</li>
+									</ul>
+								</div>
+							</div>
+
+							
+							
+						</div>
+
+					</div>
+				{% endfor %}
+			<div class="medium_padding"></div>
+			<h2>Total Amount: ${{ total }}</h2>
+			</div>
+
+		</div>
+
+		<div class="medium_padding"></div>
+
+		{% if free %}
+			<form action="{% url 'headshot_complete' %}">
+				<input type="hidden" name='free' value='1'>
+				<button class="ord_button_w toggle">Place the order</button>
+			</form>
+		{% else %}
+			<div class="center_content_600">
+				<form action="{% url 'headshot_complete' %}" id="headshot_checkout_form" method="POST">{% csrf_token %}
+
+					{% if has_package %}
+						<p>Shipping address including zipcode (*required)</p>
+						<input type='text' name='address' placeholder="Shipping Address" class="form-control" id="order_address" required onchange="try{setCustomValidity('')}catch(e){}">
+						<div class="small_padding"></div>
+					{% endif %}
+					<button class="ord_button_w" id="headshot_pay_button">Pay</button>
+				</form>
+			</div>
+		{% endif %}
+
+		<div class="xsmall_padding"></div>
+		<div class="xsmall_padding"></div>
+
+		<form action="{% url 'headshot_index' %}">
+			<input type="hidden" name="startover" value="1">
+			<button type="submit" class="text_button toggle">Start Over</button>
+		</form>
+
+		<div class="medium_padding"></div>
+	</div>
+
+
+
+
+	<!-- basic style example -->
+
+  <div class="modal fade" id="modal_style_basic" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+    <div class="modal-dialog" role="document">
+      <div class="modal-content main_bg_color white">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title small_font" id="myModalLabel"></h4>
+          <div class="xsmall_padding"></div>
+        </div>
+        <div class="modal-body">
+
+
+        </div>
+
+        <div class="modal-footer">
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block script %}
+	<script src="https://checkout.stripe.com/checkout.js"></script>
+{% endblock %}
+
+
+{% block jquery %}
+
+
+	var handler = StripeCheckout.configure({
+	  key: '{{ publish_key }}',
+	  image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+	  locale: 'auto',
+	  token: function(token) {
+	    // You can access the token ID with `token.id`.
+	    // Get the token ID to your server-side code for use.
+	    $('<input>').attr({
+			    type: 'hidden',
+			    name: 'token',
+			    value: token.id,
+
+			}).appendTo('#headshot_checkout_form');
+	    $('<input>').attr({
+			    type: 'hidden',
+			    name: 'total',
+			    value: {{ stripe_total }},
+
+			}).appendTo('#headshot_checkout_form');
+			$('#headshot_checkout_form').submit();
+	  }
+	});
+
+	document.getElementById('headshot_pay_button').addEventListener('click', function(e) {
+	  // Open Checkout with further options:
+
+	  {% if has_package %}
+	  	if (document.getElementById('order_address').checkValidity()){
+	  {% endif %}
+	  
+	  	handler.open({
+	    name: 'Bryte',
+	    description: 'Headshot',
+	    zipCode: true,
+	    amount: {{ stripe_total }},
+	  	});
+
+	  {% if has_package %}
+	  	}
+	  {% endif %}
+	  
+	  e.preventDefault();
+	});
+
+	// Close Checkout on page navigation:
+	window.addEventListener('popstate', function() {
+	  handler.close();
+	  $('#loader-wrapper').show(); 
+	});
+
+{% endblock %}

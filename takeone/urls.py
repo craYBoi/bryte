@@ -18,6 +18,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.conf import settings
 from newsletter import views as newsletter_views
+from careerlab import views as careerlab_views
 from sms import views as sms_views
 from userprofile import views as profile_views
 
@@ -37,7 +38,7 @@ urlpatterns = [
 
     url(r'^ajax_contact/', newsletter_views.ajax_contact, name='ajax_landing_contact'),
     url(r'^retrieve/', newsletter_views.retrieve, name='landing_retrieve'),
-    url(r'^myheadshots/', newsletter_views.test_retrieve, name='landing_retrieve1'),
+    # url(r'^myheadshots/', newsletter_views.test_retrieve, name='landing_retrieve1'),
     
     url(r'^ajax_retrieve/', newsletter_views.ajax_retrieve, name='ajax_landing_retrieve'),
     url(r'^help/', newsletter_views.help, name='landing_help'),
@@ -53,6 +54,16 @@ urlpatterns = [
 
     # careerlab
     url(r'^school/', include('careerlab.urls')),
+
+    # order 
+    url(r'^headshot/$', careerlab_views.headshot_index, name='headshot_index'),
+    url(r'^headshot/style$', careerlab_views.headshot_style, name='headshot_style'),
+    url(r'^headshot/background$', careerlab_views.headshot_background, name='headshot_background'),
+    url(r'^headshot/prints$', careerlab_views.headshot_print_frame, name='headshot_print_frame'),
+    url(r'^headshot/review$', careerlab_views.headshot_review, name='headshot_review'),
+    url(r'^headshot/checkout$', careerlab_views.headshot_checkout, name='headshot_checkout'),
+    url(r'^headshot/complete$', careerlab_views.headshot_complete, name='headshot_complete'),
+    url(r'^headshot/timeout$', careerlab_views.headshot_error, name='headshot_error'),
     # url(r'^Careerlab/', include('careerlab.urls')),
     # url(r'^careerlab/', include('careerlab.urls')),
     # url(r'^RIC/', include('careerlab.urls')),

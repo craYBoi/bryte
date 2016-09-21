@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block content %}
+	<div class="futura background_grey">
+		<div class="container">
+			<div class="large_padding"></div>
+			<h1 class="text-center">Oops, due to inactivity, you have been logged out</h1>
+
+			<div class="large_padding"></div>
+
+			<div class="center_content_600">
+				{% if msg %}
+					<p class="red">{{ msg }}</p>
+					<div class="small_padding"></div>
+				{% endif %}
+				<p>Enter your email address you registered the photoshoot with to start over:</p>
+				<form class="text-center">
+					<input type='email' name='hs_email' class="form-control" required placeholder='Email Address' onchange="try{setCustomValidity('')}catch(e){}">
+					<div class="medium_padding"></div>
+					<button class="ord_button_w" type="submit">Enter</button>
+				</form>
+				<div class="large_padding"></div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

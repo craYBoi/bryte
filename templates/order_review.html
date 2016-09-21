@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="{% static 'css/unslider.css' %}">	
+{% endblock %}
+
+
+{% block content %}
+
+	<div class="futura background_grey text-center">
+		<div class="left_right_padding">
+			<div class="medium_padding"></div>
+			<h1 class="text-center landing_title">Looks Excellent!</h1>
+
+			<div class="medium_padding"></div>
+
+
+			<img src="{{ order.image.raw_url }}" height="180px;">
+
+			<div class="medium_padding"></div>
+
+			<div class="center_content_600">		
+
+			<ul class="package_list text-left">
+				<li>Style: {{ order.get_touchup_display }}</li>
+				{% if order.special_request %}
+					<li>Special Request: {{ order.special_request }}</li>
+				{% endif %}
+				<li>Background: {{ order.get_background_display }}</li>
+				<li>
+					Keepsakes: {{ order.get_package_display }}
+				</li>
+			</ul>
+			<div class="small_padding"></div>
+			<h3 class="text-center">Subtotal: ${{ order.total }}</h3>
+			</div>	
+		</div>
+
+		<div class="medium_padding"></div>
+		<form action="{% url 'headshot_index' %}">
+			<input type="hidden" name="proceed" value='1'>
+			<input type="hidden" name="id" value='{{ booking }}'>
+			<button class="ord_button_w">Got it!</button>
+		</form>
+
+		<div class="large_padding"></div>
+	</div>
+
+
+
+	<!-- basic style example -->
+
+  <div class="modal fade" id="modal_style_basic" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+    <div class="modal-dialog" role="document">
+      <div class="modal-content main_bg_color white">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title small_font" id="myModalLabel"></h4>
+          <div class="xsmall_padding"></div>
+        </div>
+        <div class="modal-body">
+
+
+        </div>
+
+        <div class="modal-footer">
+        </div>
+      </div>
+    </div>
+  </div>
+
+	<!-- loader -->
+	<div id="loader-wrapper" hidden>
+	  <div id="loader" class="text-center"><img src="{% static 'img/order/balls.svg' %}" width="140px"></div>
+	</div>
+{% endblock %}
+
+{% block script %}
+	<script src="{% static 'js/unslider-min.js' %}"></script>
+{% endblock %}
+
+
+{% block jquery %}
+	$('.ord_button_w').on('click', function(){
+		$('#loader-wrapper').show();  
+	})
+{% endblock %}

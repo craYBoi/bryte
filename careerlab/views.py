@@ -3,11 +3,14 @@ from django.http import Http404, HttpResponse
 from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib.staticfiles.templatetags.staticfiles import static
+from django.core import serializers
+from django.core.urlresolvers import reverse
 
-from .models import Timeslot, Booking, Signup, Nextshoot
+from .models import Timeslot, Booking, Signup, Nextshoot, OriginalHeadshot, HeadshotPurchase, HeadshotOrder
 
 import json
 import stripe
+
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -327,3 +330,406 @@ def pay(request):
 			context['notify'] = 'Thanks! You have successfully paid! Thanks for using Bryte!'
 
 	return render(request, 'careerlab_pay.html', context)
+
+
+def headshot_index(request):
+	# request.session.flush()
+	if request.method == 'GET':
+
+		# start over
+		if request.GET.get('startover'):
+			booking_id = request.session.get('booking')
+			request.session.flush()
+		else:
+			booking_id = request.GET.get('id')
+
+		# if people try to access headshot url directly
+		try:
+			booking = get_object_or_404(Booking, hash_id=booking_id)
+		except Exception, e:
+			return redirect('headshot_error')
+
+		# create a session
+		request.session['booking'] = booking_id
+
+
+		if not request.session.has_key('order_total'):
+			request.session['order_total'] = 0
+
+
+		# set session expiry 30 minutes
+		request.session.set_expiry(1800)
+
+		headshots = booking.originalheadshot_set.all()
+		headshot_urls = [a.raw_url for a in headshots]
+		headshot_ids = [a.hash_id for a in headshots]
+
+
+		# detect second round if prev stage is review
+		if request.session.get('stage') == 'review':
+			request.session['proceed'] = True
+
+		# if proceed flag is on, meaning this is at least the second round, also add extra price for additional photo
+
+		context = {
+			'headshots': zip(headshot_urls, headshot_ids),
+			'proceed': request.session.get('proceed'),
+		}
+		
+
+		# add the purchase instance to session and update the total
+		if request.session.get('proceed') and request.session.get('stage') == 'review':
+
+			# show cart if second or more rounds
+			request.session['cart'] = True
+
+
+			# store order instance in session
+			hs_id = request.session['hs_id']
+			touchup = request.session['touchup']
+			background = request.session['background']
+			package = request.session['package']
+			special_request = request.session.get('special_request')
+
+
+			total = request.session.get('total')
+
+			hs = get_object_or_404(OriginalHeadshot, hash_id=hs_id)
+
+			# create an purchase instance to store the order
+			hp = HeadshotPurchase(
+				image=hs,
+				touchup = touchup,
+				background = background,
+				package = package,
+				total = total,
+				special_request = special_request,
+				)
+
+			# already got a few rounds
+			orders = []
+			if request.session.has_key('order'):
+
+				for order in serializers.deserialize('json', request.session.get('order')):
+					orders.append(order.object)
+				orders.append(hp)
+			# second round
+			else:
+				orders = [hp]
+
+			# update the order total
+			request.session['order_total'] += request.session['total']
+			
+
+			# reset the subtotal to 0
+			request.session['total'] = 0
+
+			# print orders
+			request.session['order'] = serializers.serialize('json', orders)
+
+
+		context['order_total'] = request.session['order_total']
+		context['cart'] = request.session.get('cart')
+		# set the stage
+		request.session['stage'] = 'index'
+
+		return render(request, 'order_index.html', context)
+	else:
+		return redirect('headshot_error')
+
+
+
+def headshot_style(request):
+
+	if request.session.has_key('booking') and request.method == 'GET':
+		hs_id = request.GET.get('hs_pk')
+		hs = get_object_or_404(OriginalHeadshot, hash_id=hs_id)
+
+		request.session['hs_id'] = hs_id
+
+
+		# show my cart
+		orders = []
+		if request.session.has_key('order'):
+			for order in serializers.deserialize('json', request.session.get('order')):
+				orders.append(order.object)
+
+		order_total = sum(a.total for a in orders)
+
+		context = {
+			# 'imgs': imgs,
+			'orders': orders,
+			'order_total': order_total,
+			'hs_id': hs_id,
+			'cart': request.session.get('cart'),
+			'proceed': request.session.get('proceed'),
+		}
+
+		# set stage
+		request.session['stage'] = 'style'
+
+		return render(request, 'order_style.html', context)
+	else:
+		return redirect('headshot_error')
+
+
+def headshot_background(request):
+	if request.session.has_key('booking') and request.method == 'GET':
+		
+		touchup = request.GET.get('touchup')
+		special_request = request.GET.get('special_request')
+
+		if special_request:
+			request.session['special_request'] = special_request
+		request.session['touchup'] = int(touchup)
+		request.session['total'] = int(request.GET.get('subtotal'))
+
+		# detect whether free or premium
+		if request.session['touchup'] == 1:
+			free = True,
+		else:
+			free = False
+
+
+
+		# show my cart
+		orders = []
+		if request.session.has_key('order'):
+			for order in serializers.deserialize('json', request.session.get('order')):
+				orders.append(order.object)
+
+		order_total = sum(a.total for a in orders)
+
+		context = {
+			'orders': orders,
+			'order_total': order_total,
+			'hs_id': request.session['hs_id'],
+			'touchup': touchup,
+			'cart': request.session.get('cart'),
+			'free': free,
+		}
+
+		# set stage
+		request.session['stage'] = 'background'
+
+		return render(request, 'order_background.html', context)
+	else:
+		return redirect('headshot_error')
+
+
+def headshot_print_frame(request):
+	if request.session.has_key('booking') and request.method == 'GET':
+
+		background = request.GET.get('background')
+		request.session['background'] = int(background)
+		request.session['total'] += int(request.GET.get('subtotal'))
+
+
+		# show my cart
+		orders = []
+		if request.session.has_key('order'):
+			for order in serializers.deserialize('json', request.session.get('order')):
+				orders.append(order.object)
+
+		order_total = sum(a.total for a in orders)
+
+		context = {
+			'orders': orders,
+			'order_total': order_total,
+			'hs_id': request.session['hs_id'],
+			'touchup': request.session['touchup'],
+			'background': background,
+			'cart': request.session.get('cart'),
+		}
+
+		# set stage
+		request.session['stage'] = 'print'
+
+		return render(request, 'order_print_frame.html', context)
+	else:
+		return redirect('headshot_error')
+
+
+def headshot_review(request):
+	if request.session.has_key('booking') and request.method == 'GET':
+		
+		request.session['package'] = int(request.GET.get('package'))
+
+
+		if request.GET.get('subtotal'):
+			request.session['total'] += int(request.GET.get('subtotal'))
+
+		# for displaying the headshot image
+		hs = get_object_or_404(OriginalHeadshot, hash_id=request.session.get('hs_id'))
+
+		hp = HeadshotPurchase(
+			image=hs,
+			touchup = request.session.get('touchup'),
+			background = request.session.get('background'),
+			package = request.session.get('package'),
+			total = request.session.get('total'),
+			special_request = request.session.get('special_request'),
+			)
+
+		# show my cart
+		orders = []
+		if request.session.has_key('order'):
+			for order in serializers.deserialize('json', request.session.get('order')):
+				orders.append(order.object)
+
+		context = {
+			'orders': orders,
+			'booking': request.session.get('booking'),
+			'cart': request.session.get('cart'),
+			'order': hp,
+		}
+
+		# set stage
+		request.session['stage'] = 'review'
+
+		return render(request, 'order_review.html', context)
+	else:
+		return redirect('headshot_error')
+
+
+def headshot_checkout(request):
+	if request.session.has_key('booking') and request.method == 'GET':
+
+		# keep track if physical address is needed
+		has_package = False
+
+		orders = []
+		if request.session.has_key('order'):
+			for order in serializers.deserialize('json', request.session.get('order')):
+				orders.append(order.object)
+				# TODO
+				if not order.object.package == 1:
+					has_package = True
+
+		else:
+			# redirect to error page
+			return redirect('headshot_error')
+
+
+		total = sum(a.total for a in orders)
+
+		# keep track if the order total is 0, skip stripe
+		free = total == 0
+
+		# print orders
+		context = {
+			'has_package': has_package,
+			'free': free,
+			'orders': orders,
+			'stripe_total': total * 100, # stripe
+			'total': total,
+			'publish_key': settings.STRIPE_PUBLISHABLE_KEY,
+		}
+
+		# set stage
+		request.session['stage'] = 'checkout'
+
+		return render(request, 'order_checkout.html', context)
+	else:
+		return redirect('headshot_error')
+
+
+def headshot_complete(request):
+	context = {}
+
+	# get the order detail to generate email info
+	booking_id = request.session.get('booking')
+	b = get_object_or_404(Booking, hash_id=booking_id)
+
+	confirmation_content = ''
+	sum = 0
+	orders = []
+	for order in serializers.deserialize('json', request.session.get('order')):
+		orders.append(order.object)
+		sum += order.object.total
+		raw_url = order.object.image.raw_url
+		confirmation_content += '<img src="' + raw_url + '" width="150px"><br>' + 'Style: ' + order.object.get_touchup_display() + '<br>Background: ' + order.object.get_background_display() + '<br>Keepsakes: ' + order.object.get_package_display() + '<br>Subtotal: $' + str(order.object.total) + '<br><br><br>'
+
+	confirmation_content += '<br><span style="font-size:1.5em; color: #c94848; font-weight: bold;">Total: $' + str(sum) + '</span><br>'
+
+	# free
+	if request.GET.get('free'):
+		ho = HeadshotOrder(
+			booking=b,
+			total=sum,
+			charged=True,
+			)	
+		ho.save()
+		for o in orders:
+			o.order = ho
+			o.save()
+		b.order_delivery_email(confirmation_content)
+		return render(request, 'order_complete.html', context)
+
+
+	# charge 
+	if request.method == 'POST':
+		token = request.POST.get('token')
+		total = request.POST.get('total')
+		address = request.POST.get('address')
+
+		# flush all the shit
+		request.session.flush()
+
+		try:
+			charge = stripe.Charge.create(
+				amount = total,
+				currency="usd",
+				source=token,
+				description="Bryte Headshot"
+			)
+		except stripe.error.CardError, e:
+			# charge erro, redirect to checkout page
+			context['msg'] = 'There\'s a problem charging your card. Your card was not charged. Please try again.'
+			return render(reverse('headshot_checkout'))
+		else:
+
+			# generate email info, send the email
+			b.order_delivery_email(confirmation_content)
+
+			# copied image in PROD, TODO
+
+			# create image order instance
+			ho = HeadshotOrder(
+				booking=b,
+				total=sum,
+				charged=True,
+				address=address,
+				)
+
+			try:
+				ho.save()
+			except Exception, e:
+				raise e
+
+			# create image purchase instance
+			for o in orders:
+				o.order = ho
+				try:
+					o.save()
+				except Exception, e:
+					raise e
+			
+			return render(request, 'order_complete.html', context)
+
+
+def headshot_error(request):
+	context = {}
+	if request.GET.get('hs_email') and request.method=='GET':
+
+		try:
+			b = Booking.objects.filter(email=str(request.GET.get('hs_email'))).last()
+		except Exception, e:
+			context['msg'] = 'Sorry we don\'t have your email on file, are you entering the correct email?'
+		else:
+			hash_id = b.hash_id
+			url = reverse('headshot_index') + '?id=' + hash_id
+			print url
+			return redirect(url)
+
+	return render(request, 'order_error.html', context)

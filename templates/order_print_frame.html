@@ -1,0 +1,405 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+
+{% block stylesheets %}
+{% endblock %}
+
+
+{% block content %}
+
+	<div class="futura background_grey">
+		<div class="left_right_padding mod_container">
+			<div class="medium_padding"></div>
+			<h1 class="text-center landing_title">Get keepsakes from the photoshoot</h1>
+
+			<div class="small_padding"></div>
+
+
+			{% if cart %}
+				<div class="text-center">
+					<button class="ord_button" data-toggle="modal" data-target="#myCart">My Cart</button>
+				</div>
+			{% endif %}
+
+			<div class="small_padding"></div>
+			<div class="text-center">
+				<form action="{% url 'headshot_review' %}">
+					<input type="hidden" name='package' value='1'>
+					<input type="hidden" name='subtotal' value='0'>
+					<button class="text_button toggle" type="submit">No thanks!</button>
+				</form>
+			</div>
+
+			<div class="row">
+				<div class="col-md-3 col-sm-6">
+					
+					<div class="hs_margin hs_shadow_border">
+						<img src="{% static 'img/headshots/examples/premium/black.jpg' %}" class="img-responsive">
+					</div>
+
+
+					<div class="text-center">
+						<h3 class="text-center">Wallet Prints</h3>
+						<div class="small_padding"></div>
+						<p class="big_font">$3</p>
+
+						<div class="xsmall_padding"></div>
+
+						<!-- work on the modal button -->
+						{% if free %}
+							<a data-toggle="modal" data-target="#whiteExampleF">See More Examples</a>
+						{% else %}
+							<a data-toggle="modal" data-target="#whiteExampleP">See More Examples</a>
+						{% endif %}
+
+						<p class="landing_text">Reviews</p>
+						<div class="small_padding"></div>
+
+						<form action="{% url 'headshot_review' %}">
+							<input type="hidden" name='package' value='2'>
+							<input type="hidden" name='subtotal' value='3'>
+							<button class="ord_button_w toggle" type="submit">Choose</button>
+						</form>
+					</div>
+
+					<div class="small_padding"></div>
+
+					<p class="small_font droid_serif grey italic all_padding">Conveniently sized prints for your wallet, for your family. Take photo day with you!</p>
+					<hr>
+					<ul class="spec_list droid_serif grey">
+						<li>Includes 6 Wallet Prints (each 2.5x2.5) </li>
+						<li>Photos are printed on matte paper for a high quality print that doesn't scratch</li>
+					</ul>
+
+
+					<div class="medium_padding"></div>
+
+				</div>
+
+
+				<div class="col-md-3 col-sm-6">
+					<div class="hs_margin hs_shadow_border">
+						<img src="{% static 'img/headshots/examples/premium/black.jpg' %}" class="img-responsive">
+					</div>
+
+
+					<div class="text-center">
+						<h3 class="text-center">Friends and Family</h3>
+						<div class="small_padding"></div>
+						<p class="big_font">$9</p>
+
+						<div class="xsmall_padding"></div>
+
+						<!-- work on the modal button -->
+						{% if free %}
+							<a data-toggle="modal" data-target="#whiteExampleF">See More Examples</a>
+						{% else %}
+							<a data-toggle="modal" data-target="#whiteExampleP">See More Examples</a>
+						{% endif %}
+
+						<p class="landing_text">Reviews</p>
+						<div class="small_padding"></div>
+
+						<form action="{% url 'headshot_review' %}">
+							<input type="hidden" name='package' value='3'>
+							<input type="hidden" name='subtotal' value='9'>
+							<button class="ord_button_w toggle" type="submit">Choose</button>
+						</form>
+					</div>
+
+					<div class="small_padding"></div>
+
+					<p class="small_font droid_serif grey italic all_padding">An assortment of print sizes for friends, loved ones, and of course… yourself!</p>
+					<hr>
+					<ul class="spec_list droid_serif grey">
+						<li>Includes 8 Wallet Print (2.5x2.5), 2 Standard Prints (6x6), and 1 Big Print (10x10)</li>
+						<li>Photos are printed on matte paper for a high quality print that doesn't scratch</li>
+					</ul>
+
+
+					<div class="medium_padding"></div>
+				</div>
+
+
+				<div class="col-md-3 col-sm-6">
+					<div class="hs_margin hs_shadow_border">
+						<img src="{% static 'img/headshots/examples/premium/black.jpg' %}" class="img-responsive">
+					</div>
+
+
+					<div class="text-center">
+						<h3 class="text-center">Complete Collection</h3>
+						<div class="small_padding"></div>
+						<p class="big_font">$35</p>
+
+						<div class="xsmall_padding"></div>
+
+						<!-- work on the modal button -->
+						{% if free %}
+							<a data-toggle="modal" data-target="#whiteExampleF">See More Examples</a>
+						{% else %}
+							<a data-toggle="modal" data-target="#whiteExampleP">See More Examples</a>
+						{% endif %}
+
+						<p class="landing_text">Reviews</p>
+						<div class="small_padding"></div>
+
+						<form action="{% url 'headshot_review' %}">
+							<input type="hidden" name='package' value='4'>
+							<input type="hidden" name='subtotal' value='35'>
+							<button class="ord_button_w toggle" type="submit">Choose</button>
+						</form>
+					</div>
+
+					<div class="small_padding"></div>
+
+					<p class="small_font droid_serif grey italic all_padding">A Hall of Fame of You. Enjoy your photo at home and at work, plus share it too.</p>
+					<hr>
+					<ul class="spec_list droid_serif grey">
+						<li>Includes 8 Wallet Prints (2.5x2.5), 3 Standard Prints (6x6), 1 Big Print (10x10), and 1 Premium Framed Print (10x10)</li>
+						<li>Photos are printed on matte paper for a high quality look that does not scratch, see "Premium Framed Print" for full details on its quality</li>
+					</ul>
+
+
+					<div class="medium_padding"></div>
+				</div>
+
+			
+				<div class="col-md-3 col-sm-6">
+					<div class="hs_margin hs_shadow_border">
+						<img src="{% static 'img/headshots/examples/premium/black.jpg' %}" class="img-responsive">
+					</div>
+
+
+					<div class="text-center">
+						<h3 class="text-center">Premium Framed Print</h3>
+						<div class="small_padding"></div>
+						<p class="big_font">$30</p>
+
+						<div class="xsmall_padding"></div>
+
+						<!-- work on the modal button -->
+						{% if free %}
+							<a data-toggle="modal" data-target="#whiteExampleF">See More Examples</a>
+						{% else %}
+							<a data-toggle="modal" data-target="#whiteExampleP">See More Examples</a>
+						{% endif %}
+
+						<p class="landing_text">Reviews</p>
+						<div class="small_padding"></div>
+
+						<form action="{% url 'headshot_review' %}">
+							<input type="hidden" name='package' value='4'>
+							<input type="hidden" name='subtotal' value='35'>
+							<button class="ord_button_w toggle" type="submit">Choose</button>
+						</form>
+					</div>
+
+					<div class="small_padding"></div>
+
+					<p class="small_font droid_serif grey italic all_padding">Premium quality frame and print.  Commemorate photos beautifully with this one.</p>
+					<hr>
+					<ul class="spec_list droid_serif grey">
+						<li>Each includes 1 Big Print (10x10) framed with our Premium Frame</li>
+						<li>Our Premium Headshot Frames is colored matte black to make your photo look good without taking any of the attention away. It is made of durable metal and has a foamcore backing to ensure it's sturdy. It also comes with acrylic glass that stays clear. The frame displays a 10x10 print that comes with this package (the frame itself is slightly larger than 10x10). Mount this frame on any wall with the conveniently included hanging hardware.</li>
+						<li>Your photo will be framed when it is delivered</li>
+						<li>Comes with 4 Wallet prints. Our gift to you <3</li>
+					</ul>
+
+
+					<div class="medium_padding"></div>
+				</div>
+
+				
+					<div class="medium_padding"></div>
+			</div>
+			
+
+		</div>
+	</div>
+
+
+  <div class="modal fade" id="myCart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+    <div class="modal-dialog" role="document">
+      <div class="modal-content background_grey">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="text-center futura bold big_font">My Cart</h4>
+          <div class="xsmall_padding"></div>
+        </div>
+        <div class="modal-body">
+
+
+        {% for order in orders %}
+        	<div class="small_padding"></div>
+					<div class="">
+						<div class="">
+							<div class="row text-left">
+								<div class="col-sm-5">
+									<img src="{{ order.image.raw_url }}" class="img-responsive">
+								</div>
+								<div class="col-sm-7">
+									<ul class="package_list futura sm_font bold">
+										<li>{{ order.get_touchup_display }}</li>
+										{% if order.special_request %}
+											<li>Special Request: {{ order.special_request }}</li>
+										{% endif %}
+										<li>{{ order.get_background_display }}</li>
+										<li>Subtotal: ${{ order.total }}</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="small_padding"></div>
+        {% endfor %}
+
+        </div>
+
+        <div class="modal-footer">
+					<form action='{% url "headshot_checkout" %}'>
+						<button class="ord_button_w toggle" type="submit">Checkout ${{ order_total }}</button>
+					</form>
+					<div class="xsmall_padding"></div>
+					<div class="xsmall_padding"></div>
+					<form action="{% url 'headshot_index' %}">
+						<input type="hidden" name="startover" value="1">
+						<button type="submit" class="text_button">Start Over</button>
+					</form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="modal fade" id="whiteExampleF" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+    <div class="modal-dialog" role="document">
+      <div class="modal-content background_grey">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="text-center futura bold big_font">Examples</h4>
+          <div class="xsmall_padding"></div>
+        </div>
+        <div class="modal-body">
+        	<div class="row">
+        		<div class="col-md-4">
+        			<img src="{% static 'img/headshots/examples/free/white.JPG' %}" class="img-responsive">
+        		</div>
+        		<div class="col-md-4">
+        			<img src="{% static 'img/headshots/examples/free/white1.JPG' %}" class="img-responsive">
+        		</div>
+        		<div class="col-md-4">
+        			<img src="{% static 'img/headshots/examples/free/white2.jpg' %}" class="img-responsive">
+        		</div>
+        	</div>
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="blueExampleF" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+    <div class="modal-dialog" role="document">
+      <div class="modal-content background_grey">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="text-center futura bold big_font">Examples</h4>
+          <div class="xsmall_padding"></div>
+        </div>
+        <div class="modal-body">
+        	<div class="row">
+        		<div class="col-md-4">
+        			<img src="{% static 'img/headshots/examples/free/blue.jpg' %}" class="img-responsive">
+        		</div>
+        		<div class="col-md-4">
+        			<img src="{% static 'img/headshots/examples/free/blue1.JPG' %}" class="img-responsive">
+        		</div>
+        		<div class="col-md-4">
+        			<img src="{% static 'img/headshots/examples/free/blue2.jpg' %}" class="img-responsive">
+        		</div>
+        	</div>
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="grayExampleF" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+    <div class="modal-dialog" role="document">
+      <div class="modal-content background_grey">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="text-center futura bold big_font">Examples</h4>
+          <div class="xsmall_padding"></div>
+        </div>
+        <div class="modal-body">
+        	<div class="row">
+        		<div class="col-md-4">
+        			<img src="{% static 'img/headshots/examples/free/gray.jpg' %}" class="img-responsive">
+        		</div>
+        		<div class="col-md-4">
+        			<img src="{% static 'img/headshots/examples/free/gray1.JPG' %}" class="img-responsive">
+        		</div>
+        		<div class="col-md-4">
+        			<img src="{% static 'img/headshots/examples/free/gray2.jpg' %}" class="img-responsive">
+        		</div>
+        	</div>
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="blackExampleF" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+    <div class="modal-dialog" role="document">
+      <div class="modal-content background_grey">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="text-center futura bold big_font">Examples</h4>
+          <div class="xsmall_padding"></div>
+        </div>
+        <div class="modal-body">
+        	<div class="row">
+        		<div class="col-md-4">
+        			<img src="{% static 'img/headshots/examples/free/black.jpg' %}" class="img-responsive">
+        		</div>
+        		<div class="col-md-4">
+        			<img src="{% static 'img/headshots/examples/free/black1.jpg' %}" class="img-responsive">
+        		</div>
+        		<div class="col-md-4">
+        			<img src="{% static 'img/headshots/examples/free/black2.jpg' %}" class="img-responsive">
+        		</div>
+        	</div>
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+    </div>
+  </div>
+
+	<!-- loader -->
+	<div id="loader-wrapper" hidden>
+	  <div id="loader" class="text-center"><img src="{% static 'img/order/balls.svg' %}" width="140px"></div>
+	</div>
+
+{% endblock %}
+
+{% block script %}
+{% endblock %}
+
+
+{% block jquery %}
+	$('.toggle').on('click', function(){
+		$('#loader-wrapper').show();  
+	})
+{% endblock %}
