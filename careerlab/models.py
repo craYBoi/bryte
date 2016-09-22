@@ -149,6 +149,21 @@ class Nextshoot(models.Model):
 			return 1
 
 
+	def migrate_locals(self):
+		bookings = [e for elem in self.timeslot_set.all() for e in elem.booking_set.all()]
+
+		print 'Migrating to locals...'
+		count = 0
+		for b in bookings:
+			if(b.migrate_local()):
+				count += 1
+				print str(b.email) + ' [DONE]'
+
+		print '\n'
+		print str(len(bookings)) + ' to be migrated in total'
+		print str(count) + ' migrated'
+
+
 	# create shoot folder for photoshoppers
 	# create a subfolder called Edited for photoshoppers to put in deliverables. Should be 3 versions for each single favorite raw photo
 	# _pf -> professional headshot
@@ -1663,7 +1678,7 @@ class Booking(models.Model):
 			items = dbx.files_list_folder(raw_path).entries
 		except Exception, e:
 			raise e
-		else:
+		else:			
 			for item in items:
 				sharing_link = dbx.sharing_create_shared_link(item.path_lower)
 				url = str(sharing_link.url)

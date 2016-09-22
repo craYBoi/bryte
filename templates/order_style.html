@@ -72,7 +72,7 @@
 					<p class="small_font droid_serif grey italic all_padding">Adds enough for a usable professional headshot.</p>
 					<hr>
 					<ul class="spec_list droid_serif grey">
-						<li>250 x 250 pixels – adequate image clarity</li>
+						<li>Adequate image clarity</li>
 						<li>Cropped to a square</li>
 						<li>No lighting adjustments</li>
 						<li>No extra details</li>
@@ -109,7 +109,7 @@
 					<p class="small_font droid_serif grey italic all_padding">Brings additional styling elements for a headshot ready</p>
 					<hr>
 					<ul class="spec_list droid_serif grey">
-						<li>800+ x 800+ pixels - high definition image clarity</li>
+						<li>High definition image clarity</li>
 						<li>Refined cropping by a our Guru Photoshoppers</li>
 						<li>Vivid lighting throughout the photo</li>
 						<li>Brings out eyes and teeth</li>
@@ -171,11 +171,17 @@
       <div class="modal-content background_grey">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="text-center futura bold big_font">Enter your special request</h4>
           <div class="xsmall_padding"></div>
         </div>
         <div class="modal-body">
-
+        <div class="row">
+        	<div class="col-xs-10 col-xs-offset-1">
+        		<img src="{{ hs.raw_url }}" class="img-responsive hs_shadow_border">
+        	</div>
+        </div>
+        <div class="small_padding"></div>
+        <h4 class="text-center futura bold big_font">Enter your special request</h4>
+        <div class="xsmall_padding"></div>
 
 				<form action="{% url 'headshot_background' %}">
 					<div class="center_content_600">

@@ -465,6 +465,7 @@ def headshot_style(request):
 			'orders': orders,
 			'order_total': order_total,
 			'hs_id': hs_id,
+			'hs': hs,
 			'cart': request.session.get('cart'),
 			'proceed': request.session.get('proceed'),
 		}
