@@ -48,7 +48,7 @@ def index(request, school='brown'):
 	# filter by the school name and pick the first
 	if school.lower() == 'brown':
 		title = 'Bryte & CareerLab Brown University Headshot'
-		nextshoot = Nextshoot.objects.filter(school='Brown University').order_by('date')
+		nextshoot = Nextshoot.objects.filter(school='Brown University').order_by('-date')
 		bg_url = static('img/brown_campus.jpg')
 		logo_url = static('logo/brown_logo.png')
 		school_name = 'Brown University CareerLAB'
@@ -66,7 +66,7 @@ def index(request, school='brown'):
 
 	if school.lower() == 'ric':
 		title = 'Bryte & Rhode Island College'
-		nextshoot = Nextshoot.objects.filter(school='Brown University').order_by('date')
+		nextshoot = Nextshoot.objects.filter(school='Brown University').order_by('-date')
 		bg_url = static('img/brown_campus.jpg')
 		logo_url = static('img/ric/logo.gif')
 		school_name = 'Rhode Island College'
@@ -84,7 +84,7 @@ def index(request, school='brown'):
 
 	elif school.lower() == 'bu':
 		title = 'Bryte & Boston University Headshot'
-		nextshoot = Nextshoot.objects.filter(school='Boston University').order_by('date')
+		nextshoot = Nextshoot.objects.filter(school='Boston University').order_by('-date')
 		bg_url = static('img/bu/bg.jpg')
 		logo_url = static('img/bu/logo.png')
 		school_name = 'Boston University Feld Career Center'
@@ -114,7 +114,7 @@ def index(request, school='brown'):
 		main_color = 'green'
 		main_bg_color = 'green_bg'
 		secondary_bg_color = 'light_green_bg'
-		nextshoot = Nextshoot.objects.filter(school='Community College of Rhode Island').order_by('date')
+		nextshoot = Nextshoot.objects.filter(school='Community College of Rhode Island').order_by('-date')
 		if nextshoot:
 			nextshoot = nextshoot[0]
 			timeslots = nextshoot.timeslot_set.filter(is_available=True).order_by('time')	
@@ -136,7 +136,7 @@ def index(request, school='brown'):
 		main_color = 'green'
 		main_bg_color = 'green_bg'
 		secondary_bg_color = 'light_green_bg'
-		nextshoot = Nextshoot.objects.filter(school='Community College of Rhode Island Flanagan').order_by('date')
+		nextshoot = Nextshoot.objects.filter(school='Community College of Rhode Island Flanagan').order_by('-date')
 		if nextshoot:
 			nextshoot = nextshoot[0]
 			timeslots = nextshoot.timeslot_set.filter(is_available=True).order_by('time')	
