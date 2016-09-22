@@ -186,11 +186,14 @@
 								</div>
 								<div class="col-sm-7">
 									<ul class="package_list sm_font bold">
-										<li>{{ order.get_touchup_display }}</li>
+										<li>Style: {{ order.get_touchup_display }}</li>
 										{% if order.special_request %}
 											<li>Special Request: {{ order.special_request }}</li>
 										{% endif %}
-										<li>{{ order.get_background_display }}</li>
+										<li>Background: {{ order.get_background_display }}</li>
+										<li>
+											Keepsakes: {{ order.get_package_display }}
+										</li>
 										<li>Subtotal: ${{ order.total }}</li>
 									</ul>
 								</div>

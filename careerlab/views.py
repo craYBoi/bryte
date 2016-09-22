@@ -454,10 +454,12 @@ def headshot_index(request):
 			request.session['order'] = serializers.serialize('json', orders)
 
 
+		context['show_button'] = request.session.get('order')
+		
 		# if session expires, check if booking has ordered before, if so no free
 		if HeadshotOrder.objects.filter(booking=booking).exists():
 			request.session['proceed'] = True
-			context['show_button'] = request.session.get('order')
+			
 
 
 		context['order_total'] = request.session['order_total']

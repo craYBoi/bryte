@@ -84,9 +84,9 @@
 
 						<!-- work on the modal button -->
 						{% if free %}
-							<a data-toggle="modal" data-target="#blueExampleF"><button class="text_button">See More Examples</button></a>
+							<a data-toggle="modal" data-target="#grayExampleF"><button class="text_button">See More Examples</button></a>
 						{% else %}
-							<a data-toggle="modal" data-target="#blueExampleP"><button class="text_button">See More Examples</button></a>
+							<a data-toggle="modal" data-target="#grayExampleP"><button class="text_button">See More Examples</button></a>
 						{% endif %}
 						
 						<p class="landing_text">Reviews</p>
@@ -244,7 +244,7 @@
 	</div>
 
 
-  <div class="modal fade" id="myCart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal fade droid_serif" id="myCart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 
     <div class="modal-dialog" role="document">
       <div class="modal-content background_grey">
@@ -266,11 +266,14 @@
 								</div>
 								<div class="col-sm-7">
 									<ul class="package_list sm_font bold">
-										<li>{{ order.get_touchup_display }}</li>
+										<li>Style: {{ order.get_touchup_display }}</li>
 										{% if order.special_request %}
 											<li>Special Request: {{ order.special_request }}</li>
 										{% endif %}
-										<li>{{ order.get_background_display }}</li>
+										<li>Background: {{ order.get_background_display }}</li>
+										<li>
+											Keepsakes: {{ order.get_package_display }}
+										</li>
 										<li>Subtotal: ${{ order.total }}</li>
 									</ul>
 								</div>
