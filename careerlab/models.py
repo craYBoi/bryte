@@ -816,7 +816,7 @@ class Booking(models.Model):
 
 		category = [school + ' - ' + str(date), email_purpose, version_number]
 
-		my_headshot_link = settings.SITE_URL + '/myheadshots/?id=' + hash_id + '&utm_source=My%20Headshot%20My%Headshot&utm_medium=Campaign%20Medium%20URL%20Builder'
+		my_headshot_link = settings.SITE_URL + '/headshot/?id=' + hash_id + '&utm_source=My%20Headshot%20My%Headshot&utm_medium=Campaign%20Medium%20URL%20Builder'
 
 		message = sendgrid.Mail()
 		message.add_to(email)

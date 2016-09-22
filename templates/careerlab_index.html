@@ -17,9 +17,10 @@
 
 {% block content %}
 
-  <div class="{{ main_bg_color }}" id="signup_signup_form" style="background: url({% static 'img/ccri/bg5.jpg' %}) no-repeat center; background-size: cover;"> 
-    <div class="large_padding"></div>
-    <h1 class="white text-center bold col-xs-10 col-xs-offset-1 landing_title">Step your professional image up with free photography!</span></h1>
+  <div class="droid_serif">
+  <div class="{{ main_bg_color }}" id="signup_signup_form" style="background: url({% static 'img/ccri/bg6.jpg' %}) no-repeat center; background-size: cover;"> 
+    <div class="medium_padding"></div>
+    <h1 class="white text-center bold col-xs-10 col-xs-offset-1 landing_title" id="title">Step your professional image up with free photography!</span></h1>
     <div class="container">
 
 
@@ -31,30 +32,64 @@
 
           {% if not timeslots %}
             
-            <div class="small_padding"></div>
-            <p class="big_font white"><span class="bold landing_text">All the headshots have been booked!</span><br></p>
+            <p class="big_font white"><span class="landing_text">All the headshots have been booked!<br>Sign up for the waitlist</span></p>
               
 
-            <div class="medium_padding"></div>
-            <div class="text-center">
-              <button class="btn-white-lg bold large_font" id="signup_modal_button_1" type='submit'>Sign up for the waitlist</button>
-              <button class="btn-white-lg bold large_font" id="signup_modal_button_shadow_1" type='button' data-toggle="modal" data-target="#myModalSignup" hidden>Sign up for the waitlist</button>
+            <div id="signup_form" class="special_padding signup_form">
+              <div class="small_padding"></div>
+              <div class="text-center">
+              <form method="POST" action="{% url 'careerlab_signup' %}" class="white">{% csrf_token %}
+                <input type='text' name='careerlab_signup_name' class="form-control lg_input" id='careerlab_signup_name' required pattern="[a-zA-Z]{2,}(\s+[a-zA-z]{2,})+" placeholder='First & Last Name'>
+                <div class="small_padding"></div>
+                <input type='email' name='careerlab_signup_email' class="form-control lg_input" id='careerlab_signup_email' required placeholder='Email Address' onchange="try{setCustomValidity('')}catch(e){}">
+
+
+                <!-- signup button -->
+                <div class="medium_padding"></div>
+                <div class="text-center">
+                  <button type="button" class="book_button bold large_font" id="careerlab_signup_button">Sign up for the waitlist</button>
+                  <div class="small_padding"></div>
+                </div>
+                <input type="hidden" value="{{ next_shoot.pk }}" id="signup_shoot_id">
+              </form>
+              </div>
             </div>
 
           {% else %}
-            <div class="medium_padding"></div>
-            <div class="small_padding"></div>
             <!-- The booking button -->
+            <p class="large_font white"><span class="landing_text"><span class="bold">Location:</span> {{ school_location }}</span><br><span class="landing_text"><span class="bold">Date & Time:</span> {{ next_shoot.get_date_string }}, {{ next_shoot.get_time_interval_string }}</span></p> 
 
-            <div class="row">
-              <div class="col-sm-6 text-center">
-                <p class="large_font white"><span class="landing_text"><span class="bold">Photoshoot Location:</span> {{ next_shoot.location }}</span><br><br><span class="landing_text"><span class="bold">Date & Time:</span> {{ next_shoot.get_date_string }}, {{ next_shoot.get_time_interval_string }}</span></p>         
+            <div class="small_padding"></div>
+            <div class="special_padding signup_form">
+              <div id="book_form">
+                <div class="">
+                <form method="POST" action="{% url 'careerlab_book' %}" class=" white">{% csrf_token %}
+  
+                  <input type='text' name='careerlab_book_name' class="form-control lg_input" id='careerlab_book_name' required pattern="[a-zA-Z.]{2,}(\s+[a-zA-z.]{2,})+" placeholder='First & Last Name'>
+                  <div class="small_padding"></div>
+
+                  <input type='email' name='careerlab_book_email' class="form-control lg_input" id='careerlab_book_email' required placeholder='Email Address' onchange="try{setCustomValidity('')}catch(e){}">
+                  <div class="small_padding"></div>
+
+                  <p class="text-left bold">Choose a timeslot</p>
+                  <select required name='careerlab_book_time' class="form-control lg_input" id='careerlab_book_time'>
+                    {% for timeslot in timeslots %}
+                      <option value='{{ timeslot.pk }}'>{{ timeslot.time_slot_format }}</option>
+                    {% endfor %}
+                  </select>
+
+
+                  <!-- booking button -->
+                  <div class="medium_padding"></div>
+                  <div class="text-center">
+                    <button type="button" class="bold large_font book_button" id="careerlab_book_button">Book a spot</button>
+                    <div class="small_padding"></div>
+                  </div>
+                </form>
+                </div>
               </div>
-              <div class="col-sm-6">
-                <button class="btn-white-xl bold xlarge_font" type='submit' id="book_modal_button_1">Reserve your spot at the photoshoot</button>
-                <button class="btn-white-xl bold xlarge_font" type='button' id="book_modal_button_shadow_1" data-toggle="modal" data-target="#myModal" hidden>Reserve your spot at the photoshoot</button>   
+
               </div>
-            </div>
 
           {% endif %}
 
@@ -65,11 +100,25 @@
 
           <!-- signup button -->
 
-          <div class="medium_padding"></div>
-          <div class="text-center">
-            <button class="btn-white-lg bold large_font" id="signup_modal_button_1" type='submit'>Sign up for notification</button>
-            <button class="btn-white-lg bold large_font" id="signup_modal_button_shadow_1" type='button' data-toggle="modal" data-target="#myModalSignup" hidden>Sign up for notification</button>
-          </div>
+            <div id="signup_form" class="special_padding signup_form">
+              <div class="small_padding"></div>
+              <div class="text-center">
+              <form method="POST" action="{% url 'careerlab_signup' %}" class="white">{% csrf_token %}
+                <input type='text' name='careerlab_signup_name' class="form-control lg_input" id='careerlab_signup_name' required pattern="[a-zA-Z]{2,}(\s+[a-zA-z]{2,})+" placeholder='First & Last Name'>
+                <div class="small_padding"></div>
+                <input type='email' name='careerlab_signup_email' class="form-control lg_input" id='careerlab_signup_email' required placeholder='Email Address' onchange="try{setCustomValidity('')}catch(e){}">
+
+
+                <!-- signup button -->
+                <div class="medium_padding"></div>
+                <div class="text-center">
+                  <button type="button" class="book_button bold large_font" id="careerlab_signup_button">Sign up for the waitlist</button>
+                  <div class="small_padding"></div>
+                </div>
+                <input type="hidden" value="{{ next_shoot.pk }}" id="signup_shoot_id">
+              </form>
+              </div>
+            </div>
         {% endif %}
 
         <div class="large_padding"></div>
@@ -97,33 +146,6 @@
   -->
 
 
-    <!-- testimonial slider -->
-    <div class="{{ secondary_bg_color }}">
-      <div class="container">
-        <div class="flex_box_center xl_height_mod">
-          <div class="row {{ main_color }}">
-            <div class="col-md-12 col-md-offset-0 col-xs-10 col-xs-offset-1">
-              <div class="slider">
-                <ul>
-                  <li>
-                    <p class="landing_text_main">"Simple and easy, and the headshots look great!"</p>
-                    <p class="xlarge_font text-right small_padding bold"> – Sam W. <img class="small_padding_left" src="{% static 'img/ccri/logo.png' %}" height='40px'></p>
-                  </li>
-                  <li>
-                    <p class="landing_text_main">"I've been waiting for this forever"</p>
-                    <p class="xlarge_font text-right small_padding bold"> – Mikaela G. <img class="small_padding_left" src="{% static 'img/ric/logo.gif' %}" height='50px'></p>
-                  </li>
-                  <li>
-                    <p class="landing_text_main">"I really like the look of the headshots!"</p>
-                    <p class="xlarge_font text-right small_padding bold"> – Matt C. <img class="small_padding_left" src="{% static 'logo/brown_logo.png' %}" height='50px'></p>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
 <!--
     <div class="container">
@@ -620,204 +642,152 @@
   </div>
  -->
 
+ <!-- carousel -->
+  <div class="mod_container">
+    <div class="medium_padding"></div>
+    <h2 class="text-center bold landing_title">Prepare to look professional</h2>
+    <div class="medium_padding"></div>
+
+    <div class="slider">
+      <ul>
+        <li>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="hs_margin hs_shadow_border">
+                <img src="{% static 'img/headshots/examples/premium/white.jpg' %}" class="img-responsive">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="hs_margin hs_shadow_border">
+                <img src="{% static 'img/headshots/examples/premium/black.jpg' %}" class="img-responsive">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="hs_margin hs_shadow_border">
+                <img src="{% static 'img/headshots/examples/premium/blue1.jpg' %}" class="img-responsive">
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="hs_margin hs_shadow_border">
+                <img src="{% static 'img/headshots/examples/premium/white2.jpg' %}" class="img-responsive">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="hs_margin hs_shadow_border">
+                <img src="{% static 'img/headshots/examples/premium/brick.jpg' %}" class="img-responsive">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="hs_margin hs_shadow_border">
+                <img src="{% static 'img/headshots/examples/premium/black.jpg' %}" class="img-responsive">
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+
+
+    </div>
+    <p class="text-center">* The displayed photos include extra, optional features</p>
+    <div class="medium_padding"></div>
+  </div>
 
  <!-- Process -->
  
   <div class="background_grey" id="process">
-    <div class="container">
-
-      <div class="medium_padding"></div>
-      <div class="row">
-        <div class="col-md-4">
-          <div class="medium_padding"></div>
-          <div class="row">
-            <div class="col-xs-10 col-xs-offset-1">
-            <img src="{% static 'img/headshots/examples/premium/black.jpg' %}" class="img-responsive hs_shadow_border">
-            <p class="small_font grey text-center small_padding">*The displayed headshot includes extra features</p>
-            </div>
-
+    <div class="background_pink large_font">
+    <div class="{{ secondary_bg_color }} large_font">
+      <div class="container small_padding_bot medium_padding">
+        <h2 class="text-center bold landing_title_sec">How it Works</h2>
+        <div class="row small_padding">
+         <div class="col-xs-12">
+           <div class="row">
+ 
+             <div class="col-sm-4 text-center">
+               <img src="{% static 'img/process1.png' %}" class="img-responsive"> 
+               <div class="medium_padding"></div>
+               <h3 class="bold landing_text_main">Book</h3>
+               <p class="col-xs-10 col-xs-offset-1 small_padding small_lh text-left small_font ">Book a spot at the photoshoot and we'll send you a confirmation email.</p>
+             </div>   
+ 
+             <div class="col-sm-4 text-center">
+               <img src="{% static 'img/process2.png' %}" class="img-responsive"> 
+               <div class="medium_padding"></div>
+               <h3 class="bold landing_text_main">Smile</h3>
+               <p class="col-xs-10 col-xs-offset-1 small_padding small_lh text-left small_font">Show up 5 minutes early on photoshoot day and let us make you look professional.</p>
+             </div>  
+ 
+             <div class="col-sm-4 text-center">
+               <img src="{% static 'img/process3.png' %}" class="img-responsive"> 
+               <div class="medium_padding"></div>
+               <h3 class="bold landing_text_main">Download</h3>
+               <p class="col-xs-10 col-xs-offset-1 small_padding small_lh text-left small_font">All the photos you took will emailed to you after the photoshoot. You'll get to pick your favorite one and download it.</p>
+             </div>  
+           </div>
           </div>
         </div>
-        <div class="col-md-8">
-          <div class="medium_padding"></div>
-            <div class="row">
-              <div class="col-xs-10 col-xs-offset-1">
-                <div class="page-header">
-                <h3>We take amazing headshots</h3>
-                </div>
-                <p>The photos we'll take of you are headshots. Young professionals use them all the time nowadays. We are headshot specialists and have the creative expertise and high quality equipment  to get you an amazing headshot.</p>
-               </div>
-            </div>
-        </div>
+        <div class="large_padding"></div>
+       <p class="text-center small_padding small_font">Have any questions? Email us @ <a href="mailto:hello@brytephoto.com" target="_top" class="{{ main_color }}">hello@brytephoto.com</a> or Call us at 248-417-5852 for more information</p>
       </div>
-
-      <div class="medium_padding"></div>
-      <div class="row">
-        <div class="col-md-6 col-md-push-6">
-          <div class="medium_padding"></div>
-          <div class="row">
-            <div class="col-xs-12">
-            <img src="{% static 'img/ccri/pic2.png' %}" class="img-responsive">
-            </div>
-
-          </div>
-        </div>
-        <div class="col-md-6 col-md-pull-6">
-          <div class="medium_padding"></div>
-            <div class="row">
-              <div class="col-xs-10 col-xs-offset-1">
-                <div class="page-header">
-                <h3>Getting an amazing headshot</h3>
-                </div>
-                <p>Start by reserving your spot at the photoshoot on this website. Then show up to the photoshoot.</p>
-               </div>
-            </div>
-        </div>
-      </div>
-
-      <div class="medium_padding"></div>
-      <div class="row">
-        <div class="col-md-6">
-          <div class="medium_padding"></div>
-          <div class="row">
-            <div class="col-xs-12">
-            <img src="{% static 'img/ccri/pic3.png' %}" class="img-responsive">
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="medium_padding"></div>
-            <div class="row">
-              <div class="col-xs-10 col-xs-offset-1">
-                <div class="page-header">
-                <h3>Smile at the photoshoot</h3>
-                </div>
-                <p>Show up on photo day and our photographers will handle the rest. They will give you easy-to-follow cues to help you pose in highly professionally ways for your headshot.</p>
-               </div>
-            </div>
-        </div>
-      </div>
-
-      <div class="medium_padding"></div>
-      <div class="row">
-        <div class="col-md-6 col-md-push-6">
-          <div class="medium_padding"></div>
-          <div class="row">
-            <div class="col-xs-12">
-            <img src="{% static 'img/ccri/pic1.png' %}" class="img-responsive">
-            </div>
-
-          </div>
-        </div>
-        <div class="col-md-6 col-md-pull-6">
-          <div class="medium_padding"></div>
-            <div class="row">
-              <div class="col-xs-10 col-xs-offset-1">
-                <div class="page-header">
-                <h3>Pick your favorite and download</h3>
-                </div>
-                <p>We'll email you all the photos you took at the photoshoot. Then you can pick your favorite headshot and download it at no cost to you!</p>
-               </div>
-            </div>
-        </div>
-      </div>
-
-      <div class="large_padding"></div>
-    </div>
-
+      <div class="small_padding"></div>
+    
 
     <!-- second book/signup button -->
     {% if next_shoot.active %}
       {% if timeslots %}
         <div class="text-center">
-          <button class="ord_button bold large_font" type='submit' id="book_modal_button_2">Reserve your spot at the photoshoot</button>
-          <button class="ord_button bold large_font" type='button' id="book_modal_button_shadow_2" data-toggle="modal" data-target="#myModal" hidden>Book a free headshot!</button>  
+          <a href="#title"><button class="book_button_r bold large_font" type='submit'>Book a spot</button></a>
         </div>
 
       {% else %}
         <div class="text-center">
-          <button class="btn-white-lg bold large_font" id="signup_modal_button_2" type='submit'>Sign up for the waitlist</button>
-          <button class="btn-white-lg bold large_font" id="signup_modal_button_shadow_2" type='button' data-toggle="modal" data-target="#myModalSignup" hidden>Sign up for the waitlist</button>
+          <a href="#title"><button class="book_button_r bold large_font">Sign up for the waitlist</button></a>
         </div>
 
       {% endif %}
     {% else %}
       <div class="text-center">
-        <button class="btn-white-lg bold large_font" id="signup_modal_button_2" type='submit'>Sign up for notification</button>
-        <button class="btn-white-lg bold large_font" id="signup_modal_button_shadow_2" type='button' data-toggle="modal" data-target="#myModalSignup" hidden>Sign up for notification</button>
+        <a href="#title"><button class="book_button_r bold large_font" id="signup_modal_button_2">Sign up for notification</button></a>
+
       </div>
     {% endif %}
 
 
-    <div class="medium_padding"></div>
+    <div class="large_padding"></div>
   </div>
 
 
-  <div class="{{ secondary_bg_color }}">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-6">
-          <div class="col-xs-10 col-xs-offset-1">
-          <div class="medium_padding"></div>
-          <p class="landing_text">"It was really good… and considering I'm a college student, and I'm broke"</p>
-          <p class="large_font text-right small_padding"> – Travis F. <img class="small_padding_left" src="{% static 'logo/brown_logo.png' %}" height='50px'></p>
-          </div>
-        </div>
-        <div class="col-sm-6">
-          <div class="col-xs-10 col-xs-offset-1">
-          <div class="medium_padding"></div>
-          <p class="landing_text">"Perfect for college students!"</p>
-          <br>
-          <p class="large_font text-right small_padding"> – Amy T. <img class="small_padding_left" src="{% static 'img/ric/logo.gif' %}" height='50px'></p>
-          </div>
-        </div>
-      </div>
-      <div class="small_padding"></div>
-    </div>
-  </div>
-
-
-<!--
-  <div class="{{ secondary_bg_color }} large_font">
-    <div class="container small_padding_bot medium_padding">
-      <h2 class="feature_title text-center bold landing_title">How it Works</h2>
-      <div class="row small_padding">
-        <div class="col-xs-12">
-          <div class="row">
-
-            <div class="col-sm-4 text-center">
-              <img src="{% static 'img/process1.png' %}" class="img-responsive"> 
-              <div class="medium_padding"></div>
-              <h3 class="bold landing_text_main">Book</h3>
-              <p class="col-xs-10 col-xs-offset-1 small_padding small_lh text-left small_font ">Choose a time slot that works for you, and we'll confirm you booked a headshot via email.</p>
-            </div>   
-
-            <div class="col-sm-4 text-center">
-              <img src="{% static 'img/process2.png' %}" class="img-responsive"> 
-              <div class="medium_padding"></div>
-              <h3 class="bold landing_text_main">Smile</h3>
-              <p class="col-xs-10 col-xs-offset-1 small_padding small_lh text-left small_font">You'll have 3 minutes to take headshots and will get to select your favorite.</p>
-            </div>  
-
-            <div class="col-sm-4 text-center">
-              <img src="{% static 'img/process3.png' %}" class="img-responsive"> 
-              <div class="medium_padding"></div>
-              <h3 class="bold landing_text_main">Download</h3>
-              <p class="col-xs-10 col-xs-offset-1 small_padding small_lh text-left small_font">Your free headshot will be delivered to you via email within 48 hours of shoot day.</p>
-            </div>  
+    <!-- testimonial slider -->
+    <div class="background_white">
+      <div class="container">
+        <div class="flex_box_center xl_height_mod">
+          <div class="row {{ main_color }}">
+            <div class="col-md-12 col-md-offset-0 col-xs-10 col-xs-offset-1">
+              <div class="slider">
+                <ul>
+                  <li>
+                    <p class="landing_text_main">"Simple and easy, and the headshots look great!"</p>
+                    <p class="xlarge_font text-right small_padding bold"> – Sam W. <img class="small_padding_left" src="{% static 'img/ccri/logo.png' %}" height='40px'></p>
+                  </li>
+                  <li>
+                    <p class="landing_text_main">"I've been waiting for this forever"</p>
+                    <p class="xlarge_font text-right small_padding bold"> – Mikaela G. <img class="small_padding_left" src="{% static 'img/ric/logo.gif' %}" height='50px'></p>
+                  </li>
+                  <li>
+                    <p class="landing_text_main">"I really like the look of the headshots!"</p>
+                    <p class="xlarge_font text-right small_padding bold"> – Matt C. <img class="small_padding_left" src="{% static 'logo/brown_logo.png' %}" height='50px'></p>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <div class="large_padding"></div>
-      <p class="text-center small_padding small_font">Have any questions? Email us @ <a href="mailto:hello@brytephoto.com" target="_top" class="{{ main_color }}">hello@brytephoto.com</a> or Call us at 248-417-5852 for more information</p>
     </div>
-    <div class="small_padding"></div>
-  </div>
-
--->
-
-
-
 
 
 <!-- modal -->
@@ -857,7 +827,7 @@
           <div class="text-center">
 
           
-          <h3 class="bold">Reserve your spot</h3>
+          <h3 class="bold">Book your spot</h3>
           <!--
             <p class="large_font white"><span class="landing_text"><span class="bold">Location:</span> {{ school_location }}</span><br><span class="landing_text"><span class="bold">Date & Time:</span> {{ next_shoot.get_date_string }}, {{ next_shoot.get_time_interval_string }}</span></p>
           -->
@@ -898,13 +868,6 @@
 
             <div class="small_padding"></div>
           </div>
-
-
-
-
-
-
-
         </div>
         <div class="modal-footer">
 
@@ -968,6 +931,7 @@
         </div>
       </div>
     </div>
+  </div>
   </div>
 {% endblock %}
 
@@ -1041,28 +1005,6 @@ var csrftoken = getCookie('csrftoken');
                 xhr.setRequestHeader("X-CSRFToken", csrftoken);
             }
         }
-    });
-
-
-    $('#book_modal_button_1').on('click', function(e){
-        $('#book_modal_button_shadow_1').trigger('click');
-        e.preventDefault();
-    });
-
-    $('#book_modal_button_2').on('click', function(e){
-        $('#book_modal_button_shadow_2').trigger('click');
-        e.preventDefault();
-    });
-
-
-    $('#signup_modal_button_1').on('click', function(e){
-        $('#signup_modal_button_shadow_1').trigger('click');
-        e.preventDefault();
-    });
-
-    $('#signup_modal_button_2').on('click', function(e){
-        $('#signup_modal_button_shadow_2').trigger('click');
-        e.preventDefault();
     });
 
 

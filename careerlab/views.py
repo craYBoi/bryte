@@ -424,6 +424,9 @@ def headshot_index(request):
 			# reset the subtotal to 0
 			request.session['total'] = 0
 
+			# reset special request
+			del request.session['special_request']
+
 			# print orders
 			request.session['order'] = serializers.serialize('json', orders)
 
@@ -477,6 +480,9 @@ def headshot_background(request):
 	if request.session.has_key('booking') and request.method == 'GET':
 		
 		touchup = request.GET.get('touchup')
+		if not int(touchup) == 3:
+			del request.session['special_request']
+
 		special_request = request.GET.get('special_request')
 
 		if special_request:

@@ -5,12 +5,17 @@ body {
 	font-size: 1.7em;
 }
 
+h1,h2,h3 {
+	line-height: 1.2em;
+}
+
+
 button {
 	outline: none;
 }
 
 .droid_serif {
-	font-family: 'Open Sans', sans-serif!important;
+	font-family: 'Lato', sans-serif;
 }
 
 .helvetica {
@@ -20,6 +25,7 @@ button {
 .futura {
 	font-family: Futura!important;
 }
+
 
 ul {
 	list-style: none;
@@ -2142,7 +2148,7 @@ body, html
 
 /* Order Page */
 .ord_button {
-	font-family: futura;
+	font-family: 'Lato', sans-serif;;
 	font-weight: bold;
 	color: #1ca806;
 	background-color: rgba(0,0,0,0);
@@ -2157,7 +2163,7 @@ body, html
 }
 
 .ord_button_w {
-	font-family: futura;
+	font-family: 'Lato', sans-serif;;
 	font-weight: bold;
 	color: #1ca806;
 	background-color: rgba(0,0,0,0);
@@ -2257,3 +2263,39 @@ body, html
   }
 }
 
+.lg_input {
+	height: 3em!important;
+	font-size: 1em;
+}
+
+.book_button {
+	font-family: 'Lato', sans-serif;;
+	font-weight: bold;
+	color: #fff;
+	font-size: 1.5em!important;
+	background-color: rgba(0,0,0,0);
+	border: 4px solid #fff;
+	border-radius: 12px;
+	padding: 15px 50px;
+}
+
+.book_button:hover {
+	background-color: #fff;
+	color: #000;
+}
+
+.book_button_r {
+	font-family: 'Lato', sans-serif;;
+	font-weight: bold;
+	color: #000;
+	font-size: 1.5em!important;
+	background-color: rgba(0,0,0,0);
+	border: 4px solid #000;
+	border-radius: 12px;
+	padding: 15px 50px;
+}
+
+.book_button_r:hover {
+	background-color: #000;
+	color: #fff;
+}
