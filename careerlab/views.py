@@ -56,7 +56,7 @@ def index(request, school='brown'):
 		school_bryte_url = 'brown'
 		school_abbr = 'Brown'
 		school_title = 'CareerLAB'
-		school_location = 'Sayles Hall Career Fair'
+		school_location = 'CareerLAB'
 		if nextshoot:
 			nextshoot = nextshoot[0]
 			timeslots = nextshoot.timeslot_set.filter(is_available=True).order_by('time')	
