@@ -301,6 +301,8 @@ def cancel_order(request):
 				url = 'www.brytephoto.com/school/brown'
 			elif shoot.school == 'Boston University':
 				url = 'www.brytephoto.com/school/bu'
+			elif shoot.school == 'Rhode Island College':
+				url = 'www.brytephoto.com/school/ric'
 			else:
 				url = ''
 
