@@ -425,7 +425,8 @@ def headshot_index(request):
 			request.session['total'] = 0
 
 			# reset special request
-			del request.session['special_request']
+			if request.session.get('special_request'):
+				del request.session['special_request']
 
 			# print orders
 			request.session['order'] = serializers.serialize('json', orders)
