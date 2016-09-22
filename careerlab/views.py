@@ -482,7 +482,8 @@ def headshot_background(request):
 		
 		touchup = request.GET.get('touchup')
 		if not int(touchup) == 3:
-			del request.session['special_request']
+			if request.session.get('special_request'):
+				del request.session['special_request']
 
 		special_request = request.GET.get('special_request')
 
