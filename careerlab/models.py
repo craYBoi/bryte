@@ -77,6 +77,20 @@ class Nextshoot(models.Model):
 		return self.name
 
 
+	def create_time_slot(self, start, end):
+		delta = timedelta(minutes=10)
+		while start<end:
+			# create the timeslot
+			Timeslot.objects.create(
+				time=start,
+				shoot=self,
+				)
+
+			print start,
+			print ' created'
+			start+=delta
+
+		print 'Down..'
 
 	def create_folder_after_close(self):
 		bookings = [e for elem in self.timeslot_set.all() for e in elem.booking_set.all()]
