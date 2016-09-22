@@ -20,7 +20,7 @@
   <div class="droid_serif">
   <div class="{{ main_bg_color }}" id="signup_signup_form" style="background: url({% static 'img/ccri/bg6.jpg' %}) no-repeat center; background-size: cover;"> 
     <div class="medium_padding"></div>
-    <h1 class="white text-center bold col-xs-10 col-xs-offset-1 landing_title" id="title">Step your professional image up with free photography!</span></h1>
+    <h1 class="white text-center bold col-xs-10 col-xs-offset-1 landing_title" id="title">Book a spot at our amazing photoshoot to get free Linkedin photos</span></h1>
     <div class="container">
 
 
@@ -57,7 +57,7 @@
 
           {% else %}
             <!-- The booking button -->
-            <p class="large_font white"><span class="landing_text"><span class="bold">Location:</span> {{ school_location }}</span><br><span class="landing_text"><span class="bold">Date & Time:</span> {{ next_shoot.get_date_string }}, {{ next_shoot.get_time_interval_string }}</span></p> 
+            <p class="large_font white"><span class="landing_text">Photoshoot is from {{ next_shoot.get_time_interval_string }} at {{ school_location }}</p> 
 
             <div class="small_padding"></div>
             <div class="special_padding signup_form">
