@@ -66,7 +66,7 @@ def index(request, school='brown'):
 
 	if school.lower() == 'ric':
 		title = 'Bryte & Rhode Island College'
-		nextshoot = Nextshoot.objects.filter(school='Brown University').order_by('-date')
+		nextshoot = Nextshoot.objects.filter(school='Rhode Island College').order_by('-date')
 		bg_url = static('img/brown_campus.jpg')
 		logo_url = static('img/ric/logo.gif')
 		school_name = 'Rhode Island College'
