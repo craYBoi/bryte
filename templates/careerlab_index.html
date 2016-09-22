@@ -57,7 +57,7 @@
 
           {% else %}
             <!-- The booking button -->
-            <p class="large_font white"><span class="landing_text">Photoshoot is from {{ next_shoot.get_time_interval_string }} at {{ school_location }}</p> 
+            <p class="large_font white"><span class="landing_text">Photoshoot is from {{ next_shoot.get_date_string }}, {{ next_shoot.get_time_interval_string }} at {{ school_location }}</p> 
 
             <div class="small_padding"></div>
             <div class="special_padding signup_form">
@@ -725,7 +725,7 @@
                <img src="{% static 'img/process3.png' %}" class="img-responsive"> 
                <div class="medium_padding"></div>
                <h3 class="bold landing_text_main">Download</h3>
-               <p class="col-xs-10 col-xs-offset-1 small_padding small_lh text-left small_font">All the photos you took will emailed to you after the photoshoot. You'll get to pick your favorite one and download it.</p>
+               <p class="col-xs-10 col-xs-offset-1 small_padding small_lh text-left small_font">All the photos you took will be emailed to you after the photoshoot. You'll get to pick your favorite one and download it.</p>
              </div>  
            </div>
           </div>
