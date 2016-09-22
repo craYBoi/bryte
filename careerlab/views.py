@@ -370,6 +370,9 @@ def headshot_index(request):
 		except Exception, e:
 			return redirect('headshot_error')
 
+		# set session expiry 30 minutes
+		request.session.set_expiry(1800)
+
 		# create a session
 		request.session['booking'] = booking_id
 
@@ -377,9 +380,6 @@ def headshot_index(request):
 		if not request.session.has_key('order_total'):
 			request.session['order_total'] = 0
 
-
-		# set session expiry 30 minutes
-		request.session.set_expiry(1800)
 
 		headshots = booking.originalheadshot_set.all()
 		headshot_urls = [a.raw_url for a in headshots]
@@ -393,10 +393,11 @@ def headshot_index(request):
 		# if proceed flag is on, meaning this is at least the second round, also add extra price for additional photo
 
 		context = {
+			'myheadshot': 1,
 			'headshots': zip(headshot_urls, headshot_ids),
 			'proceed': request.session.get('proceed'),
 		}
-		
+
 
 		# add the purchase instance to session and update the total
 		if request.session.get('proceed') and request.session.get('stage') == 'review':
@@ -453,6 +454,12 @@ def headshot_index(request):
 			request.session['order'] = serializers.serialize('json', orders)
 
 
+		# if session expires, check if booking has ordered before, if so no free
+		if HeadshotOrder.objects.filter(booking=booking).exists():
+			request.session['proceed'] = True
+			context['show_button'] = request.session.get('order')
+
+
 		context['order_total'] = request.session['order_total']
 		context['cart'] = request.session.get('cart')
 		# set the stage
@@ -482,6 +489,7 @@ def headshot_style(request):
 		order_total = sum(a.total for a in orders)
 
 		context = {
+			'myheadshot': 1,
 			# 'imgs': imgs,
 			'orders': orders,
 			'order_total': order_total,
@@ -531,6 +539,7 @@ def headshot_background(request):
 		order_total = sum(a.total for a in orders)
 
 		context = {
+			'myheadshot': 1,
 			'orders': orders,
 			'order_total': order_total,
 			'hs_id': request.session['hs_id'],
@@ -564,6 +573,7 @@ def headshot_print_frame(request):
 		order_total = sum(a.total for a in orders)
 
 		context = {
+			'myheadshot': 1,
 			'orders': orders,
 			'order_total': order_total,
 			'hs_id': request.session['hs_id'],
@@ -608,6 +618,7 @@ def headshot_review(request):
 				orders.append(order.object)
 
 		context = {
+			'myheadshot': 1,
 			'orders': orders,
 			'booking': request.session.get('booking'),
 			'cart': request.session.get('cart'),
@@ -648,6 +659,7 @@ def headshot_checkout(request):
 
 		# print orders
 		context = {
+			'myheadshot': 1,
 			'has_package': has_package,
 			'free': free,
 			'orders': orders,
@@ -665,7 +677,9 @@ def headshot_checkout(request):
 
 
 def headshot_complete(request):
-	context = {}
+	context = {
+		'myheadshot': 1,
+	}
 
 	# get the order detail to generate email info
 	booking_id = request.session.get('booking')
@@ -716,40 +730,71 @@ def headshot_complete(request):
 		except stripe.error.CardError, e:
 			# charge erro, redirect to checkout page
 			context['msg'] = 'There\'s a problem charging your card. Your card was not charged. Please try again.'
-			return render(reverse('headshot_checkout'))
-		else:
 
-			# generate email info, send the email
-			b.order_delivery_email(confirmation_content)
-
-			# copied image in PROD, TODO
-
-			# create image order instance
+			# create the ho and hp instances as well
 			ho = HeadshotOrder(
 				booking=b,
 				total=sum,
-				charged=True,
 				address=address,
 				)
 
 			try:
 				ho.save()
 			except Exception, e:
-				raise e
+				print 'order instance fails to create ' + str(e)
+				pass
 
-			# create image purchase instance
 			for o in orders:
 				o.order = ho
 				try:
 					o.save()
 				except Exception, e:
-					raise e
+					print 'purchase instance fails to create ' + str(e)
+					pass	
+
+			return render(reverse('headshot_checkout'))
+		else:
+
+			# generate email info, send the email
+			b.order_delivery_email(confirmation_content)
+
+			
+
+
+			# create image order instance
+			ho = HeadshotOrder(
+				booking=b,
+				total=sum,
+				address=address,
+				)
+
+			try:
+				ho.save()
+			except Exception, e:
+				print 'order instance fails to create ' + str(e)
+				pass
+
+			# create image purchase instance
+			# copied image in PROD to TBR
+			for o in orders:
+				o.order = ho
+				o.charged = True
+				# copy to tbr
+				o.copy_to_tbr()
+
+				try:
+					o.save()
+				except Exception, e:
+					print 'purchase instance fails to create ' + str(e)
+					pass
 			
 			return render(request, 'order_complete.html', context)
 
 
 def headshot_error(request):
-	context = {}
+	context = {
+		'myheadshot': 1,
+	}
 	if request.GET.get('hs_email') and request.method=='GET':
 
 		try:

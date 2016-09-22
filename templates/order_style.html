@@ -28,7 +28,7 @@
 				<div class="col-sm-4">
 					<div class="hs_margin">
 						<div class="text-center">
-						<img src="{% static 'img/headshots/examples/free/black1.jpg' %}" class="img-responsive">
+						<img src="{% static 'img/headshots/examples/free/white.jpg' %}" class="full_width hs_shadow_border">
 						</div>
 					</div>
 
@@ -49,7 +49,7 @@
 						<div class="xsmall_padding"></div>
 
 						<!-- work on the modal button -->
-						<a data-toggle="modal" data-target="#touchupExample">See More Examples</a>
+						<a data-toggle="modal" data-target="#touchupExample"><button class="text_button">See More Examples</button></a>
 						<p class="landing_text">Reviews</p>
 						<div class="small_padding"></div>
 
@@ -82,7 +82,7 @@
 
 				<div class="col-sm-4">
 					<div class="hs_margin hs_shadow_border">
-						<img src="{% static 'img/headshots/examples/premium/black.jpg' %}" class="img-responsive">
+						<img src="{% static 'img/headshots/examples/premium/white1.jpg' %}" class="img-responsive">
 					</div>
 
 					<div class="text-center">
@@ -93,7 +93,7 @@
 						<div class="xsmall_padding"></div>
 
 						<!-- work on the modal button -->
-						<a data-toggle="modal" data-target="#touchupExample">See More Examples</a>
+						<a data-toggle="modal" data-target="#touchupExample"><button class="text_button">See More Examples</button></a>
 						<p class="landing_text">Reviews</p>
 						<div class="small_padding"></div>
 						<form action="{% url 'headshot_background' %}">
@@ -119,7 +119,7 @@
 
 				<div class="col-sm-4">
 					<div class="hs_margin hs_shadow_border">
-						<img src="{% static 'img/order/sample1.jpg' %}" class="img-responsive">
+						<img src="{% static 'img/headshots/examples/premium/brick2.jpg' %}" class="img-responsive">
 					</div>
 
 					<div class="text-center">
@@ -130,7 +130,7 @@
 						<div class="xsmall_padding"></div>
 
 						<!-- work on the modal button -->
-						<a data-toggle="modal" data-target="#modal_style_basic">See More Examples</a>
+						<a data-toggle="modal" data-target="#modal_style_basic"><button class="text_button">See More Examples</button></a>
 						<p class="landing_text">Reviews</p>
 						<div class="small_padding"></div>
 						<!--
@@ -165,7 +165,7 @@
 
 
 	<!-- special request popup -->
-  <div class="modal fade" id="special_request" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal fade droid_serif" id="special_request" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 
     <div class="modal-dialog" role="document">
       <div class="modal-content background_grey">
@@ -180,12 +180,12 @@
         	</div>
         </div>
         <div class="small_padding"></div>
-        <h4 class="text-center futura bold big_font">Enter your special request</h4>
+        <h4 class="text-center bold big_font">Enter your special request</h4>
         <div class="xsmall_padding"></div>
 
 				<form action="{% url 'headshot_background' %}">
 					<div class="center_content_600">
-					<input type="text" name='special_request' class="form-control futura">
+					<input type="text" name='special_request' class="form-control">
 					</div>
 					<input type="hidden" name='touchup' value='3'>
 					<input type="hidden" name='hs_id' value='{{ hs_id }}'>
@@ -206,13 +206,13 @@
   </div>
 	<!-- basic style example -->
 
-  <div class="modal fade" id="myCart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal fade droid_serif" id="myCart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 
     <div class="modal-dialog" role="document">
       <div class="modal-content background_grey">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="text-center futura bold big_font">My Cart</h4>
+          <h4 class="text-center bold big_font">My Cart</h4>
           <div class="xsmall_padding"></div>
         </div>
         <div class="modal-body">
@@ -227,7 +227,7 @@
 									<img src="{{ order.image.raw_url }}" class="img-responsive">
 								</div>
 								<div class="col-sm-7">
-									<ul class="package_list futura sm_font bold">
+									<ul class="package_list sm_font bold">
 										<li>{{ order.get_touchup_display }}</li>
 										{% if order.special_request %}
 											<li>Special Request: {{ order.special_request }}</li>
@@ -260,47 +260,42 @@
   </div>
 
 
-  <div class="modal fade" id="touchupExample" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal fade droid_serif" id="touchupExample" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 
     <div class="modal-dialog example_modal" role="document">
       <div class="modal-content background_grey">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="text-center futura bold big_font">Examples</h4>
+          <h4 class="text-center bold big_font">Examples</h4>
           <div class="xsmall_padding"></div>
         </div>
-        <div class="modal-body futura">
+        <div class="modal-body">
         	<div class="row">
-        		<div class="col-sm-4 center_flex">
+        		<div class="col-xs-6 center_flex">
+        			{% if proceed %}
+        			<h3 class="text-center">Dollar</h3>
+        			{% else %}
         			<h3 class="text-center">Free</h3>
+        			{% endif %}
         			<div class="small_padding"></div>
-        			<img src="{% static 'img/headshots/examples/free/black1.jpg' %}" class="img-responsive">
+        			<img src="{% static 'img/headshots/examples/free/white.jpg' %}" class="img-responsive hs_shadow_border">
         			<div class="small_padding"></div>
-        			<img src="{% static 'img/headshots/examples/free/blue.jpg' %}" class="img-responsive">
+        			<img src="{% static 'img/headshots/examples/free/blue2.jpg' %}" class="img-responsive hs_shadow_border">
         			<div class="small_padding"></div>
-        			<img src="{% static 'img/headshots/examples/free/gray2.jpg' %}" class="img-responsive">
+        			<img src="{% static 'img/headshots/examples/free/black.jpg' %}" class="img-responsive">
         		</div>
-        		<div class="col-sm-4 center_flex">
-        			<h3 class="text-center">Basic Upgrades</h3>
+        		<div class="col-xs-6 center_flex">
+        			<h3 class="text-center">Upgraded</h3>
         			<div class="small_padding"></div>
-        			<img src="{% static 'img/headshots/examples/free/black1.jpg' %}" class="img-responsive">
+        			<img src="{% static 'img/headshots/examples/premium/white1.jpg' %}" class="hs_shadow_border max_width_250">
         			<div class="small_padding"></div>
-        			<img src="{% static 'img/headshots/examples/free/blue.jpg' %}" class="img-responsive">
+        			<img src="{% static 'img/headshots/examples/premium/blue1.jpg' %}" class="hs_shadow_border max_width_250">
         			<div class="small_padding"></div>
-        			<img src="{% static 'img/headshots/examples/free/gray2.jpg' %}" class="img-responsive">
-        		</div>
-        		<div class="col-sm-4 center_flex">
-        			<h3 class="text-center">Full Suite</h3>
-        			<div class="small_padding"></div>
-        			<img src="{% static 'img/headshots/examples/free/black1.jpg' %}" class="img-responsive">
-        			<div class="small_padding"></div>
-        			<img src="{% static 'img/headshots/examples/free/blue.jpg' %}" class="img-responsive">
-        			<div class="small_padding"></div>
-        			<img src="{% static 'img/headshots/examples/free/gray2.jpg' %}" class="img-responsive">
+        			<img src="{% static 'img/headshots/examples/premium/black.jpg' %}" class="hs_shadow_border max_width_250">
         		</div>
         	</div>
 
-        	<div class="large_padding"></div>
+        	<div class="small_padding"></div>
         </div>
         <div class="modal-footer">
         </div>

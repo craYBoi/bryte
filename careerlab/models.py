@@ -852,8 +852,8 @@ class Booking(models.Model):
 		message.set_from('Bryte Photo Inc <' + settings.EMAIL_HOST_USER + '>')
 
 		# ccri followup
-		message.set_subject('We\'ve fixed the issue, and now you can use mobile to download your free headshot')
-		# message.set_subject('Your free LinkedIn headshot is ready for download!')
+		# message.set_subject('We\'ve fixed the issue, and now you can use mobile to download your free headshot')
+		message.set_subject('Your LinkedIn Headshots is ready for download!')
  
 		message.set_html('Body')
 		message.set_text('Body')
@@ -949,7 +949,7 @@ class Booking(models.Model):
 
 		category = [school + ' - ' + str(date), email_purpose, version_number]
 
-		my_headshot_link = settings.SITE_URL + '/myheadshots/?id=' + hash_id + '&utm_source=Photo%20Delivery%20My%20Headshot&utm_medium=Campaign%20Medium%20URL%20Builder'
+		my_headshot_link = settings.SITE_URL + '/headshot/?id=' + hash_id + '&utm_source=Photo%20Delivery%20My%20Headshot&utm_medium=Campaign%20Medium%20URL%20Builder'
 
 		message = sendgrid.Mail()
 		message.add_to(email)
@@ -1723,6 +1723,7 @@ class OriginalHeadshot(models.Model):
 	hash_id = models.CharField(max_length=20, default='default')
 
 
+
 	def __unicode__(self):
 		return self.name + ' ' + str(self.booking.email)
 
@@ -1733,18 +1734,20 @@ class OriginalHeadshot(models.Model):
 		super(OriginalHeadshot, self).save(*args, **kwargs)
 
 
+
 class HeadshotOrder(models.Model):
 	booking = models.ForeignKey(Booking)
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
 	total = models.DecimalField(max_digits=5, decimal_places=2)
-	charged = models.BooleanField(default=False)
-	copied = models.BooleanField(default=False)
 	address = models.CharField(max_length=100, blank=True, null=True)
 
 
 class HeadshotPurchase(models.Model):
 	image = models.ForeignKey(OriginalHeadshot)
 	order = models.ForeignKey(HeadshotOrder, blank=True, null=True)
+
+	charged = models.BooleanField(default=False)
+	copied = models.BooleanField(default=False)
 
 	TOUCHUPS = (
 		(1, 'Free'),
@@ -1776,6 +1779,27 @@ class HeadshotPurchase(models.Model):
 	total = models.DecimalField(max_digits=5, decimal_places=2, default=0)
 	# keep track of if customer finishes a round
 	complete = models.BooleanField(default=False)
+
+
+	def copy_to_tbr(self):
+		dbx = dropbox.Dropbox(settings.DROPBOX_TOKEN)
+		root_path = self.image.booking.dropbox_folder
+		RAW_FOLDER = 'Raw'
+		TBR_FOLDER = 'To Be retouched'
+
+		raw_path = os.path.join(root_path, RAW_FOLDER, self.image.name)
+		tbr_path = os.path.join(root_path, TBR_FOLDER, self.image.name)
+
+		try:
+			dbx.files_copy(raw_path, tbr_path)
+		except Exception, e:
+			print 'Not copied'
+		else:
+			# update the copied field
+			self.copied = True
+			super(HeadshotPurchase, self).save()
+			print 'Successfully Copied'
+
 
 
 class HeadshotImage(models.Model):

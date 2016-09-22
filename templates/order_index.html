@@ -6,8 +6,8 @@
 	<div class="droid_serif background_grey">
 		<div class="mod_container">
 			<div class="large_padding"></div>
-			{% if proceed %}
-				<h1 class="text-center landing_title">Choose another photo</h1>
+			{% if show_button %}
+				<h1 class="text-center landing_title">Checkout, or create more headshots to download</h1>
 			{% else %}
 				<h1 class="text-center landing_title">Select one of your photos</h1>
 			{% endif %}
@@ -15,7 +15,7 @@
 			<div class="large_padding"></div>
 
 			<!-- for second for more -->
-			{% if proceed %}
+			{% if proceed and show_button %}
 				<div class="text-center">
 				<form action='{% url "headshot_checkout" %}'>
 					<button class="ord_button_w" type="submit">Checkout ${{ order_total }}</button>
@@ -36,7 +36,7 @@
 						<form method="GET" action={% url 'headshot_style' %}>
 							<input type="hidden" value={{ hs_pk }} name="hs_pk">
 							<div class="text-center">
-								<button class="ord_button" type="submit">Select</button>
+								<button class="ord_button" type="submit">Add</button>
 							</div>
 						</form>
 						<div class="medium_padding"></div>

@@ -22,7 +22,7 @@
 				</div>
 			{% endif %}
 
-			<div class="small_padding"></div>
+			<div class="medium_padding"></div>
 			<div class="text-center">
 				<form action="{% url 'headshot_review' %}">
 					<input type="hidden" name='package' value='1'>
@@ -31,29 +31,15 @@
 				</form>
 			</div>
 
+			<div class="small_padding"></div>
 			<div class="row">
 				<div class="col-md-3 col-sm-6">
-					
-					<div class="hs_margin hs_shadow_border">
-						<img src="{% static 'img/headshots/examples/premium/black.jpg' %}" class="img-responsive">
-					</div>
-
 
 					<div class="text-center">
 						<h3 class="text-center">Wallet Prints</h3>
 						<div class="small_padding"></div>
 						<p class="big_font">$3</p>
 
-						<div class="xsmall_padding"></div>
-
-						<!-- work on the modal button -->
-						{% if free %}
-							<a data-toggle="modal" data-target="#whiteExampleF">See More Examples</a>
-						{% else %}
-							<a data-toggle="modal" data-target="#whiteExampleP">See More Examples</a>
-						{% endif %}
-
-						<p class="landing_text">Reviews</p>
 						<div class="small_padding"></div>
 
 						<form action="{% url 'headshot_review' %}">
@@ -79,26 +65,12 @@
 
 
 				<div class="col-md-3 col-sm-6">
-					<div class="hs_margin hs_shadow_border">
-						<img src="{% static 'img/headshots/examples/premium/black.jpg' %}" class="img-responsive">
-					</div>
-
 
 					<div class="text-center">
 						<h3 class="text-center">Friends and Family</h3>
 						<div class="small_padding"></div>
 						<p class="big_font">$9</p>
 
-						<div class="xsmall_padding"></div>
-
-						<!-- work on the modal button -->
-						{% if free %}
-							<a data-toggle="modal" data-target="#whiteExampleF">See More Examples</a>
-						{% else %}
-							<a data-toggle="modal" data-target="#whiteExampleP">See More Examples</a>
-						{% endif %}
-
-						<p class="landing_text">Reviews</p>
 						<div class="small_padding"></div>
 
 						<form action="{% url 'headshot_review' %}">
@@ -123,26 +95,12 @@
 
 
 				<div class="col-md-3 col-sm-6">
-					<div class="hs_margin hs_shadow_border">
-						<img src="{% static 'img/headshots/examples/premium/black.jpg' %}" class="img-responsive">
-					</div>
-
 
 					<div class="text-center">
 						<h3 class="text-center">Complete Collection</h3>
 						<div class="small_padding"></div>
 						<p class="big_font">$35</p>
 
-						<div class="xsmall_padding"></div>
-
-						<!-- work on the modal button -->
-						{% if free %}
-							<a data-toggle="modal" data-target="#whiteExampleF">See More Examples</a>
-						{% else %}
-							<a data-toggle="modal" data-target="#whiteExampleP">See More Examples</a>
-						{% endif %}
-
-						<p class="landing_text">Reviews</p>
 						<div class="small_padding"></div>
 
 						<form action="{% url 'headshot_review' %}">
@@ -167,26 +125,12 @@
 
 			
 				<div class="col-md-3 col-sm-6">
-					<div class="hs_margin hs_shadow_border">
-						<img src="{% static 'img/headshots/examples/premium/black.jpg' %}" class="img-responsive">
-					</div>
-
 
 					<div class="text-center">
 						<h3 class="text-center">Premium Framed Print</h3>
 						<div class="small_padding"></div>
 						<p class="big_font">$30</p>
 
-						<div class="xsmall_padding"></div>
-
-						<!-- work on the modal button -->
-						{% if free %}
-							<a data-toggle="modal" data-target="#whiteExampleF">See More Examples</a>
-						{% else %}
-							<a data-toggle="modal" data-target="#whiteExampleP">See More Examples</a>
-						{% endif %}
-
-						<p class="landing_text">Reviews</p>
 						<div class="small_padding"></div>
 
 						<form action="{% url 'headshot_review' %}">
@@ -220,13 +164,13 @@
 	</div>
 
 
-  <div class="modal fade" id="myCart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal fade droid_serif" id="myCart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 
     <div class="modal-dialog" role="document">
       <div class="modal-content background_grey">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="text-center futura bold big_font">My Cart</h4>
+          <h4 class="text-center bold big_font">My Cart</h4>
           <div class="xsmall_padding"></div>
         </div>
         <div class="modal-body">
@@ -241,7 +185,7 @@
 									<img src="{{ order.image.raw_url }}" class="img-responsive">
 								</div>
 								<div class="col-sm-7">
-									<ul class="package_list futura sm_font bold">
+									<ul class="package_list sm_font bold">
 										<li>{{ order.get_touchup_display }}</li>
 										{% if order.special_request %}
 											<li>Special Request: {{ order.special_request }}</li>
@@ -258,7 +202,7 @@
 
         </div>
 
-        <div class="modal-footer">
+        <div class="modal-footer droid_serif">
 					<form action='{% url "headshot_checkout" %}'>
 						<button class="ord_button_w toggle" type="submit">Checkout ${{ order_total }}</button>
 					</form>
@@ -273,119 +217,6 @@
     </div>
   </div>
 
-
-
-  <div class="modal fade" id="whiteExampleF" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-
-    <div class="modal-dialog" role="document">
-      <div class="modal-content background_grey">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="text-center futura bold big_font">Examples</h4>
-          <div class="xsmall_padding"></div>
-        </div>
-        <div class="modal-body">
-        	<div class="row">
-        		<div class="col-md-4">
-        			<img src="{% static 'img/headshots/examples/free/white.JPG' %}" class="img-responsive">
-        		</div>
-        		<div class="col-md-4">
-        			<img src="{% static 'img/headshots/examples/free/white1.JPG' %}" class="img-responsive">
-        		</div>
-        		<div class="col-md-4">
-        			<img src="{% static 'img/headshots/examples/free/white2.jpg' %}" class="img-responsive">
-        		</div>
-        	</div>
-        </div>
-        <div class="modal-footer">
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal fade" id="blueExampleF" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-
-    <div class="modal-dialog" role="document">
-      <div class="modal-content background_grey">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="text-center futura bold big_font">Examples</h4>
-          <div class="xsmall_padding"></div>
-        </div>
-        <div class="modal-body">
-        	<div class="row">
-        		<div class="col-md-4">
-        			<img src="{% static 'img/headshots/examples/free/blue.jpg' %}" class="img-responsive">
-        		</div>
-        		<div class="col-md-4">
-        			<img src="{% static 'img/headshots/examples/free/blue1.JPG' %}" class="img-responsive">
-        		</div>
-        		<div class="col-md-4">
-        			<img src="{% static 'img/headshots/examples/free/blue2.jpg' %}" class="img-responsive">
-        		</div>
-        	</div>
-        </div>
-        <div class="modal-footer">
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal fade" id="grayExampleF" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-
-    <div class="modal-dialog" role="document">
-      <div class="modal-content background_grey">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="text-center futura bold big_font">Examples</h4>
-          <div class="xsmall_padding"></div>
-        </div>
-        <div class="modal-body">
-        	<div class="row">
-        		<div class="col-md-4">
-        			<img src="{% static 'img/headshots/examples/free/gray.jpg' %}" class="img-responsive">
-        		</div>
-        		<div class="col-md-4">
-        			<img src="{% static 'img/headshots/examples/free/gray1.JPG' %}" class="img-responsive">
-        		</div>
-        		<div class="col-md-4">
-        			<img src="{% static 'img/headshots/examples/free/gray2.jpg' %}" class="img-responsive">
-        		</div>
-        	</div>
-        </div>
-        <div class="modal-footer">
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal fade" id="blackExampleF" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-
-    <div class="modal-dialog" role="document">
-      <div class="modal-content background_grey">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="text-center futura bold big_font">Examples</h4>
-          <div class="xsmall_padding"></div>
-        </div>
-        <div class="modal-body">
-        	<div class="row">
-        		<div class="col-md-4">
-        			<img src="{% static 'img/headshots/examples/free/black.jpg' %}" class="img-responsive">
-        		</div>
-        		<div class="col-md-4">
-        			<img src="{% static 'img/headshots/examples/free/black1.jpg' %}" class="img-responsive">
-        		</div>
-        		<div class="col-md-4">
-        			<img src="{% static 'img/headshots/examples/free/black2.jpg' %}" class="img-responsive">
-        		</div>
-        	</div>
-        </div>
-        <div class="modal-footer">
-        </div>
-      </div>
-    </div>
-  </div>
 
 	<!-- loader -->
 	<div id="loader-wrapper" hidden>

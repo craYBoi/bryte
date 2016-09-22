@@ -20,10 +20,10 @@ class OriginalHeadshotAdmin(admin.ModelAdmin):
 	list_display = ['booking', 'name', 'raw_url', 'deliverable_url', 'hash_id']
 
 class HeadshotOrderAdmin(admin.ModelAdmin):
-	list_display = ['booking', 'total', 'timestamp', 'charged', 'copied', 'address']
+	list_display = ['booking', 'total', 'timestamp', 'address']
 
 class HeadshotPurchaseAdmin(admin.ModelAdmin):
-	list_display = ['image', 'order', 'touchup', 'background', 'package', 'total', 'special_request']
+	list_display = ['image', 'order', 'touchup', 'background', 'package', 'total', 'special_request', 'charged', 'copied']
 
 
 admin.site.register(OriginalHeadshot, OriginalHeadshotAdmin)
