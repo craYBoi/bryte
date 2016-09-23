@@ -74,7 +74,7 @@ def index(request, school='brown'):
 		school_bryte_url = 'ric'
 		school_abbr = 'RIC'
 		school_title = 'Career Planning'
-		school_location = 'Career Planning Center'
+		school_location = '2nd Floor Alger Hall Student Lounge'
 		if nextshoot:
 			nextshoot = nextshoot[0]
 			timeslots = nextshoot.timeslot_set.filter(is_available=True).order_by('time')	
@@ -455,7 +455,7 @@ def headshot_index(request):
 
 
 		context['show_button'] = request.session.get('order')
-		
+
 		# if session expires, check if booking has ordered before, if so no free
 		if HeadshotOrder.objects.filter(booking=booking).exists():
 			request.session['proceed'] = True
@@ -522,7 +522,6 @@ def headshot_background(request):
 		if special_request:
 			request.session['special_request'] = special_request
 		request.session['touchup'] = int(touchup)
-		request.session['total'] = int(request.GET.get('subtotal'))
 
 		# detect whether free or premium
 		if request.session['touchup'] == 1:
@@ -563,8 +562,6 @@ def headshot_print_frame(request):
 
 		background = request.GET.get('background')
 		request.session['background'] = int(background)
-		request.session['total'] += int(request.GET.get('subtotal'))
-
 
 		# show my cart
 		orders = []
@@ -603,6 +600,35 @@ def headshot_review(request):
 
 		# for displaying the headshot image
 		hs = get_object_or_404(OriginalHeadshot, hash_id=request.session.get('hs_id'))
+
+		# calculate the total here
+		touchup_val = 0
+		if request.session.get('proceed') and request.session.get('touchup') == 1:
+			touchup_val = 1
+		elif request.session.get('touchup') == 2:
+			touchup_val = 8
+		elif request.session.get('touchup') == 3:
+			touchup_val = 14
+
+		bg_val = 0
+		if request.session.get('background') == 3:
+			bg_val = 4
+		elif request.session.get('background') == 1:
+			bg_val = 0
+		else:
+			bg_val = 2
+
+		package_val = 0
+		if request.session.get('package') == 2:
+			package_val = 3
+		elif request.session.get('package') == 3:
+			package_val = 9
+		elif request.session.get('package') == 4:
+			package_val = 35
+		elif request.session.get('package') == 5:
+			package_val = 30
+
+		request.session['total'] = touchup_val + bg_val + package_val
 
 		hp = HeadshotPurchase(
 			image=hs,
