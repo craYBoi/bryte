@@ -16,17 +16,15 @@
 			<div class="small_padding"></div>
 
 
-			{% if cart %}
-				<div class="text-center">
-					<button class="ord_button" data-toggle="modal" data-target="#myCart">My Cart</button>
-				</div>
-			{% endif %}
-
 			<div class="row">
 				<div class="col-sm-4">
 					
 					<div class="hs_margin hs_shadow_border">
-						<img src="{% static 'img/order/bg_white.jpg' %}" class="img-responsive">
+						{% if free %}
+							<img src="{% static 'img/headshots/examples/free/white.jpg' %}" class="img-responsive full_width">
+						{% else %}
+							<img src="{% static 'img/headshots/examples/premium/white.jpg' %}" class="img-responsive">
+						{% endif %}
 					</div>
 
 
@@ -56,9 +54,9 @@
 
 					<div class="small_padding"></div>
 
-					<p class="small_font droid_serif grey italic all_padding">A "one size fits all"</p>
+					<p class="small_font droid_serif grey italic all_padding text-center">A "one size fits all"</p>
 					<hr>
-					<ul class="spec_list droid_serif grey">
+					<ul class="spec_list droid_serif grey text-center all_padding">
 						<li>Suitable for all skin tones and hair colors</li>
 						<li>Suitable for all outfits</li>
 						<li>Standard background</li>
@@ -72,13 +70,17 @@
 
 				<div class="col-sm-4">
 					<div class="hs_margin hs_shadow_border">
-						<img src="{% static 'img/order/bg_grey.jpg' %}" class="img-responsive">
+						{% if free %}
+							<img src="{% static 'img/headshots/examples/free/gray1.jpg' %}" class="img-responsive full_width">
+						{% else %}
+							<img src="{% static 'img/headshots/examples/premium/gray1.jpg' %}" class="img-responsive">
+						{% endif %}
 					</div>
 
 					<div class="text-center">
 						<h2 class="text-center">Polished Gray</h2>
 						<div class="small_padding"></div>
-						<div class="center_flex"><div class="inline"><span class="small_font sm_padding lightgray xs_padding_right">Pay at checkout</span><p class="big_font">$2</p><span class="small_font sm_padding lightgray xs_padding_left">One time payment</span></div></div>
+						<div class="center_flex"><div class="inline"><span class="small_font sm_padding lightgray xs_padding_right">Pay at checkout</span><p class="big_font">$2</p><span class="small_font sm_padding lightgray xs_padding_left">Keep it forever</span></div></div>
 
 						<div class="xsmall_padding"></div>
 
@@ -100,9 +102,9 @@
 
 					<div class="small_padding"></div>
 
-					<p class="small_font droid_serif grey italic all_padding">It keeps a low profile and makes almost any photo look great.</p>
+					<p class="small_font droid_serif grey italic all_padding text-center">It keeps a low profile and makes almost any photo look great.</p>
 					<hr>
-					<ul class="spec_list droid_serif grey">
+					<ul class="spec_list droid_serif grey text-center all_padding">
 						<li>Complements all skin tones and hair colors excellently</li>
 						<li>A fantastic complement to any outfit except those which are mostly gray</li>
 						<li>The most subtle of the colors – it quietly draws the attention towards you.</li>
@@ -114,13 +116,17 @@
 
 				<div class="col-sm-4">
 					<div class="hs_margin hs_shadow_border">
-						<img src="{% static 'img/order/bg_brick.jpg' %}" class="img-responsive">
+						{% if free %}
+							<img src="{% static 'img/headshots/examples/free/brick.jpg' %}" class="img-responsive full_width">
+						{% else %}
+							<img src="{% static 'img/headshots/examples/premium/brick.jpg' %}" class="img-responsive">
+						{% endif %}
 					</div>
 
 					<div class="text-center">
 						<h2 class="text-center">Designer Bricks</h2>
 						<div class="small_padding"></div>
-						<div class="center_flex"><div class="inline"><span class="small_font sm_padding lightgray xs_padding_right">Pay at checkout</span><p class="big_font">$4</p><span class="small_font sm_padding lightgray xs_padding_left">One time payment</span></div></div>
+						<div class="center_flex"><div class="inline"><span class="small_font sm_padding lightgray xs_padding_right">Pay at checkout</span><p class="big_font">$4</p><span class="small_font sm_padding lightgray xs_padding_left">Keep if forever</span></div></div>
 
 						<div class="xsmall_padding"></div>
 
@@ -142,9 +148,9 @@
 
 					<div class="small_padding"></div>
 
-					<p class="small_font droid_serif grey italic all_padding">Designer bricks is a trendier background that’s refreshing.</p>
+					<p class="small_font droid_serif grey italic all_padding text-center">Designer bricks is a trendier background that’s refreshing.</p>
 					<hr>
-					<ul class="spec_list droid_serif grey">
+					<ul class="spec_list droid_serif grey text-center all_padding">
 						<li>Complements all skin tones and hair colors excellently</li>
 						<li>Outfits with white, light pastels, and light grey all look excellent with the white mortar in particular. Most other outfits also look really good.</li>
 						<li>Crafted for the headshot takers who seek an outside-the-box (and stylish) background that will satisfy.</li>
@@ -158,13 +164,17 @@
 			<div class="row">
 				<div class="col-sm-4">
 					<div class="hs_margin hs_shadow_border">
-						<img src="{% static 'img/order/bg_blue.jpg' %}" class="img-responsive">
+						{% if free %}
+							<img src="{% static 'img/headshots/examples/free/blue2.jpg' %}" class="img-responsive full_width">
+						{% else %}
+							<img src="{% static 'img/headshots/examples/premium/blue2.jpg' %}" class="img-responsive">
+						{% endif %}
 					</div>
 
 					<div class="text-center">
 						<h2 class="text-center">Sanguine Blue</h2>
 						<div class="small_padding"></div>
-						<div class="center_flex"><div class="inline"><span class="small_font sm_padding lightgray xs_padding_right">Pay at checkout</span><p class="big_font">$2</p><span class="small_font sm_padding lightgray xs_padding_left">One time payment</span></div></div>
+						<div class="center_flex"><div class="inline"><span class="small_font sm_padding lightgray xs_padding_right">Pay at checkout</span><p class="big_font">$2</p><span class="small_font sm_padding lightgray xs_padding_left">Keep it forever</span></div></div>
 
 						<div class="xsmall_padding"></div>
 
@@ -186,9 +196,9 @@
 
 					<div class="small_padding"></div>
 
-					<p class="small_font droid_serif grey italic all_padding">Brings photos confidence without losing any finesse.</p>
+					<p class="small_font droid_serif grey italic all_padding text-center">Brings photos confidence without losing any finesse.</p>
 					<hr>
-					<ul class="spec_list droid_serif grey">
+					<ul class="spec_list droid_serif grey text-center all_padding">
 						<li>Works particularly well with light to dark skin tones and hair colors, but not limited to them </li>
 						<li>A fantastic complement to almost any outfit</li>
 						<li>The most bold of all the colors, blue says you are confident and ready for anything.</li>
@@ -199,13 +209,17 @@
 
 				<div class="col-sm-4">
 					<div class="hs_margin hs_shadow_border">
-						<img src="{% static 'img/order/bg_black.jpg' %}" class="img-responsive">
+						{% if free %}
+							<img src="{% static 'img/headshots/examples/free/black1.jpg' %}" class="img-responsive full_width">
+						{% else %}
+							<img src="{% static 'img/headshots/examples/premium/black1.jpg' %}" class="img-responsive">
+						{% endif %}	
 					</div>
 
 					<div class="text-center">
 						<h2 class="text-center">Nighttime Black</h2>
 						<div class="small_padding"></div>
-						<div class="center_flex"><div class="inline"><span class="small_font sm_padding lightgray xs_padding_right">Pay at checkout</span><p class="big_font">$2</p><span class="small_font sm_padding lightgray xs_padding_left">One time payment</span></div></div>
+						<div class="center_flex"><div class="inline"><span class="small_font sm_padding lightgray xs_padding_right">Pay at checkout</span><p class="big_font">$2</p><span class="small_font sm_padding lightgray xs_padding_left">Keep it forever</span></div></div>
 
 						<div class="xsmall_padding"></div>
 
@@ -227,9 +241,9 @@
 
 					<div class="small_padding"></div>
 
-					<p class="small_font droid_serif grey italic all_padding">A dramatic addition that creates an intriguing, mysterious look. </p>
+					<p class="small_font droid_serif grey italic all_padding text-center">A dramatic addition that creates an intriguing, mysterious look. </p>
 					<hr>
-					<ul class="spec_list droid_serif grey">
+					<ul class="spec_list droid_serif grey text-center all_padding">
 						<li>Complements all skin tones and hair colors excellently</li>
 						<li>Lighter colored and bright clothing are winners with black, but any color can look really good.</li>
 						<li>Pops out in a big way and brings its magic to you as well. Alluring and stylish.</li>
@@ -313,14 +327,17 @@
         </div>
         <div class="modal-body">
         	<div class="row">
-        		<div class="col-md-4">
-        			<img src="{% static 'img/headshots/examples/free/white.JPG' %}" class="img-responsive">
+        		<div class="col-xs-6">
+        			<img src="{% static 'img/headshots/examples/free/white.JPG' %}" class="img-responsive hs_shadow_border max_width_250">
         		</div>
-        		<div class="col-md-4">
-        			<img src="{% static 'img/headshots/examples/free/white1.JPG' %}" class="img-responsive">
+        		<div class="col-xs-6">
+        			<img src="{% static 'img/headshots/examples/free/white1.JPG' %}" class="img-responsive hs_shadow_border max_width_250">
         		</div>
-        		<div class="col-md-4">
-        			<img src="{% static 'img/headshots/examples/free/white2.jpg' %}" class="img-responsive">
+        	</div>
+        	<div class="small_padding"></div>
+        	<div class="row">
+        		<div class="col-xs-6">
+        			<img src="{% static 'img/headshots/examples/free/white2.jpg' %}" class="img-responsive hs_shadow_border max_width_250">
         		</div>
         	</div>
         </div>
@@ -330,7 +347,7 @@
     </div>
   </div>
 
-  <div class="modal fade" id="whiteExampleP" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal fade droid_serif" id="whiteExampleP" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 
     <div class="modal-dialog" role="document">
       <div class="modal-content background_grey">
@@ -342,16 +359,16 @@
         <div class="modal-body">
         	<div class="row">
         		<div class="col-xs-6">
-        			<img src="{% static 'img/headshots/examples/premium/white.jpg' %}" class="img-responsive">
+        			<img src="{% static 'img/headshots/examples/premium/white.jpg' %}" class="img-responsive hs_shadow_border max_width_250">
         		</div>
         		<div class="col-xs-6">
-        			<img src="{% static 'img/headshots/examples/premium/white2.jpg' %}" class="img-responsive">
+        			<img src="{% static 'img/headshots/examples/premium/white2.jpg' %}" class="img-responsive hs_shadow_border max_width_250">
         		</div>
         	</div>
         	<div class="small_padding"></div>
         	<div class="row">
         		<div class="col-xs-6">
-        			<img src="{% static 'img/headshots/examples/premium/white1.jpg' %}" class="img-responsive">
+        			<img src="{% static 'img/headshots/examples/premium/white1.jpg' %}" class="img-responsive hs_shadow_border max_width_250">
         		</div>
         	</div>
         </div>
@@ -372,14 +389,17 @@
         </div>
         <div class="modal-body">
         	<div class="row">
-        		<div class="col-md-4">
-        			<img src="{% static 'img/headshots/examples/free/blue.jpg' %}" class="img-responsive">
+        		<div class="col-xs-6">
+        			<img src="{% static 'img/headshots/examples/free/blue.jpg' %}" class="img-responsive hs_shadow_border max_width_250">
         		</div>
-        		<div class="col-md-4">
-        			<img src="{% static 'img/headshots/examples/free/blue1.JPG' %}" class="img-responsive">
+        		<div class="col-xs-6">
+        			<img src="{% static 'img/headshots/examples/free/blue1.JPG' %}" class="img-responsive hs_shadow_border max_width_250">
         		</div>
-        		<div class="col-md-4">
-        			<img src="{% static 'img/headshots/examples/free/blue2.jpg' %}" class="img-responsive">
+        	</div>
+        	<div class="small_padding"></div>
+        	<div class="row">
+        		<div class="col-xs-6">
+        			<img src="{% static 'img/headshots/examples/free/blue2.jpg' %}" class="img-responsive hs_shadow_border max_width_250">
         		</div>
         	</div>
         </div>
@@ -401,16 +421,16 @@
         <div class="modal-body">
         	<div class="row">
         		<div class="col-xs-6">
-        			<img src="{% static 'img/headshots/examples/premium/blue2.jpg' %}" class="img-responsive">
+        			<img src="{% static 'img/headshots/examples/premium/blue2.jpg' %}" class="img-responsive hs_shadow_border max_width_250">
         		</div>
         		<div class="col-xs-6">
-        			<img src="{% static 'img/headshots/examples/premium/blue1.jpg' %}" class="img-responsive">
+        			<img src="{% static 'img/headshots/examples/premium/blue1.jpg' %}" class="img-responsive hs_shadow_border max_width_250">
         		</div>
         	</div>
         	<div class="small_padding"></div>
         	<div class="row">
         		<div class="col-xs-6">
-        			<img src="{% static 'img/headshots/examples/premium/blue.jpg' %}" class="img-responsive">
+        			<img src="{% static 'img/headshots/examples/premium/blue.jpg' %}" class="img-responsive hs_shadow_border max_width_250">
         			</div>
         	</div>
         </div>
@@ -431,14 +451,17 @@
         </div>
         <div class="modal-body">
         	<div class="row">
-        		<div class="col-md-4">
-        			<img src="{% static 'img/headshots/examples/free/brick.jpg' %}" class="img-responsive">
+        		<div class="col-xs-6">
+        			<img src="{% static 'img/headshots/examples/free/brick.jpg' %}" class="img-responsive hs_shadow_border max_width_250">
         		</div>
-        		<div class="col-md-4">
-        			<img src="{% static 'img/headshots/examples/free/brick1.jpg' %}" class="img-responsive">
+        		<div class="col-xs-6">
+        			<img src="{% static 'img/headshots/examples/free/brick1.jpg' %}" class="img-responsive hs_shadow_border max_width_250">
         		</div>
-        		<div class="col-md-4">
-        			<img src="{% static 'img/headshots/examples/free/brick2.jpg' %}" class="img-responsive">
+        	</div>
+        	<div class="small_padding"></div>
+        	<div class="row">
+        		<div class="col-xs-6">
+        			<img src="{% static 'img/headshots/examples/free/brick2.jpg' %}" class="img-responsive hs_shadow_border max_width_250">
         		</div>
         	</div>
         </div>
@@ -448,7 +471,7 @@
     </div>
   </div>
 
-  <div class="modal fade" id="brickExampleP" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal fade droid_serif" id="brickExampleP" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 
     <div class="modal-dialog" role="document">
       <div class="modal-content background_grey">
@@ -460,16 +483,16 @@
         <div class="modal-body">
         	<div class="row">
         		<div class="col-xs-6">
-        			<img src="{% static 'img/headshots/examples/premium/brick.jpg' %}" class="img-responsive">
+        			<img src="{% static 'img/headshots/examples/premium/brick.jpg' %}" class="img-responsive hs_shadow_border max_width_250">
         		</div>
         		<div class="col-xs-6">
-        			<img src="{% static 'img/headshots/examples/premium/brick1.jpg' %}" class="img-responsive">
+        			<img src="{% static 'img/headshots/examples/premium/brick1.jpg' %}" class="img-responsive hs_shadow_border max_width_250">
         		</div>
         	</div>
         	<div class="small_padding"></div>
         	<div class="row">
         		<div class="col-xs-6">
-        			<img src="{% static 'img/headshots/examples/premium/brick2.jpg' %}" class="img-responsive">
+        			<img src="{% static 'img/headshots/examples/premium/brick2.jpg' %}" class="img-responsive hs_shadow_border max_width_250">
         			</div>
         	</div>
         </div>
@@ -490,14 +513,17 @@
         </div>
         <div class="modal-body">
         	<div class="row">
-        		<div class="col-md-4">
-        			<img src="{% static 'img/headshots/examples/free/gray.jpg' %}" class="img-responsive">
+        		<div class="col-xs-6">
+        			<img src="{% static 'img/headshots/examples/free/gray.jpg' %}" class="img-responsive hs_shadow_border max_width_250">
         		</div>
-        		<div class="col-md-4">
-        			<img src="{% static 'img/headshots/examples/free/gray1.jpg' %}" class="img-responsive">
+        		<div class="col-xs-6">
+        			<img src="{% static 'img/headshots/examples/free/gray1.jpg' %}" class="img-responsive hs_shadow_border max_width_250">
         		</div>
-        		<div class="col-md-4">
-        			<img src="{% static 'img/headshots/examples/free/gray2.jpg' %}" class="img-responsive">
+        	</div>
+        	<div class="small_padding"></div>
+        	<div class="row">
+        		<div class="col-xs-6">
+        			<img src="{% static 'img/headshots/examples/free/gray2.jpg' %}" class="img-responsive hs_shadow_border max_width_250">
         		</div>
         	</div>
         </div>
@@ -507,7 +533,7 @@
     </div>
   </div>
 
-  <div class="modal fade" id="grayExampleP" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal fade droid_serif" id="grayExampleP" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 
     <div class="modal-dialog" role="document">
       <div class="modal-content background_grey">
@@ -519,16 +545,16 @@
         <div class="modal-body">
         	<div class="row">
         		<div class="col-xs-6">
-        			<img src="{% static 'img/headshots/examples/premium/gray.jpg' %}" class="img-responsive">
+        			<img src="{% static 'img/headshots/examples/premium/gray.jpg' %}" class="img-responsive hs_shadow_border max_width_250">
         		</div>
         		<div class="col-xs-6">
-        			<img src="{% static 'img/headshots/examples/premium/gray1.jpg' %}" class="img-responsive">
+        			<img src="{% static 'img/headshots/examples/premium/gray1.jpg' %}" class="img-responsive hs_shadow_border max_width_250">
         		</div>
         	</div>
         	<div class="small_padding"></div>
         	<div class="row">
         		<div class="col-xs-6">
-        			<img src="{% static 'img/headshots/examples/premium/gray2.jpg' %}" class="img-responsive">
+        			<img src="{% static 'img/headshots/examples/premium/gray2.jpg' %}" class="img-responsive hs_shadow_border max_width_250">
         		</div>
 
         	</div>
@@ -550,14 +576,17 @@
         </div>
         <div class="modal-body">
         	<div class="row">
-        		<div class="col-md-4">
-        			<img src="{% static 'img/headshots/examples/free/black.jpg' %}" class="img-responsive">
+        		<div class="col-xs-6">
+        			<img src="{% static 'img/headshots/examples/free/black.jpg' %}" class="img-responsive hs_shadow_border max_width_250">
         		</div>
-        		<div class="col-md-4">
-        			<img src="{% static 'img/headshots/examples/free/black1.jpg' %}" class="img-responsive">
+        		<div class="col-xs-6">
+        			<img src="{% static 'img/headshots/examples/free/black1.jpg' %}" class="img-responsive hs_shadow_border max_width_250">
         		</div>
-        		<div class="col-md-4">
-        			<img src="{% static 'img/headshots/examples/free/black2.jpg' %}" class="img-responsive">
+        	</div>
+        	<div class="small_padding"></div>
+        	<div class="row">
+        		<div class="col-xs-6">
+        			<img src="{% static 'img/headshots/examples/free/black2.jpg' %}" class="img-responsive hs_shadow_border max_width_250">
         		</div>
         	</div>
         </div>
@@ -567,7 +596,7 @@
     </div>
   </div>
 
-  <div class="modal fade" id="blackExampleP" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal fade droid_serif" id="blackExampleP" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 
     <div class="modal-dialog" role="document">
       <div class="modal-content background_grey">
@@ -579,16 +608,16 @@
         <div class="modal-body">
         	<div class="row">
         		<div class="col-xs-6">
-        			<img src="{% static 'img/headshots/examples/premium/black.jpg' %}" class="img-responsive">
+        			<img src="{% static 'img/headshots/examples/premium/black.jpg' %}" class="img-responsive max_width_250 hs_shadow_border">
         		</div>
         		<div class="col-xs-6">
-        			<img src="{% static 'img/headshots/examples/premium/black1.jpg' %}" class="img-responsive">
+        			<img src="{% static 'img/headshots/examples/premium/black1.jpg' %}" class="img-responsive max_width_250 hs_shadow_border">
         		</div>
         	</div>
         	<div class="small_padding"></div>
         	<div class="row">
         		<div class="col-xs-6">
-        			<img src="{% static 'img/headshots/examples/premium/black2.jpg' %}" class="img-responsive">
+        			<img src="{% static 'img/headshots/examples/premium/black2.jpg' %}" class="img-responsive max_width_250 hs_shadow_border">
         		</div>
         	</div>
         </div>

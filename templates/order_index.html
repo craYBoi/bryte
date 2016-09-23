@@ -12,44 +12,126 @@
 				<h1 class="text-center landing_title">Select one of your photos</h1>
 			{% endif %}
 			
-			<div class="large_padding"></div>
+			<div class="medium_padding"></div>
+			<div class="small_padding"></div>
 
 			<!-- for second for more -->
 			{% if proceed and show_button %}
-				<div class="text-center">
-				<form action='{% url "headshot_checkout" %}'>
-					<button class="ord_button_w" type="submit">Checkout ${{ order_total }}</button>
-				</form>
+				<div class="text-right special_padding">
+					<form action='{% url "headshot_checkout" %}'>
+						<button class="ord_button_w toggle" type="submit">Checkout ${{ order_total }}</button>
+					</form>
+					<div class="small_padding"></div>
+					<button class="ord_button_w" data-toggle="modal" data-target="#myCart">My Cart</button>
 				</div>
+
 				<div class="medium_padding"></div>
 			{% endif %}
 
+			<div class="small_padding"></div>
+
 			{% for hs_url, hs_pk in headshots %}
 
-				{% cycle '<div class="row">' '' '' %}
+				{% cycle '<div class="row">' '' %}
 
-					<div class="col-sm-4 special_padding">
-						<img src="{{ hs_url }}" class="img-responsive">
+					<div class="col-sm-6 special_padding">
+						<img src="{{ hs_url }}" class="img-responsive hs_shadow_border">
 						<div class="small_padding"></div>
 
 
 						<form method="GET" action={% url 'headshot_style' %}>
 							<input type="hidden" value={{ hs_pk }} name="hs_pk">
 							<div class="text-center">
-								<button class="ord_button" type="submit">Add</button>
+								{% if proceed %}
+									<button class="ord_button toggle" type="submit">Create</button>
+								{% else %}
+									<button class="ord_button" type="submit">Add</button>
+								{% endif %}
 							</div>
 						</form>
 						<div class="medium_padding"></div>
 					</div>
 					
 				
-				{% cycle '' '' '</div>' %}
+				{% cycle '' '</div>' %}
 
 			{% endfor %}
 
 
 		</div>
+
+		{% if proceed and show_button %}
+			<div class="text-center special_padding">
+
+				<button class="ord_button_w small_padding_left" data-toggle="modal" data-target="#myCart">My Cart</button>
+
+				<div class="small_padding"></div>
+				<form action='{% url "headshot_checkout" %}'>
+					<button class="ord_button_w toggle" type="submit">Checkout ${{ order_total }}</button>
+				</form>
+			</div>
+
+			<div class="medium_padding"></div>
+		{% endif %}
 	</div>
+
+
+  <div class="modal fade droid_serif" id="myCart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+    <div class="modal-dialog" role="document">
+      <div class="modal-content background_grey">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="text-center bold big_font">My Cart</h4>
+          <div class="xsmall_padding"></div>
+        </div>
+        <div class="modal-body">
+
+
+        {% for order in orders %}
+        	<div class="small_padding"></div>
+					<div class="">
+						<div class="">
+							<div class="row text-left">
+								<div class="col-sm-5">
+									<img src="{{ order.image.raw_url }}" class="img-responsive">
+								</div>
+								<div class="col-sm-7">
+									<ul class="package_list sm_font bold">
+										<li>Style: {{ order.get_touchup_display }}</li>
+										{% if order.special_request %}
+											<li>Special Request: {{ order.special_request }}</li>
+										{% endif %}
+										<li>Background: {{ order.get_background_display }}</li>
+										<li>
+											Keepsakes: {{ order.get_package_display }}
+										</li>
+										<li>Subtotal: ${{ order.total }}</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+        	<div class="small_padding"></div>
+        {% endfor %}
+
+        </div>
+
+        <div class="modal-footer">
+					<form action='{% url "headshot_checkout" %}'>
+						<button class="ord_button_w toggle" type="submit">Checkout ${{ order_total }}</button>
+					</form>
+					<div class="xsmall_padding"></div>
+					<div class="xsmall_padding"></div>
+					<form action="{% url 'headshot_index' %}">
+						<input type="hidden" name="startover" value="1">
+						<button type="submit" class="text_button">Start Over</button>
+					</form>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
 	<!-- loader -->
 	<div id="loader-wrapper" hidden>
@@ -59,7 +141,7 @@
 {% endblock %}
 
 {% block jquery %}
-	$('.ord_button_w, .ord_button').on('click', function(){
+	$('.toggle').on('click', function(){
 		$('#loader-wrapper').show();  
 	})
 

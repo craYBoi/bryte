@@ -69,7 +69,6 @@
 				<form action="{% url 'headshot_complete' %}" id="headshot_checkout_form" method="POST">{% csrf_token %}
 
 					{% if has_package %}
-						<p>Shipping address including zipcode (*required)</p>
 						<input type='text' name='address' placeholder="Shipping Address" class="form-control" id="order_address" required onchange="try{setCustomValidity('')}catch(e){}">
 						<div class="small_padding"></div>
 					{% endif %}
@@ -83,7 +82,7 @@
 
 		<form action="{% url 'headshot_index' %}">
 			<input type="hidden" name="startover" value="1">
-			<button type="submit" class="text_button toggle">Start Over</button>
+			<button type="submit" class="text_button toggle">Clear cart</button>
 		</form>
 
 		<div class="medium_padding"></div>

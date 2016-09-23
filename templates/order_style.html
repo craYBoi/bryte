@@ -17,8 +17,10 @@
 
 
 			{% if cart %}
-				<div class="text-center">
-					<button class="ord_button" data-toggle="modal" data-target="#myCart">My Cart</button>
+				<div class="mod_container">
+					<div class="text-right special_padding">
+						<button class="ord_button" data-toggle="modal" data-target="#myCart">My Cart</button>
+					</div>
 				</div>
 			{% endif %}
 
@@ -28,7 +30,7 @@
 				<div class="col-sm-4">
 					<div class="hs_margin">
 						<div class="text-center">
-						<img src="{% static 'img/headshots/examples/free/white.JPG' %}" class="full_width hs_shadow_border">
+						<img src="{% static 'img/headshots/examples/free/white.jpg' %}" class="full_width hs_shadow_border">
 						</div>
 					</div>
 
@@ -40,7 +42,7 @@
 						{% endif %}
 						<div class="small_padding"></div>
 						{% if proceed %}
-						<div class="center_flex"><div class="inline"><span class="small_font sm_padding lightgray xs_padding_right">Pay at checkout</span><p class="big_font">$1</p><span class="small_font sm_padding lightgray xs_padding_left">One time payment</span></div></div>
+						<div class="center_flex"><div class="inline"><span class="small_font sm_padding lightgray xs_padding_right">Pay at checkout</span><p class="big_font">$1</p><span class="small_font sm_padding lightgray xs_padding_left">Keep it forever</span></div></div>
 						{% else %}
 							<p class="big_font">$0</p>
 						{% endif %}
@@ -63,15 +65,15 @@
 								<input type="hidden" name='subtotal' value='0'>
 							{% endif %}
 							
-							<button class="ord_button_w toggle" type="submit">Choose</button>
+							<button class="ord_button_w toggle" type="submit">Add</button>
 						</form>
 					</div>
 
 					<div class="small_padding"></div>
 
-					<p class="small_font droid_serif grey italic all_padding">Adds enough for a usable professional headshot.</p>
+					<p class="small_font droid_serif grey italic all_padding text-center">Adds only enough for a usable professional photo.</p>
 					<hr>
-					<ul class="spec_list droid_serif grey">
+					<ul class="spec_list droid_serif grey text-center all_padding">
 						<li>Adequate image clarity</li>
 						<li>Cropped to a square</li>
 						<li>No lighting adjustments</li>
@@ -82,13 +84,13 @@
 
 				<div class="col-sm-4">
 					<div class="hs_margin hs_shadow_border">
-						<img src="{% static 'img/headshots/examples/premium/white1.jpg' %}" class="img-responsive">
+						<img src="{% static 'img/headshots/examples/premium/white.jpg' %}" class="img-responsive">
 					</div>
 
 					<div class="text-center">
-						<h3 class="text-center landing_title_third bold">Upgraded</h3>
+						<h2 class="text-center">Upgraded</h2>
 						<div class="small_padding"></div>
-						<div class="center_flex"><div class="inline"><span class="small_font sm_padding lightgray xs_padding_right">Pay at checkout</span><p class="big_font">$8</p><span class="small_font sm_padding lightgray xs_padding_left">One time payment</span></div></div>
+						<div class="center_flex"><div class="inline"><span class="small_font sm_padding lightgray xs_padding_right">Pay at checkout</span><p class="big_font">$8</p><span class="small_font sm_padding lightgray xs_padding_left">Keep it forever</span></div></div>
 
 						<div class="xsmall_padding"></div>
 
@@ -100,15 +102,15 @@
 							<input type="hidden" name='touchup' value='2'>
 							<input type="hidden" name='hs_id' value='{{ hs_id }}'>
 							<input type="hidden" name='subtotal' value='8'>
-							<button class="ord_button_w toggle" type="submit">Choose</button>
+							<button class="ord_button_w toggle" type="submit">Add</button>
 						</form>
 					</div>
 
 					<div class="small_padding"></div>
 
-					<p class="small_font droid_serif grey italic all_padding">Brings additional styling elements for a headshot ready</p>
+					<p class="small_font droid_serif grey italic all_padding text-center">A style equipped with additional features that steps above the average.</p>
 					<hr>
-					<ul class="spec_list droid_serif grey">
+					<ul class="spec_list droid_serif grey text-center all_padding">
 						<li>High definition image clarity</li>
 						<li>Refined cropping by a our Guru Photoshoppers</li>
 						<li>Vivid lighting throughout the photo</li>
@@ -125,12 +127,12 @@
 					<div class="text-center">
 						<h2 class="text-center">Customized</h2>
 						<div class="small_padding"></div>
-						<div class="center_flex"><div class="inline"><span class="small_font sm_padding lightgray xs_padding_right">Pay at checkout</span><p class="big_font">$14</p><span class="small_font sm_padding lightgray xs_padding_left">One time payment</span></div></div>
+						<div class="center_flex"><div class="inline"><span class="small_font sm_padding lightgray xs_padding_right">Pay at checkout</span><p class="big_font">$14</p><span class="small_font sm_padding lightgray xs_padding_left">Keep it forever</span></div></div>
 
 						<div class="xsmall_padding"></div>
 
 						<!-- work on the modal button -->
-						<a data-toggle="modal" data-target="#modal_style_basic"><button class="text_button">See More Examples</button></a>
+						<a data-toggle="modal" data-target="#CustomizedExample"><button class="text_button">See More Examples</button></a>
 						<p class="landing_text">Reviews</p>
 						<div class="small_padding"></div>
 						<!--
@@ -141,15 +143,15 @@
 							<button class="ord_button_w" type="submit">Choose</button>
 						</form>
 						-->
-						<a data-toggle="modal" data-target="#special_request"><button class="ord_button_w">Choose</button></a>
+						<a data-toggle="modal" data-target="#special_request"><button class="ord_button_w">Add</button></a>
 					</div>
 
 					<div class="small_padding"></div>
 
-					<p class="small_font droid_serif grey italic all_padding">Perfects and shines – your steak just got topped with white truffles.</p>
+					<p class="small_font droid_serif grey italic all_padding text-center">Perfect, polish, and shine – get a photo ready for the cover of Fortune Magazine.</p>
 					<hr>
-					<ul class="spec_list droid_serif grey">
-						<li>Everything in  "Upgraded", plus</li>
+					<ul class="spec_list droid_serif grey text-center all_padding">
+						<li><span class="bold">Everything in  "Upgraded"</span>, plus</li>
 						<li>Make special requests! Get rid of the unprofessional piercings unexpectedly still on you. Type away!</li>
 						<li>Livens your skin with acne touchup</li>
 						<li>Removes split ends and unflattering facial hair</li>
@@ -193,7 +195,7 @@
 					<div class="small_padding"></div>
 					<div class="text-center">
 						<button class="ord_button_w toggle" type="submit">
-					Sounds good</button>
+					Sounds good!</button>
 					</div>
 				</form>
 
@@ -281,20 +283,28 @@
         			<h3 class="text-center">Free</h3>
         			{% endif %}
         			<div class="small_padding"></div>
-        			<img src="{% static 'img/headshots/examples/free/white.JPG' %}" class="img-responsive hs_shadow_border">
+        			<img src="{% static 'img/headshots/examples/free/white.jpg' %}" class="img-responsive max_width_250 hs_shadow_border">
         			<div class="small_padding"></div>
-        			<img src="{% static 'img/headshots/examples/free/blue2.jpg' %}" class="img-responsive hs_shadow_border">
+        			<img src="{% static 'img/headshots/examples/free/black1.jpg' %}" class="img-responsive max_width_250 hs_shadow_border">
         			<div class="small_padding"></div>
-        			<img src="{% static 'img/headshots/examples/free/black.jpg' %}" class="img-responsive">
+        			<img src="{% static 'img/headshots/examples/free/gray.jpg' %}" class="img-responsive max_width_250">
+        			<div class="small_padding"></div>
+        			<img src="{% static 'img/headshots/examples/free/white2.jpg' %}" class="img-responsive max_width_250">
+        			<div class="small_padding"></div>
+        			<img src="{% static 'img/headshots/examples/free/brick.jpg' %}" class="img-responsive max_width_250">
         		</div>
         		<div class="col-xs-6 center_flex">
         			<h3 class="text-center">Upgraded</h3>
         			<div class="small_padding"></div>
-        			<img src="{% static 'img/headshots/examples/premium/white1.jpg' %}" class="hs_shadow_border max_width_250">
+        			<img src="{% static 'img/headshots/examples/premium/white.jpg' %}" class="hs_shadow_border max_width_250">
         			<div class="small_padding"></div>
-        			<img src="{% static 'img/headshots/examples/premium/blue1.jpg' %}" class="hs_shadow_border max_width_250">
+        			<img src="{% static 'img/headshots/examples/premium/black1.jpg' %}" class="hs_shadow_border max_width_250">
         			<div class="small_padding"></div>
-        			<img src="{% static 'img/headshots/examples/premium/black.jpg' %}" class="hs_shadow_border max_width_250">
+        			<img src="{% static 'img/headshots/examples/premium/gray.jpg' %}" class="hs_shadow_border max_width_250">
+        			<div class="small_padding"></div>
+        			<img src="{% static 'img/headshots/examples/premium/white2.jpg' %}" class="hs_shadow_border max_width_250">
+        			<div class="small_padding"></div>
+        			<img src="{% static 'img/headshots/examples/premium/brick.jpg' %}" class="hs_shadow_border max_width_250">
         		</div>
         	</div>
 
@@ -307,6 +317,38 @@
   </div>
 
 
+  <div class="modal fade droid_serif" id="CustomizedExample" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+    <div class="modal-dialog example_modal_s" role="document">
+      <div class="modal-content background_grey">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="text-center bold big_font">Examples</h4>
+          <div class="xsmall_padding"></div>
+        </div>
+        <div class="modal-body">
+        	<div class="row">
+        		<div class="col-xs-10 col-xs-offset-1 center_flex">
+        			<h3 class="text-center">Customized</h3>
+        			<div class="small_padding"></div>
+        			<img src="{% static 'img/headshots/examples/premium/gray2.jpg' %}" class="img-responsive hs_shadow_border">
+        			<ul class="small_padding">
+        				<li>* Get rid of glares on the glass</li>
+        				<li>* Get rid of unprofessional piercings</li>
+        				<li>* Remove acnes</li>
+        				<li>* Remove stray hair</li>
+        			</ul>
+        			
+        		</div>
+        	</div>
+
+        	<div class="small_padding"></div>
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+    </div>
+  </div>
 
 	<!-- loader -->
 	<div id="loader-wrapper" hidden>

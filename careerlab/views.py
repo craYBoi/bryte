@@ -392,10 +392,19 @@ def headshot_index(request):
 
 		# if proceed flag is on, meaning this is at least the second round, also add extra price for additional photo
 
+		# show my cart
+		orders = []
+		if request.session.has_key('order'):
+			for order in serializers.deserialize('json', request.session.get('order')):
+				orders.append(order.object)
+
+		order_total = sum(a.total for a in orders)
+
 		context = {
 			'myheadshot': 1,
 			'headshots': zip(headshot_urls, headshot_ids),
 			'proceed': request.session.get('proceed'),
+			'orders': orders,
 		}
 
 
@@ -439,6 +448,9 @@ def headshot_index(request):
 			else:
 				orders = [hp]
 
+			# to show the cart
+			context['orders'] = orders
+
 			# update the order total
 			request.session['order_total'] += request.session['total']
 			
@@ -460,7 +472,6 @@ def headshot_index(request):
 		if HeadshotOrder.objects.filter(booking=booking).exists():
 			request.session['proceed'] = True
 			
-
 
 		context['order_total'] = request.session['order_total']
 		context['cart'] = request.session.get('cart')
@@ -595,8 +606,8 @@ def headshot_review(request):
 		request.session['package'] = int(request.GET.get('package'))
 
 
-		if request.GET.get('subtotal'):
-			request.session['total'] += int(request.GET.get('subtotal'))
+		# if request.GET.get('subtotal'):
+		# 	request.session['total'] += int(request.GET.get('subtotal'))
 
 		# for displaying the headshot image
 		hs = get_object_or_404(OriginalHeadshot, hash_id=request.session.get('hs_id'))

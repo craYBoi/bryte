@@ -1114,7 +1114,7 @@ h1,h2,h3,h4 {
 }
 
 .all_padding {
-	padding: 20px;
+	padding: 0 20px;
 }
 
 .large_padding {
@@ -2206,7 +2206,7 @@ body, html
 .spec_list li {
 	padding: 15px 0;
 	font-size: 0.85em;
-	padding-left: 1em;
+	/*padding-left: 1em;*/
 	border-bottom: 1px dashed #eee;
 }
 
@@ -2215,7 +2215,6 @@ body, html
 }
 
 .spec_list {
-	padding-left: 1em;
 }
 
 .mod_container {
@@ -2252,14 +2251,30 @@ body, html
 
 @media (min-width: 768px) {
   .example_modal {
-    width: 550px!important;
+    width: 600px!important;
   }
 }
 @media (min-width: 992px) {
   .example_modal {
-    width: 550px!important;
+    width: 600px!important;
   }
 }
+
+.example_modal_s {
+	width: 95%!important;
+}
+
+@media (min-width: 768px) {
+  .example_modal_s {
+    width: 400px!important;
+  }
+}
+@media (min-width: 992px) {
+  .example_modal_s {
+    width: 400px!important;
+  }
+}
+
 
 .lg_input {
 	height: 3em!important;
@@ -2299,10 +2314,17 @@ body, html
 }
 
 .max_width_250 {
-	max-width: 250px;
+	max-width: 300px;
 	width:100%!important;
 }
 
 .full_width {
 	width:100%!important;
 }
+
+.bestvaluestar {
+	position: absolute;
+	top:250px;
+	right: 5px;
+}
+

@@ -15,15 +15,8 @@
 
 			<div class="small_padding"></div>
 
-
-			{% if cart %}
-				<div class="text-center">
-					<button class="ord_button" data-toggle="modal" data-target="#myCart">My Cart</button>
-				</div>
-			{% endif %}
-
 			<div class="medium_padding"></div>
-			<div class="text-center">
+			<div class="text-right">
 				<form action="{% url 'headshot_review' %}">
 					<input type="hidden" name='package' value='1'>
 					<input type="hidden" name='subtotal' value='0'>
@@ -38,7 +31,7 @@
 					<div class="text-center">
 						<h3 class="text-center">Wallet Prints</h3>
 						<div class="small_padding"></div>
-						<p class="big_font">$3</p>
+						<div class="center_flex"><div class="inline"><span class="small_font sm_padding lightgray xs_padding_right">Pay at checkout</span><p class="big_font">$3</p><span class="small_font sm_padding lightgray xs_padding_left">Keep it forever</span></div></div>
 
 						<div class="small_padding"></div>
 
@@ -51,9 +44,9 @@
 
 					<div class="small_padding"></div>
 
-					<p class="small_font droid_serif grey italic all_padding">Conveniently sized prints for your wallet, for your family. Take photo day with you!</p>
+					<p class="small_font droid_serif grey italic text-center">Conveniently sized prints for your wallet, for your family. Take photo day with you!</p>
 					<hr>
-					<ul class="spec_list droid_serif grey">
+					<ul class="spec_list droid_serif grey all_padding text-center">
 						<li>Includes 6 Wallet Prints (each 2.5x2.5) </li>
 						<li>Photos are printed on matte paper for a high quality print that doesn't scratch</li>
 					</ul>
@@ -69,7 +62,7 @@
 					<div class="text-center">
 						<h3 class="text-center">Friends and Family</h3>
 						<div class="small_padding"></div>
-						<p class="big_font">$9</p>
+						<div class="center_flex"><div class="inline"><span class="small_font sm_padding lightgray xs_padding_right">Pay at checkout</span><p class="big_font">$9</p><span class="small_font sm_padding lightgray xs_padding_left">Keep it forever</span></div></div>
 
 						<div class="small_padding"></div>
 
@@ -82,9 +75,9 @@
 
 					<div class="small_padding"></div>
 
-					<p class="small_font droid_serif grey italic all_padding">An assortment of print sizes for friends, loved ones, and of course… yourself!</p>
+					<p class="small_font droid_serif grey italic all_padding text-center">An assortment of print sizes for friends, loved ones, and of course… yourself!</p>
 					<hr>
-					<ul class="spec_list droid_serif grey">
+					<ul class="spec_list droid_serif grey all_padding text-center">
 						<li>Includes 8 Wallet Print (2.5x2.5), 2 Standard Prints (6x6), and 1 Big Print (10x10)</li>
 						<li>Photos are printed on matte paper for a high quality print that doesn't scratch</li>
 					</ul>
@@ -99,7 +92,7 @@
 					<div class="text-center">
 						<h3 class="text-center">Complete Collection</h3>
 						<div class="small_padding"></div>
-						<p class="big_font">$35</p>
+						<div class="center_flex"><div class="inline"><span class="small_font sm_padding lightgray xs_padding_right">Pay at checkout</span><p class="big_font">$35</p><span class="small_font sm_padding lightgray xs_padding_left">Keep it forever</span></div></div>
 
 						<div class="small_padding"></div>
 
@@ -114,7 +107,7 @@
 
 					<p class="small_font droid_serif grey italic all_padding">A Hall of Fame of You. Enjoy your photo at home and at work, plus share it too.</p>
 					<hr>
-					<ul class="spec_list droid_serif grey">
+					<ul class="spec_list droid_serif grey all_padding text-center">
 						<li>Includes 8 Wallet Prints (2.5x2.5), 3 Standard Prints (6x6), 1 Big Print (10x10), and 1 Premium Framed Print (10x10)</li>
 						<li>Photos are printed on matte paper for a high quality look that does not scratch, see "Premium Framed Print" for full details on its quality</li>
 					</ul>
@@ -129,7 +122,7 @@
 					<div class="text-center">
 						<h3 class="text-center">Premium Framed Print</h3>
 						<div class="small_padding"></div>
-						<p class="big_font">$30</p>
+						<div class="center_flex"><div class="inline"><span class="small_font sm_padding lightgray xs_padding_right">Pay at checkout</span><p class="big_font">$30</p><span class="small_font sm_padding lightgray xs_padding_left">Keep it forever</span></div></div>
 
 						<div class="small_padding"></div>
 
@@ -144,7 +137,7 @@
 
 					<p class="small_font droid_serif grey italic all_padding">Premium quality frame and print.  Commemorate photos beautifully with this one.</p>
 					<hr>
-					<ul class="spec_list droid_serif grey">
+					<ul class="spec_list droid_serif grey all_padding text-center">
 						<li>Each includes 1 Big Print (10x10) framed with our Premium Frame</li>
 						<li>Our Premium Headshot Frames is colored matte black to make your photo look good without taking any of the attention away. It is made of durable metal and has a foamcore backing to ensure it's sturdy. It also comes with acrylic glass that stays clear. The frame displays a 10x10 print that comes with this package (the frame itself is slightly larger than 10x10). Mount this frame on any wall with the conveniently included hanging hardware.</li>
 						<li>Your photo will be framed when it is delivered</li>
@@ -161,7 +154,16 @@
 			
 
 		</div>
+		<div class="text-center">
+			<form action="{% url 'headshot_review' %}">
+				<input type="hidden" name='package' value='1'>
+				<input type="hidden" name='subtotal' value='0'>
+				<button class="ord_button_w toggle" type="submit">No thanks!</button>
+			</form>
+		</div>
+		<div class="medium_padding"></div>
 	</div>
+
 
 
   <div class="modal fade droid_serif" id="myCart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
