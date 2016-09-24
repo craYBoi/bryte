@@ -755,6 +755,8 @@ def headshot_complete(request):
 		ho.save()
 		for o in orders:
 			o.order = ho
+			o.charged = True
+			o.copy_to_tbr()
 			o.save()
 		b.order_delivery_email(confirmation_content)
 
