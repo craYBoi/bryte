@@ -401,6 +401,7 @@ def headshot_index(request):
 		order_total = sum(a.total for a in orders)
 
 		context = {
+			'title_text': 'Select Photos',
 			'myheadshot': 1,
 			'headshots': zip(headshot_urls, headshot_ids),
 			'proceed': request.session.get('proceed'),
@@ -503,7 +504,7 @@ def headshot_style(request):
 
 		context = {
 			'myheadshot': 1,
-			# 'imgs': imgs,
+			'title_text': 'Style Your Photo',
 			'orders': orders,
 			'order_total': order_total,
 			'hs_id': hs_id,
@@ -551,6 +552,7 @@ def headshot_background(request):
 		order_total = sum(a.total for a in orders)
 
 		context = {
+			'title_text': 'Choose a background',
 			'myheadshot': 1,
 			'orders': orders,
 			'order_total': order_total,
@@ -583,6 +585,7 @@ def headshot_print_frame(request):
 		order_total = sum(a.total for a in orders)
 
 		context = {
+			'title_text': 'Select Package',
 			'myheadshot': 1,
 			'orders': orders,
 			'order_total': order_total,
@@ -658,6 +661,7 @@ def headshot_review(request):
 
 		context = {
 			'myheadshot': 1,
+			'title_text': 'Review',
 			'orders': orders,
 			'booking': request.session.get('booking'),
 			'cart': request.session.get('cart'),
@@ -699,6 +703,7 @@ def headshot_checkout(request):
 		# print orders
 		context = {
 			'myheadshot': 1,
+			'title_text': 'Checkout',
 			'has_package': has_package,
 			'free': free,
 			'orders': orders,
@@ -718,6 +723,7 @@ def headshot_checkout(request):
 def headshot_complete(request):
 	context = {
 		'myheadshot': 1,
+		'title_text': 'Thank you',
 	}
 
 	# get the order detail to generate email info
@@ -833,6 +839,7 @@ def headshot_complete(request):
 def headshot_error(request):
 	context = {
 		'myheadshot': 1,
+		'title_text': 'Time out',
 	}
 	if request.GET.get('hs_email') and request.method=='GET':
 
