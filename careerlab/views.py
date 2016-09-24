@@ -746,7 +746,6 @@ def headshot_complete(request):
 		ho = HeadshotOrder(
 			booking=b,
 			total=sum,
-			charged=True,
 			)	
 		ho.save()
 		for o in orders:
