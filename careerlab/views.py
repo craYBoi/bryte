@@ -737,9 +737,14 @@ def headshot_complete(request):
 		orders.append(order.object)
 		sum += order.object.total
 		raw_url = order.object.image.raw_url
-		confirmation_content += '<img src="' + raw_url + '" width="150px"><br>' + 'Style: ' + order.object.get_touchup_display() + '<br>Background: ' + order.object.get_background_display() + '<br>Keepsakes: ' + order.object.get_package_display() + '<br>Subtotal: $' + str(order.object.total) + '<br><br><br>'
 
-	confirmation_content += '<br><span style="font-size:1.5em; color: #c94848; font-weight: bold;">Total: $' + str(sum) + '</span><br>'
+		special_request = ''
+		if order.object.special_request:
+			special_request = '<br>Special Request: ' + str(order.object.special_request)
+
+		confirmation_content += '<img src="' + raw_url + '" width="150px"><br>' + 'Style: ' + order.object.get_touchup_display() + '<br>Background: ' + order.object.get_background_display() + '<br>Keepsakes: ' + order.object.get_package_display() + special_request+ '<br>Subtotal: $' + str(order.object.total) + '<br><br>'
+
+	confirmation_content = confirmation_content + '<br><span style="font-size:1.5em; color: #c94848; font-weight: bold;">Total: $' + str(sum) + '</span><br>'
 
 	# free
 	if request.GET.get('free'):
@@ -752,6 +757,10 @@ def headshot_complete(request):
 			o.order = ho
 			o.save()
 		b.order_delivery_email(confirmation_content)
+
+		# flush all the shit
+		request.session.flush()
+
 		return render(request, 'order_complete.html', context)
 
 

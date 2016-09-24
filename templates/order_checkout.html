@@ -88,6 +88,11 @@
 		<div class="medium_padding"></div>
 	</div>
 
+
+	<!-- loader -->
+	<div id="loader-wrapper" hidden>
+	  <div id="loader" class="text-center"><img src="{% static 'img/order/balls.svg' %}" width="140px"></div>
+	</div>
 {% endblock %}
 
 {% block script %}
@@ -105,6 +110,9 @@
 	  token: function(token) {
 	    // You can access the token ID with `token.id`.
 	    // Get the token ID to your server-side code for use.
+
+	    $('#loader-wrapper').show(); 
+
 	    $('<input>').attr({
 			    type: 'hidden',
 			    name: 'token',
@@ -148,4 +156,7 @@
 	  $('#loader-wrapper').show(); 
 	});
 
+	$('.toggle').on('click', function(){
+		$('#loader-wrapper').show();  
+	})
 {% endblock %}
