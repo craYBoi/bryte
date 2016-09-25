@@ -488,20 +488,32 @@ class Nextshoot(models.Model):
 		num_slots_available = MAX_VOLUMN * len(timeslots) - sum(e.current_volumn for e in timeslots)
 
 		num_ppl_to_notify = 8 * num_slots_available
-		signups = Signup.objects.filter(notified=False).order_by('timestamp')
+		signups = Signup.objects.filter(shoot=self).filter(notified=False).filter(cancelled=False).order_by('timestamp')
 
 		if len(signups) > num_ppl_to_notify:
 			signups = signups[:num_ppl_to_notify]
+
+		datetime = self.get_date_string() + ', ' + self.get_time_interval_string()
+		location = self.school + ' ' + self.location
+
+		if self.school == 'Brown University':
+			url = 'www.brytephoto.com/school/brown'
+		elif self.school == 'Rhode Island College':
+			url = 'www.brytephoto.com/school/ric'
+		elif self.school == 'Boston University':
+			url = 'www.brytephoto.com/school/bu'
+		else:
+			url = ''
 
 		count = 0
 		for e in signups:
 			count += 1
 			name = e.name
 			email = e.email
-			title = 'New headshot sessions are opened!'
-			msg = 'Hi ' + name + ',\n\nGreat news! There are now ' + str(num_slots_available) + ' headshots sessions available! We are shooting tomorrow afternoon between 12:30 pm - 3:30 pm on the first floor of Brown CareerLAB. Book your session here:\n\nwww.brytephoto.com/CareerLAB\n\nBest, \nCareerLAB and the Team Bryte'
+			title = 'New headshot sessions are opened. Sign up now!'
+			msg = 'Hi ' + name + ',\n\nGreat news! There are now ' + str(num_slots_available) + ' headshots sessions available! We are shooting on' + datetime + ', at ' + location + '. Book your session here:\n\n' + url + '\n\nBest, \nTeam Bryte'
 			try:
-				send_mail(title, msg, 'Bryte and CareerLAB <' + settings.EMAIL_HOST_USER + '>', [email], fail_silently=False)
+				send_mail(title, msg, 'Bryte <' + settings.EMAIL_HOST_USER + '>', [email], fail_silently=False)
 			except Exception, e:
 				raise e
 			else:
@@ -509,41 +521,6 @@ class Nextshoot(models.Model):
 				e.save()
 				print '[SENT] ' + email
 		print str(count) + ' emails sent'
-
-
-	def notify_all(self):
-		signups = Signup.objects.filter(notified=False).order_by('timestamp')
-
-		for e in signups:
-			name = e.name
-			email = e.email
-			title = 'Free LinkedIn Headshots with Bryte Photo at CareerLAB!'
-			msg = 'Hi ' + name + ',\n\nGreat news! Bryte Photo is partnering with CareerLAB to offer free Linkedin headshots to all students this Friday, May 13th at Brown CareerLAB. We will be shooting between 12:30pm - 3:30pm on the first floor of CareerLAB. Book a session and learn more about Bryte Photo here:\n\nwww.brytephoto.com/CareerLAB\n\nBest, \nCareerLAB and the Bryte Photo Team'
-			try:
-				send_mail(title, msg, 'Bryte Photo and CareerLAB <' + settings.EMAIL_HOST_USER + '>', [email], fail_silently=False)
-			except Exception, e:
-				raise e
-			else:
-				print '[SENT] ' + email
-
-
-	def notify_some(self, email_name):
-		signups = Signup.objects.filter(notified=False).order_by('timestamp')
-		email_list = [e.email for e in signups]
-		index = email_list.index(email_name)
-		signups = signups[index+1:]
-
-		for e in signups:
-			name = e.name
-			email = e.email
-			title = 'Free LinkedIn Headshots with Bryte Photo at CareerLAB!'
-			msg = 'Hi ' + name + ',\n\nGreat news! Bryte Photo is partnering with CareerLAB to offer free Linkedin headshots to all students this Friday, May 13th at Brown CareerLAB. We will be shooting between 12:30pm - 3:30pm on the first floor of CareerLAB. Book a session and learn more about Bryte Photo here:\n\nwww.brytephoto.com/CareerLAB\n\nBest, \nCareerLAB and the Bryte Photo Team'
-			try:
-				send_mail(title, msg, 'Bryte Photo and CareerLAB <' + settings.EMAIL_HOST_USER + '>', [email], fail_silently=False)
-			except Exception, e:
-				raise e
-			else:
-				print '[SENT] ' + email
 
 
 	# temp method integrated with dropbox
@@ -693,7 +670,8 @@ class Booking(models.Model):
 				shoot = self.timeslot.shoot,
 				)
 		except Exception, e:
-			raise e
+			print e
+			pass
 		else:
 			print 'Signup instance is created ' + str(self.email)
 
@@ -1721,7 +1699,6 @@ class OriginalHeadshot(models.Model):
 	raw_url = models.CharField(max_length=80, blank=True, null=True)
 	deliverable_url = models.CharField(max_length=80, blank=True, null=True)
 	hash_id = models.CharField(max_length=20, default='default')
-
 
 
 	def __unicode__(self):
