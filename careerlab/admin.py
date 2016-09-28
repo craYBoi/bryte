@@ -1,14 +1,50 @@
 from django.contrib import admin
 from import_export.admin import ImportExportModelAdmin
+from import_export import resources
+from import_export import fields
 
 # Register your models here.
 from .models import Timeslot, Booking, Signup, Nextshoot, OriginalHeadshot, HeadshotPurchase, HeadshotOrder
 
+
+class HpResource(resources.ModelResource):
+
+	# image = fields.Field(column_name='Image/Email')
+	# special_request = fields.Field(column_name='Special Request')
+	# background = fields.Field(column_name='Background')
+	photoshoot = fields.Field(column_name='photoshoot folder')
+
+	class Meta:
+		model = HeadshotPurchase
+
+		fields = ('image', 'touchup', 'background', 'special_request',)
+		
+	def dehydrate_image(self, headshotpurchase):
+		return headshotpurchase.image.__unicode__()
+
+	def dehydrate_touchup(self, headshotpurchase):
+		return headshotpurchase.get_touchup_display()
+
+	def dehydrate_background(self, headshotpurchase):
+		return headshotpurchase.get_background_display()
+
+	def dehydrate_photoshoot(self, headshotpurchase):
+		return headshotpurchase.image.booking.timeslot.shoot
+
+
+class BookingResource(resources.ModelResource):
+
+	class Meta:
+		model = Booking
+		fields = ('id', 'email', 'timeslot')
+
+	def dehydrate_timeslot(self, booking):
+		return str(booking.timeslot.time)
+
+
 class NextshootAdmin(ImportExportModelAdmin):
 	list_display = ['id', 'photographer', 'location', 'school', 'active', 'name' ,'timestamp']
-
-class BookingAdmin(ImportExportModelAdmin):
-	list_display = ['id', 'email', 'name', 'timeslot', 'hash_id', 'dropbox_folder', 'upgrade_folder_path', 'show_up', 'timestamp']
+	
 
 class TimeslotAdmin(admin.ModelAdmin):
 	list_display = ['id', 'time', 'shoot','current_volumn', 'is_available']
@@ -22,9 +58,16 @@ class OriginalHeadshotAdmin(admin.ModelAdmin):
 class HeadshotOrderAdmin(admin.ModelAdmin):
 	list_display = ['booking', 'total', 'timestamp', 'address']
 
-class HeadshotPurchaseAdmin(admin.ModelAdmin):
-	list_display = ['image', 'order', 'touchup', 'background', 'package', 'total', 'special_request', 'charged', 'copied']
+class HeadshotPurchaseAdmin(ImportExportModelAdmin):
 
+	resource_class = HpResource
+
+	list_display = ['pk', 'image', 'order', 'touchup', 'background', 'package', 'total', 'special_request', 'charged', 'copied']
+
+class BookingAdmin(ImportExportModelAdmin):
+	resource_class = BookingResource
+
+	list_display = ['id', 'email', 'name', 'timeslot', 'hash_id', 'dropbox_folder', 'upgrade_folder_path', 'show_up', 'timestamp']
 
 admin.site.register(OriginalHeadshot, OriginalHeadshotAdmin)
 admin.site.register(HeadshotOrder, HeadshotOrderAdmin)
