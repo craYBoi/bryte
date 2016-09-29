@@ -756,7 +756,9 @@ class Booking(models.Model):
 			school_url = 'ccriknight'
 		elif school == 'Boston University':
 			school_url = 'bu'
-		else:
+		elif school == 'Rhode Island College':
+			school_url = 'ric'
+		elif school == 'Brown University':
 			school_url = 'brown'
 
 		# get template, version name, and automatically add to category
@@ -775,7 +777,7 @@ class Booking(models.Model):
 		message = sendgrid.Mail()
 		message.add_to(email)
 		message.set_from('Bryte Photo Inc <' + settings.EMAIL_HOST_USER + '>')
-		message.set_subject('Tips for your headshot tomorrow') 
+		message.set_subject('Tips for taking a great Linkedin photo') 
 		message.set_html('Body')
 		message.set_text('Body')
 		message.add_filter('templates','enable','1')
@@ -1728,8 +1730,9 @@ class HeadshotPurchase(models.Model):
 
 	TOUCHUPS = (
 		(1, 'Free'),
-		(2, 'Upgraded'),
-		(3, 'Customized'),
+		(2, 'Basic'),
+		(3, 'Professional'),
+		(4, 'Customized'),
 		)
 
 	touchup = models.PositiveSmallIntegerField(choices=TOUCHUPS, default=1)
