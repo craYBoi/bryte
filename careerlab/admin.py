@@ -36,7 +36,7 @@ class BookingResource(resources.ModelResource):
 
 	class Meta:
 		model = Booking
-		fields = ('id', 'email', 'timeslot')
+		fields = ('id', 'name', 'email', 'timeslot')
 
 	def dehydrate_timeslot(self, booking):
 		return str(booking.timeslot.time)
