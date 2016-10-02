@@ -31,6 +31,7 @@ PHOTO_DELIVERY_ID = '3ee6fdaa-0e23-4914-8f53-c06265dbbd57'
 ORDER_DELIVERY_ID = 'c8690ffe-8ca3-4531-b46e-dbf747bdc18b'
 PASSPORT_ID = 'daa1b2ab-9d4d-4023-8546-d2bd88b73c02'
 RIC_NOT_PAYING_ID = '91554ce0-b80a-4c1f-ad12-0a3ec606e29e'
+FIRST_AFTER_SHOOT_EMAIL_ID = '4463c390-4085-4936-863d-12652c8a0a0d'
 SURVEY_EMAIL_TO_RIC_ID = '6e9cb0a1-535b-42dc-9279-4b9d23f19a1a'
 SURVEY_EMAIL_TO_BROWN_ID = '5c562a0c-25f6-4151-a81a-99089ea00d61'
 
@@ -535,6 +536,16 @@ class Nextshoot(models.Model):
 		print 'Total --- ' + str(len(bookings)) + ' Emails\nSENT --- ' + str(count) + ' Emails'
 
 
+	def first_followups_after_shoot(self):
+		bookings = [e for elem in self.timeslot_set.all() for e in elem.booking_set.filter(show_up=True)]
+
+		count = 0
+		for booking in bookings:
+			if(booking.first_after_shoot_email()):
+				count += 1
+		print 'Total --- ' + str(len(bookings)) + ' Emails\nSENT --- ' + str(count) + ' Emails'
+
+
 	# temp method integrated with dropbox
 	def update_showups(self):
 		bookings = [e for elem in self.timeslot_set.all() for e in elem.booking_set.all()]
@@ -847,6 +858,61 @@ class Booking(models.Model):
 		message.add_substitution('-first_name-', first_name)
 		message.add_substitution('-unique_id-', hash_id)
 		message.add_substitution('-my_headshot-', my_headshot_link)
+
+		try:
+			sg.send(message)
+		except Exception, e:
+			print '[NOT SENT] --- ' + str(email) 
+		else:
+			send = True
+			print '[SENT] --- ' + str(email)
+		return send
+
+
+	def first_after_shoot_email(self):
+		sent = False
+		name = self.name
+		first_name = name.split(' ')[0]
+		email = self.email
+		hash_id = self.hash_id
+		timeslot = self.timeslot
+		shoot = timeslot.shoot
+		location = shoot.location
+		date = shoot.date
+		school = shoot.school
+
+
+		# get template, version name, and automatically add to category
+		email_purpose = 'Error'
+		version_number = 'Error'
+		try:
+			email_template = json.loads(sgapi.client.templates._(FIRST_AFTER_SHOOT_EMAIL_ID).get().response_body)
+			versions = email_template.get('versions')
+			version_number = [v.get('name') for v in versions if v.get('active')][0]
+			email_purpose = email_template.get('name')
+		except Exception, e:
+			pass
+
+		category = [school + ' - ' + str(date), email_purpose, version_number]
+
+		message = sendgrid.Mail()
+		message.add_to(email)
+		message.set_from('Bryte Photo Inc <' + settings.EMAIL_HOST_USER + '>')
+
+		# ccri followup
+		# message.set_subject('We\'ve fixed the issue, and now you can use mobile to download your free headshot')
+		message.set_subject('Your LinkedIn Headshots is ready for download!')
+ 
+		message.set_html('Body')
+		message.set_text('Body')
+		message.add_filter('templates','enable','1')
+
+		message.add_filter('templates','template_id', FIRST_AFTER_SHOOT_EMAIL_ID)
+
+		message.set_categories(category)
+
+		message.add_substitution('-first_name-', first_name)
+
 
 		try:
 			sg.send(message)
@@ -1721,8 +1787,11 @@ class HeadshotOrder(models.Model):
 	address = models.CharField(max_length=100, blank=True, null=True)
 
 
+
 class HeadshotPurchase(models.Model):
 	image = models.ForeignKey(OriginalHeadshot)
+	raw_url = models.CharField(max_length=80, blank=True, null=True)
+
 	order = models.ForeignKey(HeadshotOrder, blank=True, null=True)
 
 	charged = models.BooleanField(default=False)
@@ -1759,6 +1828,11 @@ class HeadshotPurchase(models.Model):
 	total = models.DecimalField(max_digits=5, decimal_places=2, default=0)
 	# keep track of if customer finishes a round
 	complete = models.BooleanField(default=False)
+	hash_id = models.CharField(max_length=8)
+
+
+	def save(self, *args, **kwargs):
+		self.raw_url = self.image.raw_url
 
 
 	def copy_to_tbr(self):
