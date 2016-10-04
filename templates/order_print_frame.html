@@ -178,35 +178,41 @@
         <div class="modal-body">
 
 
-        {% for order in orders %}
-        	<div class="small_padding"></div>
-					<div class="">
+        {% if orders %}
+	        {% for order in orders %}
+	        	<div class="small_padding"></div>
 						<div class="">
-							<div class="row text-left">
-								<div class="col-sm-5">
-									<img src="{{ order.image.raw_url }}" class="img-responsive">
-								</div>
-								<div class="col-sm-7">
-									<ul class="package_list sm_font bold">
-										<li>Style: {{ order.get_touchup_display }}</li>
-										{% if order.special_request %}
-											<li>Special Request: {{ order.special_request }}</li>
-										{% endif %}
-										<li>Background: {{ order.get_background_display }}</li>
-										<li>
-											Keepsakes: {{ order.get_package_display }}
-										</li>
-										<li>Subtotal: ${{ order.total }}</li>
-									</ul>
+							<div class="">
+								<div class="row text-left">
+									<div class="col-sm-5">
+										<img src="{{ order.image.raw_url }}" class="img-responsive">
+									</div>
+									<div class="col-sm-7">
+										<ul class="package_list sm_font bold">
+											<li>Style: {{ order.get_touchup_display }}</li>
+											{% if order.special_request %}
+												<li>Special Request: {{ order.special_request }}</li>
+											{% endif %}
+											<li>Background: {{ order.get_background_display }}</li>
+											<li>
+												Keepsakes: {{ order.get_package_display }}
+											</li>
+											<li>Subtotal: ${{ order.total }}</li>
+										</ul>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					<div class="small_padding"></div>
-        {% endfor %}
+	        	<div class="small_padding"></div>
+	        {% endfor %}        	
+	      {% else %}
+	      	<h2 class="text-center">Your cart is empty</h2>
+	      	<div class="medium_padding"></div>
+        {% endif %}
 
         </div>
 
+        {% if orders %}
         <div class="modal-footer droid_serif">
 					<form action='{% url "headshot_checkout" %}'>
 						<button class="ord_button_w toggle" type="submit">Checkout ${{ order_total }}</button>
@@ -218,6 +224,7 @@
 						<button type="submit" class="text_button">Start Over</button>
 					</form>
         </div>
+        {% endif %}
       </div>
     </div>
   </div>

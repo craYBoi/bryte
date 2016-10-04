@@ -5,23 +5,19 @@
 	<div class="droid_serif background_grey text-center">
 		<div class="container">
 			<div class="medium_padding"></div>
-			<h1 class="text-center landing_title">Thank you!</h1>
+			<h1 class="text-center landing_title">Congratulations on your order!</h1>
 			<div class="medium_padding"></div>
 
 			<p class="landing_text">
-				Thank you for the purchase! We will send you an email confirmation on the order, and will deliver the headshots to you in 72 hours!
+				You’ll receive an email to confirm your order with more details on it shortly.
 			</p>
 
 			<div class="medium_padding"></div>
 
 			<div class="center_content_600">
 
-				<p>Enter your email address you registered the photoshoot with to continue shopping:</p>
-				<form class="text-center" action="{% url 'headshot_error' %}">
-					<input type='email' name='hs_email' class="form-control" required placeholder='Email Address' onchange="try{setCustomValidity('')}catch(e){}">
-					<div class="medium_padding"></div>
-					<button class="ord_button_w" type="submit">Continue Shopping</button>
-				</form>
+				<a href="{% url 'headshot_index' %}"><button class="ord_button_w">Continue Shopping</button></a>
+
 				<div class="large_padding"></div>
 			</div>
 

@@ -1,17 +1,17 @@
 {% load staticfiles %}
 <!-- navbar-fixed-top navbar-default-->
 {% if not myheadshot %}
-{% if is_index %}
-  <nav class="navbar navbar-default" id="main_nav">
-{% elif is_contact %}
-  <nav class="navbar navbar-default navbar_grey navbar_border" id="main_nav">
-{% elif is_clients %}
-  <nav class="navbar navbar-default navbar_grey navbar_border" id="main_nav">
-{% elif brown_careerlab %}
-  <nav class="navbar navbar-default navbar_grey navbar_border" id="main_nav">
-{% else %}
-  <nav class="navbar navbar-default navbar_grey navbar_border" id="main_nav">
-{% endif %}
+  {% if is_index %}
+    <nav class="navbar navbar-default" id="main_nav">
+  {% elif is_contact %}
+    <nav class="navbar navbar-default navbar_grey navbar_border" id="main_nav">
+  {% elif is_clients %}
+    <nav class="navbar navbar-default navbar_grey navbar_border" id="main_nav">
+  {% elif brown_careerlab %}
+    <nav class="navbar navbar-default navbar_grey navbar_border" id="main_nav">
+  {% else %}
+    <nav class="navbar navbar-default navbar_grey navbar_border" id="main_nav">
+  {% endif %}
 
 
   
@@ -43,8 +43,15 @@
       {% endif %}
     </div>
 
+    {% if is_index %}
+      <div class="collapse navbar-collapse" id='bs-example-navbar-collapse-1'>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="bold">
+          <a href="{% url 'landing_clients' %}"><span class="white">Our partner schools</span></a></li>
+        </ul>
+      </div> 
+    {% endif %}
 
-    {% if not myheadshot %}
     <!--
     <div class="collapse navbar-collapse" id='bs-example-navbar-collapse-1'>
       <ul class="nav navbar-nav navbar-right">
@@ -56,7 +63,6 @@
       </ul>
     </div>  
     -->   
-    {% endif %}
 
   </div>
         <!-- border 
@@ -70,9 +76,24 @@
 
   <nav class="navbar navbar-default navbar_grey navbar_border" id="main_nav">
     <div class="navbar-header">
-      <a href="" class="navbar-brand"><img alt="Bryte Photo logo" src="{% static 'logo/bryte_logo_white.png' %}" height="45px"></a>
+      <a href="{% url 'headshot_index' %}" class="navbar-brand"><img alt="Bryte Photo logo" src="{% static 'logo/bryte_logo_white.png' %}" height="45px"></a>
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
     </div>
-  </nav>
+  
+    {% if not myheadshot_checkout %}
+    <div class="collapse navbar-collapse" id='bs-example-navbar-collapse-1'>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="bold">
+        <a data-toggle="modal" data-target="#cart_box"><span class="white">My Cart</span></a></li>
+      </ul>
+    </div>     
+    {% endif %}
 
+  </nav>
 {% endif %}
 

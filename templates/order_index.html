@@ -6,27 +6,21 @@
 	<div class="droid_serif background_grey">
 		<div class="mod_container">
 			<div class="large_padding"></div>
-			{% if show_button and proceed %}
-				<h1 class="text-center landing_title">Checkout, or create more photos to download</h1>
-			{% else %}
-				<h1 class="text-center landing_title">Select one of your photos</h1>
-			{% endif %}
-			
+				<h1 class="text-center landing_title">Choose one of your photos</h1>
 			<div class="medium_padding"></div>
 			<div class="small_padding"></div>
 
-			<!-- for second for more -->
+			<!-- for second for more 
 			{% if proceed and show_button %}
-				<div class="text-right special_padding">
+				<div class="special_padding">
 					<form action='{% url "headshot_checkout" %}'>
 						<button class="ord_button_w toggle" type="submit">Checkout ${{ order_total }}</button>
 					</form>
-					<div class="small_padding"></div>
-					<button class="ord_button_w" data-toggle="modal" data-target="#myCart">My Cart</button>
 				</div>
 
 				<div class="medium_padding"></div>
 			{% endif %}
+			-->
 
 			<div class="small_padding"></div>
 
@@ -34,7 +28,7 @@
 
 				{% cycle '<div class="row">' '' %}
 
-					<div class="col-sm-6 special_padding">
+					<div class="col-sm-6 special_padding_s">
 						<img src="{{ hs_url }}" class="img-responsive hs_shadow_border">
 						<div class="small_padding"></div>
 
@@ -43,9 +37,9 @@
 							<input type="hidden" value={{ hs_pk }} name="hs_pk">
 							<div class="text-center">
 								{% if proceed %}
-									<button class="ord_button toggle" type="submit">Create</button>
+									<button class="ord_button toggle" type="submit">Choose</button>
 								{% else %}
-									<button class="ord_button_w toggle" type="submit">Add</button>
+									<button class="ord_button_w toggle" type="submit">Choose</button>
 								{% endif %}
 							</div>
 						</form>
@@ -57,15 +51,12 @@
 
 			{% endfor %}
 
-
+			<div class="medium_padding"></div>
 		</div>
 
+<!--
 		{% if proceed and show_button %}
 			<div class="text-center special_padding">
-
-				<button class="ord_button_w small_padding_left" data-toggle="modal" data-target="#myCart">My Cart</button>
-
-				<div class="small_padding"></div>
 				<form action='{% url "headshot_checkout" %}'>
 					<button class="ord_button_w toggle" type="submit">Checkout ${{ order_total }}</button>
 				</form>
@@ -73,65 +64,68 @@
 
 			<div class="medium_padding"></div>
 		{% endif %}
+		-->
 	</div>
 
 
-  <div class="modal fade droid_serif" id="myCart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal fade droid_serif" id="cart_box" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 
     <div class="modal-dialog" role="document">
       <div class="modal-content background_grey">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="text-center bold big_font">My Cart</h4>
           <div class="xsmall_padding"></div>
         </div>
         <div class="modal-body">
+        	<div class="row">
+        		<div class="col-xs-10 col-xs-offset-1">
+        			<h3 class="text-center bold">I've got all the photos I'd like</h3>
+        			<div class="small_padding"></div>
+        			<div id="checkout_cart" class="all_padding">	
+        				{% for order in orders %}
+        					<article id="cart_{{ order.hash_id }}">
+        						<div class="small_padding"></div>
+        						<img src="{{ order.raw_url }}" class="img-responsive hs_shadow_border">
+        						<div class="xsmall_padding"></div>
+        						<ul class="package_list small_font">
+        							<li>Style: {{ order.get_touchup_display }}</li>
+        							<li>Background: {{ order.get_background_display }}</li>
+        							{% if order.package %}
+        								<li>Keepsake: {{ order.get_package_display }}</li>
+        							{% endif %}
+        							{% if order.special_request %}
+        								<li>Special requests: {{ order.special_request }}</li>
+        							{% endif %}
+        							<li>Subtotal: ${{ order.total }}</li>
+        							<li class="remove_buttons">
+        								<button class="remove_button italic text_button_black" name="{{ order.hash_id }}">remove</button>
+        							</li>
+        						</ul>
+        						<div class="small_padding"></div>
+        					</article>
+        				{% endfor %}
+        			</div>
+        			<div class="all_padding text-center">
+								<form action="{% url 'headshot_checkout' %}" id="headshot_checkout_form">
 
+									<!--
+										<input type='text' name='address' placeholder="Shipping Address" class="form-control" id="order_address" required onchange="try{setCustomValidity('')}catch(e){}">
+									-->
+									<h3>Order Total: $<span id="cart_total">{{ order_total }}</span></h3>
+									<div class="small_padding"></div>
+									<button class="black_order_button toggle" id="headshot_pay_button">Proceed to checkout</button>
+								</form>
+        			</div>
+        		</div>
+        	</div>
 
-        {% for order in orders %}
         	<div class="small_padding"></div>
-					<div class="">
-						<div class="">
-							<div class="row text-left">
-								<div class="col-sm-5">
-									<img src="{{ order.image.raw_url }}" class="img-responsive">
-								</div>
-								<div class="col-sm-7">
-									<ul class="package_list sm_font bold">
-										<li>Style: {{ order.get_touchup_display }}</li>
-										{% if order.special_request %}
-											<li>Special Request: {{ order.special_request }}</li>
-										{% endif %}
-										<li>Background: {{ order.get_background_display }}</li>
-										<li>
-											Keepsakes: {{ order.get_package_display }}
-										</li>
-										<li>Subtotal: ${{ order.total }}</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-        	<div class="small_padding"></div>
-        {% endfor %}
-
         </div>
-
         <div class="modal-footer">
-					<form action='{% url "headshot_checkout" %}'>
-						<button class="ord_button_w toggle" type="submit">Checkout ${{ order_total }}</button>
-					</form>
-					<div class="xsmall_padding"></div>
-					<div class="xsmall_padding"></div>
-					<form action="{% url 'headshot_index' %}">
-						<input type="hidden" name="startover" value="1">
-						<button type="submit" class="text_button">Start Over</button>
-					</form>
         </div>
       </div>
     </div>
   </div>
-
 
 	<!-- loader -->
 	<div id="loader-wrapper" hidden>
@@ -145,4 +139,27 @@
 		$('#loader-wrapper').show();  
 	})
 
+	$('.remove_buttons>button').on('click', function(e){
+		var id = $(this).attr('name');
+		$.ajax({
+			url: '{% url "headshot_remove" %}',
+			data: {hash_id: id},
+			success: function(data){
+				console.log("success");
+				$('article#cart_'+id).fadeOut(300);
+				// update the total
+				$('#cart_total').text(data['total']);
+
+				// hide the button
+				if(data['empty']){
+					$('#headshot_pay_button').fadeOut(300);
+				}else{
+					$('headshot_pay_button').show();
+				}
+			},
+			failure: function(data){
+			 	console.log('failure');
+			}
+		});
+	});
 {% endblock %}

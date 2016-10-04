@@ -11,21 +11,208 @@
 	<div class="droid_serif background_grey">
 		<div class="left_right_padding">
 			<div class="medium_padding"></div>
-			<h1 class="text-center landing_title">Style your photo</h1>
+			<h1 class="text-center landing_title bold">Touchup your photo for LinkedIn</h1>
 
 			<div class="small_padding"></div>
 
-
-			{% if cart %}
-				<div class="mod_container">
-					<div class="text-right special_padding">
-						<button class="ord_button" data-toggle="modal" data-target="#myCart">My Cart</button>
-					</div>
-				</div>
-			{% endif %}
-
 			<!-- headshot raw photos -->
 			<div class="mod_container">
+			<div class="row">
+				<div class="col-sm-4">
+					<div class="hs_margin">
+						<div class="text-center">
+						<img src="{% static 'img/headshots/examples/premium/white6.jpg' %}" class="full_width hs_shadow_border">
+						</div>
+					</div>
+
+					<div class="text-center">
+
+						<h2 class="text-center bold">Basic</h2>
+
+						<div class="sm_padding"></div>
+
+						<div class="center_flex"><div class="inline"><span class="small_font sm_padding lightgray xs_padding_right">Pay at checkout</span><p class="xlarge_font dark_grey">$8</p><span class="small_font sm_padding lightgray xs_padding_left">Keep it forever</span></div></div>
+						
+
+
+						<!-- work on the modal button -->
+						<a data-toggle="modal" data-target="#basic_example"><button class="text_button large_font">See More Examples</button></a>
+						<div class="medium_padding"></div>
+
+						<div class="colorbox_container" id="basic_colorbox">
+							<div class="colorbox_white colorbox" data-toggle="tooltip" data-placement="top" title="White" name="White"></div>
+						</div>
+
+						<div class="small_padding"></div>
+						<p class="grey italic">No special request</p>
+						<div class="small_padding"></div>
+
+
+						<form action="{% url 'headshot_print_frame' %}">
+							<input type="hidden" name='touchup' value='2' id="basic_touchup">
+							<input type="hidden" name='background' value='1' id="basic_background">
+							<input type="hidden" name='hs_id' value='{{ hs_id }}'>
+
+							<input type="hidden" name='subtotal' value='8' id="basic_price">
+						</form>
+						<button class="ord_button_w" id="basic_add">Touchup</button>
+						<button data-toggle="modal" data-target="#checkout_box" class="ord_button_w" id="basic_add_shadow" hidden>Touchup</button>
+
+					</div>
+
+					<div class="medium_padding"></div>
+					<div class="small_padding top_black_border_s"></div>
+					<ul class="spec_list droid_serif grey text-center all_padding">
+						<li>High definition image clarity</li>
+						<li>Refined cropping by our Guru Photoshoppers</li>
+					</ul>
+					<div class="small_padding"></div>
+					<div class="text-center">
+					<a data-toggle="modal" data-target="#basic_example"><button class="text_button large_font">See More Examples</button></a>
+					</div>
+				</div>
+
+
+				<div class="col-sm-4">
+					<div class="hs_margin hs_shadow_border">
+						<img src="{% static 'img/headshots/examples/premium/black.jpg' %}" class="img-responsive" id="prof_hs">
+					</div>
+
+					<div class="text-center">
+						<h2 class="text-center bold">Standard</h2>
+						<div class="sm_padding"></div>
+						<div class="center_flex"><div class="inline"><span class="small_font sm_padding lightgray xs_padding_right">Pay at checkout</span><p class="xlarge_font dark_grey">$10</p><span class="small_font sm_padding lightgray xs_padding_left">Keep it forever</span></div></div>
+
+
+						<!-- work on the modal button -->
+						<a data-toggle="modal" data-target="#professional_example"><button class="text_button large_font">See More Examples</button></a>
+						<div class="medium_padding"></div>
+
+						<div class="colorbox_container" id="prof_colorbox">
+							<div class="colorbox_black colorbox" data-toggle="tooltip" data-placement="top" title="Nighttime Black" name="Nighttime Black"></div>
+							<div class="colorbox_padding"></div>
+							<div class="colorbox_blue colorbox" data-toggle="tooltip" data-placement="top" title="Sanguine Blue" name="Sanguine Blue"></div>
+							<div class="colorbox_padding"></div>
+							<div class="colorbox_gray colorbox" data-toggle="tooltip" data-placement="top" title="Polished Gray" name="Polished Gray"></div>
+							<div class="colorbox_padding"></div>
+							<div class="colorbox_brick colorbox" data-toggle="tooltip" data-placement="top" title="Designer Brick" name="Designer Brick"></div>
+						</div>
+
+						<div class="small_padding"></div>
+						<p class="grey italic">No special request</p>
+						<div class="small_padding"></div>
+
+						<form action="{% url 'headshot_print_frame' %}">
+							<input type="hidden" name='touchup' value='3' id="prof_touchup">
+							<input type="hidden" name='background' id="prof_background">
+							<input type="hidden" name='hs_id' value='{{ hs_id }}'>
+							<input type="hidden" name='subtotal' value='10' id="prof_price">
+
+						</form>
+						<button class="ord_button_w" id="prof_add">Touchup</button>
+						<button class="ord_button_w" id="prof_add_shadow" data-toggle="modal" data-target="#checkout_box" hidden>Touchup</button>
+
+
+						<div id="prof_warning_color" class="small_padding" hidden>
+						<div class="alert alert-danger">
+						  <strong>Please choose a color first</strong>
+						</div>
+						</div>
+					</div>
+
+					<div class="medium_padding"></div>
+					<div class="small_padding top_black_border_s"></div>
+					<ul class="spec_list droid_serif grey text-center all_padding">
+						<li>High definition image clarity</li>
+						<li>Refined cropping by a our Guru Photoshoppers</li>
+						<li>Brings out eyes and teeth</li>
+						<li>Choose you background</li>
+					</ul>
+
+					<div class="small_padding"></div>
+					<div class="text-center">
+					<a data-toggle="modal" data-target="#professional_example"><button class="text_button large_font">See More Examples</button></a>
+					</div>
+				</div>
+
+
+				<div class="col-sm-4">
+					<div class="hs_margin hs_shadow_border">
+						<img src="{% static 'img/headshots/examples/customized/famosh.jpg' %}" class="img-responsive" id="cust_hs">
+					</div>
+
+					<div class="text-center">
+						<h2 class="text-center bold">Customized</h2>
+						<div class="sm_padding"></div>
+						<div class="center_flex"><div class="inline"><span class="small_font sm_padding lightgray xs_padding_right">Pay at checkout</span><p class="xlarge_font dark_grey">$14</p><span class="small_font sm_padding lightgray xs_padding_left">Keep it forever</span></div></div>
+
+
+						<!-- work on the modal button -->
+						<a data-toggle="modal" data-target="#CustomizedExample"><button class="text_button large_font">See More Examples</button></a>
+						<div class="medium_padding"></div>
+
+
+						<div class="colorbox_container" id="cust_colorbox">
+							<div class="colorbox_black colorbox" data-toggle="tooltip" data-placement="top" title="Nighttime Black" name="Nighttime Black"></div>
+							<div class="colorbox_padding"></div>
+							<div class="colorbox_blue colorbox" data-toggle="tooltip" data-placement="top" title="Sanguine Blue" name="Sanguine Blue"></div>
+							<div class="colorbox_padding"></div>
+							<div class="colorbox_gray colorbox" data-toggle="tooltip" data-placement="top" title="Polished Gray" name="Polished Gray"></div>
+							<div class="colorbox_padding"></div>
+							<div class="colorbox_brick colorbox" data-toggle="tooltip" data-placement="top" title="Designer Brick" name="Designer Brick"></div>
+						</div>
+
+						<div class="small_padding"></div>
+
+
+						<!-- custom request -->
+						<form action="{% url 'headshot_print_frame' %}">
+							<input type="text" name='special_request' class="max_width_150" id="cust_special_request" placeholder="Special requests!" id="cust_special_request">
+							<input type="hidden" name='background' id="cust_background">
+							<input type="hidden" name='touchup' value='4' id="cust_touchup">
+							<input type="hidden" name='hs_id' value='{{ hs_id }}'>
+							<input type="hidden" name='subtotal' value='14' id="cust_price">
+							<div class="small_padding"></div>
+
+							<button class="ord_button_w" id="cust_add">Touchup</button>
+							<button class="ord_button_w" id="cust_add_shadow" data-toggle="modal" data-target="#checkout_box" hidden>Touchup</button>
+
+							<div id="cust_warning_color" class="small_padding" hidden>
+								<div class="alert alert-danger">
+								  <strong>Please choose a color first</strong>
+								</div>
+							</div>
+							<div id="cust_warning_request" class="small_padding" hidden>
+								<div class="alert alert-danger">
+								  <strong>Please type your special request</strong>
+								</div>
+							</div>
+						</form>
+
+						
+
+
+
+
+					</div>
+
+					<div class="medium_padding"></div>
+					<div class="small_padding top_black_border_s"></div>
+					<ul class="spec_list droid_serif grey text-center all_padding">
+						<li>High definition image clarity</li>
+						<li>Refined cropping by a our Guru Photoshoppers</li>
+						<li>Brings out eyes and teeth</li>
+						<li>Choose you background</li>
+						<li>Make special requests! Get rid of piercings, acnes and more</li>
+					</ul>
+
+					<div class="small_padding"></div>
+					<div class="text-center">
+					<a data-toggle="modal" data-target="#CustomizedExample"><button class="text_button large_font">See More Examples</button></a>
+					</div>
+				</div>
+			</div>
+
 			<div class="row">
 				<div class="col-sm-4">
 					<div class="hs_margin">
@@ -36,122 +223,45 @@
 
 					<div class="text-center">
 						{% if proceed %}
-							<h2 class="text-center">Dollar</h2>
+							<h2 class="text-center" id="free_title">Dollar</h2>
 						{% else %}
-							<h2 class="text-center">Free</h2>
+							<h2 class="text-center" id="free_title">Free</h2>
 						{% endif %}
 						<div class="small_padding"></div>
 						{% if proceed %}
-						<div class="center_flex"><div class="inline"><span class="small_font sm_padding lightgray xs_padding_right">Pay at checkout</span><p class="big_font">$1</p><span class="small_font sm_padding lightgray xs_padding_left">Keep it forever</span></div></div>
+						<div class="center_flex"><div class="inline"><span class="small_font sm_padding lightgray xs_padding_right">Pay at checkout</span><p class="xlarge_font dark_grey">$1</p><span class="small_font sm_padding lightgray xs_padding_left">Keep it forever</span></div></div>
 						{% else %}
-							<p class="big_font">$0</p>
+							<p class="big_font">$<span id="free_list_price">0</span></p>
 						{% endif %}
 						
 
 						<div class="xsmall_padding"></div>
 
 						<!-- work on the modal button -->
-						<a data-toggle="modal" data-target="#touchupExample"><button class="text_button">See More Examples</button></a>
+						<a data-toggle="modal" data-target="#free_example"><button class="text_button_gray">See More Examples</button></a>
 						<div class="small_padding"></div>
 
-						<form action="{% url 'headshot_background' %}">
-							<input type="hidden" name='touchup' value='1'>
+						<form action="{% url 'headshot_print_frame' %}">
+							<input type="hidden" name='touchup' value='1' id="free_touchup">
+							<input type="hidden" name='background' value='1' id="free_background">
 							<input type="hidden" name='hs_id' value='{{ hs_id }}'>
 
 							{% if proceed %}
-								<input type="hidden" name='subtotal' value='1'>
+								<input type="hidden" name='subtotal' value='1' id="free_price">
 							{% else %}
-								<input type="hidden" name='subtotal' value='0'>
+								<input type="hidden" name='subtotal' value='0' id="free_price">
 							{% endif %}
 							
-							<button class="ord_button_w toggle" type="submit">Add</button>
+							
 						</form>
+						<button class="ord_button_gray" type="submit" id="free_add">No touchup</button>
+						<button class="ord_button_gray" type="submit" id="free_add_shadow" data-toggle="modal" data-target="#checkout_box" hidden>No touchup</button>
 					</div>
 
-					<div class="small_padding"></div>
-
-					<p class="small_font droid_serif grey italic all_padding text-center">Adds only enough for a usable professional photo.</p>
-					<hr>
+					<div class="medium_padding"></div>
+					<div class="small_padding top_black_border_s"></div>
 					<ul class="spec_list droid_serif grey text-center all_padding">
-						<li>Adequate image clarity</li>
-						<li>Cropped to a square</li>
-						<li>No lighting adjustments</li>
-						<li>No extra details</li>
-					</ul>
-				</div>
-
-
-				<div class="col-sm-4">
-					<div class="hs_margin hs_shadow_border">
-						<img src="{% static 'img/headshots/examples/premium/white.jpg' %}" class="img-responsive">
-					</div>
-
-					<div class="text-center">
-						<h2 class="text-center">Upgraded</h2>
-						<div class="small_padding"></div>
-						<div class="center_flex"><div class="inline"><span class="small_font sm_padding lightgray xs_padding_right">Pay at checkout</span><p class="big_font">$8</p><span class="small_font sm_padding lightgray xs_padding_left">Keep it forever</span></div></div>
-
-						<div class="xsmall_padding"></div>
-
-						<!-- work on the modal button -->
-						<a data-toggle="modal" data-target="#touchupExample"><button class="text_button">See More Examples</button></a>
-						<div class="small_padding"></div>
-						<form action="{% url 'headshot_background' %}">
-							<input type="hidden" name='touchup' value='2'>
-							<input type="hidden" name='hs_id' value='{{ hs_id }}'>
-							<input type="hidden" name='subtotal' value='8'>
-							<button class="ord_button_w toggle" type="submit">Add</button>
-						</form>
-					</div>
-
-					<div class="small_padding"></div>
-
-					<p class="small_font droid_serif grey italic all_padding text-center">A style equipped with additional features that steps above the average.</p>
-					<hr>
-					<ul class="spec_list droid_serif grey text-center all_padding">
-						<li>High definition image clarity</li>
-						<li>Refined cropping by a our Guru Photoshoppers</li>
-						<li>Vivid lighting throughout the photo</li>
-						<li>Brings out eyes and teeth</li>
-					</ul>
-				</div>
-
-
-				<div class="col-sm-4">
-					<div class="hs_margin hs_shadow_border">
-						<img src="{% static 'img/headshots/examples/premium/white2.jpg' %}" class="img-responsive">
-					</div>
-
-					<div class="text-center">
-						<h2 class="text-center">Customized</h2>
-						<div class="small_padding"></div>
-						<div class="center_flex"><div class="inline"><span class="small_font sm_padding lightgray xs_padding_right">Pay at checkout</span><p class="big_font">$14</p><span class="small_font sm_padding lightgray xs_padding_left">Keep it forever</span></div></div>
-
-						<div class="xsmall_padding"></div>
-
-						<!-- work on the modal button -->
-						<a data-toggle="modal" data-target="#CustomizedExample"><button class="text_button">See More Examples</button></a>
-						<div class="small_padding"></div>
-						<!--
-						<form action="{% url 'headshot_background' %}">
-							<input type="hidden" name='touchup' value='3'>
-							<input type="hidden" name='hs_id' value='{{ hs_id }}'>
-							<input type="hidden" name='subtotal' value='14'>
-							<button class="ord_button_w" type="submit">Choose</button>
-						</form>
-						-->
-						<a data-toggle="modal" data-target="#special_request"><button class="ord_button_w">Add</button></a>
-					</div>
-
-					<div class="small_padding"></div>
-
-					<p class="small_font droid_serif grey italic all_padding text-center">Perfect, polish, and shine – get a photo ready for the cover of Fortune Magazine.</p>
-					<hr>
-					<ul class="spec_list droid_serif grey text-center all_padding">
-						<li><span class="bold">Everything in  "Upgraded"</span>, plus</li>
-						<li>Make special requests! Get rid of the unprofessional piercings unexpectedly still on you. Text box will appear once you "Add" the customized style.</li>
-						<li>Livens your skin with acne touchup</li>
-						<li>Removes split ends and unflattering facial hair</li>
+						<li>Adequate clarity, cropped to a square</li>
 					</ul>
 				</div>
 			</div>
@@ -162,49 +272,8 @@
 	</div>
 
 
-
-	<!-- special request popup -->
-  <div class="modal fade droid_serif" id="special_request" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-
-    <div class="modal-dialog" role="document">
-      <div class="modal-content background_grey">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <div class="xsmall_padding"></div>
-        </div>
-        <div class="modal-body">
-        <div class="row">
-        	<div class="col-xs-10 col-xs-offset-1">
-        		<img src="{{ hs.raw_url }}" class="img-responsive hs_shadow_border">
-        	</div>
-        </div>
-        <div class="small_padding"></div>
-        <h4 class="text-center bold big_font">Enter your special request</h4>
-        <div class="xsmall_padding"></div>
-
-				<form action="{% url 'headshot_background' %}">
-					<div class="center_content_600">
-					<input type="text" name='special_request' class="form-control">
-					</div>
-					<input type="hidden" name='touchup' value='3'>
-					<input type="hidden" name='hs_id' value='{{ hs_id }}'>
-					<input type="hidden" name='subtotal' value='14'>
-					<div class="small_padding"></div>
-					<div class="text-center">
-						<button class="ord_button_w toggle" type="submit">
-					Sounds good!</button>
-					</div>
-				</form>
-
-        </div>
-
-        <div class="modal-footer">
-        </div>
-      </div>
-    </div>
-  </div>
 	<!-- basic style example -->
-
+	<!--
   <div class="modal fade droid_serif" id="myCart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 
     <div class="modal-dialog" role="document">
@@ -214,94 +283,96 @@
           <h4 class="text-center bold big_font">My Cart</h4>
           <div class="xsmall_padding"></div>
         </div>
-        <div class="modal-body">
-
-
-        {% for order in orders %}
-        	<div class="small_padding"></div>
-					<div class="">
-						<div class="">
-							<div class="row text-left">
-								<div class="col-sm-5">
-									<img src="{{ order.image.raw_url }}" class="img-responsive">
-								</div>
-								<div class="col-sm-7">
-									<ul class="package_list sm_font bold">
-										<li>Style: {{ order.get_touchup_display }}</li>
-										{% if order.special_request %}
-											<li>Special Request: {{ order.special_request }}</li>
-										{% endif %}
-										<li>Background: {{ order.get_background_display }}</li>
-										<li>
-											Keepsakes: {{ order.get_package_display }}
-										</li>
-										<li>Subtotal: ${{ order.total }}</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-        	<div class="small_padding"></div>
-        {% endfor %}
+        <div class="modal-body" id="myCartContent">
 
         </div>
 
-        <div class="modal-footer">
-					<form action='{% url "headshot_checkout" %}'>
-						<button class="ord_button_w toggle" type="submit">Checkout ${{ order_total }}</button>
-					</form>
-					<div class="xsmall_padding"></div>
-					<div class="xsmall_padding"></div>
-					<form action="{% url 'headshot_index' %}">
-						<input type="hidden" name="startover" value="1">
-						<button type="submit" class="text_button">Start Over</button>
-					</form>
-        </div>
+
+	        <div class="modal-footer">
+						<form action='{% url "headshot_checkout" %}'>
+							<button class="ord_button_w" type="submit">Checkout ${{ order_total }}</button>
+						</form>
+						<div class="xsmall_padding"></div>
+						<div class="xsmall_padding"></div>
+						<form action="{% url 'headshot_index' %}">
+							<input type="hidden" name="startover" value="1">
+							<button type="submit" class="text_button">Start Over</button>
+						</form>
+	        </div>        	
+
+
       </div>
     </div>
   </div>
+  -->
 
 
-  <div class="modal fade droid_serif" id="touchupExample" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal fade droid_serif" id="basic_example" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 
     <div class="modal-dialog example_modal" role="document">
       <div class="modal-content background_grey">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="text-center bold big_font">Examples</h4>
+          <h4 class="text-center bold big_font">Basic Examples</h4>
           <div class="xsmall_padding"></div>
         </div>
         <div class="modal-body">
         	<div class="row">
-        		<div class="col-xs-6 center_flex">
-        			{% if proceed %}
-        			<h3 class="text-center">Dollar</h3>
-        			{% else %}
-        			<h3 class="text-center">Free</h3>
-        			{% endif %}
-        			<div class="small_padding"></div>
-        			<img src="{% static 'img/headshots/examples/free/white.JPG' %}" class="img-responsive max_width_250 hs_shadow_border">
-        			<div class="small_padding"></div>
-        			<img src="{% static 'img/headshots/examples/free/black1.jpg' %}" class="img-responsive max_width_250 hs_shadow_border">
-        			<div class="small_padding"></div>
-        			<img src="{% static 'img/headshots/examples/free/gray.jpg' %}" class="img-responsive max_width_250">
-        			<div class="small_padding"></div>
-        			<img src="{% static 'img/headshots/examples/free/white2.jpg' %}" class="img-responsive max_width_250">
-        			<div class="small_padding"></div>
-        			<img src="{% static 'img/headshots/examples/free/brick.jpg' %}" class="img-responsive max_width_250">
+        		<div class="col-sm-6 center_flex">
+        			<img src="{% static 'img/headshots/examples/green/alex3.jpg' %}" class="hs_shadow_border img-responsive">
         		</div>
-        		<div class="col-xs-6 center_flex">
-        			<h3 class="text-center">Upgraded</h3>
-        			<div class="small_padding"></div>
-        			<img src="{% static 'img/headshots/examples/premium/white.jpg' %}" class="hs_shadow_border max_width_250">
-        			<div class="small_padding"></div>
-        			<img src="{% static 'img/headshots/examples/premium/black1.jpg' %}" class="hs_shadow_border max_width_250">
-        			<div class="small_padding"></div>
-        			<img src="{% static 'img/headshots/examples/premium/gray.jpg' %}" class="hs_shadow_border max_width_250">
-        			<div class="small_padding"></div>
-        			<img src="{% static 'img/headshots/examples/premium/white2.jpg' %}" class="hs_shadow_border max_width_250">
-        			<div class="small_padding"></div>
-        			<img src="{% static 'img/headshots/examples/premium/brick.jpg' %}" class="hs_shadow_border max_width_250">
+        		<div class="col-sm-6 center_flex">
+        			<img src="{% static 'img/headshots/examples/premium/white6.jpg' %}" class="hs_shadow_border max_height_250">
+        		</div>
+        	</div>
+
+        	<div class="small_padding"></div>
+        	<div class="row">
+        		<div class="col-sm-6 center_flex">
+        			<img src="{% static 'img/headshots/examples/green/bella3.jpg' %}" class="hs_shadow_border img-responsive">
+        		</div>
+        		<div class="col-sm-6 center_flex">
+        			<img src="{% static 'img/headshots/examples/premium/white3.jpg' %}" class="hs_shadow_border max_height_250">
+        		</div>
+        	</div>
+
+        	<div class="small_padding"></div>
+        	<div class="row">
+        		<div class="col-sm-6 center_flex">
+        			<img src="{% static 'img/headshots/examples/green/sammy2.jpg' %}" class="hs_shadow_border img-responsive">
+        		</div>
+        		<div class="col-sm-6 center_flex">
+        			<img src="{% static 'img/headshots/examples/premium/white2.jpg' %}" class="hs_shadow_border max_height_250">
+        		</div>
+        	</div>
+
+        	<div class="small_padding"></div>
+        	<div class="row">
+        		<div class="col-sm-6 center_flex">
+        			<img src="{% static 'img/headshots/examples/green/amen1.jpg' %}" class="hs_shadow_border img-responsive">
+        		</div>
+        		<div class="col-sm-6 center_flex">
+        			<img src="{% static 'img/headshots/examples/premium/white1.jpg' %}" class="hs_shadow_border max_height_250">
+        		</div>
+        	</div>
+
+        	<div class="small_padding"></div>
+        	<div class="row">
+        		<div class="col-sm-6 center_flex">
+        			<img src="{% static 'img/headshots/examples/green/brittney1.jpg' %}" class="hs_shadow_border img-responsive">
+        		</div>
+        		<div class="col-sm-6 center_flex">
+        			<img src="{% static 'img/headshots/examples/premium/white4.jpg' %}" class="hs_shadow_border max_height_250">
+        		</div>
+        	</div>
+
+        	<div class="small_padding"></div>
+        	<div class="row">
+        		<div class="col-sm-6 center_flex">
+        			<img src="{% static 'img/headshots/examples/green/ben1.jpg' %}" class="hs_shadow_border img-responsive">
+        		</div>
+        		<div class="col-sm-6 center_flex">
+        			<img src="{% static 'img/headshots/examples/premium/white5.jpg' %}" class="hs_shadow_border max_height_250">
         		</div>
         	</div>
 
@@ -313,29 +384,121 @@
     </div>
   </div>
 
+  <div class="modal fade droid_serif" id="professional_example" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 
-  <div class="modal fade droid_serif" id="CustomizedExample" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-
-    <div class="modal-dialog example_modal_s" role="document">
+    <div class="modal-dialog example_modal" role="document">
       <div class="modal-content background_grey">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="text-center bold big_font">Examples</h4>
+          <h4 class="text-center bold big_font">Standard Examples</h4>
           <div class="xsmall_padding"></div>
         </div>
         <div class="modal-body">
         	<div class="row">
-        		<div class="col-xs-10 col-xs-offset-1 center_flex">
-        			<h3 class="text-center">Customized</h3>
+        		<div class="col-sm-6 center_flex">
+        			<img src="{% static 'img/headshots/examples/green/ben2.jpg' %}" class="hs_shadow_border img-responsive">
+        		</div>
+        		<div class="col-sm-6 center_flex">
+        			<img src="{% static 'img/headshots/examples/premium/black4.jpg' %}" class="hs_shadow_border max_height_250">
+        		</div>
+        	</div>
+
+        	<div class="small_padding"></div>
+        	<div class="row">
+        		<div class="col-sm-6 center_flex">
+        			<img src="{% static 'img/headshots/examples/green/michael1.jpg' %}" class="hs_shadow_border img-responsive">
+        		</div>
+        		<div class="col-sm-6 center_flex">
+        			<img src="{% static 'img/headshots/examples/premium/black5.jpg' %}" class="hs_shadow_border max_height_250">
+        		</div>
+        	</div>
+
+        	<div class="small_padding"></div>
+        	<div class="row">
+        		<div class="col-sm-6 center_flex">
+        			<img src="{% static 'img/headshots/examples/green/bella2.jpg' %}" class="hs_shadow_border img-responsive">
+        		</div>
+        		<div class="col-sm-6 center_flex">
+        			<img src="{% static 'img/headshots/examples/premium/blue3.jpg' %}" class="hs_shadow_border max_height_250">
+        		</div>
+        	</div>
+
+        	<div class="small_padding"></div>
+        	<div class="row">
+        		<div class="col-sm-6 center_flex">
+        			<img src="{% static 'img/headshots/examples/green/brittney2.jpg' %}" class="hs_shadow_border img-responsive">
+        		</div>
+        		<div class="col-sm-6 center_flex">
+        			<img src="{% static 'img/headshots/examples/premium/blue4.jpg' %}" class="hs_shadow_border max_height_250">
+        		</div>
+        	</div>
+
+        	<div class="small_padding"></div>
+        	<div class="row">
+        		<div class="col-sm-6 center_flex">
+        			<img src="{% static 'img/headshots/examples/green/sammy2.jpg' %}" class="hs_shadow_border img-responsive">
+        		</div>
+        		<div class="col-sm-6 center_flex">
+        			<img src="{% static 'img/headshots/examples/premium/gray1.jpg' %}" class="hs_shadow_border max_height_250">
+        		</div>
+        	</div>
+        	<div class="small_padding"></div>
+        	<div class="row">
+        		<div class="col-sm-6 center_flex">
+        			<img src="{% static 'img/headshots/examples/green/bella1.jpg' %}" class="hs_shadow_border img-responsive">
+        		</div>
+        		<div class="col-sm-6 center_flex">
+        			<img src="{% static 'img/headshots/examples/premium/gray3.jpg' %}" class="hs_shadow_border max_height_250">
+        		</div>
+        	</div>
+
+        	<div class="small_padding"></div>
+        	<div class="row">
+        		<div class="col-sm-6 center_flex">
+        			<img src="{% static 'img/headshots/examples/green/amen2.jpg' %}" class="hs_shadow_border img-responsive">
+        		</div>
+        		<div class="col-sm-6 center_flex">
+        			<img src="{% static 'img/headshots/examples/premium/brick.jpg' %}" class="hs_shadow_border max_height_250">
+        		</div>
+        	</div>
+
+        	<div class="small_padding"></div>
+        	<div class="row">
+        		<div class="col-sm-6 center_flex">
+        			<img src="{% static 'img/headshots/examples/green/sammy3.jpg' %}" class="hs_shadow_border img-responsive">
+        		</div>
+        		<div class="col-sm-6 center_flex">
+        			<img src="{% static 'img/headshots/examples/premium/brick5.jpg' %}" class="hs_shadow_border max_height_250">
+        		</div>
+        	</div>
+        	<div class="small_padding"></div>
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade droid_serif" id="free_example" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+    <div class="modal-dialog example_modal" role="document">
+      <div class="modal-content background_grey">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="text-center bold big_font">Free Examples</h4>
+          <div class="xsmall_padding"></div>
+        </div>
+        <div class="modal-body">
+        	<div class="row">
+        		<div class="col-xs-6 center_flex">
+        			<img src="{% static 'img/headshots/examples/free/white1.jpg' %}" class="hs_shadow_border max_width_250">
         			<div class="small_padding"></div>
-        			<img src="{% static 'img/headshots/examples/premium/white2.jpg' %}" class="img-responsive hs_shadow_border">
-        			<ul class="small_padding">
-        				<li>* Glare removed on glasses</li>
-        				<li>* Unprofessional piercings removed</li>
-        				<li>* Acne touched up</li>
-        				<li>* Stray hair removed</li>
-        			</ul>
-        			
+        			<img src="{% static 'img/headshots/examples/free/white6.jpg' %}" class="hs_shadow_border max_width_250">
+        		</div>
+        		<div class="col-xs-6 center_flex">
+        			<img src="{% static 'img/headshots/examples/free/white4.jpg' %}" class="hs_shadow_border max_width_250">
+        			<div class="small_padding"></div>
+        			<img src="{% static 'img/headshots/examples/free/white5.jpg' %}" class="hs_shadow_border max_width_250">
         		</div>
         	</div>
 
@@ -347,6 +510,238 @@
     </div>
   </div>
 
+  <div class="modal fade droid_serif" id="CustomizedExample" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+    <div class="modal-dialog example_modal" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="text-center bold big_font">Customized Examples</h4>
+          <div class="xsmall_padding"></div>
+        </div>
+        <div class="modal-body">
+        	
+
+        	<h3 class="text-center">Clean up the tie</h3>
+        	<div class="small_padding"></div>
+        	<div class="row">
+        		<div class="col-sm-6 center_flex">
+        			<img src="{% static 'img/headshots/examples/customized/asgon_o.jpg' %}" class="hs_shadow_border max_height_250">
+        			<p class="sm_padding large_font text-center">Before</p>
+        		</div>
+        		<div class="col-sm-6 center_flex">
+        			<img src="{% static 'img/headshots/examples/customized/asgon.jpg' %}" class="hs_shadow_border max_height_250">
+        			<p class="sm_padding large_font text-center">After</p>
+        		</div>
+        	</div>
+
+        	<h3 class="text-center">Remove necklace</h3>
+        	<div class="small_padding"></div>
+        	<div class="row">
+        		<div class="col-sm-6 center_flex">
+        			<img src="{% static 'img/headshots/examples/customized/famosh_o.jpg' %}" class="hs_shadow_border max_height_250">
+        			<p class="sm_padding large_font text-center">Before</p>
+        		</div>
+        		<div class="col-sm-6 center_flex">
+        			<img src="{% static 'img/headshots/examples/customized/famosh.jpg' %}" class="hs_shadow_border max_height_250">
+        			<p class="sm_padding large_font text-center">After</p>
+        		</div>
+        	</div>
+
+
+					<h3 class="text-center">Remove acnes</h3>
+        	<div class="small_padding"></div>
+        	<div class="row">
+        		<div class="col-sm-6 center_flex">
+        			<img src="{% static 'img/headshots/examples/customized/nick_o.jpg' %}" class="hs_shadow_border max_height_250">
+        			<p class="sm_padding large_font text-center">Before</p>
+        		</div>
+        		<div class="col-sm-6 center_flex">
+        			<img src="{% static 'img/headshots/examples/customized/nick.jpg' %}" class="hs_shadow_border max_height_250">
+        			<p class="sm_padding large_font text-center">After</p>
+        		</div>
+        	</div>
+
+        	<div class="small_padding"></div>
+        	<div class="row">
+        		<div class="col-sm-6 center_flex">
+        			<img src="{% static 'img/headshots/examples/customized/jay_o.jpg' %}" class="hs_shadow_border max_height_250">
+        			<p class="sm_padding large_font text-center">Before</p>
+        		</div>
+        		<div class="col-sm-6 center_flex">
+        			<img src="{% static 'img/headshots/examples/customized/jay.jpg' %}" class="hs_shadow_border max_height_250">
+        			<p class="sm_padding large_font text-center">After</p>
+        		</div>
+        	</div>
+
+
+        	<h3 class="text-center">Remove nose rings</h3>
+        	<div class="small_padding"></div>
+        	<div class="row">
+        		<div class="col-sm-6 center_flex">
+        			<img src="{% static 'img/headshots/examples/customized/olivia.jpg' %}" class="hs_shadow_border max_height_250">
+        			<p class="sm_padding large_font text-center">Before</p>
+        		</div>
+        		<div class="col-sm-6 center_flex">
+        			<img src="{% static 'img/headshots/examples/customized/olivia_o.jpg' %}" class="hs_shadow_border max_height_250">
+        			<p class="sm_padding large_font text-center">After</p>
+        		</div>
+        	</div>
+
+        	<div class="small_padding"></div>
+        	<h3 class="text-center">and more...</h3>
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade droid_serif" id="checkout_box" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+    <div class="modal-dialog example_modal_l" role="document">
+      <div class="modal-content background_grey">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <div class="xsmall_padding"></div>
+        </div>
+        <div class="modal-body">
+        	<div class="row">
+        		<div class="col-xs-8 center_flex right_border">
+        			<h2 class="text-center bold">I want more photos</h2>
+        			<div class="medium_padding"></div>
+								{% for hs_url, hs_pk in headshots %}
+
+
+										<div class="row">
+											<div class="col-xs-10 col-xs-offset-1">
+											<img src="{{ hs_url }}" class="img-responsive hs_shadow_border">
+											<div class="small_padding"></div>
+
+
+											<form method="GET" action={% url 'headshot_style' %}>
+												<input type="hidden" value={{ hs_pk }} name="hs_pk">
+												<div class="text-center">
+													<button class="ord_button_l toggle" type="submit">Choose</button>
+												</div>
+											</form>
+											<div class="medium_padding"></div>
+										</div>
+									</div>
+										
+									
+								{% endfor %}
+        			
+        		</div>
+        		<div class="col-xs-4">
+        			<div class="small_padding"></div>
+        			<h4 class="text-center bold">I've got all the photos I'd like</h4>
+        			<div class="sm_padding"></div>
+        			<div id="checkout_cart" class="all_padding">	
+        				{% for order in orders %}
+        					<article id="{{ order.hash_id }}">
+        						<div class="small_padding"></div>
+        						<img src="{{ order.raw_url }}" class="img-responsive all_padding">
+        						<div class="xsmall_padding"></div>
+        						<ul class="package_list small_font">
+        							<li>Style: {{ order.get_touchup_display }}</li>
+        							<li>Background: {{ order.get_background_display }}</li>
+        							{% if order.package %}
+        								<li>Keepsake: {{ order.get_package_display }}</li>
+        							{% endif %}
+        							{% if order.special_request %}
+        								<li>Special requests: {{ order.special_request }}</li>
+        							{% endif %}
+        							<li>Subtotal: ${{ order.total }}</li>
+        							<li class="remove_buttons">
+        								<button class="remove_button italic text_button_black" name="{{ order.hash_id }}">remove</button>
+        							</li>
+        						</ul>
+        						<div class="small_padding"></div>
+        					</article>
+        				{% endfor %}
+        			</div>
+        			<div class="all_padding text-center">
+								<form action="{% url 'headshot_checkout' %}" id="headshot_checkout_form">
+
+									<!--
+										<input type='text' name='address' placeholder="Shipping Address" class="form-control" id="order_address" required onchange="try{setCustomValidity('')}catch(e){}">
+									-->
+									<h3>Order Total: $<span id="order_total">{{ order_total }}</span></h3>
+									<div class="small_padding"></div>
+									<button class="black_order_button_s toggle" id="headshot_pay_button">Proceed to checkout</button>
+								</form>
+        			</div>
+        		</div>
+        	</div>
+
+        	<div class="small_padding"></div>
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal fade droid_serif" id="cart_box" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+    <div class="modal-dialog" role="document">
+      <div class="modal-content background_grey">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <div class="xsmall_padding"></div>
+        </div>
+        <div class="modal-body">
+        	<div class="row">
+        		<div class="col-xs-10 col-xs-offset-1">
+        			<h2 class="text-center bold">I've got all the photos I'd like</h2>
+        			<div class="small_padding"></div>
+        			<div id="mycart_content" class="all_padding">	
+        				{% for order in orders %}
+        					<article id="cart_{{ order.hash_id }}">
+        						<div class="small_padding"></div>
+        						<img src="{{ order.raw_url }}" class="img-responsive hs_shadow_border">
+        						<div class="xsmall_padding"></div>
+        						<ul class="package_list small_font">
+        							<li>Style: {{ order.get_touchup_display }}</li>
+        							<li>Background: {{ order.get_background_display }}</li>
+        							{% if order.package %}
+        								<li>Keepsake: {{ order.get_package_display }}</li>
+        							{% endif %}
+        							{% if order.special_request %}
+        								<li>Special requests: {{ order.special_request }}</li>
+        							{% endif %}
+        							<li>Subtotal: ${{ order.total }}</li>
+        							<li class="remove_buttons">
+        								<button class="remove_button italic text_button_black" name="{{ order.hash_id }}">remove</button>
+        							</li>
+        						</ul>
+        						<div class="small_padding"></div>
+        					</article>
+        				{% endfor %}
+        			</div>
+        			<div class="all_padding text-center">
+								<form action="{% url 'headshot_checkout' %}" id="headshot_checkout_form">
+
+									<!--
+										<input type='text' name='address' placeholder="Shipping Address" class="form-control" id="order_address" required onchange="try{setCustomValidity('')}catch(e){}">
+									-->
+									<h3>Order Total: $<span id="cart_total">{{ order_total }}</span></h3>
+									<div class="small_padding"></div>
+									<button class="black_order_button_s toggle" id="headshot_pay_button">Proceed to checkout</button>
+								</form>
+        			</div>
+        		</div>
+        	</div>
+
+        	<div class="small_padding"></div>
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+    </div>
+  </div>
 	<!-- loader -->
 	<div id="loader-wrapper" hidden>
 	  <div id="loader" class="text-center"><img src="{% static 'img/order/balls.svg' %}" width="140px"></div>
@@ -355,12 +750,593 @@
 {% endblock %}
 
 {% block script %}
+  <script type="text/javascript">
+  function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+  </script>
 {% endblock %}
 
 
 {% block jquery %}
 
+	var checkout_total = 0;
+	var has_package = false;
+  var csrftoken = getCookie('csrftoken');
+
+  function csrfSafeMethod(method) {
+  // these HTTP methods do not require CSRF protection
+  return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+  }
+
+  $.ajaxSetup({
+      beforeSend: function(xhr, settings) {
+          if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+              xhr.setRequestHeader("X-CSRFToken", csrftoken);
+          }
+      }
+  });
+
+
 	$('.toggle').on('click', function(){
 		$('#loader-wrapper').show();  
 	})
+
+
+
+	$('#prof_add').on('click', function(e){
+		// check if the hidden input has value
+		if(!$('#prof_background').val()){
+			e.preventDefault();
+			$('#prof_warning_color').show().delay(1200).fadeOut(600);
+		}
+		else{
+			//trigger the popupbox
+			$('#prof_add_shadow').trigger('click');
+		}
+	})
+
+	// free add
+	$('#free_add').on('click', function(e){
+		e.preventDefault();
+		$('#free_add_shadow').trigger('click');
+	})
+
+	// basic add and cust add
+	$('#basic_add').on('click', function(e){
+		e.preventDefault();
+		$('#basic_add_shadow').trigger('click');
+	})
+
+	$('#cust_add').on('click', function(e){
+		// check if the hidden input has value
+		e.preventDefault();
+		if(!$('#cust_background').val()){
+			$('#cust_warning_color').show().delay(1200).fadeOut(600);
+		}
+		if(!$('#cust_special_request').val()){
+			$('#cust_warning_request').show().delay(1200).fadeOut(600);
+		}
+		if($('#cust_background').val() && $('#cust_special_request').val()){
+			$('#cust_add_shadow').trigger('click');
+		}
+	})
+
+	function getTouchup(id){
+		if(id=='1'){
+			return 'Free'
+		}else if(id=='2'){
+			return 'Basic'
+		}else if(id=='3'){
+			return 'Standard'
+		}else if(id=='4'){
+			return 'Customized'
+		}
+	}
+	function getBackground(id){
+		if(id=='1'){
+			return 'White'
+		}else if(id=='2'){
+			return 'Polished Gray'
+		}else if(id=='3'){
+			return 'Designer Bricks'
+		}else if(id=='4'){
+			return 'Sanguine Blue'
+		}else if(id=='5'){
+			return 'Nighttime Black'
+		}
+	}
+	function getKeepsakes(id){
+		if(id=='1'){
+			return 'No Package'
+		}else if(id=='2'){
+			return 'Wallet Prints'
+		}else if(id=='3'){
+			return 'Friends and Family'
+		}else if(id=='4'){
+			return 'Complete Collection'
+		}else if(id=='5'){
+			return 'Premium Framed Print'
+		}
+	}
+
+	// basic button
+	$('#basic_add_shadow').on('click', function(e){
+		e.preventDefault()
+		$.ajax({
+			url: '{% url "headshot_add" %}',
+			data: {
+				touchup: $('#basic_touchup').val(),
+				background: $('#basic_background').val(),
+				subtotal: $('#basic_price').val(),
+				package: 1,
+			},
+			success: function(data){
+				orders = jQuery.parseJSON(data['orders']);
+				html_content = '';
+				html_cart_content='';
+
+				// get the total store it in a global
+				checkout_total = data['total'];
+				// update the pay button
+				$('#order_total').text(checkout_total.toString());
+				$('#cart_total').text(checkout_total.toString());
+
+				// populate the checkout cart
+				for(var i=0; i<orders.length; ++i){
+
+					special_req_html = ''
+					special_req = orders[i].fields.special_request;
+					if(special_req){
+						special_req_html = '</li><li>Special requests: ' + special_req;
+					}
+
+					keepsake_html = '';
+					keepsake = orders[i].fields.package;
+					if(keepsake == '2'){
+						keepsake_html = '</li><li>Keepsake: Wallet Prints';
+					}else if(keepsake == '3'){
+						keepsake_html = '</li><li>Keepsake: Friends and Family';
+					}else if(keepsake == '4'){
+						keepsake_html = '</li><li>Keepsake: Complete Collection';
+					}else if(keepsake == '5'){
+						keepsake_html = '</li><li>Keepsake: Premium Framed Print';
+					}
+
+					article_cart_id = '<article id="cart_';
+					article_id = '<article id="';
+
+					html_content += article_id;
+					html_cart_content += article_cart_id;
+
+					temp = orders[i].fields.hash_id +'"><div class="small_padding"></div><img src="' + orders[i].fields.raw_url + '" class="img-responsive all_padding"><div class="xsmall_padding"></div><ul class="package_list small_font"><li>Style: ' + getTouchup(orders[i].fields.touchup) + '</li><li>Background: ' + getBackground(orders[i].fields.background) + keepsake_html + special_req_html + '</li><li>Subtotal: $' + orders[i].fields.total + '</li><li class="remove_buttons"><button class="remove_button italic text_button_black" name="'+ orders[i].fields.hash_id +'">Remove</button></li></ul><div class="small_padding"></div></article>'
+
+					html_content += temp;
+					html_cart_content += temp;
+				}
+				$('#checkout_cart').html(html_content);
+				$('#mycart_content').html(html_cart_content);
+				$('#headshot_pay_button').show();
+
+				// remove buttons
+				// $('.remove_buttons>button').on('click', function(e){
+				// 	var id = $(this).attr('name');
+				// 	$.ajax({
+				// 		url: '{% url "headshot_remove" %}',
+				// 		data: {hash_id: id},
+				// 		success: function(data){
+				// 			console.log("success");
+				// 			$('article#'+id).fadeOut(300);
+				// 			// update the total
+				// 			$('#order_total').text(data['total']);
+				// 			$('#cart_total').text(data['total']);
+
+				// 			// hide the button
+				// 			if(data['empty']){
+				// 				$('#headshot_pay_button').fadeOut(300);
+				// 			}
+				// 		},
+				// 		failure: function(data){
+				// 		 	console.log('failure');
+				// 		}
+				// 	});
+				// });
+			},
+			failure: function(data){
+
+			}
+		})
+	});
+
+
+	$('#free_add_shadow').on('click', function(e){
+		$.ajax({
+			url: '{% url "headshot_add" %}',
+			data: {
+				touchup: $('#free_touchup').val(),
+				background: $('#free_background').val(),
+				subtotal: $('#free_price').val(),
+				package: 1,
+			},
+			success: function(data){
+				orders = jQuery.parseJSON(data['orders']);
+				html_content = '';
+				html_cart_content='';
+
+				// get the total store it in a global
+				checkout_total = data['total'];
+				// update the pay button
+				$('#order_total').text(checkout_total.toString());
+				$('#cart_total').text(checkout_total.toString());
+
+				// populate the checkout cart
+				for(var i=0; i<orders.length; ++i){
+
+
+					keepsake_html = '';
+					keepsake = orders[i].fields.package;
+					if(keepsake == '2'){
+						keepsake_html = '</li><li>Keepsake: Wallet Prints';
+					}else if(keepsake == '3'){
+						keepsake_html = '</li><li>Keepsake: Friends and Family';
+					}else if(keepsake == '4'){
+						keepsake_html = '</li><li>Keepsake: Complete Collection';
+					}else if(keepsake == '5'){
+						keepsake_html = '</li><li>Keepsake: Premium Framed Print';
+					}
+
+					article_cart_id = '<article id="cart_';
+					article_id = '<article id="';
+
+					html_content += article_id;
+					html_cart_content += article_cart_id;
+
+					temp = orders[i].fields.hash_id +'"><div class="small_padding"></div><img src="' + orders[i].fields.raw_url + '" class="img-responsive all_padding"><div class="xsmall_padding"></div><ul class="package_list small_font"><li>Style: ' + getTouchup(orders[i].fields.touchup) + '</li><li>Background: ' + getBackground(orders[i].fields.background) + keepsake_html + '</li><li>Subtotal: $' + orders[i].fields.total + '</li><li class="remove_buttons"><button class="remove_button italic text_button_black" name="'+ orders[i].fields.hash_id +'">Remove</button></li></ul><div class="small_padding"></div></article>'
+
+					html_content += temp;
+					html_cart_content += temp;
+				}
+				$('#checkout_cart').html(html_content);
+				$('#mycart_content').html(html_cart_content);
+				$('#headshot_pay_button').show();
+
+				// update free list price
+				$('#free_list_price').text('1');
+				$('#free_title').text('Dollar');
+				$('#free_price').val('1');
+
+
+				// remove buttons
+				// $('#checkout_box').on('click', '.remove_buttons>button', function(e){
+				// 	var id = $(this).attr('name');
+				// 	$.ajax({
+				// 		url: '{% url "headshot_remove" %}',
+				// 		data: {hash_id: id},
+				// 		success: function(data){
+				// 			console.log("success");
+				// 			$('article#'+id).fadeOut(300);
+				// 			// update the total
+				// 			$('#order_total').text(data['total']);
+				// 			$('#cart_total').text(data['total']);
+
+				// 			// hide the button
+				// 			if(data['empty']){
+				// 				$('#headshot_pay_button').fadeOut(300);
+				// 			}
+
+				// 			// update free list price
+				// 			if(date['clean_free']){
+
+				// 				$('#free_list_price').text('0');
+				// 				$('#free_title').text('Free');
+				// 				$('#free_price').val('0');
+				// 			}
+
+				// 		},
+				// 		failure: function(data){
+				// 		 	console.log('failure');
+				// 		}
+				// 	});
+				// });
+			},
+			failure: function(data){
+
+			}
+		})
+	});
+
+	// cust button
+	$('#cust_add_shadow').on('click', function(e){
+		e.preventDefault()
+		$.ajax({
+			url: '{% url "headshot_add" %}',
+			data: {
+				touchup: $('#cust_touchup').val(),
+				background: $('#cust_background').val(),
+				subtotal: $('#cust_price').val(),
+				special_request: $('#cust_special_request').val(),
+				package: 1,
+			},
+			success: function(data){
+				orders = jQuery.parseJSON(data['orders']);
+				html_content = '';
+				html_cart_content='';
+
+				// get the total store it in a global
+				checkout_total = data['total'];
+
+				// update the pay button
+				$('#order_total').text(checkout_total.toString());
+				$('#cart_total').text(checkout_total.toString())
+
+				// populate the checkout cart
+				for(var i=0; i<orders.length; ++i){
+
+					special_req_html = ''
+					special_req = orders[i].fields.special_request;
+					if(special_req){
+						special_req_html = '</li><li>Special requests: ' + special_req;
+					}
+
+					keepsake_html = '';
+					keepsake = orders[i].fields.package;
+					if(keepsake == '2'){
+						keepsake_html = '</li><li>Keepsake: Wallet Prints';
+					}else if(keepsake == '3'){
+						keepsake_html = '</li><li>Keepsake: Friends and Family';
+					}else if(keepsake == '4'){
+						keepsake_html = '</li><li>Keepsake: Complete Collection';
+					}else if(keepsake == '5'){
+						keepsake_html = '</li><li>Keepsake: Premium Framed Print';
+					}
+
+					article_cart_id = '<article id="cart_';
+					article_id = '<article id="';
+
+					html_content += article_id;
+					html_cart_content += article_cart_id;
+
+					temp = orders[i].fields.hash_id +'"><div class="small_padding"></div><img src="' + orders[i].fields.raw_url + '" class="img-responsive all_padding"><div class="xsmall_padding"></div><ul class="package_list small_font"><li>Style: ' + getTouchup(orders[i].fields.touchup) + '</li><li>Background: ' + getBackground(orders[i].fields.background) + keepsake_html + special_req_html + '</li><li>Subtotal: $' + orders[i].fields.total + '</li><li class="remove_buttons"><button class="remove_button italic text_button_black" name="'+ orders[i].fields.hash_id +'">Remove</button></li></ul><div class="small_padding"></div></article>'
+
+					html_content += temp;
+					html_cart_content += temp;
+				}
+				$('#checkout_cart').html(html_content);
+				$('#mycart_content').html(html_cart_content);
+				$('#headshot_pay_button').show();
+
+				// remove buttons
+				// $('#checkout_box').on('click', '.remove_buttons>button', function(e){
+				// 	var id = $(this).attr('name');
+				// 	$.ajax({
+				// 		url: '{% url "headshot_remove" %}',
+				// 		data: {hash_id: id},
+				// 		success: function(data){
+				// 			console.log("success");
+				// 			$('article#'+id).fadeOut(300);
+				// 			// update the total
+				// 			$('#order_total').text(data['total']);
+				// 			$('#cart_total').text(data['total']);
+
+				// 			// hide the button
+				// 			if(data['empty']){
+				// 				$('#headshot_pay_button').fadeOut(300);
+				// 			}
+				// 		},
+				// 		failure: function(data){
+				// 		 	console.log('failure');
+				// 		}
+				// 	});
+				// });
+			},
+			failure: function(data){
+
+			}
+		})
+	});
+	// prof shadow button
+	$('#prof_add_shadow').on('click', function(e){
+		$.ajax({
+			url: '{% url "headshot_add" %}',
+			type: 'GET',
+			data: {
+				touchup: $('#prof_touchup').val(),
+				background: $('#prof_background').val(),
+				// package placeholder
+				subtotal: $('#prof_price').val(),
+				package: 1,
+			},
+			success: function(data){
+				orders = jQuery.parseJSON(data['orders']);
+				html_content = '';
+				html_cart_content='';
+
+				// get the total store it in a global
+				checkout_total = data['total'];
+				// update the pay button
+				$('#order_total').text(checkout_total.toString())
+				$('#cart_total').text(checkout_total.toString())
+
+				// populate the checkout cart
+				for(var i=0; i<orders.length; ++i){
+
+					special_req_html = ''
+					special_req = orders[i].fields.special_request;
+					if(special_req){
+						special_req_html = '</li><li>Special requests: ' + special_req;
+					}
+
+					keepsake_html = '';
+					keepsake = orders[i].fields.package;
+					if(keepsake == '2'){
+						keepsake_html = '</li><li>Keepsake: Wallet Prints';
+					}else if(keepsake == '3'){
+						keepsake_html = '</li><li>Keepsake: Friends and Family';
+					}else if(keepsake == '4'){
+						keepsake_html = '</li><li>Keepsake: Complete Collection';
+					}else if(keepsake == '5'){
+						keepsake_html = '</li><li>Keepsake: Premium Framed Print';
+					}
+
+					article_cart_id = '<article id="cart_';
+					article_id = '<article id="';
+
+					html_content += article_id;
+					html_cart_content += article_cart_id;
+
+					temp = orders[i].fields.hash_id +'"><div class="small_padding"></div><img src="' + orders[i].fields.raw_url + '" class="img-responsive all_padding"><div class="xsmall_padding"></div><ul class="package_list small_font"><li>Style: ' + getTouchup(orders[i].fields.touchup) + '</li><li>Background: ' + getBackground(orders[i].fields.background) + keepsake_html + special_req_html + '</li><li>Subtotal: $' + orders[i].fields.total + '</li><li class="remove_buttons"><button class="remove_button italic text_button_black" name="'+ orders[i].fields.hash_id +'">remove</button></li></ul><div class="small_padding"></div></article>'
+
+					html_content += temp;
+					html_cart_content += temp;
+				}
+				$('#checkout_cart').html(html_content);
+				$('#mycart_content').html(html_cart_content);
+				
+
+				// show checkout button
+				$('#headshot_pay_button').show();
+				// // remove buttons
+				// $('#checkout_box').on('click', '.remove_buttons>button', function(e){
+				// 	var id = $(this).attr('name');
+				// 	$.ajax({
+				// 		url: '{% url "headshot_remove" %}',
+				// 		data: {hash_id: id},
+				// 		success: function(data){
+				// 			console.log("success");
+				// 			$('article#'+id).fadeOut(300);
+				// 			// update the total
+				// 			$('#order_total').text(data['total']);
+				// 			$('#cart_total').text(data['total']);
+
+				// 			// hide the button
+				// 			if(data['empty']){
+				// 				$('#headshot_pay_button').fadeOut(300);
+				// 			}
+				// 		},
+				// 		failure: function(data){
+				// 		 	console.log('failure');
+				// 		}
+				// 	});
+				// });
+			},
+
+			failure: function(data){
+
+			}
+		});
+		e.preventDefault();
+	})
+
+
+
+	$('#prof_colorbox > .colorbox').on('click', function(e){
+		$(this).siblings().css('border-color', '#ccc');
+		$(this).siblings().css('border-width', '3px');
+		$(this).css('border-color', '#1ca806');
+		$(this).css('border-width', '5px');
+
+		// add value 
+		var title = $(this).attr('name')
+
+		if (title == 'Nighttime Black'){
+			$('#prof_background').val(5);
+			$('#prof_hs').attr('src', '{% static "img/headshots/examples/premium/black1.jpg" %}');
+		}
+		else if(title == 'Sanguine Blue'){
+			$('#prof_background').val(4);
+			$('#prof_hs').attr('src', '{% static "img/headshots/examples/premium/blue3.jpg" %}');
+		}
+		else if(title == 'Designer Brick'){
+			$('#prof_background').val(3);
+			$('#prof_hs').attr('src', '{% static "img/headshots/examples/premium/brick3.jpg" %}');
+		}
+		else if(title == 'Polished Gray'){
+			$('#prof_background').val(2);
+			$('#prof_hs').attr('src', '{% static "img/headshots/examples/premium/gray.jpg" %}');
+		}
+	})
+
+	$('#cust_colorbox > .colorbox').on('click', function(e){
+		$(this).siblings().css('border-color', '#ccc');
+		$(this).siblings().css('border-width', '3px');
+		$(this).css('border-color', '#1ca806');
+		$(this).css('border-width', '5px');
+
+		// add value 
+		var title = $(this).attr('name')
+
+		if (title == 'Nighttime Black'){
+			$('#cust_background').val(5);
+			$('#cust_hs').attr('src', '{% static "img/headshots/examples/premium/black2.jpg" %}');
+
+		}
+		else if(title == 'Sanguine Blue'){
+			$('#cust_background').val(4);
+			$('#cust_hs').attr('src', '{% static "img/headshots/examples/premium/blue4.jpg" %}');
+		}
+		else if(title == 'Designer Brick'){
+			$('#cust_background').val(3);
+			$('#cust_hs').attr('src', '{% static "img/headshots/examples/premium/brick4.jpg" %}');
+		}
+		else if(title == 'Polished Gray'){
+			$('#cust_background').val(2);
+			$('#cust_hs').attr('src', '{% static "img/headshots/examples/premium/gray2.jpg" %}');
+		}
+	})
+
+	// tooltips
+	$(function () {
+	  $('[data-toggle="tooltip"]').tooltip()
+	})
+
+
+	// remove button
+	$('#mycart_content, #checkout_cart').on('click', '.remove_buttons>button', function(e){
+		var id = $(this).attr('name');
+
+		console.log('yes!');
+		$.ajax({
+			url: '{% url "headshot_remove" %}',
+			data: {hash_id: id},
+			success: function(data){
+				console.log("success");
+				$('article#'+id).fadeOut(300);
+				$('article#cart_'+id).fadeOut(300);
+				// update the total
+				$('#order_total').text(data['total']);
+				$('#cart_total').text(data['total']);
+
+				// hide the button
+				if(data['empty']){
+					$('#headshot_pay_button').fadeOut(300);
+				}else{
+					$('#headshot_pay_button').show();
+				}
+
+				// update free list price
+				if(data['clean_free']){
+
+					$('#free_list_price').text('0');
+					$('#free_title').text('Free');
+					$('#free_price').val('0');
+				}
+			},
+			failure: function(data){
+			 	console.log('failure');
+			}
+		});
+	});
+
 {% endblock %}

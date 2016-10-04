@@ -204,7 +204,7 @@ def family(request):
 			data['msg'] = 'We haven\'t seen that email before! Are you sure that this is the email you booked your headshot with?'
 			pass
 		else:
-			data['msg'] = 'We got the email you entered. We will send out notification when your headshots are available'
+			data['msg'] = 'We got the email you entered. We will also let your family know when your headshots are available'
 		return HttpResponse(json.dumps(data), content_type='application/json')
 
 	context = {

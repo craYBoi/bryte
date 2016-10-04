@@ -1800,7 +1800,7 @@ class HeadshotPurchase(models.Model):
 	TOUCHUPS = (
 		(1, 'Free'),
 		(2, 'Basic'),
-		(3, 'Professional'),
+		(3, 'Standard'),
 		(4, 'Customized'),
 		)
 
