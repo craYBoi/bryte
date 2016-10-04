@@ -11,7 +11,7 @@
 	<div class="droid_serif background_grey">
 		<div class="left_right_padding">
 			<div class="medium_padding"></div>
-			<h1 class="text-center landing_title bold">Touchup your photo for LinkedIn</h1>
+			<h1 class="text-center landing_title bold">Touchup your photo for Linkedin!</h1>
 
 			<div class="small_padding"></div>
 
@@ -44,7 +44,7 @@
 						</div>
 
 						<div class="small_padding"></div>
-						<p class="grey italic">No special request</p>
+						<p class="grey italic">No special requests</p>
 						<div class="small_padding"></div>
 
 
@@ -99,7 +99,7 @@
 						</div>
 
 						<div class="small_padding"></div>
-						<p class="grey italic">No special request</p>
+						<p class="grey italic">No special requests</p>
 						<div class="small_padding"></div>
 
 						<form action="{% url 'headshot_print_frame' %}">
@@ -229,7 +229,7 @@
 						{% endif %}
 						<div class="small_padding"></div>
 						{% if proceed %}
-						<div class="center_flex"><div class="inline"><span class="small_font sm_padding lightgray xs_padding_right">Pay at checkout</span><p class="xlarge_font dark_grey">$1</p><span class="small_font sm_padding lightgray xs_padding_left">Keep it forever</span></div></div>
+						<div class="center_flex"><div class="inline"><span class="small_font sm_padding lightgray xs_padding_right">Pay at checkout</span><p class="xlarge_font dark_grey">$3</p><span class="small_font sm_padding lightgray xs_padding_left">Keep it forever</span></div></div>
 						{% else %}
 							<p class="big_font">$<span id="free_list_price">0</span></p>
 						{% endif %}
@@ -247,7 +247,7 @@
 							<input type="hidden" name='hs_id' value='{{ hs_id }}'>
 
 							{% if proceed %}
-								<input type="hidden" name='subtotal' value='1' id="free_price">
+								<input type="hidden" name='subtotal' value='3' id="free_price">
 							{% else %}
 								<input type="hidden" name='subtotal' value='0' id="free_price">
 							{% endif %}
@@ -490,15 +490,41 @@
         </div>
         <div class="modal-body">
         	<div class="row">
-        		<div class="col-xs-6 center_flex">
-        			<img src="{% static 'img/headshots/examples/free/white1.jpg' %}" class="hs_shadow_border max_width_250">
-        			<div class="small_padding"></div>
-        			<img src="{% static 'img/headshots/examples/free/white6.jpg' %}" class="hs_shadow_border max_width_250">
+        		<div class="col-sm-6 center_flex">
+        			<img src="{% static 'img/headshots/examples/green/amen1.jpg' %}" class="hs_shadow_border img-responsive">
         		</div>
-        		<div class="col-xs-6 center_flex">
-        			<img src="{% static 'img/headshots/examples/free/white4.jpg' %}" class="hs_shadow_border max_width_250">
-        			<div class="small_padding"></div>
-        			<img src="{% static 'img/headshots/examples/free/white5.jpg' %}" class="hs_shadow_border max_width_250">
+        		<div class="col-sm-6 center_flex">
+        			<img src="{% static 'img/headshots/examples/free/white1.JPG' %}" class="hs_shadow_border max_height_250">
+        		</div>
+        	</div>
+
+        	<div class="small_padding"></div>
+        	<div class="row">
+        		<div class="col-sm-6 center_flex">
+        			<img src="{% static 'img/headshots/examples/green/brittney1.jpg' %}" class="hs_shadow_border img-responsive">
+        		</div>
+        		<div class="col-sm-6 center_flex">
+        			<img src="{% static 'img/headshots/examples/free/white6.jpg' %}" class="hs_shadow_border max_height_250">
+        		</div>
+        	</div>
+
+        	<div class="small_padding"></div>
+        	<div class="row">
+        		<div class="col-sm-6 center_flex">
+        			<img src="{% static 'img/headshots/examples/green/ben2.jpg' %}" class="hs_shadow_border img-responsive">
+        		</div>
+        		<div class="col-sm-6 center_flex">
+        			<img src="{% static 'img/headshots/examples/free/white4.jpg' %}" class="hs_shadow_border max_height_250">
+        		</div>
+        	</div>
+
+        	<div class="small_padding"></div>
+        	<div class="row">
+        		<div class="col-sm-6 center_flex">
+        			<img src="{% static 'img/headshots/examples/green/bella3.jpg' %}" class="hs_shadow_border img-responsive">
+        		</div>
+        		<div class="col-sm-6 center_flex">
+        			<img src="{% static 'img/headshots/examples/free/white5.jpg' %}" class="hs_shadow_border max_height_250">
         		</div>
         	</div>
 
@@ -535,7 +561,7 @@
         		</div>
         	</div>
 
-        	<h3 class="text-center">Remove necklace</h3>
+        	<h3 class="text-center">Remove necklaces</h3>
         	<div class="small_padding"></div>
         	<div class="row">
         		<div class="col-sm-6 center_flex">
@@ -549,7 +575,7 @@
         	</div>
 
 
-					<h3 class="text-center">Remove acnes</h3>
+					<h3 class="text-center">Remove acne</h3>
         	<div class="small_padding"></div>
         	<div class="row">
         		<div class="col-sm-6 center_flex">
@@ -635,7 +661,7 @@
         		</div>
         		<div class="col-xs-4">
         			<div class="small_padding"></div>
-        			<h4 class="text-center bold">I've got all the photos I'd like</h4>
+        			<h4 class="text-center bold">My Cart</h4>
         			<div class="sm_padding"></div>
         			<div id="checkout_cart" class="all_padding">	
         				{% for order in orders %}
@@ -1013,9 +1039,9 @@
 				$('#headshot_pay_button').show();
 
 				// update free list price
-				$('#free_list_price').text('1');
+				$('#free_list_price').text('3');
 				$('#free_title').text('Dollar');
-				$('#free_price').val('1');
+				$('#free_price').val('3');
 
 
 				// remove buttons

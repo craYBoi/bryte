@@ -371,8 +371,8 @@ def headshot_index(request):
 		except Exception, e:
 			return redirect('headshot_error')
 
-		# set session expiry 5 hours
-		request.session.set_expiry(20000)
+		# set session expiry 1.5 hours
+		request.session.set_expiry(5000)
 
 		# create a session
 		request.session['booking'] = booking_id

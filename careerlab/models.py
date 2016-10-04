@@ -844,7 +844,7 @@ class Booking(models.Model):
 
 		# ccri followup
 		# message.set_subject('We\'ve fixed the issue, and now you can use mobile to download your free headshot')
-		message.set_subject('Your LinkedIn Headshots is ready for download!')
+		message.set_subject('The photos you took')
  
 		message.set_html('Body')
 		message.set_text('Body')
