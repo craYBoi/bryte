@@ -511,6 +511,11 @@ def headshot_style(request):
 		order_total = sum(a.total for a in orders)
 
 
+		if request.session.has_key('proceed'):
+			request.session['proceed'] = request.session['proceed'] or HeadshotOrder.objects.filter(booking=booking).exists()
+		else:
+			request.session['proceed'] = HeadshotOrder.objects.filter(booking=booking).exists()
+
 		context = {
 			'myheadshot': 1,
 			'title_text': 'Style Your Photo',
