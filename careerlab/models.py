@@ -1770,7 +1770,7 @@ class OriginalHeadshot(models.Model):
 
 
 	def __unicode__(self):
-		return self.name + ' ' + str(self.booking.email)
+		return str(self.booking.email) + ' ' + self.name
 
 	def save(self, *args, **kwargs):
 		N = 16
