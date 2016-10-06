@@ -625,7 +625,7 @@
 
   <div class="modal fade droid_serif" id="checkout_box" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 
-    <div class="modal-dialog example_modal_l" role="document">
+    <div class="modal-dialog checkout_box_modal" role="document">
       <div class="modal-content background_grey">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -663,7 +663,7 @@
         			<div class="small_padding"></div>
         			<h4 class="text-center bold">My Cart</h4>
         			<div class="sm_padding"></div>
-        			<div id="checkout_cart" class="all_padding">	
+        			<div id="checkout_cart" class="">	
         				{% for order in orders %}
         					<article id="{{ order.hash_id }}">
         						<div class="small_padding"></div>

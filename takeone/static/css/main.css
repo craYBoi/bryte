@@ -2363,11 +2363,17 @@ body, html
   .example_modal {
     width: 600px!important;
   }
+  .example_modal_l {
+		width: 100%!important;
+	}
 }
 @media (min-width: 992px) {
   .example_modal {
     width: 600px!important;
   }
+  .example_modal_l {
+		width: 100%!important;
+	}
 }
 
 .example_modal_s {
@@ -2387,7 +2393,7 @@ body, html
 
 
 .example_modal_l {
-	width: 70%!important;
+	width: 90%!important;
 }
 
 .lg_input {
@@ -2500,5 +2506,16 @@ max_width_150 {
 	border-top: 3px solid #666;
 }
 
+.checkout_box_modal {
+  position: relative;
+  width: auto;
+  margin: 10px;
+}
 
+@media (min-width: 768px) {
+  .checkout_box_modal {
+    width: 950px!important;
+    margin: 30px auto;
+  }
+}
 
