@@ -516,6 +516,9 @@ def headshot_style(request):
 		else:
 			request.session['proceed'] = HeadshotOrder.objects.filter(booking=booking).exists()
 
+		print 'proceed in style:',
+		print request.session['proceed']
+
 		context = {
 			'myheadshot': 1,
 			'title_text': 'Style Your Photo',
@@ -610,12 +613,17 @@ def ajax_headshot_add(request):
 			proceed = proceed or hp.total == 0
 		else:
 			orders = [hp]
+			proceed = hp.total == 0
 
 		# populate the cart
 		request.session['order'] = serializers.serialize('json', orders)
 
 
 		request.session['proceed'] = HeadshotOrder.objects.filter(booking=booking).exists() or proceed
+
+		print 'proceed in view',
+		print request.session['proceed']
+
 
 		data['orders'] = serializers.serialize('json', orders[::-1])
 		data['total'] = int(sum(a.total for a in orders))
