@@ -680,7 +680,7 @@ class Booking(models.Model):
 		(3, 'Paid customer'),
 		)
 
-	cust_type = models.PositiveSmallIntegerField(choices=TYPE, default=1, blank=True, null=True)
+	cust_type = models.PositiveSmallIntegerField(choices=TYPE, blank=True, null=True)
 
 
 	def __unicode__(self):
