@@ -112,7 +112,7 @@
 
   <div class="modal fade droid_serif" id="keepsake_box" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 
-    <div class="modal-dialog example_modal_l" role="document">
+    <div class="modal-dialog" role="document">
       <div class="modal-content background_grey">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -121,7 +121,7 @@
         </div>
         <div class="modal-body">
 					<div class="row">
-						<div class="col-md-3 col-sm-6">
+						<div class="col-md-6 col-xs-12">
 
 							<div class="text-center">
 								<h3 class="text-center">Wallet Prints</h3>
@@ -147,7 +147,7 @@
 						</div>
 
 
-						<div class="col-md-3 col-sm-6">
+						<div class="col-md-6 col-xs-12">
 
 							<div class="text-center">
 								<h3 class="text-center">Friends and Family</h3>
@@ -170,59 +170,6 @@
 
 							<div class="medium_padding"></div>
 						</div>
-
-
-						<div class="col-md-3 col-sm-6">
-
-							<div class="text-center">
-								<h3 class="text-center">Complete Collection</h3>
-								<div class="small_padding"></div>
-								<div class="center_flex"><div class="inline"><span class="small_font sm_padding lightgray xs_padding_right">Pay at checkout</span><p class="big_font">$35</p><span class="small_font sm_padding lightgray xs_padding_left">Keep it forever</span></div></div>
-
-								<div class="small_padding"></div>
-
-								<button class="ord_button keepsake_select_button" type="submit" name="4" value="35">Choose</button>
-
-							</div>
-
-							<div class="small_padding"></div>
-							<hr>
-							<ul class="spec_list droid_serif grey all_padding text-center">
-								<li>Includes 8 Wallet Prints (2.5x2.5), 3 Standard Prints (6x6), 1 Big Print (10x10), and 1 Premium Framed Print (10x10)</li>
-								<li>Photos are printed on matte paper for a high quality look that does not scratch, see "Premium Framed Print" for full details on its quality</li>
-							</ul>
-
-
-							<div class="medium_padding"></div>
-						</div>
-
-					
-						<div class="col-md-3 col-sm-6">
-
-							<div class="text-center">
-								<h3 class="text-center">Premium Framed Print</h3>
-								<div class="small_padding"></div>
-								<div class="center_flex"><div class="inline"><span class="small_font sm_padding lightgray xs_padding_right">Pay at checkout</span><p class="big_font">$30</p><span class="small_font sm_padding lightgray xs_padding_left">Keep it forever</span></div></div>
-
-								<div class="small_padding"></div>
-
-								<button class="ord_button keepsake_select_button" type="submit" name='5' value='30'>Choose</button>
-							</div>
-
-							<div class="small_padding"></div>
-
-							<hr>
-							<ul class="spec_list droid_serif grey all_padding text-center">
-								<li>Each includes 1 Big Print (10x10) framed with our Premium Frame</li>
-								<li>Our Premium Headshot Frames is colored matte black to make your photo look good without taking any of the attention away. It is made of durable metal and has a foamcore backing to ensure it's sturdy. It also comes with acrylic glass that stays clear. The frame displays a 10x10 print that comes with this package (the frame itself is slightly larger than 10x10). Mount this frame on any wall with the conveniently included hanging hardware.</li>
-								<li>Your photo will be framed when it is delivered</li>
-								<li>Comes with 4 Wallet prints. Our gift to you <3</li>
-							</ul>
-
-
-							<div class="medium_padding"></div>
-						</div>
-
 						
 							<div class="medium_padding"></div>
 					</div>
@@ -268,7 +215,7 @@
 	$('.toggle').on('click', function(){
 		$('#loader-wrapper').show();  
 	})
-	
+
   function csrfSafeMethod(method) {
   // these HTTP methods do not require CSRF protection
   return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
