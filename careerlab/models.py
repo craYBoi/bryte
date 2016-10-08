@@ -78,6 +78,35 @@ class Nextshoot(models.Model):
 		return self.name
 
 
+	def update_cust_types(self):
+		bookings = [e for elem in self.timeslot_set.all() for e in elem.booking_set.all()]
+
+		total = len(bookings)
+		no_show = 0
+		no_download = 0
+		free = 0
+		paid = 0
+
+		for booking in bookings:
+			cust_type = booking.update_cust_type()
+			if cust_type == 1:
+				no_download += 1
+			elif cust_type == 2:
+				free += 1
+			elif cust_type == 3:
+				paid += 1
+			else:
+				no_show += 1
+
+		print 'Total number: ' + str(total)
+		print 'Paid customer: ' + str(paid)
+		print 'Free customer: ' + str(free)
+		print 'No download customer: ' + str(no_download)
+		print 'No show customer: ' + str(no_show)
+
+
+
+
 	def create_time_slot(self, start, end):
 		delta = timedelta(minutes=10)
 		while start<end:
@@ -645,6 +674,14 @@ class Booking(models.Model):
 	upgrade_folder_path = models.CharField(max_length=100, blank=True, null=True)
 	show_up = models.BooleanField(default=False)
 
+	TYPE = (
+		(1, 'No free nor buy'),
+		(2, 'Free only'),
+		(3, 'Paid customer'),
+		)
+
+	cust_type = models.PositiveSmallIntegerField(choices=TYPE, default=1, blank=True, null=True)
+
 
 	def __unicode__(self):
 		return self.name + ' ' + self.email + ' ' + str(self.timeslot)
@@ -660,6 +697,43 @@ class Booking(models.Model):
 		self.hash_id = ''.join(SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(N))
 
 		super(Booking, self).save(*args, **kwargs)
+
+
+	def update_cust_type(self):
+		# update the cust type
+		# filter showup first, then according to Order
+		if self.show_up:
+
+			orders = HeadshotOrder.objects.filter(booking=self)
+			if orders:
+				for order in orders:
+					if order.total > 0:
+						# paid customer
+						self.cust_type = 3
+						break
+
+					else:
+						# free customer
+						self.cust_type = 2
+			else:
+				self.cust_type = 1
+
+		else:
+			print '[NO SHOW] -- ' + self.email
+			return 0
+				
+
+		if self.cust_type == 1:
+			print '[NO TYPE] -- ' + self.email
+		elif self.cust_type == 2:
+			print '[FREE TYPE] -- ' + self.email
+		elif self.cust_type == 3:
+			print '[PAID TYPE] -- ' + self.email
+			
+
+		super(Booking, self).save()
+		return self.cust_type
+
 
 
 	def cancel_order(self):
