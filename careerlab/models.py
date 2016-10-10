@@ -32,8 +32,9 @@ ORDER_DELIVERY_ID = 'c8690ffe-8ca3-4531-b46e-dbf747bdc18b'
 PASSPORT_ID = 'daa1b2ab-9d4d-4023-8546-d2bd88b73c02'
 RIC_NOT_PAYING_ID = '91554ce0-b80a-4c1f-ad12-0a3ec606e29e'
 FIRST_AFTER_SHOOT_EMAIL_ID = '4463c390-4085-4936-863d-12652c8a0a0d'
-SURVEY_EMAIL_TO_RIC_ID = '6e9cb0a1-535b-42dc-9279-4b9d23f19a1a'
-SURVEY_EMAIL_TO_BROWN_ID = '5c562a0c-25f6-4151-a81a-99089ea00d61'
+SURVEY_EMAIL_TO_FREE_CLIENT_ID = '6e9cb0a1-535b-42dc-9279-4b9d23f19a1a'
+SURVEY_EMAIL_TO_FAVORED_CLIENT_ID = '5c562a0c-25f6-4151-a81a-99089ea00d61'
+FORGET_TO_ORDER_YOUR_HEADSHOT_ID = '6f6a328f-11b2-48c9-8879-751fe4c8b268'
 
 
 # max sessions per time slot
@@ -575,6 +576,36 @@ class Nextshoot(models.Model):
 		print 'Total --- ' + str(len(bookings)) + ' Emails\nSENT --- ' + str(count) + ' Emails'
 
 
+	def survey_emails_to_free_client(self):
+		bookings = [e for elem in self.timeslot_set.all() for e in elem.booking_set.filter(show_up=True)]
+
+		count = 0
+		for booking in bookings:
+			if(booking.survey_email_to_free_client()):
+				count += 1
+		print 'Total --- ' + str(len(bookings)) + ' Emails\nSENT --- ' + str(count) + ' Emails'
+
+
+	def survey_emails_to_favored_client(self):
+		bookings = [e for elem in self.timeslot_set.all() for e in elem.booking_set.filter(show_up=True)]
+
+		count = 0
+		for booking in bookings:
+			if(booking.survey_email_to_favored_client()):
+				count += 1
+		print 'Total --- ' + str(len(bookings)) + ' Emails\nSENT --- ' + str(count) + ' Emails'
+
+
+	def forget_to_order_your_headshot_emails(self):
+		bookings = [e for elem in self.timeslot_set.all() for e in elem.booking_set.filter(show_up=True)]
+
+		count = 0
+		for booking in bookings:
+			if(booking.forget_to_order_your_headshot_email()):
+				count += 1
+		print 'Total --- ' + str(len(bookings)) + ' Emails\nSENT --- ' + str(count) + ' Emails'
+
+
 	# temp method integrated with dropbox
 	def update_showups(self):
 		bookings = [e for elem in self.timeslot_set.all() for e in elem.booking_set.all()]
@@ -783,7 +814,7 @@ class Booking(models.Model):
 
 		message = sendgrid.Mail()
 		message.add_to(email)
-		message.set_from('Bryte Photo Inc <' + settings.EMAIL_HOST_USER + '>')
+		message.set_from('Bryte Inc <' + settings.EMAIL_HOST_USER + '>')
 		message.set_subject('Your headshot booking confirmation') 
 		message.set_html('Body')
 		message.set_text('Body')
@@ -861,7 +892,7 @@ class Booking(models.Model):
 
 		message = sendgrid.Mail()
 		message.add_to(email)
-		message.set_from('Bryte Photo Inc <' + settings.EMAIL_HOST_USER + '>')
+		message.set_from('Bryte Inc <' + settings.EMAIL_HOST_USER + '>')
 		message.set_subject('Tips for taking a great Linkedin photo') 
 		message.set_html('Body')
 		message.set_text('Body')
@@ -914,7 +945,7 @@ class Booking(models.Model):
 
 		message = sendgrid.Mail()
 		message.add_to(email)
-		message.set_from('Bryte Photo Inc <' + settings.EMAIL_HOST_USER + '>')
+		message.set_from('Bryte Inc <' + settings.EMAIL_HOST_USER + '>')
 
 		# ccri followup
 		# message.set_subject('We\'ve fixed the issue, and now you can use mobile to download your free headshot')
@@ -971,7 +1002,7 @@ class Booking(models.Model):
 
 		message = sendgrid.Mail()
 		message.add_to(email)
-		message.set_from('Bryte Photo Inc <' + settings.EMAIL_HOST_USER + '>')
+		message.set_from('Bryte Inc <' + settings.EMAIL_HOST_USER + '>')
 
 		# ccri followup
 		# message.set_subject('We\'ve fixed the issue, and now you can use mobile to download your free headshot')
@@ -1024,7 +1055,7 @@ class Booking(models.Model):
 
 		message = sendgrid.Mail()
 		message.add_to(email)
-		message.set_from('Bryte Photo Inc <' + settings.EMAIL_HOST_USER + '>')
+		message.set_from('Bryte Inc <' + settings.EMAIL_HOST_USER + '>')
 		message.set_subject('Your super-awesome order from Bryte') 
 		message.set_html('Body')
 		message.set_text('Body')
@@ -1073,7 +1104,7 @@ class Booking(models.Model):
 
 		message = sendgrid.Mail()
 		message.add_to(email)
-		message.set_from('Bryte Photo Inc <' + settings.EMAIL_HOST_USER + '>')
+		message.set_from('Bryte Inc <' + settings.EMAIL_HOST_USER + '>')
 		message.set_subject('Your purchase is ready for download!') 
 		message.set_html('Body')
 		message.set_text('Body')
@@ -1124,7 +1155,7 @@ class Booking(models.Model):
 
 		message = sendgrid.Mail()
 		message.add_to(email)
-		message.set_from('Bryte Photo Inc <' + settings.EMAIL_HOST_USER + '>')
+		message.set_from('Bryte Inc <' + settings.EMAIL_HOST_USER + '>')
 		message.set_subject('New version of your Linkedin headshot') 
 		message.set_html('Body')
 		message.set_text('Body')
@@ -1148,8 +1179,65 @@ class Booking(models.Model):
 			print '[SENT] --- ' + str(email)
 		return send
 
+	def forget_to_order_your_headshot_email(self):
+		sent = False
+		name = self.name
+		first_name = name.split(' ')[0]
+		email = self.email
+		hash_id = self.hash_id
+		timeslot = self.timeslot
+		shoot = timeslot.shoot
+		location = shoot.location
+		date = shoot.date
+		school = shoot.school
 
-	def survey_email_to_ric(self):
+
+		# get template, version name, and automatically add to category
+		email_purpose = 'Error'
+		version_number = 'Error'
+		try:
+			email_template = json.loads(sgapi.client.templates._(FORGET_TO_ORDER_YOUR_HEADSHOT_ID).get().response_body)
+			versions = email_template.get('versions')
+			version_number = [v.get('name') for v in versions if v.get('active')][0]
+			email_purpose = email_template.get('name')
+		except Exception, e:
+			pass
+
+		category = [school + ' - ' + str(date), email_purpose, version_number]
+
+		my_headshot_link = settings.SITE_URL + '/headshot/?id=' + hash_id + '&utm_source=My%20Headshot%20My%Headshot&utm_medium=Campaign%20Medium%20URL%20Builder'
+
+		message = sendgrid.Mail()
+		message.add_to(email)
+		message.set_from('Bryte Inc <' + settings.EMAIL_HOST_USER + '>')
+
+		# ccri followup
+		# message.set_subject('We\'ve fixed the issue, and now you can use mobile to download your free headshot')
+		message.set_subject('Forget to order your Linkedin photo?')
+ 
+		message.set_html('Body')
+		message.set_text('Body')
+		message.add_filter('templates','enable','1')
+
+		message.add_filter('templates','template_id', FORGET_TO_ORDER_YOUR_HEADSHOT_ID)
+
+
+		message.set_categories(category)
+
+		message.add_substitution('-first_name-', first_name)
+		message.add_substitution('-unique_id-', hash_id)
+		message.add_substitution('-my_headshot-', my_headshot_link)
+
+		try:
+			sg.send(message)
+		except Exception, e:
+			print '[NOT SENT] --- ' + str(email) 
+		else:
+			send = True
+			print '[SENT] --- ' + str(email)
+		return send
+
+	def survey_email_to_free_client(self):
 		send = False
 		name = self.name
 		first_name = name.split(' ')[0]
@@ -1164,7 +1252,7 @@ class Booking(models.Model):
 		email_purpose = 'Error'
 		version_number = 'Error'
 		try:
-			email_template = json.loads(sgapi.client.templates._(SURVEY_EMAIL_TO_RIC_ID).get().response_body)
+			email_template = json.loads(sgapi.client.templates._(SURVEY_EMAIL_TO_FREE_CLIENT_ID).get().response_body)
 			versions = email_template.get('versions')
 			version_number = [v.get('name') for v in versions if v.get('active')][0]
 			email_purpose = email_template.get('name')
@@ -1175,12 +1263,12 @@ class Booking(models.Model):
 
 		message = sendgrid.Mail()
 		message.add_to(email)
-		message.set_from('Bryte Photo Inc <' + settings.EMAIL_HOST_USER + '>')
-		message.set_subject('Get a $10 Amazon gift card for your feedback') 
+		message.set_from('Bryte Inc <' + settings.EMAIL_HOST_USER + '>')
+		message.set_subject('a free coffee for your feedback') 
 		message.set_html('Body')
 		message.set_text('Body')
 		message.add_filter('templates','enable','1')
-		message.add_filter('templates','template_id', SURVEY_EMAIL_TO_RIC_ID)
+		message.add_filter('templates','template_id', SURVEY_EMAIL_TO_FREE_CLIENT_ID)
 		message.set_categories(category)
 		message.add_substitution('-first_name-', first_name)
 
@@ -1194,7 +1282,7 @@ class Booking(models.Model):
 		return send
 
 
-	def survey_email_to_brown(self):
+	def survey_email_to_favored_client(self):
 		send = False
 		name = self.name
 		first_name = name.split(' ')[0]
@@ -1209,7 +1297,7 @@ class Booking(models.Model):
 		email_purpose = 'Error'
 		version_number = 'Error'
 		try:
-			email_template = json.loads(sgapi.client.templates._(SURVEY_EMAIL_TO_BROWN_ID).get().response_body)
+			email_template = json.loads(sgapi.client.templates._(SURVEY_EMAIL_TO_FAVORED_CLIENT_ID).get().response_body)
 			versions = email_template.get('versions')
 			version_number = [v.get('name') for v in versions if v.get('active')][0]
 			email_purpose = email_template.get('name')
@@ -1220,12 +1308,12 @@ class Booking(models.Model):
 
 		message = sendgrid.Mail()
 		message.add_to(email)
-		message.set_from('Bryte Photo Inc <' + settings.EMAIL_HOST_USER + '>')
-		message.set_subject('An opportunity to give back') 
+		message.set_from('Bryte Inc <' + settings.EMAIL_HOST_USER + '>')
+		message.set_subject('a free coffee for your feedback') 
 		message.set_html('Body')
 		message.set_text('Body')
 		message.add_filter('templates','enable','1')
-		message.add_filter('templates','template_id', SURVEY_EMAIL_TO_BROWN_ID)
+		message.add_filter('templates','template_id', SURVEY_EMAIL_TO_FAVORED_CLIENT_ID)
 		message.set_categories(category)
 		message.add_substitution('-first_name-', first_name)
 
