@@ -2272,7 +2272,8 @@ body, html
 }
 
 .center_content_600 {
-	width: 360px;
+	width: 360px!important;
+	width: 90%;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -2526,3 +2527,15 @@ max_width_150 {
     margin: 30px auto;
   }
 }
+
+
+@media screen and (max-width: 767px){
+	.mobile_hide{
+		visibility: hidden;
+		display: none;
+	}
+	.mobile_padding {
+		padding-top: 40px;
+	}
+}
+
