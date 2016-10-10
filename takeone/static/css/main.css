@@ -2186,7 +2186,7 @@ body, html
 
 
 .ord_button_l {
-	font-family: 'Lato', sans-serif;;
+	font-family: 'Lato', sans-serif;
 	font-weight: bold;
 	color: #1ca806;
 	background-color: rgba(0,0,0,0);
@@ -2202,7 +2202,7 @@ body, html
 }
 
 .ord_button_w {
-	font-family: 'Lato', sans-serif;;
+	font-family: 'Lato', sans-serif;
 	font-weight: bold;
 	color: #1ca806;
 	background-color: rgba(0,0,0,0);
@@ -2217,7 +2217,7 @@ body, html
 }
 
 .ord_button_gray {
-	font-family: 'Lato', sans-serif;;
+	font-family: 'Lato', sans-serif;
 	font-weight: bold;
 	color: #888;
 	background-color: rgba(0,0,0,0);
@@ -2265,7 +2265,8 @@ body, html
 }
 
 .center_content_1000 {
-	width: 560px;
+	max-width: 560px!important;
+	width: 90%;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -2277,7 +2278,7 @@ body, html
 }
 
 .black_order_button_s {
-	font-family: 'Lato', sans-serif;;
+	font-family: 'Lato', sans-serif;
 	font-weight: bold;
 	color: #333;
 	background-color: rgba(0,0,0,0);
@@ -2292,7 +2293,7 @@ body, html
 }
 
 .black_order_button {
-	font-family: 'Lato', sans-serif;;
+	font-family: 'Lato', sans-serif;
 	font-weight: bold;
 	color: #333;
 	background-color: rgba(0,0,0,0);
@@ -2402,7 +2403,7 @@ body, html
 }
 
 .book_button {
-	font-family: 'Lato', sans-serif;;
+	font-family: 'Lato', sans-serif;
 	font-weight: bold;
 	color: #fff;
 	font-size: 1.5em!important;
@@ -2434,18 +2435,18 @@ body, html
 }
 
 .max_width_250 {
-	max-width: 300px;
-	width:100%!important;
+	max-width: 300px!important;
+	width:100%;
 }
 
 .max_width_200 {
-	max-width: 250px;
-	width: 100%!important;
+	max-width: 250px!important;
+	width: 100%;
 }
 
 max_width_150 {
 	max-width: 150px!important;
-	width:100%!important;
+	width:100%;
 }
 
 .full_width {

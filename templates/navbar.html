@@ -75,25 +75,29 @@
 {% else %}
 
   <nav class="navbar navbar-default navbar_grey navbar_border" id="main_nav">
+    <div class="container-fluid">
     <div class="navbar-header">
       <a href="{% url 'headshot_index' %}" class="navbar-brand"><img alt="Bryte Photo logo" src="{% static 'logo/bryte_logo_white.png' %}" height="45px"></a>
+
+      
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
+    
     </div>
   
     {% if not myheadshot_checkout %}
     <div class="collapse navbar-collapse" id='bs-example-navbar-collapse-1'>
       <ul class="nav navbar-nav navbar-right">
         <li class="bold">
-        <a data-toggle="modal" data-target="#cart_box"><span class="white">My Cart</span></a></li>
+        <a data-toggle="modal" data-target="#cart_box"><button class="text_button"><span class="white large_font">My Cart</span></button></a></li>
       </ul>
-    </div>     
+    </div>  
     {% endif %}
-
+    </div>
   </nav>
 {% endif %}
 
