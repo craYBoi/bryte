@@ -967,6 +967,8 @@ def headshot_complete(request):
 			except Exception, e:
 				print 'order instance fails to create ' + str(e)
 				pass
+			else:
+				print 'order instance successfully created ' + str(b.email)
 
 			# create image purchase instance
 			# copied image in PROD to TBR
@@ -981,7 +983,8 @@ def headshot_complete(request):
 				except Exception, e:
 					print 'purchase instance fails to create ' + str(e)
 					pass
-			
+				else:
+					print 'purchase instance successfully created ' + str(b.email)
 			return render(request, 'order_complete.html', context)
 
 

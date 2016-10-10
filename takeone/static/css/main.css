@@ -2438,9 +2438,9 @@ body, html
 	width:100%!important;
 }
 
-.max_height_250 {
-	max-height: 250px;
-	height: 100%!important;
+.max_width_200 {
+	max-width: 250px;
+	width: 100%!important;
 }
 
 max_width_150 {
@@ -2519,3 +2519,9 @@ max_width_150 {
   }
 }
 
+@media (min-width: 768px) {
+  .checkout_box_modal {
+    width: 950px!important;
+    margin: 30px auto;
+  }
+}
