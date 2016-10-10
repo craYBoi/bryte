@@ -2534,8 +2534,14 @@ max_width_150 {
 		visibility: hidden;
 		display: none;
 	}
-	.mobile_padding {
+	.m_large_padding_top {
 		padding-top: 40px;
+	}
+	.m_small_padding_top {
+		padding-top: 10px;
+	}
+	.m_medium_padding_top {
+		padding-top: 20px;
 	}
 }
 
