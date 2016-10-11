@@ -659,7 +659,7 @@ class Timeslot(models.Model):
 		slot_left = min(MAX_VOLUMN - 1, MAX_VOLUMN - self.current_volumn) 
 
 		slot_left_str = ' ------ ' + str(slot_left) + '/3 headshot sessions left'
-		time_format += slot_left_str
+		# time_format += slot_left_str
 		if time_format[0] == '0':
 			return time_format[1:]
 		return time_format
