@@ -38,7 +38,7 @@ FORGET_TO_ORDER_YOUR_HEADSHOT_ID = '6f6a328f-11b2-48c9-8879-751fe4c8b268'
 
 
 # max sessions per time slot
-MAX_VOLUMN = 4
+MAX_VOLUMN = 8
 
 
 class Nextshoot(models.Model):
