@@ -84,7 +84,7 @@ def index(request, school='brown'):
 			raise Http404
 
 
-	elif school.lower() == 'bu':
+	elif school.lower() == 'bu' or school.lower() == 'bostonuniversity':
 		title = 'Bryte & Boston University Headshot'
 		nextshoot = Nextshoot.objects.filter(school='Boston University').order_by('-date')
 		bg_url = static('img/bu/bg.jpg')
@@ -94,7 +94,7 @@ def index(request, school='brown'):
 		school_title = 'BU Career Center'
 		school_bryte_url = 'bu'
 		school_abbr = 'BU'
-		school_location = 'Feld Career Center, 595 Commonwealth Ave.'
+		school_location = 'GSU 2nd floor'
 
 		if nextshoot:
 			nextshoot = nextshoot[0]
