@@ -72,7 +72,7 @@ class Nextshoot(models.Model):
 		self.create_photo_folder()
 
 		# create shoot folder in TOUCHUP
-		self.create_touchup_folder()
+		# self.create_touchup_folder()
 
 
 	def __unicode__(self):

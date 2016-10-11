@@ -973,18 +973,35 @@ def headshot_complete(request):
 			# create image purchase instance
 			# copied image in PROD to TBR
 			for o in orders:
-				o.order = ho
-				o.charged = True
-				# copy to tbr
-				o.copy_to_tbr()
-
 				try:
-					o.save()
+					hp = HeadshotPurchase.objects.create(
+						order=ho,
+						charged=True,
+						raw_url=o.raw_url,
+						image=o.image,
+						touchup=o.touchup,
+						background=o.background,
+						special_request=o.special_request,
+						package = o.package,
+						hash_id = o.hash_id,
+						total = o.total,
+						)
 				except Exception, e:
 					print 'purchase instance fails to create ' + str(e)
 					pass
 				else:
+					hp.copy_to_tbr()
 					print 'purchase instance successfully created ' + str(b.email)
+				# o.order = ho
+				# o.charged = True
+				# copy to tbr
+				# o.copy_to_tbr()
+
+				# try:
+				# 	o.save()
+
+				# else:
+				# 	print 'purchase instance successfully created ' + str(b.email)
 			return render(request, 'order_complete.html', context)
 
 
