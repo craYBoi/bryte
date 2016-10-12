@@ -901,6 +901,12 @@ def headshot_complete(request):
 		return render(request, 'order_complete.html', context)
 
 
+	# # test
+	# for order in orders:
+	# 	print order.image
+	# 	print order.raw_url
+	# 	print order.touchup
+
 	# charge 
 	if request.method == 'POST':
 		token = request.POST.get('token')
@@ -973,25 +979,22 @@ def headshot_complete(request):
 			# create image purchase instance
 			# copied image in PROD to TBR
 			for o in orders:
+				print o.image
+
+				o.order=ho
+				o.charged=True
+
+				# call super method to save the instance to avoid pk conflict in postgres
 				try:
-					hp = HeadshotPurchase.objects.create(
-						order=ho,
-						charged=True,
-						raw_url=o.raw_url,
-						image=o.image,
-						touchup=o.touchup,
-						background=o.background,
-						special_request=o.special_request,
-						package = o.package,
-						hash_id = o.hash_id,
-						total = o.total,
-						)
+					super(HeadshotPurchase, o).save()
 				except Exception, e:
 					print 'purchase instance fails to create ' + str(e)
-					pass
+					
 				else:
-					hp.copy_to_tbr()
 					print 'purchase instance successfully created ' + str(b.email)
+
+				o.copy_to_tbr()
+
 				# o.order = ho
 				# o.charged = True
 				# copy to tbr
