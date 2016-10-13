@@ -518,7 +518,7 @@ class Nextshoot(models.Model):
 
 	def send_replacement(self):
 		timeslots = self.timeslot_set.all()
-		num_slots_available = MAX_VOLUMN * len(timeslots) - sum(e.current_volumn for e in timeslots)
+		num_slots_available = self.max_volumn * len(timeslots) - sum(e.current_volumn for e in timeslots)
 
 		num_ppl_to_notify = 8 * num_slots_available
 		signups = Signup.objects.filter(shoot=self).filter(notified=False).filter(cancelled=False).order_by('timestamp')
@@ -671,9 +671,9 @@ class Timeslot(models.Model):
 		if not self.is_available:
 			print 'this should not be happening'
 
-		if self.current_volumn < MAX_VOLUMN and self.is_available:
+		if self.current_volumn < self.shoot.max_volumn and self.is_available:
 			self.current_volumn += 1
-			if self.current_volumn == MAX_VOLUMN:
+			if self.current_volumn == self.shoot.max_volumn:
 				self.is_available = False
 			self.save()
 
