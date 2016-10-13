@@ -53,16 +53,18 @@ class SignupAdmin(admin.ModelAdmin):
 	list_display = ['id', 'email', 'name','notified', 'shoot', 'timestamp', 'cancelled']
 
 class OriginalHeadshotAdmin(admin.ModelAdmin):
-	list_display = ['booking', 'name', 'raw_url', 'deliverable_url', 'hash_id']
+	list_display = ['id','booking', 'name', 'raw_url', 'deliverable_url', 'hash_id']
 
 class HeadshotOrderAdmin(admin.ModelAdmin):
-	list_display = ['id', 'booking', 'total', 'timestamp', 'address']
+	list_display = ['id', 'booking', 'total', 'timestamp', 'address', 'copied_to_touchup', 'copied_to_prod', 'delivered']
 
 class HeadshotPurchaseAdmin(ImportExportModelAdmin):
 
 	resource_class = HpResource
 
-	list_display = ['pk', 'image', 'order', 'touchup', 'background', 'package', 'total', 'special_request', 'charged', 'copied']
+	list_display = ['pk', 'image', 'order', 'touchup', 'background', 'package', 'total', 'special_request', 'charged', 'copied', 'copied_to_touchup', 'copied_to_prod', 'delivered']
+
+
 
 class BookingAdmin(ImportExportModelAdmin):
 	resource_class = BookingResource
