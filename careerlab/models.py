@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.utils import timezone
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMessage
 from django.conf import settings
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse
@@ -15,6 +15,8 @@ import string
 
 import os
 import json
+import csv
+import StringIO
 
 import dropbox
 import sendgrid
@@ -150,7 +152,6 @@ class Nextshoot(models.Model):
 		return None
 
 
-
 	def get_time_interval_string(self):
 		timeslots = self.timeslot_set.all()
 		if timeslots:
@@ -209,6 +210,47 @@ class Nextshoot(models.Model):
 		print '\n'
 		print str(len(bookings)) + ' to be migrated in total'
 		print str(count) + ' migrated'
+
+
+	# photo to touchup 
+	def photo_to_touchups(self, folder_name):
+
+		print 'Moving photos from PHOTO to TOUCHUP..'
+		# iterate though showups
+		bookings = [e for elem in self.timeslot_set.all() for e in elem.booking_set.filter(show_up=True)]
+
+		for b in bookings:
+
+			b.photo_to_touchup(folder_name)
+
+		print '\nDONE!'
+
+
+
+	def deliver_deliverables(self):
+		print 'Delivering the photos..'
+
+		bookings = [e for elem in self.timeslot_set.all() for e in elem.booking_set.filter(show_up=True)]
+
+		for b in bookings:
+			b.deliver_deliverable()
+
+		print '\nDONE!'
+
+
+
+	# discard noshows
+	def discard_noshows(self):
+		print 'discarding noshows...'
+
+		bookings = [e for elem in self.timeslot_set.all() for e in elem.booking_set.filter(show_up=False)]
+
+		for b in bookings:
+			b.delete()
+
+		print 'discarded.'
+
+	# garbage after here
 
 
 	# create shoot folder for photoshoppers
@@ -283,18 +325,6 @@ class Nextshoot(models.Model):
 						else:
 							print 'Found fav and copied to TOUCHUP'
 			return 1
-
-
-	# compress photo folder
-	# call booking sub method
-	def compress_photo_folder(self):
-		pass
-
-
-	# compress touchup folder
-	# do as a batch, no need to call sub method
-	def compress_touchup_folder(self):
-		pass
 
 
 	# CHECK TOUCHUP Folder
@@ -793,7 +823,7 @@ class Booking(models.Model):
 		else:
 			print 'Signup instance is created ' + str(self.email)
 
-
+	# migrate from photo folder to touchup folder according to HeadshotPurchase data
 	def photo_to_touchup(self, folder_name):
 		token = settings.DROPBOX_TOKEN
 		dbx = dropbox.Dropbox(token)
@@ -809,52 +839,55 @@ class Booking(models.Model):
 
 		photo_path = os.path.join(photo_folder_path, shoot_name, email)
 
-		try:
-			items = dbx.files_list_folder(photo_path).entries
-		except Exception, e:
-			print 'Photo folder listing failed ' + str(email) +'\nAbort..'
-			raise e
-		else:			
-
-			if orders:
-				for order in orders:
-					print 'order!!\n\n\n\n'
-					purchases = order.headshotpurchase_set.filter(copied_to_touchup=False)
-					# or could just filter order instances
+		if orders:
+			for order in orders:
+				# print 'order!!\n\n\n\n'
+				purchases = order.headshotpurchase_set.filter(copied_to_touchup=False)
+				# or could just filter order instances
 
 
-					if purchases:
+				if purchases:
 
-						copied_flag = True
-						for purchase in purchases:
-							# copy photo to touchup
-							image_name = purchase.image.name
-
-
-							# free or upgraded folder
-							if purchase.touchup == 1:
-								touchup_dest_path = os.path.join(touchup_folder_path, 'Free', image_name)
-							else:
-								touchup_dest_path = os.path.join(touchup_folder_path, 'Upgraded', image_name)
+					copied_flag = True
+					for purchase in purchases:
+						# copy photo to touchup
+						image_name = purchase.image.name
+						p_id = purchase.id
 
 
-							# rewrite the copy part
-							photo_instance_path = os.path.join(photo_path, image_name)
-							print photo_instance_path
-							print touchup_folder_path
-							print '\n\n'
+						# free or upgraded folder
+						if purchase.touchup == 1:
+							touchup_dest_path = os.path.join(touchup_folder_path, 'Free', str(p_id)+image_name)
+							touchup_text = 'Free'
+						else:
+							touchup_dest_path = os.path.join(touchup_folder_path, 'Upgraded', str(p_id)+image_name)
+							touchup_text = 'Paid'
 
 
-							try:
-								dbx.files_copy(photo_instance_path, touchup_dest_path)
-							except Exception, e:
-								print '[FAILED] copy from photo to touchup: ' + image_name
-							else:
-								print '[SUCCESS] copy from photo to touchup: ' + image_name
-								# update the flag
-								purchase.copied_to_touchup = True
-								super(HeadshotPurchase, purchase).save()
+						# rewrite the copy part
+						photo_instance_path = os.path.join(photo_path, image_name)
+						# print photo_instance_path
+						# print touchup_folder_path
+						# print '\n\n'
 
+
+						try:
+							dbx.files_copy(photo_instance_path, touchup_dest_path)
+						except Exception, e:
+							print '[FAILED] copy from photo to touchup: ' + image_name + ' ' + touchup_text
+							# print e
+						else:
+							print '[SUCCESS] copy from photo to touchup: ' + image_name + ' ' + touchup_text
+							# update the flag
+
+						purchase.copied_to_touchup = True
+						super(HeadshotPurchase, purchase).save()
+
+				else:
+					print 'Seems all the photos are copied to touchup already: ' + str(email)
+				# assign touchup folder to the order
+				order.touchup_folder = folder_name
+				super(HeadshotOrder, order).save()
 
 							# for item in items:
 							# 	if image_name.lower() == item.name.lower():
@@ -874,7 +907,46 @@ class Booking(models.Model):
 							# 			super(HeadshotPurchase, purchase).save()
 
 
+  # iterate through every booking instance,
+  # decide whether to send deliverable or not
+	def deliver_deliverable(self):
+		token = settings.DROPBOX_TOKEN
+		dbx = dropbox.Dropbox(token)
 
+		time_now = timezone.now()
+		processing_days = 0
+		delta = timedelta(days=processing_days)
+
+		orders = self.headshotorder_set.filter(copied_to_prod=True).filter(delivered=False)
+
+		# see if need to send out
+		# could be used to implement the expedite delivery
+
+		# TODO make sure the orders are seperated by at least 1 day
+
+		# ASSUMING orders are not placed in the same day, otherwise it's gonna send more than 1 delivery emails
+		for order in orders:
+
+			print 'processing order..' + str(order.booking.email)
+
+			# if it's been processed more than 5 days
+			if order.timestamp + delta < time_now:
+
+				# send delivery email
+				self.photo_delivery_email()
+
+				# change the flag
+				order.delivered = True
+				super(HeadshotOrder, order).save()
+
+				# change the flags of its purchases
+				for p in order.headshotpurchase_set.all():
+					p.delivered = True
+					super(HeadshotPurchase, p).save()
+
+				print 'order delivered!\n' + str(order.booking.email)
+			else:
+				print 'order don\'t need to be delivered yet. ' + str(order.timestamp) + ' ' + str(order.booking.email)
 
 
 
@@ -1738,6 +1810,7 @@ class HeadshotOrder(models.Model):
 	copied_to_touchup = models.BooleanField(default=False)
 	copied_to_prod = models.BooleanField(default=False)
 	delivered = models.BooleanField(default=False)
+	touchup_folder = models.CharField(max_length=30, blank=True, null=True)
 
 	def __unicode__(self):
 		return str(self.booking.email) + ' ' + str(self.timestamp) + ' ' + str(self.total)
@@ -1788,6 +1861,9 @@ class HeadshotPurchase(models.Model):
 	copied_to_touchup = models.BooleanField(default=False)
 	copied_to_prod = models.BooleanField(default=False)
 	delivered = models.BooleanField(default=False)
+
+	def __unicode__(self):
+		return self.image.name + ', touchup: ' + str(self.get_touchup_display()) + ', bg: ' + str(self.get_background_display()) + ', total: ' + str(self.total)
 
 
 	def save(self, *args, **kwargs):

@@ -56,7 +56,7 @@ class OriginalHeadshotAdmin(admin.ModelAdmin):
 	list_display = ['id','booking', 'name', 'raw_url', 'deliverable_url', 'hash_id']
 
 class HeadshotOrderAdmin(admin.ModelAdmin):
-	list_display = ['id', 'booking', 'total', 'timestamp', 'address', 'copied_to_touchup', 'copied_to_prod', 'delivered']
+	list_display = ['id', 'booking', 'total', 'timestamp', 'address', 'copied_to_touchup', 'copied_to_prod', 'delivered', 'touchup_folder']
 
 class HeadshotPurchaseAdmin(ImportExportModelAdmin):
 
