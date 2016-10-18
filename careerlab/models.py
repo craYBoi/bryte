@@ -1051,7 +1051,7 @@ class Booking(models.Model):
 		message = sendgrid.Mail()
 		message.add_to(email)
 		message.set_from('Bryte Inc <' + settings.EMAIL_HOST_USER + '>')
-		message.set_subject('Tips for taking a great Linkedin photo') 
+		message.set_subject('Tips for your upcoming LinkedIn photoshoot') 
 		message.set_html('Body')
 		message.set_text('Body')
 		message.add_filter('templates','enable','1')
@@ -1842,6 +1842,7 @@ class HeadshotPurchase(models.Model):
 		(3, 'Designer Bricks'),
 		(4, 'Sanguine Blue'),
 		(5, 'Nighttime Black'),
+		(6, 'Whipped Cream'),
 		)
 
 	background = models.PositiveSmallIntegerField(choices=BACKGROUNDS, default=1)

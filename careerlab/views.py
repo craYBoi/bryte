@@ -366,11 +366,17 @@ def headshot_index(request):
 
 
 		# if people try to access headshot url directly
-		# need to change. filter() and orderby timestamps and take the first for now
-		try:
-			booking = get_object_or_404(Booking, hash_id=booking_id)
-		except Exception, e:
+		# need to change. filter() and orderby timestamps and take the first for now [DONE]
+		bookings = Booking.objects.filter(hash_id=booking_id).order_by('-timestamp')
+		if bookings:
+			booking = bookings[0]
+		else:
 			return redirect('headshot_error')
+
+		# try:
+		# 	booking = get_object_or_404(Booking, hash_id=booking_id)
+		# except Exception, e:
+		# 	return redirect('headshot_error')
 
 
 		# set session expiry 1.5 hours
