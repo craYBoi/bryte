@@ -39,7 +39,7 @@ class BookingResource(resources.ModelResource):
 		fields = ('id', 'name', 'email', 'timeslot')
 
 	def dehydrate_timeslot(self, booking):
-		return str(booking.timeslot.time)
+		return booking.timeslot.time.strftime('%m/%d %H:%M')
 
 
 class NextshootAdmin(ImportExportModelAdmin):
