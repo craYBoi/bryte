@@ -66,6 +66,24 @@ def index(request, school='brown'):
 			raise Http404
 
 
+	if school.lower() == 'gradcon':
+		title = 'Bryte & GradCON'
+		nextshoot = Nextshoot.objects.filter(school='Brown GradCON').order_by('-date')
+		bg_url = static('img/brown_campus.jpg')
+		logo_url = static('logo/gradcon.jpg')
+		school_name = 'Brown University CareerLAB'
+		school_url = 'https://www.brown.edu/campus-life/support/careerlab/GradCon'
+		school_bryte_url = 'gradcon'
+		school_abbr = 'Brown GradCON'
+		school_title = 'Brown University GradCON'
+		school_location = 'CareerLAB'
+		if nextshoot:
+			nextshoot = nextshoot[0]
+			timeslots = nextshoot.timeslot_set.filter(is_available=True).order_by('time')	
+		else:
+			raise Http404
+
+
 	if school.lower() == 'ric':
 		title = 'Bryte & Rhode Island College'
 		nextshoot = Nextshoot.objects.filter(school='Rhode Island College').order_by('-date')
