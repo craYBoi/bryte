@@ -33,7 +33,7 @@ def create_touchup_folder(folder_name):
 		
 
 # generate touchup list for mmp
-def generate_touchup_list():
+def generate_touchup_list(folder_name):
 	
 	# orders = self.headshotorder_set.all()
 
@@ -43,6 +43,8 @@ def generate_touchup_list():
 	# filter using the copied_to_touchup
 	# make sure to do this BEFORE calling the photo_to_touchup
 	purchases = HeadshotPurchase.objects.filter(copied_to_touchup=False).exclude(touchup=1)
+
+	file_name = folder_name + '.csv'
 
 	if purchases:
 
@@ -58,7 +60,7 @@ def generate_touchup_list():
 
 		# generate touchup list to send
 		email = EmailMessage('Auto gened Touchup List Test', ' ', 'Bryte Photo <' + settings.EMAIL_HOST_USER + '>', [settings.EMAIL_HOST_USER])
-		email.attach('Touchup List.csv', csvf.getvalue(), 'text/csv')
+		email.attach(file_name, csvf.getvalue(), 'text/csv')
 		try:
 			email.send()
 		except Exception, e:
@@ -99,39 +101,42 @@ def touchup_to_prod_free(folder_name):
 	except Exception, e:
 		raise e
 	else:
-		for item in items:
-			# assert item.name in image_names, 'No purchase instance found! ' + item.name
+		if items:
+			for item in items:
+				# assert item.name in image_names, 'No purchase instance found! ' + item.name
 
-			file_name = item.name
+				file_name = item.name
 
-			# parse the name to find id
-			p_id = file_name[:file_name.index('IMG')]
+				# parse the name to find id
+				p_id = file_name[:file_name.index('IMG')]
 
-			ind = p_ids.index(p_id)
+				ind = p_ids.index(p_id)
 
-			purchase_instance = purchases[ind]
-			booking = purchase_instance.order.booking
+				purchase_instance = purchases[ind]
+				booking = purchase_instance.order.booking
 
-			N = 6
-			hash_code = ''.join(SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(N))
+				N = 6
+				hash_code = ''.join(SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(N))
 
-			prod_path = os.path.join(booking.dropbox_folder, 'Deliverable', hash_code + item.name)
+				prod_path = os.path.join(booking.dropbox_folder, 'Deliverable', hash_code + item.name)
 
-			# do the copy thing
-			try:
-				dbx.files_copy(item.path_lower, prod_path)
-			except Exception, e:
-				print '[FAIL] copy from touchup to prod ' + booking.email + ' ' + purchase_instance.image.name + ' Should not be happening'
-			else:
-				print '[SUCCESS] copy from touchup to prod ' + booking.email + ' ' + purchase_instance.image.name
-				purchase_instance.copied_to_prod = True
-				super(HeadshotPurchase, purchase_instance).save()
+				# do the copy thing
+				try:
+					dbx.files_copy(item.path_lower, prod_path)
+				except Exception, e:
+					print '[FAIL] copy from touchup to prod ' + booking.email + ' ' + purchase_instance.image.name + ' Should not be happening'
+				else:
+					print '[SUCCESS] copy from touchup to prod ' + booking.email + ' ' + purchase_instance.image.name
+					purchase_instance.copied_to_prod = True
+					super(HeadshotPurchase, purchase_instance).save()
 
-				# change the order flag as well
-				# since all the purchases in one order will be moved to touchup and then to prod all together. If 1 purchase is copied to prod, that means its entire order has been copied to prod. TBTest
+					# change the order flag as well
+					# since all the purchases in one order will be moved to touchup and then to prod all together. If 1 purchase is copied to prod, that means its entire order has been copied to prod. TBTest
 
-				purchase_instance.order.copied_to_prod = True
-				super(HeadshotOrder, purchase_instance.order).save()
+					purchase_instance.order.copied_to_prod = True
+					super(HeadshotOrder, purchase_instance.order).save()
+		else:
+			print 'There aren\'t any photos in touchup deliverable yet'
 
 
 def touchup_to_prod_paid(folder_name):
@@ -156,36 +161,39 @@ def touchup_to_prod_paid(folder_name):
 	except Exception, e:
 		raise e
 	else:
-		for item in items:
-			# assert item.name in image_names, 'No purchase instance found! ' + item.name
-			file_name = item.name
+		if items:
+			for item in items:
+				# assert item.name in image_names, 'No purchase instance found! ' + item.name
+				file_name = item.name
 
-			# parse the name to find id
-			p_id = file_name[:file_name.index('IMG')]
+				# parse the name to find id
+				p_id = file_name[:file_name.index('IMG')]
 
-			ind = p_ids.index(p_id)
+				ind = p_ids.index(p_id)
 
-			purchase_instance = purchases[ind]
-			booking = purchase_instance.order.booking
+				purchase_instance = purchases[ind]
+				booking = purchase_instance.order.booking
 
-			N = 6
-			hash_code = ''.join(SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(N))
+				N = 6
+				hash_code = ''.join(SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(N))
 
 
-			prod_path = os.path.join(booking.dropbox_folder, 'Deliverable', hash_code + item.name)
+				prod_path = os.path.join(booking.dropbox_folder, 'Deliverable', hash_code + item.name)
 
-			# do the copy thing
-			try:
-				dbx.files_copy(item.path_lower, prod_path)
-			except Exception, e:
-				print '[FAIL] copy from touchup to prod ' + booking.email + ' ' + purchase_instance.image.name + ' Should not be happening'
-			else:
-				print '[SUCCESS] copy from touchup to prod ' + booking.email + ' ' + purchase_instance.image.name
-				purchase_instance.copied_to_prod = True
-				super(HeadshotPurchase, purchase_instance).save()
+				# do the copy thing
+				try:
+					dbx.files_copy(item.path_lower, prod_path)
+				except Exception, e:
+					print '[FAIL] copy from touchup to prod ' + booking.email + ' ' + purchase_instance.image.name + ' Should not be happening'
+				else:
+					print '[SUCCESS] copy from touchup to prod ' + booking.email + ' ' + purchase_instance.image.name
+					purchase_instance.copied_to_prod = True
+					super(HeadshotPurchase, purchase_instance).save()
 
-				# change the order flag as well
-				# since all the purchases in one order will be moved to touchup and then to prod all together. If 1 purchase is copied to prod, that means its entire order has been copied to prod. TBTest
+					# change the order flag as well
+					# since all the purchases in one order will be moved to touchup and then to prod all together. If 1 purchase is copied to prod, that means its entire order has been copied to prod. TBTest
 
-				purchase_instance.order.copied_to_prod = True
-				super(HeadshotOrder, purchase_instance.order).save()
+					purchase_instance.order.copied_to_prod = True
+					super(HeadshotOrder, purchase_instance.order).save()
+		else:
+			print 'There aren\'t any photos in touchup deliverable yet'

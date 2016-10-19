@@ -43,7 +43,7 @@ class BookingResource(resources.ModelResource):
 
 
 class NextshootAdmin(ImportExportModelAdmin):
-	list_display = ['id', 'photographer', 'location', 'school', 'active', 'name' , 'max_volumn' ,'timestamp']
+	list_display = ['id', 'photographer', 'location', 'school', 'active', 'name' , 'max_volumn' , 'is_serving', 'timestamp']
 	
 
 class TimeslotAdmin(admin.ModelAdmin):

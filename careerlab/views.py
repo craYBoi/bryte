@@ -391,6 +391,11 @@ def headshot_index(request):
 		else:
 			return redirect('headshot_error')
 
+
+		shoot = booking.timeslot.shoot
+		if not shoot.is_serving:
+			return redirect('headshot_expire')
+
 		# try:
 		# 	booking = get_object_or_404(Booking, hash_id=booking_id)
 		# except Exception, e:
@@ -1052,3 +1057,12 @@ def headshot_error(request):
 			return redirect(url)
 
 	return render(request, 'order_error.html', context)
+
+
+def headshot_expire(request):
+	context = {
+		'myheadshot': 1,
+		'title_text': 'The photos are expired'
+	}
+
+	return render(request, 'order_expire.html', context)

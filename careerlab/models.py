@@ -52,7 +52,7 @@ class Nextshoot(models.Model):
 	date = models.DateField(default=timezone.now)
 	active = models.BooleanField(default=True)
 	max_volumn = models.PositiveSmallIntegerField(default=4)
-
+	is_serving = models.BooleanField(default=True)
 
 	class Meta:
 		ordering = ('-timestamp',)
@@ -249,6 +249,14 @@ class Nextshoot(models.Model):
 			b.delete()
 
 		print 'discarded.'
+
+
+
+	# close the cycle
+	def close_cycle(self):
+		self.is_serving = False
+		super(Nextshoot, self).save()
+
 
 	# garbage after here
 

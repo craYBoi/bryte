@@ -2445,8 +2445,8 @@ body, html
 	width: 100%;
 }
 
-max_width_150 {
-	max-width: 150px!important;
+.max_width_150 {
+	max-width: 170px!important;
 	width:100%;
 }
 
@@ -2461,8 +2461,8 @@ max_width_150 {
 }
 
 .colorbox {
-	width: 30px;
-	height: 30px;
+	width: 25px;
+	height: 25px;
 	border-radius: 3px;
 	border: 3px solid #ccc;
 	cursor: pointer;
@@ -2470,6 +2470,10 @@ max_width_150 {
 
 .colorbox_black {
 	background-color: #000;
+}
+
+.colorbox_cream {
+	background-color: #fffcf2;
 }
 
 .colorbox_blue {
@@ -2501,7 +2505,7 @@ max_width_150 {
 }
 
 .colorbox_padding {
-	padding-right: 13px;
+	padding-right: 9px;
 }
 
 .top_black_border_s {
