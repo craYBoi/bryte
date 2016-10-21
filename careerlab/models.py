@@ -690,7 +690,7 @@ class Timeslot(models.Model):
 	shoot = models.ForeignKey(Nextshoot)
 
 	def __unicode__(self):
-		return self.time.strftime('%m/%d/%Y %I:%M %p')
+		return self.time.strftime('%m/%d/%Y %I:%M %p') + str(shoot.location)
 
 	def time_slot_format(self):
 		time_format =  self.time.strftime('%I:%M %p')
