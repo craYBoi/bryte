@@ -950,7 +950,7 @@ def headshot_complete(request):
 
 		# add shipping fee
 		if express:
-			sum += 2
+			sum += 3
 
 		print 'EXPRESS ' + str(express)
 		print 'TOTAL ' + str(total)
