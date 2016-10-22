@@ -1884,6 +1884,7 @@ class HeadshotPurchase(models.Model):
 
 	def save(self, *args, **kwargs):
 		self.raw_url = self.image.raw_url
+		super(HeadshotPurchase, self).save()
 
 
 	def copy_to_tbr(self):
