@@ -1849,7 +1849,7 @@ class HeadshotPurchase(models.Model):
 		)
 
 	touchup = models.PositiveSmallIntegerField(choices=TOUCHUPS, default=1)
-	special_request = models.CharField(max_length=50, blank=True, null=True)
+	special_request = models.CharField(max_length=200, blank=True, null=True)
 
 	BACKGROUNDS = (
 		(1, 'White'),
