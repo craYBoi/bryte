@@ -179,7 +179,7 @@
 
 						<!-- custom request -->
 						<form action="{% url 'headshot_print_frame' %}">
-							<input type="text" name='special_request' class="max_width_150" id="cust_special_request" placeholder="Special requests" id="cust_special_request">
+							<input type="text" name='special_request' class="max_width_150" id="cust_special_request" placeholder="Special requests" id="cust_special_request" maxlength="180">
 							<input type="hidden" name='background' id="cust_background">
 							<input type="hidden" name='touchup' value='4' id="cust_touchup">
 							<input type="hidden" name='hs_id' value='{{ hs_id }}'>
