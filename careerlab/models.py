@@ -1857,7 +1857,7 @@ class HeadshotPurchase(models.Model):
 		(3, 'Designer Bricks'),
 		(4, 'Sanguine Blue'),
 		(5, 'Nighttime Black'),
-		(6, 'Whipped Cream'),
+		(6, 'Light Cream'),
 		)
 
 	background = models.PositiveSmallIntegerField(choices=BACKGROUNDS, default=1)

@@ -988,6 +988,10 @@ h1,h2,h3,h4 {
 	font-weight: bold;
 }
 
+.extra_bold {
+	font-weight: 900;
+}
+
 .light {
 	font-weight: 300;
 }
@@ -2218,12 +2222,12 @@ body, html
 
 .ord_button_gray {
 	font-family: 'Lato', sans-serif;
-	font-weight: bold;
 	color: #888;
 	background-color: rgba(0,0,0,0);
-	border: 4px solid #888;
-	border-radius: 16px;
-	padding: 13px 3.5em;
+	border: 2px solid #888;
+	border-radius: 12px;
+	padding: 7px 1.6em;
+	font-size: 15px;
 }
 
 .ord_button_gray:hover {
@@ -2363,7 +2367,7 @@ body, html
 
 @media (min-width: 768px) {
   .example_modal {
-    width: 750px!important;
+    width: 730px!important;
   }
   .example_modal_l {
 		width: 100%!important;
@@ -2371,7 +2375,7 @@ body, html
 }
 @media (min-width: 992px) {
   .example_modal {
-    width: 950px!important;
+    width: 870px!important;
   }
   .example_modal_l {
 		width: 100%!important;
@@ -2443,6 +2447,11 @@ body, html
 .max_height_200 {
 	max-height: 250px!important;
 	height: 100%;
+}
+
+.max_width_300 {
+	max-width: 350px!important;
+	width:100%;
 }
 
 
