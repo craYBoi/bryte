@@ -295,12 +295,12 @@
 	// checkbox expedite shipping
 	$('#process_option').change(function(){
 		if(this.checked){
-			ship += 200;
+			ship += 300;
 			// update the total
-			total = {{ total }} + 2;
+			total = {{ total }} + 3;
 			$('#total_amount').text(total);
 		}else{
-			ship -= 200;
+			ship -= 300;
 			// update the total
 			total = {{ total }};
 			$('#total_amount').text(total);
