@@ -920,7 +920,7 @@ def headshot_complete(request):
 			o.order = ho
 			o.charged = True
 			o.copy_to_tbr()
-			o.save()
+			super(HeadshotPurchase, o).save()
 		b.order_delivery_email(confirmation_content)
 
 		# flush all the shit, not all the shit but orders
@@ -990,7 +990,7 @@ def headshot_complete(request):
 			for o in orders:
 				o.order = ho
 				try:
-					o.save()
+					super(HeadshotPurchase, o).save()
 				except Exception, e:
 					print 'purchase instance fails to create ' + str(e)
 					pass	
