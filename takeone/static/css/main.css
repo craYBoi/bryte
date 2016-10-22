@@ -2363,7 +2363,7 @@ body, html
 
 @media (min-width: 768px) {
   .example_modal {
-    width: 600px!important;
+    width: 750px!important;
   }
   .example_modal_l {
 		width: 100%!important;
@@ -2371,7 +2371,7 @@ body, html
 }
 @media (min-width: 992px) {
   .example_modal {
-    width: 600px!important;
+    width: 950px!important;
   }
   .example_modal_l {
 		width: 100%!important;
@@ -2434,6 +2434,17 @@ body, html
 	background-color: #000;
 	color: #fff;
 }
+
+.max_height_250 {
+	max-height: 300px!important;
+	height: 100%;
+}
+
+.max_height_200 {
+	max-height: 250px!important;
+	height: 100%;
+}
+
 
 .max_width_250 {
 	max-width: 300px!important;

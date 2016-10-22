@@ -890,7 +890,8 @@ def headshot_complete(request):
 
 	# get the order detail to generate email info
 	booking_id = request.session.get('booking')
-	b = get_object_or_404(Booking, hash_id=booking_id)
+
+	b = Booking.objects.filter(hash_id=booking_id).order_by('-timestamp')[0]
 
 	confirmation_content = ''
 	sum = 0
@@ -944,6 +945,16 @@ def headshot_complete(request):
 		total = request.POST.get('total')
 		address = request.POST.get('address')
 
+		# shipping
+		express = request.POST.get('express')
+
+		# add shipping fee
+		if express:
+			sum += 2
+
+		print 'EXPRESS ' + str(express)
+		print 'TOTAL ' + str(total)
+
 		# flush all the shit
 		if request.session.has_key('order'):
 			del request.session['order']
@@ -967,6 +978,7 @@ def headshot_complete(request):
 				booking=b,
 				total=sum,
 				address=address,
+				express_shipping=express,
 				)
 
 			try:
@@ -997,6 +1009,7 @@ def headshot_complete(request):
 				booking=b,
 				total=sum,
 				address=address,
+				express_shipping=express,
 				)
 
 			try:

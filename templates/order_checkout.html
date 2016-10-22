@@ -41,7 +41,7 @@
 										<li>Background: {{ order.get_background_display }}</li>
 										{% if order.package == 1 %}
 											<div id="keepsake_{{ order.hash_id }}">
-												<li><a data-toggle="modal" data-target="#keepsake_box"><button class="keepsake_button ord_button_s" name="{{ order.hash_id }}">print it/frame it</button></a></li>
+												<li><a data-toggle="modal" data-target="#keepsake_box"><button class="keepsake_button ord_button_s" name="{{ order.hash_id }}">print it</button></a></li>
 											</div>
 										{% else %}
 											<li>Keepsake: {{ order.get_package_display }}</li>
@@ -59,8 +59,22 @@
 
 					</div>
 				{% endfor %}
-			<div class="medium_padding"></div>
-			<h2>Total Amount: ${{ total }}</h2>
+
+			
+			
+			{% if not free %}
+				<div class="medium_padding"></div>
+				<div class="small_padding"></div>
+			  <div class="checkbox lg_font bold">
+			    <label>
+			      <input type="checkbox" id="process_option"> 2 day Express Shipping
+			    </label>
+			  </div>			
+			{% endif %}
+
+
+			<div class="small_padding"></div>
+			<h2>Total Amount: $<span id="total_amount">{{ total }}</span></h2>
 			</div>
 
 		</div>
@@ -99,7 +113,7 @@
 		<div class="center_content_1000">
 			<h3 class="">How will I receive my photos?</h3>
 			<div class="small_padding"></div>
-			<p class="small_font grey">Your photos will be emailed to you within 48 hours of your payment. You'll be able to download them from the email and upload them wherever you like.</p>
+			<p class="small_font grey">Your photos will be emailed to you within 5 days of your payment. You'll be able to download them from the email and upload them wherever you like.</p>
 			<div class="small_padding"></div>
 
 			<h3 class="">How secure is your online payment processor?</h3>
@@ -126,7 +140,7 @@
 							<div class="text-center">
 								<h3 class="text-center">Wallet Prints</h3>
 								<div class="small_padding"></div>
-								<div class="center_flex"><div class="inline"><span class="small_font sm_padding lightgray xs_padding_right">Pay at checkout</span><p class="big_font">$3</p><span class="small_font sm_padding lightgray xs_padding_left">Keep it forever</span></div></div>
+								<div class="center_flex"><div class="inline"><span class="small_font sm_padding lightgray xs_padding_right">Pay at checkout</span><p class="big_font">$3</p><span class="small_font sm_padding lightgray xs_padding_left">Free Shipping</span></div></div>
 
 								<div class="small_padding"></div>
 
@@ -152,7 +166,7 @@
 							<div class="text-center">
 								<h3 class="text-center">Friends and Family</h3>
 								<div class="small_padding"></div>
-								<div class="center_flex"><div class="inline"><span class="small_font sm_padding lightgray xs_padding_right">Pay at checkout</span><p class="big_font">$9</p><span class="small_font sm_padding lightgray xs_padding_left">Keep it forever</span></div></div>
+								<div class="center_flex"><div class="inline"><span class="small_font sm_padding lightgray xs_padding_right">Pay at checkout</span><p class="big_font">$9</p><span class="small_font sm_padding lightgray xs_padding_left">Free Shipping</span></div></div>
 
 								<div class="small_padding"></div>
 
@@ -230,7 +244,9 @@
   });
 
 
-	var img = ''
+	var img = '';
+	var ship = {{ stripe_total }};
+	var total = {{ total }}
 	// keepsake, store in var
 	$('.keepsake_button').on('click', function(e){
 		img = $(this).attr('name');
@@ -276,6 +292,22 @@
 	})
 
 
+	// checkbox expedite shipping
+	$('#process_option').change(function(){
+		if(this.checked){
+			ship += 200;
+			// update the total
+			total = {{ total }} + 2;
+			$('#total_amount').text(total);
+		}else{
+			ship -= 200;
+			// update the total
+			total = {{ total }};
+			$('#total_amount').text(total);
+		}
+	})
+
+
 
 	var handler = StripeCheckout.configure({
 	  key: '{{ publish_key }}',
@@ -296,7 +328,14 @@
 	    $('<input>').attr({
 			    type: 'hidden',
 			    name: 'total',
-			    value: {{ stripe_total }},
+			    value: ship,
+
+			}).appendTo('#headshot_checkout_form');
+
+	    $('<input>').attr({
+			    type: 'hidden',
+			    name: 'express',
+			    value: $('#process_option:checked').val(),
 
 			}).appendTo('#headshot_checkout_form');
 			$('#headshot_checkout_form').submit();
@@ -314,7 +353,7 @@
 	    name: 'Bryte',
 	    description: 'Headshot',
 	    zipCode: true,
-	    amount: {{ stripe_total }},
+	    amount: ship,
 	  	});
 
 	  {% if has_package %}

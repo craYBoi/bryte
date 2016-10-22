@@ -922,8 +922,6 @@ class Booking(models.Model):
 		dbx = dropbox.Dropbox(token)
 
 		time_now = timezone.now()
-		processing_days = 0
-		delta = timedelta(days=processing_days)
 
 		orders = self.headshotorder_set.filter(copied_to_prod=True).filter(delivered=False)
 
@@ -936,6 +934,13 @@ class Booking(models.Model):
 		for order in orders:
 
 			print 'processing order..' + str(order.booking.email)
+
+			# expedite or regular shipping
+			shipping_days = 5
+			if order.express_shipping:
+				shipping_days = 2
+
+			delta = timedelta(days=shipping_days)
 
 			# if it's been processed more than 5 days
 			if order.timestamp + delta < time_now:
@@ -1819,6 +1824,8 @@ class HeadshotOrder(models.Model):
 	copied_to_prod = models.BooleanField(default=False)
 	delivered = models.BooleanField(default=False)
 	touchup_folder = models.CharField(max_length=30, blank=True, null=True)
+	express_shipping = models.BooleanField(default=False)
+
 
 	def __unicode__(self):
 		return str(self.booking.email) + ' ' + str(self.timestamp) + ' ' + str(self.total)
