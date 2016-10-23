@@ -936,14 +936,14 @@ class Booking(models.Model):
 			print 'processing order..' + str(order.booking.email)
 
 			# expedite or regular shipping
-			shipping_days = 5
+			shipping_days = 4
 			if order.express_shipping:
 				shipping_days = 2
 
 			delta = timedelta(days=shipping_days)
 
 			# if it's been processed more than 5 days
-			if order.timestamp + delta < time_now:
+			if order.timestamp + delta > time_now:
 
 				# send delivery email
 				self.photo_delivery_email()
