@@ -891,9 +891,11 @@ def headshot_complete(request):
 	# get the order detail to generate email info
 	booking_id = request.session.get('booking')
 
+	print 'booking_id: ' + str(booking_id)
+
 	b = Booking.objects.filter(hash_id=booking_id).order_by('-timestamp')[0]
 
-	print 'Complete Step 1'
+	print 'booking found!'
 
 	confirmation_content = ''
 	sum = 0
