@@ -53,10 +53,14 @@ def generate_touchup_list(folder_name):
 
 		csvf = StringIO.StringIO()
 		writer = csv.writer(csvf)
-		writer.writerow(['Image name', 'Background', 'Special Request'])
+		writer.writerow(['Image name', 'Background', 'Special Request', 'Express Delivery'])
 
+		express = ''
 		for p in purchases:
-			writer.writerow([str(p.id)+p.image.name, p.get_background_display(), p.special_request])
+
+			if p.order.express_shipping:
+				express = 'EXPRESS'
+			writer.writerow([str(p.id)+p.image.name, p.get_background_display(), p.special_request,express])
 
 		# generate touchup list to send
 		email = EmailMessage('Auto gened Touchup List Test', ' ', 'Bryte Photo <' + settings.EMAIL_HOST_USER + '>', [settings.EMAIL_HOST_USER])
