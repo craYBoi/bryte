@@ -63,7 +63,7 @@ def generate_touchup_list(folder_name):
 			writer.writerow([str(p.id)+p.image.name, p.get_background_display(), p.special_request,express])
 
 		# generate touchup list to send
-		email = EmailMessage('Auto gened Touchup List Test', ' ', 'Bryte Photo <' + settings.EMAIL_HOST_USER + '>', [settings.EMAIL_HOST_USER])
+		email = EmailMessage('Auto gened Touchup List Test', ' ', 'Bryte Photo <' + settings.EMAIL_HOST_USER + '>', ['byyagp@gmail.com'])
 		email.attach(file_name, csvf.getvalue(), 'text/csv')
 		try:
 			email.send()
