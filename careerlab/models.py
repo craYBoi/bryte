@@ -110,8 +110,6 @@ class Nextshoot(models.Model):
 		print 'No show customer: ' + str(no_show)
 
 
-
-
 	def create_time_slot(self, start, end):
 		delta = timedelta(minutes=10)
 		while start<end:
@@ -126,6 +124,7 @@ class Nextshoot(models.Model):
 			start+=delta
 
 		print 'Down..'
+
 
 	def create_folder_after_close(self):
 		bookings = [e for elem in self.timeslot_set.all() for e in elem.booking_set.all()]
@@ -256,6 +255,10 @@ class Nextshoot(models.Model):
 	def close_cycle(self):
 		self.is_serving = False
 		super(Nextshoot, self).save()
+
+
+	def notify_signups_all(self):
+		pass
 
 
 	# garbage after here
@@ -680,6 +683,33 @@ class Signup(models.Model):
 
 	def __unicode__(self):
 		return self.name + ' ' + self.email
+
+
+	def notify_signup(self):
+		first_name = self.name.split(' ')[0]
+		email = self.email
+		school = self.shoot.school
+		datetime = self.shoot.get_date_string() + ', ' + self.shoot.get_time_interval_string()
+		location = school + ' ' + self.shoot.location
+		url = ''
+		if school == 'Brown University':
+			url = 'www.brytephoto.com/school/brown'
+		elif school == 'Boston University':
+			url = 'www.brytephoto.com/school/bu'
+		elif school == 'Brown GradCON':
+			url = 'www.brytephoto.com/school/GradCON'
+		elif self.school == 'Rhode Island College':
+			url = 'www.brytephoto.com/school/ric'
+
+		title = 'New headshot sessions are opened. Sign up now!'
+		msg = 'Hi ' + first_name + ',\n\nGreat news! There are new headshots sessions available! We are shooting on ' + datetime + ', at ' + location + '. Book your session here:\n\n' + url + '\n\nBest, \nTeam Bryte'
+		try:
+			send_mail(title, msg, 'Bryte <' + settings.EMAIL_HOST_USER + '>', [email], fail_silently=False)
+		except Exception, e:
+			raise e
+		else:
+			print '[SENT] ' + email
+			return 1
 
 
 
