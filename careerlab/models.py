@@ -689,9 +689,11 @@ class Signup(models.Model):
 		first_name = self.name.split(' ')[0]
 		email = self.email
 		school = self.shoot.school
-		datetime = self.shoot.get_date_string() + ', ' + self.shoot.get_time_interval_string()
-		location = school + ' ' + self.shoot.location
+		shoot = Nextshoot.objects.filter(school=school).order_by('-date')[0]
+		datetime = shoot.get_date_string() + ', ' + shoot.get_time_interval_string()
+		location = school + ' ' + shoot.location
 		url = ''
+
 		if school == 'Brown University':
 			url = 'www.brytephoto.com/school/brown'
 		elif school == 'Boston University':
