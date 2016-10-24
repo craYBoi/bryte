@@ -893,6 +893,8 @@ def headshot_complete(request):
 
 	b = Booking.objects.filter(hash_id=booking_id).order_by('-timestamp')[0]
 
+	print 'Complete Step 1'
+
 	confirmation_content = ''
 	sum = 0
 	orders = []
@@ -909,8 +911,13 @@ def headshot_complete(request):
 
 	confirmation_content = confirmation_content + '<br><span style="font-size:1.5em; color: #c94848; font-weight: bold;">Total: $' + str(sum) + '</span><br>'
 
+	# just to print out
+	print str(booking_id) + ' ' + confirmation_content
+
 	# free
 	if request.GET.get('free'):
+
+		print 'Free!'
 		ho = HeadshotOrder(
 			booking=b,
 			total=sum,
@@ -941,6 +948,9 @@ def headshot_complete(request):
 
 	# charge 
 	if request.method == 'POST':
+
+		print 'Charging!'
+
 		token = request.POST.get('token')
 		total = request.POST.get('total')
 		address = request.POST.get('address')
@@ -952,8 +962,6 @@ def headshot_complete(request):
 		if express:
 			sum += 3
 
-		print 'EXPRESS ' + str(express)
-		print 'TOTAL ' + str(total)
 
 		# flush all the shit
 		if request.session.has_key('order'):
@@ -972,6 +980,7 @@ def headshot_complete(request):
 		except stripe.error.CardError, e:
 			# charge erro, redirect to checkout page
 			context['msg'] = 'There\'s a problem charging your card. Your card was not charged. Please try again.'
+			print 'Charging Error'
 
 			# create the ho and hp instances as well
 			ho = HeadshotOrder(
