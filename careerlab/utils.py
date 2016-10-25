@@ -55,9 +55,9 @@ def generate_touchup_list(folder_name):
 		writer = csv.writer(csvf)
 		writer.writerow(['Image name', 'Background', 'Special Request', 'Express Delivery'])
 
-		express = ''
+		
 		for p in purchases:
-
+			express = ''
 			if p.order.express_shipping:
 				express = 'EXPRESS'
 			writer.writerow([str(p.id)+p.image.name, p.get_background_display(), p.special_request,express])
