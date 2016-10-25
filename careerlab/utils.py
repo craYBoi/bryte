@@ -180,7 +180,9 @@ def touchup_to_prod_paid(folder_name):
 					if not c.isalpha():
 						p_id += c
 					else:
-						continue
+						break
+
+				print p_id
 
 
 				try:
