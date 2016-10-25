@@ -170,10 +170,19 @@ def touchup_to_prod_paid(folder_name):
 				# assert item.name in image_names, 'No purchase instance found! ' + item.name
 				file_name = item.name
 
+				# filter out temp files
+				
+
 				# parse the name to find id
 				p_id = file_name[:file_name.index('IMG')]
 
-				ind = p_ids.index(p_id)
+				try:
+					ind = p_ids.index(p_id)
+				except ValueError, e:
+					# for situations like manual copying
+					print 'Already copied.. Continue ' + file_name 
+					continue
+
 
 				purchase_instance = purchases[ind]
 				booking = purchase_instance.order.booking
