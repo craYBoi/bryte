@@ -177,8 +177,11 @@ def touchup_to_prod_paid(folder_name):
 
 				p_id = ''
 				for c in file_name:
-					if c.isdigit():
+					if not c.isalpha():
 						p_id += c
+					else:
+						continue
+
 
 				try:
 					ind = p_ids.index(p_id)
