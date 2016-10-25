@@ -171,10 +171,14 @@ def touchup_to_prod_paid(folder_name):
 				file_name = item.name
 
 				# filter out temp files
-				
+
 
 				# parse the name to find id
-				p_id = file_name[:file_name.index('IMG')]
+
+				p_id = ''
+				for c in file_name:
+					if c.isdigit():
+						p_id += c
 
 				try:
 					ind = p_ids.index(p_id)
