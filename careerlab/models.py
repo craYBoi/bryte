@@ -53,6 +53,9 @@ class Nextshoot(models.Model):
 	active = models.BooleanField(default=True)
 	max_volumn = models.PositiveSmallIntegerField(default=4)
 	is_serving = models.BooleanField(default=True)
+	basic_price = models.PositiveSmallIntegerField(default=8)
+	professional_price = models.PositiveSmallIntegerField(default=11)
+	customized_price = models.PositiveSmallIntegerField(default=15)
 
 	class Meta:
 		ordering = ('-timestamp',)
@@ -975,7 +978,7 @@ class Booking(models.Model):
 			delta = timedelta(days=shipping_days)
 
 			# if it's been processed more than 5 days
-			if order.timestamp + delta > time_now:
+			if order.timestamp + delta < time_now:
 
 				# send delivery email
 				self.photo_delivery_email()
