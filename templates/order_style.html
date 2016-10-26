@@ -31,7 +31,7 @@
 
 						<div class="sm_padding"></div>
 
-						<div class="center_flex"><div class="inline"><span class="small_font sm_padding lightgray xs_padding_right">Pay at checkout</span><p class="xlarge_font dark_grey">$8</p><span class="small_font sm_padding lightgray xs_padding_left">Keep it forever</span></div></div>
+						<div class="center_flex"><div class="inline"><span class="small_font sm_padding lightgray xs_padding_right">Pay at checkout</span><p class="xlarge_font dark_grey">${{ shoot.basic_price }}</p><span class="small_font sm_padding lightgray xs_padding_left">Keep it forever</span></div></div>
 						
 
 
@@ -53,7 +53,7 @@
 							<input type="hidden" name='background' value='1' id="basic_background">
 							<input type="hidden" name='hs_id' value='{{ hs_id }}'>
 
-							<input type="hidden" name='subtotal' value='8' id="basic_price">
+							<input type="hidden" name='subtotal' value='{{ shoot.basic_price }}' id="basic_price">
 						</form>
 						<button class="ord_button_w" id="basic_add">Touchup</button>
 						<button data-toggle="modal" data-target="#checkout_box" class="ord_button_w" id="basic_add_shadow" hidden>Touchup</button>
@@ -86,7 +86,7 @@
 					<div class="text-center">
 						<h2 class="text-center bold">Standard</h2>
 						<div class="sm_padding"></div>
-						<div class="center_flex"><div class="inline"><span class="small_font sm_padding lightgray xs_padding_right">Pay at checkout</span><p class="xlarge_font dark_grey">$11</p><span class="small_font sm_padding lightgray xs_padding_left">Keep it forever</span></div></div>
+						<div class="center_flex"><div class="inline"><span class="small_font sm_padding lightgray xs_padding_right">Pay at checkout</span><p class="xlarge_font dark_grey">${{ shoot.professional_price }}</p><span class="small_font sm_padding lightgray xs_padding_left">Keep it forever</span></div></div>
 
 
 						<!-- work on the modal button -->
@@ -113,7 +113,7 @@
 							<input type="hidden" name='touchup' value='3' id="prof_touchup">
 							<input type="hidden" name='background' id="prof_background">
 							<input type="hidden" name='hs_id' value='{{ hs_id }}'>
-							<input type="hidden" name='subtotal' value='11' id="prof_price">
+							<input type="hidden" name='subtotal' value='{{ shoot.professional_price }}' id="prof_price">
 
 						</form>
 						<button class="ord_button_w" id="prof_add">Touchup</button>
@@ -154,7 +154,7 @@
 					<div class="text-center">
 						<h2 class="text-center bold">Customized</h2>
 						<div class="sm_padding"></div>
-						<div class="center_flex"><div class="inline"><span class="small_font sm_padding lightgray xs_padding_right">Pay at checkout</span><p class="xlarge_font dark_grey">$15</p><span class="small_font sm_padding lightgray xs_padding_left">Keep it forever</span></div></div>
+						<div class="center_flex"><div class="inline"><span class="small_font sm_padding lightgray xs_padding_right">Pay at checkout</span><p class="xlarge_font dark_grey">${{ shoot.customized_price }}</p><span class="small_font sm_padding lightgray xs_padding_left">Keep it forever</span></div></div>
 
 
 						<!-- work on the modal button -->
@@ -183,7 +183,7 @@
 							<input type="hidden" name='background' id="cust_background">
 							<input type="hidden" name='touchup' value='4' id="cust_touchup">
 							<input type="hidden" name='hs_id' value='{{ hs_id }}'>
-							<input type="hidden" name='subtotal' value='15' id="cust_price">
+							<input type="hidden" name='subtotal' value='{{ shoot.customized_price }}' id="cust_price">
 							<div class="small_padding"></div>
 
 							<button class="ord_button_w" id="cust_add">Touchup</button>
@@ -1455,4 +1455,19 @@
 		});
 	});
 
+{% endblock %}
+
+
+{% block script %}
+<!-- Hotjar Tracking Code for brytephoto.com/ -->
+<script>
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:319398,hjsv:5};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'//static.hotjar.com/c/hotjar-','.js?sv=');
+</script>
 {% endblock %}

@@ -527,6 +527,9 @@ def headshot_style(request):
 
 		booking = hs.booking
 
+		# get shoot and it's package prices
+		shoot = booking.timeslot.shoot
+
 		# get the original photos
 		headshots = booking.originalheadshot_set.all()
 		headshot_urls = [a.raw_url for a in headshots]
@@ -560,6 +563,7 @@ def headshot_style(request):
 			'cart': request.session.get('cart'),
 			'proceed': request.session.get('proceed'),
 			'headshots': zip(headshot_urls, headshot_ids),
+			'shoot': shoot,
 		}
 
 		# set stage
