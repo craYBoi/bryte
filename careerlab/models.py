@@ -725,7 +725,7 @@ class Timeslot(models.Model):
 	shoot = models.ForeignKey(Nextshoot)
 
 	def __unicode__(self):
-		return self.time.strftime('%m/%d/%Y %I:%M %p') + str(self.shoot.location)
+		return self.time.strftime('%m/%d/%Y %I:%M %p') + ' ' + str(self.shoot.location)
 
 	def time_slot_format(self):
 		time_format =  self.time.strftime('%I:%M %p')
@@ -738,6 +738,10 @@ class Timeslot(models.Model):
 		if time_format[0] == '0':
 			return time_format[1:]
 		return time_format
+
+
+	def date_and_time(self):
+		return self.time.strftime('%m/%d/%Y %I:%M %p')
 
 	def increment(self):
 		# this should not be happening
@@ -1106,7 +1110,7 @@ class Booking(models.Model):
 		message.add_filter('templates','template_id', DB_REMINDER_ID)
 		message.set_categories(category)
 		message.add_substitution('-first_name-', first_name)
-		message.add_substitution('-time_slot-', str(timeslot))
+		message.add_substitution('-time_slot-', str(timeslot.date_and_time()))
 		message.add_substitution('-location-', location)
 		message.add_substitution('-cancel_link-', self.generate_cancel_link())
 		message.add_substitution('-book_link-', self.generate_booking_link(school_url))
