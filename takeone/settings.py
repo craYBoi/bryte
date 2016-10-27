@@ -196,7 +196,7 @@ DATABASES['default'] = dj_database_url.config()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Allow all host headers
-ALLOWED_HOSTS = ['www.brytephoto.com', 'brytephoto.com']
+ALLOWED_HOSTS = ['www.brytephoto.com', 'brytephoto.com', 'insights.hotjar.com']
 
 # Static asset configuration
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
