@@ -2501,7 +2501,7 @@ body, html
 }
 
 .colorbox_brick {
-	background-color: #AC6045;
+	background-image: url('../img/headshots/examples/bg/brick.jpg');
 }
 
 .colorbox_gray {
@@ -2510,6 +2510,38 @@ body, html
 
 .colorbox_white {
 	background-color: #fff;
+}
+
+.colorbox_rb {
+	background-image: url('../img/headshots/examples/bg/rb.jpg');
+}
+
+.colorbox_lg {
+	background-image: url('../img/headshots/examples/bg/lg.jpg');
+}
+
+.colorbox_og {
+	background-image: url('../img/headshots/examples/bg/og.jpg');
+}
+
+.colorbox_office {
+	background-image: url('../img/headshots/examples/bg/office.jpg');
+}
+
+.colorbox_bg {
+	background-image: url('../img/headshots/examples/bg/bg.jpg');
+}
+
+.colorbox_uw {
+	background-image: url('../img/headshots/examples/bg/uw.jpg');
+}
+
+.colorbox_eb {
+	background-image: url('../img/headshots/examples/bg/eb.jpg');
+}
+
+.colorbox_fh {
+	background-image: url('../img/headshots/examples/bg/fh.jpg');
 }
 
 .colorbox_container {
@@ -2525,7 +2557,7 @@ body, html
 }
 
 .colorbox_padding {
-	padding-right: 9px;
+	padding-right: 6px;
 }
 
 .top_black_border_s {

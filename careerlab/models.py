@@ -933,8 +933,10 @@ class Booking(models.Model):
 				else:
 					print 'Seems all the photos are copied to touchup already: ' + str(email)
 				# assign touchup folder to the order
-				order.touchup_folder = folder_name
-				super(HeadshotOrder, order).save()
+
+				if not order.touchup_folder:
+					order.touchup_folder = folder_name
+					super(HeadshotOrder, order).save()
 
 							# for item in items:
 							# 	if image_name.lower() == item.name.lower():
@@ -1910,6 +1912,14 @@ class HeadshotPurchase(models.Model):
 		(4, 'Sanguine Blue'),
 		(5, 'Nighttime Black'),
 		(6, 'Light Cream'),
+		(7, 'Frosty Blue'),
+		(8, 'Riverside Blue'),
+		(9, 'Airy Gray'),
+		(10, 'Vibrant Orange'),
+		(11, '31st Story Office'),
+		(12, 'Eclectic Bookcase'),
+		(13, 'Firm Hallway'),
+		(14, 'Urban Walkway'),
 		)
 
 	background = models.PositiveSmallIntegerField(choices=BACKGROUNDS, default=1)
