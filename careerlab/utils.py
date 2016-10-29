@@ -105,7 +105,9 @@ def touchup_to_prod_free(folder_name):
 	except Exception, e:
 		raise e
 	else:
+
 		if items:
+			count = 0
 			for item in items:
 				# assert item.name in image_names, 'No purchase instance found! ' + item.name
 
@@ -148,6 +150,10 @@ def touchup_to_prod_free(folder_name):
 
 					purchase_instance.order.copied_to_prod = True
 					super(HeadshotOrder, purchase_instance.order).save()
+
+					count += 1
+
+			print str(count) + ' files copied..'
 		else:
 			print 'There aren\'t any photos in touchup deliverable yet'
 
@@ -175,6 +181,7 @@ def touchup_to_prod_paid(folder_name):
 		raise e
 	else:
 		if items:
+			count = 0
 			for item in items:
 				# assert item.name in image_names, 'No purchase instance found! ' + item.name
 				file_name = item.name
@@ -226,5 +233,9 @@ def touchup_to_prod_paid(folder_name):
 
 					purchase_instance.order.copied_to_prod = True
 					super(HeadshotOrder, purchase_instance.order).save()
+
+					count += 1
+
+			print str(count) + ' files copied..'
 		else:
 			print 'There aren\'t any photos in touchup deliverable yet'
