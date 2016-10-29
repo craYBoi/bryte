@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.conf.urls import include, url
 
-from .views import index, book, signup, cancel_order, tips, pay
+from .views import index, book, signup, cancel_order, tips, pay, order_feedback
 
 urlpatterns = [
 	url(r'^$', index, name='careerlab_index'),
@@ -10,5 +10,7 @@ urlpatterns = [
 	url(r'^cancel$', cancel_order, name='careerlab_cancel_order'),
 	url(r'^tips/$', tips, name='careerlab_tips'),
 	url(r'^pay/$', pay, name='careerlab_pay'),
+	url(r'^feedback/$', order_feedback, name='feedback_rating'),
 	url(r'^(?P<school>[a-zA-Z]*)/$', index, name='careerlab_index'),
+
 ]

@@ -1094,3 +1094,32 @@ def headshot_expire(request):
 	}
 
 	return render(request, 'order_expire.html', context)
+
+
+def order_feedback(request):
+	context = {
+		'title_text': 'Thanks for your feedback!',
+	}
+
+	if request.method == 'GET':
+		hash_id = request.GET.get('id')
+		rating = request.GET.get('rating')
+
+
+		b = Booking.objects.filter(hash_id=hash_id)[0]
+
+
+		order = HeadshotOrder.objects.filter(booking=b)[0]
+
+
+		print order
+		# store the rating 
+		order.feedback_rating = int(rating)
+		super(HeadshotOrder, order).save()
+
+
+		if rating == '1' or rating == '2':
+			context['email_contact'] = 1
+
+
+	return render(request, 'feedback_rating.html', context)

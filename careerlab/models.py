@@ -1312,6 +1312,12 @@ class Booking(models.Model):
 
 		my_headshot_link = settings.SITE_URL + '/headshot/?id=' + hash_id + '&utm_source=Photo%20Delivery%20My%20Headshot&utm_medium=Campaign%20Medium%20URL%20Builder'
 
+		one_star_link = settings.SITE_URL + '/school/feedback?id=' + hash_id + '&rating=1'
+		two_star_link = settings.SITE_URL + '/school/feedback?id=' + hash_id + '&rating=2'
+		three_star_link = settings.SITE_URL + '/school/feedback?id=' + hash_id + '&rating=3'
+		four_star_link = settings.SITE_URL + '/school/feedback?id=' + hash_id + '&rating=4'
+		five_star_link = settings.SITE_URL + '/school/feedback?id=' + hash_id + '&rating=5'
+
 		message = sendgrid.Mail()
 		message.add_to(email)
 		message.set_from('Bryte Inc <' + settings.EMAIL_HOST_USER + '>')
@@ -1324,6 +1330,12 @@ class Booking(models.Model):
 		message.add_substitution('-first_name-', first_name)
 		message.add_substitution('-download_link-', self.upgrade_folder_path)
 		message.add_substitution('-my_headshot-', my_headshot_link)
+
+		message.add_substitution('-one_star-', one_star_link)
+		message.add_substitution('-two_star-', two_star_link)
+		message.add_substitution('-three_star-', three_star_link)
+		message.add_substitution('-four_star-', four_star_link)
+		message.add_substitution('-five_star-', five_star_link)
 
 
 		message.add_substitution('-unique_id-', hash_id)
@@ -1864,6 +1876,7 @@ class HeadshotOrder(models.Model):
 	delivered = models.BooleanField(default=False)
 	touchup_folder = models.CharField(max_length=30, blank=True, null=True)
 	express_shipping = models.BooleanField(default=False)
+	feedback_rating = models.PositiveSmallIntegerField(blank=True, null=True)
 
 
 	def __unicode__(self):

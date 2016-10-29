@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block content %}
+	<div class="droid_serif background_grey">
+		<div class="container">
+			<div class="large_padding"></div>
+			{% if email_contact %}
+				<h1 class="text-center">What could've been better?</h1>
+			{% else %}
+				<h1 class="text-center">Thanks for you feedback! You've got us like:</h1>
+
+				<div class="medium_padding"></div>
+
+				<div class="row">
+				<div class="col-xs-10 col-xs-offset-1">	
+				<img src="{% static 'img/lit.gif' %}" class="img-responsive">
+				</div>
+				</div>
+			{% endif %}
+			
+			<div class="medium_padding"></div>
+			
+			{% if email_contact %}
+			<div class="text-center">
+				<a href="mailto:hello@brytephoto.com?subject=Unsatisfied%20with%20order"><button class="ord_button_l">Let Bryte know so they can help</button></a>
+			</div>
+			{% endif %}
+
+			<div class="large_padding"></div>
+		</div>
+	</div>
+{% endblock %}
