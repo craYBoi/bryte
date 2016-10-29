@@ -119,7 +119,11 @@ def touchup_to_prod_free(folder_name):
 					else:
 						break
 
-				ind = p_ids.index(p_id)
+				try:
+					ind = p_ids.index(p_id)
+				except ValueError, e:
+					print 'already done that. ' + file_name
+					continue
 
 				purchase_instance = purchases[ind]
 				booking = purchase_instance.order.booking
