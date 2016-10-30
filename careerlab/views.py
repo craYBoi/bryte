@@ -915,7 +915,7 @@ def headshot_complete(request):
 
 		confirmation_content += '<img src="' + raw_url + '" width="150px"><br>' + 'Style: ' + order.object.get_touchup_display() + '<br>Background: ' + order.object.get_background_display() + '<br>Keepsakes: ' + order.object.get_package_display() + special_request+ '<br>Subtotal: $' + str(order.object.total) + '<br><br>'
 
-	confirmation_content = confirmation_content + '<br><span style="font-size:1.5em; color: #c94848; font-weight: bold;">Total: $' + str(sum) + '</span><br>'
+	confirmation_content = confirmation_content + '<br><span style="font-size:1.5em; color: #15AD2F; font-weight: bold;">Total: $' + str(sum) + '</span><br>'
 
 	# just to print out
 	print str(booking_id) + ' ' + confirmation_content
