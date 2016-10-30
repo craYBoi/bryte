@@ -977,30 +977,30 @@ class Booking(models.Model):
 			print 'processing order..' + str(order.booking.email)
 
 			# expedite or regular shipping
-			shipping_days = 4
-			if order.express_shipping:
-				shipping_days = 2
+			# shipping_days = 4
+			# if order.express_shipping:
+			# 	shipping_days = 2
 
-			delta = timedelta(days=shipping_days)
+			# delta = timedelta(days=shipping_days)
 
-			# if it's been processed more than 5 days
-			if order.timestamp + delta < time_now:
+			# # if it's been processed more than 5 days
+			# if order.timestamp + delta < time_now:
 
 				# send delivery email
-				self.photo_delivery_email()
+			self.photo_delivery_email()
 
-				# change the flag
-				order.delivered = True
-				super(HeadshotOrder, order).save()
+			# change the flag
+			order.delivered = True
+			super(HeadshotOrder, order).save()
 
-				# change the flags of its purchases
-				for p in order.headshotpurchase_set.all():
-					p.delivered = True
-					super(HeadshotPurchase, p).save()
+			# change the flags of its purchases
+			for p in order.headshotpurchase_set.all():
+				p.delivered = True
+				super(HeadshotPurchase, p).save()
 
-				print 'order delivered!\n' + str(order.booking.email)
-			else:
-				print 'order don\'t need to be delivered yet. ' + str(order.timestamp) + ' ' + str(order.booking.email)
+			print 'order delivered!\n' + str(order.booking.email)
+			# else:
+			# 	print 'order don\'t need to be delivered yet. ' + str(order.timestamp) + ' ' + str(order.booking.email)
 
 
 
