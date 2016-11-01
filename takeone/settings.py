@@ -243,6 +243,13 @@ AWS_PRELOAD_METADATA = True
 S3_URL = 'http://%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 
 
+from datetime import datetime, timedelta
+
+one_month = datetime.now() + timedelta(days=30)
+AWS_HEADERS = {
+    'Expires':one_month.strftime('%a, %d %b %Y 20:00:00 GMT')
+}
+
 STATIC_URL = S3_URL + STATIC_ROOT
 MEDIA_URL = S3_URL + MEDIA_ROOT
 
