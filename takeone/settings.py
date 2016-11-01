@@ -245,9 +245,10 @@ S3_URL = 'http://%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 
 from datetime import datetime, timedelta
 
-one_month = datetime.now() + timedelta(days=30)
+one_month = datetime.now() + timedelta(days=60)
 AWS_HEADERS = {
-    'Expires':one_month.strftime('%a, %d %b %Y 20:00:00 GMT')
+    'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
+    'Cache-Control': 'max-age=94608000',
 }
 
 STATIC_URL = S3_URL + STATIC_ROOT
