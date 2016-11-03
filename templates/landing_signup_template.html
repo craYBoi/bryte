@@ -16,35 +16,182 @@
 
 
 {% block content %}
+
+  <div class="droid_serif">
+  <div class="{{ main_bg_color }}" id="signup_signup_form" style="background: url({% static 'img/ccri/bg7.jpg' %}) no-repeat center; background-size: cover;"> 
+    <div class="medium_padding"></div>
+    <h1 class="white text-center bold col-xs-10 col-xs-offset-1 landing_title" id="title">Book a spot at our amazing photoshoot to get a free LinkedIn photo</span></h1>
+    <div class="container">
+
+
+      <div class="col-xs-10 col-xs-offset-1 text-center">
+
+        <div class="medium_padding"></div>
+        {% if next_shoot.active %}    
+        
+
+          {% if not timeslots %}
+            
+            <p class="big_font white"><span class="landing_text">All the spots have been booked for now. But, be the first to hear if a spot opens up or when signups go out for our next photoshoot!</p>
+              
+
+            <div id="signup_form" class="special_padding signup_form">
+              <div class="small_padding"></div>
+              <div class="text-center">
+              <form method="POST" action="{% url 'careerlab_signup' %}" class="white">{% csrf_token %}
+                <input type='text' name='careerlab_signup_name' class="form-control lg_input" id='careerlab_signup_name' required pattern="[a-zA-Z]{2,}(\s+[a-zA-z]{2,})+" placeholder='First & Last Name'>
+                <div class="small_padding"></div>
+                <input type='email' name='careerlab_signup_email' class="form-control lg_input" id='careerlab_signup_email' required placeholder='Email Address' onchange="try{setCustomValidity('')}catch(e){}">
+
+
+                <!-- signup button -->
+                <div class="medium_padding"></div>
+                <div class="text-center">
+                  <button type="button" class="book_button bold large_font" id="careerlab_signup_button">Be the first to hear</button>
+                  <div class="small_padding"></div>
+                </div>
+                <input type="hidden" value="{{ next_shoot.pk }}" id="signup_shoot_id">
+              </form>
+              </div>
+            </div>
+
+          {% else %}
+            <!-- The booking button -->
+            <p class="large_font white"><span class="landing_text">Photoshoot is on {{ next_shoot.get_date_string }}, from {{ next_shoot.get_time_interval_string }} at {{ school_location }}</p> 
+
+
+
+          {% endif %}
+
+        <!-- shoot is not active -->
+        {% else %}
+            <div class="small_padding"></div>
+            <div class="special_padding signup_form">
+              <div id="book_form">
+                <div class="">
+                <form method="POST" action="{% url 'careerlab_book' %}" class=" white">{% csrf_token %}
   
-  <!-- sign up background -->
-  <div class="signup_bg" style="background: url({% static 'img/brown_campus.jpg' %}) center; background-size: cover;">
-    <div class="container center_vertical full_height">
-	    <div class="row">
-	      <div class="col-md-8 col-sm-10 col-xs-12">
-	      <h1 class="white text-left landing_title_sec bold">Free LinkedIn headshots from Bryte and Career Center!</span></h1>
-	      <div class="small_padding"></div>
-	      <a href="#signup_signup_form"><button class="btn btn-white-lg large_font">Book Now</button></a>
-	      </div>
-	    </div>
-    </div>
+                  <input type='text' name='careerlab_book_name' class="form-control lg_input" id='careerlab_book_name' required pattern="[a-zA-Z.]{2,}(\s+[a-zA-z.]{2,})+" placeholder='First & Last Name'>
+                  <div class="small_padding"></div>
+
+                  <input type='email' name='careerlab_book_email' class="form-control lg_input" id='careerlab_book_email' required placeholder='Email Address' onchange="try{setCustomValidity('')}catch(e){}">
+                  <div class="small_padding"></div>
+
+                  <p class="text-left bold">Choose a timeslot</p>
+                  <select required name='careerlab_book_time' class="form-control lg_input" id='careerlab_book_time'>
+                    {% for timeslot in timeslots %}
+                      <option value='{{ timeslot.pk }}'>{{ timeslot.time_slot_format }}</option>
+                    {% endfor %}
+                  </select>
+
+
+                  <!-- booking button -->
+                  <div class="medium_padding"></div>
+                  <div class="text-center">
+                    <button type="button" class="bold large_font book_button" id="careerlab_book_button">Book a spot</button>
+                    <div class="small_padding"></div>
+                  </div>
+                </form>
+                </div>
+              </div>
+
+              </div>
+        {% endif %}
+
+        <div class="large_padding"></div>
+      </div>
+
+
+    </div> 
   </div>
 
+      <!--</div>-->
 
+  <!-- sign up background -->
+  <!--
+  <div class="signup_bg" style="background: url('{{ bg_url }}') center; background-size: cover;">
+    <div class="container center_vertical full_height">
+    <div class="row">
+      <div class="col-md-8 col-sm-10 col-xs-12">
+      <h1 class="white text-left landing_title_sec bold">Free LinkedIn headshots from Bryte and {{ school_title }}!</span></h1>
+      <div class="small_padding"></div>
+      <a href="#signup_signup_form"><button class="btn btn-white-lg large_font bold">Book Now</button></a>
+      </div>
+    </div>
+    </div>
+  </div>
+  -->
+
+
+
+<!--
+    <div class="container">
+
+    <div class="medium_padding"></div>
+
+      <h2 class="bold text-center">Recruiters spend a lot of time looking at your Linkedin headshot! And, on average, they spend 6 seconds looking at your resume total!</h2>
+
+      <div class="medium_padding"></div>
+
+      <p class="text-center bold">This is a Linkedin Profile. <span class="{{ main_color }}">The red spots are where recruiters are looking a lot</span>.</p>
+
+      <div class="center_flex">
+        <img src="{% static 'img/heatmap.jpg' %}" class="img-responsive">
+      </div>
+
+      <div class="medium_padding"></div>
+      <div class="row">
+        <div class="col-xs-10 col-xs-offset-1">
+        <p class="text-center">(Sources: http://lifehacker.com/how-recruiters-really-look-at-your-linkedin-profile-and-1580589303, http://mashable.com/2011/11/30/social-profile-eye-tracking/)</p>
+        </div>
+      </div>
+
+
+    <div class="row">
+      <div class="col-md-4 all_padding">
+        <div class="page-header">
+          <h3 class="bold">Make your profile more professional</h3>
+        </div>
+        <p>"We want to help students build a great Linkedin profile so that employers look at them, and Bryte is perfect for that: that professional headshot that they may not be able to get otherwise" </p>
+        <div class="text-right">– Amy, Career Counselor</div>
+      </div>
+      <div class="col-md-4 all_padding">
+        <div class="page-header">
+          <h3 class="bold">Generate more views on <span class="blue">Linkedin</span></h3>
+        </div>
+        <p>A great profile picture is essential to finding success on Linkedin. "In fact, your profile is 14x more likely to be viewed simply by having a profile picture"</p>
+        <div class="text-right">– Linkedin Official Blog</div>
+      </div>
+      <div class="col-md-4 all_padding">
+        <div class="page-header">
+          <h3 class="bold">Look good to recruiters</h3>
+        </div>
+        <p>Your profile picture will help you stand out to the recruiters looking at you online. "My advice? Make sure there are images of yourself available when that inevitable Internet search happens."</p>
+        <div class="text-right">– HR Manager at CCTV</div>
+      </div>
+    </div>
+
+
+    <div class="large_padding"></div>
+  </div>
+  -->
+
+
+  <!--
   <div id="careerlab_gallery">
     <div class="background_lki lki_border">
       <div class="lki_sec_border"></div>
       <div class="small_padding"></div>
       <h2 class="bold text-center landing_title_third">Free LinkedIn headshots we've taken</h2>
       <div class="xsmall_padding"></div>
-      <p class="small_font text-center dark_grey zero_margin zero_padding">(This is how headshots on Linkedin are sized)</p>
+      <p class="landing_title_third text-center dark_grey zero_margin zero_padding">- shown in an example Linkedin profile</p>
       <div class="slider">
       <ul>
         <li>
         <div class="flex_box_center xl_height">
           <div class="background_white lki_box">
             <div class="full_height center_flex">
-              <img src="{% static 'img/thumbnails/new/O/h2.jpg' %}" height="200px">
+              <img src="{% static 'img/thumbnails/new/O/h5.jpg' %}" height="200px">
             </div>
             <div class="small_padding_left"></div>
             <div class="lki_content">
@@ -64,7 +211,7 @@
                 <div class="lki_line_sm"></div>
               </div>
               <div class="lki_offset"></div>
-              <button class="btn-lki bold">Connect</button>
+              <button class="btn-lki bold cursor_pointer">Connect</button>
             </div>
           </div>
 
@@ -95,7 +242,7 @@
                 <div class="lki_line_sm"></div>
               </div>
               <div class="lki_offset"></div>
-              <button class="btn-lki bold">Connect</button>
+              <button class="btn-lki bold cursor_pointer">Connect</button>
             </div>
           </div>
 
@@ -106,7 +253,7 @@
         <div class="flex_box_center xl_height">
           <div class="background_white lki_box">
             <div class="full_height center_flex">
-              <img src="{% static 'img/thumbnails/new/O/h1.jpg' %}" height="200px">
+              <img src="{% static 'img/thumbnails/new/O/h2.jpg' %}" height="200px">
             </div>
             <div class="small_padding_left"></div>
             <div class="lki_content">
@@ -126,7 +273,7 @@
                 <div class="lki_line_sm"></div>
               </div>
               <div class="lki_offset"></div>
-              <button class="btn-lki bold">Connect</button>
+              <button class="btn-lki bold cursor_pointer">Connect</button>
             </div>
           </div>
 
@@ -137,7 +284,7 @@
         <div class="flex_box_center xl_height">
           <div class="background_white lki_box">
             <div class="full_height center_flex">
-              <img src="{% static 'img/thumbnails/new/O/h5.jpg' %}" height="200px">
+              <img src="{% static 'img/thumbnails/new/O/h8.jpg' %}" height="200px">
             </div>
             <div class="small_padding_left"></div>
             <div class="lki_content">
@@ -157,7 +304,7 @@
                 <div class="lki_line_sm"></div>
               </div>
               <div class="lki_offset"></div>
-              <button class="btn-lki bold">Connect</button>
+              <button class="btn-lki bold cursor_pointer">Connect</button>
             </div>
           </div>
 
@@ -168,7 +315,7 @@
         <div class="flex_box_center xl_height">
           <div class="background_white lki_box">
             <div class="full_height center_flex">
-              <img src="{% static 'img/thumbnails/new/O/h7.jpg' %}" height="200">
+              <img src="{% static 'img/thumbnails/new/O/h9.jpg' %}" height="200">
             </div>
             <div class="small_padding_left"></div>
             <div class="lki_content">
@@ -188,7 +335,7 @@
                 <div class="lki_line_sm"></div>
               </div>
               <div class="lki_offset"></div>
-              <button class="btn-lki bold">Connect</button>
+              <button class="btn-lki bold cursor_pointer">Connect</button>
             </div>
           </div>
 
@@ -219,7 +366,7 @@
                 <div class="lki_line_sm"></div>
               </div>
               <div class="lki_offset"></div>
-              <button class="btn-lki bold">Connect</button>
+              <button class="btn-lki bold cursor_pointer">Connect</button>
             </div>
           </div>
 
@@ -233,133 +380,607 @@
       <div class="small_padding"></div>
     </div>
   </div>
+  -->
 
 
+<!--
+  
+  <div class="background_lki">
+  <div class="container">
+    <div class="medium_padding"></div>
+    <h2 class="landing_title_third bold text-center">Plus you can get extras in addition to your free LinkedIn headshot</h2>
 
-  <div class="background_pink large_font">
-    <div class="container small_padding_bot medium_padding">
-      <h2 class="feature_title text-center bold landing_title">How it Works</h2>
-      <div class="row small_padding">
-        <div class="col-xs-12">
-          <div class="row">
+    <div class="medium_padding"></div>
 
-            <div class="col-sm-4 text-center">
-              <img src="{% static 'img/process1.png' %}" class="img-responsive"> 
-              <div class="medium_padding"></div>
-              <h3 class="bold landing_text_main">Book</h3>
-              <p class="col-xs-10 col-xs-offset-1 small_padding small_lh text-left small_font ">Choose a time slot that works for you, and we'll confirm you booked a headshot via email.</p>
-            </div>   
+    
 
-            <div class="col-sm-4 text-center">
-              <img src="{% static 'img/process2.png' %}" class="img-responsive"> 
-              <div class="medium_padding"></div>
-              <h3 class="bold landing_text_main">Smile</h3>
-              <p class="col-xs-10 col-xs-offset-1 small_padding small_lh text-left small_font">You'll have 3 minutes to take headshots and will get to select your favorite headshot for our touch up process.</p>
-            </div>  
+    <div class="slider2"><ul><li>
+    <h3 class="landing_text_main text-center zero_margin">Professional touchup</h3>
+    <div class="medium_padding"></div>
+    <div class="row">
+    <div class="col-md-6 center_flex">
+      <div class="background_white lki_box lki_box_small">
+        <div class="full_height center_flex">
+          <a class="magnifier-thumb-wrapper"><img id='thumb2' src="{% static 'img/thumbnails/new/O/h2.jpg' %}" height="200"></a>
+        </div>
 
-            <div class="col-sm-4 text-center">
-              <img src="{% static 'img/process3.png' %}" class="img-responsive"> 
-              <div class="medium_padding"></div>
-              <h3 class="bold landing_text_main">Download</h3>
-              <p class="col-xs-10 col-xs-offset-1 small_padding small_lh text-left small_font">Your free headshot will be delivered to you via email within 48 hours of shoot day.</p>
-            </div>  
+        <div class="small_padding_left"></div>
+        <div class="lki_content">
+          <h3 class="bold xlarge_font">Lorem Ipsum</h3>
+          <p class="">Sample LinkedIn profile</p>
+          <div class="lki_line"></div>
+
+          <div class="sm_padding"></div>
+          <div class="inline">
+            <p class="grey xsmall_font">Previous</p>
+            <div class="small_padding_left"></div>
+            <div class="lki_line_sm"></div>
           </div>
+          <div class="xxsmall_padding"></div>
+          <div class="inline">
+            <p class="grey xsmall_font">Education</p>
+            <div class="small_padding_left"></div>
+            <div class="lki_line_sm"></div>
+          </div>
+
+          <div class="lki_offset"></div>
+
+          <button class="btn-lki bold cursor_pointer">Connect</button>
         </div>
       </div>
-      <div class="large_padding"></div>
-      <p class="text-center small_padding small_font">Have any questions? Email us @ <a href="mailto:hello@brytephoto.com" target="_top" class="red">hello@brytephoto.com</a> or Call us at 248-417-5852 for more information</p>
+    </div>
+    <div class="col-md-6 center_flex">
+      <div class="background_white lki_box lki_box_small">
+        <div class="full_height center_flex">
+          <a class="magnifier-thumb-wrapper"><img id='thumb2' src="{% static 'img/thumbnails/hs1.jpg' %}" height="200"></a>
+        </div>
+
+        <div class="small_padding_left"></div>
+        <div class="lki_content">
+          <h3 class="bold xlarge_font">Lorem Ipsum</h3>
+          <p class="">Sample LinkedIn profile</p>
+          <div class="lki_line"></div>
+
+          <div class="sm_padding"></div>
+          <div class="inline">
+            <p class="grey xsmall_font">Previous</p>
+            <div class="small_padding_left"></div>
+            <div class="lki_line_sm"></div>
+          </div>
+          <div class="xxsmall_padding"></div>
+          <div class="inline">
+            <p class="grey xsmall_font">Education</p>
+            <div class="small_padding_left"></div>
+            <div class="lki_line_sm"></div>
+          </div>
+
+          <div class="lki_offset"></div>
+
+          <button class="btn-lki bold cursor_pointer">Connect</button>
+        </div>
+      </div>   
+    </div>
+    </div>
+
+    <div class="width_offset medium_padding">
+    <div class="row">
+      <div class="col-xs-8"><p class="small_font zero_margin">Studio and freelancers:</p></div>
+      <div class="col-xs-4"><p class="small_font zero_margin"><del>$50</del></p></div>
+    </div>
+    <div class="row">
+      <div class="col-xs-8"><p class="small_font zero_margin bold">Bryte Price:</p></div>
+      <div class="col-xs-4"><p class="small_font zero_margin"><del>$9.99</del></p></div>
+    </div>
+    <div class="row">
+      <div class="col-xs-8"><p class="bold landing_text_main zero_margin"><span class="red">Bryte Special Offer:</span></p></div>
+      <div class="col-xs-4"><p class="red bold landing_text_main zero_margin">$4.99</p></div>
+    </div>
+    <div class="row">
+      <div class="col-xs-8"><p class="small_font zero_margin">You save:<p></div>
+      <div class="col-xs-4 small_font zero_margin red">$45.01 (90%)</div>
+    </div>
     </div>
     <div class="small_padding"></div>
-  </div>
-
-
-
-
-
-	<div class="red_bg" id="signup_signup_form"> 
+    </li>
+    <li>
+    <h3 class="landing_text_main text-center zero_margin">Professional touchup</h3>
     <div class="medium_padding"></div>
-    <h1 class="white text-center bold col-xs-10 col-xs-offset-1 landing_title">Book your Linkedin headshot – for free!</span></h1>
-    <div class="container">
-
-      <!--<div class="row">-->
-
-        <!--<div class="col-sm-6 medium_padding col-xs-10 col-xs-offset-1 col-sm-offset-0">-->
-        <div class="col-xs-10 col-xs-offset-1 text-center">
-
-        <div class="medium_padding"></div>
-            <p class="big_font white"><span class="bold landing_text">Career Center Office</span><br><span class="landing_text">July 12</span><br><span class="landing_text">12:00 PM - 16:00 PM</span></p>
-          <div class="small_padding"></div>
+    <div class="row">
+    <div class="col-md-6 center_flex">
+      <div class="background_white lki_box lki_box_small">
+        <div class="full_height center_flex">
+          <a class="magnifier-thumb-wrapper"><img id='thumb2' src="{% static 'img/thumbnails/new/O/h7.jpg' %}" height="200"></a>
         </div>
 
+        <div class="small_padding_left"></div>
+        <div class="lki_content">
+          <h3 class="bold xlarge_font">Lorem Ipsum</h3>
+          <p class="">Sample LinkedIn profile</p>
+          <div class="lki_line"></div>
 
-        <!--<div class="col-sm-5 col-sm-offset-1 col-xs-10 col-xs-offset-1  medium_padding">-->
-        <div class="col-xs-10 col-xs-offset-1">
-        <div class="small_padding"></div>
-        <div class="white_border special_padding signup_form">
-
-        <div id="book_form">
-          <h3 class="bold white xsmall_padding">Book your LinkedIn headshot</h3>
-          <div class="xsmall_padding"></div>
-          <div class="text-center">
-          <form method="POST" action="{% url 'careerlab_book' %}" class=" white">{% csrf_token %}
-          	<input type='text' name='careerlab_book_name' class="form-control" id='careerlab_book_name' required pattern="[a-zA-Z.]{2,}(\s+[a-zA-z.]{2,})+" placeholder='First & Last Name'>
-          	<div class="small_padding"></div>
-            <input type='email' name='careerlab_book_email' class="form-control" id='careerlab_book_email' required pattern='\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9._%+-]+.edu\b' placeholder='RIC Email Address' oninvalid="this.setCustomValidity('Please use your RIC email address')" onchange="try{setCustomValidity('')}catch(e){}">
-            <div class="small_padding"></div>
-            <select required name='careerlab_book_time' class="form-control" id='careerlab_book_time'>
-                <option value=''>12:00 PM ------ 3/3 headshot session left</option>
-                <option value=''>12:10 PM ------ 2/3 headshot session left</option>
-                <option value=''>12:40 PM ------ 1/3 headshot session left</option>
-                <option value=''>1:10 PM ------ 1/3 headshot session left</option>
-                <option value=''>2:30 PM ------ 3/3 headshot session left</option>
-                <option value=''>3:00 PM ------ 2/3 headshot session left</option>
-            </select>
-            <div class="small_padding"></div>
-            <p>* You must use your school email address to book a headshot</p>
-            <button class="btn-white bold large_font" id="careerlab_book_button" type='submit'>Book Now</button>
-            <div class="small_padding"></div>
-          </form>
+          <div class="sm_padding"></div>
+          <div class="inline">
+            <p class="grey xsmall_font">Previous</p>
+            <div class="small_padding_left"></div>
+            <div class="lki_line_sm"></div>
           </div>
+          <div class="xxsmall_padding"></div>
+          <div class="inline">
+            <p class="grey xsmall_font">Education</p>
+            <div class="small_padding_left"></div>
+            <div class="lki_line_sm"></div>
+          </div>
+
+          <div class="lki_offset"></div>
+
+          <button class="btn-lki bold cursor_pointer">Connect</button>
         </div>
-
-        </div> 
-        </div>
-
-      <!--</div>-->
-    </div>
-    <div class="large_padding"></div>
-  </div>
-
-  <div class="container">
-    <div class="large_padding"></div>
-    <div class="row red">
-      <div class="col-md-12 col-md-offset-0 col-xs-10 col-xs-offset-1">
-        <p class="landing_text_main">"We want to help students build a great Linkedin profile so that employers look at them, and Bryte is perfect for that: that professional headshot that they may not be able to get otherwise"</p>
-        <p class="xlarge_font text-right small_padding bold"> – Amy, Career Counselor</p>
       </div>
     </div>
-    <div class="large_padding"></div>
+    <div class="col-md-6 center_flex">
+      <div class="background_white lki_box lki_box_small">
+        <div class="full_height center_flex">
+          <a class="magnifier-thumb-wrapper"><img id='thumb2' src="{% static 'img/thumbnails/hs2.jpg' %}" height="200"></a>
+        </div>
 
+        <div class="small_padding_left"></div>
+        <div class="lki_content">
+          <h3 class="bold xlarge_font">Lorem Ipsum</h3>
+          <p class="">Sample LinkedIn profile</p>
+          <div class="lki_line"></div>
+
+          <div class="sm_padding"></div>
+          <div class="inline">
+            <p class="grey xsmall_font">Previous</p>
+            <div class="small_padding_left"></div>
+            <div class="lki_line_sm"></div>
+          </div>
+          <div class="xxsmall_padding"></div>
+          <div class="inline">
+            <p class="grey xsmall_font">Education</p>
+            <div class="small_padding_left"></div>
+            <div class="lki_line_sm"></div>
+          </div>
+
+          <div class="lki_offset"></div>
+
+          <button class="btn-lki bold cursor_pointer">Connect</button>
+        </div>
+      </div>   
+    </div>
+    </div>
+
+    <div class="medium_padding"></div>
+    <div class="width_offset">
+    <div class="row">
+      <div class="col-xs-8"><p class="small_font zero_margin">Studio and freelancers:</p></div>
+      <div class="col-xs-4"><p class="small_font zero_margin"><del>$50</del></p></div>
+    </div>
+    <div class="row">
+      <div class="col-xs-8"><p class="small_font zero_margin bold">Bryte Price:</p></div>
+      <div class="col-xs-4"><p class="small_font zero_margin"><del>$9.99</del></p></div>
+    </div>
+    <div class="row">
+      <div class="col-xs-8"><p class="bold landing_text_main zero_margin"><span class="red">Bryte Special Offer:</span></p></div>
+      <div class="col-xs-4"><p class="red bold landing_text_main zero_margin">$4.99</p></div>
+    </div>
+    <div class="row">
+      <div class="col-xs-8"><p class="small_font zero_margin">You save:<p></div>
+      <div class="col-xs-4 small_font zero_margin red">$45.01 (90%)</div>
+    </div>
+    </div>
+    <div class="small_padding"></div>
+    </li>
+
+
+    <li>
+      <h3 class="landing_text_main text-center zero_margin">You can purchase additional headshots and portraits from your shoot</h3>
+      <div class="small_padding"></div>
+      <div class="xsmall_padding"></div>
+      <div class="row">
+        <div class="col-sm-4 center_flex">
+          <img src="{% static 'img/thumbnails/hs1.jpg' %}" height="150" class="headshot_border">
+          <img src="{% static 'img/thumbnails/hs3.jpg' %}" height="150" class="headshot_border">
+        </div>
+        <div class="col-sm-4 center_flex">
+          <img src="{% static 'img/thumbnails/pt1.jpg' %}" height="300">
+        </div>
+        <div class="col-sm-4 center_flex">
+          <img src="{% static 'img/thumbnails/pt2.jpg' %}" height="300">
+        </div>
+
+      </div>
+
+      <div class="small_padding"></div>
+      <div class="width_offset">
+      <div class="row">
+        <div class="col-xs-8"><p class="small_font zero_margin">Studio and freelancers:</p></div>
+        <div class="col-xs-4"><p class="small_font zero_margin"><del>$50</del></p></div>
+      </div>
+      <div class="row">
+        <div class="col-xs-8"><p class="bold landing_text_main zero_margin"><span class="red">Bryte Price:</span></p></div>
+        <div class="col-xs-4"><p class="red bold landing_text_main zero_margin">$9.99</p></div>
+      </div>
+      <div class="row">
+        <div class="col-xs-8"><p class="small_font zero_margin">You save:<p></div>
+        <div class="col-xs-4 small_font zero_margin red">$40.01 (80%)</div>
+      </div>
+      </div>
+      <div class="xsmall_padding"></div>
+      <div class="xsmall_padding"></div>
+    </li>
+
+
+    </ul>
+    </div>
+
+    <div class="medium_padding"></div>
+  </div>
+  </div>
+ -->
+
+ <!-- carousel -->
+  <div class="mod_container">
+    <div class="medium_padding"></div>
+    <h2 class="text-center bold landing_title">Prepare to look professional</h2>
+    <div class="medium_padding"></div>
+
+    <div class="slider">
+      <ul>
+        <li>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="hs_margin hs_shadow_border">
+                <img src="{% static 'img/headshots/examples/premium/white.jpg' %}" class="img-responsive">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="hs_margin hs_shadow_border">
+                <img src="{% static 'img/headshots/examples/premium/black.jpg' %}" class="img-responsive">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="hs_margin hs_shadow_border">
+                <img src="{% static 'img/headshots/examples/premium/blue1.jpg' %}" class="img-responsive">
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="hs_margin hs_shadow_border">
+                <img src="{% static 'img/headshots/examples/premium/white2.jpg' %}" class="img-responsive">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="hs_margin hs_shadow_border">
+                <img src="{% static 'img/headshots/examples/premium/brick.jpg' %}" class="img-responsive">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="hs_margin hs_shadow_border">
+                <img src="{% static 'img/headshots/examples/premium/gray2.jpg' %}" class="img-responsive">
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+
+
+    </div>
+    <p class="text-center">* The displayed photos include extra, optional features</p>
+    <div class="medium_padding"></div>
   </div>
 
+ <!-- Process -->
+ 
+  <div class="background_grey" id="process">
+    <div class="background_pink large_font">
+    <div class="{{ secondary_bg_color }} large_font">
+      <div class="container small_padding_bot medium_padding">
+        <h2 class="text-center bold landing_title_sec">How it works</h2>
+        <div class="row small_padding">
+         <div class="col-xs-12">
+           <div class="row">
+ 
+             <div class="col-sm-4 text-center">
+               <img src="{% static 'img/process1.png' %}" class="img-responsive"> 
+               <div class="medium_padding"></div>
+               <h3 class="bold landing_text_main">Book</h3>
+               <p class="col-xs-10 col-xs-offset-1 small_padding small_lh text-left small_font ">Book a spot at the photoshoot and we'll send you a confirmation email.</p>
+             </div>   
+ 
+             <div class="col-sm-4 text-center">
+               <img src="{% static 'img/process2.png' %}" class="img-responsive"> 
+               <div class="medium_padding"></div>
+               <h3 class="bold landing_text_main">Smile</h3>
+               <p class="col-xs-10 col-xs-offset-1 small_padding small_lh text-left small_font">Show up 5 minutes early on photoshoot day and let us make you look professional.</p>
+             </div>  
+ 
+             <div class="col-sm-4 text-center">
+               <img src="{% static 'img/process3.png' %}" class="img-responsive"> 
+               <div class="medium_padding"></div>
+               <h3 class="bold landing_text_main">Download</h3>
+               <p class="col-xs-10 col-xs-offset-1 small_padding small_lh text-left small_font">All the photos you took will be emailed to you after the photoshoot. You'll get to pick your favorite one and download it.</p>
+             </div>  
+           </div>
+          </div>
+        </div>
+        <div class="large_padding"></div>
+       <p class="text-center small_padding small_font">Have questions? Email us @ <a href="mailto:hello@brytephoto.com" target="_top" class="{{ main_color }}">hello@brytephoto.com</a> or Call us at 248-417-5852 for more information</p>
+      </div>
+      <div class="small_padding"></div>
+    
+
+    <!-- second book/signup button -->
+    {% if next_shoot.active %}
+      {% if timeslots %}
+        <div class="text-center">
+          <a href="#title"><button class="book_button_r bold large_font" type='submit'>Book a spot</button></a>
+        </div>
+
+      {% else %}
+        <div class="text-center">
+          <a href="#title"><button class="book_button_r bold large_font">Be the first to hear</button></a>
+        </div>
+
+      {% endif %}
+    {% else %}
+      <div class="text-center">
+        <a href="#title"><button class="book_button_r bold large_font" id="signup_modal_button_2">Be the first to hear</button></a>
+
+      </div>
+    {% endif %}
+
+
+    <div class="large_padding"></div>
+  </div>
+
+
+    <!-- testimonial slider -->
+    <div class="background_white">
+      <div class="container">
+        <div class="flex_box_center xl_height_mod">
+          <div class="row {{ main_color }}">
+            <div class="col-md-12 col-md-offset-0 col-xs-10 col-xs-offset-1">
+              <div class="slider">
+                <ul>
+                  <li>
+                    <p class="landing_text_main">"Simple and easy, and the headshots look great!"</p>
+                    <p class="xlarge_font text-right small_padding bold"> – Sam W. <img class="small_padding_left" src="{% static 'img/ccri/logo.png' %}" height='40px'></p>
+                  </li>
+                  <li>
+                    <p class="landing_text_main">"I've been waiting for this forever"</p>
+                    <p class="xlarge_font text-right small_padding bold"> – Mikaela G. <img class="small_padding_left" src="{% static 'img/ric/logo.gif' %}" height='50px'></p>
+                  </li>
+                  <li>
+                    <p class="landing_text_main">"It felt like a fully professioinal photoshoot at an unbelievable price - free"</p>
+                    <p class="xlarge_font text-right small_padding bold"> – Greg C. <img class="small_padding_left" src="{% static 'logo/brown_logo.png' %}" height='50px'></p>
+                  </li>
+                  <li>
+                    <p class="landing_text_main">"My photographer was good at helping me generate a variety of expressions to choose from. I can't think of any way I'd make it better"</p>
+                    <p class="xlarge_font text-right small_padding bold"> – Caleb H. <img class="small_padding_left" src="{% static 'img/ric/logo.gif' %}" height='50px'></p>
+                  </li>
+                  <li>
+                    <p class="landing_text_main">"You don't have to do anything but sit there and look at the camera. It's great."</p>
+                    <p class="xlarge_font text-right small_padding bold"> – Alyssa M. <img class="small_padding_left" src="{% static 'logo/brown_logo.png' %}" height='50px'></p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+<!-- modal -->
+<a id="modal_link" href="#animatedModal" hidden></a>
+<div id="animatedModal">
+  <!--THIS IS IMPORTANT! to close the modal, the class name has to match the name given on the ID  class="close-animatedModal" -->
+  <div class="close-animatedModal text-center" id="modal_close_link"> 
+      <div class="medium_padding"></div>
+      <a href="" class="modal_close white xbig_font"><i class="fa fa-times-circle-o"></i></a>
+  </div>
+
+  <div class="white text-center medium_padding large_font">      
+  <p id="modal_content"></p>
+  </div>
+</div>
+
+
+<!-- loader -->
+<div id="loader-wrapper" hidden>
+  <div id="loader" class="text-center"><img src="{% static 'logo/loading.svg' %}" width="140px"></div>
+</div>
+
+<!-- modal form -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+    <div class="modal-dialog" role="document">
+      <div class="modal-content {{ main_bg_color }} white">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title small_font" id="myModalLabel"></h4>
+          <div class="xsmall_padding"></div>
+        </div>
+        <div class="modal-body">
+
+
+          <!-- model location info and school -->
+          <div class="text-center">
+
+          
+          <h3 class="bold">Book your spot</h3>
+          <!--
+            <p class="large_font white"><span class="landing_text"><span class="bold">Location:</span> {{ school_location }}</span><br><span class="landing_text"><span class="bold">Date & Time:</span> {{ next_shoot.get_date_string }}, {{ next_shoot.get_time_interval_string }}</span></p>
+          -->
+          <!-- booking form! -->
+          <div class="special_padding signup_form">
+            <div id="book_form">
+
+              <div class="medium_padding"></div>
+              <div class="">
+              <form method="POST" action="{% url 'careerlab_book' %}" class=" white">{% csrf_token %}
+                <p class="text-left bold">First & Last Name</p>
+                <input type='text' name='careerlab_book_name' class="form-control" id='careerlab_book_name' required pattern="[a-zA-Z.]{2,}(\s+[a-zA-z.]{2,})+" placeholder='First & Last Name'>
+                <div class="small_padding"></div>
+
+                <p class="text-left bold">Email</p>
+                <input type='email' name='careerlab_book_email' class="form-control" id='careerlab_book_email' required placeholder='Email Address' onchange="try{setCustomValidity('')}catch(e){}">
+                <div class="small_padding"></div>
+
+                <p class="text-left bold">Choose a timeslot</p>
+                <select required name='careerlab_book_time' class="form-control" id='careerlab_book_time'>
+                  {% for timeslot in timeslots %}
+                    <option value='{{ timeslot.pk }}'>{{ timeslot.time_slot_format }}</option>
+                  {% endfor %}
+                </select>
+
+
+                <!-- booking button -->
+                <div class="small_padding"></div>
+                <div class="text-center">
+                  <button type="button" class="btn btn-white bold large_font" id="careerlab_book_button">Book Now</button>
+                  <div class="small_padding"></div>
+                </div>
+              </form>
+              </div>
+            </div>
+
+            </div>
+
+            <div class="small_padding"></div>
+          </div>
+        </div>
+        <div class="modal-footer">
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<!-- modal form -->
+  <div class="modal fade" id="myModalSignup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+    <div class="modal-dialog" role="document">
+      <div class="modal-content {{ main_bg_color }} white">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title small_font" id="myModalLabel"></h4>
+          <div class="xsmall_padding"></div>
+        </div>
+        <div class="modal-body">
+
+
+          <!-- model location info and school -->
+
+          <div class="medium_padding"></div>
+
+          <div class="text-center">
+            {% if next_shoot.active %}
+              <p class="large_font white"><span class="landing_text"><span class="bold">Location:</span> {{ school_location }}</span><br><span class="landing_text"><span class="bold">Date & Time:</span> {{ next_shoot.get_date_string }}, {{ next_shoot.get_time_interval_string }}</span></p>     
+            {% else %}
+              <p class="big_font white"><span class="landing_text"><span class="bold">Location on campus</span></p>        
+            {% endif %}
+
+          </div>
+
+          <div class="small_padding"></div>
+          <!-- sign up form -->
+
+            <div id="signup_form" class="special_padding signup_form">
+              <div class="small_padding"></div>
+              <div class="text-center">
+              <form method="POST" action="{% url 'careerlab_signup' %}" class="white">{% csrf_token %}
+                <input type='text' name='careerlab_signup_name' class="form-control" id='careerlab_signup_name' required pattern="[a-zA-Z]{2,}(\s+[a-zA-z]{2,})+" placeholder='First & Last Name'>
+                <div class="small_padding"></div>
+                <input type='email' name='careerlab_signup_email' class="form-control" id='careerlab_signup_email' required placeholder='Email Address' onchange="try{setCustomValidity('')}catch(e){}">
+
+
+                <!-- signup button -->
+                <div class="small_padding"></div>
+                <div class="text-center">
+                  <button type="button" class="btn btn-white bold large_font" id="careerlab_signup_button">Sign up</button>
+                  <div class="small_padding"></div>
+                </div>
+                <input type="hidden" value="{{ next_shoot.pk }}" id="signup_shoot_id">
+              </form>
+              </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
 {% endblock %}
 
 {% block script %}
-	<script src="{% static 'js/animatedModal.min.js' %}"></script>
-	<script src="{% static 'js/unslider-min.js' %}"></script>
+  <script src="{% static 'js/animatedModal.min.js' %}"></script>
+  <script src="{% static 'js/unslider-min.js' %}"></script>
+  <!-- Hotjar Tracking Code for brytephoto.com/ -->
+
+  <script type="text/javascript">
+
+}
+var csrftoken = getCookie('csrftoken');
+  </script>
 {% endblock %}
 
 
 {% block jquery %}
-		// slider
-		$('.slider').unslider({
-			autoplay: true,
-			speed: 500,
-			infinite: true,
+    // slider
+    $('.slider').unslider({
+      autoplay: true,
+      speed: 500,
+      infinite: true,
+      delay: 4500,
       nav: false,
       arrows: false,
       animateHeight: true,
-		});
+    });
+
+
+    // modal 
+    $("#modal_link").animatedModal({
+      animatedIn: 'zoomInUp',
+      animatedOut: 'bounceOutDown',
+      color: '#c94848'
+    });
+
+    $('#modal_close_link').click(function(){
+      location.reload();
+    })
+
+
+    .ajaxStart(function () {
+      $("#loader-wrapper").show();
+    })
+
+    .ajaxStop(function () {
+      $("#loader-wrapper").hide();
+    });
+
+    var csrftoken = getCookie('csrftoken');
+
+    function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
 
 
 
