@@ -931,7 +931,8 @@ class Booking(models.Model):
 						super(HeadshotPurchase, purchase).save()
 
 				else:
-					print 'Seems all the photos are copied to touchup already: ' + str(email)
+					# print 'Seems all the photos are copied to touchup already: ' + str(email)
+					pass
 				# assign touchup folder to the order
 
 				if not order.touchup_folder:
@@ -1645,6 +1646,7 @@ class Booking(models.Model):
 				dbx.files_create_folder(raw_path)
 			except Exception, e:
 				print e
+				print self.email
 				return False
 				# raise e
 			else:
@@ -1652,8 +1654,9 @@ class Booking(models.Model):
 				try:
 					deliverable_link = dbx.sharing_create_shared_link(deliverable_path)
 				except Exception, e:
-					return False
 					print e
+					return False
+					
 				else:
 					self.upgrade_folder_path = deliverable_link.url
 					super(Booking, self).save()
@@ -1683,6 +1686,7 @@ class Booking(models.Model):
 			dbx.files_create_folder(upload_folder_path)
 		except Exception, e:
 			print e
+			print self.email
 			return False
 		else:
 			return True
