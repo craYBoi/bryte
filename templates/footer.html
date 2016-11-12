@@ -1,5 +1,5 @@
 {% load staticfiles %}
-<div class="dark_grey_bg">
+<div class="dark_grey_bg droid_serif">
 <footer id="footer" class="container">
 <!--
   <div class="row medium_padding">
@@ -51,16 +51,16 @@
   -->
 
   <div class="medium_padding white">
-    <p class="text-center">Have any questions? Email <a href="mailto:hello@brytephoto.com" target="_top" class="pink">hello@brytephoto.com</a></p>
+    <p class="text-center">Have any questions? Email <a href="mailto:hello@brytephoto.com" target="_top" class="light_green">hello@brytephoto.com</a></p>
     <div class="small_padding"></div>
     <ul class="list-inline bold">
-      <li><a href="{% url 'legal' %}" class="white"><span class="pink">L</span>egal Documentation</a></li>
+      <li><a href="{% url 'legal' %}" class="white"><span class="light_green">L</span>egal Documentation</a></li>
       {% if request.user.is_authenticated %}
-        <li><a href="{{ request.user.profile.photographer.get_absolute_url }}" class="white"><span class="pink">M</span>y Profile</a></li>
-        <li><a href="{% url 'profile' %}" class="white"><span class="pink">M</span>y Dashboard</a></li>
-        <li><a href="{% url 'auth_logout' %}" class="white"><span class="pink">L</span>og Out</a></li>
+        <li><a href="{{ request.user.profile.photographer.get_absolute_url }}" class="white"><span class="light_green">M</span>y Profile</a></li>
+        <li><a href="{% url 'profile' %}" class="white"><span class="light_green">M</span>y Dashboard</a></li>
+        <li><a href="{% url 'auth_logout' %}" class="white"><span class="light_green">L</span>og Out</a></li>
       {% else %}
-        <li><a href="{% url 'auth_login' %}" class="white"><span class="pink">P</span>hotographer Login</a></li>
+        <li><a href="{% url 'auth_login' %}" class="white"><span class="light_green">P</span>hotographer Login</a></li>
       {% endif %}
     </ul>
     <div class="small_padding"></div>
