@@ -26,9 +26,6 @@
 					<ul class="package_list xsmall_font">
 						<li>Style: {{ order.get_touchup_display }}</li>
 						<li>Background: {{ order.get_background_display }}</li>
-						{% if order.package %}
-							<li>Keepsake: {{ order.get_package_display }}</li>
-						{% endif %}
 						{% if order.special_request %}
 							<li>Special requests: {{ order.special_request }}</li>
 						{% endif %}
