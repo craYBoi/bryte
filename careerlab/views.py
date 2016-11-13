@@ -473,7 +473,7 @@ def headshot_index(request):
 			check_duplicate = False
 			if orders:
 				last_order = orders[len(orders)-1]
-				check_duplicate = last_order.image.hash_id == hs_id and last_order.touchup == touchup and last_order.background == background and last_order.total == subtotal
+				check_duplicate = last_order.image.hash_id == hs_id and last_order.touchup == touchup and last_order.background == background
 
 			if check_duplicate:
 				# return, nothing happens

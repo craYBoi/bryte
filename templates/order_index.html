@@ -6,6 +6,7 @@
 
 	<script>/*<![CDATA[*/window.zEmbed||function(e,t){var n,o,d,i,s,a=[],r=document.createElement("iframe");window.zEmbed=function(){a.push(arguments)},window.zE=window.zE||window.zEmbed,r.src="javascript:false",r.title="",r.role="presentation",(r.frameElement||r).style.cssText="display: none",d=document.getElementsByTagName("script"),d=d[d.length-1],d.parentNode.insertBefore(r,d),i=r.contentWindow,s=i.document;try{o=s}catch(e){n=document.domain,r.src='javascript:var d=document.open();d.domain="'+n+'";void(0);',o=s}o.open()._l=function(){var o=this.createElement("script");n&&(this.domain=n),o.id="js-iframe-async",o.src=e,this.t=+new Date,this.zendeskHost=t,this.zEQueue=a,this.body.appendChild(o)},o.write('<body onload="document._l();">'),o.close()}("https://assets.zendesk.com/embeddable_framework/main.js","bryte.zendesk.com");
 	/*]]>*/</script>
+	
 {% endblock %}
 {% block content %}
 
@@ -34,9 +35,9 @@
 				  <div class="item">
 				    <div class="content">
 				    {% if show_steps %}
-				      <p class="big_font">Choose more photos or Checkout</p>
+				      <p class="big_font"><span class="bold">Choose more photos</span> or Continue</p>
 				    {% else %}
-				    	<p class="big_font main_green"><span class="bold">Choose more photos</span> or Checkout</p>
+				    	<p class="big_font main_green"><span class="bold">Choose more photos</span> <span class="lightgray">or Continue</span></p>
 				    	</div>
 				    	<div class="main_green_spacing"></div>
 				    {% endif %}
@@ -49,7 +50,7 @@
 			<div class="small_padding"></div>
 
 			{% if not show_checkout_button %}
-				<h1 class="text-center landing_title bold">Choose one of your photos</h1>
+				<h1 class="text-center landing_title bold">First, choose one of your photos</h1>
 			{% else %}
 				<h1 class="text-center landing_title bold">You may choose more photos</h1>
 			{% endif %}
@@ -117,7 +118,7 @@
   <div class="ui sidebar right vertical menu large_font background_grey_d">
   	<h3 class="text-center bold">My Cart</h3>
   	<div class="small_padding"></div>
-		<div id="checkout_cart" class="all_padding">	
+		<div id="checkout_cart">	
 			{% for order in orders reversed %}
 				<div class="row">
 				<div class="col-xs-10 col-xs-offset-1">
@@ -135,7 +136,7 @@
 						{% endif %}
 						<li>Subtotal: ${{ order.total }}</li>
 						<li class="remove_buttons">
-							<button class="remove_button italic text_button_black" name="{{ order.hash_id }}">remove</button>
+							<button class="remove_button text_button_black large_font" name="{{ order.hash_id }}">Remove</button>
 						</li>
 					</ul>
 					<div class="small_padding"></div>
@@ -145,22 +146,24 @@
 			{% endfor %}
 		</div>
 
-		<div class="all_padding text-center">
+		<div class="row">
+			<div class="col-xs-10 col-xs-offset-1">
 			<form action="{% url 'headshot_checkout' %}" id="headshot_checkout_form">
 
 				<!--
 					<input type='text' name='address' placeholder="Shipping Address" class="form-control" id="order_address" required onchange="try{setCustomValidity('')}catch(e){}">
 				-->
 				{% if show_checkout_button %}
-					<h3>Order Total: $<span id="cart_total">{{ order_total }}</span></h3>
-					<div class="small_padding"></div>
-					<button class="main_green_button_xs" id="headshot_pay_button">Proceed to checkout</button>	
+					<h4>Order Total: $<span id="cart_total">{{ order_total }}</span></h4>
+					<div class="xxsmall_padding"></div>
+					<button class="main_green_button_xs_100" id="headshot_pay_button">Continue</button>	
 				{% else %}
-					<h4 class="bold">Your cart is empty :p</h4>
+					<h4 class="bold">Empty :(</h4>
 
 				{% endif %}
 
 			</form>
+			</div>
 		</div>
 
 		<div class="large_padding"></div>

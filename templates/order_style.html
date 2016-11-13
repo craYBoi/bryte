@@ -15,7 +15,7 @@
   <div class="ui sidebar right vertical menu large_font background_grey_d">
   	<h3 class="text-center bold">My Cart</h3>
   	<div class="small_padding"></div>
-		<div id="checkout_cart" class="all_padding">	
+		<div id="checkout_cart">	
 			{% for order in orders reversed %}
 				<div class="row">
 				<div class="col-xs-10 col-xs-offset-1">
@@ -31,7 +31,7 @@
 						{% endif %}
 						<li>Subtotal: ${{ order.total }}</li>
 						<li class="remove_buttons">
-							<button class="remove_button italic text_button_black" name="{{ order.hash_id }}">remove</button>
+							<button class="remove_button large_font text_button_black" name="{{ order.hash_id }}">Remove</button>
 						</li>
 					</ul>
 					<div class="small_padding"></div>
@@ -40,21 +40,24 @@
 				</div>
 			{% endfor %}
 		</div>
-		<div class="all_padding text-center">
+		<div class="row">
+			<div class="col-xs-10 col-xs-offset-1">
 			<form action="{% url 'headshot_checkout' %}" id="headshot_checkout_form">
+
 
 				<!--
 					<input type='text' name='address' placeholder="Shipping Address" class="form-control" id="order_address" required onchange="try{setCustomValidity('')}catch(e){}">
 				-->
 				{% if show_checkout_button %}
-					<h3>Order Total: $<span id="cart_total">{{ order_total }}</span></h3>
-					<div class="small_padding"></div>
-					<button class="main_green_button_xs" id="headshot_pay_button">Proceed to checkout</button>	
+					<h4>Order Total: $<span id="cart_total">{{ order_total }}</span></h4>
+					<div class="xxsmall_padding"></div>
+					<button class="main_green_button_xs_100" id="headshot_pay_button">Continue</button>	
 				{% else %}
-					<h4 class="bold">Your cart is empty :p</h4>
+					<h4 class="bold">Empty :(</h4>
 
 				{% endif %}
 			</form>
+			</div>
 		</div>
 		<div class="large_padding"></div>
   </div>
@@ -64,7 +67,7 @@
 	<div class="droid_serif pusher">
 		<div class="">
 			<div class="medium_padding"></div>
-			<h1 class="text-center landing_title bold left_right_padding">Choose your LinkedIn Touchup Package</h1>
+			<h1 class="text-center landing_title bold left_right_padding">Choose a LinkedIn Touchup Package</h1>
 
 			<div class="small_padding"></div>
 
@@ -77,12 +80,6 @@
 					</div>
 
 					<div class="xsmall_padding"></div>
-
-					<div class="basic_raw_pad" hidden>
-						<div class="large_padding"></div>
-						<div class="sm_padding"></div>
-						<div class="xxsmall_padding"></div>
-					</div>
 
 					<div class="text-center before_after_button">
 						<button class="ui left attached button" id="basic_before">before</button>
@@ -103,8 +100,8 @@
 					<div class="small_padding"></div>
 					<div class="sm_padding"></div>
 					<ul class="spec_list droid_serif grey all_padding">
-						<li>High definition image size</li>
-						<li>Refined cropping by our Guru Photoshoppers</li>
+						<li>High image definition</li>
+						<li>Big enough to use anywhere</li>
 					</ul>
 
 
@@ -121,9 +118,9 @@
 							<input type="hidden" name='subtotal' value='{{ shoot.basic_price }}' id="basic_price">
 
 							<div class="all_padding desktop_disp">
-							<p class="xlarge_font dark_grey">${{ shoot.basic_price }}</p>
-							<button class="main_green_button_100 basic_add" type="submit">Add to Cart</button>
-							<p class="small_font italic sm_padding lightgray">available for download within 7 business days</p>
+							<p class="price_font_size dark_grey">${{ shoot.basic_price }}</p>
+							<button class="main_green_button_100 basic_add" type="submit">Add to cart</button>
+							<p class="small_font italic sm_padding lightgray">Available for download within 7 business days</p>
 							</div>
 						</form>
 
@@ -146,11 +143,6 @@
 					</div>
 					<div class="xsmall_padding"></div>
 
-					<div class="prof_raw_pad" hidden>
-						<div class="large_padding"></div>
-						<div class="sm_padding"></div>
-						<div class="xxsmall_padding"></div>
-					</div>
 
 					<div class="text-center before_after_button">
 						<button class="ui left attached button" id="prof_before">before</button>
@@ -196,8 +188,8 @@
 					<div class="small_padding"></div>
 					<div class="sm_padding"></div>
 					<ul class="spec_list droid_serif grey all_padding">
-						<li><span class="extra_bold dark_grey">Highest</span> definition image size</li>
-						<li>Refined cropping by our Guru Photoshoppers</li>
+						<li>Premium image definition</li>
+						<li>Big enough to use anywhere</li>
 						<li>Choose your background</li>
 						<li>Brings out eyes; teeth whitening</li>
 					</ul>
@@ -218,11 +210,11 @@
 							<input type="hidden" name='subtotal' value='{{ shoot.professional_price }}' id="prof_price">
 							<div class="all_padding desktop_disp">
 
-								<div class=""><div class="inline"><p class="xlarge_font dark_grey">${{ shoot.professional_price }}</p></div></div>
+								<p class="price_font_size dark_grey">${{ shoot.professional_price }}</p>
 
 								<div class="sm_padding"></div>
-								<button class="main_green_button_100 prof_add" type="submit">Add to Cart</button>
-								<p class="small_font italic sm_padding lightgray">available for download within 7 business days</p>
+								<button class="main_green_button_100 prof_add" type="submit">Add to cart</button>
+								<p class="small_font italic sm_padding lightgray">Available for download within 7 business days</p>
 
 							</div>
 						</form>
@@ -230,7 +222,7 @@
 
 						<div id="prof_warning_color" class="small_padding" hidden>
 						<div class="alert alert-danger">
-						  <strong>Please choose a color first</strong>
+						  <strong>Please choose a background first</strong>
 						</div>
 					</div>
 
@@ -248,8 +240,8 @@
 					</div>
 					<div class="xsmall_padding"></div>
 					<div class="text-center before_after_button">
-						<button class="ui left attached button" id="cust_before">before</button>
-						<button class="right attached ui button before_after_active" id="cust_after">after</button>
+						<button class="ui left attached button" id="cust_before">Standard</button>
+						<button class="right attached ui button before_after_active" id="cust_after">Customized</button>
 					</div>
 
 					<div class="sm_padding"></div>
@@ -294,8 +286,8 @@
 
 					<form action="{% url 'headshot_index' %}" id="cust_form">
 					<ul class="spec_list droid_serif grey all_padding">
-						<li><span class="extra_bold dark_grey">Highest</span> definition image size</li>
-						<li>Refined cropping by a our Guru Photoshoppers</li>
+						<li>Ultra-high image definition</li>
+						<li>Big enough to use anywhere</li>
 						<li>Choose your background</li>
 						<li>Brings out eyes; teeth whitening</li>
 						<li>Skin smoothening, wrinkle and acne touchup</li>
@@ -307,11 +299,9 @@
 
 						<div class="all_padding">
 							<div class="special_border_mg">
-							<p class="grey">Type special requests in the box</p>
-							<input type="text" name='special_request' class="special_request_form" id="cust_special_request" placeholder="Remove piercings, adjust ties and more…" id="cust_special_request" maxlength="200">
+							<p class="grey">Type special request(s) here:</p>
+							<input type="text" name='special_request' class="special_request_form" id="cust_special_request" placeholder="Remove piercings, adjust ties etc…" id="cust_special_request" maxlength="200">
 							</div>
-
-
 
 						
 
@@ -329,10 +319,10 @@
 							<input type="hidden" name='subtotal' value='{{ shoot.customized_price }}' id="cust_price">
 
 							<div class="desktop_disp">
-								<div class=""><div class="inline"><p class="xlarge_font dark_grey">${{ shoot.customized_price }}</p></div></div>
+								<p class="price_font_size dark_grey">${{ shoot.customized_price }}</p>
 								<div class="sm_padding"></div>
-								<button class="main_green_button_100 cust_add" type='Submit'>Add to Cart</button>
-								<p class="small_font italic sm_padding lightgray">available for download within 7 business days</p>
+								<button class="main_green_button_100 cust_add" type='Submit'>Add to cart</button>
+								<p class="small_font italic sm_padding lightgray">Available for download within 7 business days</p>
 							</div>
 
 
@@ -359,8 +349,8 @@
 						<div class=""><div class="inline"><p class="xlarge_font dark_grey">${{ shoot.basic_price }}</p></div></div>
 
 						<div class="sm_padding"></div>
-						<button class="main_green_button_100 basic_add">Add to Cart</button>
-						<p class="small_font italic sm_padding lightgray">available for download within 7 business days</p>
+						<button class="main_green_button_100 basic_add">Add to cart</button>
+						<p class="small_font italic sm_padding lightgray">Available for download within 7 business days</p>
 					</div>
 				</div>
 
@@ -369,8 +359,8 @@
 						<div class=""><div class="inline"><p class="xlarge_font dark_grey">${{ shoot.professional_price }}</p></div></div>
 
 						<div class="sm_padding"></div>
-						<button class="main_green_button_100 prof_add">Add to Cart</button>
-						<p class="small_font italic sm_padding lightgray">available for download within 7 business days</p>
+						<button class="main_green_button_100 prof_add">Add to cart</button>
+						<p class="small_font italic sm_padding lightgray">Available for download within 7 business days</p>
 					</div>
 				</div>
 
@@ -378,8 +368,8 @@
 					<div class="all_padding">
 						<div class=""><div class="inline"><p class="xlarge_font dark_grey">${{ shoot.customized_price }}</p></div></div>
 						<div class="sm_padding"></div>
-						<button class="main_green_button_100 cust_add">Add to Cart</button>
-						<p class="small_font italic sm_padding lightgray">available for download within 7 business days</p>
+						<button class="main_green_button_100 cust_add">Add to cart</button>
+						<p class="small_font italic sm_padding lightgray">Available for download within 7 business days</p>
 					</div>
 				</div>
 			</div>
@@ -391,20 +381,28 @@
 				<div class="col-sm-4">
 					<div class="hs_margin">
 						<div class="text-center">
-						<a data-toggle="modal" data-target="#free_example" style="cursor:pointer;"><img src="{% static 'img/headshots/examples/free/white.JPG' %}" class="full_width hs_shadow_border"></a>
+						<a data-toggle="modal" data-target="#free_example" style="cursor:pointer;"><img src="{% static 'img/headshots/examples/free/white.jpg' %}" class="full_width hs_shadow_border" id="free_hs"></a>
 						</div>
 					</div>
 
+					<div class="text-center before_after_button_free">
+						<button class="ui left attached button" id="free_before">before</button>
+						<button class="right attached ui button before_after_active" id="free_after">after</button>
+					</div>
+
+					<div class="small_padding"></div>
 					<h2 class="text-center" id="free_title">Minimal</h2>
 					<div class="small_padding"></div>
+					<div class="sm_padding"></div>
 					<ul class="spec_list droid_serif grey all_padding">
-						<li>Adequate image size for LinkedIn</li>
+						<a href="https://www.linkedin.com/help/linkedin/topics/6042/6059/1615/adding-or-changing-your-profile-photo?lang=en" class="grey underline" target="_blank"><li>Adequate image definition</li></a>
+						<li>Image size big enough for LinkedIn</li>
 					</ul>
 
 					<div class="all_padding">
 						<div class="small_padding"></div>
 						{% if proceed %}
-						<p class="xlarge_font dark_grey">$3</p><p class="grey italic">(The next photo starts at 3 dollars)</p>
+						<p class="xlarge_font dark_grey">$3</p><p class="grey italic">(Additional photos start at $3)</p>
 						
 						{% else %}
 							<p class="big_font">$<span id="free_list_price">0</span></p>
@@ -428,8 +426,8 @@
 								<input type="hidden" name='subtotal' value='0' id="free_price">
 							{% endif %}
 							
-							<button class="ord_button_gray" type="submit" id="free_add" type="submit">Add to Cart</button>
-							<p class="small_font italic sm_padding lightgray">available for download within 7 business days</p>
+							<button class="main_green_button_100" type="submit" id="free_add" type="submit">Add to cart</button>
+							<p class="small_font italic sm_padding lightgray">Available for download within 7 business days</p>
 						</form>
 						
 					</div>
@@ -1005,11 +1003,11 @@
         	<div class="small_padding"></div>
         	<div class="row">
         		<div class="col-sm-6 center_flex">
-        			<img src="{% static 'img/headshots/examples/customized/asgon_o.jpg' %}" class="hs_shadow_border max_width_300">
+        			<img src="{% static 'img/headshots/examples/customized/uw_b.jpg' %}" class="hs_shadow_border max_width_300">
         			<p class="sm_padding large_font text-center">Before</p>
         		</div>
         		<div class="col-sm-6 center_flex">
-        			<img src="{% static 'img/headshots/examples/customized/asgon.jpg' %}" class="hs_shadow_border max_width_300">
+        			<img src="{% static 'img/headshots/examples/customized/uw_a.jpg' %}" class="hs_shadow_border max_width_300">
         			<p class="sm_padding large_font text-center">After</p>
         		</div>
         	</div>
@@ -1018,11 +1016,11 @@
         	<div class="small_padding"></div>
         	<div class="row">
         		<div class="col-sm-6 center_flex">
-        			<img src="{% static 'img/headshots/examples/customized/famosh_o.jpg' %}" class="hs_shadow_border max_width_300">
+        			<img src="{% static 'img/headshots/examples/customized/ag_b.jpg' %}" class="hs_shadow_border max_width_300">
         			<p class="sm_padding large_font text-center">Before</p>
         		</div>
         		<div class="col-sm-6 center_flex">
-        			<img src="{% static 'img/headshots/examples/customized/famosh.jpg' %}" class="hs_shadow_border max_width_300">
+        			<img src="{% static 'img/headshots/examples/customized/ag_a.jpg' %}" class="hs_shadow_border max_width_300">
         			<p class="sm_padding large_font text-center">After</p>
         		</div>
         	</div>
@@ -1032,23 +1030,11 @@
         	<div class="small_padding"></div>
         	<div class="row">
         		<div class="col-sm-6 center_flex">
-        			<img src="{% static 'img/headshots/examples/customized/nick_o.jpg' %}" class="hs_shadow_border max_width_300">
+        			<img src="{% static 'img/headshots/examples/customized/sb_b.jpg' %}" class="hs_shadow_border max_width_300">
         			<p class="sm_padding large_font text-center">Before</p>
         		</div>
         		<div class="col-sm-6 center_flex">
-        			<img src="{% static 'img/headshots/examples/customized/nick.jpg' %}" class="hs_shadow_border max_width_300">
-        			<p class="sm_padding large_font text-center">After</p>
-        		</div>
-        	</div>
-
-        	<div class="small_padding"></div>
-        	<div class="row">
-        		<div class="col-sm-6 center_flex">
-        			<img src="{% static 'img/headshots/examples/customized/jay_o.jpg' %}" class="hs_shadow_border max_width_300">
-        			<p class="sm_padding large_font text-center">Before</p>
-        		</div>
-        		<div class="col-sm-6 center_flex">
-        			<img src="{% static 'img/headshots/examples/customized/jay.jpg' %}" class="hs_shadow_border max_width_300">
+        			<img src="{% static 'img/headshots/examples/customized/sb_a.jpg' %}" class="hs_shadow_border max_width_300">
         			<p class="sm_padding large_font text-center">After</p>
         		</div>
         	</div>
@@ -1058,11 +1044,11 @@
         	<div class="small_padding"></div>
         	<div class="row">
         		<div class="col-sm-6 center_flex">
-        			<img src="{% static 'img/headshots/examples/customized/olivia.jpg' %}" class="hs_shadow_border max_width_300">
+        			<img src="{% static 'img/headshots/examples/customized/bg_b.jpg' %}" class="hs_shadow_border max_width_300">
         			<p class="sm_padding large_font text-center">Before</p>
         		</div>
         		<div class="col-sm-6 center_flex">
-        			<img src="{% static 'img/headshots/examples/customized/olivia_o.jpg' %}" class="hs_shadow_border max_width_300">
+        			<img src="{% static 'img/headshots/examples/customized/bg_a.jpg' %}" class="hs_shadow_border max_width_300">
         			<p class="sm_padding large_font text-center">After</p>
         		</div>
         	</div>
@@ -1327,7 +1313,7 @@
 		// check if the hidden input has value
 		if(!$('#prof_background').val()){
 			e.preventDefault();
-			$('#prof_warning_color').show().delay(1200).fadeOut(600);
+			$('#prof_warning_color').show().delay(1800).fadeOut(600);
 		}else{
 			$('#prof_form').submit();
 		}
@@ -1339,13 +1325,8 @@
 		
 		if(!$('#cust_background').val()){
 			e.preventDefault();
-			$('#cust_warning_color').show().delay(1200).fadeOut(600);
-		}
-		if(!$('#cust_special_request').val()){
-			e.preventDefault();
-			$('#cust_warning_request').show().delay(1200).fadeOut(600);
-		}
-		if($('#cust_background').val() && $('#cust_special_request').val()){
+			$('#cust_warning_color').show().delay(1800).fadeOut(600);
+		}else{
 			$('#cust_form').submit();
 		}
 	})
@@ -1416,8 +1397,6 @@
 		// add value 
 		var title = $(this).attr('name')
 
-		// remove raw padd
-		$('.prof_raw_pad').hide();
 
 		// toggle to after button
 		$('#prof_after').addClass('before_after_active');
@@ -1717,51 +1696,49 @@
   	
   	var bg_id = $('#prof_background').val();
 
-  	// show raw pad
-  	$('.prof_raw_pad').show();
 
   	// default eclectic bookcase
   	if(!bg_id) bg_id = '7';
 
   	switch(bg_id){
   		case '2':
-  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/amen3.jpg" %}');
+  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/amen5.jpg" %}');
   			break;
    		case '3':
-  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/ben1.jpg" %}');
+  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/ben3.jpg" %}');
   			break;
   		case '4':
-  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/bella2.jpg" %}');
+  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/bella5.jpg" %}');
   			break;
   		case '5':
-  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/sammy1.jpg" %}');
+  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/sammy4.jpg" %}');
   			break;
   		case '6':
-  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/bella2.jpg" %}');
+  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/bella5.jpg" %}');
   			break;
   		case '7':
-  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/alex1.jpg" %}');
+  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/alex4.jpg" %}');
   			break;
   		case '8':
-  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/sammy2.jpg" %}');
+  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/sammy5.jpg" %}');
   			break;
   		case '9':
-  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/bella3.jpg" %}');
+  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/bella6.jpg" %}');
   			break;
   		case '10':
-  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/bella3.jpg" %}');
+  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/bella6.jpg" %}');
   			break;
   		case '11':
-  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/bella3.jpg" %}');
+  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/bella6.jpg" %}');
   			break;
   		case '12':
-  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/alex3.jpg" %}');
+  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/alex6.jpg" %}');
   			break;
   		case '13':
-  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/sammy2.jpg" %}');
+  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/sammy5.jpg" %}');
   			break;	
   		case '14':
-  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/ben1.jpg" %}');
+  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/ben3.jpg" %}');
   			break;
   	}
   });
@@ -1778,9 +1755,6 @@
   	$('#prof_before').removeClass('before_after_active');
   	
   	var bg_id = $('#prof_background').val();
-
-  	// show raw pad
-  	$('.prof_raw_pad').hide();
 
   	// default frosty blue
   	if(!bg_id) bg_id = '7';
@@ -1840,9 +1814,7 @@
   	$('#basic_after').removeClass('before_after_active');
   	
 
-  	// show raw pad
-  	$('.basic_raw_pad').show();
-  	$('#basic_hs').attr('src', '{% static "img/headshots/examples/green/alex3.jpg" %}')
+  	$('#basic_hs').attr('src', '{% static "img/headshots/examples/green/alex6.jpg" %}')
   });
 
   $('#basic_after').click(function(){
@@ -1856,21 +1828,38 @@
   	$('#basic_before').toggleClass('before_after_active');
   	
 
-  	// show raw pad
-  	$('.basic_raw_pad').hide();
+
   	$('#basic_hs').attr('src', '{% static "img/headshots/examples/premium/white6.jpg" %}')
   });
 
+  $('#free_before').click(function(){
 
-  // hover cust col
-  //$('#cust_col').mouseover(function(){
-  //	$('#cust_special_request').fadeIn(1000);
-  //	$('#cust_raw_pad').hide()
-  //})
-  //$('#cust_col').mouseleave(function(){
-  //	$('#cust_raw_pad').fadeIn(500);
-  //	$('#cust_special_request').fadeOut(1000);
-  //})
+  	if($(this).hasClass('before_after_active')){
+  		return;
+  	}
+
+  	// button appearance
+  	$(this).addClass('before_after_active');
+  	$('#free_after').removeClass('before_after_active');
+  	
+
+  	$('#free_hs').attr('src', '{% static "img/headshots/examples/green/alex5.jpg" %}')
+  });
+
+  $('#free_after').click(function(){
+
+  	if($(this).hasClass('before_after_active')){
+  		return;
+  	}
+
+  	// button appearance
+  	$(this).addClass('before_after_active');
+  	$('#free_before').removeClass('before_after_active');
+  	
+
+  	$('#free_hs').attr('src', '{% static "img/headshots/examples/free/white.jpg" %}')
+  });
+
 {% endblock %}
 
 

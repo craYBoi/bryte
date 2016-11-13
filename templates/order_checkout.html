@@ -31,10 +31,10 @@
 						<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
 
 							<div class="row text-left">
-								<div class="col-sm-5">
+								<div class="col-sm-6">
 									<img src="{{ order.image.raw_url }}" class="img-responsive">
 								</div>
-								<div class="col-sm-7">
+								<div class="col-sm-6">
 									<ul class="package_list sm_padding">
 										<li>Style: {{ order.get_touchup_display }}</li>
 										{% if order.special_request %}
@@ -43,10 +43,10 @@
 										<li>Background: {{ order.get_background_display }}</li>
 										{% if order.package == 1 %}
 											<div id="keepsake_{{ order.hash_id }}">
-												<li><a data-toggle="modal" data-target="#keepsake_box"><button class="keepsake_button main_green_button_xs" name="{{ order.hash_id }}">get wallet prints for $3</button></a></li>
+												<li><a data-toggle="modal" data-target="#keepsake_box"><button class="keepsake_button main_green_button_xs" name="{{ order.hash_id }}">Get 6 wallet prints for $3</button></a></li>
 											</div>
 										{% else %}
-											<li>Keepsake: {{ order.get_package_display }}</li>
+											<li>Prints: {{ order.get_package_display }}</li>
 										{% endif %}
 
 										<li>Subtotal: ${{ order.total }}</li>
@@ -77,7 +77,7 @@
 
 
 			<div class="medium_padding"></div>
-			<h2>Total Amount: $<span id="total_amount">{{ total }}</span></h2>
+			<h2>Order total: $<span id="total_amount">{{ total }}</span></h2>
 			</div>
 
 		</div>
@@ -95,9 +95,10 @@
 
 					{% if has_package %}
 						<input type='text' name='address' placeholder="Shipping Address" class="form-control" id="order_address" required onchange="try{setCustomValidity('')}catch(e){}">
+
 						<div class="small_padding"></div>
 					{% endif %}
-					<button class="main_green_button_sm" id="headshot_pay_button">Pay and place order</button>
+					<button class="main_green_button_sm" id="headshot_pay_button">Pay to place order</button>
 				</form>
 			</div>
 		{% endif %}
@@ -152,9 +153,11 @@
 								<p class="xlarge_font">$3</p>
 
 
-								<p class="small_font bold grey">Free shipping</p>
+								
 
-								<button class="main_green_button_xs keepsake_select_button" type="submit" name="2" value="3">Add to Cart</button>
+								<button class="main_green_button_xs keepsake_select_button" type="submit" name="2" value="3">Add to cart</button>
+								<div class="xsmall_padding"></div>
+								<p class="small_font bold">Free shipping</p>
 							</div>
 
 
@@ -176,9 +179,9 @@
 								<div class="sm_padding"></div>
 								<p class="xlarge_font">$9</p>
 
-								<p class="small_font bold grey">Free shipping</p>
-
-								<button class="main_green_button_xs keepsake_select_button" type="submit" name="3" value="9">Add to Cart</button>
+								<button class="main_green_button_xs keepsake_select_button" type="submit" name="3" value="9">Add to cart</button>
+								<div class="xsmall_padding"></div>
+								<p class="small_font bold">Free shipping</p>
 							</div>
 
 							<div class="medium_padding"></div>
@@ -190,7 +193,7 @@
         	<div class="small_padding"></div>
         </div>
         <div class="modal-footer">
-        	<p class="small_font italic sm_padding lightgray text-center">Photos are printed on matte paper for a high quality print that doesn't scratch</p>
+        	<p class="small_font italic sm_padding text-center">Photos are printed on matte paper for a high quality print that doesn't scratch</p>
         </div>
       </div>
     </div>

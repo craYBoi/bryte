@@ -75,7 +75,10 @@ h1,h2,h3,h4 {
   h3 {
   	font-size: 1.2em !important;
   }
-  p, li {
+  li {
+  	font-size: 0.8em !important;
+  }
+  p {
   	font-size: 0.8em !important;
   }
   button {
@@ -848,7 +851,7 @@ h1,h2,h3,h4 {
 }
 
 .package_list li {
-	padding: 6px 0;
+	padding: 3px 0;
 	padding-left: 0.1em;
 	border-bottom: 1px dashed #eee;
 }
@@ -858,7 +861,7 @@ h1,h2,h3,h4 {
 }
 
 .package_list {
-	padding-left: 1em;
+	padding-left: 0em;
 }
 
 .package_list li:before {
@@ -2268,6 +2271,7 @@ body, html
 	background-color: rgba(0,0,0,0);!important;
 	color: #222;	
 	text-decoration: underline;
+	margin-left: -5px;
 }
 
 .center_content_1000 {
@@ -2335,14 +2339,14 @@ body, html
 }
 
 .mod_container {
-  padding-right: 30px;
-  padding-left: 30px;
+  padding-right: 20px;
+  padding-left: 20px;
   margin-right: auto;
   margin-left: auto;
 }
 @media (min-width: 768px) {
   .mod_container {
-    width: 750px;
+    width: 820px;
   }
 }
 @media (min-width: 992px) {
@@ -2657,6 +2661,24 @@ body, html
   background-color: #FFF692;
 }
 
+.main_green_button_xs_100 {
+  font-family: 'Lato', sans-serif;
+  font-weight: bold;
+  font-size: 1.15em!important;
+  color: #fff;
+  width: 100%;
+  background-color: #117200;
+  border: 4px solid #117200;
+  border-radius: 12px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.main_green_button_xs_100:hover {
+  background-color: #19AA03;
+  border-color: #19AA03;
+}
+
 .main_green_button_100 {
   font-family: 'Lato', sans-serif;
   font-weight: bold;
@@ -2668,6 +2690,17 @@ body, html
   border-radius: 12px;
   padding-top: 15px;
   padding-bottom: 15px;
+}
+
+.free_add_button {
+	border: 3px solid #117200;
+	border-radius: 12px;
+	font-weight: bold;
+	width: 100%;
+	padding-top: 12px;
+	padding-bottom: 12px;
+	color: #999;
+	background-color: rgba(0,0,0,0);
 }
 
 .main_green_button_100:hover {
@@ -2767,6 +2800,17 @@ body, html
 	width: 300px!important;
 }*/
 
+.before_after_button_free {
+	margin-top: -27px;
+}
+
+.before_after_button_free > button {
+	color: #888!important;
+	border: 2px #999 solid;
+	font-size: 0.9em!important;	
+	background-color: rgba(0,0,0,0.2);
+}
+
 .before_after_button {
 	margin-top: -27px;
 }
@@ -2797,6 +2841,13 @@ body, html
 	background-color: #117200;
 }
 
+.black_spacing {
+	margin-top:5px;
+	height: 2.5px;
+	width: 100%;
+	background-color: #000;
+}
+
 .special_border_mg {
 	border: 2px solid #117200;
   border-radius: 4px;
@@ -2808,4 +2859,12 @@ body, html
 
 .left_right_padding	{
 	padding: 0 20px;
+}
+
+@media screen and (max-width: 500px) {
+
+  .price_font_size {
+  	font-size: 1.4em!important;
+  }
+
 }
