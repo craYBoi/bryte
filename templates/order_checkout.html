@@ -11,7 +11,7 @@
 	<div class="droid_serif background_grey text-center">
 		<div class="left_right_padding">
 			<div class="large_padding"></div>
-			<h1 class="text-center landing_title">Order Summary</h1>
+			<h1 class="text-center landing_title bold">Order Summary</h1>
 
 			<div class="medium_padding"></div>
 
@@ -41,7 +41,7 @@
 										<li>Background: {{ order.get_background_display }}</li>
 										{% if order.package == 1 %}
 											<div id="keepsake_{{ order.hash_id }}">
-												<li><a data-toggle="modal" data-target="#keepsake_box"><button class="keepsake_button ord_button_s" name="{{ order.hash_id }}">print it</button></a></li>
+												<li><a data-toggle="modal" data-target="#keepsake_box"><button class="keepsake_button main_green_button_xs" name="{{ order.hash_id }}">get wallet prints for $3</button></a></li>
 											</div>
 										{% else %}
 											<li>Keepsake: {{ order.get_package_display }}</li>
@@ -85,7 +85,7 @@
 		{% if free %}
 			<form action="{% url 'headshot_complete' %}">
 				<input type="hidden" name='free' value='1'>
-				<button class="ord_button_w toggle">Place the order</button>
+				<button class="main_green_button_sm toggle">Place the order</button>
 			</form>
 		{% else %}
 			<div class="center_content_600">
@@ -95,7 +95,7 @@
 						<input type='text' name='address' placeholder="Shipping Address" class="form-control" id="order_address" required onchange="try{setCustomValidity('')}catch(e){}">
 						<div class="small_padding"></div>
 					{% endif %}
-					<button class="ord_button_w" id="headshot_pay_button">Pay and place order</button>
+					<button class="main_green_button_sm" id="headshot_pay_button">Pay and place order</button>
 				</form>
 			</div>
 		{% endif %}
@@ -112,12 +112,12 @@
 		<div class="medium_padding"></div>
 
 		<div class="center_content_1000">
-			<h3 class="">How will I receive my photos?</h3>
+			<h3 class="bold">How will I receive my photos?</h3>
 			<div class="small_padding"></div>
-			<p class="small_font grey">Your photos will be emailed to you within 5 business days of your payment. You'll be able to download them from the email and upload them wherever you like.</p>
+			<p class="small_font grey">Your photos will be emailed to you within 7 business days of your payment. You'll be able to download them from the email and upload them wherever you like.</p>
 			<div class="small_padding"></div>
 
-			<h3 class="">How secure is your online payment processor?</h3>
+			<h3 class="bold">How secure is your online payment processor?</h3>
 			<div class="small_padding"></div>
 			<p class="small_font grey">We work with Stripe, the leading online payment processor in the industry. Stripe also works with companies like Airbnb and Lyft.</p>
 		</div>
@@ -131,59 +131,55 @@
       <div class="modal-content background_grey">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="text-center bold big_font">Choose your keepsakes</h4>
           <div class="xsmall_padding"></div>
         </div>
         <div class="modal-body">
 					<div class="row">
 						<div class="col-md-6 col-xs-12">
 
-							<div class="text-center">
-								<h3 class="text-center">Wallet Prints</h3>
-								<div class="small_padding"></div>
-								<div class="center_flex"><div class="inline"><span class="small_font sm_padding lightgray xs_padding_right">Pay at checkout</span><p class="big_font">$3</p><span class="small_font sm_padding lightgray xs_padding_left">Free Shipping</span></div></div>
+							<div class="all_padding">
+								<h3 class="bold">Wallet Prints</h3>
+								<hr>
+
+								<ul class="spec_list droid_serif grey">
+									<li>Includes 6 Wallet Prints (each 2.5" x 2.5") </li>
+								</ul>
 
 								<div class="small_padding"></div>
+								<div class="sm_padding"></div>
+								<p class="xlarge_font">$3</p>
 
-								<button class="ord_button keepsake_select_button" type="submit" name="2" value="3">Choose</button>
+
+								<p class="small_font bold grey">Free shipping</p>
+
+								<button class="main_green_button_xs keepsake_select_button" type="submit" name="2" value="3">Add to Cart</button>
 							</div>
 
-							<div class="small_padding"></div>
 
-							<hr>
-							<ul class="spec_list droid_serif grey all_padding text-center">
-								<li>Includes 6 Wallet Prints (each 2.5x2.5) </li>
-								<li>Photos are printed on matte paper for a high quality print that doesn't scratch</li>
-							</ul>
-
-
-							<div class="medium_padding"></div>
+							<div class="sm_padding"></div>
 
 						</div>
 
 
 						<div class="col-md-6 col-xs-12">
 
-							<div class="text-center">
-								<h3 class="text-center">Friends and Family</h3>
-								<div class="small_padding"></div>
-								<div class="center_flex"><div class="inline"><span class="small_font sm_padding lightgray xs_padding_right">Pay at checkout</span><p class="big_font">$9</p><span class="small_font sm_padding lightgray xs_padding_left">Free Shipping</span></div></div>
+							<div class="all_padding">
+								<h3 class="bold">Friends and Family</h3>
+								<hr>
 
-								<div class="small_padding"></div>
+								<ul class="spec_list droid_serif grey">
+									<li>Includes 8 Wallet Print (2.5" x 2.5"),<br>2 Standard Prints (6" x 6"),<br>1 Big Print (10" x 10")</li>
+								</ul>
 
-								<button class="ord_button keepsake_select_button" type="submit" name="3" value="9">Choose</button>
+								<div class="sm_padding"></div>
+								<p class="xlarge_font">$9</p>
+
+								<p class="small_font bold grey">Free shipping</p>
+
+								<button class="main_green_button_xs keepsake_select_button" type="submit" name="3" value="9">Add to Cart</button>
 							</div>
 
-							<div class="small_padding"></div>
-
-							<hr>
-							<ul class="spec_list droid_serif grey all_padding text-center">
-								<li>Includes 8 Wallet Print (2.5x2.5), 2 Standard Prints (6x6), and 1 Big Print (10x10)</li>
-								<li>Photos are printed on matte paper for a high quality print that doesn't scratch</li>
-							</ul>
-
-
-							<div class="medium_padding"></div>
+							<div class="sm_padding"></div>
 						</div>
 						
 							<div class="medium_padding"></div>
@@ -192,6 +188,7 @@
         	<div class="small_padding"></div>
         </div>
         <div class="modal-footer">
+        	<p class="small_font italic sm_padding lightgray text-center">Photos are printed on matte paper for a high quality print that doesn't scratch</p>
         </div>
       </div>
     </div>

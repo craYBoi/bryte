@@ -1,14 +1,60 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+	
+{% block stylesheet %}
+	<link rel="stylesheet" href="{% static 'css/sidebar.css' %}"> 
 
+	<script>/*<![CDATA[*/window.zEmbed||function(e,t){var n,o,d,i,s,a=[],r=document.createElement("iframe");window.zEmbed=function(){a.push(arguments)},window.zE=window.zE||window.zEmbed,r.src="javascript:false",r.title="",r.role="presentation",(r.frameElement||r).style.cssText="display: none",d=document.getElementsByTagName("script"),d=d[d.length-1],d.parentNode.insertBefore(r,d),i=r.contentWindow,s=i.document;try{o=s}catch(e){n=document.domain,r.src='javascript:var d=document.open();d.domain="'+n+'";void(0);',o=s}o.open()._l=function(){var o=this.createElement("script");n&&(this.domain=n),o.id="js-iframe-async",o.src=e,this.t=+new Date,this.zendeskHost=t,this.zEQueue=a,this.body.appendChild(o)},o.write('<body onload="document._l();">'),o.close()}("https://assets.zendesk.com/embeddable_framework/main.js","bryte.zendesk.com");
+/*]]>*/</script>
+{% endblock %}
 {% block content %}
 
-	<div class="droid_serif background_grey">
-		<div class="mod_container">
-			<div class="large_padding"></div>
-				<h1 class="text-center landing_title">Choose one of your photos</h1>
-			<div class="medium_padding"></div>
+		<div class="droid_serif">
+
+			
+			<div class="text-center">
+				<div class="mobile_hide">
+				<div class="ui very relaxed horizontal list lightgray">
+					<div class="large_padding"></div>
+				  <div class="item">
+				    <div class="content">
+				    	{% if show_steps %}
+				      <p class="big_font"><span class="main_green bold">Choose your photo</span></p>
+				      <div class="main_green_spacing"></div>
+				      {% else %}
+				      <p class="big_font"><span class="">Choose your photo</span></p>
+				      {% endif %}
+				    </div>
+				  </div>
+				  <div class="item">
+				    <div class="content">
+				      <p class="big_font">Choose a touchup package</p>
+				    </div>
+				  </div>
+				  <div class="item">
+				    <div class="content">
+				    {% if show_steps %}
+				      <p class="big_font">Choose more photos or Checkout</p>
+				    {% else %}
+				    	<p class="big_font main_green"><span class="bold">Choose more photos</span> or Checkout</p>
+				    	</div>
+				    	<div class="main_green_spacing"></div>
+				    {% endif %}
+				    </div>
+				  </div>
+				  <div class="small_padding"></div>
+				  </div>
+				</div>
+				
 			<div class="small_padding"></div>
+
+			{% if not show_checkout_button %}
+				<h1 class="text-center landing_title bold">Choose one of your photos</h1>
+			{% else %}
+				<h1 class="text-center landing_title bold">You may choose more photos</h1>
+			{% endif %}
+				
+			<div class="medium_padding"></div>
 
 			<!-- for second for more 
 			{% if proceed and show_button %}
@@ -24,22 +70,26 @@
 
 			<div class="small_padding"></div>
 
+			<div class="mod_container">
 			{% for hs_url, hs_pk in headshots %}
 
 				{% cycle '<div class="row">' '' %}
 
 					<div class="col-sm-6 special_padding_s">
-						<img src="{{ hs_url }}" class="img-responsive hs_shadow_border">
-						<div class="small_padding"></div>
+
 
 
 						<form method="GET" action={% url 'headshot_style' %}>
+
+							<a href="#" onclick="$(this).closest('form').submit()"><img src="{{ hs_url }}" class="img-responsive hs_shadow_border"></a>
+							<div class="small_padding"></div>
+
 							<input type="hidden" value={{ hs_pk }} name="hs_pk">
 							<div class="text-center">
 								{% if proceed %}
-									<button class="ord_button toggle" type="submit">Choose</button>
+									<button class="main_green_button_sm toggle" type="submit">Choose</button>
 								{% else %}
-									<button class="ord_button_w toggle" type="submit">Choose</button>
+									<button class="main_green_button_sm toggle" type="submit">Choose</button>
 								{% endif %}
 							</div>
 						</form>
@@ -50,107 +100,99 @@
 				{% cycle '' '</div>' %}
 
 			{% endfor %}
+			</div>
 
 			<div class="medium_padding"></div>
 		</div>
 
-<!--
-		{% if proceed and show_button %}
-			<div class="text-center special_padding">
-				<form action='{% url "headshot_checkout" %}'>
-					<button class="ord_button_w toggle" type="submit">Checkout ${{ order_total }}</button>
-				</form>
-			</div>
 
-			<div class="medium_padding"></div>
-		{% endif %}
-		-->
-	</div>
-
-
-  <div class="modal fade droid_serif" id="cart_box" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-
-    <div class="modal-dialog" role="document">
-      <div class="modal-content background_grey">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="sbig_font">&times;</span></button>
-          <div class="xsmall_padding"></div>
-        </div>
-        <div class="modal-body">
-        	<div class="row">
-        		<div class="col-xs-10 col-xs-offset-1">
-        			<h3 class="text-center bold">I've got all the photos I'd like</h3>
-        			<div class="small_padding"></div>
-        			<div id="checkout_cart" class="all_padding">	
-        				{% for order in orders %}
-        					<article id="cart_{{ order.hash_id }}">
-        						<div class="small_padding"></div>
-        						<img src="{{ order.raw_url }}" class="img-responsive hs_shadow_border">
-        						<div class="xsmall_padding"></div>
-        						<ul class="package_list small_font">
-        							<li>Style: {{ order.get_touchup_display }}</li>
-        							<li>Background: {{ order.get_background_display }}</li>
-        							{% if order.package %}
-        								<li>Keepsake: {{ order.get_package_display }}</li>
-        							{% endif %}
-        							{% if order.special_request %}
-        								<li>Special requests: {{ order.special_request }}</li>
-        							{% endif %}
-        							<li>Subtotal: ${{ order.total }}</li>
-        							<li class="remove_buttons">
-        								<button class="remove_button italic text_button_black" name="{{ order.hash_id }}">remove</button>
-        							</li>
-        						</ul>
-        						<div class="small_padding"></div>
-        					</article>
-        				{% endfor %}
-        			</div>
-        			<div class="all_padding text-center">
-								<form action="{% url 'headshot_checkout' %}" id="headshot_checkout_form">
-
-									<!--
-										<input type='text' name='address' placeholder="Shipping Address" class="form-control" id="order_address" required onchange="try{setCustomValidity('')}catch(e){}">
-									-->
-									<h3>Order Total: $<span id="cart_total">{{ order_total }}</span></h3>
-									<div class="small_padding"></div>
-									<button class="black_order_button toggle" id="headshot_pay_button">Proceed to checkout</button>
-								</form>
-        			</div>
-        		</div>
-        	</div>
-
-        	<div class="small_padding"></div>
-        </div>
-        <div class="modal-footer">
-        </div>
-      </div>
-    </div>
-  </div>
 
 	<!-- loader -->
 	<div id="loader-wrapper" hidden>
 	  <div id="loader" class="text-center"><img src="{% static 'img/order/balls.svg' %}" width="140px"></div>
 	</div>
 
+	<!-- sidebar cart -->
+
+  <div class="ui sidebar right vertical menu large_font background_grey_d">
+  	<h3 class="text-center bold">My Cart</h3>
+  	<div class="small_padding"></div>
+		<div id="checkout_cart" class="all_padding">	
+			{% for order in orders reversed %}
+				<div class="row">
+				<div class="col-xs-10 col-xs-offset-1">
+				<article id="cart_{{ order.hash_id }}">
+					<div class="small_padding"></div>
+
+					<img src="{{ order.raw_url }}" class="img-responsive hs_shadow_border">
+
+					<div class="sm_padding"></div>
+					<ul class="package_list xsmall_font">
+						<li>Style: {{ order.get_touchup_display }}</li>
+						<li>Background: {{ order.get_background_display }}</li>
+						{% if order.package %}
+							<li>Keepsake: {{ order.get_package_display }}</li>
+						{% endif %}
+						{% if order.special_request %}
+							<li>Special requests: {{ order.special_request }}</li>
+						{% endif %}
+						<li>Subtotal: ${{ order.total }}</li>
+						<li class="remove_buttons">
+							<button class="remove_button italic text_button_black" name="{{ order.hash_id }}">remove</button>
+						</li>
+					</ul>
+					<div class="small_padding"></div>
+				</article>
+				</div>
+				</div>
+			{% endfor %}
+		</div>
+
+		<div class="all_padding text-center">
+			<form action="{% url 'headshot_checkout' %}" id="headshot_checkout_form">
+
+				<!--
+					<input type='text' name='address' placeholder="Shipping Address" class="form-control" id="order_address" required onchange="try{setCustomValidity('')}catch(e){}">
+				-->
+				{% if show_checkout_button %}
+					<h3>Order Total: $<span id="cart_total">{{ order_total }}</span></h3>
+					<div class="small_padding"></div>
+					<button class="main_green_button_xs" id="headshot_pay_button">Proceed to checkout</button>	
+				{% else %}
+					<h4 class="bold">Your cart is empty :p</h4>
+
+				{% endif %}
+
+			</form>
+		</div>
+
+		<div class="large_padding"></div>
+  </div>
+
 {% endblock %}
 
 {% block script %}
-	<script>
-	    (function(h,o,t,j,a,r){
-	        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-	        h._hjSettings={hjid:319398,hjsv:5};
-	        a=o.getElementsByTagName('head')[0];
-	        r=o.createElement('script');r.async=1;
-	        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-	        a.appendChild(r);
-	    })(window,document,'//static.hotjar.com/c/hotjar-','.js?sv=');
-	</script>
+	<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.js"></script>
+
 {% endblock %}
 
 {% block jquery %}
 	$('.toggle').on('click', function(){
 		// $('#loader-wrapper').show();  
 	})
+
+
+	$('#cart_box_button').click(function(){
+		$('.ui.sidebar')
+		.sidebar('setting', 'transition', 'overlay')
+	  .sidebar('toggle');	
+	})
+
+	if ('{{ show_cart }}' == '1'){
+		$('.ui.sidebar')
+		.sidebar('setting', 'transition', 'overlay')
+	  .sidebar('toggle');
+	}
 
 	$('.remove_buttons>button').on('click', function(e){
 		var id = $(this).attr('name');

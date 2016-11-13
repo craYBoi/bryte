@@ -17,7 +17,7 @@
   
 
 <!--style="background: url({% static 'img/nav.jpg' %}) no-repeat center; background-size: cover;"-->
-  <div class="">
+  <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
         <span class="sr-only">Toggle navigation</span>
@@ -36,12 +36,14 @@
       </a>
       {% endif %}
 
+      
+
       {% if logo_url %}
         <a href="{{ school_url }}" target="_blank"><img alt="{{ school_name }}" src="{{ logo_url }}" height="50px"></a>
         <!--<a href="https://www.brown.edu/campus-life/support/careerlab/" target="_blank"><img alt="CareerLAB" src="{% static 'logo/CareerLAB_logo.jpg' %}" height="50px"></a>-->
-
       {% endif %}
     </div>
+
 
     {% if is_index %}
       <div class="collapse navbar-collapse" id='bs-example-navbar-collapse-1'>
@@ -94,8 +96,14 @@
     {% if not myheadshot_checkout %}
     <div class="collapse navbar-collapse" id='bs-example-navbar-collapse-1'>
       <ul class="nav navbar-nav navbar-right">
+        {% if show_selected_headshot %}
         <li class="bold">
-        <a data-toggle="modal" data-target="#cart_box"><button class="text_button"><span class="white large_font">My Cart</span></button></a></li>
+          <a data-toggle="modal" data-target="#selected_photo_box"><button class="text_button white large_font droid_serif">See the photo I chose</button></a>
+        </li>         
+        {% endif %}
+
+        <li class="bold">
+        <a><button class="text_button droid_serif" id="cart_box_button"><span class="white large_font">My Cart</span></button></a></li>
       </ul>
     </div>  
     {% endif %}

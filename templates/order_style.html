@@ -2,16 +2,70 @@
 {% load staticfiles %}
 
 
-{% block stylesheets %}
+{% block stylesheet %}
+	<link rel="stylesheet" href="{% static 'css/sidebar.css' %}"> 
 {% endblock %}
-
 
 {% block content %}
 
-	<div class="droid_serif background_grey">
-		<div class="left_right_padding">
+	<!-- sidebar cart -->
+
+  <div class="ui sidebar right vertical menu large_font background_grey_d">
+  	<h3 class="text-center bold">My Cart</h3>
+  	<div class="small_padding"></div>
+		<div id="checkout_cart" class="all_padding">	
+			{% for order in orders reversed %}
+				<div class="row">
+				<div class="col-xs-10 col-xs-offset-1">
+				<article id="cart_{{ order.hash_id }}">
+					<div class="small_padding"></div>
+					<img src="{{ order.raw_url }}" class="img-responsive hs_shadow_border">
+					<div class="sm_padding"></div>
+					<ul class="package_list xsmall_font">
+						<li>Style: {{ order.get_touchup_display }}</li>
+						<li>Background: {{ order.get_background_display }}</li>
+						{% if order.package %}
+							<li>Keepsake: {{ order.get_package_display }}</li>
+						{% endif %}
+						{% if order.special_request %}
+							<li>Special requests: {{ order.special_request }}</li>
+						{% endif %}
+						<li>Subtotal: ${{ order.total }}</li>
+						<li class="remove_buttons">
+							<button class="remove_button italic text_button_black" name="{{ order.hash_id }}">remove</button>
+						</li>
+					</ul>
+					<div class="small_padding"></div>
+				</article>
+				</div>
+				</div>
+			{% endfor %}
+		</div>
+		<div class="all_padding text-center">
+			<form action="{% url 'headshot_checkout' %}" id="headshot_checkout_form">
+
+				<!--
+					<input type='text' name='address' placeholder="Shipping Address" class="form-control" id="order_address" required onchange="try{setCustomValidity('')}catch(e){}">
+				-->
+				{% if show_checkout_button %}
+					<h3>Order Total: $<span id="cart_total">{{ order_total }}</span></h3>
+					<div class="small_padding"></div>
+					<button class="main_green_button_xs" id="headshot_pay_button">Proceed to checkout</button>	
+				{% else %}
+					<h4 class="bold">Your cart is empty :p</h4>
+
+				{% endif %}
+			</form>
+		</div>
+		<div class="large_padding"></div>
+  </div>
+
+  </div>
+
+	<div class="droid_serif pusher">
+		<div class="">
 			<div class="medium_padding"></div>
-			<h1 class="text-center landing_title bold">Touchup your photo for LinkedIn!</h1>
+			<h1 class="text-center landing_title bold left_right_padding">Choose your LinkedIn Touchup Package</h1>
 
 			<div class="small_padding"></div>
 
@@ -20,288 +74,354 @@
 			<div class="row">
 				<div class="col-sm-4">
 					<div class="hs_margin">
-						<div class="text-center">
-						<img src="{% static 'img/headshots/examples/premium/white6.jpg' %}" class="full_width hs_shadow_border">
-						</div>
+						<a data-toggle="modal" data-target="#basic_example" style="cursor: pointer;"><img src="{% static 'img/headshots/examples/premium/white6.jpg' %}" class="full_width hs_shadow_border" id="basic_hs"></a>
 					</div>
 
-					<div class="text-center">
+					<div class="xsmall_padding"></div>
 
-						<h2 class="text-center bold">Basic</h2>
-
+					<div class="basic_raw_pad" hidden>
+						<div class="large_padding"></div>
 						<div class="sm_padding"></div>
+						<div class="xxsmall_padding"></div>
+					</div>
 
-						<div class="center_flex"><div class="inline"><span class="small_font sm_padding lightgray xs_padding_right">Pay at checkout</span><p class="xlarge_font dark_grey">${{ shoot.basic_price }}</p><span class="small_font sm_padding lightgray xs_padding_left">Keep it forever</span></div></div>
-						
+					<div class="text-center before_after_button">
+						<button class="ui left attached button" id="basic_before">before</button>
+						<button class="right attached ui button before_after_active" id="basic_after">after</button>
+					</div>
+
+
+					<div class="small_padding"></div>
+					<div class="sm_padding"></div>
+					<div class="colorbox_container" id="basic_colorbox">
+						<div class="colorbox_white colorbox" data-toggle="tooltip" data-placement="top" title="White" name="White"></div>
+					</div>
+
+					<div class="small_padding"></div>
+					<div class="sm_padding"></div>
+					<h2 class="text-center bold">Basic</h2>
+
+					<div class="small_padding"></div>
+					<div class="sm_padding"></div>
+					<ul class="spec_list droid_serif grey all_padding">
+						<li>High definition image size</li>
+						<li>Refined cropping by our Guru Photoshoppers</li>
+					</ul>
 
 
 						<!-- work on the modal button -->
-						<a data-toggle="modal" data-target="#basic_example"><button class="text_button large_font">See More Examples</button></a>
-						<div class="medium_padding"></div>
-						<div class="small_padding"></div>
-						<div class="colorbox_container" id="basic_colorbox">
-							<div class="colorbox_white colorbox" data-toggle="tooltip" data-placement="top" title="White" name="White"></div>
-						</div>
-						<div class="sm_padding"></div>
-						<div class="small_padding"></div>
-						<p class="grey italic">No special requests</p>
+						<!--<a data-toggle="modal" data-target="#basic_example"><button class="text_button large_font example_link">See More Examples</button></a>-->
 						<div class="small_padding"></div>
 
 
-						<form action="{% url 'headshot_print_frame' %}">
+						<form action="{% url 'headshot_index' %}" id="basic_form">
 							<input type="hidden" name='touchup' value='2' id="basic_touchup">
 							<input type="hidden" name='background' value='1' id="basic_background">
 							<input type="hidden" name='hs_id' value='{{ hs_id }}'>
-
+							<input type="hidden" name='package' value='1'>
 							<input type="hidden" name='subtotal' value='{{ shoot.basic_price }}' id="basic_price">
+
+							<div class="all_padding desktop_disp">
+							<p class="xlarge_font dark_grey">${{ shoot.basic_price }}</p>
+							<button class="main_green_button_100 basic_add" type="submit">Add to Cart</button>
+							<p class="small_font italic sm_padding lightgray">available for download within 7 business days</p>
+							</div>
 						</form>
-						<button class="ord_button_w" id="basic_add">Touchup</button>
-						<button data-toggle="modal" data-target="#checkout_box" class="ord_button_w" id="basic_add_shadow" hidden>Touchup</button>
 
-					</div>
 
-					<div class="medium_padding"></div>
-					<div class="small_padding top_black_border_s"></div>
-					<ul class="spec_list droid_serif grey text-center all_padding">
-						<li>Refined cropping by our Guru Photoshoppers</li>
-						<li>High definition image clarity</li>
-					</ul>
-					<div class="small_padding"></div>
-					<div class="text-center">
-
-					<div class="mobile_hide">
-					<a data-toggle="modal" data-target="#basic_example"><button class="text_button large_font">See More Examples</button></a>
-					</div>
-					</div>
 				</div>
 
 
 				<div class="m_large_padding_top"></div>
 
 				<div class="col-sm-4">
+
 					<div class="hs_margin hs_shadow_border">
-						<img src="{% static 'img/headshots/examples/premium/lg7.jpg' %}" class="img-responsive" id="prof_hs">
+						<!--<div class="badge_container">
+							<div class="badge_item">
+								<img src="{% static 'logo/studentfav.png' %}" width='100px'>
+							</div>-->
+						<a data-toggle="modal" data-target="#professional_example" style="cursor: pointer;"><img src="{% static 'img/headshots/examples/premium/lg7.jpg' %}" class="img-responsive" id="prof_hs"></a>
+						<!--</div>-->
+
+					</div>
+					<div class="xsmall_padding"></div>
+
+					<div class="prof_raw_pad" hidden>
+						<div class="large_padding"></div>
+						<div class="sm_padding"></div>
+						<div class="xxsmall_padding"></div>
 					</div>
 
-					<div class="text-center">
-						<h2 class="text-center bold">Standard</h2>
-						<div class="sm_padding"></div>
-						<div class="center_flex"><div class="inline"><span class="small_font sm_padding lightgray xs_padding_right">Pay at checkout</span><p class="xlarge_font dark_grey">${{ shoot.professional_price }}</p><span class="small_font sm_padding lightgray xs_padding_left">Keep it forever</span></div></div>
+					<div class="text-center before_after_button">
+						<button class="ui left attached button" id="prof_before">before</button>
+						<button class="right attached ui button before_after_active" id="prof_after">after</button>
+					</div>
 
+					<div class="sm_padding"></div>
+					<div id="prof_colorbox">
+					<div class="colorbox_container">
+						<div class="colorbox_black colorbox prof_subbox" data-toggle="tooltip" data-placement="top" title="Nighttime Black" name="Nighttime Black"></div>
+						<div class="colorbox_padding"></div>
+						<div class="colorbox_blue colorbox prof_subbox" data-toggle="tooltip" data-placement="top" title="Sanguine Blue" name="Sanguine Blue"></div>
+						<div class="colorbox_padding"></div>
+						<div class="colorbox_rb colorbox prof_subbox" data-toggle="tooltip" data-placement="top" title="Riverside Blue" name="Riverside Blue"></div>
+						<div class="colorbox_padding"></div>
+						<div class="colorbox_bg colorbox prof_subbox" data-toggle="tooltip" data-placement="top" title="Frosty Blue" name="Frosty Blue"></div>
+						<div class="colorbox_padding"></div>
+						<div class="colorbox_gray colorbox prof_subbox" data-toggle="tooltip" data-placement="top" title="Polished Gray" name="Polished Gray"></div>
+						<div class="colorbox_padding"></div>
+						<div class="colorbox_lg colorbox prof_subbox" data-toggle="tooltip" data-placement="top" title="Airy Gray" name="Airy Gray"></div>
+						<div class="colorbox_padding"></div>
+						<div class="colorbox_cream colorbox prof_subbox" data-toggle="tooltip" data-placement="top" title="Light Cream" name="Light Cream"></div>
+
+					</div>
+					<div class="colorbox_container">
+						<div class="colorbox_og colorbox prof_subbox" data-toggle="tooltip" data-placement="top" title="Vibrant Orange" name="Vibrant Orange"></div>
+						<div class="colorbox_padding"></div>
+						<div class="colorbox_brick colorbox prof_subbox" data-toggle="tooltip" data-placement="top" title="Designer Bricks" name="Designer Bricks"></div>
+						<div class="colorbox_padding"></div>
+						<div class="colorbox_office colorbox prof_subbox" data-toggle="tooltip" data-placement="top" title="31st Story Office" name="31st Story Office"></div>
+						<div class="colorbox_padding"></div>
+						<div class="colorbox_eb colorbox prof_subbox" data-toggle="tooltip" data-placement="top" title="Eclectic Bookcase" name="Eclectic Bookcase"></div>
+						<div class="colorbox_padding"></div>
+						<div class="colorbox_uw colorbox prof_subbox" data-toggle="tooltip" data-placement="top" title="Urban Walkway" name="Urban Walkway"></div>
+						<div class="colorbox_padding"></div>
+						<div class="colorbox_fh colorbox prof_subbox" data-toggle="tooltip" data-placement="top" title="Firm Hallway" name="Firm Hallway"></div>
+					</div>
+					</div>
+
+					<div class="sm_padding"></div>
+					<h2 class="text-center bold">Standard</h2>
+
+					<div class="small_padding"></div>
+					<div class="sm_padding"></div>
+					<ul class="spec_list droid_serif grey all_padding">
+						<li><span class="extra_bold dark_grey">Highest</span> definition image size</li>
+						<li>Refined cropping by our Guru Photoshoppers</li>
+						<li>Choose your background</li>
+						<li>Brings out eyes; teeth whitening</li>
+					</ul>
+					
 
 						<!-- work on the modal button -->
-						<a data-toggle="modal" data-target="#professional_example"><button class="text_button large_font">See More Examples</button></a>
-						<div class="medium_padding"></div>
-
-						<div id="prof_colorbox">
-						<div class="colorbox_container">
-							<div class="colorbox_black colorbox prof_subbox" data-toggle="tooltip" data-placement="top" title="Nighttime Black" name="Nighttime Black"></div>
-							<div class="colorbox_padding"></div>
-							<div class="colorbox_blue colorbox prof_subbox" data-toggle="tooltip" data-placement="top" title="Sanguine Blue" name="Sanguine Blue"></div>
-							<div class="colorbox_padding"></div>
-							<div class="colorbox_rb colorbox prof_subbox" data-toggle="tooltip" data-placement="top" title="Riverside Blue" name="Riverside Blue"></div>
-							<div class="colorbox_padding"></div>
-							<div class="colorbox_bg colorbox prof_subbox" data-toggle="tooltip" data-placement="top" title="Frosty Blue" name="Frosty Blue"></div>
-							<div class="colorbox_padding"></div>
-							<div class="colorbox_gray colorbox prof_subbox" data-toggle="tooltip" data-placement="top" title="Polished Gray" name="Polished Gray"></div>
-							<div class="colorbox_padding"></div>
-							<div class="colorbox_lg colorbox prof_subbox" data-toggle="tooltip" data-placement="top" title="Airy Gray" name="Airy Gray"></div>
-							<div class="colorbox_padding"></div>
-							<div class="colorbox_cream colorbox prof_subbox" data-toggle="tooltip" data-placement="top" title="Light Cream" name="Light Cream"></div>
-
-						</div>
-						<div class="colorbox_container">
-							<div class="colorbox_og colorbox prof_subbox" data-toggle="tooltip" data-placement="top" title="Vibrant Orange" name="Vibrant Orange"></div>
-							<div class="colorbox_padding"></div>
-							<div class="colorbox_brick colorbox prof_subbox" data-toggle="tooltip" data-placement="top" title="Designer Bricks" name="Designer Bricks"></div>
-							<div class="colorbox_padding"></div>
-							<div class="colorbox_office colorbox prof_subbox" data-toggle="tooltip" data-placement="top" title="31st Story Office" name="31st Story Office"></div>
-							<div class="colorbox_padding"></div>
-							<div class="colorbox_eb colorbox prof_subbox" data-toggle="tooltip" data-placement="top" title="Eclectic Bookcase" name="Eclectic Bookcase"></div>
-							<div class="colorbox_padding"></div>
-							<div class="colorbox_uw colorbox prof_subbox" data-toggle="tooltip" data-placement="top" title="Urban Walkway" name="Urban Walkway"></div>
-							<div class="colorbox_padding"></div>
-							<div class="colorbox_fh colorbox prof_subbox" data-toggle="tooltip" data-placement="top" title="Firm Hallway" name="Firm Hallway"></div>
-						</div>
-						</div>
+						<!--<a data-toggle="modal" data-target="#professional_example"><button class="text_button large_font example_link">See More Examples</button></a>-->
 
 
-						<div class="sm_padding"></div>
-						<p class="grey italic">No special requests</p>
+
 						<div class="small_padding"></div>
 
-						<form action="{% url 'headshot_print_frame' %}">
+						<form action="{% url 'headshot_index' %}" id="prof_form">
 							<input type="hidden" name='touchup' value='3' id="prof_touchup">
 							<input type="hidden" name='background' id="prof_background">
 							<input type="hidden" name='hs_id' value='{{ hs_id }}'>
+							<input type="hidden" name='package' value='1'>
 							<input type="hidden" name='subtotal' value='{{ shoot.professional_price }}' id="prof_price">
+							<div class="all_padding desktop_disp">
 
+								<div class=""><div class="inline"><p class="xlarge_font dark_grey">${{ shoot.professional_price }}</p></div></div>
+
+								<div class="sm_padding"></div>
+								<button class="main_green_button_100 prof_add" type="submit">Add to Cart</button>
+								<p class="small_font italic sm_padding lightgray">available for download within 7 business days</p>
+
+							</div>
 						</form>
-						<button class="ord_button_w" id="prof_add">Touchup</button>
-						<button class="ord_button_w" id="prof_add_shadow" data-toggle="modal" data-target="#checkout_box" hidden>Touchup</button>
 
 
 						<div id="prof_warning_color" class="small_padding" hidden>
 						<div class="alert alert-danger">
 						  <strong>Please choose a color first</strong>
 						</div>
-						</div>
 					</div>
 
-					<div class="medium_padding"></div>
-					<div class="small_padding top_black_border_s"></div>
-					<ul class="spec_list droid_serif grey text-center all_padding">
-						<li>Refined cropping by our Guru Photoshoppers</li>
-						<li><span class="extra_bold dark_grey">Highest</span> definition image clarity</li>
-						<li>Choose your background</li>
-						<li>Brings out eyes; teeth whitening</li>
-					</ul>
-
-					<div class="small_padding"></div>
-					<div class="text-center">
-					<div class="mobile_hide">
-					<a data-toggle="modal" data-target="#professional_example"><button class="text_button large_font">See More Examples</button></a>
-					</div>
+					<div class="desktop_disp">
+						<div class="medium_padding"></div>
 					</div>
 				</div>
 
-				<div class="m_large_padding_top"></div>
+
+
 
 				<div class="col-sm-4">
 					<div class="hs_margin hs_shadow_border">
-						<img src="{% static 'img/headshots/examples/customized/famosh.jpg' %}" class="img-responsive" id="cust_hs">
+						<a data-toggle="modal" data-target="#CustomizedExample" style="cursor: pointer;"><img src="{% static 'img/headshots/examples/customized/fh_a.jpg' %}" class="img-responsive" id="cust_hs"></a>
+					</div>
+					<div class="xsmall_padding"></div>
+					<div class="text-center before_after_button">
+						<button class="ui left attached button" id="cust_before">before</button>
+						<button class="right attached ui button before_after_active" id="cust_after">after</button>
 					</div>
 
-					<div class="text-center">
-						<h2 class="text-center bold">Customized</h2>
-						<div class="sm_padding"></div>
-						<div class="center_flex"><div class="inline"><span class="small_font sm_padding lightgray xs_padding_right">Pay at checkout</span><p class="xlarge_font dark_grey">${{ shoot.customized_price }}</p><span class="small_font sm_padding lightgray xs_padding_left">Keep it forever</span></div></div>
+					<div class="sm_padding"></div>
+
+					<div id="cust_colorbox">
+					<div class="colorbox_container">
+						<div class="colorbox_black colorbox cust_subbox" data-toggle="tooltip" data-placement="top" title="Nighttime Black" name="Nighttime Black"></div>
+						<div class="colorbox_padding"></div>
+						<div class="colorbox_blue colorbox cust_subbox" data-toggle="tooltip" data-placement="top" title="Sanguine Blue" name="Sanguine Blue"></div>
+						<div class="colorbox_padding"></div>
+						<div class="colorbox_rb colorbox cust_subbox" data-toggle="tooltip" data-placement="top" title="Riverside Blue" name="Riverside Blue"></div>
+						<div class="colorbox_padding"></div>
+						<div class="colorbox_bg colorbox cust_subbox" data-toggle="tooltip" data-placement="top" title="Frosty Blue" name="Frosty Blue"></div>
+						<div class="colorbox_padding"></div>
+						<div class="colorbox_gray colorbox cust_subbox" data-toggle="tooltip" data-placement="top" title="Polished Gray" name="Polished Gray"></div>
+						<div class="colorbox_padding"></div>
+						<div class="colorbox_lg colorbox cust_subbox" data-toggle="tooltip" data-placement="top" title="Airy Gray" name="Airy Gray"></div>
+						<div class="colorbox_padding"></div>
+						<div class="colorbox_cream colorbox cust_subbox" data-toggle="tooltip" data-placement="top" title="Light Cream" name="Light Cream"></div>
+
+					</div>
+					<div class="colorbox_container">
+						<div class="colorbox_og colorbox cust_subbox" data-toggle="tooltip" data-placement="top" title="Vibrant Orange" name="Vibrant Orange"></div>
+						<div class="colorbox_padding"></div>
+						<div class="colorbox_brick colorbox cust_subbox" data-toggle="tooltip" data-placement="top" title="Designer Bricks" name="Designer Bricks"></div>
+						<div class="colorbox_padding"></div>
+						<div class="colorbox_office colorbox cust_subbox" data-toggle="tooltip" data-placement="top" title="31st Story Office" name="31st Story Office"></div>
+						<div class="colorbox_padding"></div>
+						<div class="colorbox_eb colorbox cust_subbox" data-toggle="tooltip" data-placement="top" title="Eclectic Bookcase" name="Eclectic Bookcase"></div>
+						<div class="colorbox_padding"></div>
+						<div class="colorbox_uw colorbox cust_subbox" data-toggle="tooltip" data-placement="top" title="Urban Walkway" name="Urban Walkway"></div>
+						<div class="colorbox_padding"></div>
+						<div class="colorbox_fh colorbox cust_subbox" data-toggle="tooltip" data-placement="top" title="Firm Hallway" name="Firm Hallway"></div>
+					</div>
+					</div>
+
+					<div class="sm_padding"></div>
+					<h2 class="text-center bold">Customized</h2>
+
+					<div class="small_padding"></div>
+					<div class="sm_padding"></div>
+
+					<form action="{% url 'headshot_index' %}" id="cust_form">
+					<ul class="spec_list droid_serif grey all_padding">
+						<li><span class="extra_bold dark_grey">Highest</span> definition image size</li>
+						<li>Refined cropping by a our Guru Photoshoppers</li>
+						<li>Choose your background</li>
+						<li>Brings out eyes; teeth whitening</li>
+						<li>Skin smoothening, wrinkle and acne touchup</li>
+						
+					</ul>
+
+					<!-- custom request -->
+					
+
+						<div class="all_padding">
+							<div class="special_border_mg">
+							<p class="grey">Type special requests in the box</p>
+							<input type="text" name='special_request' class="special_request_form" id="cust_special_request" placeholder="Remove piercings, adjust ties and more…" id="cust_special_request" maxlength="200">
+							</div>
 
 
-						<!-- work on the modal button -->
-						<a data-toggle="modal" data-target="#CustomizedExample"><button class="text_button large_font">See More Examples</button></a>
-						<div class="medium_padding"></div>
 
-						<div id="cust_colorbox">
-						<div class="colorbox_container">
-							<div class="colorbox_black colorbox cust_subbox" data-toggle="tooltip" data-placement="top" title="Nighttime Black" name="Nighttime Black"></div>
-							<div class="colorbox_padding"></div>
-							<div class="colorbox_blue colorbox cust_subbox" data-toggle="tooltip" data-placement="top" title="Sanguine Blue" name="Sanguine Blue"></div>
-							<div class="colorbox_padding"></div>
-							<div class="colorbox_rb colorbox cust_subbox" data-toggle="tooltip" data-placement="top" title="Riverside Blue" name="Riverside Blue"></div>
-							<div class="colorbox_padding"></div>
-							<div class="colorbox_bg colorbox cust_subbox" data-toggle="tooltip" data-placement="top" title="Frosty Blue" name="Frosty Blue"></div>
-							<div class="colorbox_padding"></div>
-							<div class="colorbox_gray colorbox cust_subbox" data-toggle="tooltip" data-placement="top" title="Polished Gray" name="Polished Gray"></div>
-							<div class="colorbox_padding"></div>
-							<div class="colorbox_lg colorbox cust_subbox" data-toggle="tooltip" data-placement="top" title="Airy Gray" name="Airy Gray"></div>
-							<div class="colorbox_padding"></div>
-							<div class="colorbox_cream colorbox cust_subbox" data-toggle="tooltip" data-placement="top" title="Light Cream" name="Light Cream"></div>
+						
 
-						</div>
-						<div class="colorbox_container">
-							<div class="colorbox_og colorbox cust_subbox" data-toggle="tooltip" data-placement="top" title="Vibrant Orange" name="Vibrant Orange"></div>
-							<div class="colorbox_padding"></div>
-							<div class="colorbox_brick colorbox cust_subbox" data-toggle="tooltip" data-placement="top" title="Designer Bricks" name="Designer Bricks"></div>
-							<div class="colorbox_padding"></div>
-							<div class="colorbox_office colorbox cust_subbox" data-toggle="tooltip" data-placement="top" title="31st Story Office" name="31st Story Office"></div>
-							<div class="colorbox_padding"></div>
-							<div class="colorbox_eb colorbox cust_subbox" data-toggle="tooltip" data-placement="top" title="Eclectic Bookcase" name="Eclectic Bookcase"></div>
-							<div class="colorbox_padding"></div>
-							<div class="colorbox_uw colorbox cust_subbox" data-toggle="tooltip" data-placement="top" title="Urban Walkway" name="Urban Walkway"></div>
-							<div class="colorbox_padding"></div>
-							<div class="colorbox_fh colorbox cust_subbox" data-toggle="tooltip" data-placement="top" title="Firm Hallway" name="Firm Hallway"></div>
-						</div>
-						</div>
+							<!-- work on the modal button -->
+							<!--<a data-toggle="modal" data-target="#CustomizedExample"><button class="text_button large_font example_link">See More Examples</button></a>-->
+
+							<div class="small_padding"></div>
 
 
-						<div class="sm_padding"></div>
 
-
-						<!-- custom request -->
-						<form action="{% url 'headshot_print_frame' %}">
-							<input type="text" name='special_request' class="max_width_150" id="cust_special_request" placeholder="Special requests" id="cust_special_request" maxlength="180">
 							<input type="hidden" name='background' id="cust_background">
 							<input type="hidden" name='touchup' value='4' id="cust_touchup">
 							<input type="hidden" name='hs_id' value='{{ hs_id }}'>
+							<input type="hidden" name='package' value='1'>
 							<input type="hidden" name='subtotal' value='{{ shoot.customized_price }}' id="cust_price">
-							<div class="small_padding"></div>
 
-							<button class="ord_button_w" id="cust_add">Touchup</button>
-							<button class="ord_button_w" id="cust_add_shadow" data-toggle="modal" data-target="#checkout_box" hidden>Touchup</button>
+							<div class="desktop_disp">
+								<div class=""><div class="inline"><p class="xlarge_font dark_grey">${{ shoot.customized_price }}</p></div></div>
+								<div class="sm_padding"></div>
+								<button class="main_green_button_100 cust_add" type='Submit'>Add to Cart</button>
+								<p class="small_font italic sm_padding lightgray">available for download within 7 business days</p>
+							</div>
 
-							<div id="cust_warning_color" class="small_padding" hidden>
+
+							<div id="cust_warning_color" class="sm_padding" hidden>
 								<div class="alert alert-danger">
 								  <strong>Please choose a color first</strong>
 								</div>
 							</div>
-							<div id="cust_warning_request" class="small_padding" hidden>
+							<div id="cust_warning_request" class="sm_padding" hidden>
 								<div class="alert alert-danger">
 								  <strong>Please type your special request</strong>
 								</div>
 							</div>
 						</form>
-
+					</div>
 						
+				</div>
+			</div>
 
+			<!-- align button -->
+			<div class="row mobile_disp">
+				<div class="col-sm-4">
+					<div class="all_padding">
+						<div class=""><div class="inline"><p class="xlarge_font dark_grey">${{ shoot.basic_price }}</p></div></div>
 
-
-
+						<div class="sm_padding"></div>
+						<button class="main_green_button_100 basic_add">Add to Cart</button>
+						<p class="small_font italic sm_padding lightgray">available for download within 7 business days</p>
 					</div>
+				</div>
 
-					<div class="medium_padding"></div>
-					<div class="small_padding top_black_border_s"></div>
-					<ul class="spec_list droid_serif grey text-center all_padding">
-						<li>Refined cropping by a our Guru Photoshoppers</li>
-						<li><span class="extra_bold dark_grey">Highest</span> definition image clarity</li>
-						<li>Choose your background</li>
-						<li>Brings out eyes; teeth whitening</li>
-						<li>Skin smoothing, wrinkle and acne touchup</li>
-						<li>Get rid of piercings, necklace and more</li>
-					</ul>
+				<div class="col-sm-4">
+					<div class="all_padding">
+						<div class=""><div class="inline"><p class="xlarge_font dark_grey">${{ shoot.professional_price }}</p></div></div>
 
-					<div class="small_padding"></div>
-					<div class="text-center">
-					<div class="mobile_hide">
-					<a data-toggle="modal" data-target="#CustomizedExample"><button class="text_button large_font">See More Examples</button></a>
+						<div class="sm_padding"></div>
+						<button class="main_green_button_100 prof_add">Add to Cart</button>
+						<p class="small_font italic sm_padding lightgray">available for download within 7 business days</p>
 					</div>
+				</div>
+
+				<div class="col-sm-4">
+					<div class="all_padding">
+						<div class=""><div class="inline"><p class="xlarge_font dark_grey">${{ shoot.customized_price }}</p></div></div>
+						<div class="sm_padding"></div>
+						<button class="main_green_button_100 cust_add">Add to Cart</button>
+						<p class="small_font italic sm_padding lightgray">available for download within 7 business days</p>
 					</div>
 				</div>
 			</div>
+
+			<div class="large_padding"></div>
 
 			<div class="m_large_padding_top"></div>
 			<div class="row">
 				<div class="col-sm-4">
 					<div class="hs_margin">
 						<div class="text-center">
-						<img src="{% static 'img/headshots/examples/free/white.JPG' %}" class="full_width hs_shadow_border">
+						<a data-toggle="modal" data-target="#free_example" style="cursor:pointer;"><img src="{% static 'img/headshots/examples/free/white.JPG' %}" class="full_width hs_shadow_border"></a>
 						</div>
 					</div>
 
-					<div class="text-center">
-						{% if proceed %}
-							<h2 class="text-center" id="free_title">Dollar</h2>
-						{% else %}
-							<h2 class="text-center" id="free_title">Free</h2>
-						{% endif %}
+					<h2 class="text-center" id="free_title">Minimal</h2>
+					<div class="small_padding"></div>
+					<ul class="spec_list droid_serif grey all_padding">
+						<li>Adequate image size for LinkedIn</li>
+					</ul>
+
+					<div class="all_padding">
 						<div class="small_padding"></div>
 						{% if proceed %}
-						<div class="center_flex"><div class="inline"><span class="small_font sm_padding lightgray xs_padding_right">Pay at checkout</span><p class="xlarge_font dark_grey">$3</p><span class="small_font sm_padding lightgray xs_padding_left">Keep it forever</span></div></div>
+						<p class="xlarge_font dark_grey">$3</p><p class="grey italic">(The next photo starts at 3 dollars)</p>
+						
 						{% else %}
 							<p class="big_font">$<span id="free_list_price">0</span></p>
 						{% endif %}
 						
 
-						<div class="xsmall_padding"></div>
-
 						<!-- work on the modal button -->
-						<a data-toggle="modal" data-target="#free_example"><button class="text_button_gray">See More Examples</button></a>
-						<div class="small_padding"></div>
+						<!--<a data-toggle="modal" data-target="#free_example"><button class="text_button_gray">See More Examples</button></a>-->
 
-						<form action="{% url 'headshot_print_frame' %}">
+						<div class="sm_padding"></div>
+
+						<form action="{% url 'headshot_index' %}">
 							<input type="hidden" name='touchup' value='1' id="free_touchup">
 							<input type="hidden" name='background' value='1' id="free_background">
 							<input type="hidden" name='hs_id' value='{{ hs_id }}'>
+							<input type="hidden" name='package' value='1'>
 
 							{% if proceed %}
 								<input type="hidden" name='subtotal' value='3' id="free_price">
@@ -309,17 +429,15 @@
 								<input type="hidden" name='subtotal' value='0' id="free_price">
 							{% endif %}
 							
-							
+							<button class="ord_button_gray" type="submit" id="free_add" type="submit">Add to Cart</button>
+							<p class="small_font italic sm_padding lightgray">available for download within 7 business days</p>
 						</form>
-						<button class="ord_button_gray" type="submit" id="free_add">No touchup</button>
-						<button class="ord_button_gray" type="submit" id="free_add_shadow" data-toggle="modal" data-target="#checkout_box" hidden>No touchup</button>
+						
 					</div>
 
 					<div class="medium_padding"></div>
-					<div class="small_padding top_black_border_s"></div>
-					<ul class="spec_list droid_serif grey text-center all_padding">
-						<li>Adequate clarity, cropped to a square</li>
-					</ul>
+					<div class="small_padding"></div>
+
 				</div>
 			</div>
 			</div>
@@ -959,6 +1077,7 @@
     </div>
   </div>
 
+<!--
   <div class="modal fade droid_serif" id="checkout_box" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 
     <div class="modal-dialog checkout_box_modal" role="document">
@@ -1029,6 +1148,7 @@
 									<!--
 										<input type='text' name='address' placeholder="Shipping Address" class="form-control" id="order_address" required onchange="try{setCustomValidity('')}catch(e){}">
 									-->
+									<!--
 									<h4 class="landing_text_main">Order Total: $<span id="order_total">{{ order_total }}</span></h4>
 									<div class="small_padding"></div>
 									<button class="black_order_button_s toggle landing_text" id="headshot_pay_button">Proceed to checkout</button>
@@ -1045,7 +1165,8 @@
     </div>
   </div>
 
-
+-->
+<!--
   <div class="modal fade droid_serif" id="cart_box" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 
     <div class="modal-dialog" role="document">
@@ -1057,7 +1178,7 @@
         <div class="modal-body">
         	<div class="row">
         		<div class="col-xs-10 col-xs-offset-1">
-        			<h2 class="text-center bold">I've got all the photos I'd like</h2>
+        			<h2 class="text-center bold">My Cart</h2>
         			<div class="small_padding"></div>
         			<div id="mycart_content" class="all_padding">	
         				{% for order in orders %}
@@ -1089,6 +1210,7 @@
 									<!--
 										<input type='text' name='address' placeholder="Shipping Address" class="form-control" id="order_address" required onchange="try{setCustomValidity('')}catch(e){}">
 									-->
+									<!--
 									<h3>Order Total: $<span id="cart_total">{{ order_total }}</span></h3>
 									<div class="small_padding"></div>
 									<button class="black_order_button_s toggle" id="headshot_pay_button">Proceed to checkout</button>
@@ -1104,14 +1226,34 @@
       </div>
     </div>
   </div>
-	<!-- loader -->
-	<div id="loader-wrapper" hidden>
-	  <div id="loader" class="text-center"><img src="{% static 'img/order/balls.svg' %}" width="140px"></div>
-	</div>
+
+-->
+  <div class="modal fade droid_serif" id="selected_photo_box" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+      <div class="modal-dialog" role="document">
+      <div class="modal-content background_grey">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="sbig_font">&times;</span></button>
+        </div>
+
+        	<div class="row">
+        		<div class="col-xs-10 col-xs-offset-1">
+        			<h2 class="text-center bold">The photo you chose</h2>
+        			<div class="small_padding"></div>
+        			<img src="{{ hs.raw_url }}" class="img-responsive">
+        			<div class="medium_padding"></div>
+        		</div>
+        	</div>
+        </div>
+       </div>
+
+  </div>
+
 
 {% endblock %}
 
 {% block script %}
+	<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.js"></script>
   <script type="text/javascript">
   function getCookie(name) {
     var cookieValue = null;
@@ -1163,47 +1305,49 @@
   });
 
 
+  // cart sidebar
+	$('#cart_box_button').click(function(){
+		$('.ui.sidebar')
+		.sidebar('setting', 'transition', 'overlay')
+	  .sidebar('toggle');	
+	})
+
+
 	$('.toggle').on('click', function(){
 		// $('#loader-wrapper').show();  
 	})
 
 
+	$('.basic_add').on('click', function(e){
+		// check if the hidden input has value
+		$('#basic_form').submit();
+	})
 
-	$('#prof_add').on('click', function(e){
+
+	$('.prof_add').on('click', function(e){
 		// check if the hidden input has value
 		if(!$('#prof_background').val()){
 			e.preventDefault();
 			$('#prof_warning_color').show().delay(1200).fadeOut(600);
-		}
-		else{
-			//trigger the popupbox
-			$('#prof_add_shadow').trigger('click');
+		}else{
+			$('#prof_form').submit();
 		}
 	})
 
-	// free add
-	$('#free_add').on('click', function(e){
-		e.preventDefault();
-		$('#free_add_shadow').trigger('click');
-	})
 
-	// basic add and cust add
-	$('#basic_add').on('click', function(e){
-		e.preventDefault();
-		$('#basic_add_shadow').trigger('click');
-	})
-
-	$('#cust_add').on('click', function(e){
+	$('.cust_add').on('click', function(e){
 		// check if the hidden input has value
-		e.preventDefault();
+		
 		if(!$('#cust_background').val()){
+			e.preventDefault();
 			$('#cust_warning_color').show().delay(1200).fadeOut(600);
 		}
 		if(!$('#cust_special_request').val()){
+			e.preventDefault();
 			$('#cust_warning_request').show().delay(1200).fadeOut(600);
 		}
 		if($('#cust_background').val() && $('#cust_special_request').val()){
-			$('#cust_add_shadow').trigger('click');
+			$('#cust_form').submit();
 		}
 	})
 
@@ -1263,374 +1407,6 @@
 		}
 	}
 
-	// basic button
-	$('#basic_add_shadow').on('click', function(e){
-		e.preventDefault()
-		$.ajax({
-			url: '{% url "headshot_add" %}',
-			data: {
-				touchup: $('#basic_touchup').val(),
-				background: $('#basic_background').val(),
-				subtotal: $('#basic_price').val(),
-				package: 1,
-			},
-			success: function(data){
-				orders = jQuery.parseJSON(data['orders']);
-				html_content = '';
-				html_cart_content='';
-
-				// get the total store it in a global
-				checkout_total = data['total'];
-				// update the pay button
-				$('#order_total').text(checkout_total.toString());
-				$('#cart_total').text(checkout_total.toString());
-
-				// populate the checkout cart
-				for(var i=0; i<orders.length; ++i){
-
-					special_req_html = ''
-					special_req = orders[i].fields.special_request;
-					if(special_req){
-						special_req_html = '</li><li>Special requests: ' + special_req;
-					}
-
-					keepsake_html = '';
-					keepsake = orders[i].fields.package;
-					if(keepsake == '2'){
-						keepsake_html = '</li><li>Keepsake: Wallet Prints';
-					}else if(keepsake == '3'){
-						keepsake_html = '</li><li>Keepsake: Friends and Family';
-					}else if(keepsake == '4'){
-						keepsake_html = '</li><li>Keepsake: Complete Collection';
-					}else if(keepsake == '5'){
-						keepsake_html = '</li><li>Keepsake: Premium Framed Print';
-					}
-
-					article_cart_id = '<article id="cart_';
-					article_id = '<article id="';
-
-					html_content += article_id;
-					html_cart_content += article_cart_id;
-
-					temp = orders[i].fields.hash_id +'"><div class="small_padding"></div><img src="' + orders[i].fields.raw_url + '" class="img-responsive all_padding"><div class="xsmall_padding"></div><ul class="package_list small_font"><li>Style: ' + getTouchup(orders[i].fields.touchup) + '</li><li>Background: ' + getBackground(orders[i].fields.background) + keepsake_html + special_req_html + '</li><li>Subtotal: $' + orders[i].fields.total + '</li><li class="remove_buttons"><button class="remove_button italic text_button_black" name="'+ orders[i].fields.hash_id +'">Remove</button></li></ul><div class="small_padding"></div></article>'
-
-					html_content += temp;
-					html_cart_content += temp;
-				}
-				$('#checkout_cart').html(html_content);
-				$('#mycart_content').html(html_cart_content);
-				$('#headshot_pay_button').show();
-
-				// remove buttons
-				// $('.remove_buttons>button').on('click', function(e){
-				// 	var id = $(this).attr('name');
-				// 	$.ajax({
-				// 		url: '{% url "headshot_remove" %}',
-				// 		data: {hash_id: id},
-				// 		success: function(data){
-				// 			console.log("success");
-				// 			$('article#'+id).fadeOut(300);
-				// 			// update the total
-				// 			$('#order_total').text(data['total']);
-				// 			$('#cart_total').text(data['total']);
-
-				// 			// hide the button
-				// 			if(data['empty']){
-				// 				$('#headshot_pay_button').fadeOut(300);
-				// 			}
-				// 		},
-				// 		failure: function(data){
-				// 		 	console.log('failure');
-				// 		}
-				// 	});
-				// });
-			},
-			failure: function(data){
-
-			}
-		})
-	});
-
-
-	$('#free_add_shadow').on('click', function(e){
-		$.ajax({
-			url: '{% url "headshot_add" %}',
-			data: {
-				touchup: $('#free_touchup').val(),
-				background: $('#free_background').val(),
-				subtotal: $('#free_price').val(),
-				package: 1,
-			},
-			success: function(data){
-				orders = jQuery.parseJSON(data['orders']);
-				html_content = '';
-				html_cart_content='';
-
-				// get the total store it in a global
-				checkout_total = data['total'];
-				// update the pay button
-				$('#order_total').text(checkout_total.toString());
-				$('#cart_total').text(checkout_total.toString());
-
-				// populate the checkout cart
-				for(var i=0; i<orders.length; ++i){
-
-
-					keepsake_html = '';
-					keepsake = orders[i].fields.package;
-					if(keepsake == '2'){
-						keepsake_html = '</li><li>Keepsake: Wallet Prints';
-					}else if(keepsake == '3'){
-						keepsake_html = '</li><li>Keepsake: Friends and Family';
-					}else if(keepsake == '4'){
-						keepsake_html = '</li><li>Keepsake: Complete Collection';
-					}else if(keepsake == '5'){
-						keepsake_html = '</li><li>Keepsake: Premium Framed Print';
-					}
-
-					article_cart_id = '<article id="cart_';
-					article_id = '<article id="';
-
-					html_content += article_id;
-					html_cart_content += article_cart_id;
-
-					temp = orders[i].fields.hash_id +'"><div class="small_padding"></div><img src="' + orders[i].fields.raw_url + '" class="img-responsive all_padding"><div class="xsmall_padding"></div><ul class="package_list small_font"><li>Style: ' + getTouchup(orders[i].fields.touchup) + '</li><li>Background: ' + getBackground(orders[i].fields.background) + keepsake_html + '</li><li>Subtotal: $' + orders[i].fields.total + '</li><li class="remove_buttons"><button class="remove_button italic text_button_black" name="'+ orders[i].fields.hash_id +'">Remove</button></li></ul><div class="small_padding"></div></article>'
-
-					html_content += temp;
-					html_cart_content += temp;
-				}
-				$('#checkout_cart').html(html_content);
-				$('#mycart_content').html(html_cart_content);
-				$('#headshot_pay_button').show();
-
-				// update free list price
-				$('#free_list_price').text('3');
-				$('#free_title').text('Dollar');
-				$('#free_price').val('3');
-
-
-				// remove buttons
-				// $('#checkout_box').on('click', '.remove_buttons>button', function(e){
-				// 	var id = $(this).attr('name');
-				// 	$.ajax({
-				// 		url: '{% url "headshot_remove" %}',
-				// 		data: {hash_id: id},
-				// 		success: function(data){
-				// 			console.log("success");
-				// 			$('article#'+id).fadeOut(300);
-				// 			// update the total
-				// 			$('#order_total').text(data['total']);
-				// 			$('#cart_total').text(data['total']);
-
-				// 			// hide the button
-				// 			if(data['empty']){
-				// 				$('#headshot_pay_button').fadeOut(300);
-				// 			}
-
-				// 			// update free list price
-				// 			if(date['clean_free']){
-
-				// 				$('#free_list_price').text('0');
-				// 				$('#free_title').text('Free');
-				// 				$('#free_price').val('0');
-				// 			}
-
-				// 		},
-				// 		failure: function(data){
-				// 		 	console.log('failure');
-				// 		}
-				// 	});
-				// });
-			},
-			failure: function(data){
-
-			}
-		})
-	});
-
-	// cust button
-	$('#cust_add_shadow').on('click', function(e){
-		e.preventDefault()
-		$.ajax({
-			url: '{% url "headshot_add" %}',
-			data: {
-				touchup: $('#cust_touchup').val(),
-				background: $('#cust_background').val(),
-				subtotal: $('#cust_price').val(),
-				special_request: $('#cust_special_request').val(),
-				package: 1,
-			},
-			success: function(data){
-				orders = jQuery.parseJSON(data['orders']);
-				html_content = '';
-				html_cart_content='';
-
-				// get the total store it in a global
-				checkout_total = data['total'];
-
-				// update the pay button
-				$('#order_total').text(checkout_total.toString());
-				$('#cart_total').text(checkout_total.toString())
-
-				// populate the checkout cart
-				for(var i=0; i<orders.length; ++i){
-
-					special_req_html = ''
-					special_req = orders[i].fields.special_request;
-					if(special_req){
-						special_req_html = '</li><li>Special requests: ' + special_req;
-					}
-
-					keepsake_html = '';
-					keepsake = orders[i].fields.package;
-					if(keepsake == '2'){
-						keepsake_html = '</li><li>Keepsake: Wallet Prints';
-					}else if(keepsake == '3'){
-						keepsake_html = '</li><li>Keepsake: Friends and Family';
-					}else if(keepsake == '4'){
-						keepsake_html = '</li><li>Keepsake: Complete Collection';
-					}else if(keepsake == '5'){
-						keepsake_html = '</li><li>Keepsake: Premium Framed Print';
-					}
-
-					article_cart_id = '<article id="cart_';
-					article_id = '<article id="';
-
-					html_content += article_id;
-					html_cart_content += article_cart_id;
-
-					temp = orders[i].fields.hash_id +'"><div class="small_padding"></div><img src="' + orders[i].fields.raw_url + '" class="img-responsive all_padding"><div class="xsmall_padding"></div><ul class="package_list small_font"><li>Style: ' + getTouchup(orders[i].fields.touchup) + '</li><li>Background: ' + getBackground(orders[i].fields.background) + keepsake_html + special_req_html + '</li><li>Subtotal: $' + orders[i].fields.total + '</li><li class="remove_buttons"><button class="remove_button italic text_button_black" name="'+ orders[i].fields.hash_id +'">Remove</button></li></ul><div class="small_padding"></div></article>'
-
-					html_content += temp;
-					html_cart_content += temp;
-				}
-				$('#checkout_cart').html(html_content);
-				$('#mycart_content').html(html_cart_content);
-				$('#headshot_pay_button').show();
-
-				// remove buttons
-				// $('#checkout_box').on('click', '.remove_buttons>button', function(e){
-				// 	var id = $(this).attr('name');
-				// 	$.ajax({
-				// 		url: '{% url "headshot_remove" %}',
-				// 		data: {hash_id: id},
-				// 		success: function(data){
-				// 			console.log("success");
-				// 			$('article#'+id).fadeOut(300);
-				// 			// update the total
-				// 			$('#order_total').text(data['total']);
-				// 			$('#cart_total').text(data['total']);
-
-				// 			// hide the button
-				// 			if(data['empty']){
-				// 				$('#headshot_pay_button').fadeOut(300);
-				// 			}
-				// 		},
-				// 		failure: function(data){
-				// 		 	console.log('failure');
-				// 		}
-				// 	});
-				// });
-			},
-			failure: function(data){
-
-			}
-		})
-	});
-	// prof shadow button
-	$('#prof_add_shadow').on('click', function(e){
-		$.ajax({
-			url: '{% url "headshot_add" %}',
-			type: 'GET',
-			data: {
-				touchup: $('#prof_touchup').val(),
-				background: $('#prof_background').val(),
-				// package placeholder
-				subtotal: $('#prof_price').val(),
-				package: 1,
-			},
-			success: function(data){
-				orders = jQuery.parseJSON(data['orders']);
-				html_content = '';
-				html_cart_content='';
-
-				// get the total store it in a global
-				checkout_total = data['total'];
-				// update the pay button
-				$('#order_total').text(checkout_total.toString())
-				$('#cart_total').text(checkout_total.toString())
-
-				// populate the checkout cart
-				for(var i=0; i<orders.length; ++i){
-
-					special_req_html = ''
-					special_req = orders[i].fields.special_request;
-					if(special_req){
-						special_req_html = '</li><li>Special requests: ' + special_req;
-					}
-
-					keepsake_html = '';
-					keepsake = orders[i].fields.package;
-					if(keepsake == '2'){
-						keepsake_html = '</li><li>Keepsake: Wallet Prints';
-					}else if(keepsake == '3'){
-						keepsake_html = '</li><li>Keepsake: Friends and Family';
-					}else if(keepsake == '4'){
-						keepsake_html = '</li><li>Keepsake: Complete Collection';
-					}else if(keepsake == '5'){
-						keepsake_html = '</li><li>Keepsake: Premium Framed Print';
-					}
-
-					article_cart_id = '<article id="cart_';
-					article_id = '<article id="';
-
-					html_content += article_id;
-					html_cart_content += article_cart_id;
-
-					temp = orders[i].fields.hash_id +'"><div class="small_padding"></div><img src="' + orders[i].fields.raw_url + '" class="img-responsive all_padding"><div class="xsmall_padding"></div><ul class="package_list small_font"><li>Style: ' + getTouchup(orders[i].fields.touchup) + '</li><li>Background: ' + getBackground(orders[i].fields.background) + keepsake_html + special_req_html + '</li><li>Subtotal: $' + orders[i].fields.total + '</li><li class="remove_buttons"><button class="remove_button italic text_button_black" name="'+ orders[i].fields.hash_id +'">remove</button></li></ul><div class="small_padding"></div></article>'
-
-					html_content += temp;
-					html_cart_content += temp;
-				}
-				$('#checkout_cart').html(html_content);
-				$('#mycart_content').html(html_cart_content);
-				
-
-				// show checkout button
-				$('#headshot_pay_button').show();
-				// // remove buttons
-				// $('#checkout_box').on('click', '.remove_buttons>button', function(e){
-				// 	var id = $(this).attr('name');
-				// 	$.ajax({
-				// 		url: '{% url "headshot_remove" %}',
-				// 		data: {hash_id: id},
-				// 		success: function(data){
-				// 			console.log("success");
-				// 			$('article#'+id).fadeOut(300);
-				// 			// update the total
-				// 			$('#order_total').text(data['total']);
-				// 			$('#cart_total').text(data['total']);
-
-				// 			// hide the button
-				// 			if(data['empty']){
-				// 				$('#headshot_pay_button').fadeOut(300);
-				// 			}
-				// 		},
-				// 		failure: function(data){
-				// 		 	console.log('failure');
-				// 		}
-				// 	});
-				// });
-			},
-
-			failure: function(data){
-
-			}
-		});
-		e.preventDefault();
-	})
-
-
 
 	$('#prof_colorbox .colorbox').on('click', function(e){
 		$('.prof_subbox').css('border-color', '#ccc');
@@ -1640,6 +1416,13 @@
 
 		// add value 
 		var title = $(this).attr('name')
+
+		// remove raw padd
+		$('.prof_raw_pad').hide();
+
+		// toggle to after button
+		$('#prof_after').addClass('before_after_active');
+		$("#prof_before").removeClass('before_after_active');
 
 		if (title == 'Nighttime Black'){
 			$('#prof_background').val(5);
@@ -1663,7 +1446,7 @@
 		}
 		else if(title == 'Frosty Blue'){
 			$('#prof_background').val(7);
-			$('#prof_hs').attr('src', '{% static "img/headshots/examples/premium/bg1.jpg" %}');
+			$('#prof_hs').attr('src', '{% static "img/headshots/examples/premium/lg7.jpg" %}');
 		}
 		else if(title == 'Riverside Blue'){
 			$('#prof_background').val(8);
@@ -1704,64 +1487,68 @@
 		// add value 
 		var title = $(this).attr('name')
 
+		// toggle to after button
+		$('#cust_after').addClass('before_after_active');
+		$("#cust_before").removeClass('before_after_active');
+
 
 		if (title == 'Nighttime Black'){
 			$('#cust_background').val(5);
-			$('#cust_hs').attr('src', '{% static "img/headshots/examples/premium/black1.jpg" %}');
+			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/nb_a.jpg" %}');
 		}
 		else if(title == 'Sanguine Blue'){
 			$('#cust_background').val(4);
-			$('#cust_hs').attr('src', '{% static "img/headshots/examples/premium/blue3.jpg" %}');
+			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/sb_a.jpg" %}');
 		}
 		else if(title == 'Designer Bricks'){
 			$('#cust_background').val(3);
-			$('#cust_hs').attr('src', '{% static "img/headshots/examples/premium/brick3.jpg" %}');
+			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/db_a.jpg" %}');
 		}
 		else if(title == 'Polished Gray'){
 			$('#cust_background').val(2);
-			$('#cust_hs').attr('src', '{% static "img/headshots/examples/premium/gray.jpg" %}');
+			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/pg_a.jpg" %}');
 		}
 		else if(title == 'Light Cream'){
 			$('#cust_background').val(6);
-			$('#cust_hs').attr('src', '{% static "img/headshots/examples/premium/cream4.jpg" %}');
+			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/cm_a.jpg" %}');
 		}
 		else if(title == 'Frosty Blue'){
 			$('#cust_background').val(7);
-			$('#cust_hs').attr('src', '{% static "img/headshots/examples/premium/bg1.jpg" %}');
+			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/bg_a.jpg" %}');
 		}
 		else if(title == 'Riverside Blue'){
 			$('#cust_background').val(8);
-			$('#cust_hs').attr('src', '{% static "img/headshots/examples/premium/rb2.jpg" %}');
+			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/rb_a.jpg" %}');
 		}
 		else if(title == 'Airy Gray'){
 			$('#cust_background').val(9);
-			$('#cust_hs').attr('src', '{% static "img/headshots/examples/premium/lg3.jpg" %}');
+			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/ag_a.jpg" %}');
 		}
 		else if(title == 'Vibrant Orange'){
 			$('#cust_background').val(10);
-			$('#cust_hs').attr('src', '{% static "img/headshots/examples/premium/og4.jpg" %}');
+			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/vo_a.jpg" %}');
 		}
 		else if(title == '31st Story Office'){
 			$('#cust_background').val(11);
-			$('#cust_hs').attr('src', '{% static "img/headshots/examples/premium/office3.jpg" %}');
+			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/31_a.jpg" %}');
 		}
 		else if(title == 'Eclectic Bookcase'){
 			$('#cust_background').val(12);
-			$('#cust_hs').attr('src', '{% static "img/headshots/examples/premium/eb6.jpg" %}');
+			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/eb_a.jpg" %}');
 		}
 		else if(title == 'Firm Hallway'){
 			$('#cust_background').val(13);
-			$('#cust_hs').attr('src', '{% static "img/headshots/examples/premium/fh2.jpg" %}');
+			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/fh_a.jpg" %}');
 		}
 		else if(title == 'Urban Walkway'){
 			$('#cust_background').val(14);
-			$('#cust_hs').attr('src', '{% static "img/headshots/examples/premium/uw5.jpg" %}');
+			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/uw_a.jpg" %}');
 		}
 	})
 
 	// tooltips
 	$(function () {
-	  $('[data-toggle="tooltip"]').tooltip()
+	  $('[data-toggle="tooltip"]').tooltip();
 	})
 
 
@@ -1792,7 +1579,6 @@
 				if(data['clean_free']){
 
 					$('#free_list_price').text('0');
-					$('#free_title').text('Free');
 					$('#free_price').val('0');
 				}
 			},
@@ -1802,6 +1588,290 @@
 		});
 	});
 
+  $('#cust_before').click(function(){
+
+  	if($(this).hasClass('before_after_active')){
+  		return;
+  	}
+
+  	// button appearance
+  	$(this).addClass('before_after_active');
+  	$('#cust_after').removeClass('before_after_active');
+  	
+  	var bg_id = $('#cust_background').val();
+
+  	// default eclectic bookcase
+  	if(!bg_id) bg_id = '13';
+
+  	switch(bg_id){
+  		case '2':
+  			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/pg_b.jpg" %}');
+  			break;
+   		case '3':
+  			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/db_b.jpg" %}');
+  			break;
+  		case '4':
+  			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/sb_b.jpg" %}');
+  			break;
+  		case '5':
+  			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/nb_b.jpg" %}');
+  			break;
+  		case '6':
+  			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/cm_b.jpg" %}');
+  			break;
+  		case '7':
+  			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/bg_b.jpg" %}');
+  			break;
+  		case '8':
+  			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/rb_b.jpg" %}');
+  			break;
+  		case '9':
+  			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/ag_b.jpg" %}');
+  			break;
+  		case '10':
+  			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/vo_b.jpg" %}');
+  			break;
+  		case '11':
+  			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/31_b.jpg" %}');
+  			break;
+  		case '12':
+  			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/eb_b.jpg" %}');
+  			break;
+  		case '13':
+  			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/fh_b.jpg" %}');
+  			break;	
+  		case '14':
+  			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/uw_b.jpg" %}');
+  			break;
+  	}
+  });
+
+  $('#cust_after').click(function(){
+
+  	if($(this).hasClass('before_after_active')){
+  		return;
+  	}
+
+  	// button appearance
+  	$(this).addClass('before_after_active');
+  	$('#cust_before').removeClass('before_after_active');
+  	
+  	
+  	var bg_id = $('#cust_background').val();
+
+  	// default eclectic bookcase
+  	if(!bg_id) bg_id = '13';
+
+  	switch(bg_id){
+  		case '2':
+  			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/pg_a.jpg" %}');
+  			break;
+   		case '3':
+  			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/db_a.jpg" %}');
+  			break;
+  		case '4':
+  			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/sb_a.jpg" %}');
+  			break;
+  		case '5':
+  			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/nb_a.jpg" %}');
+  			break;
+  		case '6':
+  			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/cm_a.jpg" %}');
+  			break;
+  		case '7':
+  			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/bg_a.jpg" %}');
+  			break;
+  		case '8':
+  			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/rb_a.jpg" %}');
+  			break;
+  		case '9':
+  			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/ag_a.jpg" %}');
+  			break;
+  		case '10':
+  			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/vo_a.jpg" %}');
+  			break;
+  		case '11':
+  			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/31_a.jpg" %}');
+  			break;
+  		case '12':
+  			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/eb_a.jpg" %}');
+  			break;
+  		case '13':
+  			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/fh_a.jpg" %}');
+  			break;	
+  		case '14':
+  			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/uw_a.jpg" %}');
+  			break;
+  	}
+  });
+
+
+  $('#prof_before').click(function(){
+
+  	if($(this).hasClass('before_after_active')){
+  		return;
+  	}
+
+  	// button appearance
+  	$(this).addClass('before_after_active');
+  	$('#prof_after').removeClass('before_after_active');
+  	
+  	var bg_id = $('#prof_background').val();
+
+  	// show raw pad
+  	$('.prof_raw_pad').show();
+
+  	// default eclectic bookcase
+  	if(!bg_id) bg_id = '12';
+
+  	switch(bg_id){
+  		case '2':
+  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/amen3.jpg" %}');
+  			break;
+   		case '3':
+  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/ben1.jpg" %}');
+  			break;
+  		case '4':
+  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/bella2.jpg" %}');
+  			break;
+  		case '5':
+  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/sammy1.jpg" %}');
+  			break;
+  		case '6':
+  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/bella2.jpg" %}');
+  			break;
+  		case '7':
+  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/alex1.jpg" %}');
+  			break;
+  		case '8':
+  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/sammy2.jpg" %}');
+  			break;
+  		case '9':
+  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/bella3.jpg" %}');
+  			break;
+  		case '10':
+  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/bella3.jpg" %}');
+  			break;
+  		case '11':
+  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/bella3.jpg" %}');
+  			break;
+  		case '12':
+  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/alex3.jpg" %}');
+  			break;
+  		case '13':
+  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/sammy2.jpg" %}');
+  			break;	
+  		case '14':
+  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/ben1.jpg" %}');
+  			break;
+  	}
+  });
+
+
+  $('#prof_after').click(function(){
+
+  	if($(this).hasClass('before_after_active')){
+  		return;
+  	}
+
+  	// button appearance
+  	$(this).addClass('before_after_active');
+  	$('#prof_before').removeClass('before_after_active');
+  	
+  	var bg_id = $('#prof_background').val();
+
+  	// show raw pad
+  	$('.prof_raw_pad').hide();
+
+  	// default eclectic bookcase
+  	if(!bg_id) bg_id = '12';
+
+  	switch(bg_id){
+  		case '2':
+  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/premium/gray.jpg" %}');
+  			break;
+   		case '3':
+  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/premium/brick3.jpg" %}');
+  			break;
+  		case '4':
+  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/premium/blue3.jpg" %}');
+  			break;
+  		case '5':
+  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/premium/black1.jpg" %}');
+  			break;
+  		case '6':
+  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/premium/cream4.jpg" %}');
+  			break;
+  		case '7':
+  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/premium/lg7.jpg" %}');
+  			break;
+  		case '8':
+  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/premium/rb2.jpg" %}');
+  			break;
+  		case '9':
+  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/premium/lg3.jpg" %}');
+  			break;
+  		case '10':
+  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/premium/og3.jpg" %}');
+  			break;
+  		case '11':
+  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/premium/office3.jpg" %}');
+  			break;
+  		case '12':
+  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/premium/eb6.jpg" %}');
+  			break;
+  		case '13':
+  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/premium/fh2.jpg" %}');
+  			break;	
+  		case '14':
+  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/premium/uw5.jpg" %}');
+  			break;
+  	}
+  });
+
+  $('#basic_before').click(function(){
+
+  	if($(this).hasClass('before_after_active')){
+  		console.log('asd');
+  		return;
+  	}
+
+  	// button appearance
+  	$(this).addClass('before_after_active');
+  	$('#basic_after').removeClass('before_after_active');
+  	
+
+  	// show raw pad
+  	$('.basic_raw_pad').show();
+  	$('#basic_hs').attr('src', '{% static "img/headshots/examples/green/alex3.jpg" %}')
+  });
+
+  $('#basic_after').click(function(){
+
+  	if($(this).hasClass('before_after_active')){
+  		return;
+  	}
+
+  	// button appearance
+  	$(this).toggleClass('before_after_active');
+  	$('#basic_before').toggleClass('before_after_active');
+  	
+
+  	// show raw pad
+  	$('.basic_raw_pad').hide();
+  	$('#basic_hs').attr('src', '{% static "img/headshots/examples/premium/white6.jpg" %}')
+  });
+
+
+  // hover cust col
+  //$('#cust_col').mouseover(function(){
+  //	$('#cust_special_request').fadeIn(1000);
+  //	$('#cust_raw_pad').hide()
+  //})
+  //$('#cust_col').mouseleave(function(){
+  //	$('#cust_raw_pad').fadeIn(500);
+  //	$('#cust_special_request').fadeOut(1000);
+  //})
 {% endblock %}
 
 

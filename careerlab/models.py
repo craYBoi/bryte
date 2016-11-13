@@ -1900,14 +1900,14 @@ class HeadshotPurchase(models.Model):
 	copied = models.BooleanField(default=False)
 
 	TOUCHUPS = (
-		(1, 'Free'),
+		(1, 'Minimum'),
 		(2, 'Basic'),
 		(3, 'Standard'),
 		(4, 'Customized'),
 		)
 
 	touchup = models.PositiveSmallIntegerField(choices=TOUCHUPS, default=1)
-	special_request = models.CharField(max_length=200, blank=True, null=True)
+	special_request = models.CharField(max_length=255, blank=True, null=True)
 
 	BACKGROUNDS = (
 		(1, 'White'),

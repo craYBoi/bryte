@@ -439,77 +439,106 @@ def headshot_index(request):
 			'proceed': request.session.get('proceed'),
 			'orders': orders,
 			'order_total': order_total,
+			'show_steps': len(orders) == 0,
+			'show_checkout_button': len(orders) != 0,
 		}
 
 
-		# add the purchase instance to session and update the total
-		# if request.session.get('proceed') and request.session.get('stage') == 'review':
+		# second time redirect back to index
+		# detect if there's option selected
 
-		# 	# show cart if second or more rounds
-		# 	request.session['cart'] = True
+		has_package = False
+		proceed = False
 
+		if request.GET.get('touchup'):
 
-		# 	# store order instance in session
-		# 	hs_id = request.session['hs_id']
-		# 	touchup = request.session['touchup']
-		# 	background = request.session['background']
-		# 	package = request.session['package']
-		# 	special_request = request.session.get('special_request')
+			touchup = int(request.GET.get('touchup'))
+			background = int(request.GET.get('background'))
+			package = int(request.GET.get('package'))
+			hs_id = request.GET.get('hs_id')
+			special_request = request.GET.get('special_request')
+			subtotal = int(request.GET.get('subtotal'))
 
+			hs = get_object_or_404(OriginalHeadshot, hash_id=hs_id)
 
-		# 	total = request.session.get('total')
+			booking = hs.booking
 
-		# 	hs = get_object_or_404(OriginalHeadshot, hash_id=hs_id)
+			# check whether it's from refreshing the page
+			# check if the order is the same from the last one
+			orders = []
+			if request.session.has_key('order'):
+				for order in serializers.deserialize('json', request.session.get('order')):
+					orders.append(order.object)
 
-		# 	# create an purchase instance to store the order
-		# 	hp = HeadshotPurchase(
-		# 		image=hs,
-		# 		touchup = touchup,
-		# 		background = background,
-		# 		package = package,
-		# 		total = total,
-		# 		special_request = special_request,
-		# 		)
+			check_duplicate = False
+			if orders:
+				last_order = orders[len(orders)-1]
+				check_duplicate = last_order.image.hash_id == hs_id and last_order.touchup == touchup and last_order.background == background and last_order.total == subtotal
 
-		# 	# already got a few rounds
-		# 	orders = []
-		# 	if request.session.has_key('order'):
-
-		# 		for order in serializers.deserialize('json', request.session.get('order')):
-		# 			orders.append(order.object)
-		# 		orders.append(hp)
-		# 	# second round
-		# 	else:
-		# 		orders = [hp]
-
-		# 	# to show the cart
-		# 	context['orders'] = orders
-
-		# 	# update the order total
-		# 	request.session['order_total'] += request.session['total']
-			
-
-		# 	# reset the subtotal to 0
-		# 	request.session['total'] = 0
-
-		# 	# reset special request
-		# 	if request.session.get('special_request'):
-		# 		del request.session['special_request']
-
-		# 	# print orders
-		# 	request.session['order'] = serializers.serialize('json', orders)
+			if check_duplicate:
+				# return, nothing happens
+				return render(request, 'order_index.html', context)
 
 
-		# context['show_button'] = request.session.get('order')
+			# flag that auto show the shopping cart
+			context['show_cart'] = 1
+			context['show_checkout_button'] = 1
+			# don't need to show steps if people chose a package
+			del context['show_steps']
 
-		# if session expires, check if booking has ordered before, if so no free
 
-		# request.session['proceed'] = HeadshotOrder.objects.filter(booking=booking).exists()
+			package_val = 0
+			if package == 2:
+				package_val = 3
+			elif package == 3:
+				package_val = 9
+			elif package == 4:
+				package_val = 35
+			elif package == 5:
+				package_val = 30
 
-		# context['order_total'] = request.session['order_total']
-		# context['cart'] = request.session.get('cart')
-		# set the stage
-		# request.session['stage'] = 'index'
+			total = subtotal + package_val
+
+			N = 8
+			hash_id = ''.join(SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(N))
+
+			# create purchase instance
+			hp = HeadshotPurchase(
+				image=hs,
+				raw_url=hs.raw_url,
+				touchup=touchup,
+				background=background,
+				package=package,
+				total=total,
+				special_request=special_request,
+				hash_id=hash_id,
+				)
+			orders = []
+			if request.session.has_key('order'):
+				for order in serializers.deserialize('json', request.session.get('order')):
+					orders.append(order.object)
+
+					# check if the orders contain packages
+					if not order.object.package == 1:
+						has_package = True
+					if order.object.total == 0:
+						proceed = True
+
+				orders.append(hp)
+				has_package = has_package or not hp.package == 1
+				proceed = proceed or hp.total == 0
+			else:
+				orders = [hp]
+				proceed = hp.total == 0
+
+
+			# populate the cart
+			request.session['order'] = serializers.serialize('json', orders)
+
+			request.session['proceed'] = HeadshotOrder.objects.filter(booking=booking).exists() or proceed
+
+			context['orders'] = orders
+			context['order_total'] = int(sum(a.total for a in orders))
 
 		return render(request, 'order_index.html', context)
 	else:
@@ -523,7 +552,9 @@ def headshot_style(request):
 		hs_id = request.GET.get('hs_pk')
 		hs = get_object_or_404(OriginalHeadshot, hash_id=hs_id)
 
-		request.session['hs_id'] = hs_id
+		# don't set it because once people hit back from style page, a new purchase will be pushed
+		
+		# request.session['hs_id'] = hs_id
 
 		booking = hs.booking
 
@@ -556,7 +587,7 @@ def headshot_style(request):
 		context = {
 			'myheadshot': 1,
 			'title_text': 'Style Your Photo',
-			'orders': orders[::-1],
+			'orders': orders,
 			'order_total': order_total,
 			'hs_id': hs_id,
 			'hs': hs,
@@ -564,6 +595,8 @@ def headshot_style(request):
 			'proceed': request.session.get('proceed'),
 			'headshots': zip(headshot_urls, headshot_ids),
 			'shoot': shoot,
+			'show_selected_headshot': 1,
+			'show_checkout_button': len(orders) != 0,
 		}
 
 		# set stage
@@ -1123,3 +1156,20 @@ def order_feedback(request):
 
 
 	return render(request, 'feedback_rating.html', context)
+
+
+def headshot_payment(request):
+	context = {
+		'myheadshot': 1,
+		'title_text': 'Payment',
+		'publish_key': settings.STRIPE_PUBLISHABLE_KEY,
+	}
+
+	orders = []
+	if request.session.has_key('order'):
+		for order in serializers.deserialize('json', request.session.get('order')):
+			orders.append(order.object)
+
+	context['orders'] = orders
+
+	return render(request, 'order_payment.html', context)

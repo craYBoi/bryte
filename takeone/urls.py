@@ -67,6 +67,7 @@ urlpatterns = [
     url(r'^headshot/remove$', careerlab_views.ajax_headshot_remove, name='headshot_remove'),
     url(r'^headshot/expire$', careerlab_views.headshot_expire, name='headshot_expire'),
     url(r'^headshot/addkeepsake$', careerlab_views.ajax_keepsake_add, name='headshot_keepsake_add'),
+    url(r'^headshot/payment$', careerlab_views.headshot_payment, name='headshot_payment'),
     # url(r'^Careerlab/', include('careerlab.urls')),
     # url(r'^careerlab/', include('careerlab.urls')),
     # url(r'^RIC/', include('careerlab.urls')),
