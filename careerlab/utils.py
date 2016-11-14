@@ -60,11 +60,11 @@ def generate_touchup_list(folder_name):
 
 			# customized add teeth whitening..
 			if p.touchup == 4:
-				sr = ', teeth whitening, skin smooth, wrinkle/acne touchup if there is any'
+				sr = p.special_request + ', teeth whitening, skin smooth, wrinkle/acne touchup if there is any'
 			else:
 				sr = ''
 
-			writer.writerow([str(p.id)+p.image.name, p.get_background_display(), p.special_request + sr])
+			writer.writerow([str(p.id)+p.image.name, p.get_background_display(), sr])
 
 		# generate touchup list to send
 		email = EmailMessage('Auto gened Touchup List Test', ' ', 'Bryte Photo <' + settings.EMAIL_HOST_USER + '>', ['byyagp@gmail.com'])
