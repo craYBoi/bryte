@@ -48,7 +48,7 @@ def index(request, school='brown'):
 
 	# view logic for different schools here
 	# filter by the school name and pick the first
-	if school.lower() == 'brown':
+	if school.lower() == 'brown' || school.lower() == 'careerlab':
 		title = 'Bryte & CareerLab Brown University Headshot'
 		nextshoot = Nextshoot.objects.filter(school='Brown University').order_by('-date')
 		bg_url = static('img/brown_campus.jpg')

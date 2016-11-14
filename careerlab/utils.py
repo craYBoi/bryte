@@ -60,7 +60,10 @@ def generate_touchup_list(folder_name):
 
 			# customized add teeth whitening..
 			if p.touchup == 4:
-				sr = p.special_request + ', teeth whitening, skin smooth, wrinkle/acne touchup if there is any'
+				if p.special_request:
+					sr = p.special_request + ', teeth whitening, skin smooth, wrinkle/acne touchup if there is any'
+				else:
+					sr = 'teeth whitening, skin smooth, wrinkle/acne touchup if there is any'
 			else:
 				sr = ''
 
