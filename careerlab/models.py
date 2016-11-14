@@ -264,6 +264,17 @@ class Nextshoot(models.Model):
 		pass
 
 
+	# calculate stats
+	def calulate_total_rev(self):
+		orders = []
+		bs = [e for elem in self.timeslot_set.all() for e in elem.booking_set.filter(show_up=True)]
+
+		for b in bs:
+			os = b.headshotorder_set.exclude(total=0)
+			orders.extend(os)
+
+		return int(sum([o.total for o in orders]))
+
 	# garbage after here
 
 
