@@ -20,7 +20,7 @@
   <div class="droid_serif">
   <div class="{{ main_bg_color }}" id="signup_signup_form" style="background: url({% static 'img/ccri/bg7.jpg' %}) no-repeat center; background-size: cover;"> 
     <div class="medium_padding"></div>
-    <h1 class="white text-center bold col-xs-10 col-xs-offset-1 landing_title" id="title">Book a spot at our amazing photoshoot to get a free LinkedIn photo</span></h1>
+    <h1 class="white text-center bold col-xs-10 col-xs-offset-1 landing_title" id="title">Book a session at our amazing photoshoot to get a free LinkedIn photo</span></h1>
     <div class="container">
 
 
@@ -32,7 +32,7 @@
 
           {% if not timeslots %}
             
-            <p class="big_font white"><span class="landing_text">All the spots have been booked for now. But, be the first to hear if a spot opens up or when signups go out for our next photoshoot!</p>
+            <p class="big_font white"><span class="landing_text">All the spots have been booked for now. But, be the first to hear if a session opens up or when signups go out for our next photoshoot!</p>
               
 
             <div id="signup_form" class="special_padding signup_form">
@@ -82,7 +82,7 @@
                   <!-- booking button -->
                   <div class="medium_padding"></div>
                   <div class="text-center">
-                    <button type="button" class="bold large_font main_green_button_mid" id="careerlab_book_button">Book a spot</button>
+                    <button type="button" class="bold large_font main_green_button_mid" id="careerlab_book_button">Book a session</button>
                     <div class="small_padding"></div>
                   </div>
                 </form>
@@ -95,7 +95,7 @@
 
         <!-- shoot is not active -->
         {% else %}
-          <p class="big_font white"><span class=" landing_text">All the spots have been booked for now. But, be the first to hear if a spot opens up or when signups go out for our next photoshoot!</span></p>
+          <p class="big_font white"><span class=" landing_text">All the spots have been booked for now. But, be the first to hear if a session opens up or when signups go out for our next photoshoot!</span></p>
 
 
           <!-- signup button -->
@@ -711,7 +711,7 @@
                <img src="{% static 'img/process1.png' %}" class="img-responsive"> 
                <div class="medium_padding"></div>
                <h3 class="bold landing_text_main">Book</h3>
-               <p class="col-xs-10 col-xs-offset-1 small_padding small_lh text-left small_font ">Book a spot at the photoshoot and we'll send you a confirmation email.</p>
+               <p class="col-xs-10 col-xs-offset-1 small_padding small_lh text-left small_font ">Book a session at the photoshoot and we'll send you a confirmation email.</p>
              </div>   
  
              <div class="col-sm-4 text-center">
@@ -740,7 +740,7 @@
     {% if next_shoot.active %}
       {% if timeslots %}
         <div class="text-center">
-          <a href="#title"><button class="main_green_button_sm" type='submit'>Book a spot</button></a>
+          <a href="#title"><button class="main_green_button_sm" type='submit'>Book a session</button></a>
         </div>
 
       {% else %}
