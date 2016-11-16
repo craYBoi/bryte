@@ -84,6 +84,24 @@ def index(request, school='brown'):
 			raise Http404
 
 
+	if school.lower() == 'westfieldstate':
+		title = 'Bryte & Westfield State'
+		nextshoot = Nextshoot.objects.filter(school='Westfield State').order_by('-date')
+		bg_url = static('logl/wfs.jpg')
+		logo_url = static('logo/gradcon.jpg')
+		school_name = 'Brown University CareerLAB'
+		school_url = 'https://www.westfield.ma.edu/'
+		school_bryte_url = 'westfieldstate'
+		school_abbr = 'Westfield State'
+		school_title = 'Westfield State University'
+		school_location = 'Campus Center Room 020'
+		if nextshoot:
+			nextshoot = nextshoot[0]
+			timeslots = nextshoot.timeslot_set.filter(is_available=True).order_by('time')	
+		else:
+			raise Http404
+
+
 	if school.lower() == 'ric':
 		title = 'Bryte & Rhode Island College'
 		nextshoot = Nextshoot.objects.filter(school='Rhode Island College').order_by('-date')
