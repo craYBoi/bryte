@@ -276,8 +276,10 @@ def signup(request):
 
 		data = {}
 
+		shoot = get_object_or_404(Nextshoot, pk=shoot_pk)
+
 		# avoid duplicate signup
-		if email in [signup.email for signup in Signup.objects.all()]:
+		if email in [signup.email for signup in shoot.signup_set.all()]:
 			data['msg'] = 'It seems that you have already signed up!<br>We will notify at ' + str(email) + ' whenever next headshot session is available!<br><br>Thanks!<br>Team Bryte'
 		else:
 			# get the first shooting instance
