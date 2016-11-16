@@ -66,7 +66,7 @@ def index(request, school='brown'):
 			raise Http404
 
 
-	if school.lower() == 'gradcon':
+	elif school.lower() == 'gradcon':
 		title = 'Bryte & GradCON'
 		nextshoot = Nextshoot.objects.filter(school='Brown GradCON').order_by('-date')
 		bg_url = static('img/brown_campus.jpg')
@@ -84,11 +84,11 @@ def index(request, school='brown'):
 			raise Http404
 
 
-	if school.lower() == 'westfieldstate':
+	elif school.lower() == 'westfieldstate':
 		title = 'Bryte & Westfield State'
 		nextshoot = Nextshoot.objects.filter(school='Westfield State').order_by('-date')
 		logo_url = static('logo/wfs.png')
-		school_name = 'Brown University CareerLAB'
+		school_name = 'Westfield State University'
 		school_url = 'https://www.westfield.ma.edu/'
 		school_bryte_url = 'westfieldstate'
 		school_abbr = 'Westfield State'
@@ -101,7 +101,7 @@ def index(request, school='brown'):
 			raise Http404
 
 
-	if school.lower() == 'ric':
+	elif school.lower() == 'ric':
 		title = 'Bryte & Rhode Island College'
 		nextshoot = Nextshoot.objects.filter(school='Rhode Island College').order_by('-date')
 		bg_url = static('img/brown_campus.jpg')
