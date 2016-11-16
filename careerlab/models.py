@@ -1061,7 +1061,7 @@ class Booking(models.Model):
 
 		message.set_categories(category)
 		message.add_substitution('-first_name-', first_name)
-		message.add_substitution('-timeslot-', str(timeslot))
+		message.add_substitution('-timeslot-', str(timeslot.date_and_time()))
 		message.add_substitution('-location-', location)
 		message.add_substitution('-cancel_link-', self.generate_cancel_link())
 
