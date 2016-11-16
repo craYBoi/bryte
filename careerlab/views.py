@@ -87,8 +87,7 @@ def index(request, school='brown'):
 	if school.lower() == 'westfieldstate':
 		title = 'Bryte & Westfield State'
 		nextshoot = Nextshoot.objects.filter(school='Westfield State').order_by('-date')
-		bg_url = static('logl/wfs.jpg')
-		logo_url = static('logo/gradcon.jpg')
+		logo_url = static('logo/wfs.png')
 		school_name = 'Brown University CareerLAB'
 		school_url = 'https://www.westfield.ma.edu/'
 		school_bryte_url = 'westfieldstate'
