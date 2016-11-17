@@ -310,7 +310,7 @@ def cancel_order(request):
 	context = {
 		'brown_careerlab': 1,
 		'title_text': 'Cancel your signup',
-		'notification_text': 'You have successfully cancelled your headshot!',
+		'notification_text': 'You have successfully cancelled your session!',
 	}
 	if request.method == 'GET':
 		order_id = request.GET.get('order_id')
