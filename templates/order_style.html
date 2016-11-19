@@ -94,16 +94,15 @@
 					</div>
 
 					<div class="small_padding"></div>
-					<!--
+					
 					<div class="sm_padding"></div>
-					<h2 class="text-center bold">Basic</h2>
-					-->
+					<h2 class="text-center bold">Standard</h2>
+					
 
 					<div class="small_padding"></div>
 					<div class="sm_padding"></div>
 					<ul class="spec_list droid_serif grey all_padding">
-						<li>High image definition</li>
-						<li>Big enough image size to use anywhere</li>
+						<li>Excellent image clarity – use it anywhere! (800+ x 800+ pixels)</li>
 					</ul>
 
 
@@ -184,16 +183,15 @@
 					</div>
 					</div>
 
-					<!--
+					
 					<div class="sm_padding"></div>
-					<h2 class="text-center bold">Standard</h2>
-					-->
+					<h2 class="text-center bold">Plus</h2>
+				
 
 					<div class="small_padding"></div>
 					<div class="sm_padding"></div>
 					<ul class="spec_list droid_serif grey all_padding">
-						<li>Highest image definition</li>
-						<li>Big enough image size to use anywhere</li>
+						<li>Best image clarity – use it anywhere!</li>
 						<li>Choose your background</li>
 					</ul>
 					
@@ -243,7 +241,7 @@
 					</div>
 					<div class="xsmall_padding"></div>
 					<div class="text-center before_after_button">
-						<button class="ui left attached button" id="cust_before">Standard</button>
+						<button class="ui left attached button" id="cust_before">Plus</button>
 						<button class="right attached ui button before_after_active" id="cust_after">Customized</button>
 					</div>
 
@@ -281,22 +279,20 @@
 					</div>
 					</div>
 
-					<!--
+					
 					<div class="sm_padding"></div>
 					<h2 class="text-center bold">Customized</h2>
-					-->
+					
 
 					<div class="small_padding"></div>
 					<div class="sm_padding"></div>
 
 					<form action="{% url 'headshot_index' %}" id="cust_form">
 					<ul class="spec_list droid_serif grey all_padding">
-						<li>Highest image definition</li>
-						<li>Big enough image size to use anywhere</li>
+						<li>Best image clarity – use it anywhere! </li>
 						<li>Choose your background</li>
 						<li>Brings out eyes; teeth whitening</li>
 						<li>Skin smoothening, wrinkle and acne touchup</li>
-						
 					</ul>
 
 					<!-- custom request -->
@@ -386,7 +382,7 @@
 				<div class="col-sm-4">
 					<div class="hs_margin">
 						<div class="text-center">
-						<a data-toggle="modal" data-target="#free_example" style="cursor:pointer;"><img src="{% static 'img/headshots/examples/free/white.jpg' %}" class="full_width hs_shadow_border" id="free_hs"></a>
+						<a data-toggle="modal" data-target="#free_example" style="cursor:pointer;"><img src="{% static 'img/headshots/examples/free/white7.jpg' %}" class="full_width hs_shadow_border" id="free_hs"></a>
 						</div>
 					</div>
 
@@ -395,16 +391,15 @@
 						<button class="right attached ui button before_after_active" id="free_after">After</button>
 					</div>
 
-					<!--
+					
 					<div class="small_padding"></div>
-					<h2 class="text-center" id="free_title">Minimal</h2>
-					-->
+					<h2 class="text-center" id="free_title">Basic</h2>
+					
 
 					<div class="small_padding"></div>
-					<div class="small_padding"></div>
+					<div class="sm_padding"></div>
 					<ul class="spec_list droid_serif grey all_padding">
-						<a href="https://www.linkedin.com/help/linkedin/topics/6042/6059/1615/adding-or-changing-your-profile-photo?lang=en" class="grey underline" target="_blank"><li>Adequate image definition</li></a>
-						<li>Big enough image size for LinkedIn</li>
+						<a href="https://www.linkedin.com/help/linkedin/topics/6042/6059/1615/adding-or-changing-your-profile-photo?lang=en" class="grey underline" target="_blank"><li>Great image clarity for LinkedIn  (400 x 400 pixels)</li></a>
 					</ul>
 
 					<div class="all_padding">
@@ -1851,7 +1846,7 @@
   	$('#free_after').removeClass('before_after_active');
   	
 
-  	$('#free_hs').attr('src', '{% static "img/headshots/examples/green/alex5.jpg" %}')
+  	$('#free_hs').attr('src', '{% static "img/headshots/examples/green/bella6.jpg" %}')
   });
 
   $('#free_after').click(function(){
@@ -1865,7 +1860,7 @@
   	$('#free_before').removeClass('before_after_active');
   	
 
-  	$('#free_hs').attr('src', '{% static "img/headshots/examples/free/white.jpg" %}')
+  	$('#free_hs').attr('src', '{% static "img/headshots/examples/free/white7.jpg" %}')
   });
 
 {% endblock %}

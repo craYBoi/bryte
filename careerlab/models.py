@@ -1911,9 +1911,9 @@ class HeadshotPurchase(models.Model):
 	copied = models.BooleanField(default=False)
 
 	TOUCHUPS = (
-		(1, 'Minimum'),
-		(2, 'Basic'),
-		(3, 'Standard'),
+		(1, 'Basic'),
+		(2, 'Standard'),
+		(3, 'Plus'),
 		(4, 'Customized'),
 		)
 
