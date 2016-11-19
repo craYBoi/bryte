@@ -533,7 +533,7 @@ def headshot_index(request):
 				total=total,
 				special_request=special_request,
 				hash_id=hash_id,
-				)
+			)
 			orders = []
 			if request.session.has_key('order'):
 				for order in serializers.deserialize('json', request.session.get('order')):
