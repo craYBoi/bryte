@@ -24,7 +24,7 @@
 					<img src="{{ order.raw_url }}" class="img-responsive hs_shadow_border">
 					<div class="sm_padding"></div>
 					<ul class="package_list xsmall_font">
-						<li>Style: {{ order.get_touchup_display }}</li>
+						<li>Touchup: {{ order.get_touchup_display }}</li>
 						<li>Background: {{ order.get_background_display }}</li>
 						{% if order.special_request %}
 							<li>Special requests: {{ order.special_request }}</li>
@@ -82,8 +82,8 @@
 					<div class="xsmall_padding"></div>
 
 					<div class="text-center before_after_button">
-						<button class="ui left attached button" id="basic_before">Before</button>
-						<button class="right attached ui button before_after_active" id="basic_after">After</button>
+						<button class="ui left attached button center_flex" id="basic_before">Before</button>
+						<button class="right attached ui button before_after_active center_flex" id="basic_after">After</button>
 					</div>
 
 
@@ -102,7 +102,7 @@
 					<div class="small_padding"></div>
 					<div class="sm_padding"></div>
 					<ul class="spec_list droid_serif grey all_padding">
-						<li>Excellent image clarity – use it anywhere! (800+ x 800+ pixels)</li>
+						<li>Excellent image clarity – use it anywhere! (800 x 800 pixels)</li>
 					</ul>
 
 
@@ -121,7 +121,7 @@
 							<div class="all_padding desktop_disp">
 							<p class="price_font_size dark_grey">${{ shoot.basic_price }}</p>
 							<button class="main_green_button_100 basic_add" type="submit">Add to cart</button>
-							<p class="small_font italic sm_padding lightgray">Available for download within 7 business days</p>
+							<p class="small_font italic sm_padding grey">Available for download within 7 business days</p>
 							</div>
 						</form>
 
@@ -146,8 +146,8 @@
 
 
 					<div class="text-center before_after_button">
-						<button class="ui left attached button" id="prof_before">Before</button>
-						<button class="right attached ui button before_after_active" id="prof_after">After</button>
+						<button class="ui left attached button center_flex" id="prof_before">Before</button>
+						<button class="right attached ui button before_after_active center_flex" id="prof_after">After</button>
 					</div>
 
 					<div class="sm_padding"></div>
@@ -191,7 +191,7 @@
 					<div class="small_padding"></div>
 					<div class="sm_padding"></div>
 					<ul class="spec_list droid_serif grey all_padding">
-						<li>Best image clarity – use it anywhere!</li>
+						<li><span class="extra_bold">Best</span> image clarity – use it anywhere! (1000 x 1000 pixels)</li>
 						<li>Choose your background</li>
 					</ul>
 					
@@ -215,7 +215,7 @@
 
 								<div class="sm_padding"></div>
 								<button class="main_green_button_100 prof_add" type="submit">Add to cart</button>
-								<p class="small_font italic sm_padding lightgray">Available for download within 7 business days</p>
+								<p class="small_font italic sm_padding grey">Available for download within 7 business days</p>
 
 							</div>
 						</form>
@@ -241,8 +241,8 @@
 					</div>
 					<div class="xsmall_padding"></div>
 					<div class="text-center before_after_button">
-						<button class="ui left attached button" id="cust_before">Plus</button>
-						<button class="right attached ui button before_after_active" id="cust_after">Customized</button>
+						<button class="ui left attached button center_flex" id="cust_before">Plus</button>
+						<button class="right attached ui button before_after_active center_flex" id="cust_after">Customized</button>
 					</div>
 
 					<div class="sm_padding"></div>
@@ -289,7 +289,7 @@
 
 					<form action="{% url 'headshot_index' %}" id="cust_form">
 					<ul class="spec_list droid_serif grey all_padding">
-						<li>Best image clarity – use it anywhere! </li>
+						<li><span class="extra_bold">Best</span> image clarity – use it anywhere! (1000 x 1000 pixels)</li>
 						<li>Choose your background</li>
 						<li>Brings out eyes; teeth whitening</li>
 						<li>Skin smoothening, wrinkle and acne touchup</li>
@@ -323,7 +323,7 @@
 								<p class="price_font_size dark_grey">${{ shoot.customized_price }}</p>
 								<div class="sm_padding"></div>
 								<button class="main_green_button_100 cust_add" type='Submit'>Add to cart</button>
-								<p class="small_font italic sm_padding lightgray">Available for download within 7 business days</p>
+								<p class="small_font italic sm_padding grey">Available for download within 7 business days</p>
 							</div>
 
 
@@ -351,7 +351,7 @@
 
 						<div class="sm_padding"></div>
 						<button class="main_green_button_100 basic_add">Add to cart</button>
-						<p class="small_font italic sm_padding lightgray">Available for download within 7 business days</p>
+						<p class="small_font italic sm_padding grey">Available for download within 7 business days</p>
 					</div>
 				</div>
 
@@ -361,7 +361,7 @@
 
 						<div class="sm_padding"></div>
 						<button class="main_green_button_100 prof_add">Add to cart</button>
-						<p class="small_font italic sm_padding lightgray">Available for download within 7 business days</p>
+						<p class="small_font italic sm_padding grey">Available for download within 7 business days</p>
 					</div>
 				</div>
 
@@ -370,7 +370,7 @@
 						<div class=""><div class="inline"><p class="xlarge_font dark_grey">${{ shoot.customized_price }}</p></div></div>
 						<div class="sm_padding"></div>
 						<button class="main_green_button_100 cust_add">Add to cart</button>
-						<p class="small_font italic sm_padding lightgray">Available for download within 7 business days</p>
+						<p class="small_font italic sm_padding grey">Available for download within 7 business days</p>
 					</div>
 				</div>
 			</div>
@@ -387,8 +387,8 @@
 					</div>
 
 					<div class="text-center before_after_button_free">
-						<button class="ui left attached button" id="free_before">Before</button>
-						<button class="right attached ui button before_after_active" id="free_after">After</button>
+						<button class="ui left attached button center_flex" id="free_before">Before</button>
+						<button class="right attached ui button before_after_active center_flex" id="free_after">After</button>
 					</div>
 
 					
@@ -430,7 +430,7 @@
 							{% endif %}
 							
 							<button class="main_green_button_100" type="submit" id="free_add" type="submit">Add to cart</button>
-							<p class="small_font italic sm_padding lightgray">Available for download within 7 business days</p>
+							<p class="small_font italic sm_padding grey">Available for download within 7 business days</p>
 						</form>
 						
 					</div>
@@ -488,8 +488,6 @@
       <div class="modal-content background_grey">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="sbig_font">&times;</span></button>
-          <h4 class="text-center bold big_font">Basic Examples</h4>
-          <div class="xsmall_padding"></div>
         </div>
         <div class="modal-body">
         	<div class="row">
@@ -577,8 +575,6 @@
       <div class="modal-content background_grey">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="sbig_font">&times;</span></button>
-          <h4 class="text-center bold big_font">Standard Examples</h4>
-          <div class="xsmall_padding"></div>
         </div>
         <div class="modal-body">
 
@@ -929,8 +925,6 @@
       <div class="modal-content background_grey">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="sbig_font">&times;</span></button>
-          <h4 class="text-center bold big_font">Free Examples</h4>
-          <div class="xsmall_padding"></div>
         </div>
         <div class="modal-body">
         	<div class="row">
@@ -996,8 +990,6 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="sbig_font">&times;</span></button>
-          <h4 class="text-center bold big_font">Customized Examples</h4>
-          <div class="xsmall_padding"></div>
         </div>
         <div class="modal-body">
         	

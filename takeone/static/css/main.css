@@ -2319,7 +2319,7 @@ body, html
 }
 
 .spec_list li {
-	padding: 6px 0;
+	padding: 8px 0;
 	font-size: 0.85em;
 	/*padding-left: 1em;*/
 }
@@ -2807,6 +2807,7 @@ body, html
 .before_after_button_free > button {
 	color: #888!important;
 	border: 2px #999 solid;
+	width: 38%;
 	font-size: 0.9em!important;	
 	background-color: rgba(0,0,0,0.2);
 }
@@ -2817,6 +2818,7 @@ body, html
 
 .before_after_button > button {
 	color: #117200!important;
+	width: 38%;
 	border: 2px #999 solid;
 	font-size: 0.9em!important;	
 	background-color: rgba(0,0,0,0.2);
