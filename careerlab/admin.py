@@ -13,11 +13,12 @@ class HpResource(resources.ModelResource):
 	# special_request = fields.Field(column_name='Special Request')
 	# background = fields.Field(column_name='Background')
 	photoshoot = fields.Field(column_name='photoshoot folder')
+	address = fields.Field(column_name='Address')
 
 	class Meta:
 		model = HeadshotPurchase
 
-		fields = ('image', 'touchup', 'background', 'special_request',)
+		fields = ('image', 'touchup', 'background', 'special_request', 'address')
 		
 	def dehydrate_image(self, headshotpurchase):
 		return headshotpurchase.image.__unicode__()
@@ -30,6 +31,29 @@ class HpResource(resources.ModelResource):
 
 	def dehydrate_photoshoot(self, headshotpurchase):
 		return headshotpurchase.image.booking.timeslot.shoot
+
+	def dehydrate_address(self, headshotpurchase):
+		return headshotpurchase.order.address
+
+
+class HoResource(resources.ModelResource):
+
+	class Meta:
+		model = HeadshotOrder
+
+		fields = ('booking', 'total', 'timestamp', 'address',)
+		
+	def dehydrate_booking(self, headshotorder):
+		return headshotorder.booking.__unicode__()
+
+	def dehydrate_total(self, headshotorder):
+		return '$' + str(headshotorder.total)
+
+	def dehydrate_timestamp(self, headshotorder):
+		return headshotorder.timestamp.strftime('%Y/%m/%d %H:%M')
+
+	def dehydrate_address(self, headshotorder):
+		return headshotorder.address
 
 
 class BookingResource(resources.ModelResource):
@@ -58,14 +82,18 @@ class SignupAdmin(admin.ModelAdmin):
 class OriginalHeadshotAdmin(admin.ModelAdmin):
 	list_display = ['id','booking', 'name', 'raw_url', 'deliverable_url', 'hash_id']
 
-class HeadshotOrderAdmin(admin.ModelAdmin):
+class HeadshotOrderAdmin(ImportExportModelAdmin):
+
+	resource_class = HoResource
+
 	list_display = ['id', 'booking', 'total', 'timestamp', 'address', 'copied_to_touchup', 'copied_to_prod', 'delivered', 'touchup_folder', 'express_shipping', 'feedback_rating']
+
 
 class HeadshotPurchaseAdmin(ImportExportModelAdmin):
 
 	resource_class = HpResource
 
-	list_display = ['pk', 'image', 'order', 'touchup', 'background', 'package', 'total', 'special_request', 'charged', 'copied', 'copied_to_touchup', 'copied_to_prod', 'delivered']
+	list_display = ['pk', 'image', 'order', 'touchup', 'background', 'package', 'total', 'special_request', 'get_order_address', 'charged', 'copied', 'copied_to_touchup', 'copied_to_prod', 'delivered']
 
 
 

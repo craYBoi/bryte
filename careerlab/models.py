@@ -1958,11 +1958,12 @@ class HeadshotPurchase(models.Model):
 	def __unicode__(self):
 		return self.image.name + ', touchup: ' + str(self.get_touchup_display()) + ', bg: ' + str(self.get_background_display()) + ', total: ' + str(self.total)
 
-
 	def save(self, *args, **kwargs):
 		self.raw_url = self.image.raw_url
 		super(HeadshotPurchase, self).save()
 
+	def get_order_address(self):
+		return self.order.address
 
 	def copy_to_tbr(self):
 		dbx = dropbox.Dropbox(settings.DROPBOX_TOKEN)
