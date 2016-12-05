@@ -9,7 +9,7 @@ import dropbox
 import StringIO
 import csv
 
-from .models import HeadshotPurchase, HeadshotOrder, Booking
+from .models import HeadshotPurchase, HeadshotOrder, Booking, Nextshoot
 
 
 # create daily touchup folder
@@ -246,3 +246,16 @@ def touchup_to_prod_paid(folder_name):
 			print str(count) + ' files copied..'
 		else:
 			print 'There aren\'t any photos in touchup deliverable yet'
+
+
+def deliver_deliverable():
+	shoots = Nextshoot.objects.all()
+	for shoot in shoots:
+
+		print 'working on ' + shoot.__unicode__()
+		shoot.deliver_deliverables()
+
+		print '\n'
+
+	print 'DONE DELIVERING!'
+		
