@@ -29,7 +29,7 @@ def home(request):
 		# print instance
 		instance.save()
 
-	title = 'Bryte Photo | Custom and friendly headshot photography sessions for $20'
+	title = 'Bryte Photo | A LinkedIn photo solution with a perfect option for every student'
 
 	timeslots = TimeSlot.objects.filter(is_available=True).order_by('time')
 	next_shoot = NextShoot.objects.first()
