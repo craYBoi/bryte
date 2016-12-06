@@ -38,344 +38,185 @@
     </div> 
   </div>-->
 
-  <div style="background: url({% static 'img/landing2.jpg' %}) center; background-size: cover; text-align: center;" id="landing_pic">
+  <div style="background: url({% static 'img/landing/bg1.jpg' %}) center; background-size: cover; text-align: center;" id="landing_pic">
     <div id="landing_wrapper" class="center_flex">
-     <h1 class="white text-center bold landing_title">An elite photography program for your students</h1>
-     <div class="row">
-      <div class="col-xs-12">
-       <p class="white text-center landing_text_main">
-         We teach and give jobs to your photography students then help them take Linkedin headshots for the entire student body
-       </p>
+
+      <div class="col-xs-10">
+      <h1 class="white text-center bold landing_title">A LinkedIn photo solution with a perfect option for every student</h1>
       </div>
-     </div>
-     <div class="small_padding"></div>
-     <a href="#landing_feature"><button class="white text-center landing_button landing_text_main landing_button_padding">Learn More</button></a>
+
+     
+
+     <div class="medium_padding"></div>
+     <a href="#landing_feature"><button class="white text-center main_green_button_mid landing_text_main landing_button_padding">Learn what’s special about Bryte</button></a>
      <div class="large_padding"></div>
     </div>  
   </div>
 
 
+  <!-- partners -->
+  <div>
+    <div class="medium_padding"></div>
+    <h2 class="landing_title text-center bold">Our Partners</h2>
+
+    <div class="medium_padding"></div>
+
+
+          
+    <div class="flex_box_center">
+      <a href="{% url 'landing_clients' %}"><img src="{% static 'logo/schools/brown.png' %}" height="60px"></a>
+
+      <div class="mobile_hide">
+        <div class="special_padding_left"></div>
+      </div>
+      <a href="{% url 'landing_clients' %}"><img src="{% static 'logo/schools/bu.png' %}" height="60px"></a>
+      <div class="mobile_hide">
+        <div class="special_padding_left"></div>
+      </div>
+      <a href="{% url 'landing_clients' %}"><img src="{% static 'logo/schools/wfs.png' %}" height="60px"></a>
+    </div>
+
+    <div class="md_height flex_box_center">
+      <a href="{% url 'landing_clients' %}"><img src="{% static 'logo/schools/ric.png' %}" height="80px"></a>
+      <div class="mobile_hide">
+        <div class="special_padding_left"></div>
+      </div>
+      <a href="{% url 'landing_clients' %}"><img src="{% static 'logo/schools/ccri.png' %}" height="80px"></a>
+    </div>
+
+    <div class="medium_padding"></div>
+
+  </div>
 
   <div id="landing_content">
-    <div id="landing_feature">
+    <div id="landing_feature" class="light_green_bg">
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-sm-6">
           <div class="center_flex landing_feature_padding landing_feature_height">
-            <h2 class="landing_title_third bold text-center">Top-tier professional photography training</h2>
             <div class="small_padding"></div>
             <div class="row">
               <div class="col-xs-10 col-xs-offset-1">
-            <ul class="package_list">
-              <li>We are experts in headshot and portrait photography</li>
-              <li>We not only teach your students about lighting and backdrops, but also the <strong>professional skills needed to interact with clients</strong></li>
-              <li>This is done through 1-on-1 training with Bryte staff</li>
-              <li>We also give free professional photography equipment to your students</li>
-              <li>Supplementary video courses designed by Bryte staff</li>
-            </ul>
-            </div>
+                <p class="landing_text_main">
+                  We take 10-15 photos of each student in our uniquely designed pose flow. Every student gets a free photo with a white background, just like your current LinkedIn photo solution.
+                </p>
+              </div>
             </div>
           </div>
         </div>
-        <div class="col-md-6" style="background: url({% static 'img/landing1.jpg' %}) center; background-size: cover; text-align: center;">
+        <div class="col-sm-6" style="background: url({% static 'img/landing/pic1.jpg' %}) center; background-size: cover; text-align: center;">
         <div class="whole_padding"></div>
         </div>
       </div>
       <div class="row" id="vid_morethanaphotographycompany">
-        <div class="col-md-6 col-md-push-6">
+        <div class="col-sm-6 col-sm-push-6">
           <div class="center_flex landing_feature_padding landing_feature_height">
-            <h2 class="landing_title_third bold text-center">Continuous work for your student photographers at Linkedin photoshoots on campus</h2>
             <div class="small_padding"></div>
-            <ul class="package_list">
-              <li>Linkedin headshots are huge demand amongst college students</li>
-              <li>When college students see the work our student photographers are capable of, <strong>HUNDREDS</strong> sign up to get their headshots taken</li>
-              <li>Student photographers use the skills they learn and the camera equipment we give them to take Linkedin headshots for the hundreds of students who want their headshots taken.  We pay them $20/ hour they work at the photoshoots</li>
-              <li>We help the students handle signups for the photoshoots and electronic delivery of the photos so they can get back to their schoolwork</li>
-              <li>Career Centers host the shoots at the Career Centers or Career Fairs to help Career Centers engage with the student body</li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-md-6 col-md-pull-6">
-          <img src="{% static 'img/partners/ccri5.jpg' %}" class="img-responsive">
-        </div>
-      </div>
-    </div>
-
-
-  <div id="careerlab_gallery">
-    <div class="background_lki lki_border">
-      <div class="small_padding"></div>
-      <div class="container">
-      <div class="medium_padding"></div>
- 
-      <!--<ul>
-        <li>
-        <div class="flex_box_center xl_height">
-          <div class="background_white lki_box">
-            <div class="full_height center_flex">
-              <img src="{% static 'img/thumbnails/new/O/h2.jpg' %}" height="200px">
-            </div>
-            <div class="small_padding_left"></div>
-            <div class="lki_content">
-              <h3 class="bold xlarge_font">Lorem Ipsum</h3>
-              <p class="">Lorem Ipsum</p>
-              <div class="lki_line"></div>
-              <div class="sm_padding"></div>
-              <div class="inline">
-                <p class="grey xsmall_font">Previous</p>
-                <div class="small_padding_left"></div>
-                <div class="lki_line_sm"></div>
-              </div>
-              <div class="xxsmall_padding"></div>
-              <div class="inline">
-                <p class="grey xsmall_font">Education</p>
-                <div class="small_padding_left"></div>
-                <div class="lki_line_sm"></div>
-              </div>
-              <div class="lki_offset"></div>
-              <button class="btn-lki bold">Connect</button>
-            </div>
-          </div>
-
-          <div class="small_padding_left"></div>
-        </div>
-        </li>
-        <li>
-        <div class="flex_box_center xl_height">
-          <div class="background_white lki_box">
-            <div class="full_height center_flex">
-              <img src="{% static 'img/thumbnails/new/O/h3.jpg' %}" height="200px">
-            </div>
-            <div class="small_padding_left"></div>
-            <div class="lki_content">
-              <h3 class="bold xlarge_font">Lorem Ipsum</h3>
-              <p class="">Lorem Ipsum</p>
-              <div class="lki_line"></div>
-              <div class="sm_padding"></div>
-              <div class="inline">
-                <p class="grey xsmall_font">Previous</p>
-                <div class="small_padding_left"></div>
-                <div class="lki_line_sm"></div>
-              </div>
-              <div class="xxsmall_padding"></div>
-              <div class="inline">
-                <p class="grey xsmall_font">Education</p>
-                <div class="small_padding_left"></div>
-                <div class="lki_line_sm"></div>
-              </div>
-              <div class="lki_offset"></div>
-              <button class="btn-lki bold">Connect</button>
-            </div>
-          </div>
-
-          <div class="small_padding_left"></div>
-        </div>
-        </li>
-        <li>
-        <div class="flex_box_center xl_height">
-          <div class="background_white lki_box">
-            <div class="full_height center_flex">
-              <img src="{% static 'img/thumbnails/new/O/h1.jpg' %}" height="200px">
-            </div>
-            <div class="small_padding_left"></div>
-            <div class="lki_content">
-              <h3 class="bold xlarge_font">Lorem Ipsum</h3>
-              <p class="">Lorem Ipsum</p>
-              <div class="lki_line"></div>
-              <div class="sm_padding"></div>
-              <div class="inline">
-                <p class="grey xsmall_font">Previous</p>
-                <div class="small_padding_left"></div>
-                <div class="lki_line_sm"></div>
-              </div>
-              <div class="xxsmall_padding"></div>
-              <div class="inline">
-                <p class="grey xsmall_font">Education</p>
-                <div class="small_padding_left"></div>
-                <div class="lki_line_sm"></div>
-              </div>
-              <div class="lki_offset"></div>
-              <button class="btn-lki bold">Connect</button>
-            </div>
-          </div>
-
-          <div class="small_padding_left"></div>
-        </div>
-        </li>
-        <li>
-        <div class="flex_box_center xl_height">
-          <div class="background_white lki_box">
-            <div class="full_height center_flex">
-              <img src="{% static 'img/thumbnails/new/O/h5.jpg' %}" height="200px">
-            </div>
-            <div class="small_padding_left"></div>
-            <div class="lki_content">
-              <h3 class="bold xlarge_font">Lorem Ipsum</h3>
-              <p class="">Lorem Ipsum</p>
-              <div class="lki_line"></div>
-              <div class="sm_padding"></div>
-              <div class="inline">
-                <p class="grey xsmall_font">Previous</p>
-                <div class="small_padding_left"></div>
-                <div class="lki_line_sm"></div>
-              </div>
-              <div class="xxsmall_padding"></div>
-              <div class="inline">
-                <p class="grey xsmall_font">Education</p>
-                <div class="small_padding_left"></div>
-                <div class="lki_line_sm"></div>
-              </div>
-              <div class="lki_offset"></div>
-              <button class="btn-lki bold">Connect</button>
-            </div>
-          </div>
-
-          <div class="small_padding_left"></div>
-        </div>
-        </li>
-        <li>
-        <div class="flex_box_center xl_height">
-          <div class="background_white lki_box">
-            <div class="full_height center_flex">
-              <img src="{% static 'img/thumbnails/new/O/h7.jpg' %}" height="200">
-            </div>
-            <div class="small_padding_left"></div>
-            <div class="lki_content">
-              <h3 class="bold xlarge_font">Lorem Ipsum</h3>
-              <p class="">Lorem Ipsum</p>
-              <div class="lki_line"></div>
-              <div class="sm_padding"></div>
-              <div class="inline">
-                <p class="grey xsmall_font">Previous</p>
-                <div class="small_padding_left"></div>
-                <div class="lki_line_sm"></div>
-              </div>
-              <div class="xxsmall_padding"></div>
-              <div class="inline">
-                <p class="grey xsmall_font">Education</p>
-                <div class="small_padding_left"></div>
-                <div class="lki_line_sm"></div>
-              </div>
-              <div class="lki_offset"></div>
-              <button class="btn-lki bold">Connect</button>
-            </div>
-          </div>
-
-          <div class="small_padding_left"></div>
-        </div>
-        </li>
-        <li>
-        <div class="flex_box_center xl_height">
-          <div class="background_white lki_box">
-            <div class="full_height center_flex">
-              <img src="{% static 'img/thumbnails/new/O/h10.jpg' %}" height="200">
-            </div>
-            <div class="small_padding_left"></div>
-            <div class="lki_content">
-              <h3 class="bold xlarge_font">Lorem Ipsum</h3>
-              <p class="">Lorem Ipsum</p>
-              <div class="lki_line"></div>
-              <div class="sm_padding"></div>
-              <div class="inline">
-                <p class="grey xsmall_font">Previous</p>
-                <div class="small_padding_left"></div>
-                <div class="lki_line_sm"></div>
-              </div>
-              <div class="xxsmall_padding"></div>
-              <div class="inline">
-                <p class="grey xsmall_font">Education</p>
-                <div class="small_padding_left"></div>
-                <div class="lki_line_sm"></div>
-              </div>
-              <div class="lki_offset"></div>
-              <button class="btn-lki bold">Connect</button>
-            </div>
-          </div>
-
-          <div class="small_padding_left"></div>
-        </div>
-        </li>
-
-      </ul> -->
-
-        <div class="row red">
-          <div class="col-md-12 col-md-offset-0 col-xs-10 col-xs-offset-1">
-            <p class="landing_text_main bold">We’ve worked with photographers from RISD, Brown, and RIC and they have grown tremendously and are making hundreds of dollars</p>
-            <div class="medium_padding"></div>
-            <div class="small_padding"></div>
-
             <div class="row">
-              <div class="col-md-4">
-              <p class="landing_text_main bold">"Thank you again for giving me this opportunity" </p>
-              <p>– Linda, Bryte Student Photographer</p>
+              <div class="col-xs-10 col-xs-offset-1">
+                <p class="landing_text_main">
+                  After photoshoots, students can pick from touchup options, backgrounds, and purchase extra photos for prices on their student budgets.  Nearly 40% of students want these extras! Student demand is huge for photography extras beyond the basic LinkedIn photo.
+                </p>
+                </div>
               </div>
-              <div class="col-md-4">
-                <img src="{% static 'img/partners/ccri3.jpg' %}" class="img-responsive">
-              </div>
-              <div class="col-md-4">
-                <img src="{% static 'img/ric/ric4.jpg' %}" class="img-responsive">
-              </div>
-            </div>
           </div>
-
-      </div>
-      <div class="medium_padding"></div>
-      <div class="small_padding"></div>
+        </div>
+        <div class="col-sm-6 col-sm-pull-6">
+          <img src="{% static 'img/landing/pic2.jpg' %}" class="img-responsive">
+        </div>
       </div>
     </div>
-  </div>
 
 
-    <div id="landing_contact" class="background_pink">
+
+    <div id="landing_contact" class="main_green_bg">
       <div class="large_padding"></div>
       <div class="row">
-      <div class="col-xs-10 col-xs-offset-1">
-      <h2 class="red text-center landing_title_third">Advantages of partnering with Bryte</h2>
-      <div class="medium_padding"></div>
-      <div class="small_padding"></div>
-      <div class="container">
-        <ul class="package_list">
-          <li>Jobs and experience in the photography industry for students at your school</li>
-          <li><span>Bryte is entirely <strong class="red">FREE</strong> for students and Career Centers</li>
-          <li>Increased engagement between your Career Center and the student body</li>
-          <li>We pay your student photographers over $20/ hour</li>
-        </ul>
+        <div class="col-xs-8 col-xs-offset-2">
+          <h2 class="white text-center landing_title_third">96% of students are happy with their photos</h2>
+          
+
+
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="large_padding"></div>
+              <img src="{% static 'img/landing/greg.jpg' %}" class="img-responsive">
+              <div class="small_padding"></div>
+              <p class="white">"It felt like a fully professional photoshoot, at an unbelievable price -  free"</p>
+
+              <p class="text-right white">Greg, Brown University</p>
+            </div>
+            <div class="col-sm-4">
+              <div class="large_padding"></div>
+              <img src="{% static 'img/headshots/examples/premium/blue4.jpg' %}" class="img-responsive">
+              <div class="small_padding"></div>
+              <p class="white">"I loved how clear and bright my skin looked after touchup."</p>
+
+              <p class="text-right white">Leann, Rhode Island College</p>
+            </div>
+            <div class="col-sm-4">
+              <div class="large_padding"></div>
+              <img src="{% static 'img/landing/pic4.png' %}" class="img-responsive">
+              <div class="small_padding"></div>
+              <p class="white">"I received my pictures today, and they look great. Thank you for the quick and prompt service."</p>
+              <p class="text-right white">Sheena, Boston University</p>
+            </div>
+          </div>
+
+        </div>
       </div>
 
-      </div>
-      </div>
-      <div class="medium_padding"></div>
-      <div class="text-center small_padding">
-        <a href="{% url 'landing_contact' %}"><button class="white text-center landing_button landing_text landing_button_padding">Learn more about partnering</button></a>
-      </div>
       <div class="large_padding"></div>
     </div>
 
 
 
 
-    <div class="red_bg" id="landing_our_clients">
+    <div class="light_green_bg" id="landing_our_clients">
       <div class="medium_padding"></div>
-      <div class="small_padding"></div>
-      <h2 class="bold text-center landing_title white">CareerLAB, Brown University</h2>
-      <div class="small_padding"></div>
+
       <div class="container">
         <div class="row">
-          <div class="col-md-5 col-md-offset-0 col-xs-10 col-xs-offset-1">
+          <div class="col-md-4 col-md-offset-0 col-xs-10 col-xs-offset-1">
+          <!--
             <div class="page-header">
               <h4 class="white"><span class="landing_title_sec">Amy</span> | <span class="landing_text">CareerLAB Advisor</span></h4>
             </div>
             <p class="white">"I think Bryte is a great addition to the services we provide to our students.</p>
-            <div class="small_padding"></div>
-            <a href="{% url 'landing_clients' %}"><button class="btn-white landing_text landing_button_padding">See Bryte student photographers in action</button></a>
+            <div class="small_padding"></div> -->
+            <div class="large_padding"></div>
+            <p class="landing_text_main">
+              Your Career Center will only benefit with Bryte. <span class="main_green bold">We are free for Career Centers</span>, your student engagement will skyrocket, and we handle all the logistics around a photoshoot (no more sending out photos yourself!).
+            </p>
           </div>
 
-          <div class="col-md-6 col-md-offset-1 col-xs-10 col-xs-offset-1">
-            <div class="medium_padding"></div>
+          <div class="col-md-7 col-md-offset-1 col-xs-10 col-xs-offset-1">
+            <div class="large_padding"></div>
             <img src="{% static 'img/amy.jpg' %}" class="img-responsive">
+            <div class="small_padding"></div>
+            <p class="bold">
+              "[The time commitment is] pretty much nothing. All we need to do is pick the dates and the Bryte Photo Team runs with it, and I never have to worry."
+            </p>
+            <p class="text-right bold">– Amy Tarbox, The CareerLAB</p>
           </div>
         </div>
       </div>
+      <div class="medium_padding"></div>
+
+      <div class="text-center small_padding">
+        <a href="{% url 'landing_contact' %}"><button class="white text-center main_green_button_mid landing_text landing_button_padding">Contact Us</button></a>
+      </div>
+
       <div class="large_padding"></div>
+    </div>
+
+
+    <div>
+      <div class="medium_padding"></div>
+      <div class="small_padding"></div>
+      <h2 class="bold text-center landing_title">Started by students, for students</h2>
+      <div class="medium_padding"></div>  
+      <img src="{% static 'img/landing/pic3.jpg' %}" width="100%"> 
+      <div class="large_padding"></div>  
     </div>
 
 
