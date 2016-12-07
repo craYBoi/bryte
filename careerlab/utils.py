@@ -262,7 +262,7 @@ def photo_to_touchup(folder_name):
 
 	for shoot in shoots:
 		print 'working on ' + shoot.__unicode__()
-		shoot.photo_to_touchup(folder_name)
+		shoot.photo_to_touchups(folder_name)
 
 		print '\n'
 
