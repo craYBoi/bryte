@@ -256,3 +256,15 @@ def deliver_deliverable():
 
 	print 'DONE DELIVERING!'
 		
+
+def photo_to_touchup(folder_name):
+	shoots = Nextshoot.objects.all()
+
+	for shoot in shoots:
+		print 'working on ' + shoot.__unicode__()
+		shoot.photo_to_touchup(folder_name)
+
+		print '\n'
+
+	print 'DONE TRANSFERRING TO TOUCHUP'
+
