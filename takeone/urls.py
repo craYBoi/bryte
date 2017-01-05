@@ -84,8 +84,10 @@ urlpatterns = [
     url(r'^faq$', newsletter_views.faq, name='faqs'),
 
     # become a photographer
-    url(r'^join$', newsletter_views.become_photographer, name='become_photographer'),
-
+    url(r'^photographers$', newsletter_views.photographer_app, name='photographer_app'),
+    url(r'^photographers/apply$', newsletter_views.become_photographer, name='become_photographer'),
+    url(r'^photographers/apply/start$', newsletter_views.photographer_app_form, name='photographer_app_form'),
+    url(r'^photographers/manual$', newsletter_views.photographer_manual, name='photographer_manual'),
     # select photographer
     url(r'^select$', newsletter_views.select_photographer, name='select_photographer'),
 

@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block description %}
+  <meta name="description" content="Apply to be a Bryte student photographer!">
+{% endblock %}
+{% block content %}
+
+<div class="">
+<div class="container">
+	<div class="row">
+		<div class="col-sm-10 col-sm-offset-1">
+				<div class="large_padding"></div>
+			<!-- Application form -->
+				<h2 class="text-center landing_title_third">Bryte Student Photographer</h2>
+				<div class="medium_padding"></div>
+				<p class="text-right">* required</p>
+				<div class="small_padding"></div>
+        <div id="">
+          <div class="">
+          <form method="POST" action="{% url 'photographer_app_form' %}">{% csrf_token %}
+
+          	<p class="landing_text">First & Last name *</p>
+            <input type='text' name='photographer_name' class="form-control lg_input" id='photographer_name' required pattern="[a-zA-Z.]{2,}(\s+[a-zA-z.]{2,})+">
+            <div class="medium_padding"></div>
+
+            <p class="landing_text">Email *</p>
+            <input type='email' name='photographer_email' class="form-control lg_input" id='photographer_email' required onchange="try{setCustomValidity('')}catch(e){}">
+            <div class="medium_padding"></div>
+
+          	<p class="landing_text">Your school *</p>
+            <input type='text' name='photographer_school' class="form-control lg_input" id='photographer_school' required>
+            <div class="medium_padding"></div>
+
+
+          	<p class="landing_text">What year are you? *</p>
+            <select required name='photographer_school_year' class="form-control lg_input" id='photographer_school_year'>
+							<option>Freshman</option>
+							<option>Sophomore</option>
+							<option>Junior</option>
+							<option>Senior</option>
+							<option>Graduate Student</option>
+							<option>Other</option>
+            </select>
+            <div class="medium_padding"></div>
+
+            
+          	<p class="landing_text">Your DSLR model *</p>
+            <input type='text' name='photographer_dslr' class="form-control lg_input" id='photographer_dslr' required>
+            <div class="medium_padding"></div>
+
+          	<p class="landing_text">Please tell us a little bit about your previous job with income *</p>
+            <input type='text' name='photographer_prev_job' class="form-control lg_input" id='photographer_prev_job' required>
+            <div class="medium_padding"></div>
+
+            <p class="landing_text">Your photography experience *</p>
+            <select required name='photographer_experience' class="form-control lg_input" id='photographer_experience'>
+							<option>Less than 1 year</option>
+							<option>1 to 2 years</option>
+							<option>2 or more years</option>
+            </select>
+            <div class="medium_padding"></div>
+
+
+          	<p class="landing_text">Online Portfolio links (if you have any)</p>
+            <input type='text' name='photographer_portfolio' class="form-control lg_input" id='photographer_portfolio'>
+            <div class="medium_padding"></div>
+
+
+            <!-- booking button -->
+            <div class="sm_padding"></div>
+
+	           <p class="small_font">By submitting the application, I agree to the contractor terms & agreement</p>
+            <button type="submit" class="bold large_font main_green_button_mid" id="careerlab_book_button">Submit</button>
+            <div class="large_padding"></div>
+          </form>
+          </div>
+
+      </div>
+		</div>
+	</div>
+
+
+
+
+</div>
+</div>
+
+{% endblock %}

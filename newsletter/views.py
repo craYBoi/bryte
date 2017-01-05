@@ -99,6 +99,30 @@ def become_photographer(request):
 	return render(request, 'become_photographer.html', context)
 
 
+def photographer_app(request):
+	context = {
+		'title_text': 'Become a Student Photographer'
+	}
+
+	return render(request, 'photographer_app.html', context)
+
+
+def photographer_manual(request):
+	context = {
+		'title_text': 'Bryte Photographer Manual'
+	}
+
+	return render(request, 'photographer_manual.html', context)
+
+
+def photographer_app_form(request):
+	context = {
+		'title_text': 'Photographer Application Form'
+	}
+
+	return render(request, 'photographer_app_form.html', context)
+
+
 def select_photographer(request):
 	context = {
 		'title_text': 'How do we select our photographers'

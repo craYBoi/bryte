@@ -146,12 +146,9 @@ h1,h2,h3,h4 {
 }
 
 .index_list li:before {
-	content: "\f005"; /* FontAwesome Unicode */
-  font-family: FontAwesome;
   display: inline-block;
   margin-left: -1.5em; /* same as padding-left set on li */
   margin-right: 1em;
-  color: #c94848;
 }
 
 .index_list li{
@@ -868,7 +865,6 @@ h1,h2,h3,h4 {
   font-family: FontAwesome;
   color: #c94848;
   display: inline-block;
-  margin-left: -0.1em; /* same as padding-left set on li */
   width: 1.3em; /* same as padding-left set on li */
   margin-right: 1em;
 }
@@ -877,8 +873,6 @@ h1,h2,h3,h4 {
 
 .transaction_list li {
 	padding: 5px 0;
-	padding-left: 5em;
-	border-bottom: 1px dashed #eee;
 }
 
 .transaction_list li:last-child {
@@ -887,15 +881,15 @@ h1,h2,h3,h4 {
 
 .transaction_list li:before {
   display: inline-block;
-  margin-left: -5em; /* same as padding-left set on li */
+  margin-left: -1em; /* same as padding-left set on li */
   width: 1.3em; /* same as padding-left set on li */
   margin-right: 1em;
 }
 
 .info_list li {
 	padding: 5px 0;
-	padding-left: 1.8em;
-	border-bottom: 1px dashed #eee;
+	padding-left: 1em;
+	border: 0!important;
 }
 
 .info_list li:last-child {
@@ -1138,6 +1132,10 @@ h1,h2,h3,h4 {
 
 .special_padding_s {
 	padding: 0 20px 10px 20px;
+}
+
+.all_sm_padding {
+	padding: 10px;
 }
 
 .special_padding_right {
@@ -1767,6 +1765,12 @@ body, html
 	max-width: 600px;
 	margin: 0 auto;
 }
+
+/* application form */
+.photographer_application_form {
+	max-width: 500px;
+}
+
 
 /* change css form-inline for mobile */
 
@@ -2629,6 +2633,12 @@ body, html
 	}
 }
 
+
+.mid_green_bgfill {
+	color: #fff!important;
+	background-color: #19AA03!important;
+}
+
 .main_green {
   color: #117200!important;
 }
@@ -2869,4 +2879,9 @@ body, html
   	font-size: 1.4em!important;
   }
 
+}
+
+/* manual */
+.manual_sublist li {
+	padding-top: 20px;
 }

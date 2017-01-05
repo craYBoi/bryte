@@ -1,0 +1,160 @@
+{% extends "photographer_manual_base.html" %}
+{% load staticfiles %}
+{% block description %}
+  <meta name="description" content="Apply to be a Bryte student photographer!">
+{% endblock %}
+{% block content %}
+
+<div class="container dark_grey">
+	<div class="row">
+		<div class="col-sm-10 col-sm-offset-1">
+			<h1 class="large_padding text-center bold landing_title_sec">Bryte Photographer Manual</h1>
+			<div class="small_padding"></div>
+			<a href=""><p class="text-center mid_green landing_text_main">Table of Contents</p></a>
+			<div class="large_padding"></div>
+			
+			<p class="l_font">Hi there, Welcome to Bryte!</p>
+			<p class="l_font">
+				 This manual has everything to get you started in addition to Bryte Student Training. Don't worry! We've broken down the whole thing into little pieces that are really easy to digest. The first half of the manual is all about How to talk amazing headshots. The second half of it outlines the complete process of holds instructions for running a complete photoshoot.
+
+				 Let's get started!
+			</p>
+
+			<div id="p1_headshot_keys" class="large_padding">
+				<h3 class="landing_title_sec bold">The 3 most important things about a great headshot photo</h3>	
+				<div class="sm_padding"></div>
+				<hr>
+				<div class="medium_padding"></div>
+
+				<p class="lead">A great headshot photo always looks natural.</p>
+				<div class="small_padding"></div>
+				<article>
+					<h1 class="bold text-center">First, Lighting</h1>
+					<div class="medium_padding"></div>
+					<p class="l_font main_green">Lighting means the lighting on the person’s face, it comes from Key light. In a good headshot photo:</p>
+					<ol class="info_list small_padding">
+						<li>The person’s face is always well-lit, with one side slightly shinier than the other</li>
+						<li>with a few shiny spots on the forehead and the cheek</li>
+						<li>There are no visible shadows on the face</li>
+					</ol>
+
+					<div class="small_padding"></div>
+					<small class="small_padding">Here are some great examples of an awesome lighting:</small>
+					
+					<div class="row">
+						<div class="col-sm-6">
+							<div class="sm_padding"></div>
+							<img src="{% static 'img/headshots/manual/lighting3.jpg' %}" class="img-responsive">
+						</div>
+
+						<div class="col-sm-6">
+							<div class="sm_padding"></div>
+							<img src="{% static 'img/headshots/manual/lighting1.jpg' %}" class="img-responsive">
+						</div>
+					</div>
+
+					<div class="small_padding"></div>
+					<div class="row">
+						<div class="col-sm-6">
+							<div class="sm_padding"></div>
+							<img src="{% static 'img/headshots/manual/lighting2.jpg' %}" class="img-responsive">
+						</div>
+
+						<div class="col-sm-6">
+							<div class="sm_padding"></div>
+							<img src="{% static 'img/headshots/manual/lighting4.jpg' %}" class="img-responsive">
+						</div>
+					</div>
+
+				</article>
+
+				<div class="medium_padding"></div>
+				<h2 class="text-center bold">How to get the perfect lighting?</h2>
+
+				<div class="medium_padding"></div>
+				<small>Some bad examples of the lighting:</small>
+				
+				<div class="row">
+
+					<div class="col-sm-6">
+						<div class="sm_padding"></div>
+						<img src="{% static 'img/headshots/manual/bad_lighting1.jpg' %}" class="img-responsive">
+					</div>
+
+					<div class="col-sm-6">
+						<div class="sm_padding"></div>
+						<img src="{% static 'img/headshots/manual/bad_lighting2.jpg' %}" class="img-responsive">
+					</div>
+				</div>
+				<p class="text-center sm_padding red">The face is not well lit</p>
+
+				<div class="small_padding"></div>
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="sm_padding"></div>
+						<img src="{% static 'img/headshots/manual/dark_eye1.jpg' %}" class="img-responsive">
+					</div>
+
+					<div class="col-sm-6">
+						<div class="sm_padding"></div>
+						<img src="{% static 'img/headshots/manual/dark_eye2.jpg' %}" class="img-responsive">
+					</div>
+
+				</div>
+				<p class="text-center sm_padding red">There are shadows around the eyes</p>
+
+				<ul class="manual_sublist">
+					<li>
+						<p class="small_padding bold"><span class="mid_green_bgfill all_sm_padding large_font">Camera Mode: Manual</span></p>
+						<p class="sm_padding">Let’s do manual, because it sounds cool..  haha not exactly, because we want to make sure both the shutter speed and f number are exact.</p>
+					</li>
+					<li>
+						<p class="small_padding bold"><span class="mid_green_bgfill all_sm_padding large_font">Shutter Speed: 1/200</span></p>
+						<p class="sm_padding">It’s recommended that you always keep the shuttle speed around 1/200, which will always allow you to take crisp, clear photos, even if the person is moving slightly.</p>
+					</li>
+					<li>
+						<p class="small_padding bold"><span class="mid_green_bgfill all_sm_padding large_font">Aperture / f-number: 3.5</span></p>
+						<p class="sm_padding">Let’s set the f number to 3.5 instead of typically lower numbers(2.2, 2.5, 2.8), which will have a good depth of field effect and also allows more room for you to focus on the object.</p>
+					</li>
+					<li>
+						<p class="small_padding bold"><span class="mid_green_bgfill all_sm_padding large_font">ISO: Depends (Usually set to Auto)</span></p>
+						<p class="sm_padding">To compensate the brightness, you will need to adjust the ISO after you finish setting up the lighting. Please check the examples of brightness for reference.</p>
+					</li>
+				</ul>	
+			</div>
+
+
+			<div id="p1_camera_setting" class="medium_padding">
+				<h3 class="landing_text_main text-center">Camera Settings</h3>	
+
+				<ul class="manual_sublist">
+					<li>
+						<dl class="dl-horizontal text-overflow">
+						  <dt><span class="mid_green_bgfill all_sm_padding bold large_font">Camera Mode Manual</span></dt>
+						  <dd>Let’s do manual, because it sounds cool..  haha not exactly, because we want to make sure both the shutter speed and f number are exact.</dd>
+						</dl>
+						<p class="small_padding bold"></p>
+						<p class="sm_padding"></p>
+					</li>
+					<li>
+						<p class="small_padding bold"><span class="mid_green_bgfill all_sm_padding large_font">Shutter Speed: 1/200</span></p>
+						<p class="sm_padding">It’s recommended that you always keep the shuttle speed around 1/200, which will always allow you to take crisp, clear photos, even if the person is moving slightly.</p>
+					</li>
+					<li>
+						<p class="small_padding bold"><span class="mid_green_bgfill all_sm_padding large_font">Aperture / f-number: 3.5</span></p>
+						<p class="sm_padding">Let’s set the f number to 3.5 instead of typically lower numbers(2.2, 2.5, 2.8), which will have a good depth of field effect and also allows more room for you to focus on the object.</p>
+					</li>
+					<li>
+						<p class="small_padding bold"><span class="mid_green_bgfill all_sm_padding large_font">ISO: Depends (Usually set to Auto)</span></p>
+						<p class="sm_padding">To compensate the brightness, you will need to adjust the ISO after you finish setting up the lighting. Please check the examples of brightness for reference.</p>
+					</li>
+				</ul>	
+			</div>
+			
+			<div class="large_padding"></div>
+		</div>
+	</div>
+</div>
+
+
+{% endblock %}

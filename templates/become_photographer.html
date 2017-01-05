@@ -1,78 +1,67 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 {% block description %}
-  <meta name="description" content="Join Bryte Photo as a local college photographer or videographer! Bryte helps you build your portfolio, make extra bucks and connect to local businesses.">
+  <meta name="description" content="Apply to be a Bryte student photographer!">
 {% endblock %}
 {% block content %}
-	<div class="jumbotron medium_padding medium_padding_bot" style="background: url({% static 'img/jumbo3_dark.png' %}); background-size: cover; text-align: center;">
-		<div class="row">
-		<div class="col-xs-6 col-xs-offset-3">
-		<h2 class="text-center bold feature_title	 white">Join As a Creative!</h2>
-		</div>
-		</div>
-	</div>
 
-	<div class="background_grey">
-	<div class="container medium_padding">
-		<div class="row">
-			<div class="col-xs-10 col-xs-offset-1">
+<div class="">
+<div class="container">
+	<div class="row">
+		<div class="col-sm-10">
+			<div class="large_padding"></div>
+			<h1 class="bold landing_title_sec">Apply to become a Bryte Student Photographer!</h1>
+			<div class="medium_padding"></div>
 
+			<div class="page-header">
+				<h2 class="bold landing_text_main">Basic Qualification</h2>
+			</div>
+			<ol class="info_list">
+				<li>Expect around 30 hours of commitment per semester (24 hours on photoshoot, 4 hours in training, 2 hours in followup)</li>
+				<li>Willing to commute to other schools in nearby area, gas/uber fee will be covered</li>
+				
+				<li>Will be able to commit 5 hours straight on given dates</li>
+				<li>Has a relatively flexible schedule and will be available during school major career fairs</li>
+				<li>Be very responsive to trainier/shoot organizer</li>
+				<li>Be responsible, friendly and confident</li>
+				<li>Ability to understand the gist of taking good headshot photos from training and practice</li>
+				<li>Ability to learn from previous experiences</li>
+			</ol>
 
+			<div class="medium_padding"></div>
 
-				<div class="row medium_padding">
-					<div class="col-sm-6 round_border special_padding">
-							<h2 class="text-center">Build Your Portfolio</h2>
-							<div class="col-xs-10 col-xs-offset-1 small_padding">
-							<p class="light l_font">Get experience in a professional setting. You will have the opportunity to work with local businesses and more. This is an invaluable opportunity that will help launch your career.</p>
-							</div>
-					</div>
-					<div class="col-sm-6">
-						<img src="{% static 'img/becomeOne.png' %}" class="img-responsive">
-					</div>
-				</div>	
+			<div class="page-header">
+				<h2 class="bold landing_text_main">Summary of Key Responsibilities</h2>
+			</div>
+			<ol class="info_list">
+				<li>Goes through Bryte Training program (2 in person training, online quiz, post training practices, and post-shoot followup with your assigned trainer</li>
+				<li>Communicates with shoot organizer to confirm on the shoot dates weeks before the actual photoshoot</li>
+				<li>Shows up at Bryte photoshoot on given dates at given locations, set up the equipment and take amazing headshot photos for students</li>
+				<li>Upload the headshot photos to Dropbox after the shoot</li>
+				<li>Be punctual, responsible and friendly</li>
+			</ol>
 
+			<div class="medium_padding"></div>
 
-				<div class="row medium_padding">
-					<div class="col-sm-6">
-						<img src="{% static 'img/becomeTwo.png' %}" class="img-responsive">
-					</div>
-					<div class="col-sm-6 round_border special_padding">
-						<h2 class="text-center">Make Money</h2>
-						<div class="col-xs-10 col-xs-offset-1 small_padding">
-						<p class="light l_font">At Bryte, you will be exposed to a wide range of job opportunities. Our website provides you with free advertising, and a reliable review system so that customers can get to know you and your work.
-						</div>
-					</div>
-				</div>	
-
-
-				<div class="row large_padding">
-					<div class="col-sm-6 round_border special_padding">
-							<h2 class="text-center">It’s free!</h2>
-							<div class="col-xs-10 col-xs-offset-1 small_padding">
-							<p class="light l_font">You can be a member of Bryte at no cost to you. We charge only for completed transactions and take a 20% service fee.</p>
-							</div>
-					</div>
-					<div class="col-sm-6">
-						<img src="{% static 'img/becomeThree.png' %}" class="img-responsive">
-					</div>
-				</div>	
+			<div class="page-header">
+				<h2 class="bold landing_text_main">Required Knowledge</h2>
+			</div>
+			<ol class="info_list">
+				<li>Basic Knowledge of DSLR and its basic settings (Focus, Aperture, Shutter Speed, ISO, white balance..)</li>
+			</ol>
 
 
 
-			</div>	
+			<div class="large_padding"></div>
+			<a href="{% url 'photographer_app_form' %}"><button class="main_green_button_mid">Apply Now</button></a>
+			<div class="large_padding"></div>
 		</div>
 	</div>
 
 
 
-		<div class="row small_padding large_padding_bot">
-		<div class="col-xs-8 col-xs-offset-2">
-		<div class="background_light_blue" id='become_not'>
-		<p class="text-center all_padding_medium border_blue_dashed big_font">Email us at <a href="mailto:hello@brytephoto.com" class="blue">hello@brytephoto.com</a> with your name, and school and we will send you an email as soon as we can!<br>Have any questions? See our <a href="{% url 'faqs' %}" class="blue">FAQs</a></p>
-		</div>
-		</div>
-	</div>
 
+</div>
 </div>
 
 {% endblock %}
