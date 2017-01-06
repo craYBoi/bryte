@@ -12,16 +12,31 @@ class HpResource(resources.ModelResource):
 	# image = fields.Field(column_name='Image/Email')
 	# special_request = fields.Field(column_name='Special Request')
 	# background = fields.Field(column_name='Background')
-	photoshoot = fields.Field(column_name='photoshoot folder')
-	address = fields.Field(column_name='Address')
+	photoshoot_id = fields.Field(column_name='Photoshoot id')
+	image_id = fields.Field(column_name='Image id')
+	name = fields.Field(column_name='Name')
+	school = fields.Field(column_name='School')
+	shoot_date = fields.Field(column_name='Photoshoot Date')
+
 
 	class Meta:
 		model = HeadshotPurchase
 
-		fields = ('image', 'touchup', 'background', 'special_request', 'address')
+		fields = ('image_id', 'name', 'school', 'shoot_date', 'photoshoot_id', 'touchup', 'background', 'special_request')
 		
-	def dehydrate_image(self, headshotpurchase):
-		return headshotpurchase.image.__unicode__()
+		export_order = ('name', 'school', 'shoot_date', 'image_id', 'photoshoot_id', 'touchup', 'background', 'special_request')
+
+	def dehydrate_image_id(self, headshotpurchase):
+		return headshotpurchase.image.pk
+
+	def dehydrate_name(self, headshotpurchase):
+		return headshotpurchase.order.booking.name
+
+	def dehydrate_school(self, headshotpurchase):
+		return headshotpurchase.order.booking.timeslot.shoot.school
+
+	def dehydrate_shoot_date(self, headshotpurchase):
+		return headshotpurchase.order.booking.timeslot.shoot.date
 
 	def dehydrate_touchup(self, headshotpurchase):
 		return headshotpurchase.get_touchup_display()
@@ -29,22 +44,31 @@ class HpResource(resources.ModelResource):
 	def dehydrate_background(self, headshotpurchase):
 		return headshotpurchase.get_background_display()
 
-	def dehydrate_photoshoot(self, headshotpurchase):
-		return headshotpurchase.image.booking.timeslot.shoot
-
-	def dehydrate_address(self, headshotpurchase):
-		return headshotpurchase.order.address
+	def dehydrate_photoshoot_id(self, headshotpurchase):
+		return headshotpurchase.image.booking.timeslot.shoot.pk
 
 
 class HoResource(resources.ModelResource):
+	name = fields.Field(column_name='Full Name')
+	school = fields.Field(column_name='School')
+	date = fields.Field(column_name='Shoot Date')
 
 	class Meta:
 		model = HeadshotOrder
 
-		fields = ('booking', 'total', 'timestamp', 'address',)
+		fields = ('booking', 'name', 'date', 'school', 'total', 'timestamp', 'address',)
 		
 	def dehydrate_booking(self, headshotorder):
 		return headshotorder.booking.__unicode__()
+
+	def dehydrate_school(self, headshotorder):
+		return headshotorder.booking.timeslot.shoot.school
+
+	def dehydrate_date(self, headshotorder):
+		return headshotorder.booking.timeslot.shoot.date
+
+	def dehydrate_name(self, headshotorder):
+		return headshotorder.booking.name
 
 	def dehydrate_total(self, headshotorder):
 		return '$' + str(headshotorder.total)
@@ -86,21 +110,53 @@ class HeadshotOrderAdmin(ImportExportModelAdmin):
 
 	resource_class = HoResource
 
-	list_display = ['id', 'booking', 'total', 'timestamp', 'address', 'copied_to_touchup', 'copied_to_prod', 'delivered', 'touchup_folder', 'express_shipping', 'feedback_rating']
+	list_display = ['id', 'name', 'school', 'shoot_date', 'book_id', 'total', 'timestamp', 'address', 'copied_to_touchup', 'copied_to_prod', 'delivered', 'touchup_folder', 'express_shipping', 'feedback_rating']
+
+	def name(self, obj):
+		return obj.booking.name
+
+	def school(self, obj):
+		return obj.booking.timeslot.shoot.school
+
+	def shoot_date(self, obj):
+		return obj.booking.timeslot.shoot.date
+
+	def book_id(self, obj):
+		return obj.booking.pk
+
 
 
 class HeadshotPurchaseAdmin(ImportExportModelAdmin):
 
 	resource_class = HpResource
 
-	list_display = ['pk', 'image', 'order', 'touchup', 'background', 'package', 'total', 'special_request', 'get_order_address', 'charged', 'copied', 'copied_to_touchup', 'copied_to_prod', 'delivered']
+	list_display = ['pk', 'photo_id', 'name', 'school', 'shoot_date','photoshoot_id', 'headshot_order_id', 'touchup', 'background', 'package', 'total', 'special_request', 'get_order_address', 'charged', 'copied', 'copied_to_touchup', 'copied_to_prod', 'delivered']
+
+	def name(self, obj):
+		return obj.order.booking.name
+
+	def photoshoot_id(self, obj):
+		return obj.order.booking.timeslot.shoot.pk
+
+	def school(self, obj):
+		return obj.order.booking.timeslot.shoot.school
+
+	def shoot_date(self, obj):
+		return obj.order.booking.timeslot.shoot.date
+
+	def photo_id(self, obj):
+		return obj.image.pk
+
+	def headshot_order_id(self, obj):
+		return obj.order.pk
+
 
 
 
 class BookingAdmin(ImportExportModelAdmin):
 	resource_class = BookingResource
 
-	list_display = ['id', 'email', 'name', 'timeslot', 'hash_id', 'dropbox_folder', 'upgrade_folder_path', 'show_up', 'cust_type', 'timestamp']
+	list_display = ['id', 'email', 'name', 'timeslot', 'hash_id', 'dropbox_folder', 'upgrade_folder_path', 'show_up', 'cust_type', 'discount_amount', 'timestamp']
 
 admin.site.register(OriginalHeadshot, OriginalHeadshotAdmin)
 admin.site.register(HeadshotOrder, HeadshotOrderAdmin)
