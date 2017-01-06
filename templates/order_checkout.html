@@ -50,6 +50,7 @@
 											<li>Special Request: {{ order.special_request }}</li>
 										{% endif %}
 										<li>Background: {{ order.get_background_display }}</li>
+										<!--
 										{% if order.package == 1 %}
 											<div id="keepsake_{{ order.hash_id }}">
 												<li><a data-toggle="modal" data-target="#keepsake_box"><button class="keepsake_button main_green_button_xs" name="{{ order.hash_id }}">Get 6 wallet prints for $3</button></a></li>
@@ -57,6 +58,7 @@
 										{% else %}
 											<li>Prints: {{ order.get_package_display }}</li>
 										{% endif %}
+										-->
 
 										<li>Subtotal: ${{ order.total }}</li>
 										<!--<li><button class="remove_button" name="{{ order.hash_id }}">remove</button></li>-->
