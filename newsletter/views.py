@@ -168,7 +168,7 @@ def photographer_app_form(request):
 
 		context = {
 			'title_text': 'Photographer Application Form',
-			'notification_text': 'Thank you for your application! We will review it and get back to you very soon!'
+			'notification_text': 'Thank you for your application! We will review your application and get back to you very soon!'
 		}
 		return render(request, 'notification.html', context)
 
@@ -177,7 +177,7 @@ def photographer_app_form(request):
 
 		
 
-		
+
 	context = {
 		'form' : form,
 		'title_text': 'Photographer Application Form',
