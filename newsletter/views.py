@@ -156,7 +156,7 @@ def photographer_app_form(request):
 
 		# send email
 		print 'sending mail'
-		msg = 'Name: ' + data.get('name') + '\nemail: ' + data.get('email') + '\nschool: ' + data.get('school') + '\nyear in school: ' + data.get('year_in_school') + '\ndslr_model: ' + data.get('dslr_model') + '\nprev_job: ' + data.get('prev_job') + '\nphoto experience: ' + data.get('photo_exp') + '\nnumber of shoot: ' + data.get('num_of_shoot') + '\nflexible schedule: ' + data.get('flex_schedule') + '\nportfolio: ' + data.get('portfolio_link')
+		msg = 'Name: ' + str(data.get('name')) + '\n\nemail: ' + str(data.get('email')) + '\n\nschool: ' + str(data.get('school')) + '\n\nyear in school: ' + str(data.get('year_in_school')) + '\n\ndslr_model: ' + str(data.get('dslr_model')) + '\n\nprev_job: ' + str(data.get('prev_job')) + '\n\nphoto experience: ' + str(data.get('photo_exp')) + '\n\nnumber of shoot: ' + str(data.get('num_of_shoot')) + '\n\nportfolio: ' + str(data.get('portfolio_link')) + '\n\nself introduction: ' + str(data.get('self_intro'))
 
 		try:
 			send_mail('New Photographer Application', msg, 'Bryte Photo <' + settings.EMAIL_HOST_USER + '>', ['byyagp@gmail.com'], fail_silently=False)

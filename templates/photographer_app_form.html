@@ -14,7 +14,7 @@
 		<div class="col-sm-10 col-sm-offset-1">
 				<div class="large_padding"></div>
 			<!-- Application form -->
-				<h2 class="text-center landing_title_third">Bryte Student Photographer</h2>
+				<h2 class="text-center landing_title_third">Application</h2>
 				<div class="medium_padding"></div>
 				<p class="text-right">* required</p>
 				<div class="small_padding"></div>
@@ -26,10 +26,13 @@
           <div class="">
           <form method="POST" action="{% url 'photographer_app_form' %}" class="form_lg_input">{% csrf_token %}
           	{{ form | crispy }}
-            <div class="sm_padding"></div>
+            <div class="small_padding"></div>
 
-	          <p class="small_font">By submitting the application, I agree to the contractor terms & agreement</p>
-            <a href=""><button type="submit" class="bold large_font main_green_button_mid" id="careerlab_book_button">Submit</button></a>
+	          <p class="small_font text-center">By submitting the application, I agree to adhere to the terms described in <a href="{% url 'legal' %}" class="main_green underline" target="_blank">Independent Contractor Agreement</a></p>
+	          <div class="sm_padding"></div>
+	          <div class="text-center">
+	            <a href=""><button type="submit" class="bold large_font main_green_button_mid" id="careerlab_book_button">Submit</button></a>
+            </div>
 
             <div class="large_padding"></div>
           </form>

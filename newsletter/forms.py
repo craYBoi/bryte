@@ -24,12 +24,11 @@ class PhotographerApplicationForm(forms.Form):
 		label='Your year in school',
 	)
 	dslr_model = forms.CharField(max_length=50, label='Your DSLR model and lens')
-	prev_job = forms.CharField(max_length=200, label='Please describe your last paid job')
+	prev_job = forms.CharField(max_length=200, label='Please describe one of your previous paid jobs')
 	photo_exp = forms.CharField(
 		widget=forms.Select(choices=PHOTO_EXP_CHOICE),
 		label='How many years of photography experience do you have?',
 	)
-	num_of_shoot = forms.CharField(max_length=100, label='How many photoshoots do you plan to do per semester? (Assuming each photoshoot lasts 5 hours)')
-	flex_schedule = forms.CharField(max_length=100, label='Do you have a relatively flexible schedule?')
+	num_of_shoot = forms.CharField(max_length=100, label='How many photoshoots do you plan to do per semester? (Assuming each photoshoot lasts 6 hours)')
 	portfolio_link = forms.CharField(max_length=100, required=False, label='Link to your portfolio')
-
+	self_intro = forms.CharField(widget=forms.Textarea, label="Tell us a little bit about yourself")
