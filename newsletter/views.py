@@ -115,6 +115,7 @@ def photographer_manual(request):
 	return render(request, 'photographer_manual.html', context)
 
 
+@csrf_exempt 
 def photographer_app_form(request):
 
 	form = PhotographerApplicationForm(request.POST or None)
@@ -146,7 +147,7 @@ def photographer_app_form(request):
 			pass
 		else:
 			print 'Application saved!'
-			
+
 		print pa
 
 		# send email
