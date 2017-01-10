@@ -7,38 +7,31 @@
 
 
 {% block content %}
-	<div class="red_bg">
+	<div class="background_grey">
 		<div class="container">
 			<div class="large_padding"></div>
-			<h2 class="landing_title_sec bold white text-center">Let your family know about your headshots!</h2>
+			<h1 class="landing_title_sec bold text-center">Share with your family!</h1>
 
-			<h3 class="white text-center landing_text_main">We make it easy to share your headshots with your family. </h3>
 
 
 			<div class="medium_padding"></div>
 
-			<div class="signup_form">
+			<div class="signup_form form_lg_input">
 			<div class="text-center">
       <form method="POST" action="" class="white">{% csrf_token %}
       	<input type='email' name='family_email' class="form-control" id='family_email' required placeholder='Your email address'>
       	<div class="small_padding"></div>
         <input type='email' name='family_email_family' class="form-control" id='family_email_family' placeholder='Your family email address'>
         <div class="small_padding"></div>
+        <div class="medium_padding"></div>
+        <button class="main_green_button_mid bold large_font" id="family_button" type='submit'>Share</button>
         <div class="small_padding"></div>
-        <button class="btn-white bold large_font" id="family_button" type='submit'>Submit</button>
-        <div class="small_padding"></div>
-        <p class="text-center small_font">We will never spam your family.<br>If you want to enter more than one email<br>hit refresh and enter the desired email.</p>
       </form>
       </div>
       </div>
 
-			<div class="medium_padding"></div>
-			<ol class="white light">
-				<li>Input their email(s) below and we will let them know when your headshots are available (only you and whoever has email access to the account you input will be able to see your headshots – we’ll give you each a special code)</li>
-				<li>They will be able to see your headshots and buy as many as they’d like.</li>
-				<li>Whenever your family buys headshots, they will become instantly available for you to download and keep!</li>
-			</ol>
-			<div class="medium_padding"></div>
+			<div class="large_padding"></div>
+
 		</div>
 	</div>
 
