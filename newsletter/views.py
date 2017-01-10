@@ -119,6 +119,10 @@ def photographer_manual(request):
 def photographer_app_form(request):
 
 	form = PhotographerApplicationForm(request.POST or None)
+	context = {
+		'title_text': 'Photographer Application Form',
+		'form': form,
+	}
 	if form.is_valid():
 		data = form.cleaned_data
 		# print instance
@@ -161,6 +165,14 @@ def photographer_app_form(request):
 			pass
 		else:
 			print 'Application sent!'
+
+		context = {
+			'title_text': 'Photographer Application Form',
+			'notification_text': 'Thank you for your application! We will review it and get back to you very soon!'
+		}
+		return render(request, 'notification.html', context)
+
+	return render(request, 'photographer_app_form.html', context)
 
 
 		
