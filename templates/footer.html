@@ -52,7 +52,7 @@
 
   <div class="medium_padding white">
     <p class="text-center">Have any questions? Email <a href="mailto:hello@brytephoto.com" target="_top" class="light_green">hello@brytephoto.com</a></p>
-    <div class="small_padding"></div>
+    <div class="medium_padding"></div>
     <ul class="list-inline bold">
       <li><a href="{% url 'legal' %}" class="white"><span class="light_green">L</span>egal Documentation</a></li>
       {% if request.user.is_authenticated %}
@@ -61,6 +61,19 @@
         <li><a href="{% url 'auth_logout' %}" class="white"><span class="light_green">L</span>og Out</a></li>
       {% else %}
         <!--<li><a href="{% url 'auth_login' %}" class="white"><span class="light_green">P</span>hotographer Login</a></li>-->
+      {% endif %}
+      {% if is_index %}
+        <li>
+        <a href="{% url 'photographer_app' %}"><span class="white">Become a photographer</span></a>
+        </li>
+
+        <li>
+        <a href="{% url 'landing_clients' %}"><span class="white">Our partner schools</span></a>
+        </li>
+
+        <li>
+        <a href="{% url 'landing_contact' %}"><span class="light_green">Try a photoshoot</span></a>
+        </li>
       {% endif %}
     </ul>
     <div class="small_padding"></div>
