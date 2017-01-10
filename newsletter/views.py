@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.conf import settings
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMessage
 from django.http import Http404, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
@@ -9,9 +9,9 @@ import os
 import dropbox
 
 import json
-from .forms import SignUpForm
+from .forms import SignUpForm, PhotographerApplicationForm
 from photographer.models import Photographer
-from .models import Price, PriceFeature, ContactSale, ContactHelp, FamilyContact
+from .models import Price, PriceFeature, ContactSale, ContactHelp, FamilyContact, PhotographerApplication
 from book.models import TimeSlot, NextShoot
 from careerlab.models import Booking, ImagePurchase, HeadshotImage
 
@@ -116,14 +116,66 @@ def photographer_manual(request):
 
 
 def photographer_app_form(request):
+
+	form = PhotographerApplicationForm(request.POST or None)
+	if form.is_valid():
+		data = form.cleaned_data
+		# print instance
+		pa = PhotographerApplication(
+			name = data.get('name'),
+			email = data.get('email'),
+			school = data.get('school'),
+			year_in_school = data.get('year_in_school'),
+			dslr_model = data.get('dslr_model'),
+			prev_job = data.get('prev_job'),
+			photo_exp = data.get('photo_exp'),
+			# flex_schedule = data.get('flex_schedule'),
+			num_of_shoot = data.get('num_of_shoot'),
+			portfolio_link = data.get('portfolio_link'),
+			)
+
+		print 'Application received.'
+		print data
+
+		# save application
+		print 'now saving to database..'
+		try:
+			pa.save()
+		except Exception, e:
+			print 'Application Saving to DB failed'
+			pass
+		else:
+			print 'Application saved!'
+			
+		print pa
+
+		# send email
+		print 'sending mail'
+		msg = 'Name: ' + data.get('name') + '\nemail: ' + data.get('email') + '\nschool: ' + data.get('school') + '\nyear in school: ' + data.get('year_in_school') + '\ndslr_model: ' + data.get('dslr_model') + '\nprev_job: ' + data.get('prev_job') + '\nphoto experience: ' + data.get('photo_exp') + '\nnumber of shoot: ' + data.get('num_of_shoot') + '\nflexible schedule: ' + data.get('flex_schedule') + '\nportfolio: ' + data.get('portfolio_link')
+
+		try:
+			send_mail('New Photographer Application', msg, 'Bryte Photo <' + settings.EMAIL_HOST_USER + '>', ['byyagp@gmail.com'], fail_silently=False)
+		except Exception, e:
+			print 'Application not sent..'
+			pass
+		else:
+			print 'Application sent!'
+
+
+		
+
+		
 	context = {
-		'title_text': 'Photographer Application Form'
+		'form' : form,
+		'title_text': 'Photographer Application Form',
 	}
 
 	return render(request, 'photographer_app_form.html', context)
 
 
 def select_photographer(request):
+
+
 	context = {
 		'title_text': 'How do we select our photographers'
 	}

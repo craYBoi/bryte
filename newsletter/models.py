@@ -73,3 +73,19 @@ class FamilyContact(models.Model):
 	email = models.EmailField()
 	book = models.ForeignKey(Booking, blank=True, null=True)
 	family_email = models.EmailField()
+
+
+class PhotographerApplication(models.Model):
+	name = models.CharField(max_length=120)
+	email = models.EmailField()
+	school = models.CharField(max_length=60)
+	year_in_school = models.CharField(max_length=20)
+	dslr_model = models.CharField(max_length=50)
+	prev_job = models.CharField(max_length=200)
+	photo_exp = models.CharField(max_length=50)
+	num_of_shoot = models.CharField(max_length=100)
+	portfolio_link = models.CharField(max_length=100, blank=True, null=True)
+	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
+
+	def __unicode__(self):
+		return self.name

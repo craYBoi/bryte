@@ -11,6 +11,10 @@
 	<div class="row">
 		<div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
 			<h1 class="landing_title_sec bold white">Turn your passion for photography into an awesome job.</h1>	
+			<div class="small_padding"></div>
+			<div class="text-center">
+				<a href="{% url 'become_photographer' %}"><button type="button" class="bold large_font main_green_button_mid" id="careerlab_book_button">Become a photographer</button></a>
+			</div>
 		</div>
 	</div>
 	<div class="medium_padding"></div>
@@ -81,7 +85,25 @@
 			<p class="small_font">One of our photographers made $800 over five, 5-hour-photoshoots last semester. Gary quote. Jackie quote.</p>
 
 			<div class="medium_padding"></div>
-			<img src="{% static 'img/photographers/gary1.jpg' %}" width='50%'>
+			
+
+			<div class="row">
+				<div class="col-sm-6">
+					<img src="{% static 'img/photographers/gary1.jpg' %}" width='90%'>
+					<div class="page-header">
+						<h4>Gary, Brown University Junior</h4>
+					</div>
+					<p>I absolutely enjoyed being a bryte photographer, because I realize that taking portrait photos and interacting with people are really fun. The pay is also very good!</p>
+				</div>
+				<div class="col-sm-6">
+					<img src="{% static 'img/photographers/gary1.jpg' %}" width='90%'>
+					<div class="page-header">
+						<h4>Jackie, Boston University Freshman</h4>
+					</div>
+					<p>it's a really good chance to get experience with portraits, I learned a lot about how lighting effects portraits. Also the pace of the job made me more comfortable with making adjustments comfortably while photographing outside of the job</p>
+				</div>
+			</div>
+
 
 			<div class="medium_padding"></div>
 			<h2 class="landing_title_third">Learn from experts</h2>
@@ -92,7 +114,7 @@
 	
 	<div class="text-center">
   <div class="large_padding"></div>
-  <a href="{% url 'become_photographer' %}"><button type="button" class="bold large_font main_green_button_mid" id="careerlab_book_button">Apply now</button></a>
+  <a href="{% url 'become_photographer' %}"><button type="button" class="bold large_font main_green_button_mid" id="careerlab_book_button">Become a photographer</button></a>
   <div class="large_padding"></div>
   </div>
 

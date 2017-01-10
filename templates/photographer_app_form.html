@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+{% load crispy_forms_tags %}
+
+
 {% block description %}
   <meta name="description" content="Apply to be a Bryte student photographer!">
 {% endblock %}
@@ -17,6 +20,16 @@
 				<div class="small_padding"></div>
         <div id="">
           <div class="">
+          <form method="POST" action="{% url 'photographer_app_form' %}" class="form_lg_input">{% csrf_token %}
+          	{{ form | crispy }}
+            <div class="sm_padding"></div>
+
+	          <p class="small_font">By submitting the application, I agree to the contractor terms & agreement</p>
+            <a href=""><button type="submit" class="bold large_font main_green_button_mid" id="careerlab_book_button">Submit</button></a>
+
+            <div class="large_padding"></div>
+          </form>
+          <!--
           <form method="POST" action="{% url 'photographer_app_form' %}">{% csrf_token %}
 
           	<p class="landing_text">First & Last name *</p>
@@ -43,7 +56,7 @@
             </select>
             <div class="medium_padding"></div>
 
-            
+
           	<p class="landing_text">Your DSLR model *</p>
             <input type='text' name='photographer_dslr' class="form-control lg_input" id='photographer_dslr' required>
             <div class="medium_padding"></div>
@@ -61,18 +74,27 @@
             <div class="medium_padding"></div>
 
 
+          	<p class="landing_text">How many photoshoots do you think you could do next semester? (Assuming a photoshoot lasts 5 hours)*</p>
+            <input type='text' name='photographer_hours' class="form-control lg_input" id='photographer_hours' required>
+            <div class="medium_padding"></div>
+
+
           	<p class="landing_text">Online Portfolio links (if you have any)</p>
             <input type='text' name='photographer_portfolio' class="form-control lg_input" id='photographer_portfolio'>
             <div class="medium_padding"></div>
 
 
-            <!-- booking button -->
+
+
+
+            
             <div class="sm_padding"></div>
 
 	           <p class="small_font">By submitting the application, I agree to the contractor terms & agreement</p>
-            <button type="submit" class="bold large_font main_green_button_mid" id="careerlab_book_button">Submit</button>
+            <a href=""><button type="submit" class="bold large_font main_green_button_mid" id="careerlab_book_button">Submit</button></a>
             <div class="large_padding"></div>
           </form>
+          -->
           </div>
 
       </div>

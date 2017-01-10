@@ -2416,6 +2416,16 @@ body, html
 	font-size: 1em;
 }
 
+.form_lg_input input{
+	height: 3em!important;
+	font-size: 1em!important;
+}
+
+.form_lg_input select{
+	height: 3em!important;
+	font-size: 1em!important;
+}
+
 .book_button {
 	font-family: 'Lato', sans-serif;
 	font-weight: bold;
@@ -2880,6 +2890,7 @@ body, html
   }
 
 }
+
 
 /* manual */
 .manual_sublist li {
