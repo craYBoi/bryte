@@ -12,6 +12,7 @@ from random import SystemRandom
 import string
 import json
 import stripe
+from math import ceil
 
 
 
@@ -60,6 +61,23 @@ def index(request, school='brown'):
 		school_abbr = 'Brown'
 		school_title = 'CareerLAB'
 		school_location = 'CareerLAB'
+		if nextshoot:
+			nextshoot = nextshoot[0]
+			timeslots = nextshoot.timeslot_set.filter(is_available=True).order_by('time')	
+		else:
+			raise Http404
+
+	elif school.lower() == 'bcc':
+		title = 'Bryte & Bristol Community College'
+		nextshoot = Nextshoot.objects.filter(school='Bristol Community College').order_by('-date')
+		bg_url = static('img/brown_campus.jpg')
+		logo_url = static('logo/schools/bcc.jpg')
+		school_name = 'Brown University CareerLAB'
+		school_url = 'http://www.bristolcc.edu/'
+		school_bryte_url = 'bcc'
+		school_abbr = 'Bristol Community College'
+		school_title = 'Bristol Community College'
+		school_location = 'BCC'
 		if nextshoot:
 			nextshoot = nextshoot[0]
 			timeslots = nextshoot.timeslot_set.filter(is_available=True).order_by('time')	
@@ -611,7 +629,7 @@ def headshot_style(request):
 		print request.session['proceed']
 
 		# calculate discount to display next to the price
-		discount = '(%' + str(int((1-booking.discount_amount) * 100)) + ' OFF)'
+		discount = '(%' + str(int(100 - booking.discount_amount * 100)) + ' OFF)'
 
 		context = {
 			'myheadshot': 1,
