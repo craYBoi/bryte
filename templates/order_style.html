@@ -72,7 +72,7 @@
 		<div class="large_padding"></div>
   </div>
 
-  </div>
+
 
 	<div class="droid_serif pusher">
 		<div class="">
@@ -126,12 +126,18 @@
 							<input type="hidden" name='background' value='1' id="basic_background">
 							<input type="hidden" name='hs_id' value='{{ hs_id }}'>
 							<input type="hidden" name='package' value='1'>
-							<input type="hidden" name='subtotal' value='{{ shoot.basic_price }}' id="basic_price">
+							<input type="hidden" name='subtotal' value='{{ booking.final_standard_price }}' id="basic_price">
 
 							<div class="all_padding desktop_disp">
-							<p class="price_font_size dark_grey">${{ shoot.basic_price }}</p>
-							<button class="main_green_button_100 basic_add" type="submit">Add to cart</button>
-							<p class="small_font italic sm_padding grey">Available for download within 7 business days</p>
+
+							{% if is_discounted %}
+								<p class="price_font_size"><del class="dark_grey">${{ booking.timeslot.shoot.basic_price }}</del> <span class="mid_green bold">${{ booking.final_standard_price }}</span> <span class="mid_green small_font">{{ discount }}</span></p>
+							{% else %}
+								<p class="price_font_size"><span class="dark_grey">${{ booking.timeslot.shoot.basic_price }}</span></p>
+							{% endif %}
+								
+								<button class="main_green_button_100 basic_add" type="submit">Add to cart</button>
+								<p class="small_font italic sm_padding grey">Available for download within 7 business days</p>
 							</div>
 						</form>
 
@@ -218,11 +224,15 @@
 							<input type="hidden" name='background' id="prof_background">
 							<input type="hidden" name='hs_id' value='{{ hs_id }}'>
 							<input type="hidden" name='package' value='1'>
-							<input type="hidden" name='subtotal' value='{{ shoot.professional_price }}' id="prof_price">
+							<input type="hidden" name='subtotal' value='{{ booking.final_plus_price }}' id="prof_price">
 							<div class="all_padding desktop_disp">
 
-								<p class="price_font_size dark_grey">${{ shoot.professional_price }}</p>
-
+							{% if is_discounted %}
+								<p class="price_font_size"><del class="dark_grey">${{ booking.timeslot.shoot.professional_price }}</del> <span class="mid_green bold">${{ booking.final_plus_price }}</span> <span class="mid_green small_font">{{ discount }}</span></p>
+							{% else %}
+								<p class="price_font_size"><span class="dark_grey">${{ booking.timeslot.shoot.professional_price }}</span></p>
+							{% endif %}
+								
 								<div class="sm_padding"></div>
 								<button class="main_green_button_100 prof_add" type="submit">Add to cart</button>
 								<p class="small_font italic sm_padding grey">Available for download within 7 business days</p>
@@ -327,10 +337,15 @@
 							<input type="hidden" name='touchup' value='4' id="cust_touchup">
 							<input type="hidden" name='hs_id' value='{{ hs_id }}'>
 							<input type="hidden" name='package' value='1'>
-							<input type="hidden" name='subtotal' value='{{ shoot.customized_price }}' id="cust_price">
+							<input type="hidden" name='subtotal' value='{{ booking.final_customized_price }}' id="cust_price">
 
 							<div class="desktop_disp">
-								<p class="price_font_size dark_grey">${{ shoot.customized_price }}</p>
+								{% if is_discounted %}
+									<p class="price_font_size"><del class="dark_grey">${{ booking.timeslot.shoot.customized_price }}</del> <span class="mid_green bold">${{ booking.final_customized_price }}</span> <span class="mid_green small_font">{{ discount }}</span></p>
+								{% else %}
+									<p class="price_font_size"><span class="dark_grey">${{ booking.timeslot.shoot.customized_price }}</span></p>
+								{% endif %}
+								
 								<div class="sm_padding"></div>
 								<button class="main_green_button_100 cust_add" type='Submit'>Add to cart</button>
 								<p class="small_font italic sm_padding grey">Available for download within 7 business days</p>
@@ -357,7 +372,16 @@
 			<div class="row mobile_disp">
 				<div class="col-sm-4">
 					<div class="all_padding">
-						<div class=""><div class="inline"><p class="xlarge_font dark_grey">${{ shoot.basic_price }}</p></div></div>
+						<div class=""><div class="inline">
+							{% if is_discounted %}
+								<p class="xlarge_font"><del class="dark_grey">${{ booking.timeslot.shoot.basic_price }}</del> <span class="mid_green bold">${{ booking.final_standard_price }}</span> <span class="mid_green small_font">{{ discount }}</span></p>
+							{% else %}
+								<p class="xlarge_font"><span class="dark_grey">${{ booking.timeslot.shoot.basic_price }}</span></p>
+							{% endif %}
+							
+							</div>
+						</div>
+
 
 						<div class="sm_padding"></div>
 						<button class="main_green_button_100 basic_add">Add to cart</button>
@@ -367,7 +391,16 @@
 
 				<div class="col-sm-4">
 					<div class="all_padding">
-						<div class=""><div class="inline"><p class="xlarge_font dark_grey">${{ shoot.professional_price }}</p></div></div>
+						<div class=""><div class="inline">
+
+						{% if is_discounted %}
+							<p class="xlarge_font"><del class="dark_grey">${{ booking.timeslot.shoot.professional_price }}</del> <span class="mid_green bold">${{ booking.final_plus_price }}</span> <span class="mid_green small_font">{{ discount }}</span></p>
+						{% else %}
+							<p class="xlarge_font"><span class="dark_grey">${{ booking.timeslot.shoot.professional_price }}</span></p>
+						{% endif %}
+							
+							</div>
+						</div>
 
 						<div class="sm_padding"></div>
 						<button class="main_green_button_100 prof_add">Add to cart</button>
@@ -377,7 +410,16 @@
 
 				<div class="col-sm-4">
 					<div class="all_padding">
-						<div class=""><div class="inline"><p class="xlarge_font dark_grey">${{ shoot.customized_price }}</p></div></div>
+						<div class=""><div class="inline">
+
+						{% if is_discounted %}
+							<p class="xlarge_font"><del class="dark_grey">${{ booking.timeslot.shoot.customized_price }}</del> <span class="mid_green bold">${{ booking.final_customized_price }}</span> <span class="mid_green small_font">{{ discount }}</span></p>
+						{% else %}
+							<p class="xlarge_font"><span class="dark_grey">${{ booking.timeslot.shoot.customized_price }}<span></p>
+						{% endif %}
+							
+							</div>
+						</div>
 						<div class="sm_padding"></div>
 						<button class="main_green_button_100 cust_add">Add to cart</button>
 						<p class="small_font italic sm_padding grey">Available for download within 7 business days</p>

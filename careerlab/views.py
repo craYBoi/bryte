@@ -14,6 +14,7 @@ import json
 import stripe
 
 
+
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 # School url definition
@@ -478,7 +479,7 @@ def headshot_index(request):
 			package = int(request.GET.get('package'))
 			hs_id = request.GET.get('hs_id')
 			special_request = request.GET.get('special_request')
-			subtotal = int(request.GET.get('subtotal'))
+			subtotal = float(request.GET.get('subtotal'))
 
 			hs = get_object_or_404(OriginalHeadshot, hash_id=hs_id)
 
@@ -559,13 +560,17 @@ def headshot_index(request):
 			request.session['proceed'] = HeadshotOrder.objects.filter(booking=booking).exists() or proceed
 
 			context['orders'] = orders
-			context['order_total'] = int(sum(a.total for a in orders))
+			context['order_total'] = (sum(float(a.total) for a in orders))
 
 		return render(request, 'order_index.html', context)
 	else:
 		return redirect('headshot_error')
 
 
+# DISCOUNT:
+# 0. Change shoot price for display in style html, create function under Booking that returns the final price after discount.
+# 1. calculate discount in add, remove ajax function.
+# 2. Also the total amount in headshot_style in show my cart
 
 def headshot_style(request):
 
@@ -605,6 +610,9 @@ def headshot_style(request):
 		print 'proceed in style:',
 		print request.session['proceed']
 
+		# calculate discount to display next to the price
+		discount = '(%' + str(int((1-booking.discount_amount) * 100)) + ' OFF)'
+
 		context = {
 			'myheadshot': 1,
 			'title_text': 'Style Your Photo',
@@ -616,8 +624,11 @@ def headshot_style(request):
 			'proceed': request.session.get('proceed'),
 			'headshots': zip(headshot_urls, headshot_ids),
 			'shoot': shoot,
+			'booking': booking,
 			'show_selected_headshot': 1,
 			'show_checkout_button': len(orders) != 0,
+			'discount': discount,
+			'is_discounted': booking.is_discounted(),
 		}
 
 		# set stage

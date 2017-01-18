@@ -37,7 +37,7 @@ FIRST_AFTER_SHOOT_EMAIL_ID = '4463c390-4085-4936-863d-12652c8a0a0d'
 SURVEY_EMAIL_TO_FREE_CLIENT_ID = '6e9cb0a1-535b-42dc-9279-4b9d23f19a1a'
 SURVEY_EMAIL_TO_FAVORED_CLIENT_ID = '5c562a0c-25f6-4151-a81a-99089ea00d61'
 FORGET_TO_ORDER_YOUR_HEADSHOT_ID = '6f6a328f-11b2-48c9-8879-751fe4c8b268'
-
+TOP_CLIENT_SALE_1_ID = '4556724e-b952-4e75-8430-1632d0daec58'
 
 # max sessions per time slot
 MAX_VOLUMN = 8
@@ -94,6 +94,7 @@ class Nextshoot(models.Model):
 		no_download = 0
 		free = 0
 		paid = 0
+		exclusive = 0
 
 		for booking in bookings:
 			cust_type = booking.update_cust_type()
@@ -103,10 +104,13 @@ class Nextshoot(models.Model):
 				free += 1
 			elif cust_type == 3:
 				paid += 1
+			elif cust_type == 4:
+				exclusive += 1
 			else:
 				no_show += 1
 
-		print 'Total number: ' + str(total)
+		print '\nTotal number: ' + str(total)
+		print 'Exclusive customer: ' + str(exclusive)
 		print 'Paid customer: ' + str(paid)
 		print 'Free customer: ' + str(free)
 		print 'No download customer: ' + str(no_download)
@@ -799,10 +803,12 @@ class Booking(models.Model):
 		(1, 'No free nor buy'),
 		(2, 'Free only'),
 		(3, 'Paid customer'),
+		(4, 'Exclusive member'),
 		)
 
 	cust_type = models.PositiveSmallIntegerField(choices=TYPE, blank=True, null=True)
 
+	discount_amount = models.FloatField(default=1.)
 
 	def __unicode__(self):
 		return self.name + ' ' + self.email + ' ' + str(self.timeslot)
@@ -820,36 +826,78 @@ class Booking(models.Model):
 		super(Booking, self).save(*args, **kwargs)
 
 
+	# return the final price after discount
+	def final_standard_price(self):
+		r = round(self.timeslot.shoot.basic_price * self.discount_amount, 2)
+		if r.is_integer():
+			return int(r)
+		return r
+
+	def final_plus_price(self):
+		r = round(self.timeslot.shoot.professional_price * self.discount_amount, 2)
+		if r.is_integer():
+			return int(r)
+		return r
+
+	def final_customized_price(self):
+		r = round(self.timeslot.shoot.customized_price * self.discount_amount, 2)
+		if r.is_integer():
+			return int(r)
+		return r
+
+
+	# return if the booking instance is discounted
+	def is_discounted(self):
+		return not self.discount_amount == 1.
+
+
+	# update/clear the discount amount on all the bookings
+	# in utils, write a function that does this for all booking
+	def reset_discount_amount(self):
+		self.discount_amount = 1.
+		super(Booking, self).save()
+
+
+	def update_discount_amount(self, amount, criterion=True):
+		# TODO, check criterion
+		if criterion:
+			self.discount_amount = amount
+			super(Booking, self).save()
+
+
+
 	def update_cust_type(self):
 		# update the cust type
 		# filter showup first, then according to Order
 		if self.show_up:
 
 			orders = HeadshotOrder.objects.filter(booking=self)
-			if orders:
-				for order in orders:
-					if order.total > 0:
-						# paid customer
-						self.cust_type = 3
-						break
 
-					else:
-						# free customer
-						self.cust_type = 2
+			# type 2,3 or 4
+			if orders:
+				total_spent = sum(order.total for order in orders)
+
+				print 'Total Spent: ' + str(total_spent)
+
+				if total_spent == 0:
+					self.cust_type = 2
+				elif total_spent > 0 and total_spent <= 20:
+					self.cust_type = 3
+				else:
+					self.cust_type = 4
 			else:
 				self.cust_type = 1
-
-		else:
-			print '[NO SHOW] -- ' + self.email
-			return 0
-				
+				print 'No download'
 
 		if self.cust_type == 1:
-			print '[NO TYPE] -- ' + self.email
+			print '[NO TYPE] -- ' + self.email + '\n'
 		elif self.cust_type == 2:
-			print '[FREE TYPE] -- ' + self.email
+			print '[FREE TYPE] -- ' + self.email + '\n'
 		elif self.cust_type == 3:
-			print '[PAID TYPE] -- ' + self.email
+			print '[PAID TYPE] -- ' + self.email + '\n'
+		elif self.cust_type == 4:
+			print '[EXCLUSIVE TYPE] -- ' + self.email + '\n'
+
 			
 
 		super(Booking, self).save()
@@ -1289,6 +1337,15 @@ class Booking(models.Model):
 		message.add_substitution('-first_name-', first_name)
 		message.add_substitution('-order_detail-', html_content)
 
+		# do the order expect
+		# set days to 9 for now
+		now = datetime.now()
+		de = timedelta(days=9)
+		new_d = now + de
+		cleaned_d = new_d.strftime('%Y-%m-%d')
+		message.add_substitution('-order_expect-', cleaned_d)
+
+
 		try:
 			sg.send(message)
 		except Exception, e:
@@ -1364,8 +1421,8 @@ class Booking(models.Model):
 			print '[SENT] --- ' + str(email)
 		return send
 
-
-	def ric_not_paying(self):
+	
+	def top_client_sale_1_email(self):
 		send = False
 		name = self.name
 		first_name = name.split(' ')[0]
@@ -1374,6 +1431,54 @@ class Booking(models.Model):
 		timeslot = self.timeslot
 		shoot = timeslot.shoot
 		location = shoot.location
+		date = shoot.date
+		school = shoot.school
+
+		# get template, version name, and automatically add to category
+		email_purpose = 'Error'
+		version_number = 'Error'
+		try:
+			email_template = json.loads(sgapi.client.templates._(TOP_CLIENT_SALE_1_ID).get().response_body)
+			versions = email_template.get('versions')
+			version_number = [v.get('name') for v in versions if v.get('active')][0]
+			email_purpose = email_template.get('name')
+		except Exception, e:
+			pass
+
+		category = [school + ' - ' + str(date), email_purpose, version_number]
+
+
+		message = sendgrid.Mail()
+		message.add_to(email)
+		message.set_from('Bryte Inc <' + settings.EMAIL_HOST_USER + '>')
+		# subject to change
+		message.set_subject('We got a 48 hour secret sale for you!')
+		message.set_html('Body')
+		message.set_text('Body')
+		message.add_filter('templates','enable','1')
+		message.add_filter('templates','template_id', TOP_CLIENT_SALE_1_ID)
+		message.set_categories(category)
+		message.add_substitution('-first_name-', first_name)
+
+		try:
+			sg.send(message)
+		except Exception, e:
+			print '[NOT SENT] --- ' + str(email)
+			# raise e
+		else:
+			send = True
+			print '[SENT] --- ' + str(email)
+		return send
+
+	
+	def ric_not_paying(self):
+		send = False
+		name = self.name
+		first_name = name.split(' ')[0]
+		email = self.email
+		hash_id = self.hash_id
+		timeslot = self.timeslot
+		shoot = timeslot.shoot
 		date = shoot.date
 		school = shoot.school
 		# get template, version name, and automatically add to category
@@ -1392,7 +1497,7 @@ class Booking(models.Model):
 		message = sendgrid.Mail()
 		message.add_to(email)
 		message.set_from('Bryte Inc <' + settings.EMAIL_HOST_USER + '>')
-		message.set_subject('New version of your Linkedin headshot') 
+		message.set_subject('New version of your Linkedin headshot')
 		message.set_html('Body')
 		message.set_text('Body')
 		message.add_filter('templates','enable','1')
@@ -2025,3 +2130,9 @@ class ImagePurchase(models.Model):
 
 
 
+# class Discount(models.Model):
+# 	name = models.CharField(max_length=120)
+# 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
+
+	# the following corresponds to the customer type
+	# Will there be a discount on no download people?
