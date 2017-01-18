@@ -39,7 +39,7 @@
               <div class="small_padding"></div>
               <div class="text-center">
               <form method="POST" action="{% url 'careerlab_signup' %}" class="white">{% csrf_token %}
-                <input type='text' name='careerlab_signup_name' class="form-control lg_input" id='careerlab_signup_name' required pattern="[a-zA-Z]{2,}(\s+[a-zA-z]{2,})+" placeholder='First & Last Name'>
+                <input type='text' name='careerlab_signup_name' class="form-control lg_input" id='careerlab_signup_name' required pattern="[a-zA-Z._-]{2,}(\s+[a-zA-Z._-]{2,})+" placeholder='First & Last Name'>
                 <div class="small_padding"></div>
                 <input type='email' name='careerlab_signup_email' class="form-control lg_input" id='careerlab_signup_email' required placeholder='Email Address' onchange="try{setCustomValidity('')}catch(e){}">
 
@@ -64,8 +64,9 @@
               <div id="book_form">
                 <div class="">
                 <form method="POST" action="{% url 'careerlab_book' %}" class=" white">{% csrf_token %}
-  
-                  <input type='text' name='careerlab_book_name' class="form-control lg_input" id='careerlab_book_name' required pattern="[a-zA-Z.]{2,}(\s+[a-zA-z.]{2,})+" placeholder='First & Last Name'>
+
+
+                  <input type='text' name='careerlab_book_name' class="form-control lg_input" id='careerlab_book_name' required pattern="[a-zA-Z._-]{2,}(\s+[a-zA-Z._-]{2,})+" placeholder='First & Last Name'>
                   <div class="small_padding"></div>
 
                   <input type='email' name='careerlab_book_email' class="form-control lg_input" id='careerlab_book_email' required placeholder='Email Address' onchange="try{setCustomValidity('')}catch(e){}">
@@ -82,7 +83,11 @@
                   <!-- booking button -->
                   <div class="medium_padding"></div>
                   <div class="text-center">
-                    <button type="button" class="bold large_font main_green_button_mid" id="careerlab_book_button">Book a session</button>
+                    <!--<button type="button" class="bold large_font main_green_button_mid" id="careerlab_book_button">Book a session</button>-->
+                    <button type="button" class="bold large_font main_green_button_mid" id="double_confirm_button">Book a Session</button>
+
+                    <p class="pink bold medium_padding medium_padding_bot large_font" hidden id="booking_exception_msg">Name or Email is not valid.</p>
+
                     <div class="small_padding"></div>
                   </div>
                 </form>
@@ -104,7 +109,7 @@
               <div class="small_padding"></div>
               <div class="text-center">
               <form method="POST" action="{% url 'careerlab_signup' %}" class="white">{% csrf_token %}
-                <input type='text' name='careerlab_signup_name' class="form-control lg_input" id='careerlab_signup_name' required pattern="[a-zA-Z]{2,}(\s+[a-zA-z]{2,})+" placeholder='First & Last Name'>
+                <input type='text' name='careerlab_signup_name' class="form-control lg_input" id='careerlab_signup_name' required pattern="[a-zA-Z._-]{2,}(\s+[a-zA-Z._-]{2,})+" placeholder='First & Last Name'>
                 <div class="small_padding"></div>
                 <input type='email' name='careerlab_signup_email' class="form-control lg_input" id='careerlab_signup_email' required placeholder='Email Address' onchange="try{setCustomValidity('')}catch(e){}">
 
@@ -819,6 +824,60 @@
 </div>
 
 <!-- modal form -->
+
+<!-- modal form for double confirmation -->
+  <div class="modal fade" id="double_confirmation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close big_font" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <div class="xsmall_padding"></div>
+        </div>
+        <div class="modal-body">
+          <h3 class="landing_text_main text-center bold">Confirm before you book</h3>
+          <div class="medium_padding"></div>
+
+          <div class="row">
+            <div class="col-xs-10 col-xs-offset-1">
+              <ul class="small_font info_list">
+                <li>
+                  <div class="form-group row">
+                    <label class="col-2 col-form-label">Please re-enter your email: </label>
+                    <div class="col-10">
+                      <input type='email' name='careerlab_book_email_db' class="form-control lg_input" id='careerlab_book_email_db' required>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                <div class="row">
+                  <label class="col-2 col-form-label">Your name: <span class="modal_form_name"></span></label>
+                </div>
+                </li>
+                
+                <li>
+                <div class="row">
+                  <label class="col-2 col-form-label">Headshot timeslot: <span class="model_form_timeslot"></span></label>
+                </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <p class="text-center small_padding red" id="db_error_text" hidden>The emails you input don't match.</p>
+          <div class="small_padding"></div>
+
+          <div class="text-center">
+            <button type="button" class="bold large_font main_green_button_mid" id="careerlab_book_button">Confirm</button>
+          </div>
+
+          <div class="medium_padding"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 
     <div class="modal-dialog" role="document">
@@ -847,7 +906,7 @@
               <div class="">
               <form method="POST" action="{% url 'careerlab_book' %}" class=" white">{% csrf_token %}
                 <p class="text-left bold">First & Last Name</p>
-                <input type='text' name='careerlab_book_name' class="form-control" id='careerlab_book_name' required pattern="[a-zA-Z.]{2,}(\s+[a-zA-z.]{2,})+" placeholder='First & Last Name'>
+                <input type='text' name='careerlab_book_name' class="form-control" id='careerlab_book_name' required pattern="[a-zA-Z._-]{2,}(\s+[a-zA-Z._-]{2,})+" placeholder='First & Last Name'>
                 <div class="small_padding"></div>
 
                 <p class="text-left bold">Email</p>
@@ -918,7 +977,7 @@
               <div class="small_padding"></div>
               <div class="text-center">
               <form method="POST" action="{% url 'careerlab_signup' %}" class="white">{% csrf_token %}
-                <input type='text' name='careerlab_signup_name' class="form-control" id='careerlab_signup_name' required pattern="[a-zA-Z]{2,}(\s+[a-zA-z]{2,})+" placeholder='First & Last Name'>
+                <input type='text' name='careerlab_signup_name' class="form-control" id='careerlab_signup_name' required pattern="[a-zA-Z._-]{2,}(\s+[a-zA-Z._-]{2,})+" placeholder='First & Last Name'>
                 <div class="small_padding"></div>
                 <input type='email' name='careerlab_signup_email' class="form-control" id='careerlab_signup_email' required placeholder='Email Address' onchange="try{setCustomValidity('')}catch(e){}">
 
@@ -980,6 +1039,23 @@ var csrftoken = getCookie('csrftoken');
       animateHeight: true,
 		});
 
+    // double confirm
+    $('#double_confirm_button').click(function(){
+      if (document.getElementById('careerlab_book_email').checkValidity() && document.getElementById('careerlab_book_name').checkValidity() && document.getElementById('careerlab_book_time').checkValidity()){
+      var name = $('#careerlab_book_name').val()
+      var email = $('#careerlab_book_email').val()
+      var timeslot = $('#careerlab_book_time option:selected').text()
+
+      $('.modal_form_name').text(name);
+      $('.modal_form_email').text(email);
+      $('.model_form_timeslot').text(timeslot);
+
+      $('#double_confirmation').modal('show');
+      }
+      else{
+        $('#booking_exception_msg').show(); 
+      }
+    })
 
     // modal 
     $("#modal_link").animatedModal({
@@ -1019,7 +1095,7 @@ var csrftoken = getCookie('csrftoken');
 
 
     $('#careerlab_book_button').on('click', function(e){
-      if (document.getElementById('careerlab_book_email').checkValidity() && document.getElementById('careerlab_book_name').checkValidity() && document.getElementById('careerlab_book_time').checkValidity()){
+      if ($('#careerlab_book_email').val() == $('#careerlab_book_email_db').val()){
         $("#loader-wrapper").show();    
         $.ajax({
           url: '{% url "careerlab_book" %}',
@@ -1041,6 +1117,9 @@ var csrftoken = getCookie('csrftoken');
           }
         });
         e.preventDefault();
+      }
+      else {
+        $('#db_error_text').show()
       }
     });
 
