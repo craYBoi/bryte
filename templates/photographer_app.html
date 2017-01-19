@@ -13,7 +13,7 @@
 			<h1 class="landing_title_sec bold white">Turn your passion for photography into an awesome job.</h1>	
 			<div class="small_padding"></div>
 			<div class="text-center">
-				<a href="{% url 'become_photographer' %}"><button type="button" class="bold large_font main_green_button_mid" id="careerlab_book_button">Become a Photographer</button></a>
+				<a href="{% url 'become_photographer' %}"><button type="button" class="bold main_green_button_md" id="careerlab_book_button">Become a Photographer</button></a>
 			</div>
 		</div>
 	</div>
@@ -30,7 +30,7 @@
 			<div class="medium_padding"></div>
 			<h2 class="landing_text_main bold">$20/ hour pay</h2>
 			<div class="small_padding"></div>
-			<p>Get paid $20/ an hour for every hour you work with Bryte.  We pay you for setup time and photo uploading time too, so that translates to $160 for a 5 hour photoshoot.</p>
+			<p>Get paid $20/ hour for every hour you work with Bryte.  We pay you at that rate during equipment setup and photo uploading, so expect a hefty paycheck :)</p>
 			</div>
 		</div>
 		</div>
@@ -62,15 +62,19 @@
 
 	<div class="large_padding"></div>
 
-	<div class="">
+	<div class="row">
+		<div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2">
+			
+		</div>
+	</div>
 	<div class="row">
 		<div class="col-sm-10 col-sm-offset-1">
-			<h3 class="landing_text_main bold text-center">Schools we'll be taking photos at next semester</h3>
-			<div class="medium_padding"></div>
+			<h2 class="landing_title_third">Schools we'll be taking photos at next semester</h2>
+			<div class="large_padding"></div>
 			<img src="{% static 'logo/schools/all.png' %}" class="img-responsive">	
 		</div>
 	</div>
-	</div>
+	
 
 	<div class="large_padding"></div>
 	<div class="small_padding"></div>
@@ -84,17 +88,17 @@
 		<div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2">
 			<h2 class="landing_title_third">Taking photos with Bryte</h2>
 			<div class="small_padding"></div>
-			<p class="small_font">Bryte Photo was started by two Brown students who weren’t happy with the LinkedIn photo options available to them.  They set out to create a better LinkedIn experience for students and designed a “pose-flow” and camera equipment setup that produced amazing LinkedIn photos.  After offering this experience on Brown’s Main Green, the founders received hundreds of requests around campus for their LinkedIn photos.  Now, they’ve grown to other schools and teach their LinkedIn photo-taking formula to keen photographers.</p>
+			<p class="">Bryte Photo was started by two Brown students who wanted a better way to take LinkedIn photos.  They went on to design their own “pose flow” and camera equipment setup that produced amazing LinkedIn photos.  They were quickly hired Brown’s Career Center, The CareerLAB, and now partner with career centers at numerous schools.  Sticking to its roots, Bryte Photo teaches its original formula to student photographers on its partner campuses, and then hires these students to take photos at LinkedIn photoshoots.</p>
 
 			<div class="medium_padding"></div>
 			<h2 class="landing_title_third">Free equipment</h2>
 			<div class="small_padding"></div>
-			<p class="small_font">We provide you with the lighting and backdrop equipment you’ll need to take LinkedIn photos.  You’ll get a golf-bag-sized duffel bag to carry it to and from photoshoots.  To become a Bryte Photographer, all you need is your own camera and tripod!</p>
+			<p class="">We provide you with the lighting and backdrop equipment you’ll need to take LinkedIn photos. It all fits into a golf-bag-sized duffel bag that is easy to carry – no need to worry about breaking your back.</p>
 
 			<div class="medium_padding"></div>
-			<h2 class="landing_title_third">Hear it from Our Photographers</h2>
-			<div class="small_padding"></div>
-			<p class="small_font">One of our photographers made $800 over five, 5-hour-photoshoots last semester. </p>
+			<h2 class="landing_title_third">Hear it from our photographers</h2>
+			<div class="medium_padding"></div>
+			<p class="l_font">One of our photographers made $800 over five, 5-hour-photoshoots last semester. </p>
 
 			
 			
@@ -104,17 +108,17 @@
 					<div class="medium_padding"></div>
 					<img src="{% static 'img/photographers/gary1.jpg' %}" width='90%'>
 					<div class="page-header">
-						<h4>Gary, Brown University junior</h4>
+						<h4 class="landing_text_main bold">Gary, Brown University</h4>
 					</div>
-					<p>"I absolutely enjoyed being a Bryte photographer, because I realize that taking portrait photos and interacting with people are really fun. The pay is also very good!"</p>
+					<p>"I've loved being a photographer! It's given me the opportunity to expand my photography skills and make me more confident with my camera. It's really fun to interact with fellow students, and the pay is great!"</p>
 				</div>
 				<div class="col-sm-6">
 					<div class="medium_padding"></div>
 					<img src="{% static 'img/ccri/l1.jpg' %}" width='90%'>
 					<div class="page-header">
-						<h4>Jackie, Boston University Freshman</h4>
+						<h4 class="landing_text_main bold">Jackie, Boston University</h4>
 					</div>
-					<p>"It's a really good chance to get experience with portraits. I learned a lot about how lighting effects portraits. Also the pace of the job made me more comfortable with making adjustments comfortably while photographing outside of the job"</p>
+					<p>"It's a really good chance to get experience with portraits. I learned a lot about how lighting effects portraits. Also the pace of the job made me more comfortable with making adjustments comfortably while photographing outside of the job."</p>
 				</div>
 			</div>
 
@@ -122,13 +126,13 @@
 			<div class="medium_padding"></div>
 			<h2 class="landing_title_third">Learn from experts</h2>
 			<div class="small_padding"></div>
-			<p class="small_font">We’ll teach you our formula for taking LinkedIn photos.  You’ll be paired with one of our staff who will teach you 1-on-1.  Our training sessions are quick and easy and our staff is always available for follow up training sessions and your questions.</p>
+			<p class="">We’ll teach you our formula for taking LinkedIn photos.  You’ll be paired with one of our staff who will teach you 1-on-1.  Our training sessions are quick and easy and our staff is always available for follow up training sessions and your questions.</p>
 		</div>
 	</div>
 	
 	<div class="text-center">
   <div class="large_padding"></div>
-  <a href="{% url 'become_photographer' %}"><button type="button" class="bold large_font main_green_button_mid" id="careerlab_book_button">Become a Photographer</button></a>
+  <a href="{% url 'become_photographer' %}"><button type="button" class="bold large_font main_green_button_md" id="careerlab_book_button">Become a Photographer</button></a>
   <div class="large_padding"></div>
   </div>
 
