@@ -38,6 +38,7 @@ SURVEY_EMAIL_TO_FREE_CLIENT_ID = '6e9cb0a1-535b-42dc-9279-4b9d23f19a1a'
 SURVEY_EMAIL_TO_FAVORED_CLIENT_ID = '5c562a0c-25f6-4151-a81a-99089ea00d61'
 FORGET_TO_ORDER_YOUR_HEADSHOT_ID = '6f6a328f-11b2-48c9-8879-751fe4c8b268'
 TOP_CLIENT_SALE_1_ID = '4556724e-b952-4e75-8430-1632d0daec58'
+STUDENT_ENGAGEMENT_SURVEY_ID = '2cdb44b1-7b2f-42c8-b856-8b76df4d78db'
 
 # max sessions per time slot
 MAX_VOLUMN = 8
@@ -1471,6 +1472,51 @@ class Booking(models.Model):
 		return send
 
 	
+	def student_engagement_email(self):
+		send = False
+		name = self.name
+		first_name = name.split(' ')[0]
+		email = self.email
+		hash_id = self.hash_id
+		timeslot = self.timeslot
+		shoot = timeslot.shoot
+		date = shoot.date
+		school = shoot.school
+		# get template, version name, and automatically add to category
+		email_purpose = 'Error'
+		version_number = 'Error'
+		try:
+			email_template = json.loads(sgapi.client.templates._(STUDENT_ENGAGEMENT_SURVEY_ID).get().response_body)
+			versions = email_template.get('versions')
+			version_number = [v.get('name') for v in versions if v.get('active')][0]
+			email_purpose = email_template.get('name')
+		except Exception, e:
+			pass
+
+		category = [school + ' - ' + str(date), email_purpose, version_number]
+
+		message = sendgrid.Mail()
+		message.add_to(email)
+		message.set_from('Bryte Inc <' + settings.EMAIL_HOST_USER + '>')
+		message.set_subject('Win $75 at Amazon for taking a really quick survey')
+		message.set_html('Body')
+		message.set_text('Body')
+		message.add_filter('templates','enable','1')
+		message.add_filter('templates','template_id', STUDENT_ENGAGEMENT_SURVEY_ID)
+		message.set_categories(category)
+		message.add_substitution('-first_name-', first_name)
+
+		try:
+			sg.send(message)
+		except Exception, e:
+			print '[NOT SENT] --- ' + str(email) 
+			# raise e
+		else:
+			send = True
+			print '[SENT] --- ' + str(email)
+		return send
+
+
 	def ric_not_paying(self):
 		send = False
 		name = self.name
