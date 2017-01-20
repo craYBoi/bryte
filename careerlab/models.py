@@ -1087,7 +1087,7 @@ class Booking(models.Model):
 		message = sendgrid.Mail()
 		message.add_to(email)
 		message.set_from('Bryte Inc <' + settings.EMAIL_HOST_USER + '>')
-		message.set_subject('Your headshot booking confirmation') 
+		message.set_subject('Welcome! You\'ve successfully booked a headshot session') 
 		message.set_html('Body')
 		message.set_text('Body')
 		message.add_filter('templates','enable','1')
@@ -1165,7 +1165,7 @@ class Booking(models.Model):
 		message = sendgrid.Mail()
 		message.add_to(email)
 		message.set_from('Bryte Inc <' + settings.EMAIL_HOST_USER + '>')
-		message.set_subject('Tips for your upcoming LinkedIn photoshoot') 
+		message.set_subject('Tips for your upcoming headshot session') 
 		message.set_html('Body')
 		message.set_text('Body')
 		message.add_filter('templates','enable','1')
@@ -1221,7 +1221,7 @@ class Booking(models.Model):
 
 		# ccri followup
 		# message.set_subject('We\'ve fixed the issue, and now you can use mobile to download your free headshot')
-		message.set_subject('The photos you took')
+		message.set_subject('Time to order your LinkedIn photo!')
  
 		message.set_html('Body')
 		message.set_text('Body')
@@ -1392,7 +1392,7 @@ class Booking(models.Model):
 		message = sendgrid.Mail()
 		message.add_to(email)
 		message.set_from('Bryte Inc <' + settings.EMAIL_HOST_USER + '>')
-		message.set_subject('Your purchase is ready for download!') 
+		message.set_subject('It\'s here!') 
 		message.set_html('Body')
 		message.set_text('Body')
 		message.add_filter('templates','enable','1')

@@ -2660,13 +2660,13 @@ body, html
 .mid_green {
   color: #19AA03;
 }
-
+	
 .main_yellow {
   color: #FFF692;
 }
 
 .main_green_bg {
-  background-color: #117200;
+  background-color: #117200!important;
 }
 
 .light_green_bg {
@@ -2913,3 +2913,11 @@ body, html
 .manual_sublist li {
 	padding-top: 20px;
 }
+
+/* bryte careerlab index logo */
+#careerlab_index_logos {
+  transform: translateX(-50%);
+  left: 50%;
+  position: absolute;
+}
+

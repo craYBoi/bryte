@@ -270,7 +270,7 @@ def book(request):
 					b.booking_confirmation_email()
 
 					first_name = name.split(' ')[0]
-					data['msg'] = 'Thanks for signing up ' + first_name + '.<br><br>A confirmation email will be sent to you at \"' + str(email) + '\" with your booking information soon!<br><br>Team Bryte'
+					data['msg'] = first_name + ', you\'ve booked a photo session. Expect a welcome email with details about your photo session.'
 
 			else:
 				data['msg'] = 'This time slot is no longer available. Please select a different one.'
@@ -329,7 +329,7 @@ def cancel_order(request):
 	context = {
 		'brown_careerlab': 1,
 		'title_text': 'Cancel your signup',
-		'notification_text': 'You have successfully cancelled your session!',
+		'notification_text': 'You have successfully canceled your session!',
 	}
 	if request.method == 'GET':
 		order_id = request.GET.get('order_id')

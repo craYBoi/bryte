@@ -805,15 +805,19 @@
 
 <!-- modal -->
 <a id="modal_link" href="#animatedModal" hidden></a>
-<div id="animatedModal">
+<div id="animatedModal" class="main_green_bg">
   <!--THIS IS IMPORTANT! to close the modal, the class name has to match the name given on the ID  class="close-animatedModal" -->
   <div class="close-animatedModal text-center" id="modal_close_link"> 
       <div class="medium_padding"></div>
       <a href="" class="modal_close white xbig_font"><i class="fa fa-times-circle-o"></i></a>
   </div>
 
-  <div class="white text-center medium_padding large_font">      
-  <p id="modal_content"></p>
+  <div class="white text-center medium_padding large_font">  
+  <div class="row">    
+    <div class="col-xs-8 col-xs-offset-2">
+      <p id="modal_content"></p>
+    </div>
+  </div>
   </div>
 </div>
 
@@ -835,7 +839,7 @@
           <div class="xsmall_padding"></div>
         </div>
         <div class="modal-body">
-          <h3 class="landing_text_main text-center bold">Confirm before you book</h3>
+          <h3 class="landing_text_main text-center bold">Confirm your info to book</h3>
           <div class="medium_padding"></div>
 
           <div class="row">
@@ -843,7 +847,7 @@
               <ul class="small_font info_list">
                 <li>
                   <div class="form-group row">
-                    <label class="col-2 col-form-label">Please re-enter your email: </label>
+                    <label class="col-2 col-form-label">Please re-type your email</label>
                     <div class="col-10">
                       <input type='email' name='careerlab_book_email_db' class="form-control lg_input" id='careerlab_book_email_db' required>
                     </div>
@@ -868,7 +872,7 @@
           <div class="small_padding"></div>
 
           <div class="text-center">
-            <button type="button" class="bold large_font main_green_button_mid" id="careerlab_book_button">Confirm</button>
+            <button type="button" class="bold large_font main_green_button_sm" id="careerlab_book_button">Confirm</button>
           </div>
 
           <div class="medium_padding"></div>

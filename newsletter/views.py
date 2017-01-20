@@ -159,7 +159,7 @@ def photographer_app_form(request):
 		msg = 'Name: ' + str(data.get('name')) + '\n\nemail: ' + str(data.get('email')) + '\n\nschool: ' + str(data.get('school')) + '\n\nyear in school: ' + str(data.get('year_in_school')) + '\n\ndslr_model: ' + str(data.get('dslr_model')) + '\n\nprev_job: ' + str(data.get('prev_job')) + '\n\nphoto experience: ' + str(data.get('photo_exp')) + '\n\nnumber of shoot: ' + str(data.get('num_of_shoot')) + '\n\nportfolio: ' + str(data.get('portfolio_link')) + '\n\nself introduction: ' + str(data.get('self_intro'))
 
 		try:
-			send_mail('New Photographer Application', msg, 'Bryte Photo <' + settings.EMAIL_HOST_USER + '>', ['byyagp@gmail.com'], fail_silently=False)
+			send_mail('New Photographer Application', msg, 'Bryte Photo <' + settings.EMAIL_HOST_USER + '>', ['byyagp@gmail.com', 'hello@brytephoto.com', 'michael@brytephoto.com'], fail_silently=False)
 		except Exception, e:
 			print 'Application not sent..'
 			pass

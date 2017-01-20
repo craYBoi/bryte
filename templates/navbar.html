@@ -27,21 +27,24 @@
       </button>
 
       <div class="navbar-header">
-      {% if brown_careerlab %}
-        <a href="{% url 'careerlab_index' %}{{ school_bryte_url }}" class="navbar-brand">
+        {% if brown_careerlab %}
+          <div id="careerlab_index_logos">
+          <a href="{% url 'careerlab_index' %}{{ school_bryte_url }}" class="navbar-brand">
+              <img alt="Bryte Photo logo" src="{% static 'logo/bryte_logo_white.png' %}" height="50px">
+          </a>    
+          <a href="{{ school_url }}" target="_blank"><img alt="{{ school_name }}" src="{{ logo_url }}" height="50px"></a>
+        {% else %}
+        <a href="{% url 'home' %}" class="navbar-brand">
             <img alt="Bryte Photo logo" src="{% static 'logo/bryte_logo_white.png' %}" height="50px">
-        </a>    
-      {% else %}
-      <a href="{% url 'home' %}" class="navbar-brand">
-          <img alt="Bryte Photo logo" src="{% static 'logo/bryte_logo_white.png' %}" height="50px">
-      </a>
+        </a>
+        </div>
       {% endif %}
       </div>
 
       
       <div class="navbar-header">
       {% if logo_url %}
-        <a href="{{ school_url }}" target="_blank"><img alt="{{ school_name }}" src="{{ logo_url }}" height="50px"></a>
+        
         <!--<a href="https://www.brown.edu/campus-life/support/careerlab/" target="_blank"><img alt="CareerLAB" src="{% static 'logo/CareerLAB_logo.jpg' %}" height="50px"></a>-->
       {% endif %}
       </div>
