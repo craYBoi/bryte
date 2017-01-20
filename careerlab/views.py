@@ -124,7 +124,7 @@ def index(request, school='brown'):
 		title = 'Bryte & Rhode Island College'
 		nextshoot = Nextshoot.objects.filter(school='Rhode Island College').order_by('-date')
 		bg_url = static('img/brown_campus.jpg')
-		logo_url = static('img/ric/logo.gif')
+		logo_url = static('logo/ric.png')
 		school_name = 'Rhode Island College'
 		school_url = 'http://www.ric.edu'
 		school_bryte_url = 'ric'
