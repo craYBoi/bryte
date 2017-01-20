@@ -241,7 +241,7 @@ def book(request):
 
 		# avoid duplicate booking
 		if email in emails:
-			data['msg'] = 'Looks like you have already booked a headshot. If you have not recieved a confirmation email, you will get one soon. We have you in the system :)<br>'		
+			data['msg'] = 'A headshot session has been booked under that email already. Make sure to check your spam folder for your Confirmation Email. If you don\'t receive an email within an hour, email hello@brytephoto.com'		
 		else:
 
 			# increment the timeslot first to reduce confliction
