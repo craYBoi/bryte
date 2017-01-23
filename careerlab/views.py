@@ -85,6 +85,25 @@ def index(request, school='brown'):
 			raise Http404
 
 
+	elif school.lower() == 'wcc':
+		title = 'Bryte & Worcester Chamber of Commerce'
+		nextshoot = Nextshoot.objects.filter(school='Worcester Chamber of Commerce').order_by('-date')
+		bg_url = static('img/brown_campus.jpg')
+		logo_url = static('logo/schools/wcc.jpg')
+		school_name = 'Worcester Chamber of Commerce'
+		school_url = 'https://www.worcesterchamber.org/'
+		school_bryte_url = 'wcc'
+		school_abbr = 'Worcester Chamber of Commerce'
+		school_title = 'Worcester Chamber of Commerce'
+		school_location = 'WCC'
+		context['extra_msg'] = ' (While the photoshoot is open from 1-6, the employers will only be present at the fair from 3-6)'
+		if nextshoot:
+			nextshoot = nextshoot[0]
+			timeslots = nextshoot.timeslot_set.filter(is_available=True).order_by('time')	
+		else:
+			raise Http404
+
+
 	elif school.lower() == 'gradcon':
 		title = 'Bryte & GradCON'
 		nextshoot = Nextshoot.objects.filter(school='Brown GradCON').order_by('-date')
