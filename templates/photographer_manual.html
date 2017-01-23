@@ -5,41 +5,186 @@
 {% endblock %}
 {% block content %}
 
-<div class="container dark_grey">
+<div class="dark_grey">
+
+<div class="background_grey">
+<div class="container">
 	<div class="row">
 		<div class="col-sm-10 col-sm-offset-1">
-			<h1 class="large_padding text-center bold landing_title_sec">Bryte Photographer Manual</h1>
+
+			<h1 class="large_padding text-center bold landing_title_sec">Bryte Photographer Guide</h1>
 			<div class="small_padding"></div>
-			<a href=""><p class="text-center mid_green landing_text_main">Table of Contents</p></a>
 			<div class="large_padding"></div>
 			
-			<p class="l_font">Hi there, Welcome to Bryte!</p>
+			<p class="l_font">Hi there, We welcome you to the Bryte Photo family!</p>
 			<p class="l_font">
-				 This manual has everything to get you started in addition to Bryte Student Training. Don't worry! We've broken down the whole thing into little pieces that are really easy to digest. The first half of the manual is all about How to talk amazing headshots. The second half of it outlines the complete process of holds instructions for running a complete photoshoot.
-
-				 Let's get started!
+				 This guide has <span class="mid_green">everything to get you started</span> in addition to in person training. It also can be served as a <span class="mid_green">manual where you can find most the answers to your questions</span>. Looks like there's a lot.. But don't worry! We've simplied the entire portrait photography and broken down the whole thing into <span class="mid_green">8 short sections</span>, that are really easy to digest. Its topic ranges from the very basic theories of a great headshot photos, to how do you actually run a complate photoshoot.
 			</p>
+			<p class="l_font small_padding">So, let's get started!</p>
+		</div>
+	</div>
+</div>
+<div class="large_padding"></div>
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-10 col-sm-offset-1">
+
+
+			<div id="p1_equipment" class="large_padding">
+				<a id="p1_equipment_button" class="dark_grey manual_title_link"><h2 class="landing_title_sec bold">>> Equipments & Usage</h2></a>
+				<div class="sm_padding"></div>
+				
+				<div id="p1_equipment_content" class="section_content">
+
+				<div class="medium_padding"></div>
+				<h2 class="bold text-center landing_title_third">What's in the Bryte Kit?</h2>
+				<div class="medium_padding"></div>
+				<ul class="info_list">
+					<li>
+						<div class="page-header">
+							<h4 class="mid_green bold landing_text_main">3 85-Watts florescent light bulbs (1 light bulb for backup) + 2 lighting stands</h4>
+						</div>
+
+						
+						<div class="row">
+
+							<div class="col-sm-6">
+								<div class="small_padding"></div>
+								<img src="{% static 'img/headshots/manual/equipment_light1.jpg' %}" class="img-responsive">
+							</div>
+							<div class="col-sm-6">
+								<div class="small_padding"></div>
+								<p class="l_font">Place the lightbulb on the stand using the little swivel, and it becomes a "studio light". One lighting is to used as a <span class="mid_green">Key Light</span> along with the <span class="mid_green">reflective umbrella</span>. Key light is the most important light in portrait photography, since it is the strongest. The other light is served as the <span class="mid_green">Background Light</span>, which is placed right behind the client to light up the chromakey</p>
+
+								<p class="l_font">
+								Lighting is undoubtedly the most important component of a studio portrait photography, because it determines how the lighting behaves on person's face. A good position of key light can create beautiful contrast and rich layers on person's face.</p>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="page-header">
+							<h4 class="mid_green bold landing_text_main">1 black/silver umbrella</h4>
+						</div>
+
+						<div class="row">
+
+							<div class="col-sm-6">
+								<div class="small_padding"></div>
+								<img src="{% static 'img/headshots/manual/equipment_light2.jpg' %}" class="img-responsive">
+							</div>
+							<div class="col-sm-6">
+								<div class="small_padding"></div>
+								<p class="l_font">The light with the reflective black/silver umbrella attached is our <span class="mid_green">key light</span>. The umbrella is able to reflect 100% of the light emitted from the key light bulb into opposite direction, and create a unique lighting with strong specular effect.</p>
+
+								<p class="l_font">Some of the reflected light goes to the client, and light up the majority of the person. Some hit the <span class="mid_green">Reflector</span> placed right beside the person on the opposite side of the key light, and then is reflected onto the dark side of the person. </p>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="page-header small_padding">
+							<h4 class="mid_green bold landing_text_main">1 reflector + 1 reflector stand + 1 reflector clip</h4>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="small_padding"></div>
+								<img src="{% static 'img/headshots/manual/equipment_reflector.jpg' %}" class="img-responsive">
+							</div>
+							<div class="col-sm-6">
+								<div class="small_padding"></div>
+								<p class="l_font">The shiny circular thing is our <span class="mid_green">Reflector</span>. Its job is to reflect part of the light emitted from key light, and shines up the dark side of the person’s face. It could be considered as the <span class="mid_green">Fill Light</span> alternative. A good position of the reflector can create a natural transition of the intensity and contrast on the person's face instead of a harsh and dramatic one.</p>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="page-header small_padding">
+							<h4 class="mid_green bold landing_text_main">Green backdrop (Chromakey) + backdrop stands + 6 backdrop clips</h4>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="small_padding"></div>
+								<img src="{% static 'img/headshots/manual/equipment_backdrop.jpg' %}" class="img-responsive">
+							</div>
+							<div class="col-sm-6">
+								<div class="small_padding"></div>
+								<p class="l_font">Chromakey is a standard green background canvas, usually made of muslin. The green background of the photo taken at the photoshoot will be translated into various different background options during post processing.</p>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="page-header small_padding">
+							<h4 class="mid_green bold landing_text_main">1 Whiteboard + 2 whiteboard markers + 1 wiping cloth</h4>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="small_padding"></div>
+								<img src="{% static 'img/headshots/manual/equipment_board.jpg' %}" class="img-responsive">
+							</div>
+							<div class="col-sm-6">
+								<div class="small_padding"></div>
+							  <p class="l_font">The whiteboard is for you to write down client's email before starting the headshot session. This will make sure you can keep track of photos when you are uploading them onto Dropbox.</p>
+							</div>
+						</div>
+
+					</li>
+					<li>
+						<div class="page-header small_padding">
+							<h4 class="mid_green bold landing_text_main">1 25-ft power extension cord + 1 Bryte Photo Tee + 1 mirror + Posters</h4>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="small_padding"></div>
+								<img src="{% static 'img/headshots/manual/equipment_accessory.jpg' %}" class="img-responsive">
+							</div>
+							<div class="col-sm-6">
+								<div class="small_padding"></div>
+							  <p class="l_font">Sometimes if there are no power outlets near you, the <span class="mid_green">25-ft extension cord</span> is always here to the rescue! We also prepared you with our Bryte gear! Along with couple posters that will need to be hang up and a mirror for our clients to brush up in the waiting area during the photoshoot.</p>
+							</div>
+						</div>
+
+					</li>
+				</ul>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+	<div class="large_padding"></div>
+</div>
+
+<div class="background_grey">
+<div class="container">
+	<div class="row">
+		<div class="col-sm-10 col-sm-offset-1">
 
 			<div id="p1_headshot_keys" class="large_padding">
-				<h3 class="landing_title_sec bold">The 3 most important things about a great headshot photo</h3>	
+				<a id="p1_headshot_keys_button" class="dark_grey manual_title_link"><h3 class="landing_title_sec bold">>> The 4 most important things about a great headshot photo</h3></a>
 				<div class="sm_padding"></div>
-				<hr>
 				<div class="medium_padding"></div>
 
-				<p class="lead">A great headshot photo always looks natural.</p>
-				<div class="small_padding"></div>
+
+				<div id="p1_headshot_keys_content" class="section_content">
+				<p class="lead">"A great headshot photo always looks natural"</p>
+				<div class="medium_padding"></div>
 				<article>
-					<h1 class="bold text-center">First, Lighting</h1>
-					<div class="medium_padding"></div>
-					<p class="l_font main_green">Lighting means the lighting on the person’s face, it comes from Key light. In a good headshot photo:</p>
-					<ol class="info_list small_padding">
-						<li>The person’s face is always well-lit, with one side slightly shinier than the other</li>
-						<li>with a few shiny spots on the forehead and the cheek</li>
-						<li>There are no visible shadows on the face</li>
+					<h2 class="bold text-center landing_title_third">First, Lighting!</h2>
+					<div class="large_padding"></div>
+					<p class="l_font">The lighting on the person’s face is so important that you can't imagine a good headshot photo without good and natural lighting on it. The lighting on the face comes from 3 sources: <span class="mid_green">Key light</span>, <span class="mid_green">Reflector (Fill Light)</span> and the environment. </p>
+					<p class="medium_padding l_font">Out of all the light sources, <span class="mid_green">Key light</span> and <span class="mid_green">Reflector (Fill Light)</span> are the most essential components and the most fundamental basis of a great headshot photo. </p>
+					<p class="medium_padding l_font">In a great headshot photo:</p>
+					<ol class="info_list small_padding bold mid_green xlarge_font">
+						<li>The person’s face is always well-lit</li>
+						<li>Make sure not to cast long shadows on the face</li>
 					</ol>
 
 					<div class="small_padding"></div>
-					<small class="small_padding">Here are some great examples of an awesome lighting:</small>
+					<p class="small_padding l_font">Here are some great examples of an awesome lighting:</p>
 					
 					<div class="row">
 						<div class="col-sm-6">
@@ -66,95 +211,938 @@
 						</div>
 					</div>
 
+					<div class="medium_padding"></div>
+					<p class="l_font">Some bad examples of the lighting:</p>
+					
+					<div class="row">
+
+						<div class="col-sm-6">
+							<div class="sm_padding"></div>
+							<img src="{% static 'img/headshots/manual/bad_lighting1.jpg' %}" class="img-responsive">
+						</div>
+
+						<div class="col-sm-6">
+							<div class="sm_padding"></div>
+							<img src="{% static 'img/headshots/manual/bad_lighting2.jpg' %}" class="img-responsive">
+						</div>
+					</div>
+					<p class="text-center sm_padding red">The face is not well lit (The reflector needs to be adjusted since the dark side of the face remains dark, and the key light also needs to be adjusted since it fails to light up the majority of the face.)</p>
+
+					<div class="small_padding"></div>
+					<div class="row">
+						<div class="col-sm-6">
+							<div class="sm_padding"></div>
+							<img src="{% static 'img/headshots/manual/dark_eye1.jpg' %}" class="img-responsive">
+						</div>
+
+						<div class="col-sm-6">
+							<div class="sm_padding"></div>
+							<img src="{% static 'img/headshots/manual/dark_eye2.jpg' %}" class="img-responsive">
+						</div>
+					</div>
+					<p class="text-center sm_padding red">There are large areas of shadows around the eyes. (The angle and intensity of the light from key light needs to be modified)</p>
+
 				</article>
 
-				<div class="medium_padding"></div>
-				<h2 class="text-center bold">How to get the perfect lighting?</h2>
 
-				<div class="medium_padding"></div>
-				<small>Some bad examples of the lighting:</small>
-				
-				<div class="row">
+				<div class="large_padding"></div>
+				<article>
+					<h2 class="bold text-center landing_title_third">Second, Color!</h2>
+					<div class="large_padding"></div>
+					<p class="l_font">Color means the <span class="mid_green">color balance</span> of the photo. It’s determined by both the <span class="mid_green">White Balance settings (WB)</span> on your DSLR, and the <span class="mid_green">environment</span>. The tricky point is that: since the environment is not going to be constant everytime, sometimes it tend to be warm and sometimes cold. So being able to adjust the White Balance to complement the environment color is the key.</p>
 
-					<div class="col-sm-6">
-						<div class="sm_padding"></div>
-						<img src="{% static 'img/headshots/manual/bad_lighting1.jpg' %}" class="img-responsive">
+					<p class="l_font small_padding">Both Nikon and Canon has pre-set white balance settings. It is <span class="mid_green">suggested to use Auto White Balance (AWB) at first</span>. If the photo still looks too red/yellow/blue…, you can <span class="mid_green">use one of the pre-set White Balance setting (e.g "Tungsten", "Cloudy"..)</span>. Here's a simple diagram showing the difference between some of these white balance presets. </p>
+
+					<div class="medium_padding"></div>
+					<img src="{% static 'img/headshots/manual/wb.jpg' %}" class="img-responsive">
+
+					<p class="l_font medium_padding">As you can see, These White Balance presets create a quite different color balance on the photo. "Tungsten" gives a very cold touch, since it's assuming the environment is of tungsten light, which is very warm, so it add coldness to the photo to compensate the extra warmness tungsten environment creates. Usually settings <span class="mid_green">auto white balance</span> will do the work, but it's always good to know how to manually adjust the photo to the right color balance when your DSLR can't do a great job detecting it.</p>
+
+					<p class="l_font medium_padding"><span class="mid_green">One trick to spot whether the color balance is good is to look at the color of the green backdrop</span>, if it's not perfectly green, it means the entire photo has some other colors involved.</p>
+
+					<div class="medium_padding"></div>
+					<p class="small_padding l_font">Here are some good examples of color:</p>
+					<div class="row">
+						<div class="col-sm-4">
+							<div class="sm_padding"></div>
+							<img src="{% static 'img/headshots/manual/color1.jpg' %}" class="img-responsive">
+						</div>
+
+						<div class="col-sm-4">
+							<div class="sm_padding"></div>
+							<img src="{% static 'img/headshots/manual/color3.jpg' %}" class="img-responsive">
+						</div>
+
+						<div class="col-sm-4">
+							<div class="sm_padding"></div>
+							<img src="{% static 'img/headshots/manual/color2.jpg' %}" class="img-responsive">
+						</div>
 					</div>
 
-					<div class="col-sm-6">
-						<div class="sm_padding"></div>
-						<img src="{% static 'img/headshots/manual/bad_lighting2.jpg' %}" class="img-responsive">
+					<div class="medium_padding"></div>
+					<p class="small_padding l_font">Some bad examples of color</p>
+					<div class="row">
+						<div class="col-sm-4">
+							<div class="sm_padding"></div>
+							<img src="{% static 'img/headshots/manual/bad_color1.jpg' %}" class="img-responsive">
+							<p class="text-center sm_padding red">Too pale/cold</p>
+						</div>
+
+						<div class="col-sm-4">
+							<div class="sm_padding"></div>
+							<img src="{% static 'img/headshots/manual/bad_color3.jpg' %}" class="img-responsive">
+							<p class="text-center sm_padding red">Too Yellow/Green</p>
+						</div>
+
+						<div class="col-sm-4">
+							<div class="sm_padding"></div>
+							<img src="{% static 'img/headshots/manual/bad_color2.jpg' %}" class="img-responsive">
+							<p class="text-center sm_padding red">Too red</p>
+						</div>
 					</div>
+
+				</article>
+
+				<div class="large_padding"></div>
+
+				<article>
+					<h2 class="bold text-center landing_title_third">Third, Composition!</h2>
+					<div class="large_padding"></div>
+					<p class="l_font">Composition stands for how you place the client on the photo canvas. To achieve a perfect composition, consider following points:</p>
+
+					<ol class="info_list small_padding xlarge_font mid_green bold">
+						<li>Always make sure the head is horizontally centered on the canvas</li>
+						<li>Leave a little space above the head</li>
+						<li>Down to cover the entire collar/tie knot/short necklaces</li>
+					</ol>
+
+					<div class="medium_padding"></div>
+					<p class="small_padding l_font">Some good examples of compositions:</p>
+					<div class="row">
+						<div class="col-sm-6">
+							<div class="sm_padding"></div>
+							<img src="{% static 'img/headshots/manual/comp1.jpg' %}" class="img-responsive">
+						</div>
+
+						<div class="col-sm-6">
+							<div class="sm_padding"></div>
+							<img src="{% static 'img/headshots/manual/comp2.jpg' %}" class="img-responsive">
+						</div>
+					</div>
+
+					<div class="small_padding"></div>
+					<div class="row">
+						<div class="col-sm-6">
+							<div class="sm_padding"></div>
+							<img src="{% static 'img/headshots/manual/comp3.jpg' %}" class="img-responsive">
+						</div>
+
+						<div class="col-sm-6">
+							<div class="sm_padding"></div>
+							<img src="{% static 'img/headshots/manual/comp4.jpg' %}" class="img-responsive">
+						</div>
+					</div>
+
+					<div class="medium_padding"></div>
+					<p class="small_padding l_font">Some bad examples of compositions:</p>
+					<div class="row">
+						<div class="col-sm-6">
+							<div class="sm_padding"></div>
+							<img src="{% static 'img/headshots/manual/bad_comp1.jpg' %}" class="img-responsive">
+							<p class="text-center sm_padding red">too zoomed in, didn't cover the entire collar</p>
+						</div>
+
+						<div class="col-sm-6">
+							<div class="sm_padding"></div>
+							<img src="{% static 'img/headshots/manual/bad_comp2.jpg' %}" class="img-responsive">
+							<p class="text-center sm_padding red">too zoomed out, showing too much of body</p>
+						</div>
+					</div>
+
+					<div class="small_padding"></div>
+					<div class="row">
+						<div class="col-sm-6">
+							<div class="sm_padding"></div>
+							<img src="{% static 'img/headshots/manual/bad_comp3.jpg' %}" class="img-responsive">
+							<p class="text-center sm_padding red">Leaving too much space above</p>
+						</div>
+
+						<div class="col-sm-6">
+							<div class="sm_padding"></div>
+							<img src="{% static 'img/headshots/manual/bad_comp4.jpg' %}" class="img-responsive">
+							<p class="text-center sm_padding red">The head is not horizontally centered</p>
+						</div>
+					</div>
+
+					<div class="large_padding"></div>
+
+					<h2 class="bold text-center landing_title_third">Last but not least, Alignment!</h2>
+
+					<div class="large_padding"></div>
+
+					<div class="row">
+						<div class="col-sm-6">
+							<img src="{% static 'img/headshots/manual/height1.jpg' %}" class="img-responsive">
+						</div>
+						<div class="col-sm-6">
+							<p class="l_font">Showing a lot of chin is never a good idea. Always place your DSLR <span class="mid_green">on the same height</span> or <span class="mid_green">slightly above the client's eye level</span>. Never shoot from below!</p>
+						</div>
+					</div>
+				</article>
 				</div>
-				<p class="text-center sm_padding red">The face is not well lit</p>
-
-				<div class="small_padding"></div>
-				<div class="row">
-					<div class="col-sm-6">
-						<div class="sm_padding"></div>
-						<img src="{% static 'img/headshots/manual/dark_eye1.jpg' %}" class="img-responsive">
-					</div>
-
-					<div class="col-sm-6">
-						<div class="sm_padding"></div>
-						<img src="{% static 'img/headshots/manual/dark_eye2.jpg' %}" class="img-responsive">
-					</div>
-
-				</div>
-				<p class="text-center sm_padding red">There are shadows around the eyes</p>
-
-				<ul class="manual_sublist">
-					<li>
-						<p class="small_padding bold"><span class="mid_green_bgfill all_sm_padding large_font">Camera Mode: Manual</span></p>
-						<p class="sm_padding">Let’s do manual, because it sounds cool..  haha not exactly, because we want to make sure both the shutter speed and f number are exact.</p>
-					</li>
-					<li>
-						<p class="small_padding bold"><span class="mid_green_bgfill all_sm_padding large_font">Shutter Speed: 1/200</span></p>
-						<p class="sm_padding">It’s recommended that you always keep the shuttle speed around 1/200, which will always allow you to take crisp, clear photos, even if the person is moving slightly.</p>
-					</li>
-					<li>
-						<p class="small_padding bold"><span class="mid_green_bgfill all_sm_padding large_font">Aperture / f-number: 3.5</span></p>
-						<p class="sm_padding">Let’s set the f number to 3.5 instead of typically lower numbers(2.2, 2.5, 2.8), which will have a good depth of field effect and also allows more room for you to focus on the object.</p>
-					</li>
-					<li>
-						<p class="small_padding bold"><span class="mid_green_bgfill all_sm_padding large_font">ISO: Depends (Usually set to Auto)</span></p>
-						<p class="sm_padding">To compensate the brightness, you will need to adjust the ISO after you finish setting up the lighting. Please check the examples of brightness for reference.</p>
-					</li>
-				</ul>	
 			</div>
 
-
-			<div id="p1_camera_setting" class="medium_padding">
-				<h3 class="landing_text_main text-center">Camera Settings</h3>	
-
-				<ul class="manual_sublist">
-					<li>
-						<dl class="dl-horizontal text-overflow">
-						  <dt><span class="mid_green_bgfill all_sm_padding bold large_font">Camera Mode Manual</span></dt>
-						  <dd>Let’s do manual, because it sounds cool..  haha not exactly, because we want to make sure both the shutter speed and f number are exact.</dd>
-						</dl>
-						<p class="small_padding bold"></p>
-						<p class="sm_padding"></p>
-					</li>
-					<li>
-						<p class="small_padding bold"><span class="mid_green_bgfill all_sm_padding large_font">Shutter Speed: 1/200</span></p>
-						<p class="sm_padding">It’s recommended that you always keep the shuttle speed around 1/200, which will always allow you to take crisp, clear photos, even if the person is moving slightly.</p>
-					</li>
-					<li>
-						<p class="small_padding bold"><span class="mid_green_bgfill all_sm_padding large_font">Aperture / f-number: 3.5</span></p>
-						<p class="sm_padding">Let’s set the f number to 3.5 instead of typically lower numbers(2.2, 2.5, 2.8), which will have a good depth of field effect and also allows more room for you to focus on the object.</p>
-					</li>
-					<li>
-						<p class="small_padding bold"><span class="mid_green_bgfill all_sm_padding large_font">ISO: Depends (Usually set to Auto)</span></p>
-						<p class="sm_padding">To compensate the brightness, you will need to adjust the ISO after you finish setting up the lighting. Please check the examples of brightness for reference.</p>
-					</li>
-				</ul>	
-			</div>
-			
-			<div class="large_padding"></div>
 		</div>
 	</div>
 </div>
+<div class="large_padding"></div>
+</div>
+
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-10 col-sm-offset-1">
+
+				
+			<div class="large_padding"></div>
+
+			<div id="p1_cam_setting">
+				<a id="p1_cam_setting_button" class="dark_grey manual_title_link"><h2 class="bold landing_title_sec">>> DSLR Settings</h2></a>
+				<div class="medium_padding"></div>
+
+				<div id="p1_cam_setting_content" class="section_content">
+				<ul class="manual_sublist">
+					<li>
+						<p class="small_padding bold"><span class="main_green_bg white all_sm_padding large_font">Camera Mode: Manual</span></p>
+						<p class="sm_padding l_font">Let’s do manual, because it sounds cool..  haha not exactly, because in some situations leaving decisions to DSLRs is not always a good idea, and almost everything is static during headshot photography, so usually you don't need to adjust the settings once they are good.</p>
+					</li>
+					<li>
+						<p class="medium_padding bold"><span class="main_green_bg white  all_sm_padding large_font">Shutter Speed: 1/200</span></p>
+						<p class="sm_padding l_font">It’s recommended that you always keep the shuttle speed around 1/200, which will always allow you to take crisp, clear photos, even if there's a slight movement.</p>
+					</li>
+					<li>
+						<p class="medium_padding bold"><span class="main_green_bg white  all_sm_padding large_font">Aperture / f-number: 5.6</span></p>
+						<p class="sm_padding l_font">Let’s set the f number to 5.6 instead of typically lower numbers(2.2, 2.5, 2.8), which is an available option for almost all DSLRs/lens, and it also has a good depth of field effect and also allows more room for you to focus on the object, at the same time still allowing a decent amount of light hitting the censor.</p>
+					</li>
+					<li>
+						<p class="medium_padding bold"><span class="main_green_bg white  all_sm_padding large_font">ISO: Depends</span></p>
+						<p class="sm_padding l_font">To make sure the photo doesn't look too dark/bright, you will need to adjust the ISO after you finish setting up the lightings and equipment. <span class="mid_green">It's not recommended to set ISO to auto</span> because in most cases that value turns out to be a little lower than it should. <span class="mid_green">Make sure to adjust ISO according to the brightness standard.</span> Below are some of the examples with good brightness:</p>
+
+						<div class="medium_padding"></div>
+						<small>Some great examples of the brightness:</small>
+						
+						<div class="row">
+
+							<div class="col-sm-6">
+								<div class="sm_padding"></div>
+								<img src="{% static 'img/headshots/manual/bright1.jpg' %}" class="img-responsive">
+							</div>
+
+							<div class="col-sm-6">
+								<div class="sm_padding"></div>
+								<img src="{% static 'img/headshots/manual/bright2.jpg' %}" class="img-responsive">
+							</div>
+						</div>
+
+						<div class="medium_padding"></div>
+						<small>Some bad examples of the brightness:</small>
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="sm_padding"></div>
+								<img src="{% static 'img/headshots/manual/bad_bright1.jpg' %}" class="img-responsive">
+								<p class="text-center sm_padding red">Too dark</p>
+							</div>
+
+							<div class="col-sm-6">
+								<div class="sm_padding"></div>
+								<img src="{% static 'img/headshots/manual/bad_bright2.jpg' %}" class="img-responsive">
+								<p class="text-center sm_padding red">Too bright</p>
+							</div>
+						</div>
+						
+
+					</li>
+
+					<li>
+						<p class="medium_padding bold"><span class="main_green_bg white  all_sm_padding large_font">White Balance: Depends (Usually set to Auto)</span></p>
+						<p class="sm_padding l_font">To compensate the environment color tone, you will need to adjust the White Balance after you finish setting up the lighting. Please check the examples of good color in <a href="#p1_headshot_keys_button" class="mid_green">The 4 most important things about a great headshot photo</a> for reference.</p>
+					</li>
+				</ul>	
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<div class="large_padding"></div>
+</div>
+
+<div class="background_grey">
+<div class="container">
+	<div class="row">
+		<div class="col-sm-10 col-sm-offset-1">
+
+			<div class="large_padding"></div>
+			<div id="p1_equipment_setup">
+				<a class="dark_grey manual_title_link" id="p1_equipment_setup_button"><h3 class="landing_title_sec bold">>> Equipment Setup</h3></a>
+				<div class="medium_padding"></div>
+				
+				<div id="p1_equipment_setup_content" class="section_content">
+				<p class="medium_padding l_font"><span class="mid_green">First step towards taking a great headshot photo is to place every piece of equipment in the right place</span>. Here we have a very comprehensive instruction on how and where to place different parts of equipment. The layout of these equipment is served to give a perfect lighting with smooth and natural contrast on the client's face.</p>
+				<ul>
+					<li>
+						<div class="page-header small_padding">
+							<h4 class="mid_green bold landing_text_main">Starting with the green backdrop</h4>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-6">
+								<img src="{% static 'img/headshots/manual/equipment_backdrop.jpg' %}" class="img-responsive">
+							</div>
+							<div class="col-sm-6">
+								<ol class="manual_sublist">
+									<li>
+										Get the stands for green backdrop ready and hang up the green backdrop.
+									</li>
+									<li>Use 6 backdrop clips to solidify, and make sure most of the wrinkles on the backdrops are gone.</li>
+								</ol>
+							</div>
+						</div>
+					</li>
+
+					<li>
+						<div class="page-header small_padding">
+							<h4 class="mid_green bold landing_text_main">Background light</h4>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-4">
+								<img src="{% static 'img/headshots/manual/setup_bglight.jpg' %}" class="img-responsive">
+							</div>
+							<div class="col-sm-8">
+								<ol class="manual_sublist">
+									<li>
+										Place the background light facing the backdrop
+									</li>
+									<li>
+										keep it 0.5 meters away from the backdrop
+									</li>
+									<li>
+										Keep it pointing a little bit downward, in order to make sure the light doesn't show up in the photos you take.
+									</li>
+								</ol>
+							</div>
+						</div>
+					</li>
+
+					<li>
+						<div class="page-header small_padding">
+							<h4 class="mid_green bold landing_text_main">The Stool/Chair</h4>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-4">
+								<img src="{% static 'img/headshots/manual/setup_stool.jpg' %}" class="img-responsive">
+							</div>
+							<div class="col-sm-8">
+
+								<ol class="manual_sublist">
+									<li>
+										Place the stool/chair 0.5 meters away from the background light (1 meter away from the backdrop)
+									</li>
+								</ol>
+							</div>
+						</div>
+					</li>
+
+					<li>
+						<div class="page-header small_padding">
+							<h4 class="mid_green bold landing_text_main">The Key light (Important)</h4>
+
+							<div class="medium_padding"></div>
+
+						</div>
+						<ol class="manual_sublist">
+							<li>
+								Place the keylight according to the <span class="mid_green">diagram</span> below.
+							</li>
+							<li>Make sure the tip of the reflective umbrella is <span class="mid_green">pointing directly to the background light. Not the person.</span></li>
+							<li>Make sure to keep the angle of the umbrella <span class="mid_green">30 degrees</span> downward.</li>
+							<li>Keep the key light <span class="mid_green">1 meter</span> away from the person</li>
+							<li><span class="mid_green">It's not recommend to adjust the key light after the initial setup.</span></li>
+						</ol>
+
+						<div class="small_padding"></div>
+						<div class="row">
+							<div class="col-xs-10 col-xs-offset-1">
+
+							<div class="small_padding"></div>
+							<h2 class="landing_text_main text-center bold">Vertical View</h2>
+							<div class="small_padding"></div>
+							<img src="{% static 'img/headshots/manual/lighting.png' %}" class="img-responsive">
+
+							<div class="medium_padding"></div>
+							<h2 class="landing_text_main text-center bold">Side View</h2>
+							<div class="small_padding"></div>
+							<img src="{% static 'img/headshots/manual/lighting2.png' %}" class="img-responsive">
+
+							<div class="medium_padding"></div>
+							<h2 class="landing_text_main text-center bold">Front View (From photographer's perspective)</h2>
+							<div class="small_padding"></div>
+							<img src="{% static 'img/headshots/manual/lighting3.png' %}" class="img-responsive">
+							</div>
+						</div>
+					</li>
+
+					<li>
+						<div class="page-header small_padding">
+							<h4 class="mid_green bold landing_text_main">Reflector</h4>
+						</div>
+						<div class="row">
+							<div class="col-sm-5">
+								<img src="{% static 'img/headshots/manual/setup_reflector2.jpg' %}" class="img-responsive">
+							</div>
+							<div class="col-sm-7">
+
+								<ol class="manual_sublist">
+									<li>
+										The reflector is usually placed right <span class="mid_green">besides the person and is relatively closer to the person than the key light</span>.
+									</li>
+									<li>
+										<span class="mid_green">Make sure the reflector has an upward angle</span>, so that it can reflect the light emitted from key light.
+									</li>
+									<li>
+										You will need to <span class="mid_green">adjust the reflector basically everytime a new client goes in</span>, or even between different poses, because it is very sensitive to change of location. A small change of the person's location will make a huge difference.
+									</li>
+									<li>Remember to <span class="mid_green">always keep an eye on the client's face when you are adjusting the reflector</span>. Since a small change of the position of the reflector can make a huge different, it's important to make sure to keep the reflector's position and angle when you see the other side of the client's face are well lit.</li>
+								</ol>
+
+								<div class="row medium_padding">
+									<div class="col-xs-6">
+										<img src="{% static 'img/headshots/manual/head_br1.jpg' %}" class="img-responsive">
+										<p class="sm_padding text-center">Without reflector</p>
+									</div>
+
+									<div class="col-xs-6">
+										<img src="{% static 'img/headshots/manual/head_ar1.jpg' %}" class="img-responsive">
+										<p class="sm_padding text-center">With reflector</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+
+					<li>
+						<div class="page-header small_padding">
+							<h4 class="mid_green bold landing_text_main">Tripod & DSLR</h4>
+						</div>
+						<ol class="manual_sublist">
+							<li>
+								Place the tripod & DSLR to achieve the perfect composition mentioned in “The 4 most important things about a great headshot photo”
+							</li>
+							<li>Make sure the camera is at the same height of or slightly above the person’s eye level</li>
+						</ol>
+					</li>
+
+					<li>
+						<div class="page-header small_padding">
+							<h4 class="mid_green bold landing_text_main">Waiting Area</h4>
+						</div>
+						<ol class="manual_sublist">
+							<li>
+								If the photoshoots take place in career centers, there are usually abundant space for you to set up the waiting area.
+							</li>
+							<li>Make sure to find a table, where you put the mirror and the computer/tablet for students to check in</li>
+							<li>Find some chairs around the table. Make sure to make it feel like a waiting area.</li>
+							<li>Make sure to hang up the posters on the wall around the mirror.</li>
+						</ol>
+					</li>
+				</ul>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+</div>
+<div class="large_padding"></div>
+</div>
+
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-10 col-sm-offset-1">
+
+			<div class="large_padding" id="p1_expression">
+				<a id="p1_expression_button" class="dark_grey manual_title_link"><h3 class="landing_title_sec bold">>> The Expressions and Poses</h3></a>
+				<div class="large_padding"></div>
+
+				<div id="p1_expression_content" class="section_content">
+
+				<p class="small_padding l_font">Guess what, the ideal camera settings and photo composition are not the whole story of an amazing headshot. The core of the photo is actually the actual person in the headshot photo! It’s the <span class="mid_green">energy</span> one could feel from that person: the <span class="mid_green">Pose</span>, the <span class="mid_green">Expression</span> and some <span class="mid_green">extra spices</span>.</p>
+
+				<div class="small_padding"></div>
+				<p class="l_font">To make everything simple, <span class="mid_green">there are 2 poses, "Straight on" and "Side".</span> Straight on means that every part of the person is facing towards the camera. Side can have 2 options, <span class="mid_green">"Turn to the right"</span> or <span class="mid_green">"Turn to the left"</span>. In a side pose, the person usually has his or her body turned to one side approximately 45 degrees, and turn their face back to the camera.</p>
+
+				<div class="small_padding"></div>
+				<p class="l_font">If you think about it, one's expression can be simply viewed as a <span class="mid_green">combination of the person's eye and the mouth</span>. A person can look serious, with lips closed, no smile (mouth movement) and intensely focused eyes (eye movement), and these makes a "Serious Expression". There are a few expressions we listed below.</p>
+
+				<div class="small_padding"></div>
+				<p class="l_font">In addition, it turns out that <span class="mid_green">tilting one's head from one side to the other a little bit</span> is pretty popular among the girls. Sometimes, a good head tilt can emit extra confidence and charisma.</p>
+
+				<div class="row">
+					<div class="col-sm-4">
+						<div class="page-header small_padding">
+							<h4 class="mid_green bold landing_text_maintext-center">Pose</h4>
+						</div>
+						<ol class="info_list">
+							<li>
+								Straight on
+							</li>
+							<li>Side (Either Left or Right)</li>
+						</ol>
+					</div>
+					<div class="col-sm-4">
+						<div class="page-header small_padding">
+							<h4 class="mid_green bold landing_text_main text-center">Expression</h4>
+						</div>
+						<ol class="info_list">
+							<li>
+								<span class="mid_green">No Expression</span> (Mouth: completely relaxed. Eyes: keep it natural)
+							</li>
+							<li><span class="mid_green">Serious Expression</span> (Mouth: No smile, lip closed. Eyes: intensely focused)</li>
+							<li><span class="mid_green">Confident Expression</span> (Mouth: Subtle smile, lip closed. Eyes: focused)</li>
+							<li><span class="mid_green">Natural Expression</span> (Mouth: Normal natural smile, lips open. Eyes: natural and relaxed)</li>
+							<li><span class="mid_green">Happy Expression</span> (Mouth: Big Smile, lips open. Eyes: Happy eyes)</li>
+						</ol>
+					</div>
+					<div class="col-sm-4">
+						<div class="page-header small_padding">
+							<h4 class="mid_green bold landing_text_main text-center">Extra</h4>
+						</div>
+						<ol class="info_list">
+							<li><span class="mid_green">Tilt the head</span> a little bit from one side to the other, coyly towards the camera</li>
+							<li><span class="mid_green">Lower the chin</span></li>
+							<li>Make sure the person makes a <span class="mid_green">Natural Expression</span></li>
+						</ol>
+					</div>
+
+				</div>
+
+				<p class="medium_padding">* Examples of these poses, expressions and extra:</p>
+
+				<!-- put examples -->
+				<ul class="info_list">
+						<li>
+							<div class="page-header">
+								<h4 class="mid_green bold landing_text_main">Poses</h4>
+							</div>
+							<div class="row">
+								<div class="col-sm-6">
+									<div class="sm_padding"></div>
+									<img src="{% static 'img/headshots/manual/pose21.jpg' %}" class="img-responsive">
+									<p class="l_font sm_padding text-center">Straight On</p>
+								</div>
+								<div class="col-sm-6">
+									<div class="sm_padding"></div>
+									<img src="{% static 'img/headshots/manual/pose22.jpg' %}" class="img-responsive">
+									<p class="l_font sm_padding text-center">Side (Turn to the right)</p>
+								</div>
+							</div>
+
+							<div class="medium_padding"></div>
+							<div class="row">
+								<div class="col-sm-6">
+									<div class="sm_padding"></div>
+									<img src="{% static 'img/headshots/manual/pose11.jpg' %}" class="img-responsive">
+									<p class="l_font sm_padding text-center">Straight On</p>
+								</div>
+								<div class="col-sm-6">
+									<div class="sm_padding"></div>
+									<img src="{% static 'img/headshots/manual/pose12.jpg' %}" class="img-responsive">
+									<p class="l_font sm_padding text-center">Side (Turn to the left)</p>
+								</div>
+							</div>
+					</li>
+
+					<li>
+						<div class="page-header">
+							<h4 class="mid_green bold landing_text_main">Expressions & Head Tilt</h4>
+						</div>
+
+							<div class="row">
+								<div class="col-xs-6">
+									<div class="small_padding"></div>
+									<img src="{% static 'img/headshots/manual/expression/sne2.jpg' %}" class="img-responsive">
+									<p class="l_font sm_padding text-center">No Expression with Side pose</p>
+								</div>
+								<div class="col-xs-6">
+									<div class="small_padding"></div>
+									<img src="{% static 'img/headshots/manual/expression/sone.jpg' %}" class="img-responsive">
+									<p class="l_font sm_padding text-center">Serious Expression with Straight On pose</p>
+								</div>
+
+							</div>
+
+							<div class="row">
+								<div class="col-xs-6">
+									<div class="small_padding"></div>
+									<img src="{% static 'img/headshots/manual/expression/sose.jpg' %}" class="img-responsive">
+									<p class="l_font sm_padding text-center">Confident Expression with Straight On pose</p>
+								</div>
+								<div class="col-xs-6">
+									<div class="small_padding"></div>
+									<img src="{% static 'img/headshots/manual/expression/soss.jpg' %}" class="img-responsive">
+									<p class="l_font sm_padding text-center">Natural Expression with Straight On pose</p>
+								</div>
+
+							</div>
+
+
+							<div class="row">
+								<div class="col-xs-6">
+									<div class="small_padding"></div>
+									<img src="{% static 'img/headshots/manual/expression/tilt side.jpg' %}" class="img-responsive">
+									<p class="l_font sm_padding text-center">Head Tilt on Natural Expression with Side pose</p>
+								</div>
+								<div class="col-xs-6">
+									<div class="small_padding"></div>
+									<img src="{% static 'img/headshots/manual/expression/sohe.jpg' %}" class="img-responsive">
+									<p class="l_font sm_padding text-center">Happy Expression with Straight On pose</p>
+								</div>
+
+							</div>
+												
+					</li>
+				</ul>
+
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+	<div class="medium_padding"></div>
+</div>
+
+<div class="background_grey">
+<div class="container">
+	<div class="row">
+		<div class="col-sm-10 col-sm-offset-1">
+
+			<div class="large_padding" id="p1_interaction">
+				<a id="p1_interaction_button" class="dark_grey manual_title_link"><h3 class="landing_title_sec bold">>> Interact with Clients</h3></a>
+				<div class="medium_padding"></div>
+
+				<div id="p1_interaction_content" class="section_content">
+				<div class="small_padding"></div>
+
+				<p class="l_font"><span class="mid_green">Good interactions with clients</span> will always lead to a better photography experience and headshot quality. By interacting with your customer, you will make them feel <span class="mid_green">relaxed and confident</span>, and at the same time learn more about that person, for example what type best suits that person and direct him/ her according to your judgement and intuition. If you see that person feel very comfortable doing the <span class="mid_green">Confident Expression</span> and looks really good, then you want to <span class="mid_green">let that person know and do more</span>. Keep in mind that most of the people don’t even know how to smile in front of a camera, and just as a professional photographer, you are like their mentor to guide them through this adventure!</p>
+
+				<div class="row large_padding">
+					<div class="col-sm-4">
+						<h4 class="mid_green bold landing_text_main">First rule of thumb</h4>
+						<p class="small_padding l_font"><span class="mid_green">Be confident yourself!</span> People can feel that they are put into good hands and will be more relaxed and confident.</p>
+					</div>
+
+					<div class="col-sm-4">
+						<h4 class="mid_green bold landing_text_main">Second</h4>
+						<p class="small_padding l_font"><span class="mid_green">Greet and chat with customers</span> as soon as you call them up. This will eliminate the awkwardness and make people feel relaxed and trusting.</p>
+					</div>
+
+					<div class="col-sm-4">
+						<h4 class="mid_green bold landing_text_main">Third</h4>
+						<p class="small_padding l_font"><span class="mid_green">Always give compliments.</span> No one can reject good compliments. Make sure to give out some compliments in between the poses and expressions during a headshot session. That will make people feel more confident in front of the camera.</p>
+					</div>
+				</div>
+
+				<div class="large_padding">
+					<h2 class="bold text-center landing_title_third">Within a photo session</h2>
+					<div class="medium_padding"></div>
+					<p class="l_font">People love <span class="mid_green">varieties of poses and expressions</span>! So let’s make sure they can have them all during the photoshoot! In order to be natural and easy for clients to follow, we came up with a simplified list of poses/expressions and corresponding cues you could say to the clients that work very well and in addition, some extra head tilt to spice things up.</p>
+
+					<ul class="info_list">
+						<li>
+							<div class="page-header">
+								<h4 class="mid_green bold landing_text_main">Before posing the client</h4>
+							</div>
+							<ol class="manual_sublist">
+								<li>Make sure to clean up the client's shirt, sweater, suit, tie or collar</li>
+								<li>Make sure things like necklaces are centered on the client</li>
+								<li>Make sure the client doesn't show significant amount of stray hair</li>
+							</ol>
+						</li>
+						<li>
+							<div class="page-header">
+								<h4 class="mid_green bold landing_text_main">Do Straight On pose first</h4>
+							</div>
+							<ol class="manual_sublist">
+								<li>Start with <span class="mid_green">No Expression</span> (Mouth: completely relaxed. Eyes: keep it natural) to make the client relaxed
+								<p class="small_padding small_font"><span class="mid_green">Cues:</span> sit straight and look at my camera. Try to relax your face and don't show any expressions</p>
+								</li>
+								<li>Do <span class="mid_green">Serious Expression</span> (Mouth: No smile, lip closed. Eyes: intensely focused)
+									<p class="small_padding small_font"><span class="mid_green">Cues:</span> Try to keep this expression and at the same time give me a really strong gaze.</p>
+								</li>
+								<li>Do <span class="mid_green">Confident Expression</span> (Mouth: Subtle smile, lip closed. Eyes: focused)
+									<p class="small_padding small_font"><span class="mid_green">Cues:</span> Keep the expression, and give me a subtle smile with you lips closed. Just a little smile.</p>
+								</li>
+								<li>Do <span class="mid_green">Natural Expression</span> (Mouth: Normal natural smile, lips open. Eyes: natural and relaxed)
+									<p class="small_padding small_font"><span class="mid_green">Cues:</span> Now try to open you lips and smile a little bit</p>
+								</li>
+								<li>Also Do a <span class="mid_green">head tilt while on Natural Expression</span> for girls
+									<p class="small_padding small_font"><span class="mid_green">Cues:</span> Keep the smile and everything, and try to tilt your head a little from one side to the other, and lower your chin a little bit</p>
+								</li>
+								<li>Do <span class="mid_green">Happy Expression</span> (Mouth: Big Smile, lips open. Eyes: Happy eyes)
+									<p class="small_padding small_font"><span class="mid_green">Cues:</span> Now try to give me a happy smile. Think about the moment when you walked out of the last final exam</p>
+								</li>
+							</ol>
+						</li>
+						<li>
+							<div class="page-header">
+								<h4 class="mid_green bold landing_text_main">Then do Side pose</h4>
+							</div>
+							<ol class="manual_sublist">
+								<li>Repeat the same steps listed when doing "Straight on".</li>
+							</ol>
+						</li>
+					</ul>
+				</div>
+
+				<div class="large_padding"></div>
+				<h2 class="bold text-center landing_title_third">Example of complete steps within a photo session</h2>
+				<div class="large_padding"></div>
+				<ol class="info_list">
+					<li><span class="mid_green">Call the next client up in the waiting area</span> according to the check-in list</li>
+					<li><span class="mid_green">Write the email of the next client on the whiteboard</span>, and mark the entry on the signup list</li>
+					<li><span class="mid_green">Introduce yourself</span>, speak with CONFIDENCE. “Hey I’m [name]. I’m your photographer, and you look awesome today!”</li>
+					<li><span class="mid_green">Hand the white board to the client</span>. You could say something like “Please have a seat, and hold this whiteboard for me, I will just need to take a quick snap of it”</li>
+					<li><span class="mid_green">Tell the client to put the whiteboard aside</span></li>
+					<li><span class="mid_green">Give a quick check on the client’s clothes, ties, hairs...</span> If they are not good, you can ask them “would you mind if I clean up your tie a little bit?”</li>
+					<li><span class="mid_green">Make sure to adjust the tripod</span> to keep the camera and the eyes on the same level, or you can shoot from above, but DEFINITELY NOT from below.</li>
+					<li><span class="mid_green">Remind the client to sit straight and looks towards your camera.</span> You could say say “Let’s do straight on pose first, focus on my camera and sit straight.”</li>
+					<li>1st shot: “Try to relax your face, and try not to give me any expressions at all.” <span class="mid_green">(NO EXPRESSION)</span></li>
+					<li>2nd shot: “Very good! Let’s try to be a little more serious, keep this expression and try to give me a intense stare.” <span class="mid_green">(SERIOUS EXPRESSION)</span></li>
+					<li>3rd shot: “Perfect! Now try to smile just a little bit, with you lips closed” <span class="mid_green">(CONFIDENT EXPRESSION)</span></li>
+					<li>4th shot: “Awesome, Now keep the smile and try to open you lips and show a little bit teeth” (Some clients may not feel comfortable showing their teeth. If they insist, you could just take some more with their lips closed.) <span class="mid_green"> (Natural Expression)</span></li>
+					<li>5th shot: “Now try to tilt your head to your left, and lower your chin a little bit” <span class="mid_green">(TILT HEAD ON NATURAL EXPRESSION)</span></li>
+					<li>6th shot: “Could you puff out your chest, and give me a gaze. That will make you look more confident. Now open your lips and try to give me a bigger smile!” <span class="mid_green"> (HAPPY EXPRESSION)</span></li>
+					<li>7th shot: “You look really good. Now think about the best vacation you ever had” (any fancy cues that will make people smile, others like “Pretend you just walked out the last final of the semester” etc...)<span class="mid_green"> (HAPPY EXPRESSION)</span></li>
+					<li>8th shot: “Great, keep the smile and let’s take 1 more!”</li>
+					<li><span class="mid_green">Ask the client if he or she has a better side of the face</span></li>
+					<li><span class="mid_green">Make the client turn to the better side</span>, “Could you turn to your left/right like 45 degrees and looks back at my camera?”</li>
+					<li><span class="mid_green">repeat steps 9 ~ 16</span></li>
+					<li>Once the session is finished, you could move towards the client and say “Hey I think we got some good photos there, and we will send you an email to all the photo we took very soon”!) If they ask for more details, here’s the answer to that “You will be able to select 1 headshot photo for free without touchup, and there are also extra photos and touchup service available for additional purchase”</li>
+				</ol>
+			</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+<div class="large_padding"></div>
+</div>
+
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-10 col-sm-offset-1">
+
+			<div class="large_padding"></div>
+
+			<div id="p1_running_photoshoot">
+				<a id="p1_running_photoshoot_button" class="dark_grey manual_title_link"><h2 class="landing_title_sec bold">>> Running the Photoshoot</h2></a>
+				<div class="medium_padding"></div>	
+
+				<div id="p1_running_photoshoot_content" class="section_content">
+				<p class="l_font">Once you communicate with your photographer trainer, and agreed to do a photoshoot with Bryte, here's a complete list of instructions on the process of running the photoshoot.</p>
+
+				<div class="medium_padding"></div>
+
+				<h2 class="bold text-center landing_title_third">3 Days before your photoshoot</h2>
+
+				<div class="medium_padding"></div>
+
+				<ul class="info_list">
+					<li>
+						<div class="page-header">
+						<p class="landing_text_main bold mid_green">Check your headshot kit to make sure it is fully stocked. It should have:</p>
+						</div>
+						<div class="small_padding"></div>
+						<ul class="manual_sublist">
+							<li>2 lighting stands + 3 85 Watts florescent light bulbs (1 light bulb for backup)</li>
+							<li>1 black/silver umbrella</li>
+							<li>1 reflector + 1 reflector stand + 1 reflector clipe</li>
+							<li>1 green backdrop + 1 backdrop stand + 6 backdrop clips</li>
+							<li>1 25-ft extension cord</li>
+							<li>1 Bryte Tee</li>
+							<li>1 big bag to hold everything</li>
+							<li>1 tripod</li>
+							<li>Check that your DSLR is <span class="mid_green">fully charged</span></li>
+							<li>There should be <span class="mid_green">at least 10 GB space available on the SD card</span></li>
+							<li>The lens and DSLR you use for taking headshot are <span class="mid_green">fully functional</span></li>
+						</ul>
+					</li>
+					<li>
+						<div class="page-header">
+						<p class="mid_green bold landing_text_main">Slack your trainer to confirm</p>
+						</div>
+						<p class="l_font">Make sure to slack your trainer to confirm that your equipment is ready and steady for the photoshoot. If anything is in need for replacement, we will be able to replace it before the photoshoot.</p>
+					</li>
+				</ul>
+
+				<div class="large_padding"></div>
+				<h2 class="bold text-center landing_title_third">1 Day before your photoshoot</h2>
+
+				<div class="large_padding"></div>
+				<p class="l_font">We’ll slack the link to the <span class="mid_green">check-in sheet</span> the night before the photoshoot. This online check-in list is in <span class="mid_green">Google Sheet</span>, and you will be able to view the check-in list during the photoshoot to know who to call up next, and mark the people you already take headshot with. For the marking to work on your mobile, <span class="mid_green">you will need to install Google Sheet app</span></p>
+
+				<p class="medium l_font">Slack us to confirm that you have read this information and are ready to take headshots within 60 minutes of us Slacking you. If you do not Slack us within 60 minutes then we will assume you are not ready to do the photoshoot. This also means that you have violated the contract you signed.</p>
+
+				<div class="large_padding"></div>
+				<h2 class="bold text-center landing_title_third">45 Minutes before your shoot</h2>
+
+				<div class="large_padding"></div>
+
+				<p class="l_font">By now you should have arrived at the photoshoot location to set things up and be ready in the Bryte Tee!</p>
+
+				<div class="medium_padding"></div>
+				<ul class="manual_sublist">
+					<li>
+						<div class="page-header">
+						<p class="mid_green bold landing_text_main">1. Find the assigned space to set up the portable studio</p>
+						</div>
+						<ul class="info_list">
+							<li>If you can't find the place in career center or at career fairs, you can always ask the career center members.</li>
+							<li>Make sure there's no strong and uneven lighting at the space.</li>
+							<li>Make sure there are power outlets nearby to power the lighting (you can use extension cords)</li>
+						</ul>
+					</li>
+					<li>
+						<div class="page-header">
+						<p class="mid_green bold landing_text_main">2. Set up the equipment according to "Equipment Setup" section</p>
+						</div>
+						<ul class="info_list">
+							<li>Start from the Chromakey</li>
+							<li>Background light</li>
+							<li>Stool/Chair</li>
+							<li>Key Light</li>
+							<li>Reflector</li>
+							<li>Your DSLR & Tripod</li>
+							<li>Waiting Area</li>
+							<li>If you need help with anything (finding a chair, helping with setting up waiting area..), ask a career center members for help.</li>
+						</ul>
+					</li>
+					<li>
+						<div class="page-header">
+						<p class="mid_green bold landing_text_main">3. Take some pictures for testing, and check for the following points</p>
+						</div>
+						<ul class="manual_sublist">
+							<li><span class="mid_green">You will need a person to sit on the stool for you to test the photo.</span> You could either set timer on your DSLR to take photos of your own, or to ask a career center member for help.</li>
+							<li><span class="mid_green">Check lighting on the face</span> - Make sure the position of every piece of equipment is correct.</li>
+							<li><span class="mid_green">Check brightness</span> - Adjust <span class="mid_green">ISO</span> to make sure the picture is as bright as the given example</li>
+							<li><span class="mid_green">Check Color</span> - Make sure to adjust the <span class="mid_green">white balance (WB)</span> if Auto White Balance (AWB) does not look natural</li>
+							<li><span class="mid_green">Check Angle</span> - Make sure the camera is not lower than the client's eye level</li>
+						</ul>
+					</li>
+					<li>
+						<div class="page-header">
+						<p class="mid_green bold landing_text_main">4. Slack your trainer a picture of all the things after being set up</p>
+						</div>
+						<ul class="manual_sublist">
+							<li>Make sure to slack your trainer a picture of photoshoot.</li>
+						</ul>
+					</li>
+				</ul>				
+
+				<div class="large_padding"></div>
+				<h2 class="bold text-center landing_title_third">After the photoshoot</h2>
+
+				<div class="large_padding"></div>
+
+				<p class="l_font"><span class="mid_green">Clean up the space</span> make sure it looks like what it was before the photoshoot.</p> 
+
+				<p class="l_font"><span class="mid_green">Pack up all the equipment.</span> Make sure to put light bulbs in the plastic packages if came with.</p>
+			</div>
+
+			</div>
+
+		</div>
+	</div>
+	<div class="large_padding"></div>
+</div>
+
+
+<div class="background_grey">
+<div class="container">
+	<div class="row">
+		<div class="col-sm-10 col-sm-offset-1">
+
+
+			<div class="large_padding"></div>
+
+			<div id="p1_upload">
+				<a class="dark_grey manual_title_link" id="p1_upload_button"><h2 class="bold landing_title_sec">>> Upload the Photo</h2></a>
+				<div class="large_padding"></div>
+
+				<div id="p1_upload_content" class="section_content">
+				<p class="l_font">The photos need to be uploaded to Dropbox on the same day. <span class="mid_green">Make sure to contact your trainer to get the Dropbox credentials</span></p>
+
+				<div class="medium_padding"></div>
+				<h2 class="bold text-center landing_title_third">Upload Instruction</h2>
+				<div class="medium_padding"></div>
+				<ol class="info_list">
+					<li>Go through the photos you took <span class="mid_green">on a computer, delete all the blurry photos, and all the photos where client's eyes are closed, or not focused on the camera.</span></li>
+					<li>Go to Dropbox, and log in with the credential.</li>
+					<li>enter <span class="mid_green">PHOTO</span> folder, and <span class="mid_green">locate the photoshoot folder inside PHOTO folder</span>, there will be folders named with all the clients' email addresses from that photoshoot</li>
+					<li>Upload all the JPEG photos under corresponding folders with the name being email addresses.</li>
+				</ol>
+
+			</div>
+
+			
+			<div class="large_padding"></div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+</div>
+
+
+{% endblock %}
+
+
+{% block jquery %}
+	$('.section_content').hide();
+
+	$('#p1_equipment_button').click(function(){
+		$('#p1_equipment_content').slideToggle()
+	})
+
+	$('#p1_headshot_keys_button').click(function(){
+		$('#p1_headshot_keys_content').slideToggle();
+	})
+
+	$('#p1_cam_setting_button').click(function(){
+		$('#p1_cam_setting_content').slideToggle();
+	})
+
+	$('#p1_equipment_setup_button').click(function(){
+		$('#p1_equipment_setup_content').slideToggle();
+	})
+	$('#p1_expression_button').click(function(){
+		$('#p1_expression_content').slideToggle();
+	})
+	$('#p1_interaction_button').click(function(){
+		$('#p1_interaction_content').slideToggle();
+	})
+	$('#p1_running_photoshoot_button').click(function(){
+		$('#p1_running_photoshoot_content').slideToggle();
+	})
+	$('#p1_upload_button').click(function(){
+		$('#p1_upload_content').slideToggle();
+	})
+
+
 
 
 {% endblock %}
