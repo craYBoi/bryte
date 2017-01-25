@@ -13,8 +13,6 @@
 
 {% block stylesheet %}
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.min.css">
-  <link rel="stylesheet" type="text/css" href="{% static 'css/justifiedGallery.min.css' %}">
-  <link rel="stylesheet" type="text/css" href="{% static 'css/lightgallery.css' %}">
   <link rel="stylesheet" href="{% static 'css/unslider.css' %}">
 {% endblock %}
 
@@ -37,68 +35,219 @@
      <div class="large_padding"></div>
     </div> 
   </div>-->
+  <div class="extra_dark_grey">
 
   <div style="background: url({% static 'img/landing/bg1.jpg' %}) center; background-size: cover; text-align: center;" id="landing_pic">
-    <div id="landing_wrapper" class="center_flex">
+    <div id="landing_wrapper" class="center_vertical">
 
-      <div class="col-xs-10">
-      <h1 class="white text-center bold landing_title">A LinkedIn photo solution with a perfect option for every student</h1>
+      <div class="col-xs-6 col-xs-offset-1">
+      <h1 class="bold landing_title text-left white">Bring more smiles into your career center</h1>
       </div>
-
-     
-
-     <div class="medium_padding"></div>
-     <a href="#landing_feature"><button class="white text-center main_green_button_mid landing_text_main landing_button_padding">Learn what’s special about Bryte</button></a>
-     <div class="large_padding"></div>
+      <div class="large_padding"></div>
+      <div class="large_padding"></div>
     </div>  
   </div>
 
+  <!-- Text -->
+  <div class="background_grey">
+    <div class="medium_padding"></div>
+    <div class="small_padding"></div>
+    <div class="row">
+      <div class="col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
+        <h3 class="landing_title_third bold text-center small_line_height">Get unlimited LinkedIn photos at your disposal. Engage with more of your students. Don't spend a dime.</h3>
+      </div>
+    </div>
+    <div class="large_padding"></div>
+  </div>
 
   <!-- partners -->
   <div>
-    <div class="medium_padding"></div>
-    <h2 class="landing_title text-center bold">Our Partners</h2>
+    <div class="large_padding"></div>
+    <h2 class="landing_title text-center bold">Career centers that partner with Bryte</h2>
 
-    <div class="medium_padding"></div>
+    <div class="large_padding"></div>
 
-
-          
-    <div class="flex_box_center">
-      <a href="{% url 'landing_clients' %}"><img src="{% static 'logo/schools/brown.png' %}" height="60px"></a>
-
-      <div class="mobile_hide">
-        <div class="special_padding_left"></div>
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
+        <a href="{% url 'landing_clients' %}"><img src="{% static 'logo/schools/all.jpg' %}" class="img-responsive"></a>
       </div>
-      <a href="{% url 'landing_clients' %}"><img src="{% static 'logo/schools/bu.png' %}" height="60px"></a>
-      <div class="mobile_hide">
-        <div class="special_padding_left"></div>
-      </div>
-      <a href="{% url 'landing_clients' %}"><img src="{% static 'logo/schools/wfs.png' %}" height="60px"></a>
     </div>
 
-    <div class="md_height flex_box_center">
-      <a href="{% url 'landing_clients' %}"><img src="{% static 'logo/schools/ric.png' %}" height="80px"></a>
-      <div class="mobile_hide">
-        <div class="special_padding_left"></div>
-      </div>
-      <a href="{% url 'landing_clients' %}"><img src="{% static 'logo/schools/ccri.png' %}" height="80px"></a>
-    </div>
-
-    <div class="medium_padding"></div>
+    <div class="large_padding"></div>
 
   </div>
 
+  <!-- carousel -->
+  <div class="main_green_bg">
+  <div class="slider white">
+    <div class="large_padding"></div>
+    <h2 class="landing_title text-center bold">Why our partners love us</h2>
+    <div class="large_padding"></div>
+    <ul>
+      <li>
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
+
+            <p class="landing_text_main">The time commitment is pretty much nothing. All we need to do is pick the dates and the Bryte Photo Team runs with it, and I never have to worry.</p>
+            <p class="text-right bold landing_text_main"> <img src="{% static 'img/landing/amy.jpg' %}" width="60px" class="img-circle white_border small_margin_right">Amy Tarbox, The CareerLAB</p>
+          </div>
+
+        </div>
+      </li>
+      <li>
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
+
+            <p class="landing_text_main">100% of our Career Center partners keep using Bryte Photo to take their LinkedIn photos.</p>
+          </div>
+
+        </div>
+      </li>
+    </ul>
+    </div>
+    <div class="large_padding"></div>
+  </div>
+
+  <!-- How we're free -->
+  <div class="background_grey">
+    <div class="large_padding"></div>
+    <div class="row">
+      <div class="col-xs-8 col-xs-offset-2">
+        <h2 class="text-center landing_title bold">How we're free for career centers</h2>
+        
+
+
+        <div class="row">
+          <div class="col-sm-7">
+            <div class="large_padding"></div>
+              <h3 class="landing_title_fourth bold">Options that students love</h3>
+              <p class="landing_text medium_padding light">
+                We've always given a free photo with no touchup to every student who attends a photoshoot. A portion of students also request touchup for their photos. We make touchup options available to students at $8 - 15/ photo. These purchases account for all of our revenue. <strong class="">Students love these options and 96% are satisfied with their Bryte Photo photos.</strong>
+              </p>
+
+          </div>
+          <div class="col-sm-5">
+            <div class="large_padding"></div>
+            <div class="medium_padding"></div>
+            <img src="{% static 'img/landing/pic8.jpg' %}" class="img-responsive">
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="large_padding"></div>
+    <div class="medium_padding"></div>
+  </div>
+
+
+  <!-- We help career centers -->
+  <div class="container">
+    <div class="large_padding"></div>
+    <h2 class="landing_title text-center bold">We help career centers...</h2>
+    <div class="medium_padding"></div>
+    <div class="row">
+      <div class="col-sm-6 col-sm-push-6 col-sm-offset-0 col-xs-10 col-xs-offset-1">
+        <div class="medium_padding"></div>
+        <div class="small_padding"></div>
+        <img src="{% static 'img/landing/pic9.png' %}" class="img-responsive">
+      </div>
+      <div class="col-sm-6 col-sm-pull-6 col-sm-offset-0 col-xs-10 col-xs-offset-1">
+        <div class="medium_padding"></div>
+        <h3 class="landing_title_fourth bold">Amplify their megaphones</h3>
+        <p class="landing_text medium_padding light">
+          The unique qualities of our service make it drastically more popular amongst students than the one's previously used by our partners. Our photoshoots often have long waitlists. They create buzz on campus too.<strong class=""> In fact, 28% of photoshoot attendees hear about Bryte Photo from someone other than their career centers.</strong>
+        </p>
+        <div class="small_padding"></div>
+        <div class="row">
+          <div class="col-md-7">
+          <a href="{% url 'landing_contact' %}"><button class="yellow_cta landing_text">Contact Us to learn more</button> </a>
+          </div>
+          <div class="col-md-5">
+          <p class="sm_padding">Or call (248)-417-5852</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="medium_padding"></div>
+
+    <div class="row">
+      <div class="col-sm-6 col-sm-offset-0 col-xs-10 col-xs-offset-1">
+        <div class="medium_padding"></div>
+        <div class="small_padding"></div>
+        <img src="{% static 'img/landing/pic6.jpg' %}" class="img-responsive">
+      </div>
+      <div class="col-sm-6 col-sm-offset-0 col-xs-10 col-xs-offset-1">
+        <div class="medium_padding"></div>
+        <h3 class="landing_title_fourth bold">Organize photoshoots effortlessly</h3>
+        <p class="landing_text medium_padding light">
+          We have technology to automate the signup, photo ordering and photo delivery processes. We also train, give free equipment to, and pay your student photographers $20/ hour. All career centers have to do is pick the photoshoot date and location and send an email promoting it. <strong class="">Organizing photoshoots takes only minutes.</strong>
+        </p>
+
+        <div class="small_padding"></div>
+        <div class="row">
+          <div class="col-md-7">
+          <a href="{% url 'landing_contact' %}"><button class="yellow_cta landing_text">Contact Us to learn more</button> </a>
+          </div>
+          <div class="col-md-5">
+          <p class="sm_padding">Or call (248)-417-5852</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="medium_padding"></div>
+
+
+    <div class="row">
+      <div class="col-sm-6 col-sm-push-6 col-sm-offset-0 col-xs-10 col-xs-offset-1">
+      <div class="medium_padding"></div>
+      <div class="small_padding"></div>
+      <img src="{% static 'img/landing/pic7.jpg' %}" class="img-responsive">
+      </div>
+      <div class="col-sm-6 col-sm-pull-6 col-sm-offset-0 col-xs-10 col-xs-offset-1">
+        <div class="medium_padding"></div>
+        <h3 class="landing_title_fourth bold">Connect with more students</h3>
+        <p class="landing_text medium_padding light">
+          Since organizing photoshoots is easy, and completely free, career centers can schedule as many of them as they'd like per semester. Career Fairs, LinkedIn workshops, and other events are all common pairings. <strong class="">Moreover, 64% of students say taking photos with Bryte makes them more likely to attend other Career Center events</strong>
+        </p>
+
+        <div class="small_padding"></div>
+        <div class="row">
+          <div class="col-md-7">
+          <a href="{% url 'landing_contact' %}"><button class="yellow_cta landing_text">Contact Us to learn more</button> </a>
+          </div>
+          <div class="col-md-5">
+          <p class="sm_padding">Or call (248)-417-5852</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="large_padding"></div>
+    <div class="medium_padding"></div>
+  </div>
+
+<!--
   <div id="landing_content">
-    <div id="landing_feature" class="light_green_bg">
+    <div id="landing_feature">
+      <div class="large_padding"></div>
+      <h2 class="landing_title text-center bold">We help career centers...</h2>
+      <div class="large_padding"></div>
       <div class="row">
         <div class="col-sm-6">
           <div class="center_flex landing_feature_padding landing_feature_height">
             <div class="small_padding"></div>
             <div class="row">
               <div class="col-xs-10 col-xs-offset-1">
-                <p class="landing_text_main">
-                  We take 10-15 photos of each student in our uniquely designed pose flow. Every student gets a free photo with a white background, just like your current LinkedIn photo solution.
+                <h3 class="landing_title_third">Amplify their megaphones</h3>
+                <p class="landing_text_main medium_padding">
+                  The unique qualities of our service make it drastically more popular amongst students than the one's previously used by our partners. Our photoshoots often have long waitlists. They create buzz on campus too.<strong class="extra_bold"> In fact, 28% of photoshoot attendees hear about Bryte Photo from someone other than their career centers.</strong>
                 </p>
+                <div class="medium_padding"></div>
+                <button class="yellow_cta">Contact Us to learn more</button>
               </div>
             </div>
           </div>
@@ -113,52 +262,66 @@
             <div class="small_padding"></div>
             <div class="row">
               <div class="col-xs-10 col-xs-offset-1">
-                <p class="landing_text_main">
-                  After photoshoots, students can pick from touchup options, backgrounds, and purchase extra photos for prices on their student budgets.  Nearly 40% of students want these extras! Student demand is huge for photography extras beyond the basic LinkedIn photo.
+                <h3 class="landing_title_third">Organize photoshoots effortlessly</h3>
+                <p class="landing_text_main medium_padding">
+                  We have technology to automate the signup, photo ordering and photo delivery processes. We also train, give free equipment to, and pay your student photographers $20/ hour. All career centers have to do is pick the photoshoot date and location and send an email promoting it. <strong class="extra_bold">Organizing photoshoots takes only minutes.</strong>
                 </p>
-                </div>
+                <div class="medium_padding"></div>
+                <button class="yellow_cta">Contact Us to learn more</button>
               </div>
+            </div>
           </div>
         </div>
         <div class="col-sm-6 col-sm-pull-6">
           <img src="{% static 'img/landing/pic2.jpg' %}" class="img-responsive">
         </div>
       </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="center_flex landing_feature_padding landing_feature_height">
+            <div class="small_padding"></div>
+            <div class="row">
+              <div class="col-xs-10 col-xs-offset-1">
+                <h3 class="landing_title_third">Connect with more students</h3>
+                <p class="landing_text_main medium_padding">
+                  Since organizing photoshoots is easy, and completely free, career centers can schedule as many of them as they'd like per semester. Career Fairs, LinkedIn workshops, and other events are all common pairings. <strong class="extra_bold">Moreover, 64% of students say taking photos with Bryte makes them more likely to attend other Career Center events</strong>
+                </p>
+                <div class="medium_padding"></div>
+                <button class="yellow_cta">Contact Us to learn more</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6" style="background: url({% static 'img/landing/pic1.jpg' %}) center; background-size: cover; text-align: center;">
+        <div class="whole_padding"></div>
+        </div>
+      </div>
     </div>
+-->
 
+    <!-- numbers -->
 
-
-    <div id="landing_contact" class="main_green_bg">
+    <div class="background_grey">
       <div class="large_padding"></div>
       <div class="row">
-        <div class="col-xs-8 col-xs-offset-2">
-          <h2 class="white text-center landing_title bold">96% of students are happy with their photos</h2>
+        <div class="col-xs-10 col-xs-offset-1">
+          <h2 class="text-center landing_title bold">More numbers career centers will love</h2>
           
-
-
           <div class="row">
             <div class="col-sm-4">
               <div class="large_padding"></div>
-              <img src="{% static 'img/landing/greg.jpg' %}" class="img-responsive">
-              <div class="small_padding"></div>
-              <p class="white">"It felt like a fully professional photoshoot, at an unbelievable price -  free"</p>
-
-              <p class="text-right white">Greg, Brown University</p>
+              <p class="landing_text_main">81% of students update other elements of LinkedIn profiles after photoshoots</p>
             </div>
             <div class="col-sm-4">
               <div class="large_padding"></div>
-              <img src="{% static 'img/headshots/examples/premium/blue4.jpg' %}" class="img-responsive">
-              <div class="small_padding"></div>
-              <p class="white">"I loved how clear and bright my skin looked after touchup."</p>
 
-              <p class="text-right white">Leann, Rhode Island College</p>
+              <p class="landing_text_main">38% of students apply for jobs after taking photos with Bryte</p>
+
             </div>
+
             <div class="col-sm-4">
               <div class="large_padding"></div>
-              <img src="{% static 'img/landing/pic4.png' %}" class="img-responsive">
-              <div class="small_padding"></div>
-              <p class="white">"I received my pictures today, and they look great. Thank you for the quick and prompt service."</p>
-              <p class="text-right white">Sheena, Boston University</p>
+              <p class="landing_text_main">>$16,000 is what we're projecting to pay our student photographers in 2017</p>
             </div>
           </div>
 
@@ -166,59 +329,102 @@
       </div>
 
       <div class="large_padding"></div>
+      <div class="medium_padding"></div>
     </div>
 
 
-
-
-    <div class="light_green_bg" id="landing_our_clients">
-      <div class="medium_padding"></div>
-
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4 col-md-offset-0 col-xs-10 col-xs-offset-1">
-          <!--
-            <div class="page-header">
-              <h4 class="white"><span class="landing_title_sec">Amy</span> | <span class="landing_text">CareerLAB Advisor</span></h4>
+<!-- highlight -->
+    <div class="main_green_bg">
+      <div class="large_padding"></div>
+      <div class="row">
+        <div class="col-xs-10 col-xs-offset-1">
+          <h2 class="white text-center landing_title bold">Highlights of the Bryte platform</h2>
+          
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="row">
+              <div class="col-xs-10 col-xs-offset-1">
+                <div class="large_padding"></div>
+                <div class="page-header">
+                  <h6 class="white landing_title_fourth text-center bold">Online photo booking</h6>
+                </div>
+                <p class="white landing_text">Students sign up for individual sessions before the photoshoot. This means no more long lines at your events.</p>
+              </div>
+              </div>
             </div>
-            <p class="white">"I think Bryte is a great addition to the services we provide to our students.</p>
-            <div class="small_padding"></div> -->
-            <div class="large_padding"></div>
-            <p class="landing_text_main">
-              Your Career Center will only benefit with Bryte. <span class="main_green bold">We are free for Career Centers</span>, your student engagement will skyrocket, and we handle all the logistics around a photoshoot (no more sending out photos yourself!).
-            </p>
+            <div class="col-sm-4">
+              <div class="row">
+              <div class="col-xs-10 col-xs-offset-1">
+              <div class="large_padding"></div>
+              <div class="page-header">
+                <h6 class="white landing_title_fourth text-center bold">Automated photo delivery</h6>
+              </div>
+              <p class="white landing_text">We have a foolproof system that delivers every student their photos. Never spend time sending out photos to students.</p>
+              </div>
+              </div>
+
+            </div>
+
+            <div class="col-sm-4">
+              <div class="row">
+              <div class="col-xs-10 col-xs-offset-1">
+              <div class="large_padding"></div>
+              <div class="page-header">
+                <h6 class="white landing_title_fourth text-center bold">Analytics on who's attending</h6>
+              </div>
+              <p class="white landing_text">We can include surveys on our sign up pages so you know the majors, and more of who's attending. All data is 100% private.</p>
+              </div>
+              </div>
+            </div>
           </div>
 
-          <div class="col-md-7 col-md-offset-1 col-xs-10 col-xs-offset-1">
-            <div class="large_padding"></div>
-            <img src="{% static 'img/amy.jpg' %}" class="img-responsive">
-            <div class="small_padding"></div>
-            <p class="bold">
-              "[The time commitment is] pretty much nothing. All we need to do is pick the dates and the Bryte Photo Team runs with it, and I never have to worry."
-            </p>
-            <p class="text-right bold">– Amy Tarbox, The CareerLAB</p>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="row">
+              <div class="col-xs-10 col-xs-offset-1">
+              <div class="large_padding"></div>
+              <div class="page-header">
+                <h6 class="white landing_title_fourth text-center bold">Promotional materials</h6>
+              </div>
+              <p class="white landing_text">We provide you with promotional email and poster templates to make your job easy.</p>
+              </div>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="row">
+              <div class="col-xs-10 col-xs-offset-1">
+              <div class="large_padding"></div>
+              <div class="page-header">
+                <h6 class="white landing_title_fourth text-center bold">Photographer training program</h6>
+              </div>
+              <p class="white landing_text">Our student photographer training program teaches the ins and outs of taking professional headshots. It even kickstarts career.</p>
+              </div>
+              </div>
+            </div>
+
+            <div class="col-sm-4">
+              <div class="row">
+              <div class="col-xs-10 col-xs-offset-1">
+              <div class="large_padding"></div>
+              <div class="page-header">
+                <h6 class="white landing_title_fourth text-center bold">$20/ hour student pay</h6>
+              </div>
+              <p class="white landing_text">We pay almost double of most college jobs. Our student photographers are paid at this rate during equipment setup too.</p>
+            </div>
+            </div>
+            </div>
           </div>
+
         </div>
-      </div>
-      <div class="medium_padding"></div>
-
-      <div class="text-center small_padding">
-        <a href="{% url 'landing_contact' %}"><button class="white text-center main_green_button_mid landing_text landing_button_padding">Contact Us</button></a>
       </div>
 
       <div class="large_padding"></div>
-    </div>
-
-
-    <div>
       <div class="medium_padding"></div>
-      <div class="small_padding"></div>
-      <h2 class="bold text-center landing_title">Started by students, for students</h2>
-      <div class="medium_padding"></div>  
-      <img src="{% static 'img/landing/pic3.jpg' %}" width="100%"> 
-      <div class="large_padding"></div>  
     </div>
 
+
+
+  </div>
 
   </div>
 {% endblock %}
@@ -261,7 +467,7 @@
   $('.slider').unslider({
     autoplay: true,
     speed: 500,
-    delay: 2500,
+    delay: 3500,
     infinite: true,
     nav: false,
     arrows: false,

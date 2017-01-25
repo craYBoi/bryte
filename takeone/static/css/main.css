@@ -183,7 +183,7 @@ h1,h2,h3,h4 {
 }
 
 .white_border {
-	border: 4px solid #fff;
+	border: 3px solid #fff;
 }
 
 /* jumbotron */
@@ -1250,6 +1250,10 @@ h1,h2,h3,h4 {
 	margin: 0 4%;
 }
 
+.small_margin_right {
+	margin-right: 10px;
+}
+
 .list_space_small li {
 	padding: 4px 0;
 }
@@ -1350,6 +1354,10 @@ h1,h2,h3,h4 {
 	color: rgb(90,90,90);
 }
 
+.extra_dark_grey {
+	color: rgb(60, 60, 60)!important;
+}
+
 .yellow {
 	color: #ffff00;
 }
@@ -1427,7 +1435,7 @@ h1,h2,h3,h4 {
 }
 
 .background_grey {
-	background-color: #f8f8f8!important;
+	background-color: #f0f0f0!important;
 }
 
 .background_grey_d {
@@ -1533,6 +1541,10 @@ h1,h2,h3,h4 {
 	border: 1px solid #eee;
 }
 
+
+.small_line_height {
+	line-height: 140%!important;
+}
 
 .big_line_height {
 	line-height: 200%;
@@ -1976,7 +1988,7 @@ body, html
     font-size: 3em!important;
   }
   .landing_text {
-  	font-size: 1em!important;
+  	font-size: 1.1em!important;
   }
   .landing_text_main {
   	font-size: 1.3em!important;
@@ -1986,6 +1998,9 @@ body, html
   }
   .landing_title_third {
     font-size: 2em!important;
+  }
+  .landing_title_fourth {
+    font-size: 1.8em!important;
   }
   .landing_button_padding {
   	padding: 15px 40px;
@@ -2011,6 +2026,9 @@ body, html
   .landing_title_third {
     font-size: 1.8em!important;
   }
+  .landing_title_fourth {
+    font-size: 1.4em!important;
+  }
   .landing_button_padding {
   	padding: 10px 30px;
   	border-radius: .3em;
@@ -2035,6 +2053,9 @@ body, html
   .landing_title_third {
     font-size: 1.5em!important;
   }
+  .landing_title_fourth {
+    font-size: 1.2em!important;
+  }
   .landing_button_padding {
   	padding: 8px 20px;
   	border-radius: .3em;
@@ -2058,6 +2079,9 @@ body, html
   }
   .landing_title_third {
     font-size: 1.2em!important;
+  }
+  .landing_title_fourth {
+    font-size: 1em!important;
   }
   .landing_button_padding {
   	padding: 5px 15px;
@@ -2424,6 +2448,10 @@ body, html
 .form_lg_input select{
 	height: 3em!important;
 	font-size: 1em!important;
+}
+
+.animatedModal-on {
+	background-color: #117200!important;
 }
 
 .book_button {
@@ -2927,3 +2955,17 @@ body, html
   position: absolute;
 }
 
+.yellow_cta {
+	background-color: #eab60f;
+  font-family: 'Lato', sans-serif;
+  font-weight: bold;
+  color: #fff;
+  border-radius: 7px;
+  border: 1px solid #eab60f;
+  padding: 8px 16px;
+}
+
+.yellow_cta:hover {
+	background-color: #cc9c15;
+	border: 1px solid #cc9c15;
+}
