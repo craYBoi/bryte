@@ -2497,10 +2497,14 @@ body, html
 }
 
 .max_width_300 {
-	max-width: 350px!important;
+	max-width: 450px!important;
 	width:100%;
 }
 
+
+.os_center {
+	margin: 0 auto;
+}
 
 .max_width_250 {
 	max-width: 300px!important;
