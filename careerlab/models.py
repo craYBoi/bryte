@@ -890,6 +890,9 @@ class Booking(models.Model):
 				self.cust_type = 1
 				print 'No download'
 
+		else:
+			print '[NO SHOW] -- ' + self.email + '\n'
+
 		if self.cust_type == 1:
 			print '[NO TYPE] -- ' + self.email + '\n'
 		elif self.cust_type == 2:
@@ -1329,7 +1332,7 @@ class Booking(models.Model):
 		message = sendgrid.Mail()
 		message.add_to(email)
 		message.set_from('Bryte Inc <' + settings.EMAIL_HOST_USER + '>')
-		message.set_subject('Your super-awesome order from Bryte') 
+		message.set_subject('Thanks for your order.  We\'ll get it to you ASAP') 
 		message.set_html('Body')
 		message.set_text('Body')
 		message.add_filter('templates','enable','1')
