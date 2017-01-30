@@ -977,7 +977,7 @@ class Booking(models.Model):
 
 				if total_spent == 0:
 					self.cust_type = 2
-				elif total_spent > 0 and total_spent <= 20:
+				elif total_spent > 0 and total_spent < 20:
 					self.cust_type = 3
 				else:
 					self.cust_type = 4
