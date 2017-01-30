@@ -947,6 +947,7 @@ class Booking(models.Model):
 		return r
 
 
+
 	# return if the booking instance is discounted
 	def is_discounted(self):
 		return not self.discount_amount == 1.

@@ -677,6 +677,9 @@ def headshot_style(request):
 		# calculate discount to display next to the price
 		discount = '(%' + str(int(100 - booking.discount_amount * 100)) + ' OFF)'
 
+		# band_aid Basic price
+		basic_price = "{0:.2f}".format(booking.discount_amount * 3)
+
 		context = {
 			'myheadshot': 1,
 			'title_text': 'Style Your Photo',
@@ -693,6 +696,7 @@ def headshot_style(request):
 			'show_checkout_button': len(orders) != 0,
 			'discount': discount,
 			'is_discounted': booking.is_discounted(),
+			'basic_price': basic_price,
 		}
 
 		# set stage

@@ -137,12 +137,12 @@
 							<div class="all_padding desktop_disp">
 
 							{% if is_discounted %}
-								<p class="price_font_size"><del class="dark_grey">${{ booking.timeslot.shoot.basic_price }}</del> <span class="mid_green bold">${{ booking.final_standard_price | floatformat:2 }}</span> <span class="mid_green small_font">{{ discount }}</span></p>
+								<p class="price_font_size"><del class="dark_grey">${{ booking.timeslot.shoot.basic_price }}</del> <span class="mid_green bold">${{ booking.final_standard_price | floatformat:2 }}</span></p>
 							{% else %}
 								<p class="price_font_size"><span class="dark_grey">${{ booking.timeslot.shoot.basic_price }}</span></p>
 							{% endif %}
 								
-								<button class="main_green_button_100 basic_add" type="submit">Add to cart</button>
+								<button class="main_green_button_100 basic_add" type="submit">Add to Cart</button>
 								<p class="small_font italic sm_padding grey">Your touched up photo will be available for download within 7 business dayss</p>
 							</div>
 						</form>
@@ -274,13 +274,13 @@
 							<div class="all_padding desktop_disp">
 
 							{% if is_discounted %}
-								<p class="price_font_size"><del class="dark_grey">${{ booking.timeslot.shoot.professional_price }}</del> <span class="mid_green bold">${{ booking.final_plus_price | floatformat:2 }}</span> <span class="mid_green small_font">{{ discount }}</span></p>
+								<p class="price_font_size"><del class="dark_grey">${{ booking.timeslot.shoot.professional_price }}</del> <span class="mid_green bold">${{ booking.final_plus_price | floatformat:2 }}</span></p>
 							{% else %}
 								<p class="price_font_size"><span class="dark_grey">${{ booking.timeslot.shoot.professional_price }}</span></p>
 							{% endif %}
 								
 								<div class="sm_padding"></div>
-								<button class="main_green_button_100 prof_add" type="submit">Add to cart</button>
+								<button class="main_green_button_100 prof_add" type="submit">Add to Cart</button>
 								<p class="small_font italic sm_padding grey">Your touched up photo will be available for download within 7 business days</p>
 
 							</div>
@@ -425,13 +425,13 @@
 
 							<div class="desktop_disp">
 								{% if is_discounted %}
-									<p class="price_font_size"><del class="dark_grey">${{ booking.timeslot.shoot.customized_price }}</del> <span class="mid_green bold">${{ booking.final_customized_price | floatformat:2 }}</span> <span class="mid_green small_font">{{ discount }}</span></p>
+									<p class="price_font_size"><del class="dark_grey">${{ booking.timeslot.shoot.customized_price }}</del> <span class="mid_green bold">${{ booking.final_customized_price | floatformat:2 }}</span></p>
 								{% else %}
 									<p class="price_font_size"><span class="dark_grey">${{ booking.timeslot.shoot.customized_price }}</span></p>
 								{% endif %}
 								
 								<div class="sm_padding"></div>
-								<button class="main_green_button_100 cust_add" type='Submit'>Add to cart</button>
+								<button class="main_green_button_100 cust_add" type='Submit'>Add to Cart</button>
 								<p class="small_font italic sm_padding grey">Your touched up photo will be available for download within 7 business days</p>
 							</div>
 
@@ -458,7 +458,7 @@
 					<div class="all_padding">
 						<div class=""><div class="inline">
 							{% if is_discounted %}
-								<p class="xlarge_font"><del class="dark_grey">${{ booking.timeslot.shoot.basic_price }}</del> <span class="mid_green bold">${{ booking.final_standard_price | floatformat:2 }}</span> <span class="mid_green small_font">{{ discount }}</span></p>
+								<p class="xlarge_font"><del class="dark_grey">${{ booking.timeslot.shoot.basic_price }}</del> <span class="mid_green bold">${{ booking.final_standard_price | floatformat:2 }}</span></p>
 							{% else %}
 								<p class="xlarge_font"><span class="dark_grey">${{ booking.timeslot.shoot.basic_price }}</span></p>
 							{% endif %}
@@ -468,7 +468,7 @@
 
 
 						<div class="sm_padding"></div>
-						<button class="main_green_button_100 basic_add">Add to cart</button>
+						<button class="main_green_button_100 basic_add">Add to Cart</button>
 						<p class="small_font italic sm_padding grey">Your touched up photo will be available for download within 7 business days</p>
 					</div>
 				</div>
@@ -478,7 +478,7 @@
 						<div class=""><div class="inline">
 
 						{% if is_discounted %}
-							<p class="xlarge_font"><del class="dark_grey">${{ booking.timeslot.shoot.professional_price }}</del> <span class="mid_green bold">${{ booking.final_plus_price | floatformat:2 }}</span> <span class="mid_green small_font">{{ discount }}</span></p>
+							<p class="xlarge_font"><del class="dark_grey">${{ booking.timeslot.shoot.professional_price }}</del> <span class="mid_green bold">${{ booking.final_plus_price | floatformat:2 }}</span></p>
 						{% else %}
 							<p class="xlarge_font"><span class="dark_grey">${{ booking.timeslot.shoot.professional_price }}</span></p>
 						{% endif %}
@@ -487,7 +487,7 @@
 						</div>
 
 						<div class="sm_padding"></div>
-						<button class="main_green_button_100 prof_add">Add to cart</button>
+						<button class="main_green_button_100 prof_add">Add to Cart</button>
 						<p class="small_font italic sm_padding grey">Your touched up photo will be available for download within 7 business days</p>
 					</div>
 				</div>
@@ -497,7 +497,7 @@
 						<div class=""><div class="inline">
 
 						{% if is_discounted %}
-							<p class="xlarge_font"><del class="dark_grey">${{ booking.timeslot.shoot.customized_price }}</del> <span class="mid_green bold">${{ booking.final_customized_price | floatformat:2 }}</span> <span class="mid_green small_font">{{ discount }}</span></p>
+							<p class="xlarge_font"><del class="dark_grey">${{ booking.timeslot.shoot.customized_price }}</del> <span class="mid_green bold">${{ booking.final_customized_price | floatformat:2 }}</span></p>
 						{% else %}
 							<p class="xlarge_font"><span class="dark_grey">${{ booking.timeslot.shoot.customized_price }}<span></p>
 						{% endif %}
@@ -505,7 +505,7 @@
 							</div>
 						</div>
 						<div class="sm_padding"></div>
-						<button class="main_green_button_100 cust_add">Add to cart</button>
+						<button class="main_green_button_100 cust_add">Add to Cart</button>
 						<p class="small_font italic sm_padding grey">Your touched up photo will be available for download within 7 business days</p>
 					</div>
 				</div>
@@ -541,7 +541,14 @@
 					<div class="all_padding">
 						<div class="small_padding"></div>
 						{% if proceed %}
-						<p class="xlarge_font dark_grey">$3</p><p class="grey italic">(Additional photos with the Basic Touchup Package are $3)</p>
+						<p class="xlarge_font dark_grey">
+							<!-- DISCOUNT -->
+							{% if is_discounted %}
+								<del class="dark_grey">$3</del> <span class="mid_green bold">${{ basic_price }}</span>
+							{% else %}
+								$3
+							{% endif %}
+						</p><p class="grey italic">(Additional photos with the Basic Touchup Package are $3)</p>
 						
 						{% else %}
 							<p class="big_font">$<span id="free_list_price">0</span></p>
@@ -560,12 +567,18 @@
 							<input type="hidden" name='package' value='1'>
 
 							{% if proceed %}
-								<input type="hidden" name='subtotal' value='3' id="free_price">
+
+								{% if is_discounted %}
+									<input type="hidden" name='subtotal' value='{{ basic_price }}' id="free_price">
+								{% else %}
+									<input type="hidden" name='subtotal' value='3' id="free_price">
+								{% endif %}
+								
 							{% else %}
 								<input type="hidden" name='subtotal' value='0' id="free_price">
 							{% endif %}
 							
-							<button class="main_green_button_100" type="submit" id="free_add" type="submit">Add to cart</button>
+							<button class="main_green_button_100" type="submit" id="free_add" type="submit">Add to Cart</button>
 							<p class="small_font italic sm_padding grey">Your touched up photo will be available for download within 7 business days</p>
 						</form>
 						
@@ -1952,7 +1965,7 @@
   			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/ben3.jpg" %}');
   			break;
   		case '15':
-  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/alex1.jpg" %}');
+  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/alex4.jpg" %}');
   			break;
   		case '16':
   			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/sammy5.jpg" %}');
@@ -1961,7 +1974,7 @@
   			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/bella6.jpg" %}');
   			break;
   		case '18':
-  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/brittney1.jpg" %}');
+  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/brittney3.jpg" %}');
   			break;
   		case '19':
   			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/sammy5.jpg" %}');
@@ -2024,6 +2037,21 @@
   			break;	
   		case '14':
   			$('#prof_hs').attr('src', '{% static "img/headshots/examples/premium/uw5.jpg" %}');
+  			break;
+  		case '15':
+  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/premium/tb3.jpg" %}');
+  			break;
+  		case '16':
+  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/premium/brown2.jpg" %}');
+  			break;
+  		case '17':
+  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/premium/sg2.jpg" %}');
+  			break;
+  		case '18':
+  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/premium/cg4.jpg" %}');
+  			break;
+  		case '19':
+  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/premium/fa2.jpg" %}');
   			break;
   	}
   });
