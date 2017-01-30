@@ -94,6 +94,21 @@ class Nextshoot(models.Model):
 		return self.name
 
 
+	# discount amount update
+	def update_discount_amounts(self, sales):
+		bookings = [e for elem in self.timeslot_set.all() for e in elem.booking_set.filter(show_up=True)]
+
+		print 'updating discount...'
+		for booking in bookings:
+			if booking.update_discount_amount(sales):
+				print '[SUCCESS] - ' + booking.email
+			else:
+				print '[FAIL] - ' + booking.email
+
+		print 'Done!'
+
+
+
 	def update_cust_types(self):
 		bookings = [e for elem in self.timeslot_set.all() for e in elem.booking_set.all()]
 
@@ -959,6 +974,8 @@ class Booking(models.Model):
 				self.discount_amount = 0.85
 
 			super(Booking, self).save()
+			return 1
+		return 0
 
 
 
