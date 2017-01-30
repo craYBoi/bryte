@@ -9,3 +9,6 @@ db
 #*.*
 .#*
 *.py~
+scripts/
+script.sh
+templates/index.old

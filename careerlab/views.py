@@ -343,6 +343,31 @@ def signup(request):
 		data['msg'] = 'There seems to be a little problem signing up, did you use your school email?'
 		return HttpResponse(json.dumps(data), content_type='application/json')
 
+
+# sales email unsub 
+def sales_unsubscribe(request):
+	context = {
+		'brown_careerlab': 1,
+		'title_text': 'Unsubscribe for future offers',
+		'notification_text': 'You have successfully subscribed for future offers.',
+	}	
+	if request.method == 'GET':
+		hash_id = request.GET.get('order_id')
+		try:
+			booking = Booking.objects.filter(hash_id=hash_id).filter(is_sub=True)[0]
+		except Exception, e:
+			print 'No booking found for unsub..'
+			pass
+		else:
+			# change the sub flag
+			booking.is_sub = False
+			super(Booking, booking).save()
+			print str(booking.email) + ' unsubbed successfully'
+
+	return render(request, 'notification.html', context)
+
+
+
 # could subject to change to Shoot school name
 def cancel_order(request):
 	context = {
@@ -442,6 +467,7 @@ def headshot_index(request):
 			booking_id = request.GET.get('id')
 
 
+		print booking_id, type(booking_id)
 		# if people try to access headshot url directly
 		# need to change. filter() and orderby timestamps and take the first for now [DONE]
 		bookings = Booking.objects.filter(hash_id=booking_id).order_by('-timestamp')
@@ -449,6 +475,7 @@ def headshot_index(request):
 			booking = bookings[0]
 		else:
 			return redirect('headshot_error')
+
 
 
 		shoot = booking.timeslot.shoot
@@ -1015,9 +1042,9 @@ def headshot_complete(request):
 		if order.object.special_request:
 			special_request = '<br>Special Request: ' + str(order.object.special_request)
 
-		confirmation_content += '<img src="' + raw_url + '" width="150px"><br>' + 'Style: ' + order.object.get_touchup_display() + '<br>Background: ' + order.object.get_background_display() + '<br>Keepsakes: ' + order.object.get_package_display() + special_request+ '<br>Subtotal: $' + str(order.object.total) + '<br><br>'
+		confirmation_content += '<img src="' + raw_url + '" width="150px"><br>' + 'Style: ' + order.object.get_touchup_display() + '<br>Background: ' + order.object.get_background_display() + '<br>Keepsakes: ' + order.object.get_package_display() + special_request+ '<br>Subtotal: $' + str("{0:.2f}".format(order.object.total)) + '<br><br>'
 
-	confirmation_content = confirmation_content + '<br><span style="font-size:1.5em; color: #15AD2F; font-weight: bold;">Total: $' + str(sum) + '</span><br>'
+	confirmation_content = confirmation_content + '<br><span style="font-size:1.5em; color: #15AD2F; font-weight: bold;">Total: $' + str("{0:.2f}".format(sum)) + '</span><br>'
 
 	# just to print out
 	print str(booking_id) + ' ' + confirmation_content

@@ -2555,6 +2555,26 @@ body, html
 	background-image: url('../img/headshots/examples/bg/brick.jpg');
 }
 
+.colorbox_fa {
+	background-image: url('../img/headshots/examples/bg/fa.jpg');
+}
+
+.colorbox_brown {
+	background-image: url('../img/headshots/examples/bg/brown.jpg');
+}
+
+.colorbox_sg {
+	background-image: url('../img/headshots/examples/bg/sg.jpg');
+}
+
+.colorbox_tb {
+	background-image: url('../img/headshots/examples/bg/tb.jpg');
+}
+
+.colorbox_cg {
+	background-image: url('../img/headshots/examples/bg/cg.jpg');
+}
+
 .colorbox_gray {
 	background-color: #aaa;
 }

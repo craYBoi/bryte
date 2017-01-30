@@ -39,9 +39,16 @@ SURVEY_EMAIL_TO_FAVORED_CLIENT_ID = '5c562a0c-25f6-4151-a81a-99089ea00d61'
 FORGET_TO_ORDER_YOUR_HEADSHOT_ID = '6f6a328f-11b2-48c9-8879-751fe4c8b268'
 TOP_CLIENT_SALE_1_ID = '4556724e-b952-4e75-8430-1632d0daec58'
 STUDENT_ENGAGEMENT_SURVEY_ID = '2cdb44b1-7b2f-42c8-b856-8b76df4d78db'
-
+BACK_TO_SCHOOL_SALE_EXCLUSIVE_ID = '2f71a58a-7ab7-45fd-9fff-3f443cdb6961'
+BACK_TO_SCHOOL_SALE_NORMAL_ID = '12ca2bad-1d0b-4faa-bd71-9d523191afdb'
+BACK_TO_SCHOOL_SALE_NORMAL_72_ID = 'd6b36d9c-fa6f-417d-a78d-eb8b9ed2eeb0'
+BACK_TO_SCHOOL_SALE_EXCLUSIVE_72_ID = '67a55302-acd9-445a-ba88-da1e50015d2d'
 # max sessions per time slot
 MAX_VOLUMN = 8
+
+
+# TO TEST
+EXCLUDED_LIST = ['cartelli@bu.edu', 'elizabeth_lussier@brown.edu', 'camelse@my.ccri.edu', 'dmoran@ric.edu', 'dsmith@ric.edu', 'fherchuk_9077@email.ric.edu', 'callenson_2729@email.ric.edu', 'clambert@ric.edu', 'lcoelho@ric.edu', 'lbogad@ric.edu']
 
 
 class Nextshoot(models.Model):
@@ -690,6 +697,83 @@ class Nextshoot(models.Model):
 			booking.create_image(raw=raw, edited=edited, fav=fav, top=top, portrait=portrait, all=all)
 
 
+
+
+	# sales email
+	def back_to_school_normal_72_mass(self):
+
+		# all the non-exclusive member who showed up
+		bookings = [e for elem in self.timeslot_set.all() for e in elem.booking_set.filter(show_up=True).filter(is_sub=True).exclude(cust_type=4)]
+
+		count = 0
+		for booking in bookings:
+			# make sure it's not faculty
+			if not booking.email.lower() in EXCLUDED_LIST:
+				if(booking.back_to_school_normal_72()):
+					count += 1
+			
+			else:
+				print '[SKIP] faculty -- ' + booking.email
+
+		print 'Total --- ' + str(len(bookings)) + ' Emails\nSENT --- ' + str(count) + ' Emails'
+
+
+
+	# sales email
+	def back_to_school_exclusive_72_mass(self):
+
+		# all the non-exclusive member who showed up
+		bookings = [e for elem in self.timeslot_set.all() for e in elem.booking_set.filter(cust_type=4).filter(is_sub=True)]
+
+		count = 0
+		for booking in bookings:
+			if not booking.email.lower() in EXCLUDED_LIST:
+				if(booking.back_to_school_exclusive_72()):
+					count += 1
+			else:
+				print '[SKIP] faculty -- ' + booking.email
+
+		print 'Total --- ' + str(len(bookings)) + ' Emails\nSENT --- ' + str(count) + ' Emails'
+
+
+	# sales email
+	def back_to_school_normal_24_mass(self):
+
+		# all the non-exclusive member who showed up
+		bookings = [e for elem in self.timeslot_set.all() for e in elem.booking_set.filter(show_up=True).filter(is_sub=True).exclude(cust_type=4)]
+
+		count = 0
+		for booking in bookings:
+			if not booking.email.lower() in EXCLUDED_LIST:
+				if(booking.back_to_school_normal_24()):
+					count += 1
+
+			else:
+				print '[SKIP] faculty -- ' + booking.email
+
+		print 'Total --- ' + str(len(bookings)) + ' Emails\nSENT --- ' + str(count) + ' Emails'
+
+
+
+	# sales email
+	def back_to_school_exclusive_24_mass(self):
+
+		# all the non-exclusive member who showed up
+		bookings = [e for elem in self.timeslot_set.all() for e in elem.booking_set.filter(cust_type=4).filter(is_sub=True)]
+
+		count = 0
+		for booking in bookings:
+			if not booking.email.lower() in EXCLUDED_LIST:
+				if(booking.back_to_school_exclusive_24()):
+					count += 1
+
+			else:
+				print '[SKIP] faculty -- ' + booking.email
+
+		print 'Total --- ' + str(len(bookings)) + ' Emails\nSENT --- ' + str(count) + ' Emails'
+
+
+
 class Signup(models.Model):
 	email = models.EmailField()
 	name = models.CharField(max_length=120)
@@ -799,6 +883,7 @@ class Booking(models.Model):
 	dropbox_folder = models.CharField(max_length=100, blank=True, null=True)
 	upgrade_folder_path = models.CharField(max_length=100, blank=True, null=True)
 	show_up = models.BooleanField(default=False)
+	is_sub = models.BooleanField(default=True)
 
 	TYPE = (
 		(1, 'No free nor buy'),
@@ -859,10 +944,20 @@ class Booking(models.Model):
 		super(Booking, self).save()
 
 
-	def update_discount_amount(self, amount, criterion=True):
-		# TODO, check criterion
-		if criterion:
-			self.discount_amount = amount
+
+	# update the discount ammount for different sales according to the cust type
+	def update_discount_amount(self, sales):
+
+		# back to school sales
+		# exclusive -> 75%, all -> 85%
+		if sales == 'bts':
+
+			if self.cust_type == 4:
+				# exclusive
+				self.discount_amount = 0.75
+			else:
+				self.discount_amount = 0.85
+
 			super(Booking, self).save()
 
 
@@ -1073,6 +1168,9 @@ class Booking(models.Model):
 
 	def generate_cancel_link(self):
 		return settings.SITE_URL + reverse('careerlab_cancel_order') + '?order_id=' + str(self.hash_id)
+
+	def generate_unsub_link(self):
+		return settings.SITE_URL + reverse('sales_unsubscribe') + '?order_id=' + str(self.hash_id)
 
 	def tips_link(self):
 		return settings.SITE_URL + reverse('careerlab_tips')
@@ -1358,6 +1456,249 @@ class Booking(models.Model):
 			send = True
 			print '[SENT] --- ' + str(email)
 		return send
+
+
+	# make sure to exclude these emails
+	def back_to_school_normal_72(self):
+		sent = False
+		name = self.name
+		first_name = name.split(' ')[0]
+		email = self.email
+		hash_id = self.hash_id
+		timeslot = self.timeslot
+		shoot = timeslot.shoot
+		location = shoot.location
+		date = shoot.date
+		school = shoot.school
+
+
+		# get template, version name, and automatically add to category
+		email_purpose = 'Error'
+		version_number = 'Error'
+		try:
+			email_template = json.loads(sgapi.client.templates._(BACK_TO_SCHOOL_SALE_NORMAL_72_ID).get().response_body)
+			versions = email_template.get('versions')
+			version_number = [v.get('name') for v in versions if v.get('active')][0]
+			email_purpose = email_template.get('name')
+		except Exception, e:
+			pass
+
+		category = [school + ' - ' + str(date), email_purpose, version_number]
+
+		my_headshot_link = settings.SITE_URL + '/headshot/?id=' + hash_id + '&utm_source=My%20Headshot%20My%Headshot&utm_medium=Campaign%20Medium%20URL%20Builder'
+
+		message = sendgrid.Mail()
+		message.add_to(email)
+		message.set_from('Bryte Inc <' + settings.EMAIL_HOST_USER + '>')
+
+		# ccri followup
+		# message.set_subject('We\'ve fixed the issue, and now you can use mobile to download your free headshot')
+		message.set_subject('15% off your order for 3 days, it\'s our Back to School event')
+ 
+		message.set_html('Body')
+		message.set_text('Body')
+		message.add_filter('templates','enable','1')
+
+		message.add_filter('templates','template_id', BACK_TO_SCHOOL_SALE_NORMAL_72_ID)
+
+
+		message.set_categories(category)
+
+		message.add_substitution('-first_name-', first_name)
+		message.add_substitution('-unique_id-', hash_id)
+		message.add_substitution('-my_headshot-', my_headshot_link)
+		message.add_substitution('-unsub_link-', self.generate_unsub_link())
+
+		try:
+			sg.send(message)
+		except Exception, e:
+			print '[NOT SENT] --- ' + str(email) 
+		else:
+			send = True
+			print '[SENT] --- ' + str(email)
+		return send
+
+
+	def back_to_school_exclusive_72(self):
+		sent = False
+		name = self.name
+		first_name = name.split(' ')[0]
+		email = self.email
+		hash_id = self.hash_id
+		timeslot = self.timeslot
+		shoot = timeslot.shoot
+		location = shoot.location
+		date = shoot.date
+		school = shoot.school
+
+
+		# get template, version name, and automatically add to category
+		email_purpose = 'Error'
+		version_number = 'Error'
+		try:
+			email_template = json.loads(sgapi.client.templates._(BACK_TO_SCHOOL_SALE_EXCLUSIVE_72_ID).get().response_body)
+			versions = email_template.get('versions')
+			version_number = [v.get('name') for v in versions if v.get('active')][0]
+			email_purpose = email_template.get('name')
+		except Exception, e:
+			pass
+
+		category = [school + ' - ' + str(date), email_purpose, version_number]
+
+		my_headshot_link = settings.SITE_URL + '/headshot/?id=' + hash_id + '&utm_source=My%20Headshot%20My%Headshot&utm_medium=Campaign%20Medium%20URL%20Builder'
+
+		message = sendgrid.Mail()
+		message.add_to(email)
+		message.set_from('Bryte Inc <' + settings.EMAIL_HOST_USER + '>')
+
+		# ccri followup
+		# message.set_subject('We\'ve fixed the issue, and now you can use mobile to download your free headshot')
+		message.set_subject('25% off your order for 3 days, it\'s our Back to School event')
+ 
+		message.set_html('Body')
+		message.set_text('Body')
+		message.add_filter('templates','enable','1')
+
+		message.add_filter('templates','template_id', BACK_TO_SCHOOL_SALE_EXCLUSIVE_72_ID)
+
+
+		message.set_categories(category)
+
+		message.add_substitution('-first_name-', first_name)
+		message.add_substitution('-unique_id-', hash_id)
+		message.add_substitution('-my_headshot-', my_headshot_link)
+		message.add_substitution('-unsub_link-', self.generate_unsub_link())
+
+		try:
+			sg.send(message)
+		except Exception, e:
+			print '[NOT SENT] --- ' + str(email) 
+		else:
+			send = True
+			print '[SENT] --- ' + str(email)
+		return send
+
+
+	def back_to_school_normal_24(self):
+		sent = False
+		name = self.name
+		first_name = name.split(' ')[0]
+		email = self.email
+		hash_id = self.hash_id
+		timeslot = self.timeslot
+		shoot = timeslot.shoot
+		location = shoot.location
+		date = shoot.date
+		school = shoot.school
+
+
+		# get template, version name, and automatically add to category
+		email_purpose = 'Error'
+		version_number = 'Error'
+		try:
+			email_template = json.loads(sgapi.client.templates._(BACK_TO_SCHOOL_SALE_NORMAL_ID).get().response_body)
+			versions = email_template.get('versions')
+			version_number = [v.get('name') for v in versions if v.get('active')][0]
+			email_purpose = email_template.get('name')
+		except Exception, e:
+			pass
+
+		category = [school + ' - ' + str(date), email_purpose, version_number]
+
+		my_headshot_link = settings.SITE_URL + '/headshot/?id=' + hash_id + '&utm_source=My%20Headshot%20My%Headshot&utm_medium=Campaign%20Medium%20URL%20Builder'
+
+		message = sendgrid.Mail()
+		message.add_to(email)
+		message.set_from('Bryte Inc <' + settings.EMAIL_HOST_USER + '>')
+
+		# ccri followup
+		# message.set_subject('We\'ve fixed the issue, and now you can use mobile to download your free headshot')
+		message.set_subject('5 limited edition backgrounds? ')
+ 
+		message.set_html('Body')
+		message.set_text('Body')
+		message.add_filter('templates','enable','1')
+
+		message.add_filter('templates','template_id', BACK_TO_SCHOOL_SALE_NORMAL_ID)
+
+
+		message.set_categories(category)
+
+		message.add_substitution('-first_name-', first_name)
+		message.add_substitution('-unique_id-', hash_id)
+		message.add_substitution('-my_headshot-', my_headshot_link)
+		message.add_substitution('-unsub_link-', self.generate_unsub_link())
+
+		try:
+			sg.send(message)
+		except Exception, e:
+			print '[NOT SENT] --- ' + str(email) 
+		else:
+			send = True
+			print '[SENT] --- ' + str(email)
+		return send
+
+
+
+	def back_to_school_exclusive_24(self):
+		sent = False
+		name = self.name
+		first_name = name.split(' ')[0]
+		email = self.email
+		hash_id = self.hash_id
+		timeslot = self.timeslot
+		shoot = timeslot.shoot
+		location = shoot.location
+		date = shoot.date
+		school = shoot.school
+
+
+		# get template, version name, and automatically add to category
+		email_purpose = 'Error'
+		version_number = 'Error'
+		try:
+			email_template = json.loads(sgapi.client.templates._(BACK_TO_SCHOOL_SALE_EXCLUSIVE_ID).get().response_body)
+			versions = email_template.get('versions')
+			version_number = [v.get('name') for v in versions if v.get('active')][0]
+			email_purpose = email_template.get('name')
+		except Exception, e:
+			pass
+
+		category = [school + ' - ' + str(date), email_purpose, version_number]
+
+		my_headshot_link = settings.SITE_URL + '/headshot/?id=' + hash_id + '&utm_source=My%20Headshot%20My%Headshot&utm_medium=Campaign%20Medium%20URL%20Builder'
+
+		message = sendgrid.Mail()
+		message.add_to(email)
+		message.set_from('Bryte Inc <' + settings.EMAIL_HOST_USER + '>')
+
+		# ccri followup
+		# message.set_subject('We\'ve fixed the issue, and now you can use mobile to download your free headshot')
+		message.set_subject('5 limited edition backgrounds?')
+ 
+		message.set_html('Body')
+		message.set_text('Body')
+		message.add_filter('templates','enable','1')
+
+		message.add_filter('templates','template_id', BACK_TO_SCHOOL_SALE_EXCLUSIVE_ID)
+
+
+		message.set_categories(category)
+
+		message.add_substitution('-first_name-', first_name)
+		message.add_substitution('-unique_id-', hash_id)
+		message.add_substitution('-my_headshot-', my_headshot_link)
+		message.add_substitution('-unsub_link-', self.generate_unsub_link())
+
+		try:
+			sg.send(message)
+		except Exception, e:
+			print '[NOT SENT] --- ' + str(email) 
+		else:
+			send = True
+			print '[SENT] --- ' + str(email)
+		return send
+
 
 
 	def photo_delivery_email(self):
@@ -2089,6 +2430,11 @@ class HeadshotPurchase(models.Model):
 		(12, 'Eclectic Bookcase'),
 		(13, 'Firm Hallway'),
 		(14, 'Urban Walkway'),
+		(15, 'Traditional Blue'),
+		(16, 'Bruno Brown'),
+		(17, 'Shadowy Gray'),
+		(18, 'Campus Green'),
+		(19, 'Fresh Air'),
 		)
 
 	background = models.PositiveSmallIntegerField(choices=BACKGROUNDS, default=1)

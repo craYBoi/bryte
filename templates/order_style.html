@@ -39,7 +39,7 @@
 						{% if order.special_request %}
 							<li>Special requests: {{ order.special_request }}</li>
 						{% endif %}
-						<li>Subtotal: ${{ order.total }}</li>
+						<li>Subtotal: ${{ order.total | floatformat:2  }}</li>
 						<li class="remove_buttons">
 							<button class="remove_button large_font text_button_black" name="{{ order.hash_id }}">Remove</button>
 						</li>
@@ -59,7 +59,7 @@
 					<input type='text' name='address' placeholder="Shipping Address" class="form-control" id="order_address" required onchange="try{setCustomValidity('')}catch(e){}">
 				-->
 				{% if show_checkout_button %}
-					<h4>Order Total: $<span id="cart_total">{{ order_total }}</span></h4>
+					<h4>Order Total: $<span id="cart_total">{{ order_total | floatformat:2  }}</span></h4>
 					<div class="xxsmall_padding"></div>
 					<button class="main_green_button_xs_100" id="headshot_pay_button">Continue</button>	
 				{% else %}
@@ -86,7 +86,13 @@
 			<div class="row">
 				<div class="col-sm-4">
 					<div class="hs_margin">
-						<a data-toggle="modal" data-target="#basic_example" style="cursor: pointer;"><img src="{% static 'img/headshots/examples/premium/white6.jpg' %}" class="full_width hs_shadow_border" id="basic_hs"></a>
+						<a data-toggle="modal" data-target="#basic_example" style="cursor: pointer;">
+
+
+						
+						<img src="{% static 'img/headshots/examples/premium/white6.jpg' %}" class="full_width hs_shadow_border" id="basic_hs">
+
+						</a>
 					</div>
 
 					<div class="xsmall_padding"></div>
@@ -126,18 +132,18 @@
 							<input type="hidden" name='background' value='1' id="basic_background">
 							<input type="hidden" name='hs_id' value='{{ hs_id }}'>
 							<input type="hidden" name='package' value='1'>
-							<input type="hidden" name='subtotal' value='{{ booking.final_standard_price }}' id="basic_price">
+							<input type="hidden" name='subtotal' value='{{ booking.final_standard_price}}' id="basic_price">
 
 							<div class="all_padding desktop_disp">
 
 							{% if is_discounted %}
-								<p class="price_font_size"><del class="dark_grey">${{ booking.timeslot.shoot.basic_price }}</del> <span class="mid_green bold">${{ booking.final_standard_price }}</span> <span class="mid_green small_font">{{ discount }}</span></p>
+								<p class="price_font_size"><del class="dark_grey">${{ booking.timeslot.shoot.basic_price }}</del> <span class="mid_green bold">${{ booking.final_standard_price | floatformat:2 }}</span> <span class="mid_green small_font">{{ discount }}</span></p>
 							{% else %}
 								<p class="price_font_size"><span class="dark_grey">${{ booking.timeslot.shoot.basic_price }}</span></p>
 							{% endif %}
 								
 								<button class="main_green_button_100 basic_add" type="submit">Add to cart</button>
-								<p class="small_font italic sm_padding grey">Available for download within 7 business days</p>
+								<p class="small_font italic sm_padding grey">Your touched up photo will be available for download within 7 business dayss</p>
 							</div>
 						</form>
 
@@ -168,6 +174,43 @@
 
 					<div class="sm_padding"></div>
 					<div id="prof_colorbox">
+
+
+					{% if is_discounted %}
+						<div class="colorbox_container">
+							<div class="colorbox_tb colorbox prof_subbox" data-toggle="tooltip" data-placement="top" title="Traditional Blue" name="Traditional Blue"></div>
+							<div class="colorbox_padding"></div>
+							<div class="colorbox_brown colorbox prof_subbox" data-toggle="tooltip" data-placement="top" title="Bruno Brown" name="Bruno Brown"></div>
+							<div class="colorbox_padding"></div>
+							<div class="colorbox_sg colorbox prof_subbox" data-toggle="tooltip" data-placement="top" title="Shadowy Gray" name="Shadowy Gray"></div>
+							<div class="colorbox_padding"></div>
+							<div class="colorbox_cg colorbox prof_subbox" data-toggle="tooltip" data-placement="top" title="Campus Green" name="Campus Green"></div>
+							<div class="colorbox_padding"></div>
+							<div class="colorbox_fa colorbox prof_subbox" data-toggle="tooltip" data-placement="top" title="Fresh Air" name="Fresh Air"></div>
+							<div class="colorbox_padding"></div>
+							<div class="colorbox_blue colorbox prof_subbox" data-toggle="tooltip" data-placement="top" title="Sanguine Blue" name="Sanguine Blue"></div>
+							<div class="colorbox_padding"></div>
+							<div class="colorbox_bg colorbox prof_subbox" data-toggle="tooltip" data-placement="top" title="Frosty Blue" name="Frosty Blue"></div>
+							
+						</div>			
+						<div class="colorbox_container">
+							<div class="colorbox_gray colorbox prof_subbox" data-toggle="tooltip" data-placement="top" title="Polished Gray" name="Polished Gray"></div>
+							<div class="colorbox_padding"></div>
+							<div class="colorbox_lg colorbox prof_subbox" data-toggle="tooltip" data-placement="top" title="Airy Gray" name="Airy Gray"></div>
+							<div class="colorbox_padding"></div>
+							<div class="colorbox_cream colorbox prof_subbox" data-toggle="tooltip" data-placement="top" title="Light Cream" name="Light Cream"></div>
+							<div class="colorbox_padding"></div>
+							<div class="colorbox_office colorbox prof_subbox" data-toggle="tooltip" data-placement="top" title="31st Story Office" name="31st Story Office"></div>
+							<div class="colorbox_padding"></div>
+							<div class="colorbox_eb colorbox prof_subbox" data-toggle="tooltip" data-placement="top" title="Eclectic Bookcase" name="Eclectic Bookcase"></div>
+							<div class="colorbox_padding"></div>
+							<div class="colorbox_uw colorbox prof_subbox" data-toggle="tooltip" data-placement="top" title="Urban Walkway" name="Urban Walkway"></div>
+							<div class="colorbox_padding"></div>
+							<div class="colorbox_fh colorbox prof_subbox" data-toggle="tooltip" data-placement="top" title="Firm Hallway" name="Firm Hallway"></div>
+						</div>
+					{% else %}
+					
+
 					<div class="colorbox_container">
 						<div class="colorbox_black colorbox prof_subbox" data-toggle="tooltip" data-placement="top" title="Nighttime Black" name="Nighttime Black"></div>
 						<div class="colorbox_padding"></div>
@@ -197,6 +240,9 @@
 						<div class="colorbox_padding"></div>
 						<div class="colorbox_fh colorbox prof_subbox" data-toggle="tooltip" data-placement="top" title="Firm Hallway" name="Firm Hallway"></div>
 					</div>
+
+					{% endif %}
+
 					</div>
 
 					
@@ -207,7 +253,7 @@
 					<div class="small_padding"></div>
 					<div class="sm_padding"></div>
 					<ul class="spec_list droid_serif grey all_padding">
-						<li><span class="extra_bold">Best</span> image clarity – use it anywhere! (1000 x 1000 pixels)</li>
+						<li><span class="">Excellent</span> image clarity – use it anywhere! (800 x 800 pixels)</li>
 						<li>Choose your background</li>
 					</ul>
 					
@@ -228,14 +274,14 @@
 							<div class="all_padding desktop_disp">
 
 							{% if is_discounted %}
-								<p class="price_font_size"><del class="dark_grey">${{ booking.timeslot.shoot.professional_price }}</del> <span class="mid_green bold">${{ booking.final_plus_price }}</span> <span class="mid_green small_font">{{ discount }}</span></p>
+								<p class="price_font_size"><del class="dark_grey">${{ booking.timeslot.shoot.professional_price }}</del> <span class="mid_green bold">${{ booking.final_plus_price | floatformat:2 }}</span> <span class="mid_green small_font">{{ discount }}</span></p>
 							{% else %}
 								<p class="price_font_size"><span class="dark_grey">${{ booking.timeslot.shoot.professional_price }}</span></p>
 							{% endif %}
 								
 								<div class="sm_padding"></div>
 								<button class="main_green_button_100 prof_add" type="submit">Add to cart</button>
-								<p class="small_font italic sm_padding grey">Available for download within 7 business days</p>
+								<p class="small_font italic sm_padding grey">Your touched up photo will be available for download within 7 business days</p>
 
 							</div>
 						</form>
@@ -268,6 +314,41 @@
 					<div class="sm_padding"></div>
 
 					<div id="cust_colorbox">
+					{% if is_discounted %}
+						<div class="colorbox_container">
+							<div class="colorbox_tb colorbox cust_subbox" data-toggle="tooltip" data-placement="top" title="Traditional Blue" name="Traditional Blue"></div>
+							<div class="colorbox_padding"></div>
+							<div class="colorbox_brown colorbox cust_subbox" data-toggle="tooltip" data-placement="top" title="Bruno Brown" name="Bruno Brown"></div>
+							<div class="colorbox_padding"></div>
+							<div class="colorbox_sg colorbox cust_subbox" data-toggle="tooltip" data-placement="top" title="Shadowy Gray" name="Shadowy Gray"></div>
+							<div class="colorbox_padding"></div>
+							<div class="colorbox_cg colorbox cust_subbox" data-toggle="tooltip" data-placement="top" title="Campus Green" name="Campus Green"></div>
+							<div class="colorbox_padding"></div>
+							<div class="colorbox_fa colorbox cust_subbox" data-toggle="tooltip" data-placement="top" title="Fresh Air" name="Fresh Air"></div>
+							<div class="colorbox_padding"></div>
+							<div class="colorbox_blue colorbox cust_subbox" data-toggle="tooltip" data-placement="top" title="Sanguine Blue" name="Sanguine Blue"></div>
+							<div class="colorbox_padding"></div>
+							<div class="colorbox_bg colorbox cust_subbox" data-toggle="tooltip" data-placement="top" title="Frosty Blue" name="Frosty Blue"></div>
+							
+						</div>			
+						<div class="colorbox_container">
+							<div class="colorbox_gray colorbox cust_subbox" data-toggle="tooltip" data-placement="top" title="Polished Gray" name="Polished Gray"></div>
+							<div class="colorbox_padding"></div>
+							<div class="colorbox_lg colorbox cust_subbox" data-toggle="tooltip" data-placement="top" title="Airy Gray" name="Airy Gray"></div>
+							<div class="colorbox_padding"></div>
+							<div class="colorbox_cream colorbox cust_subbox" data-toggle="tooltip" data-placement="top" title="Light Cream" name="Light Cream"></div>
+							<div class="colorbox_padding"></div>
+							<div class="colorbox_office colorbox cust_subbox" data-toggle="tooltip" data-placement="top" title="31st Story Office" name="31st Story Office"></div>
+							<div class="colorbox_padding"></div>
+							<div class="colorbox_eb colorbox cust_subbox" data-toggle="tooltip" data-placement="top" title="Eclectic Bookcase" name="Eclectic Bookcase"></div>
+							<div class="colorbox_padding"></div>
+							<div class="colorbox_uw colorbox cust_subbox" data-toggle="tooltip" data-placement="top" title="Urban Walkway" name="Urban Walkway"></div>
+							<div class="colorbox_padding"></div>
+							<div class="colorbox_fh colorbox cust_subbox" data-toggle="tooltip" data-placement="top" title="Firm Hallway" name="Firm Hallway"></div>
+						</div>
+					{% else %}
+					
+
 					<div class="colorbox_container">
 						<div class="colorbox_black colorbox cust_subbox" data-toggle="tooltip" data-placement="top" title="Nighttime Black" name="Nighttime Black"></div>
 						<div class="colorbox_padding"></div>
@@ -297,6 +378,8 @@
 						<div class="colorbox_padding"></div>
 						<div class="colorbox_fh colorbox cust_subbox" data-toggle="tooltip" data-placement="top" title="Firm Hallway" name="Firm Hallway"></div>
 					</div>
+
+					{% endif %}
 					</div>
 
 					
@@ -309,10 +392,11 @@
 
 					<form action="{% url 'headshot_index' %}" id="cust_form">
 					<ul class="spec_list droid_serif grey all_padding">
-						<li><span class="extra_bold">Best</span> image clarity – use it anywhere! (1000 x 1000 pixels)</li>
+						<li><span class="">Excellent</span> image clarity – use it anywhere! (800 x 800 pixels)</li>
 						<li>Choose your background</li>
 						<li>Brings out eyes; teeth whitening</li>
 						<li>Skin smoothening, wrinkle and acne touchup</li>
+						<li>Remove piercings, adjust ties, and make other special requests</li>
 					</ul>
 
 					<!-- custom request -->
@@ -320,8 +404,8 @@
 
 						<div class="all_padding">
 							<div class="special_border_mg">
-							<p class="grey">Type special request(s) here:</p>
-							<input type="text" name='special_request' class="special_request_form" id="cust_special_request" placeholder="Remove piercings, adjust ties etc…" id="cust_special_request" maxlength="200">
+							<p class="grey">Tell us what you’d like:</p>
+							<input type="text" name='special_request' class="special_request_form" id="cust_special_request" id="cust_special_request" maxlength="200">
 							</div>
 
 						
@@ -341,20 +425,20 @@
 
 							<div class="desktop_disp">
 								{% if is_discounted %}
-									<p class="price_font_size"><del class="dark_grey">${{ booking.timeslot.shoot.customized_price }}</del> <span class="mid_green bold">${{ booking.final_customized_price }}</span> <span class="mid_green small_font">{{ discount }}</span></p>
+									<p class="price_font_size"><del class="dark_grey">${{ booking.timeslot.shoot.customized_price }}</del> <span class="mid_green bold">${{ booking.final_customized_price | floatformat:2 }}</span> <span class="mid_green small_font">{{ discount }}</span></p>
 								{% else %}
 									<p class="price_font_size"><span class="dark_grey">${{ booking.timeslot.shoot.customized_price }}</span></p>
 								{% endif %}
 								
 								<div class="sm_padding"></div>
 								<button class="main_green_button_100 cust_add" type='Submit'>Add to cart</button>
-								<p class="small_font italic sm_padding grey">Available for download within 7 business days</p>
+								<p class="small_font italic sm_padding grey">Your touched up photo will be available for download within 7 business days</p>
 							</div>
 
 
 							<div id="cust_warning_color" class="sm_padding" hidden>
 								<div class="alert alert-danger">
-								  <strong>Please choose a color first</strong>
+								  <strong>Please choose a background first</strong>
 								</div>
 							</div>
 							<div id="cust_warning_request" class="sm_padding" hidden>
@@ -374,7 +458,7 @@
 					<div class="all_padding">
 						<div class=""><div class="inline">
 							{% if is_discounted %}
-								<p class="xlarge_font"><del class="dark_grey">${{ booking.timeslot.shoot.basic_price }}</del> <span class="mid_green bold">${{ booking.final_standard_price }}</span> <span class="mid_green small_font">{{ discount }}</span></p>
+								<p class="xlarge_font"><del class="dark_grey">${{ booking.timeslot.shoot.basic_price }}</del> <span class="mid_green bold">${{ booking.final_standard_price | floatformat:2 }}</span> <span class="mid_green small_font">{{ discount }}</span></p>
 							{% else %}
 								<p class="xlarge_font"><span class="dark_grey">${{ booking.timeslot.shoot.basic_price }}</span></p>
 							{% endif %}
@@ -385,7 +469,7 @@
 
 						<div class="sm_padding"></div>
 						<button class="main_green_button_100 basic_add">Add to cart</button>
-						<p class="small_font italic sm_padding grey">Available for download within 7 business days</p>
+						<p class="small_font italic sm_padding grey">Your touched up photo will be available for download within 7 business days</p>
 					</div>
 				</div>
 
@@ -394,7 +478,7 @@
 						<div class=""><div class="inline">
 
 						{% if is_discounted %}
-							<p class="xlarge_font"><del class="dark_grey">${{ booking.timeslot.shoot.professional_price }}</del> <span class="mid_green bold">${{ booking.final_plus_price }}</span> <span class="mid_green small_font">{{ discount }}</span></p>
+							<p class="xlarge_font"><del class="dark_grey">${{ booking.timeslot.shoot.professional_price }}</del> <span class="mid_green bold">${{ booking.final_plus_price | floatformat:2 }}</span> <span class="mid_green small_font">{{ discount }}</span></p>
 						{% else %}
 							<p class="xlarge_font"><span class="dark_grey">${{ booking.timeslot.shoot.professional_price }}</span></p>
 						{% endif %}
@@ -404,7 +488,7 @@
 
 						<div class="sm_padding"></div>
 						<button class="main_green_button_100 prof_add">Add to cart</button>
-						<p class="small_font italic sm_padding grey">Available for download within 7 business days</p>
+						<p class="small_font italic sm_padding grey">Your touched up photo will be available for download within 7 business days</p>
 					</div>
 				</div>
 
@@ -413,7 +497,7 @@
 						<div class=""><div class="inline">
 
 						{% if is_discounted %}
-							<p class="xlarge_font"><del class="dark_grey">${{ booking.timeslot.shoot.customized_price }}</del> <span class="mid_green bold">${{ booking.final_customized_price }}</span> <span class="mid_green small_font">{{ discount }}</span></p>
+							<p class="xlarge_font"><del class="dark_grey">${{ booking.timeslot.shoot.customized_price }}</del> <span class="mid_green bold">${{ booking.final_customized_price | floatformat:2 }}</span> <span class="mid_green small_font">{{ discount }}</span></p>
 						{% else %}
 							<p class="xlarge_font"><span class="dark_grey">${{ booking.timeslot.shoot.customized_price }}<span></p>
 						{% endif %}
@@ -422,7 +506,7 @@
 						</div>
 						<div class="sm_padding"></div>
 						<button class="main_green_button_100 cust_add">Add to cart</button>
-						<p class="small_font italic sm_padding grey">Available for download within 7 business days</p>
+						<p class="small_font italic sm_padding grey">Your touched up photo will be available for download within 7 business days</p>
 					</div>
 				</div>
 			</div>
@@ -482,7 +566,7 @@
 							{% endif %}
 							
 							<button class="main_green_button_100" type="submit" id="free_add" type="submit">Add to cart</button>
-							<p class="small_font italic sm_padding grey">Available for download within 7 business days</p>
+							<p class="small_font italic sm_padding grey">Your touched up photo will be available for download within 7 business days</p>
 						</form>
 						
 					</div>
@@ -1418,7 +1502,17 @@
 			return 'Firm Hallway'
 		}else if(id=='14'){
 			return 'Urban Walkway'
-		}	
+		}else if(id=='15'){
+			return 'Traditional Blue'
+		}else if(id=='16'){
+			return 'Bruno Brown'
+		}else if(id=='17'){
+			return 'Shadowy Gray'
+		}else if(id=='18'){
+			return 'Campus Green'
+		}else if(id=='19'){
+			return 'Fresh Air'
+		}
 	}
 	function getKeepsakes(id){
 		if(id=='1'){
@@ -1501,6 +1595,26 @@
 			$('#prof_background').val(14);
 			$('#prof_hs').attr('src', '{% static "img/headshots/examples/premium/uw5.jpg" %}');
 		}
+		else if(title == 'Traditional Blue'){
+			$('#prof_background').val(15);
+			$('#prof_hs').attr('src', '{% static "img/headshots/examples/premium/tb3.jpg" %}');
+		}
+		else if(title == 'Bruno Brown'){
+			$('#prof_background').val(16);
+			$('#prof_hs').attr('src', '{% static "img/headshots/examples/premium/brown2.jpg" %}');
+		}
+		else if(title == 'Shadowy Gray'){
+			$('#prof_background').val(17);
+			$('#prof_hs').attr('src', '{% static "img/headshots/examples/premium/sg2.jpg" %}');
+		}
+		else if(title == 'Campus Green'){
+			$('#prof_background').val(18);
+			$('#prof_hs').attr('src', '{% static "img/headshots/examples/premium/cg4.jpg" %}');
+		}
+		else if(title == 'Fresh Air'){
+			$('#prof_background').val(19);
+			$('#prof_hs').attr('src', '{% static "img/headshots/examples/premium/fa2.jpg" %}');
+		}
 	})
 
 	$('#cust_colorbox .colorbox').on('click', function(e){
@@ -1568,6 +1682,26 @@
 		else if(title == 'Urban Walkway'){
 			$('#cust_background').val(14);
 			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/uw_a.jpg" %}');
+		}
+		else if(title == 'Traditional Blue'){
+			$('#cust_background').val(15);
+			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/tb_a.jpg" %}');
+		}
+		else if(title == 'Bruno Brown'){
+			$('#cust_background').val(16);
+			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/brown_a.jpg" %}');
+		}
+		else if(title == 'Shadowy Gray'){
+			$('#cust_background').val(17);
+			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/sg_a.jpg" %}');
+		}
+		else if(title == 'Campus Green'){
+			$('#cust_background').val(18);
+			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/cg_a.jpg" %}');
+		}
+		else if(title == 'Fresh Air'){
+			$('#cust_background').val(19);
+			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/fa_a.jpg" %}');
 		}
 	})
 
@@ -1668,6 +1802,21 @@
   		case '14':
   			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/uw_b.jpg" %}');
   			break;
+  		case '15':
+  			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/tb_b.jpg" %}');
+  			break;
+  		case '16':
+  			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/brown_b.jpg" %}');
+  			break;
+  		case '17':
+  			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/sg_b.jpg" %}');
+  			break;
+  		case '18':
+  			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/cg_b.jpg" %}');
+  			break;
+  		case '19':
+  			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/fa_b.jpg" %}');
+  			break;
   	}
   });
 
@@ -1726,6 +1875,21 @@
   			break;	
   		case '14':
   			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/uw_a.jpg" %}');
+  			break;
+  		case '15':
+  			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/tb_a.jpg" %}');
+  			break;
+  		case '16':
+  			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/brown_a.jpg" %}');
+  			break;
+  		case '17':
+  			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/sg_a.jpg" %}');
+  			break;
+  		case '18':
+  			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/cg_a.jpg" %}');
+  			break;
+  		case '19':
+  			$('#cust_hs').attr('src', '{% static "img/headshots/examples/customized/fa_a.jpg" %}');
   			break;
   	}
   });
@@ -1786,6 +1950,21 @@
   			break;	
   		case '14':
   			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/ben3.jpg" %}');
+  			break;
+  		case '15':
+  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/alex1.jpg" %}');
+  			break;
+  		case '16':
+  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/sammy5.jpg" %}');
+  			break;
+  		case '17':
+  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/bella6.jpg" %}');
+  			break;
+  		case '18':
+  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/brittney1.jpg" %}');
+  			break;
+  		case '19':
+  			$('#prof_hs').attr('src', '{% static "img/headshots/examples/green/sammy5.jpg" %}');
   			break;
   	}
   });

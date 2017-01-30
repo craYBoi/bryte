@@ -143,7 +143,7 @@
 						{% if order.special_request %}
 							<li>Special requests: {{ order.special_request }}</li>
 						{% endif %}
-						<li>Subtotal: ${{ order.total }}</li>
+						<li>Subtotal: ${{ order.total | floatformat:2 }}</li>
 						<li class="remove_buttons">
 							<button class="remove_button text_button_black large_font" name="{{ order.hash_id }}">Remove</button>
 						</li>
@@ -163,7 +163,7 @@
 					<input type='text' name='address' placeholder="Shipping Address" class="form-control" id="order_address" required onchange="try{setCustomValidity('')}catch(e){}">
 				-->
 				{% if show_checkout_button %}
-					<h4>Order Total: $<span id="cart_total">{{ order_total }}</span></h4>
+					<h4>Order Total: $<span id="cart_total">{{ order_total | floatformat:2  }}</span></h4>
 					<div class="xxsmall_padding"></div>
 					<button class="main_green_button_xs_100" id="headshot_pay_button">Continue</button>	
 				{% else %}

@@ -48,6 +48,10 @@ urlpatterns = [
     url(r'^test2$', newsletter_views.test2, name='test2'),
     url(r'^careercenter$', newsletter_views.signup_template, name='landing_signup_template'),
 
+
+    # sales unsub
+    url(r'^unsubscribe/', careerlab_views.sales_unsubscribe, name='sales_unsubscribe'),
+
     
 
     # book
