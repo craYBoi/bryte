@@ -273,5 +273,5 @@ def photo_to_touchup(folder_name):
 
 def step_1(folder_name):
 	create_touchup_folder(folder_name)
-	generate_touchup_list()
+	generate_touchup_list(folder_name)
 	photo_to_touchup(folder_name)
