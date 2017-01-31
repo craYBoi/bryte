@@ -125,7 +125,7 @@ def index(request, school='brown'):
 	elif school.lower() == 'westfieldstate':
 		title = 'Bryte & Westfield State'
 		nextshoot = Nextshoot.objects.filter(school='Westfield State').order_by('-date')
-		logo_url = static('logo/wfs.png')
+		logo_url = static('logo/schools/wfs.jpg')
 		school_name = 'Westfield State University'
 		school_url = 'https://www.westfield.ma.edu/'
 		school_bryte_url = 'westfieldstate'
@@ -1046,7 +1046,7 @@ def headshot_complete(request):
 		if order.object.special_request:
 			special_request = '<br>Special Request: ' + str(order.object.special_request)
 
-		confirmation_content += '<img src="' + raw_url + '" width="150px"><br>' + 'Style: ' + order.object.get_touchup_display() + '<br>Background: ' + order.object.get_background_display() + '<br>Keepsakes: ' + order.object.get_package_display() + special_request+ '<br>Subtotal: $' + str("{0:.2f}".format(order.object.total)) + '<br><br>'
+		confirmation_content += '<img src="' + raw_url + '" width="150px"><br>' + 'Style: ' + order.object.get_touchup_display() + '<br>Background: ' + order.object.get_background_display() + special_request+ '<br>Subtotal: $' + str("{0:.2f}".format(order.object.total)) + '<br><br>'
 
 	confirmation_content = confirmation_content + '<br><span style="font-size:1.5em; color: #15AD2F; font-weight: bold;">Total: $' + str("{0:.2f}".format(sum)) + '</span><br>'
 

@@ -269,3 +269,9 @@ def photo_to_touchup(folder_name):
 
 	print 'DONE TRANSFERRING TO TOUCHUP'
 
+
+
+def step_1(folder_name):
+	create_touchup_folder(folder_name)
+	generate_touchup_list()
+	photo_to_touchup(folder_name)
