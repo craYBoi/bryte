@@ -134,7 +134,6 @@ def index(request, school='brown'):
 		school_abbr = 'BU Sargent'
 		school_title = 'BU Sargent'
 		school_location = 'Sargent College'
-		context['extra_msg'] = ' (The photoshoot will take place during their Professional Development event.)'
 		if nextshoot:
 			nextshoot = nextshoot[0]
 			timeslots = nextshoot.timeslot_set.filter(is_available=True).order_by('time')	
