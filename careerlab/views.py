@@ -122,6 +122,27 @@ def index(request, school='brown'):
 			raise Http404
 
 
+
+	elif school.lower() == 'sargentcollege':
+		title = 'Bryte & Boston University Sargent College'
+		nextshoot = Nextshoot.objects.filter(school='Sargent College').order_by('-date')
+		bg_url = static('img/brown_campus.jpg')
+		logo_url = static('img/bu/logo.png')
+		school_name = 'Boston University Sargent College'
+		school_url = 'https://www.bu.edu/sargent/'
+		school_bryte_url = 'sargent'
+		school_abbr = 'BU Sargent'
+		school_title = 'BU Sargent'
+		school_location = 'Sargent College'
+		context['extra_msg'] = ' (The photoshoot will take place during their Professional Development event.)'
+		if nextshoot:
+			nextshoot = nextshoot[0]
+			timeslots = nextshoot.timeslot_set.filter(is_available=True).order_by('time')	
+		else:
+			raise Http404
+
+
+
 	elif school.lower() == 'westfieldstate':
 		title = 'Bryte & Westfield State'
 		nextshoot = Nextshoot.objects.filter(school='Westfield State').order_by('-date')

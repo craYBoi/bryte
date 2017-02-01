@@ -1692,7 +1692,7 @@ class Booking(models.Model):
 
 		# ccri followup
 		# message.set_subject('We\'ve fixed the issue, and now you can use mobile to download your free headshot')
-		message.set_subject('5 limited edition backgrounds?')
+		message.set_subject('5 limited edition backgrounds, still available')
  
 		message.set_html('Body')
 		message.set_text('Body')
