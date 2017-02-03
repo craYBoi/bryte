@@ -822,7 +822,8 @@ class Signup(models.Model):
 			url = 'www.brytephoto.com/school/ric'
 
 		title = 'New headshot sessions are opened. Sign up now!'
-		msg = 'Hi ' + first_name + ',\n\nGreat news! There are new headshots sessions available! We are shooting on ' + datetime + ', at ' + location + '. Book your session here:\n\n' + url + '\n\nBest, \nTeam Bryte'
+		msg = 'Hi ' + first_name + ',\n\nGreat news! There are new headshots sessions available! We will be taking photos on ' + datetime + ', at ' + location + '. Book your session here:\n\n' + url + '\n\nBest, \nTeam Bryte'
+
 		try:
 			send_mail(title, msg, 'Bryte <' + settings.EMAIL_HOST_USER + '>', [email], fail_silently=False)
 		except Exception, e:
