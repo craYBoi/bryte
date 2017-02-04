@@ -43,6 +43,7 @@ BACK_TO_SCHOOL_SALE_EXCLUSIVE_ID = '2f71a58a-7ab7-45fd-9fff-3f443cdb6961'
 BACK_TO_SCHOOL_SALE_NORMAL_ID = '12ca2bad-1d0b-4faa-bd71-9d523191afdb'
 BACK_TO_SCHOOL_SALE_NORMAL_72_ID = 'd6b36d9c-fa6f-417d-a78d-eb8b9ed2eeb0'
 BACK_TO_SCHOOL_SALE_EXCLUSIVE_72_ID = '67a55302-acd9-445a-ba88-da1e50015d2d'
+BU_LOCATION_CHANGE_ID = 'c3bc36f2-7a22-488c-b382-2203921cdf9e'
 # max sessions per time slot
 MAX_VOLUMN = 8
 
@@ -1718,6 +1719,60 @@ class Booking(models.Model):
 			print '[SENT] --- ' + str(email)
 		return send
 
+
+	def BU_location_change_email(self):
+		sent = False
+		name = self.name
+		first_name = name.split(' ')[0]
+		email = self.email
+		hash_id = self.hash_id
+		timeslot = self.timeslot
+		shoot = timeslot.shoot
+		location = shoot.location
+		date = shoot.date
+		school = shoot.school
+
+
+		# get template, version name, and automatically add to category
+		email_purpose = 'Error'
+		version_number = 'Error'
+		try:
+			email_template = json.loads(sgapi.client.templates._(BU_LOCATION_CHANGE_ID).get().response_body)
+			versions = email_template.get('versions')
+			version_number = [v.get('name') for v in versions if v.get('active')][0]
+			email_purpose = email_template.get('name')
+		except Exception, e:
+			pass
+
+		category = [school + ' - ' + str(date), email_purpose, version_number]
+
+		message = sendgrid.Mail()
+		message.add_to(email)
+		message.set_from('Bryte Inc <' + settings.EMAIL_HOST_USER + '>')
+
+		# ccri followup
+		# message.set_subject('We\'ve fixed the issue, and now you can use mobile to download your free headshot')
+		message.set_subject('Minor photoshoot location change')
+ 
+		message.set_html('Body')
+		message.set_text('Body')
+		message.add_filter('templates','enable','1')
+
+		message.add_filter('templates','template_id', BU_LOCATION_CHANGE_ID)
+
+		message.set_categories(category)
+
+		message.add_substitution('-first_name-', first_name)
+
+
+		try:
+			sg.send(message)
+		except Exception, e:
+			print '[NOT SENT] --- ' + str(email) 
+		else:
+			send = True
+			print '[SENT] --- ' + str(email)
+		return send
 
 
 	def photo_delivery_email(self):
