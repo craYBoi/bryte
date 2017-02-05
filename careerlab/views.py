@@ -414,31 +414,35 @@ def cancel_order(request):
 				return render(request, 'notification.html', context)
 
 			# generate the correct booking url in email
-			url = ''
-			if shoot.school == 'Community College of Rhode Island':
-				url = 'www.brytephoto.com/school/ccriknight'
-			elif shoot.school == 'Community College of Rhode Island Flanagan':
-				url = 'www.brytephoto.com/school/ccriflanagan'
-			elif shoot.school == 'Brown University':
-				url = 'www.brytephoto.com/school/brown'
-			elif shoot.school == 'Boston University':
-				url = 'www.brytephoto.com/school/bu'
-			elif shoot.school == 'Rhode Island College':
-				url = 'www.brytephoto.com/school/ric'
-			elif shoot.school == 'Westfield State':
-				url = 'www.brytephoto.com/school/westfieldstate'
-			else:
-				url = ''
+			# url = ''
+			# if shoot.school == 'Community College of Rhode Island':
+			# 	url = 'www.brytephoto.com/school/ccriknight'
+			# elif shoot.school == 'Community College of Rhode Island Flanagan':
+			# 	url = 'www.brytephoto.com/school/ccriflanagan'
+			# elif shoot.school == 'Brown University':
+			# 	url = 'www.brytephoto.com/school/brown'
+			# elif shoot.school == 'Boston University':
+			# 	url = 'www.brytephoto.com/school/bu'
+			# elif shoot.school == 'Rhode Island College':
+			# 	url = 'www.brytephoto.com/school/ric'
+			# elif shoot.school == 'Westfield State':
+			# 	url = 'www.brytephoto.com/school/westfieldstate'
+			# else:
+			# 	url = ''
 
+			# update db
 			booking.cancel_order()
-			msg_body = 'Hi ' + str(first_name) + ',\n\nThis email is to confirm you have canceled your Bryte Photo headshot on ' + str(booking.timeslot) + '. If you would like to book a different time slot you can sign up here:\n\n'+ url +'\n\nBest,\nTeam Bryte'
-			try:
-				send_mail('Cancellation confirmation - Bryte Photo',
-					msg_body, 'Bryte Photo <' + settings.EMAIL_HOST_USER + '>', [email],
-					fail_silently=False)
-			except Exception, e:
-				print 'Email not sent'
-				pass
+
+			booking.booking_cancellation_email()
+
+			# msg_body = 'Hi ' + str(first_name) + ',\n\nThis email is to confirm you have canceled your Bryte Photo headshot on ' + str(booking.timeslot) + '. If you would like to book a different time slot you can sign up here:\n\n'+ url +'\n\nBest,\nTeam Bryte'
+			# try:
+			# 	send_mail('Cancellation confirmation - Bryte Photo',
+			# 		msg_body, 'Bryte Photo <' + settings.EMAIL_HOST_USER + '>', [email],
+			# 		fail_silently=False)
+			# except Exception, e:
+			# 	print 'Email not sent'
+			# 	pass
 
 	return render(request, 'notification.html', context)
 

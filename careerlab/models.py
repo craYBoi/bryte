@@ -98,6 +98,9 @@ class Nextshoot(models.Model):
 
 
 	# generate booking link for changing the timeslot
+	def get_booking_url(self):
+		return os.path.join(settings.SITE_URL, 'school', self.url)
+
 
 	# discount amount update
 	def update_discount_amounts(self, sales):
@@ -1889,7 +1892,7 @@ class Booking(models.Model):
 
 		# ccri followup
 		# message.set_subject('We\'ve fixed the issue, and now you can use mobile to download your free headshot')
-		message.set_subject('Minor photoshoot location change')
+		message.set_subject('Cancellation confirmation - Bryte Photo')
  
 		message.set_html('Body')
 		message.set_text('Body')
@@ -1901,8 +1904,7 @@ class Booking(models.Model):
 
 		message.add_substitution('-first_name-', first_name)
 		message.add_substitution('-time_slot-', str(timeslot.date_and_time()))
-		message.add_substitution('-url-', shoot.url)
-
+		message.add_substitution('-url-', shoot.get_booking_url())
 
 
 		try:
