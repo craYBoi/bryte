@@ -79,16 +79,21 @@
 
                   <p class="text-left bold">Choose a timeslot</p>
                   <select required name='careerlab_book_time' class="form-control lg_input" id='careerlab_book_time'>
-                    {% for timeslot in timeslots %}
-                      <option value='{{ timeslot.pk }}'>{{ timeslot.time_slot_format }}</option>
-                    {% endfor %}
+                    
+                    <option value='{{ timeslot.pk }}'>11:00 AM</option>
+                    <option value='{{ timeslot.pk }}'>11:10 AM</option>
+                    <option value='{{ timeslot.pk }}'>11:20 AM</option>
+                    <option value='{{ timeslot.pk }}'>11:50 AM</option>
+                    <option value='{{ timeslot.pk }}'>12:30 PM</option>
+                    <option value='{{ timeslot.pk }}'>1:50 PM</option>
+                    
                   </select>
 
 
                   <!-- booking button -->
                   <div class="medium_padding"></div>
                   <div class="text-center">
-                    <button type="button" class="bold large_font book_button" id="careerlab_book_button">Book a spot</button>
+                    <button type="button" class="bold large_font main_green_button_mid" id="careerlab_book_button">Book a session</button>
                     <div class="small_padding"></div>
                   </div>
                 </form>
@@ -676,7 +681,7 @@
  <!-- Process -->
  
   <div class="background_grey" id="process">
-    <div class="background_pink large_font">
+    <div class="light_green_bg large_font">
     <div class="{{ secondary_bg_color }} large_font">
       <div class="container small_padding_bot medium_padding">
         <h2 class="text-center bold landing_title_sec">How it works</h2>
@@ -722,13 +727,13 @@
 
       {% else %}
         <div class="text-center">
-          <a href="#title"><button class="book_button_r bold large_font">Be the first to hear</button></a>
+          <a href="#title"><button type="button" class="bold main_green_button_sm">Book a Session</button></a>
         </div>
 
       {% endif %}
     {% else %}
       <div class="text-center">
-        <a href="#title"><button class="book_button_r bold large_font" id="signup_modal_button_2">Be the first to hear</button></a>
+        <a href="#title"><button type="button" class="bold main_green_button_sm">Book a Session</button></a>
 
       </div>
     {% endif %}
