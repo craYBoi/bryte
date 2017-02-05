@@ -47,7 +47,7 @@ BU_LOCATION_CHANGE_ID = 'c3bc36f2-7a22-488c-b382-2203921cdf9e'
 # max sessions per time slot
 MAX_VOLUMN = 8
 NO_DOWNLOAD_FOLLOWUP_1_ID = 'e8b983e7-e4a5-4809-82c5-32f7fa49be57'
-
+BOOKING_CANCELLATION_EMAIL_ID = 'e3bde230-752e-4045-b0ba-18c023ec6270'
 
 # TO TEST
 EXCLUDED_LIST = ['cartelli@bu.edu', 'elizabeth_lussier@brown.edu', 'camelse@my.ccri.edu', 'dmoran@ric.edu', 'dsmith@ric.edu', 'fherchuk_9077@email.ric.edu', 'callenson_2729@email.ric.edu', 'clambert@ric.edu', 'lcoelho@ric.edu', 'lbogad@ric.edu']
@@ -66,6 +66,7 @@ class Nextshoot(models.Model):
 	basic_price = models.PositiveSmallIntegerField(default=8)
 	professional_price = models.PositiveSmallIntegerField(default=11)
 	customized_price = models.PositiveSmallIntegerField(default=15)
+	url = models.CharField(max_length=50, blank=True, null=True)
 
 	class Meta:
 		ordering = ('-timestamp',)
@@ -1855,6 +1856,63 @@ class Booking(models.Model):
 			print '[SENT] --- ' + str(email)
 		return send
 
+
+	def booking_cancellation_email(self):
+		sent = False
+		name = self.name
+		first_name = name.split(' ')[0]
+		email = self.email
+		hash_id = self.hash_id
+		timeslot = self.timeslot
+		shoot = timeslot.shoot
+		location = shoot.location
+		date = shoot.date
+		school = shoot.school
+
+
+		# get template, version name, and automatically add to category
+		email_purpose = 'Error'
+		version_number = 'Error'
+		try:
+			email_template = json.loads(sgapi.client.templates._(BOOKING_CANCELLATION_EMAIL_ID).get().response_body)
+			versions = email_template.get('versions')
+			version_number = [v.get('name') for v in versions if v.get('active')][0]
+			email_purpose = email_template.get('name')
+		except Exception, e:
+			pass
+
+		category = [school + ' - ' + str(date), email_purpose, version_number]
+
+		message = sendgrid.Mail()
+		message.add_to(email)
+		message.set_from('Bryte Inc <' + settings.EMAIL_HOST_USER + '>')
+
+		# ccri followup
+		# message.set_subject('We\'ve fixed the issue, and now you can use mobile to download your free headshot')
+		message.set_subject('Minor photoshoot location change')
+ 
+		message.set_html('Body')
+		message.set_text('Body')
+		message.add_filter('templates','enable','1')
+
+		message.add_filter('templates','template_id', BOOKING_CANCELLATION_EMAIL_ID)
+
+		message.set_categories(category)
+
+		message.add_substitution('-first_name-', first_name)
+		message.add_substitution('-time_slot-', str(timeslot.date_and_time()))
+		message.add_substitution('-url-', shoot.url)
+
+
+
+		try:
+			sg.send(message)
+		except Exception, e:
+			print '[NOT SENT] --- ' + str(email) 
+		else:
+			send = True
+			print '[SENT] --- ' + str(email)
+		return send
 
 	def photo_delivery_email(self):
 		send = False
