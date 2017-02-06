@@ -3,6 +3,7 @@ from django.core.mail import send_mail
 from django.core.mail import EmailMessage
 
 from datetime import datetime
+from datetime import timedelta
 from random import SystemRandom
 import string
 import os
@@ -271,7 +272,55 @@ def photo_to_touchup(folder_name):
 
 
 
+# do everyday
 def step_1(folder_name):
 	create_touchup_folder(folder_name)
 	generate_touchup_list(folder_name)
 	photo_to_touchup(folder_name)
+
+
+
+# list all the email actions
+REMINDER = (-1, 'afternoon')
+NOTIFICATION = (-1, 'evening')
+MY_HEADSHOT = (2, '5-8 PM')
+NO_FOLLOWUP_1 = (4, 'afternoon')
+NO_FOLLOWUP_2 = (7, 'morning')
+NO_FOLLOWUP_3 = (12, 'evening')
+NO_FOLLOWUP_4 = (30, 'afternoon')
+NO_FOLLOWUP_5 = (60, 'morning')
+
+def email_time_list():
+	shoots = Nextshoot.objects.all()
+	time_list = []
+	for shoot in shoots:
+		date = shoot.date
+		r = date + timedelta(days=REMINDER[0])
+		n = date + timedelta(days=NOTIFICATION[0])
+		m = date + timedelta(days=MY_HEADSHOT[0])
+		nf1 = date + timedelta(days=NO_FOLLOWUP_1[0])
+		nf2 = date + timedelta(days=NO_FOLLOWUP_2[0])
+		nf3 = date + timedelta(days=NO_FOLLOWUP_3[0])
+		nf4 = date + timedelta(days=NO_FOLLOWUP_4[0])
+		nf5 = date + timedelta(days=NO_FOLLOWUP_5[0])
+
+		time_list.append((shoot.school + ' - ' + shoot.date.strftime('%m-%d'), r, 'Reminder Email', REMINDER[1]))
+		time_list.append((shoot.school + ' - ' + shoot.date.strftime('%m-%d'), n, 'Notification Email', NOTIFICATION[1]))
+		time_list.append((shoot.school + ' - ' + shoot.date.strftime('%m-%d'), m, 'My Headshot Email', MY_HEADSHOT[1]))
+		time_list.append((shoot.school + ' - ' + shoot.date.strftime('%m-%d'), nf1, 'No Followup 1', NO_FOLLOWUP_1[1]))
+		time_list.append((shoot.school + ' - ' + shoot.date.strftime('%m-%d'), nf2, 'No Followup 2', NO_FOLLOWUP_2[1]))
+		time_list.append((shoot.school + ' - ' + shoot.date.strftime('%m-%d'), nf3, 'No Followup 3', NO_FOLLOWUP_3[1]))
+		time_list.append((shoot.school + ' - ' + shoot.date.strftime('%m-%d'), nf4, 'No Followup 4', NO_FOLLOWUP_4[1]))
+		time_list.append((shoot.school + ' - ' + shoot.date.strftime('%m-%d'), nf5, 'No Followup 5', NO_FOLLOWUP_5[1]))
+
+		#sorted_by_second = sorted(data, key=lambda tup: tup[1])
+	sorted_time_list = sorted(time_list, key=lambda tup: tup[1])
+	
+	for t in sorted_time_list:
+		if t[1] > datetime.date(datetime.now()):
+			print t[0] + ' -- ' + t[2] + ':  ' + t[1].strftime('%Y-%m-%d') + '\t' + t[3]
+
+
+
+
+
