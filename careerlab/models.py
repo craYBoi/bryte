@@ -47,6 +47,7 @@ BU_LOCATION_CHANGE_ID = 'c3bc36f2-7a22-488c-b382-2203921cdf9e'
 # max sessions per time slot
 MAX_VOLUMN = 8
 NO_DOWNLOAD_FOLLOWUP_1_ID = 'e8b983e7-e4a5-4809-82c5-32f7fa49be57'
+NO_DOWNLOAD_FOLLOWUP_2_ID = 'addb4c53-317a-4345-bdfe-bf66a7f56abc'
 BOOKING_CANCELLATION_EMAIL_ID = 'e3bde230-752e-4045-b0ba-18c023ec6270'
 
 # TO TEST
@@ -723,6 +724,9 @@ class Nextshoot(models.Model):
 	# sales email
 	def no_download_followup_1_mass(self):
 
+		# do the update cust type first 
+		self.update_cust_types()
+
 		# all the non-exclusive member who showed up
 		bookings = [e for elem in self.timeslot_set.all() for e in elem.booking_set.filter(cust_type=1).filter(is_sub=True)]
 
@@ -738,6 +742,27 @@ class Nextshoot(models.Model):
 
 		print 'Total --- ' + str(len(bookings)) + ' Emails\nSENT --- ' + str(count) + ' Emails'
 
+
+	# sales email
+	def no_download_followup_2_mass(self):
+
+		# do the update cust type first 
+		self.update_cust_types()
+
+		# all the non-exclusive member who showed up
+		bookings = [e for elem in self.timeslot_set.all() for e in elem.booking_set.filter(cust_type=1).filter(is_sub=True)]
+
+		count = 0
+		for booking in bookings:
+			# make sure it's not faculty
+			if not booking.email.lower() in EXCLUDED_LIST:
+				if(booking.no_download_followup_2()):
+					count += 1
+			
+			else:
+				print '[SKIP] faculty -- ' + booking.email
+
+		print 'Total --- ' + str(len(bookings)) + ' Emails\nSENT --- ' + str(count) + ' Emails'
 
 
 	# sales email
@@ -1561,6 +1586,67 @@ class Booking(models.Model):
 			send = True
 			print '[SENT] --- ' + str(email)
 		return send
+
+
+	def no_download_followup_2(self):
+		sent = False
+		name = self.name
+		first_name = name.split(' ')[0]
+		email = self.email
+		hash_id = self.hash_id
+		timeslot = self.timeslot
+		shoot = timeslot.shoot
+		location = shoot.location
+		date = shoot.date
+		school = shoot.school
+
+
+		# get template, version name, and automatically add to category
+		email_purpose = 'Error'
+		version_number = 'Error'
+		try:
+			email_template = json.loads(sgapi.client.templates._(NO_DOWNLOAD_FOLLOWUP_2_ID).get().response_body)
+			versions = email_template.get('versions')
+			version_number = [v.get('name') for v in versions if v.get('active')][0]
+			email_purpose = email_template.get('name')
+		except Exception, e:
+			pass
+
+		category = [school + ' - ' + str(date), email_purpose, version_number]
+
+		my_headshot_link = settings.SITE_URL + '/headshot/?id=' + hash_id + '&utm_source=My%20Headshot%20My%Headshot&utm_medium=Campaign%20Medium%20URL%20Builder'
+
+		message = sendgrid.Mail()
+		message.add_to(email)
+		message.set_from('Bryte Inc <' + settings.EMAIL_HOST_USER + '>')
+
+		# ccri followup
+		# message.set_subject('We\'ve fixed the issue, and now you can use mobile to download your free headshot')
+		message.set_subject('Get your free LinkedIn photo in minutes')
+ 
+		message.set_html('Body')
+		message.set_text('Body')
+		message.add_filter('templates','enable','2')
+
+		message.add_filter('templates','template_id', NO_DOWNLOAD_FOLLOWUP_2_ID)
+
+
+		message.set_categories(category)
+
+		message.add_substitution('-first_name-', first_name)
+		message.add_substitution('-unique_id-', hash_id)
+		message.add_substitution('-my_headshot-', my_headshot_link)
+		message.add_substitution('-unsub_link-', self.generate_unsub_link())
+
+		try:
+			sg.send(message)
+		except Exception, e:
+			print '[NOT SENT] --- ' + str(email) 
+		else:
+			send = True
+			print '[SENT] --- ' + str(email)
+		return send
+
 
 
 	# make sure to exclude these emails

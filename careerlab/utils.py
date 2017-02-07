@@ -284,9 +284,9 @@ def step_1(folder_name):
 REMINDER = (-1, 'afternoon')
 NOTIFICATION = (-1, 'evening')
 MY_HEADSHOT = (2, '5-8 PM')
-NO_FOLLOWUP_1 = (4, 'afternoon')
-NO_FOLLOWUP_2 = (7, 'morning')
-NO_FOLLOWUP_3 = (12, 'evening')
+NO_FOLLOWUP_1 = (5, 'afternoon')
+NO_FOLLOWUP_2 = (8, 'morning')
+NO_FOLLOWUP_3 = (13, 'evening')
 NO_FOLLOWUP_4 = (30, 'afternoon')
 NO_FOLLOWUP_5 = (60, 'morning')
 
@@ -317,7 +317,7 @@ def email_time_list():
 	sorted_time_list = sorted(time_list, key=lambda tup: tup[1])
 	
 	for t in sorted_time_list:
-		if t[1] > datetime.date(datetime.now()):
+		if t[1] >= datetime.date(datetime.now()):
 			print t[0] + ' -- ' + t[2] + ':  ' + t[1].strftime('%Y-%m-%d') + '\t' + t[3]
 
 
