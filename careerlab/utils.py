@@ -322,7 +322,7 @@ def email_time_list():
 
 # add no shows to the signup list
 def no_shows_to_signup_list():
-	shoots = Nextshoot.objects.filter(noshow_to_signup=False)
+	shoots = Nextshoot.objects.filter(noshow_signup=False)
 	for shoot in shoots:
 		shoot.noshow_to_signup()
 
