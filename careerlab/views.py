@@ -369,7 +369,7 @@ def sales_unsubscribe(request):
 	context = {
 		'brown_careerlab': 1,
 		'title_text': 'Unsubscribe for future offers',
-		'notification_text': 'You have successfully subscribed for future offers.',
+		'notification_text': 'You have successfully unsubscribed for future offers.',
 	}	
 	if request.method == 'GET':
 		hash_id = request.GET.get('order_id')
@@ -391,7 +391,7 @@ def notification_unsubscribe(request):
 	context = {
 		'brown_careerlab': 1,
 		'title_text': 'Unsubscribe for future photoshoot notifications',
-		'notification_text': 'You have successfully subscribed for our future photoshoot notifcations.',
+		'notification_text': 'You have successfully unsubscribed for our future photoshoot notifcations.',
 	}	
 	if request.method == 'GET':
 		hash_id = request.GET.get('hash_id')

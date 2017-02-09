@@ -11,7 +11,7 @@ import dropbox
 import StringIO
 import csv
 
-from .models import HeadshotPurchase, HeadshotOrder, Booking, Nextshoot
+from .models import HeadshotPurchase, HeadshotOrder, Booking, Nextshoot, Signup
 
 
 # create daily touchup folder
@@ -320,18 +320,29 @@ def email_time_list():
 		if t[1] >= datetime.date(datetime.now()):
 			print t[0] + ' -- ' + t[2] + ':  ' + t[1].strftime('%Y-%m-%d') + '\t' + t[3]
 
-	# add no shows to the signup list
-	def no_shows_to_signup_list():
-		shoots = Nextshoot.objects.filter(noshow_to_signup=False)
-		for shoot in shoots:
-			shoot.noshow_to_signup()
+# add no shows to the signup list
+def no_shows_to_signup_list():
+	shoots = Nextshoot.objects.filter(noshow_to_signup=False)
+	for shoot in shoots:
+		shoot.noshow_to_signup()
 
-		print 'Done..'
+	print 'Done..'
 
 
-	# clean signup list, remove duplicates..
-	def clean_signups():
-		pass
+# clean signup list, remove duplicates..
+def clean_signups():
+	signups = Signup.objects.all()
+	signup_email_list = []
+	for signup in signups:
+		if signup.email in signup_email_list:
+			print 'Duplicate ' + signup.email + ' removed...'
+			signup.is_sub = False
+			super(Signup, signup).save()
+
+		else:
+			signup_email_list.append(signup.email)
+		
+
 
 
 
