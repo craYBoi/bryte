@@ -403,7 +403,7 @@ def notification_unsubscribe(request):
 		else:
 			# change the sub flag
 			signup.is_sub = False
-			super(Signup, booking).save()
+			super(Signup, signup).save()
 			print str(signup.email) + ' unsubbed successfully'
 
 	return render(request, 'notification.html', context)
