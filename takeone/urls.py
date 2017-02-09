@@ -51,8 +51,8 @@ urlpatterns = [
 
     # sales unsub
     url(r'^unsubscribe/', careerlab_views.sales_unsubscribe, name='sales_unsubscribe'),
+    url(r'^unsubscribe_notification/', careerlab_views.notification_unsubscribe, name='notification_unsubscribe'),
 
-    
 
     # book
     url(r'^book/', include('book.urls')),

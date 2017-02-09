@@ -46,9 +46,11 @@ BACK_TO_SCHOOL_SALE_EXCLUSIVE_72_ID = '67a55302-acd9-445a-ba88-da1e50015d2d'
 BU_LOCATION_CHANGE_ID = 'c3bc36f2-7a22-488c-b382-2203921cdf9e'
 # max sessions per time slot
 MAX_VOLUMN = 8
-NO_DOWNLOAD_FOLLOWUP_1_ID = 'e8b983e7-e4a5-4809-82c5-32f7fa49be57'
-NO_DOWNLOAD_FOLLOWUP_2_ID = 'addb4c53-317a-4345-bdfe-bf66a7f56abc'
+NO_DOWNLOAD_FOLLOWUP_3_ID = 'e8b983e7-e4a5-4809-82c5-32f7fa49be57'
+NO_DOWNLOAD_FOLLOWUP_2_ID = ''
+NO_DOWNLOAD_FOLLOWUP_1_ID = 'addb4c53-317a-4345-bdfe-bf66a7f56abc'
 BOOKING_CANCELLATION_EMAIL_ID = 'e3bde230-752e-4045-b0ba-18c023ec6270'
+EXTRA_SESSIONS_NOTIFCATION_ID = 'b7e65e07-d1be-4ef1-99af-b0b61d86ba09'
 
 # TO TEST
 EXCLUDED_LIST = ['cartelli@bu.edu', 'elizabeth_lussier@brown.edu', 'camelse@my.ccri.edu', 'dmoran@ric.edu', 'dsmith@ric.edu', 'fherchuk_9077@email.ric.edu', 'callenson_2729@email.ric.edu', 'clambert@ric.edu', 'lcoelho@ric.edu', 'lbogad@ric.edu']
@@ -68,6 +70,8 @@ class Nextshoot(models.Model):
 	professional_price = models.PositiveSmallIntegerField(default=11)
 	customized_price = models.PositiveSmallIntegerField(default=15)
 	url = models.CharField(max_length=50, blank=True, null=True)
+	area = models.CharField(max_length=100, blank=True, null=True)
+	noshow_signup = models.BooleanField(default=False)
 
 	class Meta:
 		ordering = ('-timestamp',)
@@ -117,7 +121,6 @@ class Nextshoot(models.Model):
 		print 'Done!'
 
 
-
 	def update_cust_types(self):
 		bookings = [e for elem in self.timeslot_set.all() for e in elem.booking_set.all()]
 
@@ -147,6 +150,30 @@ class Nextshoot(models.Model):
 		print 'Free customer: ' + str(free)
 		print 'No download customer: ' + str(no_download)
 		print 'No show customer: ' + str(no_show)
+
+	# move all the no shows to signup list
+	def noshow_to_signup(self):
+		print 'moving noshows to signup...'
+		noshows = [e for elem in self.timeslot_set.all() for e in elem.booking_set.filter(show_up=False)]
+
+		for noshow in noshows:
+			name = noshow.name
+			email = noshow.email
+			try:
+				# create signup instance
+				s = Signup.objects.create(
+					email=email,
+					name=name,
+					shoot=self,
+					)
+			except Exception, e:
+				raise e
+			else:
+				print s.email + ' has been moved to signup list'
+
+		# update the flag
+		self.noshow_signup = True
+		super(Nextshoot, self).save()
 
 
 	def create_time_slot(self, start, end):
@@ -721,6 +748,25 @@ class Nextshoot(models.Model):
 			booking.create_image(raw=raw, edited=edited, fav=fav, top=top, portrait=portrait, all=all)
 
 
+	# notifcation email TODO
+	def extra_session_notification_mass(self):
+
+		# signups that are at the same school
+		same_area_shoots = Nextshoot.objects.filter(area==self.area)
+
+		count = 0
+		for shoot in same_area_shoots:
+			signups = shoot.signup_set.filter(is_sub=True)
+
+			for signup in signups:
+				if(signup.extra_session_notification_email()):
+					count += 1
+
+		print 'Done..'
+		print 'Sent -- ' + str(count)
+		# signups = [...]
+
+
 	# sales email
 	def no_download_followup_1_mass(self):
 
@@ -848,11 +894,91 @@ class Signup(models.Model):
 	shoot = models.ForeignKey(Nextshoot, blank=True, null=True)
 	# see if it's from cancelling the booking order
 	cancelled = models.BooleanField(default=False)
+	is_sub = models.BooleanField(default=True)
+	hash_id = models.CharField(max_length=50, default='default')
 
 
 	def __unicode__(self):
 		return self.name + ' ' + self.email
 
+	def save(self, *args, **kwargs):
+		N = 6
+		self.hash_id = ''.join(SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(N))
+
+		super(Signup, self).save(*args, **kwargs)
+
+
+	def generate_unsub_notification_link(self):
+		return settings.SITE_URL + reverse('notification_unsubscribe') + '?hash_id=' + str(self.hash_id)
+
+
+	def extra_session_notification_email(self):
+		sent = False
+		name = self.name
+		first_name = name.split(' ')[0]
+		email = self.email
+		hash_id = self.hash_id
+
+		# filter via the area
+		shoot = self.shoot
+		area = shoot.area
+
+		future_shoot = Nextshoot.objects.filter(area=area).filter(active=True).order_by('timestamp')[0]
+
+
+		location = future_shoot.location
+		date = future_shoot.date
+		datetime = future_shoot.get_date_string() + ', ' + future_shoot.get_time_interval_string()
+		school = future_shoot.school
+		location = school + ' ' + future_shoot.location
+
+		url = future_shoot.get_booking_url()
+
+
+		# get template, version name, and automatically add to category
+		email_purpose = 'Error'
+		version_number = 'Error'
+		try:
+			email_template = json.loads(sgapi.client.templates._(EXTRA_SESSIONS_NOTIFCATION_ID).get().response_body)
+			versions = email_template.get('versions')
+			version_number = [v.get('name') for v in versions if v.get('active')][0]
+			email_purpose = email_template.get('name')
+		except Exception, e:
+			pass
+
+		category = [school + ' - ' + str(date), email_purpose, version_number]
+
+		message = sendgrid.Mail()
+		message.add_to(email)
+		message.set_from('Bryte Inc <' + settings.EMAIL_HOST_USER + '>')
+
+		# ccri followup
+		# message.set_subject('We\'ve fixed the issue, and now you can use mobile to download your free headshot')
+		message.set_subject('New headshot sessions are opened. Sign up now!')
+ 
+		message.set_html('Body')
+		message.set_text('Body')
+		message.add_filter('templates','enable','1')
+
+		message.add_filter('templates','template_id', EXTRA_SESSIONS_NOTIFCATION_ID)
+
+
+		message.set_categories(category)
+
+		message.add_substitution('-first_name-', first_name)
+		message.add_substitution('-datetime-', datetime)
+		message.add_substitution('-location-', location)
+		message.add_substitution('-url-', url)
+		message.add_substitution('-unsub_link-', self.generate_unsub_notification_link())
+
+		try:
+			sg.send(message)
+		except Exception, e:
+			print '[NOT SENT] --- ' + str(email) 
+		else:
+			send = True
+			print '[SENT] --- ' + str(email)
+		return send
 
 	def notify_signup(self):
 		first_name = self.name.split(' ')[0]
@@ -1242,6 +1368,7 @@ class Booking(models.Model):
 	def generate_unsub_link(self):
 		return settings.SITE_URL + reverse('sales_unsubscribe') + '?order_id=' + str(self.hash_id)
 
+
 	def tips_link(self):
 		return settings.SITE_URL + reverse('careerlab_tips')
 
@@ -1562,7 +1689,7 @@ class Booking(models.Model):
 
 		# ccri followup
 		# message.set_subject('We\'ve fixed the issue, and now you can use mobile to download your free headshot')
-		message.set_subject('Get your free LinkedIn photo in minutes')
+		message.set_subject('See what students say about our LinkedIn photos')
  
 		message.set_html('Body')
 		message.set_text('Body')
@@ -1622,7 +1749,7 @@ class Booking(models.Model):
 
 		# ccri followup
 		# message.set_subject('We\'ve fixed the issue, and now you can use mobile to download your free headshot')
-		message.set_subject('Get your free LinkedIn photo in minutes')
+		message.set_subject('The 3 things recruiters look at on LinkedIn profiles')
  
 		message.set_html('Body')
 		message.set_text('Body')

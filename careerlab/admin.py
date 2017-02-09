@@ -94,14 +94,14 @@ class BookingResource(resources.ModelResource):
 
 
 class NextshootAdmin(ImportExportModelAdmin):
-	list_display = ['id', 'photographer', 'location', 'school', 'active', 'name' , 'max_volumn' , 'is_serving', 'timestamp']
+	list_display = ['id', 'photographer', 'location', 'school', 'active', 'name' , 'max_volumn' , 'is_serving', 'area', 'noshow_signup', 'timestamp']
 	
 
 class TimeslotAdmin(admin.ModelAdmin):
 	list_display = ['id', 'time', 'shoot','current_volumn', 'is_available']
 
 class SignupAdmin(admin.ModelAdmin):
-	list_display = ['id', 'email', 'name','notified', 'shoot', 'timestamp', 'cancelled']
+	list_display = ['id', 'email', 'name','notified', 'shoot', 'timestamp', 'cancelled', 'is_sub']
 
 class OriginalHeadshotAdmin(admin.ModelAdmin):
 	list_display = ['id','booking', 'name', 'raw_url', 'deliverable_url', 'hash_id']

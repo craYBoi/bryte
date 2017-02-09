@@ -387,6 +387,28 @@ def sales_unsubscribe(request):
 	return render(request, 'notification.html', context)
 
 
+def notification_unsubscribe(request):
+	context = {
+		'brown_careerlab': 1,
+		'title_text': 'Unsubscribe for future photoshoot notifications',
+		'notification_text': 'You have successfully subscribed for our future photoshoot notifcations.',
+	}	
+	if request.method == 'GET':
+		hash_id = request.GET.get('hash_id')
+		try:
+			signup = Signup.objects.filter(hash_id=hash_id).filter(is_sub=True)[0]
+		except Exception, e:
+			print 'No booking found for unsub..'
+			pass
+		else:
+			# change the sub flag
+			signup.is_sub = False
+			super(Signup, booking).save()
+			print str(signup.email) + ' unsubbed successfully'
+
+	return render(request, 'notification.html', context)
+
+
 
 # could subject to change to Shoot school name
 def cancel_order(request):

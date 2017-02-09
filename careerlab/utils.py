@@ -320,7 +320,18 @@ def email_time_list():
 		if t[1] >= datetime.date(datetime.now()):
 			print t[0] + ' -- ' + t[2] + ':  ' + t[1].strftime('%Y-%m-%d') + '\t' + t[3]
 
+	# add no shows to the signup list
+	def no_shows_to_signup_list():
+		shoots = Nextshoot.objects.filter(noshow_to_signup=False)
+		for shoot in shoots:
+			shoot.noshow_to_signup()
 
+		print 'Done..'
+
+
+	# clean signup list, remove duplicates..
+	def clean_signups():
+		pass
 
 
 
