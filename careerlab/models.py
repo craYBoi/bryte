@@ -1558,6 +1558,7 @@ class Booking(models.Model):
 		school = shoot.school
 
 
+
 		# get template, version name, and automatically add to category
 		email_purpose = 'Error'
 		version_number = 'Error'
@@ -1588,6 +1589,7 @@ class Booking(models.Model):
 		message.set_categories(category)
 
 		message.add_substitution('-first_name-', first_name)
+		message.add_substitution('-school-', school)
 
 
 		try:

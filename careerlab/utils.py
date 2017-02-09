@@ -204,7 +204,7 @@ def touchup_to_prod_paid(folder_name):
 					else:
 						break
 
-				print p_id
+				# print p_id
 
 
 				try:
