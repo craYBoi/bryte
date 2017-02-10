@@ -752,7 +752,7 @@ class Nextshoot(models.Model):
 	def extra_session_notification_mass(self):
 
 		# signups that are at the same school
-		same_area_shoots = Nextshoot.objects.filter(area==self.area)
+		same_area_shoots = Nextshoot.objects.filter(area=self.area)
 
 		count = 0
 		for shoot in same_area_shoots:
