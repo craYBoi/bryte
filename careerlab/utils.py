@@ -284,9 +284,9 @@ def step_1(folder_name):
 REMINDER = (-1, 'afternoon')
 NOTIFICATION = (-1, 'evening')
 MY_HEADSHOT = (2, '5-8 PM')
-NO_FOLLOWUP_1 = (5, 'afternoon')
-NO_FOLLOWUP_2 = (8, 'morning')
-NO_FOLLOWUP_3 = (13, 'evening')
+NO_FOLLOWUP_1 = (6, 'afternoon')
+NO_FOLLOWUP_2 = (9, 'morning')
+NO_FOLLOWUP_3 = (14, 'evening')
 NO_FOLLOWUP_4 = (30, 'afternoon')
 NO_FOLLOWUP_5 = (60, 'morning')
 
