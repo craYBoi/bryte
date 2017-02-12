@@ -1319,3 +1319,14 @@ def headshot_payment(request):
 	context['orders'] = orders
 
 	return render(request, 'order_payment.html', context)
+
+
+# cms
+def cms_photoshoot(request):
+	context = {}
+
+	shoots = Nextshoot.objects.order_by('-date')
+
+	context['shoots'] = shoots
+
+	return render(request, 'cms_photoshoot.html', context)

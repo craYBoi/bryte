@@ -119,6 +119,9 @@ urlpatterns = [
     url(r'^profile/complete$', profile_views.ajax_complete, name='ajax_complete'),
     url(r'^profile/dropbox$', profile_views.ajax_connect_dropbox, name='ajax_dropbox'),
 
+    # cms
+    url(r'cms/photoshoot$', careerlab_views.cms_photoshoot, name='cms_photoshoot')
+
 ]
 
 
