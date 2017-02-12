@@ -114,7 +114,7 @@ class Nextshoot(models.Model):
 		return len([e for elem in self.timeslot_set.all() for e in elem.booking_set.filter(show_up=True)])
 
 	def get_showup_rate(self):
-		return float(self.get_total_showup_num) / self.get_total_booking_num() * 100
+		return float(self.get_total_showup_num()) / self.get_total_booking_num() * 100
 
 	def get_total_exclusive_num(self):
 		return len([e for elem in self.timeslot_set.all() for e in elem.booking_set.filter(cust_type=4)])
