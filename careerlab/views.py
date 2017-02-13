@@ -296,14 +296,14 @@ def book(request):
 					data['msg'] = 'There\'s an error signing up. Please try again.'
 				else:
 					# delete record in the signup list
-					if email in [signup.email for signup in Signup.objects.all()]:
-						try:
-							signup = get_object_or_404(Signup, email=email)
-						except Exception, e:
-							print e
-							pass
-						else:
-							signup.delete()
+					# if email in [signup.email for signup in Signup.objects.all()]:
+					# 	try:
+					# 		signup = get_object_or_404(Signup, email=email)
+					# 	except Exception, e:
+					# 		print e
+					# 		pass
+					# 	else:
+					# 		signup.delete()
 
 					# send email
 					b.booking_confirmation_email()
@@ -1327,6 +1327,6 @@ def cms_photoshoot(request):
 
 	shoots = Nextshoot.objects.order_by('-date')
 
-	context['shoots'] = shoots
+	context['shoots'] = shoots[:5]
 
 	return render(request, 'cms_photoshoot.html', context)
