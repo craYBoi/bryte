@@ -85,6 +85,23 @@ def index(request, school='brown'):
 			raise Http404
 
 
+	elif school.lower() == 'qu':
+		title = 'Bryte & Quinnipiac University'
+		nextshoot = Nextshoot.objects.filter(school='Quinnipiac University').order_by('-date')
+		bg_url = static('img/brown_campus.jpg')
+		logo_url = static('logo/schools/qu.png')
+		school_name = 'Quinnipiac University'
+		school_url = 'http://www.qu.edu/'
+		school_bryte_url = 'qu'
+		school_abbr = 'Quinnipiac University'
+		school_title = 'Quinnipiac University'
+		school_location = 'Quinnipiac University'
+		if nextshoot:
+			nextshoot = nextshoot[0]
+			timeslots = nextshoot.timeslot_set.filter(is_available=True).order_by('time')	
+		else:
+			raise Http404
+
 	elif school.lower() == 'wcc':
 		title = 'Bryte & Worcester Chamber of Commerce'
 		nextshoot = Nextshoot.objects.filter(school='Worcester Chamber of Commerce').order_by('-date')
