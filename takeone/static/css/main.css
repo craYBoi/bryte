@@ -186,6 +186,10 @@ h1,h2,h3,h4 {
 	border: 3px solid #fff;
 }
 
+.white_top_border {
+	border-top: 1px solid #fff;
+}
+
 /* jumbotron */
 .jumbotron {
 	padding-top: 25px;
@@ -2472,7 +2476,7 @@ body, html
 }
 
 .max_width_300 {
-	max-width: 450px!important;
+	max-width: 550px!important;
 	width:100%;
 }
 
