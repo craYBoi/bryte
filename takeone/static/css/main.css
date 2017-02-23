@@ -2475,11 +2475,15 @@ body, html
 	height: 100%;
 }
 
-.max_width_300 {
-	max-width: 550px!important;
+.max_width_400 {
+	max-width: 600px!important;
 	width:100%;
 }
 
+.max_width_300 {
+	max-width: 450px!important;
+	width:100%;
+}
 
 .os_center {
 	margin: 0 auto;
