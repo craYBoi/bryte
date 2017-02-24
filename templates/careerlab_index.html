@@ -95,7 +95,16 @@
                     <!--<button type="button" class="bold large_font main_green_button_mid" id="careerlab_book_button">Book a session</button>-->
                     <button type="button" class="bold large_font main_green_button_mid" id="double_confirm_button">Book a Session</button>
 
-                    <p class="pink bold medium_padding medium_padding_bot large_font" hidden id="booking_exception_msg">Name or Email is not valid.</p>
+                    <p class="pink bold medium_padding medium_padding_bot large_font" hidden id="booking_exception_msg">
+
+                    {% if qu_form %}
+                      Name/Email or Phone number is not valid
+                    {% else %}
+                      Name or Email is not valid.
+                    {% endif %}
+                    
+
+                    </p>
 
                     <div class="small_padding"></div>
                   </div>
@@ -1067,7 +1076,13 @@ var csrftoken = getCookie('csrftoken');
 
     // double confirm
     $('#double_confirm_button').click(function(){
-      if (document.getElementById('careerlab_book_email').checkValidity() && document.getElementById('careerlab_book_name').checkValidity() && document.getElementById('careerlab_book_time').checkValidity()){
+  
+      {% if qu_form %}
+        if (document.getElementById('careerlab_book_email').checkValidity() && document.getElementById('careerlab_book_name').checkValidity() && document.getElementById('careerlab_book_time').checkValidity() && document.getElementById('careerlab_book_qu_phone').checkValidity()){
+      {% else %}
+        if (document.getElementById('careerlab_book_email').checkValidity() && document.getElementById('careerlab_book_name').checkValidity() && document.getElementById('careerlab_book_time').checkValidity()){
+      {% endif %}
+
       var name = $('#careerlab_book_name').val()
       var email = $('#careerlab_book_email').val()
       var timeslot = $('#careerlab_book_time option:selected').text()
