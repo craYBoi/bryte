@@ -35,7 +35,7 @@
             <p class="big_font white"><span class="landing_text">All the spots have been booked for now. But, be the first to hear if a session opens up or when signups go out for our next photoshoot!</p>
               
 
-            <div id="signup_form" class="special_padding signup_form">
+            <div id="signup_form" class="signup_form">
               <div class="small_padding"></div>
               <div class="text-center">
               <form method="POST" action="{% url 'careerlab_signup' %}" class="white">{% csrf_token %}
@@ -62,7 +62,7 @@
             {% endif %}</p> 
 
             <div class="small_padding"></div>
-            <div class="special_padding signup_form">
+            <div class="book_form">
               <div id="book_form">
                 <div class="">
                 <form method="POST" action="{% url 'careerlab_book' %}" class=" white">{% csrf_token %}
@@ -81,6 +81,13 @@
                     {% endfor %}
                   </select>
 
+
+                  <!-- JUST FOR QU ADDITIONAL FORM -->
+                  {% if qu_form %}
+                    <div class="small_padding"></div>
+
+                    <input type='text' name='careerlab_book_qu_phone' class="form-control lg_input" id='careerlab_book_qu_phone' required placeholder='Your phone number' onchange="try{setCustomValidity('')}catch(e){}">
+                  {% endif %}
 
                   <!-- booking button -->
                   <div class="medium_padding"></div>
@@ -107,7 +114,7 @@
 
           <!-- signup button -->
 
-            <div id="signup_form" class="special_padding signup_form">
+            <div id="signup_form" class="signup_form">
               <div class="small_padding"></div>
               <div class="text-center">
               <form method="POST" action="{% url 'careerlab_signup' %}" class="white">{% csrf_token %}
@@ -863,9 +870,22 @@
                 
                 <li>
                 <div class="row">
-                  <label class="col-2 col-form-label">Headshot timeslot: <span class="model_form_timeslot"></span></label>
+                  <label class="col-2 col-form-label">Headshot timeslot: <span class="modal_form_timeslot"></span></label>
                 </div>
                 </li>
+
+
+                <!-- JUST FOR QU FORM -->
+                {% if qu_form %}
+                
+                  <li>
+                  <div class="row">
+                    <label class="col-2 col-form-label">Phone Number: <span class="modal_form_qu_phone"></span></label>
+                  </div>
+                  </li>
+
+                {% endif %}
+
               </ul>
             </div>
           </div>
@@ -905,7 +925,7 @@
             <p class="large_font white"><span class="landing_text"><span class="bold">Location:</span> {{ school_location }}</span><br><span class="landing_text"><span class="bold">Date & Time:</span> {{ next_shoot.get_date_string }}, {{ next_shoot.get_time_interval_string }}</span></p>
           -->
           <!-- booking form! -->
-          <div class="special_padding signup_form">
+          <div class="signup_form">
             <div id="book_form">
 
               <div class="medium_padding"></div>
@@ -979,7 +999,7 @@
           <div class="small_padding"></div>
           <!-- sign up form -->
 
-            <div id="signup_form" class="special_padding signup_form">
+            <div id="signup_form" class="signup_form">
               <div class="small_padding"></div>
               <div class="text-center">
               <form method="POST" action="{% url 'careerlab_signup' %}" class="white">{% csrf_token %}
@@ -1052,9 +1072,14 @@ var csrftoken = getCookie('csrftoken');
       var email = $('#careerlab_book_email').val()
       var timeslot = $('#careerlab_book_time option:selected').text()
 
+      // just for QU phone number
+      var qu_phone = $('#careerlab_book_qu_phone').val()
+      $('.modal_form_qu_phone').text(qu_phone);
+
+
       $('.modal_form_name').text(name);
       $('.modal_form_email').text(email);
-      $('.model_form_timeslot').text(timeslot);
+      $('.modal_form_timeslot').text(timeslot);
 
       $('#double_confirmation').modal('show');
       }
@@ -1110,6 +1135,9 @@ var csrftoken = getCookie('csrftoken');
           	name: $('#careerlab_book_name').val(),
             email: $('#careerlab_book_email').val(),
             time: $('#careerlab_book_time').val(),
+
+            // qu form
+            qu_phone: $('#careerlab_book_qu_phone').val(),
           },
 
           success: function(data){
@@ -1157,3 +1185,11 @@ var csrftoken = getCookie('csrftoken');
     });
 
 {% endblock %}
+
+
+<!-- 
+  Add customized form:
+  1. add physical form
+  2. double confirm only shows the data, update the text on there
+  3. Form still grabs data from original form
+-->

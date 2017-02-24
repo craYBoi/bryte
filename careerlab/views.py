@@ -99,6 +99,10 @@ def index(request, school='brown'):
 		if nextshoot:
 			nextshoot = nextshoot[0]
 			timeslots = nextshoot.timeslot_set.filter(is_available=True).order_by('time')	
+
+			# do the customization form
+			context['qu_form'] = 1
+
 		else:
 			raise Http404
 
@@ -291,6 +295,12 @@ def book(request):
 		email = request.POST.get('email')
 		name = request.POST.get('name')
 		time_id = request.POST.get('time')
+
+		# just for qu phone
+		qu_phone = request.POST.get('qu_phone')
+
+		print request.POST
+
 		timeslot = get_object_or_404(Timeslot, pk=time_id)
 		shoot = timeslot.shoot
 		emails = [e.email for elem in shoot.timeslot_set.all() for e in elem.booking_set.all()]
@@ -307,6 +317,7 @@ def book(request):
 						email = email,
 						name = name,
 						timeslot = timeslot,
+						phone_number = qu_phone,
 						)
 				except Exception, e:
 					raise e

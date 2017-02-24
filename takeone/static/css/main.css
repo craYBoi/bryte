@@ -1134,6 +1134,7 @@ h1,h2,h3,h4 {
 	padding: 0 40px 10px 40px;
 }
 
+
 .special_padding_s {
 	padding: 0 20px 10px 20px;
 }
@@ -1777,8 +1778,13 @@ body, html
 
 
 /* signup form */
-.signup_form {
-	max-width: 600px;
+.signup_form form {
+	max-width: 400px!important;
+	margin: 0 auto;
+}
+
+#book_form form {
+	max-width: 400px!important;
 	margin: 0 auto;
 }
 

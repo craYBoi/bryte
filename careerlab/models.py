@@ -1152,6 +1152,7 @@ class Booking(models.Model):
 	cust_type = models.PositiveSmallIntegerField(choices=TYPE, blank=True, null=True)
 
 	discount_amount = models.FloatField(default=1.)
+	phone_number = models.CharField(max_length=50, blank=True, null=True)
 
 	def __unicode__(self):
 		return self.name + ' ' + self.email + ' ' + str(self.timeslot)
