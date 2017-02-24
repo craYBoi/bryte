@@ -1141,7 +1141,7 @@ var csrftoken = getCookie('csrftoken');
 
 
     $('#careerlab_book_button').on('click', function(e){
-      if ($('#careerlab_book_email').val() == $('#careerlab_book_email_db').val()){
+      if ($('#careerlab_book_email').val().toLowerCase() == $('#careerlab_book_email_db').val().toLowerCase()){
         $("#loader-wrapper").show();    
         $.ajax({
           url: '{% url "careerlab_book" %}',
