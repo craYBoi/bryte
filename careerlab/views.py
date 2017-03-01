@@ -106,6 +106,24 @@ def index(request, school='brown'):
 		else:
 			raise Http404
 
+	elif school.lower() == 'wsu':
+		title = 'Bryte & Worcester State University'
+		nextshoot = Nextshoot.objects.filter(school='Worcester State').order_by('-date')
+		bg_url = static('img/brown_campus.jpg')
+		logo_url = static('logo/schools/wsu.jpg')
+		school_name = 'Worcester Chamber of Commerce'
+		school_url = 'https://www.worcester.edu/'
+		school_bryte_url = 'wsu'
+		school_abbr = 'Worcester State University'
+		school_title = 'Worcester State University'
+		school_location = 'WSU'
+		if nextshoot:
+			nextshoot = nextshoot[0]
+			timeslots = nextshoot.timeslot_set.filter(is_available=True).order_by('time')	
+		else:
+			raise Http404
+
+
 	elif school.lower() == 'wcc':
 		title = 'Bryte & Worcester Chamber of Commerce'
 		nextshoot = Nextshoot.objects.filter(school='Worcester Chamber of Commerce').order_by('-date')
