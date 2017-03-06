@@ -334,13 +334,13 @@ def clean_signups():
 	signups = Signup.objects.all()
 	signup_email_list = []
 	for signup in signups:
-		if signup.email in signup_email_list:
+		if signup.email.lower() in signup_email_list:
 			print 'Duplicate ' + signup.email + ' removed...'
 			signup.is_sub = False
 			super(Signup, signup).save()
 
 		else:
-			signup_email_list.append(signup.email)
+			signup_email_list.append(signup.email.lower())
 		
 
 
