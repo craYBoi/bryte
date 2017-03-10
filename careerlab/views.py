@@ -84,6 +84,22 @@ def index(request, school='brown'):
 		else:
 			raise Http404
 
+	elif school.lower() == 'merc':
+		title = 'Bryte & Massachusetts Educational Recruiting Consortium'
+		nextshoot = Nextshoot.objects.filter(school='MERC').order_by('-date')
+		logo_url = static('logo/schools/merc.png')
+		school_name = 'MERC'
+		school_url = 'http://www.merccareerfair.com/'
+		school_bryte_url = 'MERC'
+		school_abbr = 'MERC'
+		school_title = 'MERC'
+		school_location = 'MERC'
+		if nextshoot:
+			nextshoot = nextshoot[0]
+			timeslots = nextshoot.timeslot_set.filter(is_available=True).order_by('time')	
+		else:
+			raise Http404
+
 
 	elif school.lower() == 'qu':
 		title = 'Bryte & Quinnipiac University'
@@ -303,6 +319,25 @@ def index(request, school='brown'):
 	# 	next_shoot = timeslots.first().shoot
 
 	return render(request, 'careerlab_index.html', context)
+
+
+def checkin(request, school='brown'):
+
+	context = {
+		'title_text': 'Check In',
+	}
+
+	if school.lower() == 'brown' or school.lower() == 'careerlab':
+		nextshoot = Nextshoot.objects.filter(school='Brown University').order_by('-date')
+	elif school.lower() == 'qu':
+		nextshoot = Nextshoot.objects.filter(school='Quinnipiac University').order_by('-date')
+	# ...
+
+	context['shoot'] = nextshoot
+
+	return render(request, 'careerlab_checkin.html', context)
+
+
 
 
 def book(request):
