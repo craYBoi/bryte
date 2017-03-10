@@ -1137,8 +1137,8 @@ class Booking(models.Model):
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
 	timeslot = models.ForeignKey(Timeslot)
 	hash_id = models.CharField(max_length=50, default='default')
-	dropbox_folder = models.CharField(max_length=100, blank=True, null=True)
-	upgrade_folder_path = models.CharField(max_length=100, blank=True, null=True)
+	dropbox_folder = models.CharField(max_length=200, blank=True, null=True)
+	upgrade_folder_path = models.CharField(max_length=200, blank=True, null=True)
 	show_up = models.BooleanField(default=False)
 	is_sub = models.BooleanField(default=True)
 
