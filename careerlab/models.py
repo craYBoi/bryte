@@ -285,7 +285,7 @@ class Nextshoot(models.Model):
 
 
 	def migrate_locals(self):
-		bookings = [e for elem in self.timeslot_set.all() for e in elem.booking_set.all()]
+		bookings = [e for elem in self.timeslot_set.all() for e in elem.booking_set.filter(show_up=True)]
 
 		print 'Migrating to locals...'
 		count = 0
@@ -2889,6 +2889,7 @@ class Booking(models.Model):
 		try:
 			items = dbx.files_list_folder(raw_path).entries
 		except Exception, e:
+			print self.email
 			raise e
 		else:			
 			for item in items:
