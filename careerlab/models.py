@@ -53,7 +53,7 @@ BOOKING_CANCELLATION_EMAIL_ID = 'e3bde230-752e-4045-b0ba-18c023ec6270'
 EXTRA_SESSIONS_NOTIFCATION_ID = 'b7e65e07-d1be-4ef1-99af-b0b61d86ba09'
 
 # TO TEST
-EXCLUDED_LIST = ['cartelli@bu.edu', 'elizabeth_lussier@brown.edu', 'camelse@my.ccri.edu', 'dmoran@ric.edu', 'dsmith@ric.edu', 'fherchuk_9077@email.ric.edu', 'callenson_2729@email.ric.edu', 'clambert@ric.edu', 'lcoelho@ric.edu', 'lbogad@ric.edu', 'pfarjam@bu.edu', 'mmegala@bu.edu', 'sstinner@bu.edu']
+EXCLUDED_LIST = ['cartelli@bu.edu', 'elizabeth_lussier@brown.edu', 'camelse@my.ccri.edu', 'dmoran@ric.edu', 'dsmith@ric.edu', 'fherchuk_9077@email.ric.edu', 'callenson_2729@email.ric.edu', 'clambert@ric.edu', 'lcoelho@ric.edu', 'lbogad@ric.edu', 'pfarjam@bu.edu', 'mmegala@bu.edu', 'sstinner@bu.edu', 'har@bu.edu', 'michael@brytephoto.com']
 
 
 class Nextshoot(models.Model):
