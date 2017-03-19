@@ -801,8 +801,9 @@ class Nextshoot(models.Model):
 			signups = shoot.signup_set.filter(is_sub=True)
 
 			for signup in signups:
-				if(signup.extra_session_notification_email()):
-					count += 1
+				if not signup.email.lower() in EXCLUDED_LIST:
+					if(signup.extra_session_notification_email()):
+						count += 1
 
 		print 'Done..'
 		print 'Sent -- ' + str(count)
@@ -1156,6 +1157,11 @@ class Booking(models.Model):
 
 	def __unicode__(self):
 		return self.name + ' ' + self.email + ' ' + str(self.timeslot)
+
+
+	def get_first_name(self):
+		name = self.name
+		return name.split()[0]
 
 
 	# override save to add hashid upon creation
