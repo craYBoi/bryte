@@ -322,18 +322,215 @@ def index(request, school='brown'):
 
 
 def checkin(request, school='brown'):
-
+	# request.session.flush()
 	context = {
 		'title_text': 'Check In',
 	}
+
 
 	if school.lower() == 'brown' or school.lower() == 'careerlab':
 		nextshoot = Nextshoot.objects.filter(school='Brown University').order_by('-date')
 	elif school.lower() == 'qu':
 		nextshoot = Nextshoot.objects.filter(school='Quinnipiac University').order_by('-date')
+	elif school.lower() == 'bu':
+		nextshoot = Nextshoot.objects.filter(school='Boston University').order_by('-date')
+	else:
+		nextshoot = Nextshoot.objects.filter(school='Brown University').order_by('-date')
 	# ...
 
-	context['shoot'] = nextshoot
+	shoot = nextshoot[0]
+	context['shoot'] = shoot
+	
+
+	if request.is_ajax() and request.method == 'POST':
+
+		if request.POST.get('checkin'):
+			# store the queue in session, first check if it's empty
+			if request.session.has_key('queue'):
+				queue = list(serializers.deserialize('json', request.session.get('queue')))
+				queue = [q.object for q in queue]
+
+			else:
+				request.session.set_expiry(50000)
+				queue = []
+
+			data = {}
+			email = request.POST.get('email')
+			shoot_id = request.POST.get('shoot')
+
+			shoot = Nextshoot.objects.get(pk=shoot_id)
+
+			bs = [e for elem in shoot.timeslot_set.all() for e in elem.booking_set.all()]
+
+			es = [b.email.lower() for b in bs]
+			if email.lower() in es:
+				# update showup
+				# put the name on the queue
+				ind = es.index(email.lower())
+				b = bs[ind]
+
+				# update the flag
+				b.checked_in = True
+				super(Booking, b).save()
+
+				# if b already in the queue
+				if b in queue:
+					data['msg'] = 'You\'re already checked in, please take a seat to be called.'
+
+					data['names'] = [b.get_first_name() for b in queue]
+					data['emails'] = [b.email for b in queue]
+
+					return HttpResponse(json.dumps(data), content_type='application/json')
+
+
+				print 'TEST\n'
+				print queue, type(queue)
+
+				queue.append(b)
+
+				data['msg'] = 'Hi ' + b.get_first_name() + ', you are now in the line, please have a seat in our waiting area to be called.'
+
+				# generate success msg
+
+			else:
+				# get the queue size
+				# if too many, so no
+				# se say do you as a walk in, how many hours
+				data['msg'] = 'We don\'t have you.. Please sign up'
+
+				data['walk_in'] = True
+
+				data['email'] = email
+
+
+
+			# set session
+
+			request.session['queue'] = serializers.serialize('json', queue)
+
+			names = [b.get_first_name() for b in queue]
+			emails = [b.email for b in queue]
+
+
+			data['names'] = names
+			data['emails'] = emails
+			# data['queue'] = queue
+			# return queue
+
+			return HttpResponse(json.dumps(data), content_type='application/json')
+
+
+		# after click done
+		elif request.POST.get('pk'):
+
+			queue = list(serializers.deserialize('json', request.session.get('queue')))
+
+			queue = [q.object for q in queue]
+
+
+			data = {}
+			pk = int(request.POST.get('pk'))
+
+			b = Booking.objects.get(pk=pk)
+
+			# update the flag
+			b.is_taken_photo = True
+			super(Booking, b).save()
+
+			if b in queue:
+				queue.remove(b)
+
+
+			# set session
+
+			request.session['queue'] = serializers.serialize('json', queue)
+
+			names = [b.get_first_name() for b in queue]
+			emails = [b.email for b in queue]
+
+
+			data['names'] = names
+			data['emails'] = emails
+			# data['queue'] = queue
+			# return queue
+
+			return HttpResponse(json.dumps(data), content_type='application/json')
+
+
+		# walk in book
+		elif request.POST.get('walkin'):
+			queue = list(serializers.deserialize('json', request.session.get('queue')))
+
+			queue = [q.object for q in queue]
+
+			data = {}
+			email = request.POST.get('email')
+			name = request.POST.get('name')
+
+			timeslot = shoot.timeslot_set.first()
+
+			b = Booking.objects.create(
+				email = email,
+				name = name,
+				timeslot = timeslot,
+				checked_in = True,
+				)
+
+			queue.append(b)
+
+			data['msg'] = 'Hi ' + b.get_first_name() + ', you are now in the line, please have a seat in our waiting area to be called.'
+
+			request.session['queue'] = serializers.serialize('json', queue)
+
+			names = [b.get_first_name() for b in queue]
+			emails = [b.email for b in queue]
+
+
+			data['names'] = names
+			data['emails'] = emails
+			# data['queue'] = queue
+			# return queue
+
+			return HttpResponse(json.dumps(data), content_type='application/json')
+
+
+
+		# input empty
+		else:
+			if request.session.has_key('queue'):
+				queue = list(serializers.deserialize('json', request.session.get('queue')))
+				queue = [q.object for q in queue]
+
+			else:
+				request.session.set_expiry(50000)
+				queue = []
+
+			names = [b.get_first_name() for b in queue]
+			emails = [b.email for b in queue]
+
+
+			data['names'] = names
+			data['emails'] = emails
+
+
+			return HttpResponse(json.dumps(data), content_type='application/json')
+
+
+
+
+
+	if request.session.has_key('queue'):
+		queue = list(serializers.deserialize('json', request.session.get('queue')))
+		queue = [q.object for q in queue]
+
+		context['bookings'] = queue
+		context['num'] = len(queue)
+		if len(queue) < 2:
+			person = 'person'
+		else:
+			person = 'people'
+		context['person'] = person
+
 
 	return render(request, 'careerlab_checkin.html', context)
 

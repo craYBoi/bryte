@@ -1,0 +1,276 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block description %}
+  <meta name="description" content="On location high quality headshots at unbelievable prices">
+{% endblock %}
+
+{% block keywords %}
+  <meta name='keywords' content="headshot, photo, photography, on location, quality, affordable, profile">
+{% endblock %}
+
+{% block content %}
+	<div class="container">
+    <div class="large_padding"></div>
+		<h1 class="text-center bold">{{ shoot.school }}</h1>	
+    
+    <div class="large_padding"></div>
+    <div class="row">
+
+      <div class="col-xs-5">
+        <div class="border special_padding_s">
+        <h2 class="bold">Check In Here!</h2>
+        <p class="small_padding small_font">
+          If you have previously booked a timeslot, put down the email you signed up with and we will automatically check you in. 
+        </p>
+
+        <div class="xsmall_padding"></div>
+        <form action="">
+          <label class="bold">Email</label>
+          <input type="text" class="form-control max_width_250" name="checkin_email" id="checkin_email">    
+          <input type="hidden" name="checkin_shoot" value="{{ shoot.pk }}" id="checkin_shoot">
+          
+          <div class="small_padding"></div>
+
+          <div class="row">
+            <div class="col-xs-7">
+              <button type="submit" class="bold main_green_button_sm" id="checkin_submit">Check In</button>  
+            </div>
+
+            <div class="col-xs-5">
+              <div id="msg" class="mid_green" hidden>Updated!</div>  
+            </div>
+          </div>  
+        </form>
+
+        <div class="small_padding"></div>
+        </div>
+
+
+      </div>
+
+      <div class="col-xs-6 col-xs-offset-1 border special_padding_s">
+
+        <h2 class="bold main_green">{{ num }} {{ person }} in the line</h2>
+
+        <div class="medium_padding"></div>
+        <ol id="checkin_queue">
+
+
+          {% for b in bookings %}
+            <div class="row">
+              <div class="col-xs-8">
+                <li class="inline"><p>{{ b.get_first_name }} -- {{ b.email }}</p></li> 
+              </div>
+
+              <div class="col-xs-4">
+                <a href="" name={{ b.pk }} class="mid_green finish_button underline">Done</a>
+              </div>
+            </div>
+          {% endfor %}
+
+        </ol>
+
+
+      </div>
+    </div>
+
+	</div>
+
+  <div class="large_padding"></div>
+
+<!-- modal form -->
+  <div class="modal fade" id="walk_in_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close big_font" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <div class="xsmall_padding"></div>
+        </div>
+        <div class="modal-body">
+          <h2 class="landing_title_third text-center bold">Walk In Confirmation</h2>
+          <div class="medium_padding"></div>
+
+          <div class="row">
+            <div class="col-xs-10 col-xs-offset-1">
+              <ul class="small_font info_list">
+                <li>
+                  <div class="form-group row">
+                    <p class="landing_text_main">It seems like you did not book a timeslot beforehand. Don't worry! We can fit you in. We just need you to put down your name and email. 
+                    Wait time is usually 10 mins:</p>
+                  </div>
+                </li>
+                <li>
+                <div class="row">
+                  <label class="col-2 col-form-label">Your name: </label>
+                  <input id="walk_in_name" type="text" class="form-control" name="walk_in_name"></input>
+                </div>
+                </li>
+                
+                <li>
+                <div class="row">
+                  <label class="col-2 col-form-label">Your email: </label>
+                  <input id="walk_in_email" type="email" class="form-control" name="walk_in_email" onchange="try{setCustomValidity('')}catch(e){}"></input>
+                </div>
+                </li>
+
+                <div class="medium_padding"></div>
+
+
+              </ul>
+            </div>
+          </div>
+
+          <div class="text-center">
+            <button type="button" class="bold large_font main_green_button_sm" id="walk_in_book_button">Submit</button>
+          </div>
+
+          <div class="medium_padding"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block script %}
+  <script type="text/javascript">
+  function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+	}
+  </script>
+{% endblock %}
+
+{% block jquery %}
+  var csrftoken = getCookie('csrftoken');
+
+  $('#msg').fadeIn(200);
+  setTimeout(function(){
+    $('#msg').fadeOut(200);
+  }, 3000);
+
+  function csrfSafeMethod(method) {
+  // these HTTP methods do not require CSRF protection
+  return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+  }
+
+
+  $.ajaxSetup({
+      beforeSend: function(xhr, settings) {
+          if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+              xhr.setRequestHeader("X-CSRFToken", csrftoken);
+          }
+      }
+  });
+
+
+  $('#checkin_submit').on('click', function(e){
+    e.preventDefault();
+    $("#loader-wrapper").show();
+
+
+    $.ajax({
+      url: '{% url "careerlab_checkin" shoot.url %}',
+      type: 'POST',
+      data: {
+        shoot: $('#checkin_shoot').val(),
+        email: $('#checkin_email').val(),
+        checkin: '1',
+      },
+
+
+      success: function(data){
+
+        // empty the input
+        $('#checkin_email').val('');
+
+
+        emails = data['emails'];
+        names = data['names'];
+
+        
+
+        if(data['walk_in']){
+          // modal form pops
+          $('#walk_in_modal').modal('show');
+          $('#walk_in_email').val(data['email']);
+        } else {
+          location.reload();
+        }
+
+
+
+      },
+
+      failure: function(data){
+        alert('Failure');
+      },
+    })
+  })
+
+  // done button
+  $('.finish_button').click(function(e){
+    e.preventDefault();
+
+    $.ajax({
+      url: '{% url "careerlab_checkin" shoot.url %}',
+      type: 'POST',
+      data: {
+        pk: this.name,
+      },
+      success: function(data){
+        location.reload();
+      },
+
+      failure: function(data){
+        alert('Fail');
+      },
+    })
+  })
+
+
+  // walk in book
+
+  $('#walk_in_book_button').click(function(e){
+  
+    if (document.getElementById('walk_in_email').checkValidity()) {
+
+      $.ajax({
+        url: '{% url "careerlab_checkin" shoot.url %}',
+        type: 'POST',
+        data: {
+          name: $('#walk_in_name').val(),
+          email: $('#walk_in_email').val(),
+          walkin: '1',
+        },
+
+        success: function(data){
+          location.reload();
+        },
+
+        failure: function(data){
+          $("#modal_content").html(data['msg'])
+          $("#modal_link").trigger('click')
+        }
+      });
+     e.preventDefault();
+
+    }
+
+
+  })
+  
+		
+{% endblock %}

@@ -156,7 +156,7 @@ class HeadshotPurchaseAdmin(ImportExportModelAdmin):
 class BookingAdmin(ImportExportModelAdmin):
 	resource_class = BookingResource
 
-	list_display = ['id', 'email', 'name', 'timeslot', 'hash_id', 'dropbox_folder', 'upgrade_folder_path', 'show_up', 'cust_type', 'discount_amount', 'is_sub', 'timestamp']
+	list_display = ['id', 'email', 'name', 'timeslot', 'hash_id', 'dropbox_folder', 'upgrade_folder_path', 'show_up', 'cust_type', 'discount_amount', 'is_sub', 'checked_in', 'is_taken_photo', 'timestamp']
 
 admin.site.register(OriginalHeadshot, OriginalHeadshotAdmin)
 admin.site.register(HeadshotOrder, HeadshotOrderAdmin)

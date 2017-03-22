@@ -1142,6 +1142,8 @@ class Booking(models.Model):
 	upgrade_folder_path = models.CharField(max_length=200, blank=True, null=True)
 	show_up = models.BooleanField(default=False)
 	is_sub = models.BooleanField(default=True)
+	checked_in = models.BooleanField(default=False)
+	is_taken_photo = models.BooleanField(default=False)
 
 	TYPE = (
 		(1, 'No free nor buy'),
