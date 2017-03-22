@@ -51,7 +51,10 @@
 
       <div class="col-xs-6 col-xs-offset-1 border special_padding_s">
 
-        <h2 class="bold main_green">{{ num }} {{ person }} in the line</h2>
+        {% if bookings %}
+          <h2 class="bold main_green">{{ num }} {{ person }} in the line</h2>
+        {% endif %}
+        
 
         <div class="medium_padding"></div>
         <ol id="checkin_queue">
@@ -103,7 +106,7 @@
                 </li>
                 <li>
                 <div class="row">
-                  <label class="col-2 col-form-label">Your name: </label>
+                  <label class="col-2 col-form-label">Your full name: </label>
                   <input id="walk_in_name" type="text" class="form-control" name="walk_in_name"></input>
                 </div>
                 </li>
@@ -131,6 +134,10 @@
       </div>
     </div>
   </div>
+
+<div id="loader-wrapper" hidden>
+  <div id="loader" class="text-center"><img src="{% static 'logo/loading.svg' %}" width="140px"></div>
+</div>
 {% endblock %}
 
 {% block script %}
@@ -223,7 +230,7 @@
   // done button
   $('.finish_button').click(function(e){
     e.preventDefault();
-
+    $("#loader-wrapper").show();
     $.ajax({
       url: '{% url "careerlab_checkin" shoot.url %}',
       type: 'POST',
@@ -246,6 +253,8 @@
   $('#walk_in_book_button').click(function(e){
   
     if (document.getElementById('walk_in_email').checkValidity()) {
+
+      $("#loader-wrapper").show();
 
       $.ajax({
         url: '{% url "careerlab_checkin" shoot.url %}',
