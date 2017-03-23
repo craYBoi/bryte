@@ -1631,8 +1631,8 @@ class Booking(models.Model):
 		school = shoot.school
 
 		# only keep the school name
-		if ' University' in school:
-			school = school.replace(' University', '')
+		# if ' University' in school:
+			# school = school.replace(' University', '')
 
 
 		# get template, version name, and automatically add to category
