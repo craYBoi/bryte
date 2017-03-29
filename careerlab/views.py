@@ -334,6 +334,8 @@ def checkin(request, school='brown'):
 		nextshoot = Nextshoot.objects.filter(school='Quinnipiac University').order_by('-date')
 	elif school.lower() == 'bu':
 		nextshoot = Nextshoot.objects.filter(school='Boston University').order_by('-date')
+	elif school.lower() == 'wcc':
+		nextshoot = Nextshoot.objects.filter(school='Worcester Chamber of Commerce').order_by('-date')
 	else:
 		nextshoot = Nextshoot.objects.filter(school='Brown University').order_by('-date')
 	# ...
