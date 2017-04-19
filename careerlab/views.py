@@ -63,7 +63,7 @@ def index(request, school='brown'):
 		school_location = 'CareerLAB'
 		if nextshoot:
 			nextshoot = nextshoot[0]
-			timeslots = nextshoot.timeslot_set.filter(is_available=True).order_by('time')	
+			timeslots = nextshoot.timeslot_set.filter(is_available=True).order_by('time')
 		else:
 			raise Http404
 
@@ -80,7 +80,7 @@ def index(request, school='brown'):
 		school_location = 'BCC'
 		if nextshoot:
 			nextshoot = nextshoot[0]
-			timeslots = nextshoot.timeslot_set.filter(is_available=True).order_by('time')	
+			timeslots = nextshoot.timeslot_set.filter(is_available=True).order_by('time')
 		else:
 			raise Http404
 
@@ -96,7 +96,7 @@ def index(request, school='brown'):
 		school_location = 'MERC'
 		if nextshoot:
 			nextshoot = nextshoot[0]
-			timeslots = nextshoot.timeslot_set.filter(is_available=True).order_by('time')	
+			timeslots = nextshoot.timeslot_set.filter(is_available=True).order_by('time')
 		else:
 			raise Http404
 
@@ -114,7 +114,7 @@ def index(request, school='brown'):
 		school_location = 'Quinnipiac University'
 		if nextshoot:
 			nextshoot = nextshoot[0]
-			timeslots = nextshoot.timeslot_set.filter(is_available=True).order_by('time')	
+			timeslots = nextshoot.timeslot_set.filter(is_available=True).order_by('time')
 
 			# do the customization form
 			context['qu_form'] = 1
@@ -135,7 +135,7 @@ def index(request, school='brown'):
 		school_location = 'WSU'
 		if nextshoot:
 			nextshoot = nextshoot[0]
-			timeslots = nextshoot.timeslot_set.filter(is_available=True).order_by('time')	
+			timeslots = nextshoot.timeslot_set.filter(is_available=True).order_by('time')
 		else:
 			raise Http404
 
@@ -154,7 +154,7 @@ def index(request, school='brown'):
 		context['extra_msg'] = ' (While the photoshoot is open from 1-6, the employers will only be present at the fair from 3-6)'
 		if nextshoot:
 			nextshoot = nextshoot[0]
-			timeslots = nextshoot.timeslot_set.filter(is_available=True).order_by('time')	
+			timeslots = nextshoot.timeslot_set.filter(is_available=True).order_by('time')
 		else:
 			raise Http404
 
@@ -172,7 +172,7 @@ def index(request, school='brown'):
 		school_location = 'CareerLAB'
 		if nextshoot:
 			nextshoot = nextshoot[0]
-			timeslots = nextshoot.timeslot_set.filter(is_available=True).order_by('time')	
+			timeslots = nextshoot.timeslot_set.filter(is_available=True).order_by('time')
 		else:
 			raise Http404
 
@@ -191,7 +191,7 @@ def index(request, school='brown'):
 		school_location = 'Sargent College'
 		if nextshoot:
 			nextshoot = nextshoot[0]
-			timeslots = nextshoot.timeslot_set.filter(is_available=True).order_by('time')	
+			timeslots = nextshoot.timeslot_set.filter(is_available=True).order_by('time')
 		else:
 			raise Http404
 
@@ -209,7 +209,7 @@ def index(request, school='brown'):
 		school_location = 'Campus Center Room 020'
 		if nextshoot:
 			nextshoot = nextshoot[0]
-			timeslots = nextshoot.timeslot_set.filter(is_available=True).order_by('time')	
+			timeslots = nextshoot.timeslot_set.filter(is_available=True).order_by('time')
 		else:
 			raise Http404
 
@@ -227,7 +227,7 @@ def index(request, school='brown'):
 		school_location = '2nd Floor Alger Hall Student Lounge'
 		if nextshoot:
 			nextshoot = nextshoot[0]
-			timeslots = nextshoot.timeslot_set.filter(is_available=True).order_by('time')	
+			timeslots = nextshoot.timeslot_set.filter(is_available=True).order_by('time')
 		else:
 			raise Http404
 
@@ -246,7 +246,7 @@ def index(request, school='brown'):
 
 		if nextshoot:
 			nextshoot = nextshoot[0]
-			timeslots = nextshoot.timeslot_set.filter(is_available=True).order_by('time')	
+			timeslots = nextshoot.timeslot_set.filter(is_available=True).order_by('time')
 		else:
 			raise Http404
 
@@ -267,7 +267,7 @@ def index(request, school='brown'):
 		nextshoot = Nextshoot.objects.filter(school='Community College of Rhode Island').order_by('-date')
 		if nextshoot:
 			nextshoot = nextshoot[0]
-			timeslots = nextshoot.timeslot_set.filter(is_available=True).order_by('time')	
+			timeslots = nextshoot.timeslot_set.filter(is_available=True).order_by('time')
 		else:
 			raise Http404
 
@@ -289,7 +289,7 @@ def index(request, school='brown'):
 		nextshoot = Nextshoot.objects.filter(school='Community College of Rhode Island Flanagan').order_by('-date')
 		if nextshoot:
 			nextshoot = nextshoot[0]
-			timeslots = nextshoot.timeslot_set.filter(is_available=True).order_by('time')	
+			timeslots = nextshoot.timeslot_set.filter(is_available=True).order_by('time')
 		else:
 			raise Http404
 
@@ -340,13 +340,15 @@ def checkin(request, school='brown'):
 		nextshoot = Nextshoot.objects.filter(school='Bristol Community College').order_by('-date')
 	elif school.lower() == 'westfieldstate':
 		nextshoot = Nextshoot.objects.filter(school='Westfield State').order_by('-date')
+	elif school.lower() == 'merc':
+		nextshoot = Nextshoot.objects.filter(school='MERC').order_by('-date')
 	else:
 		nextshoot = Nextshoot.objects.filter(school='Brown University').order_by('-date')
 	# ...
 
 	shoot = nextshoot[0]
 	context['shoot'] = shoot
-	
+
 
 	if request.is_ajax() and request.method == 'POST':
 
@@ -563,7 +565,7 @@ def book(request):
 
 		# avoid duplicate booking
 		if email in emails:
-			data['msg'] = 'A headshot session has been booked under that email already. Make sure to check your spam folder for your Confirmation Email. If you don\'t receive an email within an hour, email hello@brytephoto.com'		
+			data['msg'] = 'A headshot session has been booked under that email already. Make sure to check your spam folder for your Confirmation Email. If you don\'t receive an email within an hour, email hello@brytephoto.com'
 		else:
 
 			# increment the timeslot first to reduce confliction
@@ -648,13 +650,13 @@ def signup(request):
 		return HttpResponse(json.dumps(data), content_type='application/json')
 
 
-# sales email unsub 
+# sales email unsub
 def sales_unsubscribe(request):
 	context = {
 		'brown_careerlab': 1,
 		'title_text': 'Unsubscribe for future offers',
 		'notification_text': 'You have successfully unsubscribed for future offers.',
-	}	
+	}
 	if request.method == 'GET':
 		hash_id = request.GET.get('order_id')
 		try:
@@ -676,7 +678,7 @@ def notification_unsubscribe(request):
 		'brown_careerlab': 1,
 		'title_text': 'Unsubscribe for future photoshoot notifications',
 		'notification_text': 'You have successfully unsubscribed for our future photoshoot notifcations.',
-	}	
+	}
 	if request.method == 'GET':
 		hash_id = request.GET.get('hash_id')
 		try:
@@ -973,7 +975,7 @@ def headshot_style(request):
 		hs = get_object_or_404(OriginalHeadshot, hash_id=hs_id)
 
 		# don't set it because once people hit back from style page, a new purchase will be pushed
-		
+
 		# request.session['hs_id'] = hs_id
 
 		booking = hs.booking
@@ -1236,7 +1238,7 @@ def headshot_print_frame(request):
 
 def headshot_review(request):
 	if request.session.has_key('booking') and request.method == 'GET':
-		
+
 		request.session['package'] = int(request.GET.get('package'))
 
 
@@ -1390,7 +1392,7 @@ def headshot_complete(request):
 		ho = HeadshotOrder(
 			booking=b,
 			total=sum,
-			)	
+			)
 		ho.save()
 		for o in orders:
 			o.order = ho
@@ -1415,7 +1417,7 @@ def headshot_complete(request):
 	# 	print order.raw_url
 	# 	print order.touchup
 
-	# charge 
+	# charge
 	if request.method == 'POST':
 
 		print 'Charging!'
@@ -1471,7 +1473,7 @@ def headshot_complete(request):
 					super(HeadshotPurchase, o).save()
 				except Exception, e:
 					print 'purchase instance fails to create ' + str(e)
-					pass	
+					pass
 
 			return render(reverse('headshot_checkout'))
 		else:
@@ -1479,7 +1481,7 @@ def headshot_complete(request):
 			# generate email info, send the email
 			b.order_delivery_email(confirmation_content)
 
-			
+
 
 
 			# create image order instance
@@ -1511,7 +1513,7 @@ def headshot_complete(request):
 					super(HeadshotPurchase, o).save()
 				except Exception, e:
 					print 'purchase instance fails to create ' + str(e)
-					
+
 				else:
 					print 'purchase instance successfully created ' + str(b.email)
 
@@ -1576,7 +1578,7 @@ def order_feedback(request):
 
 
 		print order
-		# store the rating 
+		# store the rating
 		order.feedback_rating = int(rating)
 		super(HeadshotOrder, order).save()
 
