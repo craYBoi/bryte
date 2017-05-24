@@ -2155,6 +2155,68 @@ class Booking(models.Model):
 		return send
 
 
+
+	#  photo deletion email
+	def photo_deletion_1(self):
+		sent = False
+		name = self.name
+		first_name = name.split(' ')[0]
+		email = self.email
+		hash_id = self.hash_id
+		timeslot = self.timeslot
+		shoot = timeslot.shoot
+		location = shoot.location
+		date = shoot.date
+		school = shoot.school
+
+
+		# get template, version name, and automatically add to category
+		email_purpose = 'Error'
+		version_number = 'Error'
+		try:
+			email_template = json.loads(sgapi.client.templates._('9db25029-b84b-4a86-aa3d-63d5b211a3c1').get().response_body)
+			versions = email_template.get('versions')
+			version_number = [v.get('name') for v in versions if v.get('active')][0]
+			email_purpose = email_template.get('name')
+		except Exception, e:
+			pass
+
+		category = [school + ' - ' + str(date), email_purpose, version_number]
+
+		my_headshot_link = settings.SITE_URL + '/headshot/?id=' + hash_id + '&utm_source=My%20Headshot%20My%Headshot&utm_medium=Campaign%20Medium%20URL%20Builder'
+
+		message = sendgrid.Mail()
+		message.add_to(email)
+		message.set_from('Bryte Inc <' + settings.EMAIL_HOST_USER + '>')
+
+		# ccri followup
+		# message.set_subject('We\'ve fixed the issue, and now you can use mobile to download your free headshot')
+		message.set_subject('Photo deletion reminder')
+ 
+		message.set_html('Body')
+		message.set_text('Body')
+		message.add_filter('templates','enable','1')
+
+		message.add_filter('templates','template_id', '9db25029-b84b-4a86-aa3d-63d5b211a3c1')
+
+
+		message.set_categories(category)
+
+		message.add_substitution('-first_name-', first_name)
+		message.add_substitution('-unique_id-', hash_id)
+		message.add_substitution('-my_headshot-', my_headshot_link)
+		message.add_substitution('-unsub_link-', self.generate_unsub_link())
+
+		try:
+			sg.send(message)
+		except Exception, e:
+			print '[NOT SENT] --- ' + str(email) 
+		else:
+			send = True
+			print '[SENT] --- ' + str(email)
+		return send
+
+
 	def BU_location_change_email(self):
 		sent = False
 		name = self.name
