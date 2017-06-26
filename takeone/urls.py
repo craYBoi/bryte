@@ -31,7 +31,7 @@ urlpatterns = [
 
     url(r'^partners/$', newsletter_views.clients, name='landing_clients'),
     url(r'^partners/[a-zA-Z]+/$', newsletter_views.clients, name='landing_clients_names'),
- 
+
     url(r'^contact/', newsletter_views.contact, name='landing_contact'),
     url(r'^affordable/', newsletter_views.sales, name='landing_sales'),
     url(r'^family/', newsletter_views.family, name='landing_family'),
@@ -39,7 +39,7 @@ urlpatterns = [
     url(r'^ajax_contact/', newsletter_views.ajax_contact, name='ajax_landing_contact'),
     url(r'^retrieve/', newsletter_views.retrieve, name='landing_retrieve'),
     # url(r'^myheadshots/', newsletter_views.test_retrieve, name='landing_retrieve1'),
-    
+
     url(r'^ajax_retrieve/', newsletter_views.ajax_retrieve, name='ajax_landing_retrieve'),
     url(r'^help/', newsletter_views.help, name='landing_help'),
     url(r'^ajax_help/', newsletter_views.ajax_help, name='ajax_landing_help'),
@@ -60,19 +60,19 @@ urlpatterns = [
     # careerlab
     url(r'^school/', include('careerlab.urls')),
 
-    # order 
-    url(r'^headshot/$', careerlab_views.headshot_index, name='headshot_index'),
-    url(r'^headshot/style$', careerlab_views.headshot_style, name='headshot_style'),
-    url(r'^headshot/prints$', careerlab_views.headshot_print_frame, name='headshot_print_frame'),
-    url(r'^headshot/review$', careerlab_views.headshot_review, name='headshot_review'),
-    url(r'^headshot/checkout$', careerlab_views.headshot_checkout, name='headshot_checkout'),
-    url(r'^headshot/complete$', careerlab_views.headshot_complete, name='headshot_complete'),
-    url(r'^headshot/timeout$', careerlab_views.headshot_error, name='headshot_error'),
-    url(r'^headshot/add$', careerlab_views.ajax_headshot_add, name='headshot_add'),
-    url(r'^headshot/remove$', careerlab_views.ajax_headshot_remove, name='headshot_remove'),
-    url(r'^headshot/expire$', careerlab_views.headshot_expire, name='headshot_expire'),
-    url(r'^headshot/addkeepsake$', careerlab_views.ajax_keepsake_add, name='headshot_keepsake_add'),
-    url(r'^headshot/payment$', careerlab_views.headshot_payment, name='headshot_payment'),
+    # order
+    # url(r'^headshot/$', careerlab_views.headshot_index, name='headshot_index'),
+    # url(r'^headshot/style$', careerlab_views.headshot_style, name='headshot_style'),
+    # url(r'^headshot/prints$', careerlab_views.headshot_print_frame, name='headshot_print_frame'),
+    # url(r'^headshot/review$', careerlab_views.headshot_review, name='headshot_review'),
+    # url(r'^headshot/checkout$', careerlab_views.headshot_checkout, name='headshot_checkout'),
+    # url(r'^headshot/complete$', careerlab_views.headshot_complete, name='headshot_complete'),
+    # url(r'^headshot/timeout$', careerlab_views.headshot_error, name='headshot_error'),
+    # url(r'^headshot/add$', careerlab_views.ajax_headshot_add, name='headshot_add'),
+    # url(r'^headshot/remove$', careerlab_views.ajax_headshot_remove, name='headshot_remove'),
+    # url(r'^headshot/expire$', careerlab_views.headshot_expire, name='headshot_expire'),
+    # url(r'^headshot/addkeepsake$', careerlab_views.ajax_keepsake_add, name='headshot_keepsake_add'),
+    # url(r'^headshot/payment$', careerlab_views.headshot_payment, name='headshot_payment'),
     # url(r'^Careerlab/', include('careerlab.urls')),
     # url(r'^careerlab/', include('careerlab.urls')),
     # url(r'^RIC/', include('careerlab.urls')),
@@ -95,7 +95,7 @@ urlpatterns = [
     # select photographer
     url(r'^select$', newsletter_views.select_photographer, name='select_photographer'),
 
-    # blogs 
+    # blogs
     url(r'^blog/', include('blog.urls')),
 
     # user profile
@@ -104,7 +104,7 @@ urlpatterns = [
     url(r'^profile/edit', profile_views.edit, name='profile_edit'),
 
 
-    # registration 
+    # registration
     url(r'^accounts/', include('registration.backends.simple.urls')),
 
     # legal stuff
